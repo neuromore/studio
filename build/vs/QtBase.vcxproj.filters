@@ -740,6 +740,9 @@
     <Filter Include="Windows">
       <UniqueIdentifier>{8568EEB9-351F-376C-9917-13A80130B84F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Proprietary">
+      <UniqueIdentifier>{f366dce4-c924-4686-bf96-737c1eb5152d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\QtBase\Resources\Assets.qrc">
@@ -756,6 +759,9 @@
     </None>
     <None Include="..\..\src\QtBase\Resources\QtBaseResources.qrc">
       <Filter>Resources</Filter>
+    </None>
+    <None Include="..\..\src\QtBase\Proprietary\README.md">
+      <Filter>Proprietary</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -124,6 +124,9 @@
     <Filter Include="Plugins\Examples\SimpleOpenGLPlugin">
       <UniqueIdentifier>{0c16eddb-ebbe-485b-a712-f7e8424560fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Proprietary">
+      <UniqueIdentifier>{a983c9a1-3919-46d5-abf5-56225778a102}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp">
@@ -1200,6 +1203,9 @@
     </None>
     <None Include="..\..\src\Studio\Resources\StudioResources.qrc">
       <Filter>Resources</Filter>
+    </None>
+    <None Include="..\..\src\Studio\Proprietary\README.md">
+      <Filter>Proprietary</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
