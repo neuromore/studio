@@ -164,7 +164,7 @@ sudo apt-get install \
 #### Windows
 
 * We recommend to use Visual Studio on Windows, not Clang.
-* Visual Sutdio is still required to build with Clang on Windows (linking VC runtime).
+* Visual Studio is still required to build with Clang on Windows (linking VC runtime).
 * Requires GNU Make for Windows, Clang for Windows and LLVM for Windows (TODO: Links)
 
 ### Customizing the Build
@@ -176,7 +176,7 @@ TODO: Info about defines for device support/features
 ### Technical
 
 *Q:* Can I build an offline version of neurmore studio (one that does not require your backend)?
-*A*: We don't provide an option for that. For now, access to our backend is mandatory.
+*A*: This is a work in progress. We don't provide an option for that. For now, access to our backend is mandatory.
 
 *Q:* Is the backend code included or available so that I can host it myself?
 *A*: No. The backend code and database design is not included in this repository.
