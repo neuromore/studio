@@ -397,6 +397,7 @@
     <ClInclude Include="..\..\src\Studio\Windows\VisualizationSelectWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\src\Studio\Proprietary\README.md" />
     <None Include="..\..\src\Studio\Resources\AppIcon.icns" />
     <None Include="..\..\src\Studio\Resources\NMStudio.aps" />
     <None Include="..\..\src\Studio\Resources\StudioResources.qrc" />
@@ -525,9 +526,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y ..\..\deps\src\crashsender\lang_files\crashrpt_lang_EN.ini bin\x86\crashrpt_lang.ini
-copy /Y ..\..\deps\build\vs\bin\x86\crashsender_d.exe bin\x86\crashsender_d.exe
-copy /Y ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -583,9 +583,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y ..\..\deps\src\crashsender\lang_files\crashrpt_lang_EN.ini bin\x64\crashrpt_lang.ini
-copy /Y ..\..\deps\build\vs\bin\x64\crashsender_d.exe bin\x64\crashsender_d.exe
-copy /Y ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -652,9 +651,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y ..\..\deps\src\crashsender\lang_files\crashrpt_lang_EN.ini bin\x86\crashrpt_lang.ini
-copy /Y ..\..\deps\build\vs\bin\x86\crashsender.exe bin\x86\crashsender.exe
-copy /Y ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -722,9 +720,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y ..\..\deps\src\crashsender\lang_files\crashrpt_lang_EN.ini bin\x64\crashrpt_lang.ini
-copy /Y ..\..\deps\build\vs\bin\x64\crashsender.exe bin\x64\crashsender.exe
-copy /Y ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

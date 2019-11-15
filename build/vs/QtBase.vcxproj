@@ -564,6 +564,7 @@ QtBase.cmd
     <ClInclude Include="..\..\src\QtBase\Windows\StatusPopupWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\src\QtBase\Proprietary\README.md" />
     <None Include="..\..\src\QtBase\Resources\Assets.qrc" />
     <None Include="..\..\src\QtBase\Resources\DeviceResources.qrc" />
     <None Include="..\..\src\QtBase\Resources\GraphResources.qrc" />
