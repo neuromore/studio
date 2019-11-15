@@ -12,18 +12,6 @@
 
 ## Contents
 
-### Engine
-
-TODO Basic info about neuromore Engine
-
-### QtBase
-
-TODO Basic info about neuromore QtBase
-
-### Studio
-
-TODO Basic info about neuromore studio. Add a Screenshot here.
-
 #### Configuration/Cache Folders:
 
 | Platform | Folder                            |
@@ -191,15 +179,3 @@ TODO: Info about defines for device support/features
 
 *Q:* Is the backend code included or available so that I can host it myself?
 *A*: No. The backend code and database design is not included in this repository.
-
-### License
-
-TODO Patrick
-
-*Q:* We want to use this code in our commercial product. How to proceed?
-*A:* ....
-
-
-### Others
-
-...
