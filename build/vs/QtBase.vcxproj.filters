@@ -1,0 +1,761 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetCreators.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetFactory.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgets.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\Property.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\PropertyManager.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\PropertyTreeWidget.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Audio\MediaContent.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AutoUpdate\AutoUpdate.cpp">
+      <Filter>AutoUpdate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendFileSystem.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendHelpers.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendInterface.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendParameters.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendUploader.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\DataChunksCreateRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\DataChunksCreateResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\DataChunksUploadRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\DataChunksUploadResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FileDownloader.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FileHierarchyGetRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FileHierarchyGetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FileHierarchyItem.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FileSystemGetRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FileSystemGetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FileSystemItem.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FilesCreateRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FilesCreateResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FilesDeleteRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FilesDeleteResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FilesGetRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FilesGetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FilesUpdateRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FilesUpdateResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FoldersCreateRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FoldersCreateResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FoldersDeleteRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FoldersDeleteResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FoldersUpdateRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FoldersUpdateResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\LoginRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\LoginResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\LogsCreateRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\LogsCreateResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\NetworkAccessManager.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\ParametersFindRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\ParametersFindResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\ParametersSetRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\ParametersSetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\Request.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\RequestQueue.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\Response.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\SystemsGetRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\SystemsGetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersAgreementRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersAgreementResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersGetRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersGetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersInviteRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersInviteResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\WebDataCache.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkClient.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkMessage.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkMessageConfig.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkMessageData.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkMessageEvent.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkServer.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkServerClient.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\OscServer.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\PluginSystem\Plugin.cpp">
+      <Filter>PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\PluginSystem\PluginManager.cpp">
+      <Filter>PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\PluginSystem\PluginMenu.cpp">
+      <Filter>PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\System\BluetoothHelpers.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\System\SerialPort.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\ColorMappingWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\FilterPlotWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\GraphObjectViewWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\PlotWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\SearchBoxWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\WindowFunctionWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\EnterLabelWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\ProgressWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\ProgressWindowManager.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\StatusPopupManager.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\StatusPopupWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\ColorLabel.cpp" />
+    <ClCompile Include="..\..\src\QtBase\DockHeader.cpp" />
+    <ClCompile Include="..\..\src\QtBase\DockWidget.cpp" />
+    <ClCompile Include="..\..\src\QtBase\ExperienceAssetCache.cpp" />
+    <ClCompile Include="..\..\src\QtBase\FileManager.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Gamepad.cpp" />
+    <ClCompile Include="..\..\src\QtBase\GamepadManager.cpp" />
+    <ClCompile Include="..\..\src\QtBase\ImageButton.cpp" />
+    <ClCompile Include="..\..\src\QtBase\ImageManipulation.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Layout.cpp" />
+    <ClCompile Include="..\..\src\QtBase\LayoutComboBox.cpp" />
+    <ClCompile Include="..\..\src\QtBase\LayoutManager.cpp" />
+    <ClCompile Include="..\..\src\QtBase\LayoutMenu.cpp" />
+    <ClCompile Include="..\..\src\QtBase\LinkWidget.cpp" />
+    <ClCompile Include="..\..\src\QtBase\MainWindowBase.cpp" />
+    <ClCompile Include="..\..\src\QtBase\PainterStaticTextCache.cpp" />
+    <ClCompile Include="..\..\src\QtBase\QtBaseManager.cpp" />
+    <ClCompile Include="..\..\src\QtBase\singleapplication.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Slider.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Spinbox.cpp" />
+    <ClCompile Include="..\..\src\QtBase\SystemInfo.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Resources\Assets.rcc.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Resources\DeviceResources.rcc.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Resources\GraphResources.rcc.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Resources\LayoutResources.rcc.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Resources\QtBaseResources.rcc.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\ColorLabel.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\DockHeader.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\DockWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\ExperienceAssetCache.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\FileManager.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Gamepad.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\GamepadManager.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\ImageButton.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\ImageManipulation.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Layout.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\LayoutComboBox.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\LayoutManager.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\LayoutMenu.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\LinkWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\MainWindowBase.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\PainterStaticTextCache.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\QtBaseConfig.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\QtBaseManager.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Slider.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Spinbox.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\SystemInfo.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.moc.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetCreators.moc.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetFactory.moc.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgets.moc.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\Property.moc.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\PropertyManager.moc.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\PropertyTreeWidget.moc.cpp">
+      <Filter>AttributeWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Audio\MediaContent.moc.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\AutoUpdate\AutoUpdate.moc.cpp">
+      <Filter>AutoUpdate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendFileSystem.moc.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendInterface.moc.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendParameters.moc.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\BackendUploader.moc.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\FileDownloader.moc.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\NetworkAccessManager.moc.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\WebDataCache.moc.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkClient.moc.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkServer.moc.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\NetworkServerClient.moc.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\OscServer.moc.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\PluginSystem\Plugin.moc.cpp">
+      <Filter>PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\PluginSystem\PluginManager.moc.cpp">
+      <Filter>PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\PluginSystem\PluginMenu.moc.cpp">
+      <Filter>PluginSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\System\SerialPort.moc.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\ColorMappingWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\GraphObjectViewWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\PlotWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\SearchBoxWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Widgets\WindowFunctionWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\EnterLabelWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\ProgressWindowManager.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\StatusPopupManager.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Windows\ProgressWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\singleapplication.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\singleapplication_p.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Windows\StatusPopupWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.h">
+      <Filter>AttributeWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetCreators.h">
+      <Filter>AttributeWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetFactory.h">
+      <Filter>AttributeWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgets.h">
+      <Filter>AttributeWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\AttributeWidgets\Property.h">
+      <Filter>AttributeWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\AttributeWidgets\PropertyManager.h">
+      <Filter>AttributeWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\AttributeWidgets\PropertyTreeWidget.h">
+      <Filter>AttributeWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Audio\MediaContent.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\AutoUpdate\AutoUpdate.h">
+      <Filter>AutoUpdate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\BackendFileSystem.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\BackendHelpers.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\BackendInterface.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\BackendParameters.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\BackendUploader.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\DataChunksCreateRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\DataChunksCreateResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\DataChunksUploadRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\DataChunksUploadResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FileDownloader.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FileHierarchyGetRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FileHierarchyGetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FileHierarchyItem.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FileSystemGetRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FileSystemGetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FileSystemItem.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FilesCreateRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FilesCreateResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FilesDeleteRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FilesDeleteResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FilesGetRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FilesGetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FilesUpdateRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FilesUpdateResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FoldersCreateRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FoldersCreateResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FoldersDeleteRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FoldersDeleteResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FoldersUpdateRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\FoldersUpdateResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\LoginRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\LoginResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\LogsCreateRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\LogsCreateResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\NetworkAccessManager.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\ParametersFindRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\ParametersFindResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\ParametersSetRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\ParametersSetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\Request.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\RequestQueue.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\Response.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\SystemsGetRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\SystemsGetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersAgreementRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersAgreementResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersGetRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersGetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersInviteRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersInviteResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\WebDataCache.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Networking\NetworkClient.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Networking\NetworkMessage.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Networking\NetworkMessageConfig.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Networking\NetworkMessageData.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Networking\NetworkMessageEvent.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Networking\NetworkServer.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Networking\NetworkServerClient.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Networking\OscServer.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\PluginSystem\Plugin.h">
+      <Filter>PluginSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\PluginSystem\PluginManager.h">
+      <Filter>PluginSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\PluginSystem\PluginMenu.h">
+      <Filter>PluginSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\System\BluetoothHelpers.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\System\SerialPort.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Widgets\ColorMappingWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Widgets\FilterPlotWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Widgets\GraphObjectViewWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Widgets\PlotWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Widgets\SearchBoxWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Widgets\WindowFunctionWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Windows\EnterLabelWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Windows\ProgressWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Windows\ProgressWindowManager.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Windows\StatusPopupManager.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Windows\StatusPopupWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\ColorLabel.h" />
+    <ClInclude Include="..\..\src\QtBase\ColorPalette.h" />
+    <ClInclude Include="..\..\src\QtBase\DockHeader.h" />
+    <ClInclude Include="..\..\src\QtBase\DockWidget.h" />
+    <ClInclude Include="..\..\src\QtBase\ExperienceAssetCache.h" />
+    <ClInclude Include="..\..\src\QtBase\FileManager.h" />
+    <ClInclude Include="..\..\src\QtBase\Gamepad.h" />
+    <ClInclude Include="..\..\src\QtBase\GamepadManager.h" />
+    <ClInclude Include="..\..\src\QtBase\ImageButton.h" />
+    <ClInclude Include="..\..\src\QtBase\ImageManipulation.h" />
+    <ClInclude Include="..\..\src\QtBase\Layout.h" />
+    <ClInclude Include="..\..\src\QtBase\LayoutComboBox.h" />
+    <ClInclude Include="..\..\src\QtBase\LayoutManager.h" />
+    <ClInclude Include="..\..\src\QtBase\LayoutMenu.h" />
+    <ClInclude Include="..\..\src\QtBase\LinkWidget.h" />
+    <ClInclude Include="..\..\src\QtBase\MainWindowBase.h" />
+    <ClInclude Include="..\..\src\QtBase\PainterStaticTextCache.h" />
+    <ClInclude Include="..\..\src\QtBase\QtBaseConfig.h" />
+    <ClInclude Include="..\..\src\QtBase\QtBaseManager.h" />
+    <ClInclude Include="..\..\src\QtBase\singleapplication.h" />
+    <ClInclude Include="..\..\src\QtBase\Slider.h" />
+    <ClInclude Include="..\..\src\QtBase\Spinbox.h" />
+    <ClInclude Include="..\..\src\QtBase\SystemInfo.h" />
+    <ClInclude Include="..\..\src\QtBase\Version.h" />
+    <ClInclude Include="..\..\src\QtBase\singleapplication_p.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{0C0F1019-C4DC-3B9E-ADB5-8DA78A220379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AttributeWidgets">
+      <UniqueIdentifier>{426CDCEE-6947-33EB-8E53-2F9C1D24AFB3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{C422E183-AA38-3D8A-87FF-98D500508FCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AutoUpdate">
+      <UniqueIdentifier>{DE28F8C4-E5AF-3E57-AF58-E223E3CFE973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backend">
+      <UniqueIdentifier>{22E8D955-6E6A-3BB6-98DD-8F0DA167044C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networking">
+      <UniqueIdentifier>{683618A7-A6DE-326E-8677-31FAD751EF55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PluginSystem">
+      <UniqueIdentifier>{ECD44DE8-727F-3E75-B4C9-CC95C3CF54C9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{338EEA13-36A5-32F1-902F-9F16C5C1007C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{C81A1DD5-DFC3-3C9F-8BE5-E6E931D6FBAE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{C3A6D5C9-5D81-3EDE-AB0A-F67B38DAB433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{8568EEB9-351F-376C-9917-13A80130B84F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\QtBase\Resources\Assets.qrc">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\..\src\QtBase\Resources\DeviceResources.qrc">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\..\src\QtBase\Resources\GraphResources.qrc">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\..\src\QtBase\Resources\LayoutResources.qrc">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\..\src\QtBase\Resources\QtBaseResources.qrc">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+</Project>

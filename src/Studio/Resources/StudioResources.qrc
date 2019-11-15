@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Models/Brain.obj</file>
+        <file>Assets/Textures/FallbackTexture.png</file>
+        <file>AppIcon.ico</file>
+    </qresource>
+</RCC>

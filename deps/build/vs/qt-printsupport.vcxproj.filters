@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="dialogs">
+      <UniqueIdentifier>{7b613ead-3449-4840-8038-7798f354c208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0CONF">
+      <UniqueIdentifier>{4092c4b7-83ae-4c1a-a035-cbf6ea1a8e49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".rcc">
+      <UniqueIdentifier>{0ae6fba8-8175-43e8-ab65-068d1a8a6d4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel">
+      <UniqueIdentifier>{9dca679a-f943-434a-8d7c-d95b804c8ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widgets">
+      <UniqueIdentifier>{e4dee817-3ac5-44c9-b3b1-55cb2a2aec12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{7d64b7b0-ac24-4877-a40a-a4f524fa085a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".uic">
+      <UniqueIdentifier>{2d73b580-3717-4106-9b7a-4ab311beb8ac}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtPrintSupport\qtprintsupport-config.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtPrintSupport\private\qtprintsupport-config_p.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-printsupport\.uic\ui_qpagesetupwidget.h">
+      <Filter>.uic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-printsupport\.uic\ui_qprintpropertieswidget.h">
+      <Filter>.uic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-printsupport\.uic\ui_qprintsettingsoutput.h">
+      <Filter>.uic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-printsupport\.uic\ui_qprintwidget.h">
+      <Filter>.uic</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-printsupport\dialogs\qabstractprintdialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\dialogs\qpagesetupdialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\dialogs\qpagesetupdialog_unix.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\dialogs\qpagesetupdialog_win.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\dialogs\qprintdialog_unix.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\dialogs\qprintdialog_win.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\dialogs\qprintpreviewdialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\.rcc\qrc_qprintdialog.cpp">
+      <Filter>.rcc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qcups.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qpaintengine_alpha.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qpaintengine_preview.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qplatformprintdevice.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qplatformprintersupport.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qplatformprintplugin.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qprintdevice.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qprintengine_pdf.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qprintengine_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qprinter.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\kernel\qprinterinfo.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\widgets\qprintpreviewwidget.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\widgets\qcupsjobwidget.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\.moc\moc_qprintdialog.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\.moc\moc_qprintpreviewdialog.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-printsupport\.moc\moc_qprintpreviewwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

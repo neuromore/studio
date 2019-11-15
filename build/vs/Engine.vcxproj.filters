@@ -1,0 +1,1282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Engine\Core\AABB.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\AES.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\AttributeFactory.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\AttributeSet.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\AttributeSettings.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\ByteArray.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Color.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Counter.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\EncryptedJSONFile.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\EventManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\FpsCounter.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Json.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\LogCallbacks.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\LogManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Math.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\MemoryFile.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Mutex.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\String.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\StringCharacter.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\StringIterator.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Test.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\TestFacility.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Thread.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\ThreadHandler.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Time.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\TimerAndroid.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\TimerLinux.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\TimerWindows.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\TimeriOS.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\TimermacOS.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Version.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\AttributeChannels.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\Channel.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelBase.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelFileReader.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelFileWriter.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelProcessor.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelReader.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\ClockGenerator.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\Epoch.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\FFTProcessor.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\FFT_FFTW.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\FFT_KissFFT.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\Filter.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\FilterGenerator.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\FrequencyBand.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\Histogram.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\HrvProcessor.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\HrvTimeDomain.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\LinearFilterProcessor.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\MultiChannel.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\MultiChannelReader.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\ResampleProcessor.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\Spectrum.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\SpectrumAnalyzerSettings.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\StatisticsProcessor.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\DSP\WindowFunction.cpp">
+      <Filter>DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\ABM\AbmDevices.cpp">
+      <Filter>Devices\ABM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Audio\AudioDevices.cpp">
+      <Filter>Devices\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Audio\AudioNodes.cpp">
+      <Filter>Devices\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainProducts\ActiChampDevice.cpp">
+      <Filter>Devices\BrainProducts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Brainquiry\BrainquiryDevice.cpp">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\DeviceInventory.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Emotiv\EmotivEPOCDevice.cpp">
+      <Filter>Devices\Emotiv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Emotiv\EmotivInsightDevice.cpp">
+      <Filter>Devices\Emotiv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\EyeX\TobiiEyeXDevice.cpp">
+      <Filter>Devices\EyeX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\EyeX\TobiiEyeXNode.cpp">
+      <Filter>Devices\EyeX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Gamepad\GamepadDevice.cpp">
+      <Filter>Devices\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Mitsar\MitsarDevices.cpp">
+      <Filter>Devices\Mitsar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Muse\MuseDevice.cpp">
+      <Filter>Devices\Muse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyDevice.cpp">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\OpenBCI\OpenBCIDevices.cpp">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Test\TestDevice.cpp">
+      <Filter>Devices\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Test\TestDeviceDriver.cpp">
+      <Filter>Devices\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Versus\VersusDevice.cpp">
+      <Filter>Devices\Versus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseDevice.cpp">
+      <Filter>Devices\eSense</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\AVEColorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Action.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ActionSet.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ActionState.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Actions.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\AnnotationNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\AutoThresholdNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\BinSelectorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\BiquadFilterNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\BodyFeedbackNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelInfoNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelMathNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelMergerNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelSelectorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelTransposerNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Classifier.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\CloudInputNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\CloudOutputNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ColorWheelNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\CompareNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Connection.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\CustomFeedbackNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\DelayNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\DeviceInputNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\DeviceOutputNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\DominantFrequencyNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\EegDeviceNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\EntryState.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ExitState.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\FFTNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\FeedbackNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\FileReaderNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\FileWriterNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\FreezeNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\FrequencyBandNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Graph.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\GraphExporter.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\GraphImporter.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\GraphManager.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\GraphObject.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\GraphObjectFactory.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\GraphSettings.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\HrvNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\InputNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\IntegralNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\LinearFilterNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\LogicNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\LoretaNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Math1Node.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Math2Node.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\MetaInfoNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\MultiParameterNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Node.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\OscInputNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\OscOutputNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\OscillatorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\OutputNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\PairwiseMathNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ParameterNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\PointsNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\Port.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ProcessorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\RecolorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\RemapNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\RenameNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ResampleNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SPNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SampleGateNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SessionInfoNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SessionTimeNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SignalGeneratorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SmoothNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\State.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateMachine.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionAudioCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionButtonCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionFeedbackCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionTimeCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionVideoCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StatisticsNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SwitchNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SwitchState.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\SyncState.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ThresholdNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\TimerState.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ViewNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\WaveformNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Networking\OscFeedbackPacket.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Networking\OscMessageParser.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Networking\OscMessageQueue.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Networking\OscMessageRouter.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Networking\OscPacket.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Networking\OscPacketParser.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Networking\OscPacketPool.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\BciDevice.cpp" />
+    <ClCompile Include="..\..\src\Engine\CloudParameters.cpp" />
+    <ClCompile Include="..\..\src\Engine\ColorMapper.cpp" />
+    <ClCompile Include="..\..\src\Engine\Creud.cpp" />
+    <ClCompile Include="..\..\src\Engine\Device.cpp" />
+    <ClCompile Include="..\..\src\Engine\DeviceDriver.cpp" />
+    <ClCompile Include="..\..\src\Engine\DeviceManager.cpp" />
+    <ClCompile Include="..\..\src\Engine\EEGElectrodes.cpp" />
+    <ClCompile Include="..\..\src\Engine\EngineManager.cpp" />
+    <ClCompile Include="..\..\src\Engine\Experience.cpp" />
+    <ClCompile Include="..\..\src\Engine\License.cpp" />
+    <ClCompile Include="..\..\src\Engine\neuromoreEngine.cpp" />
+    <ClCompile Include="..\..\src\Engine\Sensor.cpp" />
+    <ClCompile Include="..\..\src\Engine\SerialPortManager.cpp" />
+    <ClCompile Include="..\..\src\Engine\Session.cpp" />
+    <ClCompile Include="..\..\src\Engine\SessionExporter.cpp" />
+    <ClCompile Include="..\..\src\Engine\User.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Engine\Core\AABB.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AES.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Array.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Attribute.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeBool.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeColor.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeFactory.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeFloat.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeInt32.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeSet.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeSettings.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeSpectrum.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeString.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\AttributeStringArray.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\ByteArray.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Color.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\ComplexMath.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Config.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Counter.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\EncryptedJSONFile.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\EventHandler.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\EventLogger.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\EventManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\EventManagerHelpers.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\EventSource.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\FpsCounter.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Json.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\LogCallbacks.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\LogManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Math.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Math.inl">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\MemoryFile.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Mutex.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\StandardHeaders.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\String.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\StringCharacter.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\StringIterator.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\StringIterator.inl">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Test.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\TestCase.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\TestFacility.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Thread.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\ThreadHandler.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Time.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Timer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\TimerAndroid.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\TimerLinux.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\TimerWindows.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\TimeriOS.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\TimermacOS.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Vector.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Version.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\AttributeChannels.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\AttributeDoubleChannels.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\AttributeSpectrumChannels.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\Channel.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelBase.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelFileReader.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelFileWriter.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelProcessor.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelReader.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\ClockGenerator.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\Epoch.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\FFT.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\FFTProcessor.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\Filter.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\FilterGenerator.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\FrequencyBand.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\Histogram.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\HrvProcessor.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\HrvTimeDomain.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\LinearFilterProcessor.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\MultiChannel.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\MultiChannelReader.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\ResampleProcessor.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\Spectrum.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\SpectrumAnalyzerSettings.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\StatisticsProcessor.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\DSP\WindowFunction.h">
+      <Filter>DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\ABM\AbmDevices.h">
+      <Filter>Devices\ABM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\ABM\AbmNodes.h">
+      <Filter>Devices\ABM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Audio\AudioDevices.h">
+      <Filter>Devices\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Audio\AudioNodes.h">
+      <Filter>Devices\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainProducts\ActiChampDevice.h">
+      <Filter>Devices\BrainProducts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainProducts\ActiChampNode.h">
+      <Filter>Devices\BrainProducts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Brainquiry\BrainquiryDevice.h">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Brainquiry\BrainquiryNode.h">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\DeviceInventory.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\DeviceTypeIDs.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Emotiv\EmotivEPOCDevice.h">
+      <Filter>Devices\Emotiv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Emotiv\EmotivEPOCNode.h">
+      <Filter>Devices\Emotiv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Emotiv\EmotivInsightDevice.h">
+      <Filter>Devices\Emotiv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Emotiv\EmotivInsightNode.h">
+      <Filter>Devices\Emotiv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\EyeX\TobiiEyeXDevice.h">
+      <Filter>Devices\EyeX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\EyeX\TobiiEyeXNode.h">
+      <Filter>Devices\EyeX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Gamepad\GamepadDevice.h">
+      <Filter>Devices\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Gamepad\GamepadNode.h">
+      <Filter>Devices\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Generic\GenericDeviceNodes.h">
+      <Filter>Devices\Generic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Generic\GenericDevices.h">
+      <Filter>Devices\Generic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Mitsar\MitsarDevices.h">
+      <Filter>Devices\Mitsar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Mitsar\MitsarNodes.h">
+      <Filter>Devices\Mitsar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Muse\MuseDevice.h">
+      <Filter>Devices\Muse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Muse\MuseNode.h">
+      <Filter>Devices\Muse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyDevice.h">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyNode.h">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\OpenBCI\OpenBCIDevices.h">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\OpenBCI\OpenBCINodes.h">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Test\TestDevice.h">
+      <Filter>Devices\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Test\TestDeviceDriver.h">
+      <Filter>Devices\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Test\TestDeviceNode.h">
+      <Filter>Devices\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Versus\VersusDevice.h">
+      <Filter>Devices\Versus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Versus\VersusNode.h">
+      <Filter>Devices\Versus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseDevice.h">
+      <Filter>Devices\eSense</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseNode.h">
+      <Filter>Devices\eSense</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\AVEColorNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Action.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ActionSet.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ActionState.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Actions.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\AnnotationNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\AutoThresholdNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\BinSelectorNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\BiquadFilterNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\BodyFeedbackNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelInfoNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelMathNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelMergerNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelSelectorNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelTransposerNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Classifier.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\CloudInputNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\CloudOutputNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ColorWheelNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\CompareNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Connection.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\CustomFeedbackNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\DelayNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\DeprecatedGraphObjects.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\DeviceInputNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\DeviceOutputNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\DominantFrequencyNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\EegDeviceNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\EntryState.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ExitState.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\FFTNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\FeedbackNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\FileReaderNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\FileWriterNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\FreezeNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\FrequencyBandNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Graph.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\GraphExporter.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\GraphImporter.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\GraphManager.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\GraphObject.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\GraphObjectFactory.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\GraphSettings.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\HrvNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\InputNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\IntegralNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\LinearFilterNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\LogicNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\LoretaNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Math1Node.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Math2Node.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\MetaInfoNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\MultiParameterNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Node.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\OscInputNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\OscOutputNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\OscillatorNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\OutputNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\PairwiseMathNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ParameterNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\PointsNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\Port.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ProcessorNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\RecolorNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\RemapNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\RenameNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ResampleNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SPNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SampleGateNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SessionInfoNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SessionTimeNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SignalGeneratorNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SmoothNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\State.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateMachine.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionAudioCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionButtonCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionFeedbackCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionTimeCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionVideoCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StatisticsNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SwitchNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SwitchState.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SyncState.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ThresholdNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\TimerState.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ViewNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\WaveformNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Networking\OscFeedbackPacket.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Networking\OscMessageParser.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Networking\OscMessageQueue.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Networking\OscMessageRouter.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Networking\OscPacket.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Networking\OscPacketParser.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Networking\OscPacketPool.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Networking\OscReceiver.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\BciDevice.h" />
+    <ClInclude Include="..\..\src\Engine\CloudParameters.h" />
+    <ClInclude Include="..\..\src\Engine\ColorMapper.h" />
+    <ClInclude Include="..\..\src\Engine\Config.h" />
+    <ClInclude Include="..\..\src\Engine\Creud.h" />
+    <ClInclude Include="..\..\src\Engine\Device.h" />
+    <ClInclude Include="..\..\src\Engine\DeviceDriver.h" />
+    <ClInclude Include="..\..\src\Engine\DeviceManager.h" />
+    <ClInclude Include="..\..\src\Engine\DeviceTypeIds.h" />
+    <ClInclude Include="..\..\src\Engine\EEGElectrodes.h" />
+    <ClInclude Include="..\..\src\Engine\EngineManager.h" />
+    <ClInclude Include="..\..\src\Engine\Experience.h" />
+    <ClInclude Include="..\..\src\Engine\License.h" />
+    <ClInclude Include="..\..\src\Engine\neuromoreEngine.h" />
+    <ClInclude Include="..\..\src\Engine\Notifications.h" />
+    <ClInclude Include="..\..\src\Engine\Sensor.h" />
+    <ClInclude Include="..\..\src\Engine\SerialPortManager.h" />
+    <ClInclude Include="..\..\src\Engine\Session.h" />
+    <ClInclude Include="..\..\src\Engine\SessionExporter.h" />
+    <ClInclude Include="..\..\src\Engine\User.h" />
+    <ClInclude Include="..\..\src\Engine\Version.h" />
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietaryNode.h">
+      <Filter>Proprietary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietarySPNode.h">
+      <Filter>Proprietary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietaryInputNode.h">
+      <Filter>Proprietary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietaryOutputNode.h">
+      <Filter>Proprietary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietaryProcessorNode.h">
+      <Filter>Proprietary</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{6D4BC5A7-8271-33DB-B142-A1E8883AF635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices">
+      <UniqueIdentifier>{CBE99D35-5BC1-389B-AB68-D33162C6625F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\ABM">
+      <UniqueIdentifier>{0B061B16-E586-3DB9-BE4C-79856C8198B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Audio">
+      <UniqueIdentifier>{022D79D2-46AF-3F0C-BEFE-1990BD546966}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainProducts">
+      <UniqueIdentifier>{9ADD6B54-685B-3630-AE65-15DC287FA032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Brainquiry">
+      <UniqueIdentifier>{C0010FBA-3195-3E9D-B37C-BE25D61F5CB6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Emotiv">
+      <UniqueIdentifier>{AA51D2B8-C130-3B99-8C25-63DB084E3FFF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\EyeX">
+      <UniqueIdentifier>{45B9FC84-1D69-30DB-9BC7-761124A01327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Gamepad">
+      <UniqueIdentifier>{9AC92542-EB9C-3245-A546-3183EB77224A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Generic">
+      <UniqueIdentifier>{FE1EB826-EDE9-3109-972F-46BF46567E4E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Mitsar">
+      <UniqueIdentifier>{5A868CFE-DD2C-3AC9-87BA-FD676E541164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Muse">
+      <UniqueIdentifier>{45F3901F-C40E-3960-96CC-2C406FBD8B4D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\NeuroSky">
+      <UniqueIdentifier>{9A1B7218-A856-3DE8-BF5C-DB3CF77FDF2A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\OpenBCI">
+      <UniqueIdentifier>{B70AE6B7-479C-3A27-A1EA-6A48960600E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Test">
+      <UniqueIdentifier>{8ADFF921-1B33-30F2-89AC-216FA0D98761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Versus">
+      <UniqueIdentifier>{B8F162C7-BC26-3605-921A-4973DB34DA1F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\eSense">
+      <UniqueIdentifier>{216AF18E-14AC-3B89-B8DD-6F74A15362BC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DSP">
+      <UniqueIdentifier>{163E0EA4-7201-31D1-B7C4-6F2E1C16A43B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graph">
+      <UniqueIdentifier>{5B0F7D09-4D51-36FD-9EA3-4E7559850C0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networking">
+      <UniqueIdentifier>{48391CDB-72EF-3D15-ADAF-E170C6A72796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proprietary">
+      <UniqueIdentifier>{bd3d4e1e-a144-472e-936a-36602da93b57}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\Engine\Proprietary\README.md">
+      <Filter>Proprietary</Filter>
+    </None>
+  </ItemGroup>
+</Project>

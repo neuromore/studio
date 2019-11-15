@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-serialport\qserialport.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\qserialportinfo.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\qserialportinfo_freebsd.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\qserialportinfo_osx.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\qserialportinfo_unix.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\qserialportinfo_win.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\qserialport_unix.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\qserialport_win.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\qwinoverlappedionotifier.cpp" />
+    <ClCompile Include="..\..\src\qt-serialport\.moc\moc_qserialport.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-serialport\.moc\moc_qwinoverlappedionotifier_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{394c4e81-bc47-41d3-8d9e-35ad3a09c744}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

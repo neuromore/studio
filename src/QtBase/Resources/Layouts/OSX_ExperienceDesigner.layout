@@ -1,0 +1,96 @@
+{
+     "versionHigh": 1,
+     "versionLow":  0,
+     "compileDate": "May 16 2016",
+     "mainWindow":
+     {
+          "posX":        4,
+          "posY":        28,
+          "width":       1450,
+          "height":      1024,
+          "isMaximized": false,
+          "geometry":    "AdnQywACAAAAAAAEAAAAHAAABa0AAAQxAAAABAAAADIAAAWtAAAEMQAAAAAAAAAACgA=",
+          "state":       "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"
+     },
+     "plugins":
+     [
+          {
+               "objectName": "PLUGIN18023249762899",
+               "typeUuid":   "c38f75d6-7eca-11e4-b4a9-0800200c9a66",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    },
+                    {
+                         "internalName": "timeRange",
+                         "value":        10.0
+                    },
+                    {
+                         "internalName": "style",
+                         "value":        0
+                    },
+                    {
+                         "internalName": "showLatencyMarker",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "PLUGIN216162024713445",
+               "typeUuid":   "c38f75d1-7eca-11e4-b4a9-0800200c9a66",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "85dcf5d0-5e2c-4369-a8b7-219aabfaedac",
+               "typeUuid":   "676061b4-260b-11e5-b345-feff819cdc9f",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "8e5e8445-37b1-44f1-b1cc-e898ea4cbfe5",
+               "typeUuid":   "1aea9056-26e3-11e5-b345-feff819cdc9f",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "304dd1fa-97bb-4943-b47c-22646676edac",
+               "typeUuid":   "f84c66ca-260e-11e5-b345-feff819cdc9f",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "fe9f60ac-da1b-4768-8293-ae01f1afd195",
+               "typeUuid":   "a9f94048-a277-11e5-bf7f-feff819cdc9f",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          }
+     ]
+}

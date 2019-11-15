@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="audio">
+      <UniqueIdentifier>{229d8905-5c1c-4013-a1fd-51c156428a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0CONF">
+      <UniqueIdentifier>{abb0ee95-6e68-41f9-91ff-823c98becc46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="camera">
+      <UniqueIdentifier>{22f5c092-e744-49aa-9a19-551d8231b3b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="controls">
+      <UniqueIdentifier>{1606fd09-26f0-4ac9-8ec0-dedc072bb8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playback">
+      <UniqueIdentifier>{41dfbed6-54ff-458d-aef0-a8922cc6189d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="radio">
+      <UniqueIdentifier>{f5ce682a-a774-48a5-8c0e-2819f3ff4dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="recording">
+      <UniqueIdentifier>{f6fb3abd-1a16-4c3d-8aa8-3ec9d6ccd0a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="video">
+      <UniqueIdentifier>{396e4d8d-542d-464f-adcb-3f36be3732d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{88f0c7ec-d6a6-4a60-9665-12165cbd2850}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudio.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudiobuffer.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudiodecoder.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudiodevicefactory.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudiodeviceinfo.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudioformat.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudiohelpers.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudioinput.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudiooutput.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudioprobe.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudiosystem.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qaudiosystemplugin.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qsamplecache_p.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qsound.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qsoundeffect.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qsoundeffect_pulse_p.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qsoundeffect_qaudio_p.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\audio\qwavedecoder_p.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\camera\qcamera.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\camera\qcameraexposure.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\camera\qcamerafocus.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\camera\qcameraimagecapture.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\camera\qcameraimageprocessing.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\camera\qcamerainfo.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\camera\qcameraviewfindersettings.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qaudiodecodercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qaudioencodersettingscontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qaudioinputselectorcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qaudiooutputselectorcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qaudiorolecontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameracapturebufferformatcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameracapturedestinationcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameracontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameraexposurecontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcamerafeedbackcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameraflashcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcamerafocuscontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameraimagecapturecontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameraimageprocessingcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcamerainfocontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameralockscontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcameraviewfindersettingscontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcamerazoomcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qcustomaudiorolecontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qimageencodercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediaaudioprobecontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediaavailabilitycontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediacontainercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediagaplessplaybackcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmedianetworkaccesscontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediaplayercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediaplaylistcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediaplaylistsourcecontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediarecordercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediastreamscontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmediavideoprobecontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmetadatareadercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qmetadatawritercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qradiodatacontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qradiotunercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qvideodeviceselectorcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qvideoencodersettingscontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qvideorenderercontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\controls\qvideowindowcontrol.cpp">
+      <Filter>controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qmediacontent.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qmedianetworkplaylistprovider.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qmediaplayer.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qmediaplaylist.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qmediaplaylistioplugin.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qmediaplaylistnavigator.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qmediaplaylistprovider.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qmediaresource.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\playback\qplaylistfileparser.cpp">
+      <Filter>playback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\radio\qradiodata.cpp">
+      <Filter>radio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\radio\qradiotuner.cpp">
+      <Filter>radio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\recording\qaudiorecorder.cpp">
+      <Filter>recording</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\recording\qmediaencodersettings.cpp">
+      <Filter>recording</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\recording\qmediarecorder.cpp">
+      <Filter>recording</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qabstractvideobuffer.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qabstractvideofilter.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qabstractvideosurface.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qimagevideobuffer.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qmemoryvideobuffer.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideoframe.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideoframeconversionhelper.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideoframeconversionhelper_avx2.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideoframeconversionhelper_sse2.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideoframeconversionhelper_ssse3.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideooutputorientationhandler.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideoprobe.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideosurfaceformat.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\video\qvideosurfaceoutput.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\qmediabindableinterface.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediacontrol.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediametadata.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediaobject.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediapluginloader.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediaresourcepolicyplugin_p.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediaresourcepolicy_p.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediaresourceset_p.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediaservice.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediaserviceprovider.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediastoragelocation.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmediatimerange.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmultimedia.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\qmultimediautils.cpp" />
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qabstractvideofilter.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qabstractvideosurface.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudiodecoder.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudiodecodercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudioencodersettingscontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudioinput.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudioinputselectorcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudiooutput.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudiooutputselectorcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudiorecorder.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudiorolecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudiosystem.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudiosystemplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcamera.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameracapturebufferformatcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameracapturedestinationcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameracontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameraexposure.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameraexposurecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameraflashcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcamerafocus.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcamerafocuscontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameraimagecapture.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameraimagecapturecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameraimageprocessing.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameraimageprocessingcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcamerainfocontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameralockscontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcameraviewfindersettingscontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcamerazoomcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcustomaudiorolecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qimageencodercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaaudioprobecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaavailabilitycontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediacontainercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediacontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmedianetworkaccesscontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmedianetworkplaylistprovider_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaobject.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplayer.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplayercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplaylist.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplaylist_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplaylistcontrol_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplaylistioplugin_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplaylistnavigator_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplaylistprovider_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaplaylistsourcecontrol_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediarecorder.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediarecordercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaservice.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaserviceprovider_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaserviceproviderplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediastreamscontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediavideoprobecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmetadatareadercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmetadatawritercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qradiodata.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qradiodatacontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qradiotuner.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qradiotunercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qsamplecache_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qsound.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qsoundeffect.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qsoundeffect_qaudio_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qvideodeviceselectorcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qvideoencodersettingscontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qvideorenderercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qvideowindowcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qwavedecoder_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qaudioprobe.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qcamerafeedbackcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediagaplessplaybackcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaresourcepolicyplugin_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qmediaresourceset_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qplaylistfileparser_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qvideooutputorientationhandler_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qvideoprobe.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimedia\.moc\moc_qvideosurfaceoutput_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtMultimedia\qtmultimedia-config.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtMultimedia\private\qtmultimedia-config_p.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

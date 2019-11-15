@@ -1,0 +1,7 @@
+QMAKE_DEPENDS_FREETYPE_CC =
+QMAKE_DEPENDS_FREETYPE_LD =
+QMAKE_INCDIR_FREETYPE = C:/Qt/5.12.4/Src/qtbase/src/3rdparty/freetype/include
+QMAKE_DEFINES_FREETYPE = 
+QMAKE_LIBS_FREETYPE =
+QMAKE_LIBS_FREETYPE_DEBUG = C:/Qt/5.12.4/Src/qtbase/lib/qtfreetyped.lib
+QMAKE_LIBS_FREETYPE_RELEASE = C:/Qt/5.12.4/Src/qtbase/lib/qtfreetype.lib

@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Fonts/Arial.ttf</file>
+        <file>Assets/Models/Sphere.obj</file>
+        <file>Assets/Models/Sphere_Translated.obj</file>
+        <file>Assets/Models/Brain.obj</file>
+        <file>Assets/Models/Brain_Cerebellum.obj</file>
+        <file>Assets/Models/Brain_FrontalLobe.obj</file>
+        <file>Assets/Models/Brain_OccipitalLobe.obj</file>
+        <file>Assets/Models/Brain_ParietalLobe.obj</file>
+        <file>Assets/Models/Brain_TemporallLobe.obj</file>
+        <file>Assets/Models/Head.obj</file>
+        <file>Assets/Shaders/HeatmapFragmentShader.glsl</file>
+        <file>Assets/Shaders/HeatmapVertexShader.glsl</file>
+        <file>Assets/Certificates/Equifax_Secure_Certificate_Authority.pem</file>
+        <file>Assets/Textures/NeuronTexture.jpg</file>
+    </qresource>
+</RCC>

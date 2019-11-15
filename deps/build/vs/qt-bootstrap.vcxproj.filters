@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{d8021c22-6be5-4a7a-b9e0-a05fd0363c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\codecs">
+      <UniqueIdentifier>{f53a98f8-1dbb-44fe-acb3-b4bd4840d8ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\global">
+      <UniqueIdentifier>{913f4728-ecb7-4354-ad3a-cc5af3811792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\io">
+      <UniqueIdentifier>{dc60ac37-7f6c-4f73-81d5-bdde9afbb98e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\kernel">
+      <UniqueIdentifier>{b4697587-8380-4603-8bc0-ecde8ba3f4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\plugin">
+      <UniqueIdentifier>{9f9d3733-6bab-488f-a03a-b83a06c80626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\serialization">
+      <UniqueIdentifier>{143162a0-6ec8-4de7-a168-23d58f0db68d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\tools">
+      <UniqueIdentifier>{f0754367-0369-4346-ae93-3074d88b116d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xml">
+      <UniqueIdentifier>{f7e6ed9c-b804-4d7e-a7ae-022ab88b3519}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-core\codecs\qlatincodec.cpp">
+      <Filter>core\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qtextcodec.cpp">
+      <Filter>core\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qutfcodec.cpp">
+      <Filter>core\codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qendian.cpp">
+      <Filter>core\global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qglobal.cpp">
+      <Filter>core\global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qlogging.cpp">
+      <Filter>core\global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qmalloc.cpp">
+      <Filter>core\global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qnumeric.cpp">
+      <Filter>core\global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qoperatingsystemversion.cpp">
+      <Filter>core\global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qrandom.cpp">
+      <Filter>core\global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qabstractfileengine.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qbuffer.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qdebug.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qdir.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qdiriterator.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfile.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfiledevice.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfileinfo.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemengine.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystementry.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfsfileengine.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfsfileengine_iterator.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qiodevice.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qloggingcategory.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qloggingregistry.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qresource.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qsavefile.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstandardpaths.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qtemporarydir.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qtemporaryfile.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcoreapplication.cpp">
+      <Filter>core\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcoreglobaldata.cpp">
+      <Filter>core\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qmetatype.cpp">
+      <Filter>core\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsystemerror.cpp">
+      <Filter>core\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qvariant.cpp">
+      <Filter>core\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\quuid.cpp">
+      <Filter>core\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qdatastream.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjson.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonarray.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsondocument.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonobject.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonparser.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonvalue.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonwriter.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qtextstream.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qxmlstream.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qxmlutils.cpp">
+      <Filter>core\serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qarraydata.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qbitarray.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qbytearray.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qbytearraymatcher.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcommandlineoption.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcommandlineparser.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcryptographichash.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qdatetime.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qhash.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qline.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlinkedlist.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlist.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlocale.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlocale_tools.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qmap.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qpoint.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qrect.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qregexp.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qringbuffer.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qsize.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstring.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstring_compat.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstringbuilder.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstringlist.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qversionnumber.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qvsnprintf.cpp">
+      <Filter>core\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-xml\dom\qdom.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-xml\sax\qxml.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qoperatingsystemversion_win.cpp">
+      <Filter>core\global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemengine_win.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemiterator_win.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstandardpaths_win.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfsfileengine_win.cpp">
+      <Filter>core\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcoreapplication_win.cpp">
+      <Filter>core\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qsystemlibrary.cpp">
+      <Filter>core\plugin</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

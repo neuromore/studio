@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\opencv-imgproc\accum.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\approx.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\blend.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\canny.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\clahe.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\color.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\colormap.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\connectedcomponents.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\contours.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\convhull.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\corner.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\cornersubpix.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\demosaicing.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\deriv.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\distransform.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\drawing.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\emd.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\featureselect.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\filter.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\floodfill.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\gabor.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\generalized_hough.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\geometry.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\grabcut.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\hershey_fonts.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\histogram.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\hough.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\imgwarp.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\intersection.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\linefit.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\lsd.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\matchcontours.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\min_enclosing_triangle.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\moments.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\morph.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\phasecorr.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\precomp.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\pyramids.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\rotcalipers.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\samplers.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\segmentation.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\shapedescr.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\smooth.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\spatialgradient.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\subdivision2d.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\sumpixels.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\tables.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\templmatch.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\thresh.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\undistort.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgproc\utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\opencv-imgproc\filterengine.hpp" />
+    <ClInclude Include="..\..\src\opencv-imgproc\gcgraph.hpp" />
+    <ClInclude Include="..\..\src\opencv-imgproc\precomp.hpp" />
+    <ClInclude Include="..\..\src\opencv-imgproc\_geom.h" />
+    <ClInclude Include="..\..\include\opencv2\cvconfig.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\opencv2\opencv_modules.hpp">
+      <Filter>Config</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Config">
+      <UniqueIdentifier>{64ea8781-1b31-4b48-82d8-15d8d6fb9f0c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

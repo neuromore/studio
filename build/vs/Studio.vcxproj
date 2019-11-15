@@ -1,0 +1,733 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Studio\AppManager.cpp" />
+    <ClCompile Include="..\..\src\Studio\AppManager.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\AuthenticationCenter.cpp" />
+    <ClCompile Include="..\..\src\Studio\AuthenticationCenter.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\CrashReporter.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\ABM\AbmDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\ABM\AbmThreadHandler.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Audio\AudioDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Audio\QtAudioDevices.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDevice.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDevice.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\DriverInventory.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Emotiv\EmotivDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\DocumentationExporter.cpp" />
+    <ClCompile Include="..\..\src\Studio\main.cpp" />
+    <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\MainWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.cpp" />
+    <ClCompile Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFileWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFileWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFolderWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFolderWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\EEGElectrodePlacementPlugin\EEGElectrodePlacementPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\EEGElectrodePlacementPlugin\EEGElectrodePlacementPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DeviceWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DeviceWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\NoDeviceWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\NoDeviceWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\EngineStatus\EngineStatusPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\EngineStatus\EngineStatusPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\ClassifierPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\ClassifierPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPaletteWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPaletteWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphTextPixmapCache.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphTextPixmapCache.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\StateMachinePlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\StateMachinePlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Networking\NetworkTestClientPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Networking\NetworkTestClientPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParameterControlPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParameterControlPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParametersWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParametersWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParameterWidgets.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParameterWidgets.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\ClientInfoWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\ClientInfoWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\PreSessionWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\PreSessionWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\SessionControlPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\SessionControlPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\SessionInfoWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\SessionInfoWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\StageControlWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\StageControlWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\WhileSessionWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\WhileSessionWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPluginCollection.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Rendering\Mesh.cpp" />
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLManager.cpp" />
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLManager.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidget2DHelpers.cpp" />
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidgetCallback.cpp" />
+    <ClCompile Include="..\..\src\Studio\Rendering\TextureManager.cpp" />
+    <ClCompile Include="..\..\src\Studio\Resources\StudioResources.rcc.cpp" />
+    <ClCompile Include="..\..\src\Studio\UnitTests\StudioTestFacility.cpp" />
+    <ClCompile Include="..\..\src\Studio\Visualization.cpp" />
+    <ClCompile Include="..\..\src\Studio\VisualizationManager.cpp" />
+    <ClCompile Include="..\..\src\Studio\VisualizationManager.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\BatteryStatusWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\BatteryStatusWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\BreathingRateWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\BreathingRateWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\ChannelMultiSelectionWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\ChannelMultiSelectionWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\ChannelSelectionWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\ChannelSelectionWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\DeviceSelectionWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\DeviceSelectionWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\EEGElectrodesWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\EEGElectrodesWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\FrequencyBandCheckboxWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\FrequencyBandCheckboxWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\HeartRateWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\HeartRateWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\HMultiCheckboxWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\HMultiCheckboxWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\ImpedanceTestWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\ImpedanceTestWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\SensorCheckboxWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\SensorCheckboxWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\SignalQualityWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\SignalQualityWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\SkinTemperatureWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\SkinTemperatureWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\StopwatchWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\StopwatchWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\SwitchingImage.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\SwitchingImage.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\ThermometerWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Widgets\ThermometerWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\AboutWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\AboutWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\CreateUserWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\CreateUserWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\EmailValidator.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\EmailValidator.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\InviteUserWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\InviteUserWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreement.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreement.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreementWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreementWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\LoginWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\LoginWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\ReportWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\ReportWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\SelectUserWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\SelectUserWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\SettingsWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\SettingsWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\UpgradeWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\UpgradeWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\VisualizationSelectWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\VisualizationSelectWindow.moc.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Studio\AppManager.h" />
+    <ClInclude Include="..\..\src\Studio\AuthenticationCenter.h" />
+    <ClInclude Include="..\..\src\Studio\Config.h" />
+    <ClInclude Include="..\..\src\Studio\CrashReporter.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\ABM\AbmDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\ABM\AbmThreadHandler.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Audio\AudioDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Audio\QtAudioDevices.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDevice.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\DriverInventory.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Emotiv\EmotivDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\OpenBCI\OpenBCICommands.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusCommands.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.h" />
+    <ClInclude Include="..\..\src\Studio\DocumentationExporter.h" />
+    <ClInclude Include="..\..\src\Studio\MainWindow.h" />
+    <ClInclude Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFileWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFolderWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\EEGElectrodePlacementPlugin\EEGElectrodePlacementPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\DevicesPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\DevicesWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\DeviceWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\NoDeviceWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\EngineStatus\EngineStatusPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Feedback\FeedbackPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\ClassifierPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphPaletteWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphShared.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphTextPixmapCache.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\StateMachinePlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Networking\NetworkTestClientPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Parameter\ParameterControlPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Parameter\ParametersWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Parameter\ParameterWidgets.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\ClientInfoWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\PreSessionWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\SessionControlPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\SessionInfoWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\StageControlWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\WhileSessionWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPluginCollection.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\View\ViewPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\View\ViewSpectrumPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\View\ViewSpectrumWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\View\ViewWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Rendering\Mesh.h" />
+    <ClInclude Include="..\..\src\Studio\Rendering\OpenGLManager.h" />
+    <ClInclude Include="..\..\src\Studio\Rendering\OpenGLWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Rendering\OpenGLWidget2DHelpers.h" />
+    <ClInclude Include="..\..\src\Studio\Rendering\OpenGLWidgetCallback.h" />
+    <ClInclude Include="..\..\src\Studio\Rendering\TextureManager.h" />
+    <ClInclude Include="..\..\src\Studio\UnitTests\StudioTestFacility.h" />
+    <ClInclude Include="..\..\src\Studio\Version.h" />
+    <ClInclude Include="..\..\src\Studio\Visualization.h" />
+    <ClInclude Include="..\..\src\Studio\VisualizationManager.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\BatteryStatusWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\BreathingRateWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\ChannelMultiSelectionWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\ChannelSelectionWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\DeviceSelectionWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\EEGElectrodesWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\FrequencyBandCheckboxWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\HeartRateWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\HMultiCheckboxWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\ImpedanceTestWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\SensorCheckboxWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\SignalQualityWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\SkinTemperatureWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\StopwatchWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\SwitchingImage.h" />
+    <ClInclude Include="..\..\src\Studio\Widgets\ThermometerWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\AboutWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\CreateUserWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\EmailValidator.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\InviteUserWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\LicenseAgreement.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\LicenseAgreementWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\LoginWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\ReportWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\SelectUserWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\SettingsWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\UpgradeWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\VisualizationSelectWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\Studio\Resources\AppIcon.icns" />
+    <None Include="..\..\src\Studio\Resources\NMStudio.aps" />
+    <None Include="..\..\src\Studio\Resources\StudioResources.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\src\Studio\Resources\AppIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\src\Studio\Resources\NMStudio.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{AAC29AB5-8688-410B-A99C-0D62ADC05FAC}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>Studio</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">bin\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\x86\$(TargetName)_d\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_d</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">bin\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">obj\x86\$(TargetName)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>bin\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>bin\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)_d\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;PCRE2_STATIC;QT_STATIC;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Windows</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+    </Lib>
+    <Link>
+      <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+    </Link>
+    <PreBuildEvent>
+      <Command>setlocal
+set MOC="../../deps/build/vs/bin/x86/qt-moc_d.exe"
+set RCC="../../deps/build/vs/bin/x86/qt-rcc_d.exe"
+set UIC="../../deps/build/vs/bin/x86/qt-uic_d.exe"
+Studio.cmd
+</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>QT RCC+MOC</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy /Y ..\..\deps\src\crashsender\lang_files\crashrpt_lang_EN.ini bin\x86\crashrpt_lang.ini
+copy /Y ..\..\deps\build\vs\bin\x86\crashsender_d.exe bin\x86\crashsender_d.exe
+copy /Y ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;QT_STATIC;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <SubSystem>Windows</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+    </Lib>
+    <Link>
+      <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+    </Link>
+    <PreBuildEvent>
+      <Command>setlocal
+set MOC="../../deps/build/vs/bin/x64/qt-moc_d.exe"
+set RCC="../../deps/build/vs/bin/x64/qt-rcc_d.exe"
+set UIC="../../deps/build/vs/bin/x64/qt-uic_d.exe"
+Studio.cmd
+</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>QT RCC+MOC</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy /Y ..\..\deps\src\crashsender\lang_files\crashrpt_lang_EN.ini bin\x64\crashrpt_lang.ini
+copy /Y ..\..\deps\build\vs\bin\x64\crashsender_d.exe bin\x64\crashsender_d.exe
+copy /Y ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>false</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <PreprocessorDefinitions>QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_UNICODE;UNICODE;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;QT_LINKED_OPENSSL;QT_STATIC;WIN32;_WINDOWS;QT_NO_DEBUG;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <StringPooling>true</StringPooling>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+    <Link>
+      <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SetChecksum>true</SetChecksum>
+    </Link>
+    <PreBuildEvent>
+      <Command>setlocal
+set MOC="../../deps/build/vs/bin/x86/qt-moc.exe"
+set RCC="../../deps/build/vs/bin/x86/qt-rcc.exe"
+set UIC="../../deps/build/vs/bin/x86/qt-uic.exe"
+Studio.cmd
+
+</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>QT RCC+MOC</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy /Y ..\..\deps\src\crashsender\lang_files\crashrpt_lang_EN.ini bin\x86\crashrpt_lang.ini
+copy /Y ..\..\deps\build\vs\bin\x86\crashsender.exe bin\x86\crashsender.exe
+copy /Y ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>false</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <PreprocessorDefinitions>QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;QT_NO_DEBUG;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <StringPooling>true</StringPooling>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+    <Link>
+      <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SetChecksum>true</SetChecksum>
+    </Link>
+    <PreBuildEvent>
+      <Command>setlocal
+set MOC="../../deps/build/vs/bin/x64/qt-moc.exe"
+set RCC="../../deps/build/vs/bin/x64/qt-rcc.exe"
+set UIC="../../deps/build/vs/bin/x64/qt-uic.exe"
+Studio.cmd
+</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>QT RCC+MOC</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy /Y ..\..\deps\src\crashsender\lang_files\crashrpt_lang_EN.ini bin\x64\crashrpt_lang.ini
+copy /Y ..\..\deps\build\vs\bin\x64\crashsender.exe bin\x64\crashsender.exe
+copy /Y ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,501 @@
+#
+# WINDOWS CLANG MAKEFILE
+#
+
+# target platforms
+TARGET_X86 = i686-pc-windows-msvc
+TARGET_X64 = x86_64-pc-windows-msvc
+
+# flags shared between all
+FLAGS = -D_CRT_SECURE_NO_WARNINGS \
+        -D_CRT_NONSTDC_NO_DEPRECATE \
+        -D_WINSOCK_DEPRECATED_NO_WARNINGS \
+        -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
+        -Wno-deprecated-declarations \
+        -Wno-incompatible-pointer-types \
+        -Wno-ignored-pragma-optimize \
+        -Wno-microsoft-cast
+
+# Architecture flags
+ARCHFLAGS_X86 = -msse -msse2
+ARCHFLAGS_X64 = -msse -msse2
+
+# C Compiler
+CC           = clang-cl
+CFLAGS_X86   = -MT -TC -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CFLAGS_X64   = -MT -TC -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
+
+# C++ Compiler
+CXX          = clang++
+CXXFLAGS_X86 = -MT -TP -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+CXXFLAGS_X64 = -MT -TP -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+
+# File Operations
+define deletefilepattern
+	del /s /q $(subst /,\,$(1))\$(2)
+endef
+
+# Platform Specific additional defines
+LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSL_SYS_WIN32 -DDSO_WIN32 -DWIN32_LEAN_AND_MEAN -DOPENSSLDIR=\".\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSL_SYS_WIN64 -DDSO_WIN32 -DWIN32_LEAN_AND_MEAN -DOPENSSLDIR=\".\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X86_PLAT             = -DOPENSSL_SYS_WIN32 -DDSO_WIN32 -DWIN32_LEAN_AND_MEAN -DOPENSSL_USE_APPLINK -DOPENSSLDIR=\".\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X64_PLAT             = -DOPENSSL_SYS_WIN64 -DDSO_WIN32 -DWIN32_LEAN_AND_MEAN -DOPENSSL_USE_APPLINK -DOPENSSLDIR=\".\" -DENGINESDIR=\".\" 
+FONTCONFIG_DEFINES_X86_PLAT         =
+FONTCONFIG_DEFINES_X64_PLAT         =
+QTBOOTSTRAP_DEFINES_X86_PLAT        =
+QTBOOTSTRAP_DEFINES_X64_PLAT        =
+QTMOC_DEFINES_X86_PLAT              =
+QTMOC_DEFINES_X64_PLAT              =
+QTRCC_DEFINES_X86_PLAT              =
+QTRCC_DEFINES_X64_PLAT              =
+QTUIC_DEFINES_X86_PLAT              =
+QTUIC_DEFINES_X64_PLAT              =
+QTBLUETOOTH_DEFINES_X86_PLAT        =
+QTBLUETOOTH_DEFINES_X64_PLAT        =
+QTCONCURRENT_DEFINES_X86_PLAT       =
+QTCONCURRENT_DEFINES_X64_PLAT       =
+QTCORE_DEFINES_X86_PLAT             =
+QTCORE_DEFINES_X64_PLAT             =
+QTEVENTDISPATCHERS_DEFINES_X86_PLAT =
+QTEVENTDISPATCHERS_DEFINES_X64_PLAT =
+QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_NO_FONTCONFIG
+QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_NO_FONTCONFIG
+QTGAMEPAD_DEFINES_X86_PLAT          =
+QTGAMEPAD_DEFINES_X64_PLAT          =
+QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG
+QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG
+QTMULTIMEDIA_DEFINES_X86_PLAT       =
+QTMULTIMEDIA_DEFINES_X64_PLAT       =
+QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT=
+QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT=
+QTNETWORK_DEFINES_X86_PLAT          = -DOPENSSLDIR=\".\" -DENGINESDIR=\".\" 
+QTNETWORK_DEFINES_X64_PLAT          = -DOPENSSLDIR=\".\" -DENGINESDIR=\".\" 
+QTOPENGL_DEFINES_X86_PLAT           =
+QTOPENGL_DEFINES_X64_PLAT           =
+QTPLATFORMWINDOWS_DEFINES_X86_PLAT  = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG
+QTPLATFORMWINDOWS_DEFINES_X64_PLAT  = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG
+QTPLATFORMXCB_DEFINES_X86_PLAT      = 
+QTPLATFORMXCB_DEFINES_X64_PLAT      = 
+QTPRINTSUPPORT_DEFINES_X86_PLAT     =
+QTPRINTSUPPORT_DEFINES_X64_PLAT     =
+QTSERIALPORT_DEFINES_X86_PLAT       =
+QTSERIALPORT_DEFINES_X64_PLAT       =
+QTWIDGETS_DEFINES_X86_PLAT          =
+QTWIDGETS_DEFINES_X64_PLAT          =
+QTXML_DEFINES_X86_PLAT              =
+QTXML_DEFINES_X64_PLAT              =
+
+# Platform Specific additional includes
+QTBOOTSTRAP_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/win32-clang-msvc
+QTBOOTSTRAP_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/win32-clang-msvc
+QTMOC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTMOC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTRCC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTRCC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTUIC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTUIC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTBLUETOOTH_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/win32-clang-msvc
+QTBLUETOOTH_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/win32-clang-msvc
+QTCONCURRENT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
+QTCONCURRENT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
+QTCORE_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/win32-clang-msvc
+QTCORE_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/win32-clang-msvc
+QTEVENTDISPATCHERS_INCLUDES_X86_PLAT = -I../../include/qt/mkspecs/win32-clang-msvc
+QTEVENTDISPATCHERS_INCLUDES_X64_PLAT = -I../../include/qt/mkspecs/win32-clang-msvc
+QTFONTDATABASES_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/win32-clang-msvc
+QTFONTDATABASES_INCLUDES_X64_PLAT    = -I../../include/qt/mkspecs/win32-clang-msvc
+QTGAMEPAD_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/win32-clang-msvc
+QTGAMEPAD_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/win32-clang-msvc
+QTGUI_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTGUI_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTMULTIMEDIA_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
+QTMULTIMEDIA_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
+QTMULTIMEDIAWIDGETS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/win32-clang-msvc
+QTMULTIMEDIAWIDGETS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/win32-clang-msvc
+QTNETWORK_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/win32-clang-msvc
+QTNETWORK_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/win32-clang-msvc
+QTOPENGL_INCLUDES_X86_PLAT           = -I../../include/qt/mkspecs/win32-clang-msvc
+QTOPENGL_INCLUDES_X64_PLAT           = -I../../include/qt/mkspecs/win32-clang-msvc
+QTPLATFORMWINDOWS_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/win32-clang-msvc
+QTPLATFORMWINDOWS_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/win32-clang-msvc
+QTPLATFORMXCB_INCLUDES_X86_PLAT      = -I../../include/qt/mkspecs/win32-clang-msvc
+QTPLATFORMXCB_INCLUDES_X64_PLAT      = -I../../include/qt/mkspecs/win32-clang-msvc
+QTPRINTSUPPORT_INCLUDES_X86_PLAT     = -I../../include/qt/mkspecs/win32-clang-msvc
+QTPRINTSUPPORT_INCLUDES_X64_PLAT     = -I../../include/qt/mkspecs/win32-clang-msvc
+QTSERIALPORT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
+QTSERIALPORT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
+QTWIDGETS_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/win32-clang-msvc
+QTWIDGETS_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/win32-clang-msvc
+QTXML_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+QTXML_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+
+#####################################################################################
+# Qt MOC+RCC+UIC
+
+MOC_X86 = bin\x86\qt-moc.exe -DQ_OS_WIN
+MOC_X64 = bin\x64\qt-moc.exe -DQ_OS_WIN
+ifneq (,$(findstring x86,$(MAKECMDGOALS)))
+    MOC = $(MOC_X86)
+endif
+ifneq (,$(findstring x64,$(MAKECMDGOALS)))
+    MOC = $(MOC_X64)
+endif
+
+RCC_X86 = bin\x86\qt-rcc.exe
+RCC_X64 = bin\x64\qt-rcc.exe
+ifneq (,$(findstring x86,$(MAKECMDGOALS)))
+    RCC = $(RCC_X86)
+endif
+ifneq (,$(findstring x64,$(MAKECMDGOALS)))
+    RCC = $(RCC_X64)
+endif
+
+UIC_X86 = bin\x86\qt-uic.exe
+UIC_X64 = bin\x64\qt-uic.exe
+ifneq (,$(findstring x86,$(MAKECMDGOALS)))
+    UIC = $(UIC_X86)
+endif
+ifneq (,$(findstring x64,$(MAKECMDGOALS)))
+    UIC = $(UIC_X64)
+endif
+
+#####################################################################################
+# Include Common Makefile
+include Makefile.common
+
+# LIB Tool
+LIB          = llvm-lib
+LIBFLAGS_X86 = /NOLOGO /MACHINE:X86 /LIBPATH:$(LIBDIR_X86)
+LIBFLAGS_X64 = /NOLOGO /MACHINE:X64 /LIBPATH:$(LIBDIR_X64)
+
+# LIB Functions
+define createlib32
+	$(LIB) $(LIBFLAGS_X86) /OUT:"$(LIBDIR_X86)\$(1).lib" $(2)
+endef
+define createlib64
+	$(LIB) $(LIBFLAGS_X64) /OUT:"$(LIBDIR_X64)\$(1).lib" $(2)
+endef
+
+#####################################################################################
+# Linker
+LINK          = lld-link
+LINKFLAGS_X86 = -machine:x86 -subsystem:console
+LINKFLAGS_X64 = -machine:x64 -subsystem:console
+
+# Visual Studio and Windows SDK Folders
+DIRVCTOOLS := $(subst \,/,$(VCToolsInstallDir))
+DIRWINSDK  := $(subst \,/,$(WindowsSdkDir))
+WINSDKVER  := $(subst \,/,$(WindowsSDKVersion))
+
+# Linker Library Path
+LINKPATH_X86 = -libpath:"$(DIRVCTOOLS)lib/x86" \
+               -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)ucrt/x86" \
+               -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)um/x86" \
+               -libpath:"lib/x86"
+LINKPATH_X64 = -libpath:"$(DIRVCTOOLS)lib/x64" \
+               -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)ucrt/x64" \
+               -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)um/x64" \
+               -libpath:"lib/x64"
+
+# Libraries for X86 and X64
+LINKLIBS_ALL = libucrt.lib libvcruntime.lib libcmt.lib libcpmt.lib \
+               legacy_stdio_definitions.lib oldnames.lib legacy_stdio_wide_specifiers.lib \
+               kernel32.lib User32.lib Advapi32.lib Netapi32.lib Ole32.lib Shell32.lib
+
+# Libraries for X86 or X64
+LINKLIBS_X86 = $(LINKLIBS_ALL)
+LINKLIBS_X64 = $(LINKLIBS_ALL)
+
+# Linker Functions
+define createbin32
+	$(LINK) $(2) -out:$(BINDIR_X86)/$(1).exe $(LINKFLAGS_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
+endef
+define createbin64
+	$(LINK) $(2) -out:$(BINDIR_X64)/$(1).exe $(LINKFLAGS_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
+endef
+
+#####################################################################################
+# Platform Specific additional objects and libraries
+#####################################################################################
+
+# Small libraries
+ZLIB_OBJS          = $(ZLIB_OBJS_ALL)
+LIBCRYPTO_OBJS     = $(LIBCRYPTO_OBJS_ALL)
+LIBSSL_OBJS        = $(LIBSSL_OBJS_ALL) \
+                     ms/applink.o
+
+LIBPNG_OBJS        = $(LIBPNG_OBJS_ALL)
+LIBJPEG_OBJS       = $(LIBJPEG_OBJS_ALL)
+PCRE2_OBJS         = $(PCRE2_OBJS_ALL)
+DOUBLECONV_OBJS    = $(DOUBLECONV_OBJS_ALL)
+EDFLIB_OBJS        = $(EDFLIB_OBJS_ALL)
+FONTCONFIG_OBJS    = $(FONTCONFIG_OBJS_ALL)
+FREETYPE_OBJS      = $(FREETYPE_OBJS_ALL)
+HARFBUZZ_OBJS_C    = $(HARFBUZZ_OBJS_ALL_C)
+HARFBUZZ_OBJS_CXX  = $(HARFBUZZ_OBJS_ALL_CXX)
+HARFBUZZNG_OBJS    = $(HARFBUZZNG_OBJS_ALL)
+KISSFFT_OBJS       = $(KISSFFT_OBJS_ALL)
+MINIZIP_OBJS       = $(MINIZIP_OBJS_ALL)
+OSCPACK_OBJS       = $(OSCPACK_OBJS_ALL)
+TINYAES_OBJS       = $(TINYAES_OBJS_ALL)
+TINYOBJLOADER_OBJS = $(TINYOBJLOADER_OBJS_ALL)
+TINYXML_OBJS       = $(TINYXML_OBJS_ALL)
+
+# Qt Bootstrap
+QTBOOTSTRAP_OBJS = $(QTBOOTSTRAP_OBJS_ALL) \
+                   qt-core/global/qoperatingsystemversion_win.o \
+                   qt-core/io/qfilesystemengine_win.o \
+                   qt-core/io/qfilesystemiterator_win.o \
+                   qt-core/io/qfsfileengine_win.o \
+                   qt-core/io/qstandardpaths_win.o \
+                   qt-core/kernel/qcoreapplication_win.o \
+                   qt-core/plugin/qsystemlibrary.o
+
+# Qt Tools
+QTMOC_OBJS     = $(QTMOC_OBJS_ALL)
+QTMOC_LIBS_X86 = zlib.lib qt-bootstrap.lib
+QTMOC_LIBS_X64 = zlib.lib qt-bootstrap.lib
+QTRCC_OBJS     = $(QTRCC_OBJS_ALL)
+QTRCC_LIBS_X86 = zlib.lib qt-bootstrap.lib
+QTRCC_LIBS_X64 = zlib.lib qt-bootstrap.lib
+QTUIC_OBJS     = $(QTUIC_OBJS_ALL)
+QTUIC_LIBS_X86 = zlib.lib qt-bootstrap.lib
+QTUIC_LIBS_X64 = zlib.lib qt-bootstrap.lib
+
+# Qt Libraries
+QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL)
+QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL) \
+                              qlowenergycontroller_winrt.moc
+QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
+                              qbluetoothutils_win.o \
+                              qlowenergycontroller_winrt.o
+QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL)
+QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
+QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
+                              private/qeventdispatcher_win_p.cpp \
+                              private/qfilesystemwatcher_win_p.cpp \
+                              private/qwindowspipereader_p.cpp \
+                              private/qwindowspipewriter_p.cpp \
+                              qwineventnotifier.cpp
+QTCORE_MOCC                 = $(QTCORE_MOCC_ALL) \
+                              io/qfilesystemwatcher_win.moc
+QTCORE_UICH                 = $(QTCORE_UICH_ALL)
+QTCORE_RCCH                 = $(QTCORE_RCCH_ALL)
+QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
+                              codecs/qwindowscodec.o \
+                              global/qoperatingsystemversion_win.o \
+                              io/qfilesystemengine_win.o \
+                              io/qfilesystemiterator_win.o \
+                              io/qfilesystemwatcher_win.o \
+                              io/qfsfileengine_win.o \
+                              io/qlockfile_win.o \
+                              io/qprocess_win.o \
+                              io/qsettings_win.o \
+                              io/qstandardpaths_win.o \
+                              io/qstorageinfo_win.o \
+                              io/qwindowspipereader.o \
+                              io/qwindowspipewriter.o \
+                              kernel/qcoreapplication_win.o \
+                              kernel/qelapsedtimer_win.o \
+                              kernel/qeventdispatcher_win.o \
+                              kernel/qsharedmemory_win.o \
+                              kernel/qsystemsemaphore_win.o \
+                              kernel/qwineventnotifier.o \
+                              plugin/qlibrary_win.o \
+                              plugin/qsystemlibrary.o \
+                              thread/qthread_win.o \
+                              thread/qwaitcondition_win.o \
+                              tools/qcollator_win.o \
+                              tools/qlocale_win.o \
+                              tools/qtimezoneprivate_win.o
+QTCORE_OBJS_MOC             = $(QTCORE_OBJS_MOC_ALL) \
+                              qeventdispatcher_win_p.omoc \
+                              qfilesystemwatcher_win_p.omoc \
+                              qwindowspipereader_p.omoc \
+                              qwindowspipewriter_p.omoc \
+                              qwineventnotifier.omoc
+QTCORE_OBJS_RCC             = $(QTCORE_OBJS_RCC_ALL)
+QTEVENTDISPATCHERS_MOCH     = $(QTEVENTDISPATCHERS_MOCH_ALL) \
+                              private/qwindowsguieventdispatcher_p.cpp
+QTEVENTDISPATCHERS_MOCC     = $(QTEVENTDISPATCHERS_MOCC_ALL)
+QTEVENTDISPATCHERS_UICH     = $(QTEVENTDISPATCHERS_UICH_ALL)
+QTEVENTDISPATCHERS_RCCH     = $(QTEVENTDISPATCHERS_RCCH_ALL)
+QTEVENTDISPATCHERS_OBJS     = $(QTEVENTDISPATCHERS_OBJS_ALL) \
+                              qwindowsguieventdispatcher.o
+QTEVENTDISPATCHERS_OBJS_MOC = $(QTEVENTDISPATCHERS_OBJS_MOC_ALL) \
+                              qwindowsguieventdispatcher_p.omoc
+QTEVENTDISPATCHERS_OBJS_RCC = $(QTEVENTDISPATCHERS_OBJS_RCC_ALL)
+QTFONTDATABASES_MOCH        = $(QTFONTDATABASES_MOCH_ALL)
+QTFONTDATABASES_MOCC        = $(QTFONTDATABASES_MOCC_ALL)
+QTFONTDATABASES_UICH        = $(QTFONTDATABASES_UICH_ALL)
+QTFONTDATABASES_RCCH        = $(QTFONTDATABASES_RCCH_ALL)
+QTFONTDATABASES_OBJS        = $(QTFONTDATABASES_OBJS_ALL) \
+                              windows/qwindowsfontdatabase.o \
+                              windows/qwindowsfontdatabase_ft.o \
+                              windows/qwindowsfontengine.o \
+                              windows/qwindowsfontenginedirectwrite.o \
+                              windows/qwindowsnativeimage.o
+QTFONTDATABASES_OBJS_MOC    = $(QTFONTDATABASES_OBJS_MOC_ALL)
+QTFONTDATABASES_OBJS_RCC    = $(QTFONTDATABASES_OBJS_RCC_ALL)
+QTGAMEPAD_MOCH              = $(QTGAMEPAD_MOCH_ALL)
+QTGAMEPAD_MOCC              = $(QTGAMEPAD_MOCC_ALL)
+QTGAMEPAD_OBJS              = $(QTGAMEPAD_OBJS_ALL)
+QTGAMEPAD_OBJS_MOC          = $(QTGAMEPAD_OBJS_MOC_ALL)
+QTGUI_MOCH                  = $(QTGUI_MOCH_ALL)
+QTGUI_MOCC                  = $(QTGUI_MOCC_ALL)
+QTGUI_UICH                  = $(QTGUI_UICH_ALL)
+QTGUI_RCCH                  = $(QTGUI_RCCH_ALL)
+QTGUI_OBJS                  = $(QTGUI_OBJS_ALL) \
+                              image/qpixmap_win.o
+QTGUI_OBJS_C                = $(QTGUI_OBJS_C_ALL)
+QTGUI_OBJS_MOC              = $(QTGUI_OBJS_MOC_ALL)
+QTGUI_OBJS_RCC              = $(QTGUI_OBJS_RCC_ALL)
+QTMULTIMEDIA_MOCH           = $(QTMULTIMEDIA_MOCH_ALL)
+QTMULTIMEDIA_MOCC           = $(QTMULTIMEDIA_MOCC_ALL)
+QTMULTIMEDIA_UICH           = $(QTMULTIMEDIA_UICH_ALL)
+QTMULTIMEDIA_RCCH           = $(QTMULTIMEDIA_RCCH_ALL)
+QTMULTIMEDIA_OBJS           = $(QTMULTIMEDIA_OBJS_ALL)
+QTMULTIMEDIA_OBJS_MOC       = $(QTMULTIMEDIA_OBJS_MOC_ALL)
+QTMULTIMEDIA_OBJS_RCC       = $(QTMULTIMEDIA_OBJS_RCC_ALL)
+QTMULTIMEDIAWIDGETS_MOCH    = $(QTMULTIMEDIAWIDGETS_MOCH_ALL) 
+QTMULTIMEDIAWIDGETS_MOCC    = $(QTMULTIMEDIAWIDGETS_MOCC_ALL) 
+QTMULTIMEDIAWIDGETS_UICH    = $(QTMULTIMEDIAWIDGETS_UICH_ALL)
+QTMULTIMEDIAWIDGETS_RCCH    = $(QTMULTIMEDIAWIDGETS_RCCH_ALL)
+QTMULTIMEDIAWIDGETS_OBJS    = $(QTMULTIMEDIAWIDGETS_OBJS_ALL) 
+QTMULTIMEDIAWIDGETS_OBJS_MOC= $(QTMULTIMEDIAWIDGETS_OBJS_MOC_ALL)
+QTMULTIMEDIAWIDGETS_OBJS_RCC= $(QTMULTIMEDIAWIDGETS_OBJS_RCC_ALL)
+QTNETWORK_MOCH              = $(QTNETWORK_MOCH_ALL)
+QTNETWORK_MOCC              = $(QTNETWORK_MOCC_ALL)
+QTNETWORK_UICH              = $(QTNETWORK_UICH_ALL)
+QTNETWORK_RCCH              = $(QTNETWORK_RCCH_ALL)
+QTNETWORK_OBJS              = $(QTNETWORK_OBJS_ALL) \
+                              kernel/qdnslookup_win.o \
+                              kernel/qhostinfo_win.o \
+                              kernel/qnetworkinterface_win.o \
+                              kernel/qnetworkproxy_win.o \
+                              socket/qlocalserver_win.o \
+                              socket/qlocalsocket_win.o \
+                              socket/qnativesocketengine_win.o \
+                              ssl/qwindowscarootfetcher.o
+QTNETWORK_OBJS_MOC          = $(QTNETWORK_OBJS_MOC_ALL) \
+                              qwindowscarootfetcher_p.omoc
+QTNETWORK_OBJS_RCC          = $(QTNETWORK_OBJS_RCC_ALL)
+QTOPENGL_OBJS               = $(QTOPENGL_OBJS_ALL)
+QTPLATFORMWINDOWS_MOCH      = $(QTPLATFORMWINDOWS_MOCH_ALL) \
+                              qwindowsgdinativeinterface.cpp \
+                              qwindowsinputcontext.cpp \
+                              qwindowsmenu.cpp \
+                              qwindowsnativeinterface.cpp \
+                              uiautomation/qwindowsuiabaseprovider.cpp \
+                              uiautomation/qwindowsuiamainprovider.cpp \
+                              uiautomation/qwindowsuiaprovidercache.cpp
+QTPLATFORMWINDOWS_MOCC      = $(QTPLATFORMWINDOWS_MOCC_ALL) \
+                              main.moc \
+                              qwindowsdialoghelpers.moc
+QTPLATFORMWINDOWS_UICH      = $(QTPLATFORMWINDOWS_UICH_ALL)
+QTPLATFORMWINDOWS_RCCH      = $(QTPLATFORMWINDOWS_RCCH_ALL) \
+                              cursors.cpp \
+                              openglblacklists.cpp
+QTPLATFORMWINDOWS_OBJS      = $(QTPLATFORMWINDOWS_OBJS_ALL) \
+                              uiautomation/qwindowsuiaaccessibility.o \
+                              uiautomation/qwindowsuiabaseprovider.o \
+                              uiautomation/qwindowsuiagriditemprovider.o \
+                              uiautomation/qwindowsuiagridprovider.o \
+                              uiautomation/qwindowsuiainvokeprovider.o \
+                              uiautomation/qwindowsuiamainprovider.o \
+                              uiautomation/qwindowsuiaprovidercache.o \
+                              uiautomation/qwindowsuiarangevalueprovider.o \
+                              uiautomation/qwindowsuiaselectionitemprovider.o \
+                              uiautomation/qwindowsuiaselectionprovider.o \
+                              uiautomation/qwindowsuiatableitemprovider.o \
+                              uiautomation/qwindowsuiatableprovider.o \
+                              uiautomation/qwindowsuiatextprovider.o \
+                              uiautomation/qwindowsuiatextrangeprovider.o \
+                              uiautomation/qwindowsuiatoggleprovider.o \
+                              uiautomation/qwindowsuiautils.o \
+                              uiautomation/qwindowsuiavalueprovider.o \
+                              uiautomation/qwindowsuiawindowprovider.o \
+                              uiautomation/qwindowsuiawrapper.o \
+                              main.o \
+                              qabstractfileiconengine.o \
+                              qwin10helpers.o \
+                              qwindowsbackingstore.o \
+                              qwindowsclipboard.o \
+                              qwindowscontext.o \
+                              qwindowscursor.o \
+                              qwindowsdialoghelpers.o \
+                              qwindowsdrag.o \
+                              qwindowsdropdataobject.o \
+                              qwindowseglcontext.o \
+                              qwindowsgdiintegration.o \
+                              qwindowsgdinativeinterface.o \
+                              qwindowsglcontext.o \
+                              qwindowsinputcontext.o \
+                              qwindowsintegration.o \
+                              qwindowsinternalmimedata.o \
+                              qwindowskeymapper.o \
+                              qwindowsmenu.o \
+                              qwindowsmime.o \
+                              qwindowsmousehandler.o \
+                              qwindowsnativeinterface.o \
+                              qwindowsole.o \
+                              qwindowsopengltester.o \
+                              qwindowspointerhandler.o \
+                              qwindowsscreen.o \
+                              qwindowsservices.o \
+                              qwindowssessionmanager.o \
+                              qwindowssystemtrayicon.o \
+                              qwindowstabletsupport.o \
+                              qwindowstheme.o \
+                              qwindowswindow.o
+QTPLATFORMWINDOWS_OBJS_MOC  = $(QTPLATFORMWINDOWS_OBJS_MOC_ALL) \
+                              qwindowsgdinativeinterface.omoc \
+                              qwindowsinputcontext.omoc \
+                              qwindowsmenu.omoc \
+                              qwindowsnativeinterface.omoc \
+                              qwindowsuiabaseprovider.omoc \
+                              qwindowsuiamainprovider.omoc \
+                              qwindowsuiaprovidercache.omoc
+QTPLATFORMWINDOWS_OBJS_RCC  = $(QTPLATFORMWINDOWS_OBJS_RCC_ALL) \
+                              cursors.orcc \
+                              openglblacklists.orcc
+QTPLATFORMXCB_MOCH          = $(QTPLATFORMXCB_MOCH_ALL)
+QTPLATFORMXCB_MOCC          = $(QTPLATFORMXCB_MOCC_ALL)
+QTPLATFORMXCB_UICH          = $(QTPLATFORMXCB_UICH_ALL)
+QTPLATFORMXCB_RCCH          = $(QTPLATFORMXCB_RCCH_ALL)
+QTPLATFORMXCB_OBJS          = $(QTPLATFORMXCB_OBJS_ALL)
+QTPLATFORMXCB_OBJS_MOC      = $(QTPLATFORMXCB_OBJS_MOC_ALL)
+QTPLATFORMXCB_OBJS_RCC      = $(QTPLATFORMXCB_OBJS_RCC_ALL)
+QTPRINTSUPPORT_MOCH         = $(QTPRINTSUPPORT_MOCH_ALL)
+QTPRINTSUPPORT_MOCC         = $(QTPRINTSUPPORT_MOCC_ALL)
+QTPRINTSUPPORT_UICH         = $(QTPRINTSUPPORT_UICH_ALL)
+QTPRINTSUPPORT_RCCH         = $(QTPRINTSUPPORT_RCCH_ALL)
+QTPRINTSUPPORT_OBJS         = $(QTPRINTSUPPORT_OBJS_ALL) \
+                              dialogs/qpagesetupdialog_win.o \
+                              dialogs/qprintdialog_win.o \
+                              kernel/qprintengine_win.o
+QTPRINTSUPPORT_OBJS_MOC     = $(QTPRINTSUPPORT_OBJS_MOC_ALL)
+QTPRINTSUPPORT_OBJS_RCC     = $(QTPRINTSUPPORT_OBJS_RCC_ALL)
+QTSERIALPORT_MOCH           = $(QTSERIALPORT_MOCH_ALL) \
+                              private/qwinoverlappedionotifier_p.cpp
+QTSERIALPORT_MOCC           = $(QTSERIALPORT_MOCC_ALL)
+QTSERIALPORT_OBJS           = $(QTSERIALPORT_OBJS_ALL) \
+                              qserialport_win.o \
+                              qserialportinfo_win.o \
+                              qwinoverlappedionotifier.o
+QTSERIALPORT_OBJS_MOC       = $(QTSERIALPORT_OBJS_MOC_ALL)
+QTWIDGETS_MOCH              = $(QTWIDGETS_MOCH_ALL)
+QTWIDGETS_MOCC              = $(QTWIDGETS_MOCC_ALL)
+QTWIDGETS_UICH              = $(QTWIDGETS_UICH_ALL)
+QTWIDGETS_RCCH              = $(QTWIDGETS_RCCH_ALL)
+QTWIDGETS_OBJS              = $(QTWIDGETS_OBJS_ALL) \
+                              dialogs/qwizard.o \
+                              dialogs/qwizard_win.o
+QTWIDGETS_OBJS_MOC          = $(QTWIDGETS_OBJS_MOC_ALL)
+QTWIDGETS_OBJS_RCC          = $(QTWIDGETS_OBJS_RCC_ALL)
+QTXML_OBJS                  = $(QTXML_OBJS_ALL)
+
+#####################################################################################
+# Include Targets
+
+include Makefile.targets

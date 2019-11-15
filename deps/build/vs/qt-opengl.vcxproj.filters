@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gl2paintengineex">
+      <UniqueIdentifier>{431f1584-e97e-4f43-bd43-e71b09b0be5f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-opengl\gl2paintengineex\qgl2pexvertexarray.cpp">
+      <Filter>gl2paintengineex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\gl2paintengineex\qglcustomshaderstage.cpp">
+      <Filter>gl2paintengineex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\gl2paintengineex\qglengineshadermanager.cpp">
+      <Filter>gl2paintengineex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\gl2paintengineex\qglgradientcache.cpp">
+      <Filter>gl2paintengineex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\gl2paintengineex\qpaintengineex_opengl2.cpp">
+      <Filter>gl2paintengineex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\gl2paintengineex\qtextureglyphcache_gl.cpp">
+      <Filter>gl2paintengineex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\qgl.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\qglbuffer.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\qglcolormap.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\qglframebufferobject.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\qglfunctions.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\qglpaintdevice.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\qglpixelbuffer.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\qglshaderprogram.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\qgraphicsshadereffect.cpp" />
+  </ItemGroup>
+</Project>

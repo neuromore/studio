@@ -1,0 +1,1466 @@
+#
+# X86/X64 Makefile Targets for Win/Linux (may be +Mac)
+# Supposed to be included in platform files like Makefile.win
+#
+
+###################################################################################################################
+# ZLIB
+###################################################################################################################
+ZLIB_OBJS_X86 := $(patsubst %,$(ZLIB_OBJDIR_X86)/%,$(ZLIB_OBJS))
+ZLIB_OBJS_X64 := $(patsubst %,$(ZLIB_OBJDIR_X64)/%,$(ZLIB_OBJS))
+
+zlib-x86: $(ZLIB_OBJS_X86)
+	$(call createlib32,zlib,$(ZLIB_OBJS_X86))
+
+zlib-x64: $(ZLIB_OBJS_X64)
+	$(call createlib64,zlib,$(ZLIB_OBJS_X64))
+
+zlib: zlib-x86 zlib-x64
+
+zlib-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),zlib.*)
+	$(call deletefilepattern,$(ZLIB_OBJDIR_X86),*.o)
+
+zlib-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),zlib.*)
+	$(call deletefilepattern,$(ZLIB_OBJDIR_X64),*.o)
+
+zlib-clean: zlib-x86-clean zlib-x64-clean
+###################################################################################################################
+# LIBCRYPTO
+###################################################################################################################
+LIBCRYPTO_OBJS_X86 := $(patsubst %,$(LIBCRYPTO_OBJDIR_X86)/%,$(LIBCRYPTO_OBJS))
+LIBCRYPTO_OBJS_X64 := $(patsubst %,$(LIBCRYPTO_OBJDIR_X64)/%,$(LIBCRYPTO_OBJS))
+
+libcrypto-x86: $(LIBCRYPTO_OBJS_X86)
+	$(call createlib32,libcrypto,$(LIBCRYPTO_OBJS_X86))
+
+libcrypto-x64: $(LIBCRYPTO_OBJS_X64)
+	$(call createlib64,libcrypto,$(LIBCRYPTO_OBJS_X64))
+
+libcrypto: libcrypto-x86 libcrypto-x64
+
+libcrypto-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),libcrypto.*)
+	$(call deletefilepattern,$(LIBCRYPTO_OBJDIR_X86),*.o)
+
+libcrypto-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),libcrypto.*)
+	$(call deletefilepattern,$(LIBCRYPTO_OBJDIR_X64),*.o)
+
+libcrypto-clean: libcrypto-x86-clean libcrypto-x64-clean
+###################################################################################################################
+# LIBSSL
+###################################################################################################################
+LIBSSL_OBJS_X86 := $(patsubst %,$(LIBSSL_OBJDIR_X86)/%,$(LIBSSL_OBJS))
+LIBSSL_OBJS_X64 := $(patsubst %,$(LIBSSL_OBJDIR_X64)/%,$(LIBSSL_OBJS))
+
+libssl-x86: $(LIBSSL_OBJS_X86)
+	$(call createlib32,libssl,$(LIBSSL_OBJS_X86))
+
+libssl-x64: $(LIBSSL_OBJS_X64)
+	$(call createlib64,libssl,$(LIBSSL_OBJS_X64))
+
+libssl: libssl-x86 libssl-x64
+
+libssl-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),libssl.*)
+	$(call deletefilepattern,$(LIBSSL_OBJDIR_X86),*.o)
+
+libssl-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),libssl.*)
+	$(call deletefilepattern,$(LIBSSL_OBJDIR_X64),*.o)
+
+libssl-clean: libssl-x86-clean libssl-x64-clean
+###################################################################################################################
+# LIBPNG
+###################################################################################################################
+LIBPNG_OBJS_X86 := $(patsubst %,$(LIBPNG_OBJDIR_X86)/%,$(LIBPNG_OBJS))
+LIBPNG_OBJS_X64 := $(patsubst %,$(LIBPNG_OBJDIR_X64)/%,$(LIBPNG_OBJS))
+
+libpng-x86: $(LIBPNG_OBJS_X86)
+	$(call createlib32,libpng,$(LIBPNG_OBJS_X86))
+
+libpng-x64: $(LIBPNG_OBJS_X64)
+	$(call createlib64,libpng,$(LIBPNG_OBJS_X64))
+
+libpng: libpng-x86 libpng-x64
+
+libpng-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),libpng.*)
+	$(call deletefilepattern,$(LIBPNG_OBJDIR_X86),*.o)
+
+libpng-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),libpng.*)
+	$(call deletefilepattern,$(LIBPNG_OBJDIR_X64),*.o)
+
+libpng-clean: libpng-x86-clean libpng-x64-clean
+###################################################################################################################
+# LIBJPEG
+###################################################################################################################
+LIBJPEG_OBJS_X86 := $(patsubst %,$(LIBJPEG_OBJDIR_X86)/%,$(LIBJPEG_OBJS))
+LIBJPEG_OBJS_X64 := $(patsubst %,$(LIBJPEG_OBJDIR_X64)/%,$(LIBJPEG_OBJS))
+
+libjpeg-x86: $(LIBJPEG_OBJS_X86)
+	$(call createlib32,libjpeg,$(LIBJPEG_OBJS_X86))
+
+libjpeg-x64: $(LIBJPEG_OBJS_X64)
+	$(call createlib64,libjpeg,$(LIBJPEG_OBJS_X64))
+
+libjpeg: libjpeg-x86 libjpeg-x64
+
+libjpeg-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),libjpeg.*)
+	$(call deletefilepattern,$(LIBJPEG_OBJDIR_X86),*.o)
+
+libjpeg-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),libjpeg.*)
+	$(call deletefilepattern,$(LIBJPEG_OBJDIR_X64),*.o)
+
+libjpeg-clean: libjpeg-x86-clean libjpeg-x64-clean
+###################################################################################################################
+# PCRE2
+###################################################################################################################
+PCRE2_OBJS_X86 := $(patsubst %,$(PCRE2_OBJDIR_X86)/%,$(PCRE2_OBJS))
+PCRE2_OBJS_X64 := $(patsubst %,$(PCRE2_OBJDIR_X64)/%,$(PCRE2_OBJS))
+
+pcre2-x86: $(PCRE2_OBJS_X86)
+	$(call createlib32,pcre2,$(PCRE2_OBJS_X86))
+
+pcre2-x64: $(PCRE2_OBJS_X64)
+	$(call createlib64,pcre2,$(PCRE2_OBJS_X64))
+
+pcre2: pcre2-x86 pcre2-x64
+
+pcre2-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),pcre2.*)
+	$(call deletefilepattern,$(PCRE2_OBJDIR_X86),*.o)
+
+pcre2-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),pcre2.*)
+	$(call deletefilepattern,$(PCRE2_OBJDIR_X64),*.o)
+
+pcre2-clean: pcre2-x86-clean pcre2-x64-clean
+###################################################################################################################
+# DOUBLE-CONVERSION
+###################################################################################################################
+DOUBLECONV_OBJS_X86 := $(patsubst %,$(DOUBLECONV_OBJDIR_X86)/%,$(DOUBLECONV_OBJS))
+DOUBLECONV_OBJS_X64 := $(patsubst %,$(DOUBLECONV_OBJDIR_X64)/%,$(DOUBLECONV_OBJS))
+
+double-conversion-x86: $(DOUBLECONV_OBJS_X86)
+	$(call createlib32,double-conversion,$(DOUBLECONV_OBJS_X86))
+
+double-conversion-x64: $(DOUBLECONV_OBJS_X64)
+	$(call createlib64,double-conversion,$(DOUBLECONV_OBJS_X64))
+
+double-conversion: double-conversion-x86 double-conversion-x64
+
+double-conversion-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),double-conversion.*)
+	$(call deletefilepattern,$(DOUBLECONV_OBJDIR_X86),*.o)
+
+double-conversion-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),double-conversion.*)
+	$(call deletefilepattern,$(DOUBLECONV_OBJDIR_X64),*.o)
+
+double-conversion-clean: double-conversion-x86-clean double-conversion-x64-clean
+###################################################################################################################
+# EDFLIB
+###################################################################################################################
+EDFLIB_OBJS_X86 := $(patsubst %,$(EDFLIB_OBJDIR_X86)/%,$(EDFLIB_OBJS))
+EDFLIB_OBJS_X64 := $(patsubst %,$(EDFLIB_OBJDIR_X64)/%,$(EDFLIB_OBJS))
+
+edflib-x86: $(EDFLIB_OBJS_X86)
+	$(call createlib32,edflib,$(EDFLIB_OBJS_X86))
+
+edflib-x64: $(EDFLIB_OBJS_X64)
+	$(call createlib64,edflib,$(EDFLIB_OBJS_X64))
+
+edflib: edflib-x86 edflib-x64
+
+edflib-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),edflib.*)
+	$(call deletefilepattern,$(EDFLIB_OBJDIR_X86),*.o)
+
+edflib-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),edflib.*)
+	$(call deletefilepattern,$(EDFLIB_OBJDIR_X64),*.o)
+
+edflib-clean: edflib-x86-clean edflib-x64-clean
+###################################################################################################################
+# FONTCONFIG
+###################################################################################################################
+FONTCONFIG_OBJS_X86 := $(patsubst %,$(FONTCONFIG_OBJDIR_X86)/%,$(FONTCONFIG_OBJS))
+FONTCONFIG_OBJS_X64 := $(patsubst %,$(FONTCONFIG_OBJDIR_X64)/%,$(FONTCONFIG_OBJS))
+
+fontconfig-x86: $(FONTCONFIG_OBJS_X86)
+	$(call createlib32,fontconfig,$(FONTCONFIG_OBJS_X86))
+
+fontconfig-x64: $(FONTCONFIG_OBJS_X64)
+	$(call createlib64,fontconfig,$(FONTCONFIG_OBJS_X64))
+
+fontconfig: fontconfig-x86 fontconfig-x64
+
+fontconfig-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),fontconfig.*)
+	$(call deletefilepattern,$(FONTCONFIG_OBJDIR_X86),*.o)
+
+fontconfig-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),fontconfig.*)
+	$(call deletefilepattern,$(FONTCONFIG_OBJDIR_X64),*.o)
+
+fontconfig-clean: fontconfig-x86-clean fontconfig-x64-clean
+###################################################################################################################
+# FREETYPE
+###################################################################################################################
+FREETYPE_OBJS_X86 := $(patsubst %,$(FREETYPE_OBJDIR_X86)/%,$(FREETYPE_OBJS))
+FREETYPE_OBJS_X64 := $(patsubst %,$(FREETYPE_OBJDIR_X64)/%,$(FREETYPE_OBJS))
+
+freetype-x86: $(FREETYPE_OBJS_X86)
+	$(call createlib32,freetype,$(FREETYPE_OBJS_X86))
+
+freetype-x64: $(FREETYPE_OBJS_X64)
+	$(call createlib64,freetype,$(FREETYPE_OBJS_X64))
+
+freetype: freetype-x86 freetype-x64
+
+freetype-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),freetype.*)
+	$(call deletefilepattern,$(FREETYPE_OBJDIR_X86),*.o)
+
+freetype-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),freetype.*)
+	$(call deletefilepattern,$(FREETYPE_OBJDIR_X64),*.o)
+
+freetype-clean: freetype-x86-clean freetype-x64-clean
+###################################################################################################################
+# HARFBUZZ
+###################################################################################################################
+HARFBUZZ_OBJS_C_X86   := $(patsubst %,$(HARFBUZZ_OBJDIR_X86)/%,$(HARFBUZZ_OBJS_C))
+HARFBUZZ_OBJS_C_X64   := $(patsubst %,$(HARFBUZZ_OBJDIR_X64)/%,$(HARFBUZZ_OBJS_C))
+HARFBUZZ_OBJS_CXX_X86 := $(patsubst %,$(HARFBUZZ_OBJDIR_X86)/%,$(HARFBUZZ_OBJS_CXX))
+HARFBUZZ_OBJS_CXX_X64 := $(patsubst %,$(HARFBUZZ_OBJDIR_X64)/%,$(HARFBUZZ_OBJS_CXX))
+
+harfbuzz-x86: $(HARFBUZZ_OBJS_C_X86) $(HARFBUZZ_OBJS_CXX_X86)
+	$(call createlib32,harfbuzz,$(HARFBUZZ_OBJS_C_X86) $(HARFBUZZ_OBJS_CXX_X86))
+
+harfbuzz-x64: $(HARFBUZZ_OBJS_C_X64) $(HARFBUZZ_OBJS_CXX_X64)
+	$(call createlib64,harfbuzz,$(HARFBUZZ_OBJS_C_X64) $(HARFBUZZ_OBJS_CXX_X64))
+
+harfbuzz: harfbuzz-x86 harfbuzz-x64
+
+harfbuzz-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),harfbuzz.*)
+	$(call deletefilepattern,$(HARFBUZZ_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(HARFBUZZ_OBJDIR_X86),*.opp)
+
+harfbuzz-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),harfbuzz.*)
+	$(call deletefilepattern,$(HARFBUZZ_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(HARFBUZZ_OBJDIR_X64),*.opp)
+
+harfbuzz-clean: harfbuzz-x86-clean harfbuzz-x64-clean
+###################################################################################################################
+# HARFBUZZ-NG
+###################################################################################################################
+HARFBUZZNG_OBJS_X86 := $(patsubst %,$(HARFBUZZNG_OBJDIR_X86)/%,$(HARFBUZZNG_OBJS))
+HARFBUZZNG_OBJS_X64 := $(patsubst %,$(HARFBUZZNG_OBJDIR_X64)/%,$(HARFBUZZNG_OBJS))
+
+harfbuzz-ng-x86: $(HARFBUZZNG_OBJS_X86)
+	$(call createlib32,harfbuzz-ng,$(HARFBUZZNG_OBJS_X86))
+
+harfbuzz-ng-x64: $(HARFBUZZNG_OBJS_X64)
+	$(call createlib64,harfbuzz-ng,$(HARFBUZZNG_OBJS_X64))
+
+harfbuzz-ng: harfbuzz-ng-x86 harfbuzz-ng-x64
+
+harfbuzz-ng-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),harfbuzz-ng.*)
+	$(call deletefilepattern,$(HARFBUZZNG_OBJDIR_X86),*.o)
+
+harfbuzz-ng-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),harfbuzz-ng.*)
+	$(call deletefilepattern,$(HARFBUZZNG_OBJDIR_X64),*.o)
+
+harfbuzz-ng-clean: harfbuzz-ng-x86-clean harfbuzz-ng-x64-clean
+###################################################################################################################
+# KISSFFT
+###################################################################################################################
+KISSFFT_OBJS_X86 := $(patsubst %,$(KISSFFT_OBJDIR_X86)/%,$(KISSFFT_OBJS))
+KISSFFT_OBJS_X64 := $(patsubst %,$(KISSFFT_OBJDIR_X64)/%,$(KISSFFT_OBJS))
+
+kissfft-x86: $(KISSFFT_OBJS_X86)
+	$(call createlib32,kissfft,$(KISSFFT_OBJS_X86))
+
+kissfft-x64: $(KISSFFT_OBJS_X64)
+	$(call createlib64,kissfft,$(KISSFFT_OBJS_X64))
+
+kissfft: kissfft-x86 kissfft-x64
+
+kissfft-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),kissfft.*)
+	$(call deletefilepattern,$(KISSFFT_OBJDIR_X86),*.o)
+
+kissfft-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),kissfft.*)
+	$(call deletefilepattern,$(KISSFFT_OBJDIR_X64),*.o)
+
+kissfft-clean: kissfft-x86-clean kissfft-x64-clean
+###################################################################################################################
+# MINIZIP
+###################################################################################################################
+MINIZIP_OBJS_X86 := $(patsubst %,$(MINIZIP_OBJDIR_X86)/%,$(MINIZIP_OBJS))
+MINIZIP_OBJS_X64 := $(patsubst %,$(MINIZIP_OBJDIR_X64)/%,$(MINIZIP_OBJS))
+
+minizip-x86: $(MINIZIP_OBJS_X86)
+	$(call createlib32,minizip,$(MINIZIP_OBJS_X86))
+
+minizip-x64: $(MINIZIP_OBJS_X64)
+	$(call createlib64,minizip,$(MINIZIP_OBJS_X64))
+
+minizip: minizip-x86 minizip-x64
+
+minizip-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),minizip.*)
+	$(call deletefilepattern,$(MINIZIP_OBJDIR_X86),*.o)
+
+minizip-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),minizip.*)
+	$(call deletefilepattern,$(MINIZIP_OBJDIR_X64),*.o)
+
+minizip-clean: minizip-x86-clean minizip-x64-clean
+###################################################################################################################
+# OSCPACK
+###################################################################################################################
+OSCPACK_OBJS_X86 := $(patsubst %,$(OSCPACK_OBJDIR_X86)/%,$(OSCPACK_OBJS))
+OSCPACK_OBJS_X64 := $(patsubst %,$(OSCPACK_OBJDIR_X64)/%,$(OSCPACK_OBJS))
+
+oscpack-x86: $(OSCPACK_OBJS_X86)
+	$(call createlib32,oscpack,$(OSCPACK_OBJS_X86))
+
+oscpack-x64: $(OSCPACK_OBJS_X64)
+	$(call createlib64,oscpack,$(OSCPACK_OBJS_X64))
+
+oscpack: oscpack-x86 oscpack-x64
+
+oscpack-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),oscpack.*)
+	$(call deletefilepattern,$(OSCPACK_OBJDIR_X86),*.o)
+
+oscpack-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),oscpack.*)
+	$(call deletefilepattern,$(OSCPACK_OBJDIR_X64),*.o)
+
+oscpack-clean: oscpack-x86-clean oscpack-x64-clean
+###################################################################################################################
+# TINYAES
+###################################################################################################################
+TINYAES_OBJS_X86 := $(patsubst %,$(TINYAES_OBJDIR_X86)/%,$(TINYAES_OBJS))
+TINYAES_OBJS_X64 := $(patsubst %,$(TINYAES_OBJDIR_X64)/%,$(TINYAES_OBJS))
+
+tinyaes-x86: $(TINYAES_OBJS_X86)
+	$(call createlib32,tinyaes,$(TINYAES_OBJS_X86))
+
+tinyaes-x64: $(TINYAES_OBJS_X64)
+	$(call createlib64,tinyaes,$(TINYAES_OBJS_X64))
+
+tinyaes: tinyaes-x86 tinyaes-x64
+
+tinyaes-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),tinyaes.*)
+	$(call deletefilepattern,$(TINYAES_OBJDIR_X86),*.o)
+
+tinyaes-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),tinyaes.*)
+	$(call deletefilepattern,$(TINYAES_OBJDIR_X64),*.o)
+
+tinyaes-clean: tinyaes-x86-clean tinyaes-x64-clean
+###################################################################################################################
+# TINYOBJLOADER
+###################################################################################################################
+TINYOBJLOADER_OBJS_X86 := $(patsubst %,$(TINYOBJLOADER_OBJDIR_X86)/%,$(TINYOBJLOADER_OBJS))
+TINYOBJLOADER_OBJS_X64 := $(patsubst %,$(TINYOBJLOADER_OBJDIR_X64)/%,$(TINYOBJLOADER_OBJS))
+
+tinyobjloader-x86: $(TINYOBJLOADER_OBJS_X86)
+	$(call createlib32,tinyobjloader,$(TINYOBJLOADER_OBJS_X86))
+
+tinyobjloader-x64: $(TINYOBJLOADER_OBJS_X64)
+	$(call createlib64,tinyobjloader,$(TINYOBJLOADER_OBJS_X64))
+
+tinyobjloader: tinyobjloader-x86 tinyobjloader-x64
+
+tinyobjloader-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),tinyobjloader.*)
+	$(call deletefilepattern,$(TINYOBJLOADER_OBJDIR_X86),*.o)
+
+tinyobjloader-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),tinyobjloader.*)
+	$(call deletefilepattern,$(TINYOBJLOADER_OBJDIR_X64),*.o)
+
+tinyobjloader-clean: tinyobjloader-x86-clean tinyobjloader-x64-clean
+###################################################################################################################
+# TINYXML
+###################################################################################################################
+TINYXML_OBJS_X86 := $(patsubst %,$(TINYXML_OBJDIR_X86)/%,$(TINYXML_OBJS))
+TINYXML_OBJS_X64 := $(patsubst %,$(TINYXML_OBJDIR_X64)/%,$(TINYXML_OBJS))
+
+tinyxml-x86: $(TINYXML_OBJS_X86)
+	$(call createlib32,tinyxml,$(TINYXML_OBJS_X86))
+
+tinyxml-x64: $(TINYXML_OBJS_X64)
+	$(call createlib64,tinyxml,$(TINYXML_OBJS_X64))
+
+tinyxml: tinyxml-x86 tinyxml-x64
+
+tinyxml-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),tinyxml.*)
+	$(call deletefilepattern,$(TINYXML_OBJDIR_X86),*.o)
+
+tinyxml-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),tinyxml.*)
+	$(call deletefilepattern,$(TINYXML_OBJDIR_X64),*.o)
+
+tinyxml-clean: tinyxml-x86-clean tinyxml-x64-clean
+###################################################################################################################
+# QT-BOOTSTRAP
+###################################################################################################################
+QTBOOTSTRAP_OBJS_X86 := $(patsubst %,$(QTBOOTSTRAP_OBJDIR_X86)/%,$(QTBOOTSTRAP_OBJS))
+QTBOOTSTRAP_OBJS_X64 := $(patsubst %,$(QTBOOTSTRAP_OBJDIR_X64)/%,$(QTBOOTSTRAP_OBJS))
+
+qt-bootstrap-x86: $(QTBOOTSTRAP_OBJS_X86)
+	$(call createlib32,qt-bootstrap,$(QTBOOTSTRAP_OBJS_X86))
+
+qt-bootstrap-x64: $(QTBOOTSTRAP_OBJS_X64)
+	$(call createlib64,qt-bootstrap,$(QTBOOTSTRAP_OBJS_X64))
+
+qt-bootstrap: qt-bootstrap-x86 qt-bootstrap-x64
+
+qt-bootstrap-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-bootstrap.*)
+	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X86),*.o)
+
+qt-bootstrap-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-bootstrap.*)
+	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X64),*.o)
+
+qt-bootstrap-clean: qt-bootstrap-x86-clean qt-bootstrap-x64-clean
+###################################################################################################################
+# QT-MOC
+###################################################################################################################
+QTMOC_OBJS_X86 := $(patsubst %,$(QTMOC_OBJDIR_X86)/%,$(QTMOC_OBJS))
+QTMOC_OBJS_X64 := $(patsubst %,$(QTMOC_OBJDIR_X64)/%,$(QTMOC_OBJS))
+
+qt-moc-x86: zlib-x86 qt-bootstrap-x86 $(QTMOC_OBJS_X86)
+	$(call createbin32,qt-moc,$(QTMOC_OBJS_X86),$(QTMOC_LIBS_X86))
+
+qt-moc-x64: zlib-x64 qt-bootstrap-x64 $(QTMOC_OBJS_X64)
+	$(call createbin64,qt-moc,$(QTMOC_OBJS_X64),$(QTMOC_LIBS_X64))
+
+qt-moc: qt-moc-x86 qt-moc-x64
+
+qt-moc-x86-clean:
+	$(call deletefilepattern,$(BINDIR_X86),qt-moc*)
+	$(call deletefilepattern,$(QTMOC_OBJDIR_X86),*.o)
+
+qt-moc-x64-clean:
+	$(call deletefilepattern,$(BINDIR_X64),qt-moc*)
+	$(call deletefilepattern,$(QTMOC_OBJDIR_X64),*.o)
+
+qt-moc-clean: qt-moc-x86-clean qt-moc-x64-clean
+###################################################################################################################
+# QT-RCC
+###################################################################################################################
+QTRCC_OBJS_X86 := $(patsubst %,$(QTRCC_OBJDIR_X86)/%,$(QTRCC_OBJS))
+QTRCC_OBJS_X64 := $(patsubst %,$(QTRCC_OBJDIR_X64)/%,$(QTRCC_OBJS))
+
+qt-rcc-x86: zlib-x86 qt-bootstrap-x86 $(QTRCC_OBJS_X86)
+	$(call createbin32,qt-rcc,$(QTRCC_OBJS_X86),$(QTRCC_LIBS_X86))
+
+qt-rcc-x64: zlib-x64 qt-bootstrap-x64 $(QTRCC_OBJS_X64)
+	$(call createbin64,qt-rcc,$(QTRCC_OBJS_X64),$(QTRCC_LIBS_X64))
+
+qt-rcc: qt-rcc-x86 qt-rcc-x64
+
+qt-rcc-x86-clean:
+	$(call deletefilepattern,$(BINDIR_X86),qt-rcc*)
+	$(call deletefilepattern,$(QTRCC_OBJDIR_X86),*.o)
+
+qt-rcc-x64-clean:
+	$(call deletefilepattern,$(BINDIR_X64),qt-rcc*)
+	$(call deletefilepattern,$(QTRCC_OBJDIR_X64),*.o)
+
+qt-rcc-clean: qt-rcc-x86-clean qt-rcc-x64-clean
+###################################################################################################################
+# QT-UIC
+###################################################################################################################
+QTUIC_OBJS_X86 := $(patsubst %,$(QTUIC_OBJDIR_X86)/%,$(QTUIC_OBJS))
+QTUIC_OBJS_X64 := $(patsubst %,$(QTUIC_OBJDIR_X64)/%,$(QTUIC_OBJS))
+
+qt-uic-x86: zlib-x86 qt-bootstrap-x86 $(QTUIC_OBJS_X86)
+	$(call createbin32,qt-uic,$(QTUIC_OBJS_X86),$(QTUIC_LIBS_X86))
+
+qt-uic-x64: zlib-x64 qt-bootstrap-x64 $(QTUIC_OBJS_X64)
+	$(call createbin64,qt-uic,$(QTUIC_OBJS_X64),$(QTUIC_LIBS_X64))
+
+qt-uic: qt-uic-x86 qt-uic-x64
+
+qt-uic-x86-clean:
+	$(call deletefilepattern,$(BINDIR_X86),qt-uic*)
+	$(call deletefilepattern,$(QTUIC_OBJDIR_X86),*.o)
+
+qt-uic-x64-clean:
+	$(call deletefilepattern,$(BINDIR_X64),qt-uic*)
+	$(call deletefilepattern,$(QTUIC_OBJDIR_X64),*.o)
+
+qt-uic-clean: qt-uic-x86-clean qt-uic-x64-clean
+###################################################################################################################
+# QTBLUETOOTH
+###################################################################################################################
+QTBLUETOOTH_MOCH_X86     := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X86)/%,$(QTBLUETOOTH_MOCH))
+QTBLUETOOTH_MOCH_X64     := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X64)/%,$(QTBLUETOOTH_MOCH))
+QTBLUETOOTH_MOCC_X86     := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X86)/%,$(QTBLUETOOTH_MOCC))
+QTBLUETOOTH_MOCC_X64     := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X64)/%,$(QTBLUETOOTH_MOCC))
+QTBLUETOOTH_OBJS_X86     := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X86)/%,$(QTBLUETOOTH_OBJS))
+QTBLUETOOTH_OBJS_X64     := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X64)/%,$(QTBLUETOOTH_OBJS))
+QTBLUETOOTH_OBJS_MOC_X86 := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X86)/%,$(QTBLUETOOTH_OBJS_MOC))
+QTBLUETOOTH_OBJS_MOC_X64 := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X64)/%,$(QTBLUETOOTH_OBJS_MOC))
+QTBLUETOOTH_PRES_X86     := $(QTBLUETOOTH_MOCH_X86) $(QTBLUETOOTH_MOCC_X86)
+QTBLUETOOTH_PRES_X64     := $(QTBLUETOOTH_MOCH_X64) $(QTBLUETOOTH_MOCC_X64)
+QTBLUETOOTH_OBLS_X86     := $(QTBLUETOOTH_OBJS_X86) $(QTBLUETOOTH_OBJS_MOC_X86)
+QTBLUETOOTH_OBLS_X64     := $(QTBLUETOOTH_OBJS_X64) $(QTBLUETOOTH_OBJS_MOC_X64)
+
+$(QTBLUETOOTH_OBLS_X86) : $(QTBLUETOOTH_PRES_X86)
+$(QTBLUETOOTH_OBLS_X64) : $(QTBLUETOOTH_PRES_X64)
+
+$(QTBLUETOOTH_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTBLUETOOTH_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-bluetooth-x86: $(QTBLUETOOTH_PRES_X86) $(QTBLUETOOTH_OBLS_X86) 
+	$(call createlib32,qt-bluetooth,$(QTBLUETOOTH_OBLS_X86))
+
+qt-bluetooth-x64: $(QTBLUETOOTH_PRES_X64) $(QTBLUETOOTH_OBLS_X64)  
+	$(call createlib64,qt-bluetooth,$(QTBLUETOOTH_OBLS_X64))
+
+qt-bluetooth: qt-bluetooth-x86 qt-bluetooth-x64
+
+qt-bluetooth-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-bluetooth.*)
+	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X86),*.moc)
+
+qt-bluetooth-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-bluetooth.*)
+	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X64),*.moc)
+
+qt-bluetooth-clean: qt-bluetooth-x86-clean qt-bluetooth-x64-clean
+###################################################################################################################
+# QT-CONCURRENT
+###################################################################################################################
+QTCONCURRENT_OBJS_X86 := $(patsubst %,$(QTCONCURRENT_OBJDIR_X86)/%,$(QTCONCURRENT_OBJS))
+QTCONCURRENT_OBJS_X64 := $(patsubst %,$(QTCONCURRENT_OBJDIR_X64)/%,$(QTCONCURRENT_OBJS))
+
+qt-concurrent-x86: $(QTCONCURRENT_OBJS_X86)
+	$(call createlib32,qt-concurrent,$(QTCONCURRENT_OBJS_X86))
+
+qt-concurrent-x64: $(QTCONCURRENT_OBJS_X64)
+	$(call createlib64,qt-concurrent,$(QTCONCURRENT_OBJS_X64))
+
+qt-concurrent: qt-concurrent-x86 qt-concurrent-x64
+
+qt-concurrent-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-concurrent.*)
+	$(call deletefilepattern,$(QTCONCURRENT_OBJDIR_X86),*.o)
+
+qt-concurrent-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-concurrent.*)
+	$(call deletefilepattern,$(QTCONCURRENT_OBJDIR_X64),*.o)
+
+qt-concurrent-clean: qt-concurrent-x86-clean qt-concurrent-x64-clean
+###################################################################################################################
+# QT-CORE
+###################################################################################################################
+QTCORE_MOCH_X86     := $(patsubst %,$(QTCORE_MOCDIR_X86)/%,$(QTCORE_MOCH))
+QTCORE_MOCH_X64     := $(patsubst %,$(QTCORE_MOCDIR_X64)/%,$(QTCORE_MOCH))
+QTCORE_MOCC_X86     := $(patsubst %,$(QTCORE_MOCDIR_X86)/%,$(QTCORE_MOCC))
+QTCORE_MOCC_X64     := $(patsubst %,$(QTCORE_MOCDIR_X64)/%,$(QTCORE_MOCC))
+QTCORE_UICH_X86     := $(patsubst %,$(QTCORE_UICDIR_X86)/%,$(QTCORE_UICH))
+QTCORE_UICH_X64     := $(patsubst %,$(QTCORE_UICDIR_X64)/%,$(QTCORE_UICH))
+QTCORE_RCCH_X86     := $(patsubst %,$(QTCORE_RCCDIR_X86)/%,$(QTCORE_RCCH))
+QTCORE_RCCH_X64     := $(patsubst %,$(QTCORE_RCCDIR_X64)/%,$(QTCORE_RCCH))
+QTCORE_OBJS_X86     := $(patsubst %,$(QTCORE_OBJDIR_X86)/%,$(QTCORE_OBJS))
+QTCORE_OBJS_X64     := $(patsubst %,$(QTCORE_OBJDIR_X64)/%,$(QTCORE_OBJS))
+QTCORE_OBJS_MOC_X86 := $(patsubst %,$(QTCORE_OBJDIR_X86)/%,$(QTCORE_OBJS_MOC))
+QTCORE_OBJS_MOC_X64 := $(patsubst %,$(QTCORE_OBJDIR_X64)/%,$(QTCORE_OBJS_MOC))
+QTCORE_OBJS_RCC_X86 := $(patsubst %,$(QTCORE_OBJDIR_X86)/%,$(QTCORE_OBJS_RCC))
+QTCORE_OBJS_RCC_X64 := $(patsubst %,$(QTCORE_OBJDIR_X64)/%,$(QTCORE_OBJS_RCC))
+QTCORE_PRES_X86     := $(QTCORE_MOCH_X86) $(QTCORE_MOCC_X86) $(QTCORE_UICH_X86) $(QTCORE_RCCH_X86)
+QTCORE_PRES_X64     := $(QTCORE_MOCH_X64) $(QTCORE_MOCC_X64) $(QTCORE_UICH_X64) $(QTCORE_RCCH_X64) 
+QTCORE_OBLS_X86     := $(QTCORE_OBJS_X86) $(QTCORE_OBJS_MOC_X86) $(QTCORE_OBJS_RCC_X86)
+QTCORE_OBLS_X64     := $(QTCORE_OBJS_X64) $(QTCORE_OBJS_MOC_X64) $(QTCORE_OBJS_RCC_X64)
+
+$(QTCORE_OBLS_X86) : $(QTCORE_PRES_X86)
+$(QTCORE_OBLS_X64) : $(QTCORE_PRES_X64)
+
+$(QTCORE_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTCORE_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-core-x86: $(QTCORE_PRES_X86) $(QTCORE_OBLS_X86)
+	$(call createlib32,qt-core,$(QTCORE_OBLS_X86))
+
+qt-core-x64: $(QTCORE_PRES_X64) $(QTCORE_OBLS_X64)
+	$(call createlib64,qt-core,$(QTCORE_OBLS_X64))
+
+qt-core: qt-core-x86 qt-core-x64
+
+qt-core-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-core.*)
+	$(call deletefilepattern,$(QTCORE_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTCORE_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTCORE_OBJDIR_X86),*.orcc)
+	$(call deletefilepattern,$(QTCORE_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTCORE_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(QTCORE_RCCDIR_X86),*.cpp)
+
+qt-core-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-core.*)
+	$(call deletefilepattern,$(QTCORE_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTCORE_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTCORE_OBJDIR_X64),*.orcc)
+	$(call deletefilepattern,$(QTCORE_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTCORE_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(QTCORE_RCCDIR_X64),*.cpp)
+
+qt-core-clean: qt-core-x86-clean qt-core-x64-clean
+###################################################################################################################
+# QT-EVENTDISPATCHERS
+###################################################################################################################
+QTEVENTDISPATCHERS_MOCH_X86     := $(patsubst %,$(QTEVENTDISPATCHERS_MOCDIR_X86)/%,$(QTEVENTDISPATCHERS_MOCH))
+QTEVENTDISPATCHERS_MOCH_X64     := $(patsubst %,$(QTEVENTDISPATCHERS_MOCDIR_X64)/%,$(QTEVENTDISPATCHERS_MOCH))
+QTEVENTDISPATCHERS_MOCC_X86     := $(patsubst %,$(QTEVENTDISPATCHERS_MOCDIR_X86)/%,$(QTEVENTDISPATCHERS_MOCC))
+QTEVENTDISPATCHERS_MOCC_X64     := $(patsubst %,$(QTEVENTDISPATCHERS_MOCDIR_X64)/%,$(QTEVENTDISPATCHERS_MOCC))
+QTEVENTDISPATCHERS_UICH_X86     := $(patsubst %,$(QTEVENTDISPATCHERS_UICDIR_X86)/%,$(QTEVENTDISPATCHERS_UICH))
+QTEVENTDISPATCHERS_UICH_X64     := $(patsubst %,$(QTEVENTDISPATCHERS_UICDIR_X64)/%,$(QTEVENTDISPATCHERS_UICH))
+QTEVENTDISPATCHERS_RCCH_X86     := $(patsubst %,$(QTEVENTDISPATCHERS_RCCDIR_X86)/%,$(QTEVENTDISPATCHERS_RCCH))
+QTEVENTDISPATCHERS_RCCH_X64     := $(patsubst %,$(QTEVENTDISPATCHERS_RCCDIR_X64)/%,$(QTEVENTDISPATCHERS_RCCH))
+QTEVENTDISPATCHERS_OBJS_X86     := $(patsubst %,$(QTEVENTDISPATCHERS_OBJDIR_X86)/%,$(QTEVENTDISPATCHERS_OBJS))
+QTEVENTDISPATCHERS_OBJS_X64     := $(patsubst %,$(QTEVENTDISPATCHERS_OBJDIR_X64)/%,$(QTEVENTDISPATCHERS_OBJS))
+QTEVENTDISPATCHERS_OBJS_MOC_X86 := $(patsubst %,$(QTEVENTDISPATCHERS_OBJDIR_X86)/%,$(QTEVENTDISPATCHERS_OBJS_MOC))
+QTEVENTDISPATCHERS_OBJS_MOC_X64 := $(patsubst %,$(QTEVENTDISPATCHERS_OBJDIR_X64)/%,$(QTEVENTDISPATCHERS_OBJS_MOC))
+QTEVENTDISPATCHERS_OBJS_RCC_X86 := $(patsubst %,$(QTEVENTDISPATCHERS_OBJDIR_X86)/%,$(QTEVENTDISPATCHERS_OBJS_RCC))
+QTEVENTDISPATCHERS_OBJS_RCC_X64 := $(patsubst %,$(QTEVENTDISPATCHERS_OBJDIR_X64)/%,$(QTEVENTDISPATCHERS_OBJS_RCC))
+QTEVENTDISPATCHERS_PRES_X86     := $(QTEVENTDISPATCHERS_MOCH_X86) $(QTEVENTDISPATCHERS_MOCC_X86) $(QTEVENTDISPATCHERS_UICH_X86) $(QTEVENTDISPATCHERS_RCCH_X86)
+QTEVENTDISPATCHERS_PRES_X64     := $(QTEVENTDISPATCHERS_MOCH_X64) $(QTEVENTDISPATCHERS_MOCC_X64) $(QTEVENTDISPATCHERS_UICH_X64) $(QTEVENTDISPATCHERS_RCCH_X64) 
+QTEVENTDISPATCHERS_OBLS_X86     := $(QTEVENTDISPATCHERS_OBJS_X86) $(QTEVENTDISPATCHERS_OBJS_MOC_X86) $(QTEVENTDISPATCHERS_OBJS_RCC_X86)
+QTEVENTDISPATCHERS_OBLS_X64     := $(QTEVENTDISPATCHERS_OBJS_X64) $(QTEVENTDISPATCHERS_OBJS_MOC_X64) $(QTEVENTDISPATCHERS_OBJS_RCC_X64)
+
+$(QTEVENTDISPATCHERS_OBLS_X86) : $(QTEVENTDISPATCHERS_PRES_X86)
+$(QTEVENTDISPATCHERS_OBLS_X64) : $(QTEVENTDISPATCHERS_PRES_X64)
+
+$(QTEVENTDISPATCHERS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTEVENTDISPATCHERS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-eventdispatchers-x86: $(QTEVENTDISPATCHERS_PRES_X86) $(QTEVENTDISPATCHERS_OBLS_X86)
+	$(call createlib32,qt-eventdispatchers,$(QTEVENTDISPATCHERS_OBLS_X86))
+
+qt-eventdispatchers-x64: $(QTEVENTDISPATCHERS_PRES_X64) $(QTEVENTDISPATCHERS_OBLS_X64)
+	$(call createlib64,qt-eventdispatchers,$(QTEVENTDISPATCHERS_OBLS_X64))
+
+qt-eventdispatchers: qt-eventdispatchers-x86 qt-eventdispatchers-x64
+
+qt-eventdispatchers-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-eventdispatchers.*)
+	$(call deletefilepattern,$(QTEVENTDISPATCHERS_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTEVENTDISPATCHERS_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTEVENTDISPATCHERS_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTEVENTDISPATCHERS_MOCDIR_X86),*.moc)
+
+qt-eventdispatchers-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-eventdispatchers.*)
+	$(call deletefilepattern,$(QTEVENTDISPATCHERS_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTEVENTDISPATCHERS_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTEVENTDISPATCHERS_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTEVENTDISPATCHERS_MOCDIR_X64),*.moc)
+
+qt-eventdispatchers-clean: qt-eventdispatchers-x86-clean qt-eventdispatchers-x64-clean
+###################################################################################################################
+# QT-FONTDATABASES
+###################################################################################################################
+QTFONTDATABASES_MOCH_X86     := $(patsubst %,$(QTFONTDATABASES_MOCDIR_X86)/%,$(QTFONTDATABASES_MOCH))
+QTFONTDATABASES_MOCH_X64     := $(patsubst %,$(QTFONTDATABASES_MOCDIR_X64)/%,$(QTFONTDATABASES_MOCH))
+QTFONTDATABASES_MOCC_X86     := $(patsubst %,$(QTFONTDATABASES_MOCDIR_X86)/%,$(QTFONTDATABASES_MOCC))
+QTFONTDATABASES_MOCC_X64     := $(patsubst %,$(QTFONTDATABASES_MOCDIR_X64)/%,$(QTFONTDATABASES_MOCC))
+QTFONTDATABASES_UICH_X86     := $(patsubst %,$(QTFONTDATABASES_UICDIR_X86)/%,$(QTFONTDATABASES_UICH))
+QTFONTDATABASES_UICH_X64     := $(patsubst %,$(QTFONTDATABASES_UICDIR_X64)/%,$(QTFONTDATABASES_UICH))
+QTFONTDATABASES_RCCH_X86     := $(patsubst %,$(QTFONTDATABASES_RCCDIR_X86)/%,$(QTFONTDATABASES_RCCH))
+QTFONTDATABASES_RCCH_X64     := $(patsubst %,$(QTFONTDATABASES_RCCDIR_X64)/%,$(QTFONTDATABASES_RCCH))
+QTFONTDATABASES_OBJS_X86     := $(patsubst %,$(QTFONTDATABASES_OBJDIR_X86)/%,$(QTFONTDATABASES_OBJS))
+QTFONTDATABASES_OBJS_X64     := $(patsubst %,$(QTFONTDATABASES_OBJDIR_X64)/%,$(QTFONTDATABASES_OBJS))
+QTFONTDATABASES_OBJS_MOC_X86 := $(patsubst %,$(QTFONTDATABASES_OBJDIR_X86)/%,$(QTFONTDATABASES_OBJS_MOC))
+QTFONTDATABASES_OBJS_MOC_X64 := $(patsubst %,$(QTFONTDATABASES_OBJDIR_X64)/%,$(QTFONTDATABASES_OBJS_MOC))
+QTFONTDATABASES_OBJS_RCC_X86 := $(patsubst %,$(QTFONTDATABASES_OBJDIR_X86)/%,$(QTFONTDATABASES_OBJS_RCC))
+QTFONTDATABASES_OBJS_RCC_X64 := $(patsubst %,$(QTFONTDATABASES_OBJDIR_X64)/%,$(QTFONTDATABASES_OBJS_RCC))
+QTFONTDATABASES_PRES_X86     := $(QTFONTDATABASES_MOCH_X86) $(QTFONTDATABASES_MOCC_X86) $(QTFONTDATABASES_UICH_X86) $(QTFONTDATABASES_RCCH_X86)
+QTFONTDATABASES_PRES_X64     := $(QTFONTDATABASES_MOCH_X64) $(QTFONTDATABASES_MOCC_X64) $(QTFONTDATABASES_UICH_X64) $(QTFONTDATABASES_RCCH_X64) 
+QTFONTDATABASES_OBLS_X86     := $(QTFONTDATABASES_OBJS_X86) $(QTFONTDATABASES_OBJS_MOC_X86) $(QTFONTDATABASES_OBJS_RCC_X86)
+QTFONTDATABASES_OBLS_X64     := $(QTFONTDATABASES_OBJS_X64) $(QTFONTDATABASES_OBJS_MOC_X64) $(QTFONTDATABASES_OBJS_RCC_X64)
+
+$(QTFONTDATABASES_OBLS_X86) : $(QTFONTDATABASES_PRES_X86)
+$(QTFONTDATABASES_OBLS_X64) : $(QTFONTDATABASES_PRES_X64)
+
+$(QTFONTDATABASES_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTFONTDATABASES_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-fontdatabases-x86: $(QTFONTDATABASES_PRES_X86) $(QTFONTDATABASES_OBLS_X86)
+	$(call createlib32,qt-fontdatabases,$(QTFONTDATABASES_OBLS_X86))
+
+qt-fontdatabases-x64: $(QTFONTDATABASES_PRES_X64) $(QTFONTDATABASES_OBLS_X64)
+	$(call createlib64,qt-fontdatabases,$(QTFONTDATABASES_OBLS_X64))
+
+qt-fontdatabases: qt-fontdatabases-x86 qt-fontdatabases-x64
+
+qt-fontdatabases-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-fontdatabases.*)
+	$(call deletefilepattern,$(QTFONTDATABASES_OBJDIR_X86),*.o)
+
+qt-fontdatabases-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-fontdatabases.*)
+	$(call deletefilepattern,$(QTFONTDATABASES_OBJDIR_X64),*.o)
+
+qt-fontdatabases-clean: qt-fontdatabases-x86-clean qt-fontdatabases-x64-clean
+###################################################################################################################
+# QT-GAMEPAD
+###################################################################################################################
+QTGAMEPAD_MOCH_X86     := $(patsubst %,$(QTGAMEPAD_MOCDIR_X86)/%,$(QTGAMEPAD_MOCH))
+QTGAMEPAD_MOCH_X64     := $(patsubst %,$(QTGAMEPAD_MOCDIR_X64)/%,$(QTGAMEPAD_MOCH))
+QTGAMEPAD_MOCC_X86     := $(patsubst %,$(QTGAMEPAD_MOCDIR_X86)/%,$(QTGAMEPAD_MOCC))
+QTGAMEPAD_MOCC_X64     := $(patsubst %,$(QTGAMEPAD_MOCDIR_X64)/%,$(QTGAMEPAD_MOCC))
+QTGAMEPAD_OBJS_X86     := $(patsubst %,$(QTGAMEPAD_OBJDIR_X86)/%,$(QTGAMEPAD_OBJS))
+QTGAMEPAD_OBJS_X64     := $(patsubst %,$(QTGAMEPAD_OBJDIR_X64)/%,$(QTGAMEPAD_OBJS))
+QTGAMEPAD_OBJS_MOC_X86 := $(patsubst %,$(QTGAMEPAD_OBJDIR_X86)/%,$(QTGAMEPAD_OBJS_MOC))
+QTGAMEPAD_OBJS_MOC_X64 := $(patsubst %,$(QTGAMEPAD_OBJDIR_X64)/%,$(QTGAMEPAD_OBJS_MOC))
+QTGAMEPAD_PRES_X86     := $(QTGAMEPAD_MOCH_X86) $(QTGAMEPAD_MOCC_X86)
+QTGAMEPAD_PRES_X64     := $(QTGAMEPAD_MOCH_X64) $(QTGAMEPAD_MOCC_X64) 
+QTGAMEPAD_OBLS_X86     := $(QTGAMEPAD_OBJS_X86) $(QTGAMEPAD_OBJS_MOC_X86)
+QTGAMEPAD_OBLS_X64     := $(QTGAMEPAD_OBJS_X64) $(QTGAMEPAD_OBJS_MOC_X64)
+
+$(QTGAMEPAD_OBLS_X86) : $(QTGAMEPAD_PRES_X86)
+$(QTGAMEPAD_OBLS_X64) : $(QTGAMEPAD_PRES_X64)
+
+$(QTGAMEPAD_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTGAMEPAD_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-gamepad-x86: $(QTGAMEPAD_PRES_X86) $(QTGAMEPAD_OBLS_X86)
+	$(call createlib32,qt-gamepad,$(QTGAMEPAD_OBLS_X86))
+
+qt-gamepad-x64: $(QTGAMEPAD_PRES_X64) $(QTGAMEPAD_OBLS_X64)
+	$(call createlib64,qt-gamepad,$(QTGAMEPAD_OBLS_X64))
+
+qt-gamepad: qt-gamepad-x86 qt-gamepad-x64
+
+qt-gamepad-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-gamepad.*)
+	$(call deletefilepattern,$(QTGAMEPAD_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTGAMEPAD_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTGAMEPAD_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTGAMEPAD_MOCDIR_X86),*.moc)
+
+qt-gamepad-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-gamepad.*)
+	$(call deletefilepattern,$(QTGAMEPAD_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTGAMEPAD_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTGAMEPAD_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTGAMEPAD_MOCDIR_X64),*.moc)
+
+qt-gamepad-clean: qt-gamepad-x86-clean qt-gamepad-x64-clean
+###################################################################################################################
+# QT-GUI
+###################################################################################################################
+QTGUI_MOCH_X86     := $(patsubst %,$(QTGUI_MOCDIR_X86)/%,$(QTGUI_MOCH))
+QTGUI_MOCH_X64     := $(patsubst %,$(QTGUI_MOCDIR_X64)/%,$(QTGUI_MOCH))
+QTGUI_MOCC_X86     := $(patsubst %,$(QTGUI_MOCDIR_X86)/%,$(QTGUI_MOCC))
+QTGUI_MOCC_X64     := $(patsubst %,$(QTGUI_MOCDIR_X64)/%,$(QTGUI_MOCC))
+QTGUI_UICH_X86     := $(patsubst %,$(QTGUI_UICDIR_X86)/%,$(QTGUI_UICH))
+QTGUI_UICH_X64     := $(patsubst %,$(QTGUI_UICDIR_X64)/%,$(QTGUI_UICH))
+QTGUI_RCCH_X86     := $(patsubst %,$(QTGUI_RCCDIR_X86)/%,$(QTGUI_RCCH))
+QTGUI_RCCH_X64     := $(patsubst %,$(QTGUI_RCCDIR_X64)/%,$(QTGUI_RCCH))
+QTGUI_OBJS_X86     := $(patsubst %,$(QTGUI_OBJDIR_X86)/%,$(QTGUI_OBJS))
+QTGUI_OBJS_X64     := $(patsubst %,$(QTGUI_OBJDIR_X64)/%,$(QTGUI_OBJS))
+QTGUI_OBJS_C_X86   := $(patsubst %,$(QTGUI_OBJDIR_X86)/%,$(QTGUI_OBJS_C))
+QTGUI_OBJS_C_X64   := $(patsubst %,$(QTGUI_OBJDIR_X64)/%,$(QTGUI_OBJS_C))
+QTGUI_OBJS_MOC_X86 := $(patsubst %,$(QTGUI_OBJDIR_X86)/%,$(QTGUI_OBJS_MOC))
+QTGUI_OBJS_MOC_X64 := $(patsubst %,$(QTGUI_OBJDIR_X64)/%,$(QTGUI_OBJS_MOC))
+QTGUI_OBJS_RCC_X86 := $(patsubst %,$(QTGUI_OBJDIR_X86)/%,$(QTGUI_OBJS_RCC))
+QTGUI_OBJS_RCC_X64 := $(patsubst %,$(QTGUI_OBJDIR_X64)/%,$(QTGUI_OBJS_RCC))
+QTGUI_PRES_X86     := $(QTGUI_MOCH_X86) $(QTGUI_MOCC_X86) $(QTGUI_UICH_X86) $(QTGUI_RCCH_X86)
+QTGUI_PRES_X64     := $(QTGUI_MOCH_X64) $(QTGUI_MOCC_X64) $(QTGUI_UICH_X64) $(QTGUI_RCCH_X64) 
+QTGUI_OBLS_X86     := $(QTGUI_OBJS_X86) $(QTGUI_OBJS_C_X86) $(QTGUI_OBJS_MOC_X86) $(QTGUI_OBJS_RCC_X86)
+QTGUI_OBLS_X64     := $(QTGUI_OBJS_X64) $(QTGUI_OBJS_C_X64) $(QTGUI_OBJS_MOC_X64) $(QTGUI_OBJS_RCC_X64)
+
+$(QTGUI_OBLS_X86) : $(QTGUI_PRES_X86)
+$(QTGUI_OBLS_X64) : $(QTGUI_PRES_X64)
+
+$(QTGUI_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTGUI_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-gui-x86: $(QTGUI_PRES_X86) $(QTGUI_OBLS_X86)
+	$(call createlib32,qt-gui,$(QTGUI_OBLS_X86))
+
+qt-gui-x64: $(QTGUI_PRES_X64) $(QTGUI_OBLS_X64)
+	$(call createlib64,qt-gui,$(QTGUI_OBLS_X64))
+
+qt-gui: qt-gui-x86 qt-gui-x64
+
+qt-gui-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-gui.*)
+	$(call deletefilepattern,$(QTGUI_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTGUI_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTGUI_OBJDIR_X86),*.orcc)
+	$(call deletefilepattern,$(QTGUI_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTGUI_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(QTGUI_RCCDIR_X86),*.cpp)
+
+qt-gui-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-gui.*)
+	$(call deletefilepattern,$(QTGUI_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTGUI_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTGUI_OBJDIR_X64),*.orcc)
+	$(call deletefilepattern,$(QTGUI_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTGUI_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(QTGUI_RCCDIR_X64),*.cpp)
+
+qt-gui-clean: qt-gui-x86-clean qt-gui-x64-clean
+###################################################################################################################
+# QT-MULTIMEDIA
+###################################################################################################################
+QTMULTIMEDIA_MOCH_X86     := $(patsubst %,$(QTMULTIMEDIA_MOCDIR_X86)/%,$(QTMULTIMEDIA_MOCH))
+QTMULTIMEDIA_MOCH_X64     := $(patsubst %,$(QTMULTIMEDIA_MOCDIR_X64)/%,$(QTMULTIMEDIA_MOCH))
+QTMULTIMEDIA_MOCC_X86     := $(patsubst %,$(QTMULTIMEDIA_MOCDIR_X86)/%,$(QTMULTIMEDIA_MOCC))
+QTMULTIMEDIA_MOCC_X64     := $(patsubst %,$(QTMULTIMEDIA_MOCDIR_X64)/%,$(QTMULTIMEDIA_MOCC))
+QTMULTIMEDIA_UICH_X86     := $(patsubst %,$(QTMULTIMEDIA_UICDIR_X86)/%,$(QTMULTIMEDIA_UICH))
+QTMULTIMEDIA_UICH_X64     := $(patsubst %,$(QTMULTIMEDIA_UICDIR_X64)/%,$(QTMULTIMEDIA_UICH))
+QTMULTIMEDIA_RCCH_X86     := $(patsubst %,$(QTMULTIMEDIA_RCCDIR_X86)/%,$(QTMULTIMEDIA_RCCH))
+QTMULTIMEDIA_RCCH_X64     := $(patsubst %,$(QTMULTIMEDIA_RCCDIR_X64)/%,$(QTMULTIMEDIA_RCCH))
+QTMULTIMEDIA_OBJS_X86     := $(patsubst %,$(QTMULTIMEDIA_OBJDIR_X86)/%,$(QTMULTIMEDIA_OBJS))
+QTMULTIMEDIA_OBJS_X64     := $(patsubst %,$(QTMULTIMEDIA_OBJDIR_X64)/%,$(QTMULTIMEDIA_OBJS))
+QTMULTIMEDIA_OBJS_MOC_X86 := $(patsubst %,$(QTMULTIMEDIA_OBJDIR_X86)/%,$(QTMULTIMEDIA_OBJS_MOC))
+QTMULTIMEDIA_OBJS_MOC_X64 := $(patsubst %,$(QTMULTIMEDIA_OBJDIR_X64)/%,$(QTMULTIMEDIA_OBJS_MOC))
+QTMULTIMEDIA_OBJS_RCC_X86 := $(patsubst %,$(QTMULTIMEDIA_OBJDIR_X86)/%,$(QTMULTIMEDIA_OBJS_RCC))
+QTMULTIMEDIA_OBJS_RCC_X64 := $(patsubst %,$(QTMULTIMEDIA_OBJDIR_X64)/%,$(QTMULTIMEDIA_OBJS_RCC))
+QTMULTIMEDIA_PRES_X86     := $(QTMULTIMEDIA_MOCH_X86) $(QTMULTIMEDIA_MOCC_X86) $(QTMULTIMEDIA_UICH_X86) $(QTMULTIMEDIA_RCCH_X86)
+QTMULTIMEDIA_PRES_X64     := $(QTMULTIMEDIA_MOCH_X64) $(QTMULTIMEDIA_MOCC_X64) $(QTMULTIMEDIA_UICH_X64) $(QTMULTIMEDIA_RCCH_X64) 
+QTMULTIMEDIA_OBLS_X86     := $(QTMULTIMEDIA_OBJS_X86) $(QTMULTIMEDIA_OBJS_MOC_X86) $(QTMULTIMEDIA_OBJS_RCC_X86)
+QTMULTIMEDIA_OBLS_X64     := $(QTMULTIMEDIA_OBJS_X64) $(QTMULTIMEDIA_OBJS_MOC_X64) $(QTMULTIMEDIA_OBJS_RCC_X64)
+
+$(QTMULTIMEDIA_OBLS_X86) : $(QTMULTIMEDIA_PRES_X86)
+$(QTMULTIMEDIA_OBLS_X64) : $(QTMULTIMEDIA_PRES_X64)
+
+$(QTMULTIMEDIA_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTMULTIMEDIA_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-multimedia-x86: $(QTMULTIMEDIA_PRES_X86) $(QTMULTIMEDIA_OBLS_X86)
+	$(call createlib32,qt-multimedia,$(QTMULTIMEDIA_OBLS_X86))
+
+qt-multimedia-x64: $(QTMULTIMEDIA_PRES_X64) $(QTMULTIMEDIA_OBLS_X64)
+	$(call createlib64,qt-multimedia,$(QTMULTIMEDIA_OBLS_X64))
+
+qt-multimedia: qt-multimedia-x86 qt-multimedia-x64
+
+qt-multimedia-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-multimedia.*)
+	$(call deletefilepattern,$(QTMULTIMEDIA_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTMULTIMEDIA_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTMULTIMEDIA_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTMULTIMEDIA_MOCDIR_X86),*.moc)
+
+qt-multimedia-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-multimedia.*)
+	$(call deletefilepattern,$(QTMULTIMEDIA_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTMULTIMEDIA_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTMULTIMEDIA_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTMULTIMEDIA_MOCDIR_X64),*.moc)
+
+qt-multimedia-clean: qt-multimedia-x86-clean qt-multimedia-x64-clean
+###################################################################################################################
+# QT-MULTIMEDIAWIDGETS
+###################################################################################################################
+QTMULTIMEDIAWIDGETS_MOCH_X86     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_MOCDIR_X86)/%,$(QTMULTIMEDIAWIDGETS_MOCH))
+QTMULTIMEDIAWIDGETS_MOCH_X64     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_MOCDIR_X64)/%,$(QTMULTIMEDIAWIDGETS_MOCH))
+QTMULTIMEDIAWIDGETS_MOCC_X86     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_MOCDIR_X86)/%,$(QTMULTIMEDIAWIDGETS_MOCC))
+QTMULTIMEDIAWIDGETS_MOCC_X64     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_MOCDIR_X64)/%,$(QTMULTIMEDIAWIDGETS_MOCC))
+QTMULTIMEDIAWIDGETS_UICH_X86     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_UICDIR_X86)/%,$(QTMULTIMEDIAWIDGETS_UICH))
+QTMULTIMEDIAWIDGETS_UICH_X64     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_UICDIR_X64)/%,$(QTMULTIMEDIAWIDGETS_UICH))
+QTMULTIMEDIAWIDGETS_RCCH_X86     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_RCCDIR_X86)/%,$(QTMULTIMEDIAWIDGETS_RCCH))
+QTMULTIMEDIAWIDGETS_RCCH_X64     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_RCCDIR_X64)/%,$(QTMULTIMEDIAWIDGETS_RCCH))
+QTMULTIMEDIAWIDGETS_OBJS_X86     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_OBJDIR_X86)/%,$(QTMULTIMEDIAWIDGETS_OBJS))
+QTMULTIMEDIAWIDGETS_OBJS_X64     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_OBJDIR_X64)/%,$(QTMULTIMEDIAWIDGETS_OBJS))
+QTMULTIMEDIAWIDGETS_OBJS_MOC_X86 := $(patsubst %,$(QTMULTIMEDIAWIDGETS_OBJDIR_X86)/%,$(QTMULTIMEDIAWIDGETS_OBJS_MOC))
+QTMULTIMEDIAWIDGETS_OBJS_MOC_X64 := $(patsubst %,$(QTMULTIMEDIAWIDGETS_OBJDIR_X64)/%,$(QTMULTIMEDIAWIDGETS_OBJS_MOC))
+QTMULTIMEDIAWIDGETS_OBJS_RCC_X86 := $(patsubst %,$(QTMULTIMEDIAWIDGETS_OBJDIR_X86)/%,$(QTMULTIMEDIAWIDGETS_OBJS_RCC))
+QTMULTIMEDIAWIDGETS_OBJS_RCC_X64 := $(patsubst %,$(QTMULTIMEDIAWIDGETS_OBJDIR_X64)/%,$(QTMULTIMEDIAWIDGETS_OBJS_RCC))
+QTMULTIMEDIAWIDGETS_PRES_X86     := $(QTMULTIMEDIAWIDGETS_MOCH_X86) $(QTMULTIMEDIAWIDGETS_MOCC_X86) $(QTMULTIMEDIAWIDGETS_UICH_X86) $(QTMULTIMEDIAWIDGETS_RCCH_X86)
+QTMULTIMEDIAWIDGETS_PRES_X64     := $(QTMULTIMEDIAWIDGETS_MOCH_X64) $(QTMULTIMEDIAWIDGETS_MOCC_X64) $(QTMULTIMEDIAWIDGETS_UICH_X64) $(QTMULTIMEDIAWIDGETS_RCCH_X64) 
+QTMULTIMEDIAWIDGETS_OBLS_X86     := $(QTMULTIMEDIAWIDGETS_OBJS_X86) $(QTMULTIMEDIAWIDGETS_OBJS_MOC_X86) $(QTMULTIMEDIAWIDGETS_OBJS_RCC_X86)
+QTMULTIMEDIAWIDGETS_OBLS_X64     := $(QTMULTIMEDIAWIDGETS_OBJS_X64) $(QTMULTIMEDIAWIDGETS_OBJS_MOC_X64) $(QTMULTIMEDIAWIDGETS_OBJS_RCC_X64)
+
+$(QTMULTIMEDIAWIDGETS_OBLS_X86) : $(QTMULTIMEDIAWIDGETS_PRES_X86)
+$(QTMULTIMEDIAWIDGETS_OBLS_X64) : $(QTMULTIMEDIAWIDGETS_PRES_X64)
+
+$(QTMULTIMEDIAWIDGETS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTMULTIMEDIAWIDGETS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-multimediawidgets-x86: $(QTMULTIMEDIAWIDGETS_PRES_X86) $(QTMULTIMEDIAWIDGETS_OBLS_X86)
+	$(call createlib32,qt-multimediawidgets,$(QTMULTIMEDIAWIDGETS_OBLS_X86))
+
+qt-multimediawidgets-x64: $(QTMULTIMEDIAWIDGETS_PRES_X64) $(QTMULTIMEDIAWIDGETS_OBLS_X64)
+	$(call createlib64,qt-multimediawidgets,$(QTMULTIMEDIAWIDGETS_OBLS_X64))
+
+qt-multimediawidgets: qt-multimediawidgets-x86 qt-multimediawidgets-x64
+
+qt-multimediawidgets-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-multimediawidgets.*)
+	$(call deletefilepattern,$(QTMULTIMEDIAWIDGETS_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTMULTIMEDIAWIDGETS_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTMULTIMEDIAWIDGETS_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTMULTIMEDIAWIDGETS_MOCDIR_X86),*.moc)
+
+qt-multimediawidgets-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-multimediawidgets.*)
+	$(call deletefilepattern,$(QTMULTIMEDIAWIDGETS_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTMULTIMEDIAWIDGETS_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTMULTIMEDIAWIDGETS_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTMULTIMEDIAWIDGETS_MOCDIR_X64),*.moc)
+
+qt-multimediawidgets-clean: qt-multimediawidgets-x86-clean qt-multimediawidgets-x64-clean
+###################################################################################################################
+# QT-NETWORK
+###################################################################################################################
+QTNETWORK_MOCH_X86     := $(patsubst %,$(QTNETWORK_MOCDIR_X86)/%,$(QTNETWORK_MOCH))
+QTNETWORK_MOCH_X64     := $(patsubst %,$(QTNETWORK_MOCDIR_X64)/%,$(QTNETWORK_MOCH))
+QTNETWORK_MOCC_X86     := $(patsubst %,$(QTNETWORK_MOCDIR_X86)/%,$(QTNETWORK_MOCC))
+QTNETWORK_MOCC_X64     := $(patsubst %,$(QTNETWORK_MOCDIR_X64)/%,$(QTNETWORK_MOCC))
+QTNETWORK_UICH_X86     := $(patsubst %,$(QTNETWORK_UICDIR_X86)/%,$(QTNETWORK_UICH))
+QTNETWORK_UICH_X64     := $(patsubst %,$(QTNETWORK_UICDIR_X64)/%,$(QTNETWORK_UICH))
+QTNETWORK_RCCH_X86     := $(patsubst %,$(QTNETWORK_RCCDIR_X86)/%,$(QTNETWORK_RCCH))
+QTNETWORK_RCCH_X64     := $(patsubst %,$(QTNETWORK_RCCDIR_X64)/%,$(QTNETWORK_RCCH))
+QTNETWORK_OBJS_X86     := $(patsubst %,$(QTNETWORK_OBJDIR_X86)/%,$(QTNETWORK_OBJS))
+QTNETWORK_OBJS_X64     := $(patsubst %,$(QTNETWORK_OBJDIR_X64)/%,$(QTNETWORK_OBJS))
+QTNETWORK_OBJS_MOC_X86 := $(patsubst %,$(QTNETWORK_OBJDIR_X86)/%,$(QTNETWORK_OBJS_MOC))
+QTNETWORK_OBJS_MOC_X64 := $(patsubst %,$(QTNETWORK_OBJDIR_X64)/%,$(QTNETWORK_OBJS_MOC))
+QTNETWORK_OBJS_RCC_X86 := $(patsubst %,$(QTNETWORK_OBJDIR_X86)/%,$(QTNETWORK_OBJS_RCC))
+QTNETWORK_OBJS_RCC_X64 := $(patsubst %,$(QTNETWORK_OBJDIR_X64)/%,$(QTNETWORK_OBJS_RCC))
+QTNETWORK_PRES_X86     := $(QTNETWORK_MOCH_X86) $(QTNETWORK_MOCC_X86) $(QTNETWORK_UICH_X86) $(QTNETWORK_RCCH_X86)
+QTNETWORK_PRES_X64     := $(QTNETWORK_MOCH_X64) $(QTNETWORK_MOCC_X64) $(QTNETWORK_UICH_X64) $(QTNETWORK_RCCH_X64) 
+QTNETWORK_OBLS_X86     := $(QTNETWORK_OBJS_X86) $(QTNETWORK_OBJS_MOC_X86) $(QTNETWORK_OBJS_RCC_X86)
+QTNETWORK_OBLS_X64     := $(QTNETWORK_OBJS_X64) $(QTNETWORK_OBJS_MOC_X64) $(QTNETWORK_OBJS_RCC_X64)
+
+$(QTNETWORK_OBLS_X86) : $(QTNETWORK_PRES_X86)
+$(QTNETWORK_OBLS_X64) : $(QTNETWORK_PRES_X64)
+
+$(QTNETWORK_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTNETWORK_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-network-x86: $(QTNETWORK_PRES_X86) $(QTNETWORK_OBLS_X86)
+	$(call createlib32,qt-network,$(QTNETWORK_OBLS_X86))
+
+qt-network-x64: $(QTNETWORK_PRES_X64) $(QTNETWORK_OBLS_X64)
+	$(call createlib64,qt-network,$(QTNETWORK_OBLS_X64))
+
+qt-network: qt-network-x86 qt-network-x64
+
+qt-network-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-network.*)
+	$(call deletefilepattern,$(QTNETWORK_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTNETWORK_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTNETWORK_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTNETWORK_MOCDIR_X86),*.moc)
+
+qt-network-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-network.*)
+	$(call deletefilepattern,$(QTNETWORK_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTNETWORK_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTNETWORK_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTNETWORK_MOCDIR_X64),*.moc)
+
+qt-network-clean: qt-network-x86-clean qt-network-x64-clean
+###################################################################################################################
+# QT-OPENGL
+###################################################################################################################
+QTOPENGL_OBJS_X86 := $(patsubst %,$(QTOPENGL_OBJDIR_X86)/%,$(QTOPENGL_OBJS))
+QTOPENGL_OBJS_X64 := $(patsubst %,$(QTOPENGL_OBJDIR_X64)/%,$(QTOPENGL_OBJS))
+
+qt-opengl-x86: $(QTOPENGL_OBJS_X86)
+	$(call createlib32,qt-opengl,$(QTOPENGL_OBJS_X86))
+
+qt-opengl-x64: $(QTOPENGL_OBJS_X64)
+	$(call createlib64,qt-opengl,$(QTOPENGL_OBJS_X64))
+
+qt-opengl: qt-opengl-x86 qt-opengl-x64
+
+qt-opengl-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-opengl.*)
+	$(call deletefilepattern,$(QTOPENGL_OBJDIR_X86),*.o)
+
+qt-opengl-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-opengl.*)
+	$(call deletefilepattern,$(QTOPENGL_OBJDIR_X64),*.o)
+
+qt-opengl-clean: qt-opengl-x86-clean qt-opengl-x64-clean
+###################################################################################################################
+# QT-PLATFORM-WINDOWS
+###################################################################################################################
+QTPLATFORMWINDOWS_MOCH_X86     := $(patsubst %,$(QTPLATFORMWINDOWS_MOCDIR_X86)/%,$(QTPLATFORMWINDOWS_MOCH))
+QTPLATFORMWINDOWS_MOCH_X64     := $(patsubst %,$(QTPLATFORMWINDOWS_MOCDIR_X64)/%,$(QTPLATFORMWINDOWS_MOCH))
+QTPLATFORMWINDOWS_MOCC_X86     := $(patsubst %,$(QTPLATFORMWINDOWS_MOCDIR_X86)/%,$(QTPLATFORMWINDOWS_MOCC))
+QTPLATFORMWINDOWS_MOCC_X64     := $(patsubst %,$(QTPLATFORMWINDOWS_MOCDIR_X64)/%,$(QTPLATFORMWINDOWS_MOCC))
+QTPLATFORMWINDOWS_UICH_X86     := $(patsubst %,$(QTPLATFORMWINDOWS_UICDIR_X86)/%,$(QTPLATFORMWINDOWS_UICH))
+QTPLATFORMWINDOWS_UICH_X64     := $(patsubst %,$(QTPLATFORMWINDOWS_UICDIR_X64)/%,$(QTPLATFORMWINDOWS_UICH))
+QTPLATFORMWINDOWS_RCCH_X86     := $(patsubst %,$(QTPLATFORMWINDOWS_RCCDIR_X86)/%,$(QTPLATFORMWINDOWS_RCCH))
+QTPLATFORMWINDOWS_RCCH_X64     := $(patsubst %,$(QTPLATFORMWINDOWS_RCCDIR_X64)/%,$(QTPLATFORMWINDOWS_RCCH))
+QTPLATFORMWINDOWS_OBJS_X86     := $(patsubst %,$(QTPLATFORMWINDOWS_OBJDIR_X86)/%,$(QTPLATFORMWINDOWS_OBJS))
+QTPLATFORMWINDOWS_OBJS_X64     := $(patsubst %,$(QTPLATFORMWINDOWS_OBJDIR_X64)/%,$(QTPLATFORMWINDOWS_OBJS))
+QTPLATFORMWINDOWS_OBJS_MOC_X86 := $(patsubst %,$(QTPLATFORMWINDOWS_OBJDIR_X86)/%,$(QTPLATFORMWINDOWS_OBJS_MOC))
+QTPLATFORMWINDOWS_OBJS_MOC_X64 := $(patsubst %,$(QTPLATFORMWINDOWS_OBJDIR_X64)/%,$(QTPLATFORMWINDOWS_OBJS_MOC))
+QTPLATFORMWINDOWS_OBJS_RCC_X86 := $(patsubst %,$(QTPLATFORMWINDOWS_OBJDIR_X86)/%,$(QTPLATFORMWINDOWS_OBJS_RCC))
+QTPLATFORMWINDOWS_OBJS_RCC_X64 := $(patsubst %,$(QTPLATFORMWINDOWS_OBJDIR_X64)/%,$(QTPLATFORMWINDOWS_OBJS_RCC))
+QTPLATFORMWINDOWS_PRES_X86     := $(QTPLATFORMWINDOWS_MOCH_X86) $(QTPLATFORMWINDOWS_MOCC_X86) $(QTPLATFORMWINDOWS_UICH_X86) $(QTPLATFORMWINDOWS_RCCH_X86)
+QTPLATFORMWINDOWS_PRES_X64     := $(QTPLATFORMWINDOWS_MOCH_X64) $(QTPLATFORMWINDOWS_MOCC_X64) $(QTPLATFORMWINDOWS_UICH_X64) $(QTPLATFORMWINDOWS_RCCH_X64) 
+QTPLATFORMWINDOWS_OBLS_X86     := $(QTPLATFORMWINDOWS_OBJS_X86) $(QTPLATFORMWINDOWS_OBJS_MOC_X86) $(QTPLATFORMWINDOWS_OBJS_RCC_X86)
+QTPLATFORMWINDOWS_OBLS_X64     := $(QTPLATFORMWINDOWS_OBJS_X64) $(QTPLATFORMWINDOWS_OBJS_MOC_X64) $(QTPLATFORMWINDOWS_OBJS_RCC_X64)
+
+$(QTPLATFORMWINDOWS_OBLS_X86) : $(QTPLATFORMWINDOWS_PRES_X86)
+$(QTPLATFORMWINDOWS_OBLS_X64) : $(QTPLATFORMWINDOWS_PRES_X64)
+
+$(QTPLATFORMWINDOWS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTPLATFORMWINDOWS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-platform-windows-x86: $(QTPLATFORMWINDOWS_PRES_X86) $(QTPLATFORMWINDOWS_OBLS_X86)
+	$(call createlib32,qt-platform-windows,$(QTPLATFORMWINDOWS_OBLS_X86))
+
+qt-platform-windows-x64: $(QTPLATFORMWINDOWS_PRES_X64) $(QTPLATFORMWINDOWS_OBLS_X64)
+	$(call createlib64,qt-platform-windows,$(QTPLATFORMWINDOWS_OBLS_X64))
+
+qt-platform-windows: qt-platform-windows-x86 qt-platform-windows-x64
+
+qt-platform-windows-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-platform-windows.*)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_OBJDIR_X86),*.orcc)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_RCCDIR_X86),*.cpp)
+
+qt-platform-windows-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-platform-windows.*)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_OBJDIR_X64),*.orcc)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(QTPLATFORMWINDOWS_RCCDIR_X64),*.cpp)
+
+qt-platform-windows-clean: qt-platform-windows-x86-clean qt-platform-windows-x64-clean
+###################################################################################################################
+# QT-PLATFORM-XCB
+###################################################################################################################
+QTPLATFORMXCB_MOCH_X86     := $(patsubst %,$(QTPLATFORMXCB_MOCDIR_X86)/%,$(QTPLATFORMXCB_MOCH))
+QTPLATFORMXCB_MOCH_X64     := $(patsubst %,$(QTPLATFORMXCB_MOCDIR_X64)/%,$(QTPLATFORMXCB_MOCH))
+QTPLATFORMXCB_MOCC_X86     := $(patsubst %,$(QTPLATFORMXCB_MOCDIR_X86)/%,$(QTPLATFORMXCB_MOCC))
+QTPLATFORMXCB_MOCC_X64     := $(patsubst %,$(QTPLATFORMXCB_MOCDIR_X64)/%,$(QTPLATFORMXCB_MOCC))
+QTPLATFORMXCB_UICH_X86     := $(patsubst %,$(QTPLATFORMXCB_UICDIR_X86)/%,$(QTPLATFORMXCB_UICH))
+QTPLATFORMXCB_UICH_X64     := $(patsubst %,$(QTPLATFORMXCB_UICDIR_X64)/%,$(QTPLATFORMXCB_UICH))
+QTPLATFORMXCB_RCCH_X86     := $(patsubst %,$(QTPLATFORMXCB_RCCDIR_X86)/%,$(QTPLATFORMXCB_RCCH))
+QTPLATFORMXCB_RCCH_X64     := $(patsubst %,$(QTPLATFORMXCB_RCCDIR_X64)/%,$(QTPLATFORMXCB_RCCH))
+QTPLATFORMXCB_OBJS_X86     := $(patsubst %,$(QTPLATFORMXCB_OBJDIR_X86)/%,$(QTPLATFORMXCB_OBJS))
+QTPLATFORMXCB_OBJS_X64     := $(patsubst %,$(QTPLATFORMXCB_OBJDIR_X64)/%,$(QTPLATFORMXCB_OBJS))
+QTPLATFORMXCB_OBJS_MOC_X86 := $(patsubst %,$(QTPLATFORMXCB_OBJDIR_X86)/%,$(QTPLATFORMXCB_OBJS_MOC))
+QTPLATFORMXCB_OBJS_MOC_X64 := $(patsubst %,$(QTPLATFORMXCB_OBJDIR_X64)/%,$(QTPLATFORMXCB_OBJS_MOC))
+QTPLATFORMXCB_OBJS_RCC_X86 := $(patsubst %,$(QTPLATFORMXCB_OBJDIR_X86)/%,$(QTPLATFORMXCB_OBJS_RCC))
+QTPLATFORMXCB_OBJS_RCC_X64 := $(patsubst %,$(QTPLATFORMXCB_OBJDIR_X64)/%,$(QTPLATFORMXCB_OBJS_RCC))
+QTPLATFORMXCB_PRES_X86     := $(QTPLATFORMXCB_MOCH_X86) $(QTPLATFORMXCB_MOCC_X86) $(QTPLATFORMXCB_UICH_X86) $(QTPLATFORMXCB_RCCH_X86)
+QTPLATFORMXCB_PRES_X64     := $(QTPLATFORMXCB_MOCH_X64) $(QTPLATFORMXCB_MOCC_X64) $(QTPLATFORMXCB_UICH_X64) $(QTPLATFORMXCB_RCCH_X64) 
+QTPLATFORMXCB_OBLS_X86     := $(QTPLATFORMXCB_OBJS_X86) $(QTPLATFORMXCB_OBJS_MOC_X86) $(QTPLATFORMXCB_OBJS_RCC_X86)
+QTPLATFORMXCB_OBLS_X64     := $(QTPLATFORMXCB_OBJS_X64) $(QTPLATFORMXCB_OBJS_MOC_X64) $(QTPLATFORMXCB_OBJS_RCC_X64)
+
+$(QTPLATFORMXCB_OBLS_X86) : $(QTPLATFORMXCB_PRES_X86)
+$(QTPLATFORMXCB_OBLS_X64) : $(QTPLATFORMXCB_PRES_X64)
+
+$(QTPLATFORMXCB_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTPLATFORMXCB_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-platform-xcb-x86: $(QTPLATFORMXCB_PRES_X86) $(QTPLATFORMXCB_OBLS_X86)
+	$(call createlib32,qt-platform-xcb,$(QTPLATFORMXCB_OBLS_X86))
+
+qt-platform-xcb-x64: $(QTPLATFORMXCB_PRES_X64) $(QTPLATFORMXCB_OBLS_X64)
+	$(call createlib64,qt-platform-xcb,$(QTPLATFORMXCB_OBLS_X64))
+
+qt-platform-xcb: qt-platform-xcb-x86 qt-platform-xcb-x64
+
+qt-platform-xcb-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-platform-xcb.*)
+	$(call deletefilepattern,$(QTPLATFORMXCB_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTPLATFORMXCB_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTPLATFORMXCB_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTPLATFORMXCB_MOCDIR_X86),*.moc)
+
+qt-platform-xcb-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-platform-xcb.*)
+	$(call deletefilepattern,$(QTPLATFORMXCB_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTPLATFORMXCB_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTPLATFORMXCB_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTPLATFORMXCB_MOCDIR_X64),*.moc)
+
+qt-platform-xcb-clean: qt-platform-xcb-x86-clean qt-platform-xcb-x64-clean
+###################################################################################################################
+# QT-PRINTSUPPORT
+###################################################################################################################
+QTPRINTSUPPORT_MOCH_X86     := $(patsubst %,$(QTPRINTSUPPORT_MOCDIR_X86)/%,$(QTPRINTSUPPORT_MOCH))
+QTPRINTSUPPORT_MOCH_X64     := $(patsubst %,$(QTPRINTSUPPORT_MOCDIR_X64)/%,$(QTPRINTSUPPORT_MOCH))
+QTPRINTSUPPORT_MOCC_X86     := $(patsubst %,$(QTPRINTSUPPORT_MOCDIR_X86)/%,$(QTPRINTSUPPORT_MOCC))
+QTPRINTSUPPORT_MOCC_X64     := $(patsubst %,$(QTPRINTSUPPORT_MOCDIR_X64)/%,$(QTPRINTSUPPORT_MOCC))
+QTPRINTSUPPORT_UICH_X86     := $(patsubst %,$(QTPRINTSUPPORT_UICDIR_X86)/%,$(QTPRINTSUPPORT_UICH))
+QTPRINTSUPPORT_UICH_X64     := $(patsubst %,$(QTPRINTSUPPORT_UICDIR_X64)/%,$(QTPRINTSUPPORT_UICH))
+QTPRINTSUPPORT_RCCH_X86     := $(patsubst %,$(QTPRINTSUPPORT_RCCDIR_X86)/%,$(QTPRINTSUPPORT_RCCH))
+QTPRINTSUPPORT_RCCH_X64     := $(patsubst %,$(QTPRINTSUPPORT_RCCDIR_X64)/%,$(QTPRINTSUPPORT_RCCH))
+QTPRINTSUPPORT_OBJS_X86     := $(patsubst %,$(QTPRINTSUPPORT_OBJDIR_X86)/%,$(QTPRINTSUPPORT_OBJS))
+QTPRINTSUPPORT_OBJS_X64     := $(patsubst %,$(QTPRINTSUPPORT_OBJDIR_X64)/%,$(QTPRINTSUPPORT_OBJS))
+QTPRINTSUPPORT_OBJS_MOC_X86 := $(patsubst %,$(QTPRINTSUPPORT_OBJDIR_X86)/%,$(QTPRINTSUPPORT_OBJS_MOC))
+QTPRINTSUPPORT_OBJS_MOC_X64 := $(patsubst %,$(QTPRINTSUPPORT_OBJDIR_X64)/%,$(QTPRINTSUPPORT_OBJS_MOC))
+QTPRINTSUPPORT_OBJS_RCC_X86 := $(patsubst %,$(QTPRINTSUPPORT_OBJDIR_X86)/%,$(QTPRINTSUPPORT_OBJS_RCC))
+QTPRINTSUPPORT_OBJS_RCC_X64 := $(patsubst %,$(QTPRINTSUPPORT_OBJDIR_X64)/%,$(QTPRINTSUPPORT_OBJS_RCC))
+QTPRINTSUPPORT_PRES_X86     := $(QTPRINTSUPPORT_MOCH_X86) $(QTPRINTSUPPORT_MOCC_X86) $(QTPRINTSUPPORT_UICH_X86) $(QTPRINTSUPPORT_RCCH_X86)
+QTPRINTSUPPORT_PRES_X64     := $(QTPRINTSUPPORT_MOCH_X64) $(QTPRINTSUPPORT_MOCC_X64) $(QTPRINTSUPPORT_UICH_X64) $(QTPRINTSUPPORT_RCCH_X64) 
+QTPRINTSUPPORT_OBLS_X86     := $(QTPRINTSUPPORT_OBJS_X86) $(QTPRINTSUPPORT_OBJS_MOC_X86) $(QTPRINTSUPPORT_OBJS_RCC_X86)
+QTPRINTSUPPORT_OBLS_X64     := $(QTPRINTSUPPORT_OBJS_X64) $(QTPRINTSUPPORT_OBJS_MOC_X64) $(QTPRINTSUPPORT_OBJS_RCC_X64)
+
+$(QTPRINTSUPPORT_OBLS_X86) : $(QTPRINTSUPPORT_PRES_X86)
+$(QTPRINTSUPPORT_OBLS_X64) : $(QTPRINTSUPPORT_PRES_X64)
+
+$(QTPRINTSUPPORT_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTPRINTSUPPORT_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-printsupport-x86: $(QTPRINTSUPPORT_PRES_X86) $(QTPRINTSUPPORT_OBLS_X86)
+	$(call createlib32,qt-printsupport,$(QTPRINTSUPPORT_OBLS_X86))
+
+qt-printsupport-x64: $(QTPRINTSUPPORT_PRES_X64) $(QTPRINTSUPPORT_OBLS_X64)
+	$(call createlib64,qt-printsupport,$(QTPRINTSUPPORT_OBLS_X64))
+
+qt-printsupport: qt-printsupport-x86 qt-printsupport-x64
+
+qt-printsupport-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-printsupport.*)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_OBJDIR_X86),*.orcc)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_RCCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_UICDIR_X86),*.h)
+
+qt-printsupport-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-printsupport.*)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_OBJDIR_X64),*.orcc)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_RCCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTPRINTSUPPORT_UICDIR_X64),*.h)
+
+qt-printsupport-clean: qt-printsupport-x86-clean qt-printsupport-x64-clean
+###################################################################################################################
+# QT-SERIALPORT
+###################################################################################################################
+QTSERIALPORT_MOCH_X86     := $(patsubst %,$(QTSERIALPORT_MOCDIR_X86)/%,$(QTSERIALPORT_MOCH))
+QTSERIALPORT_MOCH_X64     := $(patsubst %,$(QTSERIALPORT_MOCDIR_X64)/%,$(QTSERIALPORT_MOCH))
+QTSERIALPORT_MOCC_X86     := $(patsubst %,$(QTSERIALPORT_MOCDIR_X86)/%,$(QTSERIALPORT_MOCC))
+QTSERIALPORT_MOCC_X64     := $(patsubst %,$(QTSERIALPORT_MOCDIR_X64)/%,$(QTSERIALPORT_MOCC))
+QTSERIALPORT_OBJS_X86     := $(patsubst %,$(QTSERIALPORT_OBJDIR_X86)/%,$(QTSERIALPORT_OBJS))
+QTSERIALPORT_OBJS_X64     := $(patsubst %,$(QTSERIALPORT_OBJDIR_X64)/%,$(QTSERIALPORT_OBJS))
+QTSERIALPORT_OBJS_MOC_X86 := $(patsubst %,$(QTSERIALPORT_OBJDIR_X86)/%,$(QTSERIALPORT_OBJS_MOC))
+QTSERIALPORT_OBJS_MOC_X64 := $(patsubst %,$(QTSERIALPORT_OBJDIR_X64)/%,$(QTSERIALPORT_OBJS_MOC))
+QTSERIALPORT_PRES_X86     := $(QTSERIALPORT_MOCH_X86) $(QTSERIALPORT_MOCC_X86)
+QTSERIALPORT_PRES_X64     := $(QTSERIALPORT_MOCH_X64) $(QTSERIALPORT_MOCC_X64)
+QTSERIALPORT_OBLS_X86     := $(QTSERIALPORT_OBJS_X86) $(QTSERIALPORT_OBJS_MOC_X86)
+QTSERIALPORT_OBLS_X64     := $(QTSERIALPORT_OBJS_X64) $(QTSERIALPORT_OBJS_MOC_X64)
+
+$(QTSERIALPORT_OBLS_X86) : $(QTSERIALPORT_PRES_X86)
+$(QTSERIALPORT_OBLS_X64) : $(QTSERIALPORT_PRES_X64)
+
+$(QTSERIALPORT_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTSERIALPORT_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-serialport-x86: $(QTSERIALPORT_PRES_X86) $(QTSERIALPORT_OBLS_X86) 
+	$(call createlib32,qt-serialport,$(QTSERIALPORT_OBLS_X86))
+
+qt-serialport-x64: $(QTSERIALPORT_PRES_X64) $(QTSERIALPORT_OBLS_X64)
+	$(call createlib64,qt-serialport,$(QTSERIALPORT_OBLS_X64))
+
+qt-serialport: qt-serialport-x86 qt-serialport-x64
+
+qt-serialport-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-serialport.*)
+	$(call deletefilepattern,$(QTSERIALPORT_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTSERIALPORT_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTSERIALPORT_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTSERIALPORT_MOCDIR_X86),*.moc)
+
+qt-serialport-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-serialport.*)
+	$(call deletefilepattern,$(QTSERIALPORT_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTSERIALPORT_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTSERIALPORT_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTSERIALPORT_MOCDIR_X64),*.moc)
+
+qt-serialport-clean: qt-serialport-x86-clean qt-serialport-x64-clean
+###################################################################################################################
+# QT-WIDGETS
+###################################################################################################################
+QTWIDGETS_MOCH_X86     := $(patsubst %,$(QTWIDGETS_MOCDIR_X86)/%,$(QTWIDGETS_MOCH))
+QTWIDGETS_MOCH_X64     := $(patsubst %,$(QTWIDGETS_MOCDIR_X64)/%,$(QTWIDGETS_MOCH))
+QTWIDGETS_MOCC_X86     := $(patsubst %,$(QTWIDGETS_MOCDIR_X86)/%,$(QTWIDGETS_MOCC))
+QTWIDGETS_MOCC_X64     := $(patsubst %,$(QTWIDGETS_MOCDIR_X64)/%,$(QTWIDGETS_MOCC))
+QTWIDGETS_UICH_X86     := $(patsubst %,$(QTWIDGETS_UICDIR_X86)/%,$(QTWIDGETS_UICH))
+QTWIDGETS_UICH_X64     := $(patsubst %,$(QTWIDGETS_UICDIR_X64)/%,$(QTWIDGETS_UICH))
+QTWIDGETS_RCCH_X86     := $(patsubst %,$(QTWIDGETS_RCCDIR_X86)/%,$(QTWIDGETS_RCCH))
+QTWIDGETS_RCCH_X64     := $(patsubst %,$(QTWIDGETS_RCCDIR_X64)/%,$(QTWIDGETS_RCCH))
+QTWIDGETS_OBJS_X86     := $(patsubst %,$(QTWIDGETS_OBJDIR_X86)/%,$(QTWIDGETS_OBJS))
+QTWIDGETS_OBJS_X64     := $(patsubst %,$(QTWIDGETS_OBJDIR_X64)/%,$(QTWIDGETS_OBJS))
+QTWIDGETS_OBJS_MOC_X86 := $(patsubst %,$(QTWIDGETS_OBJDIR_X86)/%,$(QTWIDGETS_OBJS_MOC))
+QTWIDGETS_OBJS_MOC_X64 := $(patsubst %,$(QTWIDGETS_OBJDIR_X64)/%,$(QTWIDGETS_OBJS_MOC))
+QTWIDGETS_OBJS_RCC_X86 := $(patsubst %,$(QTWIDGETS_OBJDIR_X86)/%,$(QTWIDGETS_OBJS_RCC))
+QTWIDGETS_OBJS_RCC_X64 := $(patsubst %,$(QTWIDGETS_OBJDIR_X64)/%,$(QTWIDGETS_OBJS_RCC))
+QTWIDGETS_PRES_X86     := $(QTWIDGETS_MOCH_X86) $(QTWIDGETS_MOCC_X86) $(QTWIDGETS_UICH_X86) $(QTWIDGETS_RCCH_X86)
+QTWIDGETS_PRES_X64     := $(QTWIDGETS_MOCH_X64) $(QTWIDGETS_MOCC_X64) $(QTWIDGETS_UICH_X64) $(QTWIDGETS_RCCH_X64) 
+QTWIDGETS_OBLS_X86     := $(QTWIDGETS_OBJS_X86) $(QTWIDGETS_OBJS_MOC_X86) $(QTWIDGETS_OBJS_RCC_X86)
+QTWIDGETS_OBLS_X64     := $(QTWIDGETS_OBJS_X64) $(QTWIDGETS_OBJS_MOC_X64) $(QTWIDGETS_OBJS_RCC_X64)
+
+$(QTWIDGETS_OBLS_X86) : $(QTWIDGETS_PRES_X86)
+$(QTWIDGETS_OBLS_X64) : $(QTWIDGETS_PRES_X64)
+
+$(QTWIDGETS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTWIDGETS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-widgets-x86: $(QTWIDGETS_PRES_X86) $(QTWIDGETS_OBLS_X86)
+	$(call createlib32,qt-widgets,$(QTWIDGETS_OBLS_X86))
+
+qt-widgets-x64: $(QTWIDGETS_PRES_X64) $(QTWIDGETS_OBLS_X64)
+	$(call createlib64,qt-widgets,$(QTWIDGETS_OBLS_X64))
+
+qt-widgets: qt-widgets-x86 qt-widgets-x64
+
+qt-widgets-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-widgets.*)
+	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X86),*.orcc)
+	$(call deletefilepattern,$(QTWIDGETS_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTWIDGETS_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(QTWIDGETS_RCCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTWIDGETS_UICDIR_X86),*.h)
+
+qt-widgets-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-widgets.*)
+	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X64),*.orcc)
+	$(call deletefilepattern,$(QTWIDGETS_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTWIDGETS_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(QTWIDGETS_RCCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTWIDGETS_UICDIR_X64),*.h)
+
+qt-widgets-clean: qt-widgets-x86-clean qt-widgets-x64-clean
+###################################################################################################################
+# QT-XML
+###################################################################################################################
+QTXML_OBJS_X86 := $(patsubst %,$(QTXML_OBJDIR_X86)/%,$(QTXML_OBJS))
+QTXML_OBJS_X64 := $(patsubst %,$(QTXML_OBJDIR_X64)/%,$(QTXML_OBJS))
+
+qt-xml-x86: $(QTXML_OBJS_X86)
+	$(call createlib32,qt-xml,$(QTXML_OBJS_X86))
+
+qt-xml-x64: $(QTXML_OBJS_X64)
+	$(call createlib64,qt-xml,$(QTXML_OBJS_X64))
+
+qt-xml: qt-xml-x86 qt-xml-x64
+
+qt-xml-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-xml.*)
+	$(call deletefilepattern,$(QTXML_OBJDIR_X86),*.o)
+
+qt-xml-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-xml.*)
+	$(call deletefilepattern,$(QTXML_OBJDIR_X64),*.o)
+
+qt-xml-clean: qt-xml-x86-clean qt-xml-x64-clean
+###################################################################################################################
+# ALL
+###################################################################################################################
+all-x86: zlib-x86 \
+         libcrypto-x86 \
+         libssl-x86 \
+         libpng-x86 \
+         libjpeg-x86 \
+         pcre2-x86 \
+         double-conversion-x86 \
+         edflib-x86 \
+         fontconfig-x86 \
+         freetype-x86 \
+         harfbuzz-x86 \
+         harfbuzz-ng-x86 \
+         kissfft-x86 \
+         minizip-x86 \
+         oscpack-x86 \
+         tinyaes-x86 \
+         tinyobjloader-x86 \
+         tinyxml-x86 \
+         qt-bootstrap-x86 \
+         qt-moc-x86 \
+         qt-rcc-x86 \
+         qt-uic-x86 \
+         qt-bluetooth-x86 \
+         qt-concurrent-x86 \
+         qt-core-x86 \
+         qt-eventdispatchers-x86 \
+         qt-fontdatabases-x86 \
+         qt-gamepad-x86 \
+         qt-gui-x86 \
+         qt-multimedia-x86 \
+         qt-multimediawidgets-x86 \
+         qt-network-x86 \
+         qt-opengl-x86 \
+         qt-platform-windows-x86 \
+         qt-platform-xcb-x86 \
+         qt-printsupport-x86 \
+         qt-serialport-x86 \
+         qt-widgets-x86 \
+         qt-xml-x86
+
+all-x64: zlib-x64 \
+         libcrypto-x64 \
+         libssl-x64 \
+         libpng-x64 \
+         libjpeg-x64 \
+         pcre2-x64 \
+         double-conversion-x64 \
+         edflib-x64 \
+         fontconfig-x64 \
+         freetype-x64 \
+         harfbuzz-x64 \
+         harfbuzz-ng-x64 \
+         kissfft-x64 \
+         minizip-x64 \
+         oscpack-x64 \
+         tinyaes-x64 \
+         tinyobjloader-x64 \
+         tinyxml-x64 \
+         qt-bootstrap-x64 \
+         qt-moc-x64 \
+         qt-rcc-x64 \
+         qt-uic-x64 \
+         qt-bluetooth-x64 \
+         qt-concurrent-x64 \
+         qt-core-x64 \
+         qt-eventdispatchers-x64 \
+         qt-fontdatabases-x64 \
+         qt-gamepad-x64 \
+         qt-gui-x64 \
+         qt-multimedia-x64 \
+         qt-multimediawidgets-x64 \
+         qt-network-x64 \
+         qt-opengl-x64 \
+         qt-platform-windows-x64 \
+         qt-platform-xcb-x64 \
+         qt-printsupport-x64 \
+         qt-serialport-x64 \
+         qt-widgets-x64 \
+         qt-xml-x64
+
+all: all-x86 all-x64
+
+clean-x86: zlib-x86-clean \
+           libcrypto-x86-clean \
+           libssl-x86-clean \
+           libpng-x86-clean \
+           libjpeg-x86-clean \
+           pcre2-x86-clean \
+           double-conversion-x86-clean \
+           edflib-x86-clean \
+           fontconfig-x86-clean \
+           freetype-x86-clean \
+           harfbuzz-x86-clean \
+           harfbuzz-ng-x86-clean \
+           kissfft-x86-clean \
+           minizip-x86-clean \
+           oscpack-x86-clean \
+           tinyaes-x86-clean \
+           tinyobjloader-x86-clean \
+           tinyxml-x86-clean \
+           qt-bootstrap-x86-clean \
+           qt-moc-x86-clean \
+           qt-rcc-x86-clean \
+           qt-uic-x86-clean \
+           qt-bluetooth-x86-clean \
+           qt-concurrent-x86-clean \
+           qt-core-x86-clean \
+           qt-eventdispatchers-x86-clean \
+           qt-fontdatabases-x86-clean \
+           qt-gamepad-x86-clean \
+           qt-gui-x86-clean \
+           qt-multimedia-x86-clean \
+           qt-multimediawidgets-x86-clean \
+           qt-network-x86-clean \
+           qt-opengl-x86-clean \
+           qt-platform-windows-x86-clean \
+           qt-platform-xcb-x86-clean \
+           qt-printsupport-x86-clean \
+           qt-serialport-x86-clean \
+           qt-widgets-x86-clean \
+           qt-xml-x86-clean
+
+clean-x64: zlib-x64-clean \
+           libcrypto-x64-clean \
+           libssl-x64-clean \
+           libpng-x64-clean \
+           libjpeg-x64-clean \
+           pcre2-x64-clean \
+           double-conversion-x64-clean \
+           edflib-x64-clean \
+           fontconfig-x64-clean \
+           freetype-x64-clean \
+           harfbuzz-x64-clean \
+           harfbuzz-ng-x64-clean \
+           kissfft-x64-clean \
+           minizip-x64-clean \
+           oscpack-x64-clean \
+           tinyaes-x64-clean \
+           tinyobjloader-x64-clean \
+           tinyxml-x64-clean \
+           qt-bootstrap-x64-clean \
+           qt-moc-x64-clean \
+           qt-rcc-x64-clean \
+           qt-uic-x64-clean \
+           qt-bluetooth-x64-clean \
+           qt-concurrent-x64-clean \
+           qt-core-x64-clean \
+           qt-eventdispatchers-x64-clean \
+           qt-fontdatabases-x64-clean \
+           qt-gamepad-x64-clean \
+           qt-gui-x64-clean \
+           qt-multimedia-x64-clean \
+           qt-multimediawidgets-x64-clean \
+           qt-network-x64-clean \
+           qt-opengl-x64-clean \
+           qt-platform-windows-x64-clean \
+           qt-platform-xcb-x64-clean \
+           qt-printsupport-x64-clean \
+           qt-serialport-x64-clean \
+           qt-widgets-x64-clean \
+           qt-xml-x64-clean
+
+clean: clean-x86 clean-x64

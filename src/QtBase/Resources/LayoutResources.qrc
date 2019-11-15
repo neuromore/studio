@@ -1,0 +1,20 @@
+<RCC>
+  <qresource prefix="/">
+    <file>Layouts/Default.layout</file>
+    <file>Layouts/ClassifierDesigner.layout</file>
+    <file>Layouts/StateMachineDesigner.layout</file>
+    <file>Layouts/ExperienceDesigner.layout</file>
+    <file>Layouts/ExperienceSelection.layout</file>
+    <file>Layouts/ExperiencePlayer.layout</file>
+    <file>Layouts/EEG.layout</file>
+    <file>Layouts/OSX_Default.layout</file>
+    <file>Layouts/OSX_ClassifierDesigner.layout</file>
+    <file>Layouts/OSX_StateMachineDesigner.layout</file>
+    <file>Layouts/OSX_ExperienceDesigner.layout</file>
+    <file>Layouts/OSX_ExperiencePlayer.layout</file>
+    <file>Layouts/OSX_EEG.layout</file>
+    
+    <file>Layouts/Neurofeedback.layout</file>
+    <file>Layouts/NovaTech.layout</file>
+  </qresource>
+</RCC>

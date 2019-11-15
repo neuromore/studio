@@ -1,0 +1,112 @@
+{
+     "versionHigh": 1,
+     "versionLow":  0,
+     "compileDate": "May 17 2016",
+     "mainWindow":
+     {
+          "posX":        228,
+          "posY":        90,
+          "width":       1386,
+          "height":      856,
+          "isMaximized": false,
+          "geometry":    "AdnQywACAAAAAADkAAAAWgAABl0AAAPUAAAA7AAAAHUAAAZVAAADzAAAAAAAAAAAB4A=",
+          "state":       "AAAA/wAAAAD9AAAAAQAAAAIAAAVqAAADQvwBAAAAAvwAAAAAAAABLgAAAJwA/////AIAAAAH+wAAACoAUABMAFUARwBJAE4AMQA3ADQAOQA5ADIAOQA2ADIAMQAxADcANwA1ADUBAAAAFQAAAmcAAAAAAAAAAPsAAAAoAFAATABVAEcASQBOADEAMgA4ADUAOQA5ADkANwA2ADIAMgAwADQAOAAAAAAUAAABRwAAAAAAAAAA/AAAABYAAAJKAAAAcQD////6AAAAAAEAAAAC+wAAAEgAMABjAGIAOABjADAAMwAyAC0AMgBlADQANgAtADQANgBjAGIALQA4ADkAYgA0AC0ANwAzADEAYwA2ADMAMQBhADAANgA5AGQBAAAAAP////8AAABqAP////sAAABIADcAOQAzAGMANwBlADQAMgAtADIAOQBiAGUALQA0ADkAMwAzAC0AYQA2AGEAOQAtAGIAYwA3AGIAMgAyAGUAYgA0AGQAMwAzAQAAAAAAAAFyAAAAAAAAAAD7AAAAKgBQAEwAVQBHAEkATgAxADUANQAzADEAMwAxADIANQA3ADEANgAwADYAOAEAAAJkAAAA9AAAAFwA////+wAAACgAUABMAFUARwBJAE4AMQA4ADAAMgAzADIANAA5ADcANgAyADgAOQA5AAAAAdUAAAFDAAAAAAAAAAD7AAAAKABQAEwAVQBHAEkATgA3ADMAOQAzADMAMAA4ADMANAAxADcAMQAxADgAAAABhgAAAYMAAAAAAAAAAPsAAAAoAFAATABVAEcASQBOADEAOQA2ADAAMQA5ADMAOAA5ADEANgA1ADMAMgAAAAKfAAABZAAAAAAAAAAA/AAAATIAAAQ4AAABRAD////8AQAAAAP8AAABMgAAAxAAAACBAP////wCAAAABfsAAAAoAFAATABVAEcASQBOADIAMwA5ADMAMAA1ADcANAAwADEANwA1ADgAOAAAAAAWAAAAkQAAAAAAAAAA+wAAAEgAZgA3AGUAYgA1AGUAMQAyAC0AOQA4ADEAOAAtADQAYwA2AGYALQBhADEAZQBmAC0AZAAyADgAZgBkAGEAYwAyAGQAYQAzADgBAAAAFgAAAfQAAABkAP////wAAAIOAAABSgAAAGQA/////AEAAAAC+wAAAEgAYwBkAGMAYQBiADIAMwBlAC0ANwA4AGMAOAAtADQAMAA5ADIALQBiAGIAMAA2AC0AYQBmADIAMwBiADcAMwA2AGEANQBlAGYBAAABMgAAAxAAAAB+AP////sAAABIADMAMQA5ADkAMAA5ADUAYgAtADgAMAA0ADYALQA0AGEAZQA4AC0AOAA2AGMAMgAtAGQAMwA2AGQAMAA5AGIAOQBiADMAMQBlAAAAAbgAAAJvAAAAAAAAAAD7AAAAKABQAEwAVQBHAEkATgA0ADEAMAAzADEANAAxADcAMgAxADAANgA1ADcBAAABUAAAAyEAAAAAAAAAAPwAAAFGAAADKwAAAAAA////+gAAAAABAAAABfsAAAAmAFAATABVAEcASQBOADEAOQAxADQANwA3ADYAMwAxADQAMAA4ADgBAAAAAP////8AAAAAAAAAAPsAAAAqAFAATABVAEcASQBOADIAMgA0ADcANwAyADMANQA4ADIAMQAwADQAOAAxAAAAAAD/////AAAAAAAAAAD7AAAAJgBQAEwAVQBHAEkATgAxADAANAAyADIANgAxADcANAA4ADUAOQAwAAAAAAD/////AAAAAAAAAAD7AAAAKgBQAEwAVQBHAEkATgAyADQANwA2ADMAMQAwADgAMQA5ADMAMgAyADQAOAAAAAAA/////wAAAAAAAAAA+wAAACoAUABMAFUARwBJAE4AMwAwADMAMAA1ADMAMgA1ADgAMgAzADIANgA3ADcAAAABnQAABeMAAAAAAAAAAPwAAARGAAABJAAAAL8A/////AIAAAAL+wAAADQARwByAGEAcABoAFAAbAB1AGcAaQBuADoAOgBQAGEAbABlAHQAdABlAFcAaQBkAGcAZQB0AQAAAckAAAB+AAAAAAAAAAD7AAAAOgBHAHIAYQBwAGgAUABsAHUAZwBpAG4AOgA6AEEAdAB0AHIAaQBiAHUAdABlAHMAVwBpAGQAZwBlAHQBAAACSwAAAKUAAAAAAAAAAPsAAAAqAFAATABVAEcASQBOADIAMQA2ADEANgAyADAAMgA0ADcAMQAzADQANAA1AQAAABYAAAGQAAAAdQD////7AAAASABiAGQANQBmADQAMwA2AGYALQBhADEANQBmAC0ANAA5ADQAMQAtAGIAMAA1AGYALQBjADcAMgBiAGQAMwBlAGUAOQAwADIAOQEAAAGqAAABrgAAAFwA////+wAAADYARwByAGEAcABoAFAAbAB1AGcAaQBuADoAOgBSAGUAcwBvAHUAcgBjAGUAVwBpAGQAZwBlAHQBAAADlwAAANoAAAAAAAAAAPsAAAAqAFAATABVAEcASQBOADIAMQA2ADMAMQAzADAANQAxADIAMgA5ADQANAAxAQAAAjkAAAB2AAAAAAAAAAD7AAAAPgBDAGwAYQBzAHMAaQBmAGkAZQByAFAAbAB1AGcAaQBuADoAOgBQAGEAbABlAHQAdABlAFcAaQBkAGcAZQB0AQAAAlQAAACCAAAAAAAAAAD7AAAARABDAGwAYQBzAHMAaQBmAGkAZQByAFAAbAB1AGcAaQBuADoAOgBBAHQAdAByAGkAYgB1AHQAZQBzAFcAaQBkAGcAZQB0AQAAAtoAAADEAAAAAAAAAAD7AAAAQABDAGwAYQBzAHMAaQBmAGkAZQByAFAAbAB1AGcAaQBuADoAOgBSAGUAcwBvAHUAcgBjAGUAVwBpAGQAZwBlAHQBAAADogAAAM8AAAAAAAAAAPsAAAA4AEMAbABhAHMAcwBpAGYAaQBlAHIAUABsAHUAZwBpAG4AOgA6AEEAdAB0AHIAaQBiAHUAdABlAHMBAAABmAAAAUkAAAAAAAAAAPsAAAA2AEMAbABhAHMAcwBpAGYAaQBlAHIAUABsAHUAZwBpAG4AOgA6AFIAZQBzAG8AdQByAGMAZQBzAQAAAuUAAAD2AAAAAAAAAAD7AAAAKABQAEwAVQBHAEkATgAxADcANgAwADEAOQA2ADkAMwAxADcANwAxADkCAAAEnAAAAD0AAAH0AAACQgAABWoAAAAAAAAABAAAAAQAAAAIAAAACPwAAAAA"
+     },
+     "plugins":
+     [
+          {
+               "objectName": "PLUGIN155313125716068",
+               "typeUuid":   "c38f75d4-7eca-11e4-b4a9-0800200c9a66",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "PLUGIN216162024713445",
+               "typeUuid":   "c38f75d1-7eca-11e4-b4a9-0800200c9a66",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "0cb8c032-2e46-46cb-89b4-731c631a069d",
+               "typeUuid":   "c38f75e1-7eca-11e4-b4a9-0800200c9a66",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "bd5f436f-a15f-4941-b05f-c72bd3ee9029",
+               "typeUuid":   "a9f94048-a277-11e5-bf7f-feff819cdc9f",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "f7eb5e12-9818-4c6f-a1ef-d28fdac2da38",
+               "typeUuid":   "30ca8a46-321b-11e5-a151-feff819cdc9f",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    },
+                    {
+                         "internalName": "viewSource",
+                         "value":        0
+                    },
+                    {
+                         "internalName": "timeRange",
+                         "value":        15.0
+                    },
+                    {
+                         "internalName": "scaling",
+                         "value":        3
+                    },
+                    {
+                         "internalName": "rangeMin",
+                         "value":        0.0
+                    },
+                    {
+                         "internalName": "rangeMax",
+                         "value":        1.0
+                    },
+                    {
+                         "internalName": "style",
+                         "value":        4
+                    },
+                    {
+                         "internalName": "showLatencyMarker",
+                         "value":        false
+                    }
+               ]
+          },
+          {
+               "objectName": "cdcab23e-78c8-4092-bb06-af23b736a5ef",
+               "typeUuid":   "1aea9056-26e3-11e5-b345-feff819cdc9f",
+               "attributes":
+               [
+                    {
+                         "internalName": "settingsWindowVisibility",
+                         "value":        false
+                    }
+               ]
+          }
+     ]
+}

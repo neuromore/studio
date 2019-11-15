@@ -1,0 +1,144 @@
+#
+# X86/X64 Makefile Targets for Win/Linux (may be +Mac)
+# Supposed to be included in platform files like Makefile.win
+#
+
+###################################################################################################################
+# ENGINE
+###################################################################################################################
+ENGINE_OBJS_X86 := $(patsubst %,$(ENGINE_OBJDIR_X86)/%,$(ENGINE_OBJS))
+ENGINE_OBJS_X64 := $(patsubst %,$(ENGINE_OBJDIR_X64)/%,$(ENGINE_OBJS))
+
+Engine-x86: $(ENGINE_OBJS_X86)
+	$(call createlib32,Engine,$(ENGINE_OBJS_X86))
+
+Engine-x64: $(ENGINE_OBJS_X64)
+	$(call createlib64,Engine,$(ENGINE_OBJS_X64))
+
+Engine: Engine-x86 Engine-x64
+
+Engine-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),Engine.*)
+	$(call deletefilepattern,$(ENGINE_OBJDIR_X86),*.o)
+
+Engine-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),Engine.*)
+	$(call deletefilepattern,$(ENGINE_OBJDIR_X64),*.o)
+
+Engine-clean: Engine-x86-clean Engine-x64-clean
+###################################################################################################################
+# QTBASE
+###################################################################################################################
+QTBASE_MOCH_X86     := $(patsubst %,$(QTBASE_MOCDIR_X86)/%,$(QTBASE_MOCH))
+QTBASE_MOCH_X64     := $(patsubst %,$(QTBASE_MOCDIR_X64)/%,$(QTBASE_MOCH))
+QTBASE_MOCC_X86     := $(patsubst %,$(QTBASE_MOCDIR_X86)/%,$(QTBASE_MOCC))
+QTBASE_MOCC_X64     := $(patsubst %,$(QTBASE_MOCDIR_X64)/%,$(QTBASE_MOCC))
+QTBASE_UICH_X86     := $(patsubst %,$(QTBASE_UICDIR_X86)/%,$(QTBASE_UICH))
+QTBASE_UICH_X64     := $(patsubst %,$(QTBASE_UICDIR_X64)/%,$(QTBASE_UICH))
+QTBASE_RCCH_X86     := $(patsubst %,$(QTBASE_RCCDIR_X86)/%,$(QTBASE_RCCH))
+QTBASE_RCCH_X64     := $(patsubst %,$(QTBASE_RCCDIR_X64)/%,$(QTBASE_RCCH))
+QTBASE_OBJS_X86     := $(patsubst %,$(QTBASE_OBJDIR_X86)/%,$(QTBASE_OBJS))
+QTBASE_OBJS_X64     := $(patsubst %,$(QTBASE_OBJDIR_X64)/%,$(QTBASE_OBJS))
+QTBASE_OBJS_MOC_X86 := $(patsubst %,$(QTBASE_OBJDIR_X86)/%,$(QTBASE_OBJS_MOC))
+QTBASE_OBJS_MOC_X64 := $(patsubst %,$(QTBASE_OBJDIR_X64)/%,$(QTBASE_OBJS_MOC))
+QTBASE_OBJS_RCC_X86 := $(patsubst %,$(QTBASE_OBJDIR_X86)/%,$(QTBASE_OBJS_RCC))
+QTBASE_OBJS_RCC_X64 := $(patsubst %,$(QTBASE_OBJDIR_X64)/%,$(QTBASE_OBJS_RCC))
+QTBASE_PRES_X86     := $(QTBASE_MOCH_X86) $(QTBASE_MOCC_X86) $(QTBASE_UICH_X86) $(QTBASE_RCCH_X86)
+QTBASE_PRES_X64     := $(QTBASE_MOCH_X64) $(QTBASE_MOCC_X64) $(QTBASE_UICH_X64) $(QTBASE_RCCH_X64) 
+QTBASE_OBLS_X86     := $(QTBASE_OBJS_X86) $(QTBASE_OBJS_MOC_X86) $(QTBASE_OBJS_RCC_X86)
+QTBASE_OBLS_X64     := $(QTBASE_OBJS_X64) $(QTBASE_OBJS_MOC_X64) $(QTBASE_OBJS_RCC_X64)
+
+$(QTBASE_OBLS_X86) : $(QTBASE_PRES_X86)
+$(QTBASE_OBLS_X64) : $(QTBASE_PRES_X64)
+
+QtBase-x86: $(QTBASE_PRES_X86) $(QTBASE_OBLS_X86)
+	$(call createlib32,QtBase,$(QTBASE_OBLS_X86))
+
+QtBase-x64: $(QTBASE_PRES_X64) $(QTBASE_OBLS_X64) 
+	$(call createlib64,QtBase,$(QTBASE_OBLS_X64))
+
+QtBase: QtBase-x86 QtBase-x64
+
+QtBase-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),QtBase.*)
+	$(call deletefilepattern,$(QTBASE_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTBASE_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTBASE_OBJDIR_X86),*.orcc)
+	$(call deletefilepattern,$(QTBASE_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTBASE_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(QTBASE_RCCDIR_X86),*.cpp)
+
+QtBase-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),QtBase.*)
+	$(call deletefilepattern,$(QTBASE_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTBASE_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTBASE_OBJDIR_X64),*.orcc)
+	$(call deletefilepattern,$(QTBASE_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTBASE_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(QTBASE_RCCDIR_X64),*.cpp)
+
+QtBase-clean: QtBase-x86-clean QtBase-x64-clean
+###################################################################################################################
+# STUDIO
+###################################################################################################################
+STUDIO_MOCH_X86     := $(patsubst %,$(STUDIO_MOCDIR_X86)/%,$(STUDIO_MOCH))
+STUDIO_MOCH_X64     := $(patsubst %,$(STUDIO_MOCDIR_X64)/%,$(STUDIO_MOCH))
+STUDIO_MOCC_X86     := $(patsubst %,$(STUDIO_MOCDIR_X86)/%,$(STUDIO_MOCC))
+STUDIO_MOCC_X64     := $(patsubst %,$(STUDIO_MOCDIR_X64)/%,$(STUDIO_MOCC))
+STUDIO_UICH_X86     := $(patsubst %,$(STUDIO_UICDIR_X86)/%,$(STUDIO_UICH))
+STUDIO_UICH_X64     := $(patsubst %,$(STUDIO_UICDIR_X64)/%,$(STUDIO_UICH))
+STUDIO_RCCH_X86     := $(patsubst %,$(STUDIO_RCCDIR_X86)/%,$(STUDIO_RCCH))
+STUDIO_RCCH_X64     := $(patsubst %,$(STUDIO_RCCDIR_X64)/%,$(STUDIO_RCCH))
+STUDIO_OBJS_X86     := $(patsubst %,$(STUDIO_OBJDIR_X86)/%,$(STUDIO_OBJS))
+STUDIO_OBJS_X64     := $(patsubst %,$(STUDIO_OBJDIR_X64)/%,$(STUDIO_OBJS))
+STUDIO_OBJS_MOC_X86 := $(patsubst %,$(STUDIO_OBJDIR_X86)/%,$(STUDIO_OBJS_MOC))
+STUDIO_OBJS_MOC_X64 := $(patsubst %,$(STUDIO_OBJDIR_X64)/%,$(STUDIO_OBJS_MOC))
+STUDIO_OBJS_RCC_X86 := $(patsubst %,$(STUDIO_OBJDIR_X86)/%,$(STUDIO_OBJS_RCC))
+STUDIO_OBJS_RCC_X64 := $(patsubst %,$(STUDIO_OBJDIR_X64)/%,$(STUDIO_OBJS_RCC))
+STUDIO_RES_X86      := $(patsubst %,$(STUDIO_OBJDIR_X86)/%,$(STUDIO_RES))
+STUDIO_RES_X64      := $(patsubst %,$(STUDIO_OBJDIR_X64)/%,$(STUDIO_RES))
+STUDIO_PRES_X86     := $(STUDIO_MOCH_X86) $(STUDIO_MOCC_X86) $(STUDIO_UICH_X86) $(STUDIO_RCCH_X86)
+STUDIO_PRES_X64     := $(STUDIO_MOCH_X64) $(STUDIO_MOCC_X64) $(STUDIO_UICH_X64) $(STUDIO_RCCH_X64) 
+STUDIO_OBLS_X86     := $(STUDIO_OBJS_X86) $(STUDIO_OBJS_MOC_X86) $(STUDIO_OBJS_RCC_X86) $(STUDIO_RES_X86)
+STUDIO_OBLS_X64     := $(STUDIO_OBJS_X64) $(STUDIO_OBJS_MOC_X64) $(STUDIO_OBJS_RCC_X64) $(STUDIO_RES_X64)
+
+$(STUDIO_OBLS_X86) : $(STUDIO_PRES_X86)
+$(STUDIO_OBLS_X64) : $(STUDIO_PRES_X64)
+
+Studio-x86: Engine-x86 QtBase-x86 $(STUDIO_PRES_X86) $(STUDIO_OBLS_X86)
+	$(call createbin32,Studio,$(STUDIO_OBLS_X86),$(STUDIO_LIBS_X86))
+
+Studio-x64: Engine-x64 QtBase-x64 $(STUDIO_PRES_X64) $(STUDIO_OBLS_X64)
+	$(call createbin64,Studio,$(STUDIO_OBLS_X64),$(STUDIO_LIBS_X64))
+
+Studio: Studio-x86 Studio-x64
+
+Studio-x86-clean:
+	$(call deletefilepattern,$(BINDIR_X86),Studio*)
+	$(call deletefilepattern,$(STUDIO_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(STUDIO_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(STUDIO_OBJDIR_X86),*.orcc)
+	$(call deletefilepattern,$(STUDIO_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(STUDIO_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(STUDIO_RCCDIR_X86),*.cpp)
+
+Studio-x64-clean:
+	$(call deletefilepattern,$(BINDIR_X64),Studio*)
+	$(call deletefilepattern,$(STUDIO_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(STUDIO_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(STUDIO_OBJDIR_X64),*.orcc)
+	$(call deletefilepattern,$(STUDIO_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(STUDIO_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(STUDIO_RCCDIR_X64),*.cpp)
+
+Studio-clean: Studio-x86-clean Studio-x64-clean
+###################################################################################################################
+# ALL
+###################################################################################################################
+all-x86: Engine-x86 QtBase-x86 Studio-x86 
+all-x64: Engine-x64 QtBase-x64 Studio-x64
+all: all-x86 all-x64
+
+clean-x86: Engine-x86-clean QtBase-x86-clean Studio-x86-clean 
+clean-x64: Engine-x64-clean QtBase-x64-clean Studio-x64-clean
+clean: clean-x86 clean-x64

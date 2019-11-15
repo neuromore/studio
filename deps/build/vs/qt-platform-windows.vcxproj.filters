@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="uiautomation">
+      <UniqueIdentifier>{fb342f16-b394-48d6-8da0-3e4ef050b771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{810a8a82-8f70-4c57-9270-8575f4c15138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".rcc">
+      <UniqueIdentifier>{5f4a038f-a9ac-44d0-992d-0e6b855e21f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="theme">
+      <UniqueIdentifier>{0d8df691-3747-48b9-97e8-e937e2d7c6ce}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-platform-windows\.moc\moc_qwindowsinputcontext.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\.moc\moc_qwindowsmenu.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\.rcc\qrc_cursors.cpp">
+      <Filter>.rcc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\.rcc\qrc_openglblacklists.cpp">
+      <Filter>.rcc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\.moc\moc_qwindowsgdinativeinterface.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\.moc\moc_qwindowsnativeinterface.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\.moc\moc_qwindowsuiabaseprovider.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\.moc\moc_qwindowsuiamainprovider.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\.moc\moc_qwindowsuiaprovidercache.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiaaccessibility.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiabaseprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiagriditemprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiagridprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiainvokeprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiamainprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiaprovidercache.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiarangevalueprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiaselectionitemprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiaselectionprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiatableitemprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiatableprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiatextprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiatextrangeprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiatoggleprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiautils.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiavalueprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiawindowprovider.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\uiautomation\qwindowsuiawrapper.cpp">
+      <Filter>uiautomation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\qabstractfileiconengine.cpp">
+      <Filter>theme</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-platform-windows\main.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwin10helpers.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsbackingstore.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsclipboard.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowscontext.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowscursor.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsdialoghelpers.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsdrag.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsdropdataobject.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowseglcontext.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsgdiintegration.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsgdinativeinterface.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsglcontext.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsinputcontext.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsintegration.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsinternalmimedata.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowskeymapper.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsmenu.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsmime.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsmousehandler.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsnativeinterface.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsole.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsopengltester.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowspointerhandler.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsscreen.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsservices.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowssessionmanager.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowssystemtrayicon.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowstabletsupport.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowstheme.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowsvulkaninstance.cpp" />
+    <ClCompile Include="..\..\src\qt-platform-windows\qwindowswindow.cpp" />
+  </ItemGroup>
+</Project>

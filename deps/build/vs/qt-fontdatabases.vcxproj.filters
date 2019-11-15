@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="fontconfig">
+      <UniqueIdentifier>{e0890741-5da2-4d4e-a7e8-651a43aa1763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freetype">
+      <UniqueIdentifier>{b49a0a6c-8cfd-4bc1-b25c-9143071ca3ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="windows">
+      <UniqueIdentifier>{b6be752a-880b-4b78-b1ee-baadb6b57095}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-fontdatabases\fontconfig\qfontconfigdatabase.cpp">
+      <Filter>fontconfig</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-fontdatabases\fontconfig\qfontenginemultifontconfig.cpp">
+      <Filter>fontconfig</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-fontdatabases\freetype\qfontengine_ft.cpp">
+      <Filter>freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-fontdatabases\freetype\qfreetypefontdatabase.cpp">
+      <Filter>freetype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-fontdatabases\windows\qwindowsfontdatabase.cpp">
+      <Filter>windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-fontdatabases\windows\qwindowsfontdatabase_ft.cpp">
+      <Filter>windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-fontdatabases\windows\qwindowsfontengine.cpp">
+      <Filter>windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-fontdatabases\windows\qwindowsfontenginedirectwrite.cpp">
+      <Filter>windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-fontdatabases\windows\qwindowsnativeimage.cpp">
+      <Filter>windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C87EC79E-09A3-30D0-8E44-C3A4FF514530}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>Engine</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">obj\x86\$(TargetName)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\x86\$(TargetName)_d\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_d</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>lib\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)_d\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>lib\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>false</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ProgramDataBaseFileName>F:\nm\Engine\Lib\neuromoreEngine_x86Windows_ReleaseStatic_VS2015_Compiler.pdb</ProgramDataBaseFileName>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <DisableSpecificWarnings>4189</DisableSpecificWarnings>
+      <OmitFramePointers>true</OmitFramePointers>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\nm\Engine\SDKs\RapidJSON\include\rapidjson;F:\nm\Engine\SDKs\zlib;F:\nm\Engine\SDKs\KissFFT;F:\nm\Engine\SDKs\KissFFT\tools;F:\nm\Engine\SDKs\spuce;F:\nm\Engine\SDKs\TinyAES;F:\nm\Engine\SDKs\EDFlib;F:\nm\Engine\SDKs\OscPack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>F:\nm\Engine\SDKs\RapidJSON\include\rapidjson;F:\nm\Engine\SDKs\zlib;F:\nm\Engine\SDKs\KissFFT;F:\nm\Engine\SDKs\KissFFT\tools;F:\nm\Engine\SDKs\spuce;F:\nm\Engine\SDKs\TinyAES;F:\nm\Engine\SDKs\EDFlib;F:\nm\Engine\SDKs\OscPack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <TargetMachine>MachineX86</TargetMachine>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <SubSystem>Console</SubSystem>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>false</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ProgramDataBaseFileName>F:\nm\Engine\Lib\neuromoreEngine_x86Windows_ReleaseStatic_VS2015_Compiler.pdb</ProgramDataBaseFileName>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <DisableSpecificWarnings>4189</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\nm\Engine\SDKs\RapidJSON\include\rapidjson;F:\nm\Engine\SDKs\zlib;F:\nm\Engine\SDKs\KissFFT;F:\nm\Engine\SDKs\KissFFT\tools;F:\nm\Engine\SDKs\spuce;F:\nm\Engine\SDKs\TinyAES;F:\nm\Engine\SDKs\EDFlib;F:\nm\Engine\SDKs\OscPack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>F:\nm\Engine\SDKs\RapidJSON\include\rapidjson;F:\nm\Engine\SDKs\zlib;F:\nm\Engine\SDKs\KissFFT;F:\nm\Engine\SDKs\KissFFT\tools;F:\nm\Engine\SDKs\spuce;F:\nm\Engine\SDKs\TinyAES;F:\nm\Engine\SDKs\EDFlib;F:\nm\Engine\SDKs\OscPack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <SubSystem>Console</SubSystem>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>false</OpenMPSupport>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <DisableSpecificWarnings>4189</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\nm\Engine\SDKs\RapidJSON\include\rapidjson;F:\nm\Engine\SDKs\zlib;F:\nm\Engine\SDKs\KissFFT;F:\nm\Engine\SDKs\KissFFT\tools;F:\nm\Engine\SDKs\spuce;F:\nm\Engine\SDKs\TinyAES;F:\nm\Engine\SDKs\EDFlib;F:\nm\Engine\SDKs\OscPack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>F:\nm\Engine\SDKs\RapidJSON\include\rapidjson;F:\nm\Engine\SDKs\zlib;F:\nm\Engine\SDKs\KissFFT;F:\nm\Engine\SDKs\KissFFT\tools;F:\nm\Engine\SDKs\spuce;F:\nm\Engine\SDKs\TinyAES;F:\nm\Engine\SDKs\EDFlib;F:\nm\Engine\SDKs\OscPack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <TargetMachine>MachineX86</TargetMachine>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <SubSystem>Console</SubSystem>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>false</OpenMPSupport>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <OmitFramePointers>false</OmitFramePointers>
+      <DisableSpecificWarnings>4189</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\nm\Engine\SDKs\RapidJSON\include\rapidjson;F:\nm\Engine\SDKs\zlib;F:\nm\Engine\SDKs\KissFFT;F:\nm\Engine\SDKs\KissFFT\tools;F:\nm\Engine\SDKs\spuce;F:\nm\Engine\SDKs\TinyAES;F:\nm\Engine\SDKs\EDFlib;F:\nm\Engine\SDKs\OscPack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>F:\nm\Engine\SDKs\RapidJSON\include\rapidjson;F:\nm\Engine\SDKs\zlib;F:\nm\Engine\SDKs\KissFFT;F:\nm\Engine\SDKs\KissFFT\tools;F:\nm\Engine\SDKs\spuce;F:\nm\Engine\SDKs\TinyAES;F:\nm\Engine\SDKs\EDFlib;F:\nm\Engine\SDKs\OscPack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <SubSystem>Console</SubSystem>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Engine\BciDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\BciDevice.h" />
+    <ClCompile Include="..\..\src\Engine\CloudParameters.cpp" />
+    <ClInclude Include="..\..\src\Engine\CloudParameters.h" />
+    <ClCompile Include="..\..\src\Engine\ColorMapper.cpp" />
+    <ClInclude Include="..\..\src\Engine\ColorMapper.h" />
+    <ClInclude Include="..\..\src\Engine\Config.h" />
+    <ClCompile Include="..\..\src\Engine\Core\AABB.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\AABB.h" />
+    <ClCompile Include="..\..\src\Engine\Core\AES.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\AES.h" />
+    <ClInclude Include="..\..\src\Engine\Core\Array.h" />
+    <ClInclude Include="..\..\src\Engine\Core\Attribute.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeBool.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeColor.h" />
+    <ClCompile Include="..\..\src\Engine\Core\AttributeFactory.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeFactory.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeFloat.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeInt32.h" />
+    <ClCompile Include="..\..\src\Engine\Core\AttributeSet.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeSet.h" />
+    <ClCompile Include="..\..\src\Engine\Core\AttributeSettings.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeSettings.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeSpectrum.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeString.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeStringArray.h" />
+    <ClCompile Include="..\..\src\Engine\Core\ByteArray.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\ByteArray.h" />
+    <ClCompile Include="..\..\src\Engine\Core\Color.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Color.h" />
+    <ClInclude Include="..\..\src\Engine\Core\ComplexMath.h" />
+    <ClInclude Include="..\..\src\Engine\Core\Config.h" />
+    <ClCompile Include="..\..\src\Engine\Core\Counter.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Counter.h" />
+    <ClCompile Include="..\..\src\Engine\Core\EncryptedJSONFile.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\EncryptedJSONFile.h" />
+    <ClInclude Include="..\..\src\Engine\Core\EventHandler.h" />
+    <ClInclude Include="..\..\src\Engine\Core\EventLogger.h" />
+    <ClCompile Include="..\..\src\Engine\Core\EventManager.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\EventManager.h" />
+    <ClInclude Include="..\..\src\Engine\Core\EventManagerHelpers.h" />
+    <ClInclude Include="..\..\src\Engine\Core\EventSource.h" />
+    <ClCompile Include="..\..\src\Engine\Core\FpsCounter.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\FpsCounter.h" />
+    <ClCompile Include="..\..\src\Engine\Core\Json.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Json.h" />
+    <ClCompile Include="..\..\src\Engine\Core\LogCallbacks.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\LogCallbacks.h" />
+    <ClCompile Include="..\..\src\Engine\Core\LogManager.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\LogManager.h" />
+    <ClCompile Include="..\..\src\Engine\Core\Math.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Math.h" />
+    <ClInclude Include="..\..\src\Engine\Core\Math.inl" />
+    <ClCompile Include="..\..\src\Engine\Core\MemoryFile.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\MemoryFile.h" />
+    <ClCompile Include="..\..\src\Engine\Core\Mutex.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Mutex.h" />
+    <ClInclude Include="..\..\src\Engine\Core\StandardHeaders.h" />
+    <ClCompile Include="..\..\src\Engine\Core\String.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\String.h" />
+    <ClCompile Include="..\..\src\Engine\Core\StringCharacter.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\StringCharacter.h" />
+    <ClCompile Include="..\..\src\Engine\Core\StringIterator.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\StringIterator.h" />
+    <ClInclude Include="..\..\src\Engine\Core\StringIterator.inl" />
+    <ClCompile Include="..\..\src\Engine\Core\Test.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Test.h" />
+    <ClInclude Include="..\..\src\Engine\Core\TestCase.h" />
+    <ClCompile Include="..\..\src\Engine\Core\TestFacility.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\TestFacility.h" />
+    <ClCompile Include="..\..\src\Engine\Core\Thread.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Thread.h" />
+    <ClCompile Include="..\..\src\Engine\Core\ThreadHandler.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\ThreadHandler.h" />
+    <ClCompile Include="..\..\src\Engine\Core\Time.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Time.h" />
+    <ClInclude Include="..\..\src\Engine\Core\Timer.h" />
+    <ClCompile Include="..\..\src\Engine\Core\TimerAndroid.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\TimerAndroid.h" />
+    <ClCompile Include="..\..\src\Engine\Core\TimerLinux.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\TimerLinux.h" />
+    <ClCompile Include="..\..\src\Engine\Core\TimerWindows.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\TimerWindows.h" />
+    <ClCompile Include="..\..\src\Engine\Core\TimeriOS.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\TimeriOS.h" />
+    <ClCompile Include="..\..\src\Engine\Core\TimermacOS.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\TimermacOS.h" />
+    <ClInclude Include="..\..\src\Engine\Core\Vector.h" />
+    <ClCompile Include="..\..\src\Engine\Core\Version.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\Version.h" />
+    <ClCompile Include="..\..\src\Engine\Creud.cpp" />
+    <ClInclude Include="..\..\src\Engine\Creud.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\AttributeChannels.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\AttributeChannels.h" />
+    <ClInclude Include="..\..\src\Engine\DSP\AttributeDoubleChannels.h" />
+    <ClInclude Include="..\..\src\Engine\DSP\AttributeSpectrumChannels.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\Channel.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\Channel.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelBase.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelBase.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelFileReader.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelFileReader.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelFileWriter.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelFileWriter.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelProcessor.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelProcessor.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\ChannelReader.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\ChannelReader.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\ClockGenerator.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\ClockGenerator.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\Epoch.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\Epoch.h" />
+    <ClInclude Include="..\..\src\Engine\DSP\FFT.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\FFTProcessor.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\FFTProcessor.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\FFT_FFTW.cpp" />
+    <ClCompile Include="..\..\src\Engine\DSP\FFT_KissFFT.cpp" />
+    <ClCompile Include="..\..\src\Engine\DSP\Filter.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\Filter.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\FilterGenerator.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\FilterGenerator.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\FrequencyBand.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\FrequencyBand.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\Histogram.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\Histogram.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\HrvProcessor.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\HrvProcessor.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\HrvTimeDomain.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\HrvTimeDomain.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\LinearFilterProcessor.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\LinearFilterProcessor.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\MultiChannel.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\MultiChannel.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\MultiChannelReader.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\MultiChannelReader.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\ResampleProcessor.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\ResampleProcessor.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\Spectrum.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\Spectrum.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\SpectrumAnalyzerSettings.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\SpectrumAnalyzerSettings.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\StatisticsProcessor.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\StatisticsProcessor.h" />
+    <ClCompile Include="..\..\src\Engine\DSP\WindowFunction.cpp" />
+    <ClInclude Include="..\..\src\Engine\DSP\WindowFunction.h" />
+    <ClCompile Include="..\..\src\Engine\Device.cpp" />
+    <ClInclude Include="..\..\src\Engine\Device.h" />
+    <ClCompile Include="..\..\src\Engine\DeviceDriver.cpp" />
+    <ClInclude Include="..\..\src\Engine\DeviceDriver.h" />
+    <ClCompile Include="..\..\src\Engine\DeviceManager.cpp" />
+    <ClInclude Include="..\..\src\Engine\DeviceManager.h" />
+    <ClInclude Include="..\..\src\Engine\DeviceTypeIds.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\ABM\AbmDevices.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\ABM\AbmDevices.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\ABM\AbmNodes.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Audio\AudioDevices.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Audio\AudioDevices.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Audio\AudioNodes.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Audio\AudioNodes.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainProducts\ActiChampDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainProducts\ActiChampDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainProducts\ActiChampNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Brainquiry\BrainquiryDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Brainquiry\BrainquiryDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Brainquiry\BrainquiryNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\DeviceInventory.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\DeviceInventory.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\DeviceTypeIDs.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Emotiv\EmotivEPOCDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Emotiv\EmotivEPOCDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Emotiv\EmotivEPOCNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Emotiv\EmotivInsightDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Emotiv\EmotivInsightDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Emotiv\EmotivInsightNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\EyeX\TobiiEyeXDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\EyeX\TobiiEyeXDevice.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\EyeX\TobiiEyeXNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\EyeX\TobiiEyeXNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Gamepad\GamepadDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Gamepad\GamepadDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Gamepad\GamepadNode.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Generic\GenericDeviceNodes.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Generic\GenericDevices.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Mitsar\MitsarDevices.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Mitsar\MitsarDevices.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Mitsar\MitsarNodes.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Muse\MuseDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Muse\MuseDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Muse\MuseNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\OpenBCI\OpenBCIDevices.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\OpenBCI\OpenBCIDevices.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\OpenBCI\OpenBCINodes.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Test\TestDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Test\TestDevice.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Test\TestDeviceDriver.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Test\TestDeviceDriver.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Test\TestDeviceNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Versus\VersusDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Versus\VersusDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Versus\VersusNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseNode.h" />
+    <ClCompile Include="..\..\src\Engine\EEGElectrodes.cpp" />
+    <ClInclude Include="..\..\src\Engine\EEGElectrodes.h" />
+    <ClCompile Include="..\..\src\Engine\EngineManager.cpp" />
+    <ClInclude Include="..\..\src\Engine\EngineManager.h" />
+    <ClCompile Include="..\..\src\Engine\Experience.cpp" />
+    <ClInclude Include="..\..\src\Engine\Experience.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\AVEColorNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\AVEColorNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Action.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Action.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ActionSet.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ActionSet.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ActionState.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ActionState.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Actions.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Actions.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\AnnotationNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\AnnotationNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\AutoThresholdNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\AutoThresholdNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\BinSelectorNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\BinSelectorNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\BiquadFilterNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\BiquadFilterNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\BodyFeedbackNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\BodyFeedbackNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelInfoNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelInfoNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelMathNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelMathNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelMergerNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelMergerNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelSelectorNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelSelectorNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ChannelTransposerNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ChannelTransposerNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Classifier.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Classifier.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\CloudInputNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\CloudInputNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\CloudOutputNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\CloudOutputNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ColorWheelNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ColorWheelNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\CompareNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\CompareNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Connection.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Connection.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\CustomFeedbackNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\CustomFeedbackNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\DelayNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\DelayNode.h" />
+    <ClInclude Include="..\..\src\Engine\Graph\DeprecatedGraphObjects.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\DeviceInputNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\DeviceInputNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\DeviceOutputNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\DeviceOutputNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\DominantFrequencyNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\DominantFrequencyNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\EegDeviceNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\EegDeviceNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\EntryState.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\EntryState.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ExitState.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ExitState.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\FFTNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\FFTNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\FeedbackNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\FeedbackNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\FileReaderNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\FileReaderNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\FileWriterNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\FileWriterNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\FreezeNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\FreezeNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\FrequencyBandNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\FrequencyBandNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Graph.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Graph.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\GraphExporter.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\GraphExporter.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\GraphImporter.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\GraphImporter.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\GraphManager.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\GraphManager.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\GraphObject.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\GraphObject.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\GraphObjectFactory.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\GraphObjectFactory.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\GraphSettings.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\GraphSettings.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\HrvNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\HrvNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\InputNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\InputNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\IntegralNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\IntegralNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\LinearFilterNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\LinearFilterNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\LogicNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\LogicNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\LoretaNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\LoretaNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Math1Node.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Math1Node.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Math2Node.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Math2Node.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\MetaInfoNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\MetaInfoNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\MultiParameterNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\MultiParameterNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Node.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Node.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\OscInputNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\OscInputNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\OscOutputNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\OscOutputNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\OscillatorNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\OscillatorNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\OutputNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\OutputNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\PairwiseMathNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\PairwiseMathNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ParameterNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ParameterNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\PointsNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\PointsNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\Port.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\Port.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ProcessorNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ProcessorNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\RecolorNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\RecolorNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\RemapNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\RemapNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\RenameNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\RenameNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ResampleNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ResampleNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SPNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SPNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SampleGateNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SampleGateNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SessionInfoNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SessionInfoNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SessionTimeNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SessionTimeNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SignalGeneratorNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SignalGeneratorNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SmoothNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SmoothNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\State.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\State.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateMachine.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateMachine.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionAudioCondition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionAudioCondition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionButtonCondition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionButtonCondition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionCondition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionCondition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionFeedbackCondition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionFeedbackCondition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionTimeCondition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionTimeCondition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionVideoCondition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionVideoCondition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StatisticsNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StatisticsNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SwitchNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SwitchNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SwitchState.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SwitchState.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\SyncState.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\SyncState.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ThresholdNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ThresholdNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\TimerState.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\TimerState.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ViewNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ViewNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\WaveformNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\WaveformNode.h" />
+    <ClCompile Include="..\..\src\Engine\License.cpp" />
+    <ClInclude Include="..\..\src\Engine\License.h" />
+    <ClCompile Include="..\..\src\Engine\Networking\OscFeedbackPacket.cpp" />
+    <ClInclude Include="..\..\src\Engine\Networking\OscFeedbackPacket.h" />
+    <ClCompile Include="..\..\src\Engine\Networking\OscMessageParser.cpp" />
+    <ClInclude Include="..\..\src\Engine\Networking\OscMessageParser.h" />
+    <ClCompile Include="..\..\src\Engine\Networking\OscMessageQueue.cpp" />
+    <ClInclude Include="..\..\src\Engine\Networking\OscMessageQueue.h" />
+    <ClCompile Include="..\..\src\Engine\Networking\OscMessageRouter.cpp" />
+    <ClInclude Include="..\..\src\Engine\Networking\OscMessageRouter.h" />
+    <ClCompile Include="..\..\src\Engine\Networking\OscPacket.cpp" />
+    <ClInclude Include="..\..\src\Engine\Networking\OscPacket.h" />
+    <ClCompile Include="..\..\src\Engine\Networking\OscPacketParser.cpp" />
+    <ClInclude Include="..\..\src\Engine\Networking\OscPacketParser.h" />
+    <ClCompile Include="..\..\src\Engine\Networking\OscPacketPool.cpp" />
+    <ClInclude Include="..\..\src\Engine\Networking\OscPacketPool.h" />
+    <ClInclude Include="..\..\src\Engine\Networking\OscReceiver.h" />
+    <ClInclude Include="..\..\src\Engine\Notifications.h" />
+    <ClCompile Include="..\..\src\Engine\Sensor.cpp" />
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietaryInputNode.h" />
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietaryNode.h" />
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietaryOutputNode.h" />
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietaryProcessorNode.h" />
+    <ClInclude Include="..\..\src\Engine\Proprietary\ProprietarySPNode.h" />
+    <ClInclude Include="..\..\src\Engine\Sensor.h" />
+    <ClCompile Include="..\..\src\Engine\SerialPortManager.cpp" />
+    <ClInclude Include="..\..\src\Engine\SerialPortManager.h" />
+    <ClCompile Include="..\..\src\Engine\Session.cpp" />
+    <ClInclude Include="..\..\src\Engine\Session.h" />
+    <ClCompile Include="..\..\src\Engine\SessionExporter.cpp" />
+    <ClInclude Include="..\..\src\Engine\SessionExporter.h" />
+    <ClCompile Include="..\..\src\Engine\User.cpp" />
+    <ClInclude Include="..\..\src\Engine\User.h" />
+    <ClInclude Include="..\..\src\Engine\Version.h" />
+    <ClCompile Include="..\..\src\Engine\neuromoreEngine.cpp" />
+    <ClInclude Include="..\..\src\Engine\neuromoreEngine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\Engine\Proprietary\README.md" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\opencv-core\algorithm.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\alloc.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\arithm.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\array.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\command_line_parser.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\conjugate_gradient.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\convert.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\copy.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\cuda_gpu_mat.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\cuda_host_mem.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\cuda_info.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\cuda_stream.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\datastructs.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\directx.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\downhill_simplex.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\dxt.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\glob.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\gl_core_3_1.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\kmeans.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\lapack.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\lda.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\lpsolver.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\mathfuncs.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\mathfuncs_core.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\matmul.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\matop.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\matrix.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\matrix_decomp.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\merge.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\ocl.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\opengl.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\out.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\parallel.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\parallel_pthreads.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\pca.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\persistence.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\rand.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\split.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\stat.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\stl.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\system.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\tables.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\types.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\umatrix.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\va_intel.cpp" />
+    <ClCompile Include="..\..\src\opencv-core\opencl_clamdblas.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_clamdfft.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_core.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_calib3d.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_core.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_features2d.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_imgproc.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_objdetect.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_photo.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_stitching.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_superres.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_video.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\opencv-core\arithm_core.hpp" />
+    <ClInclude Include="..\..\src\opencv-core\arithm_simd.hpp" />
+    <ClInclude Include="..\..\src\opencv-core\bufferpool.impl.hpp" />
+    <ClInclude Include="..\..\src\opencv-core\directx.inc.hpp" />
+    <ClInclude Include="..\..\src\opencv-core\gl_core_3_1.hpp" />
+    <ClInclude Include="..\..\src\opencv-core\hal_replacement.hpp" />
+    <ClInclude Include="..\..\src\opencv-core\precomp.hpp" />
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_calib3d.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_core.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_features2d.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_imgproc.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_objdetect.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_photo.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_stitching.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_superres.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_video.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\runtime_common.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\opencv2\cvconfig.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\opencv2\opencv_modules.hpp">
+      <Filter>Config</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="OpenCL">
+      <UniqueIdentifier>{a74965f2-4d77-4f04-adc4-c5121ca2a1ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{6c097591-0a04-481e-b9e1-402405f52539}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

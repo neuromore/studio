@@ -1,0 +1,14 @@
+/build/vs/bin
+/build/vs/lib
+/build/vs/obj
+/build/vs/.vs
+
+/deps/build/vs/bin
+/deps/build/vs/lib
+/deps/build/vs/obj
+/deps/build/vs/.vs
+
+*.VC.db
+*.log
+*.moc.cpp
+*.rcc.cpp

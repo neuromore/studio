@@ -1,0 +1,1179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="animation">
+      <UniqueIdentifier>{3f61a407-a177-4908-9ba4-5020d18574fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="codecs">
+      <UniqueIdentifier>{3a6f6372-6745-4225-8f81-44db2368f06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="global">
+      <UniqueIdentifier>{6331f462-13d7-41ce-bae6-7d568be73af8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{98058a8f-48a0-4dba-afd4-582c263d1377}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thread">
+      <UniqueIdentifier>{751cf642-9c5c-455f-a5de-d4e75df25357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="statemachine">
+      <UniqueIdentifier>{e47eba30-201a-4e85-8549-045acf2c777b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="serialization">
+      <UniqueIdentifier>{fbdec475-2013-43f5-a46b-32ad595d4b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="plugin">
+      <UniqueIdentifier>{d18871ed-1d9d-46b4-bbc2-5ee70bda742d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mimetypes">
+      <UniqueIdentifier>{f089625d-8ba2-467c-bdda-f7689253d26a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel">
+      <UniqueIdentifier>{6b259e60-edba-4544-b30e-09aee6845173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="itemmodels">
+      <UniqueIdentifier>{fd8b9166-e13f-4900-9e29-f06d23d37004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="io">
+      <UniqueIdentifier>{652cb7ba-6d70-4875-832e-e3cc8aef6b81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0CONF">
+      <UniqueIdentifier>{03fe9b6d-6cbb-4ab0-80d9-aa36547b946d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{bcc1b564-ecd1-442c-9784-86a3e9c4b6e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".rcc">
+      <UniqueIdentifier>{501d5b4c-b093-449a-825a-1d3f523a3f86}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-core\animation\qabstractanimation.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\animation\qanimationgroup.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\animation\qparallelanimationgroup.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\animation\qpauseanimation.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\animation\qpropertyanimation.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\animation\qsequentialanimationgroup.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\animation\qvariantanimation.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qbig5codec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qeucjpcodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qeuckrcodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qgb18030codec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qisciicodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qjiscodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qjpunicode.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qlatincodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qsimplecodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qsjiscodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qtextcodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qtsciicodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qutfcodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qwindowscodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\archdetect.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qconfig.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qendian.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qfloat16.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qfloat16tables.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qglobal.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qhooks.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qlibraryinfo.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qlogging.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qmalloc.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qnumeric.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qoperatingsystemversion.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qoperatingsystemversion_win.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qrandom.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\global\qversiontagging.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qarraydata.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qbitarray.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qbytearray.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qbytearraylist.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qbytearraymatcher.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcollator.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcollator_win.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcommandlineoption.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcommandlineparser.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcontiguouscache.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcryptographichash.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qdatetime.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qdatetimeparser.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qeasingcurve.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qfreelist.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qharfbuzz.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qhash.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qline.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlinkedlist.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlist.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlocale.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlocale_tools.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlocale_win.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qmap.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qmargins.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qmessageauthenticationcode.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qpoint.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qqueue.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qrect.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qrefcount.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qregexp.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qregularexpression.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qringbuffer.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qscopedpointer.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qscopedvaluerollback.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qsharedpointer.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qsimd.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qsize.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstack.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstring.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstring_compat.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstringbuilder.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstringlist.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qtextboundaryfinder.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qtimeline.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qtimezone.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qtimezoneprivate.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qtimezoneprivate_win.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qunicodetools.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qvector_msvc.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qversionnumber.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qvsnprintf.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qatomic.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qexception.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qfutureinterface.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qfuturewatcher.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qmutex_win.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qmutexpool.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qreadwritelock.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qresultstore.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qrunnable.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qsemaphore.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qthread.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qthread_win.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qthreadpool.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qthreadstorage.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qwaitcondition_win.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\statemachine\qabstractstate.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\statemachine\qabstracttransition.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\statemachine\qeventtransition.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\statemachine\qfinalstate.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\statemachine\qhistorystate.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\statemachine\qsignaltransition.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\statemachine\qstate.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\statemachine\qstatemachine.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qcbordiagnostic.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qcborstream.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qcborvalue.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qdatastream.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjson.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonarray.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsoncbor.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsondocument.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonobject.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonparser.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonvalue.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qjsonwriter.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qtextstream.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qxmlstream.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qxmlutils.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qcborarray.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\serialization\qcbormap.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qmutex.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qmutex_linux.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qmutex_mac.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qmutex_unix.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qthread_unix.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\thread\qwaitcondition_unix.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qchar.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcollator_icu.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcollator_macx.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qcollator_posix.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlocale_icu.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qlocale_unix.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qshareddata.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qsimd_x86.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstringmatcher.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qstringview.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qtimezoneprivate_android.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qtimezoneprivate_icu.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qtimezoneprivate_tz.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\tools\qunicodetables.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qiconvcodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\codecs\qicucodec.cpp">
+      <Filter>codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qelfparser_p.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qfactoryinterface.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qfactoryloader.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qlibrary.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qlibrary_unix.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qlibrary_win.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qmachparser.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qpluginloader.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\qsystemlibrary.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\plugin\quuid.cpp">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\mimetypes\qmimedatabase.cpp">
+      <Filter>mimetypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\mimetypes\qmimeglobpattern.cpp">
+      <Filter>mimetypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\mimetypes\qmimemagicrule.cpp">
+      <Filter>mimetypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\mimetypes\qmimemagicrulematcher.cpp">
+      <Filter>mimetypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\mimetypes\qmimeprovider.cpp">
+      <Filter>mimetypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\mimetypes\qmimetype.cpp">
+      <Filter>mimetypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\mimetypes\qmimetypeparser.cpp">
+      <Filter>mimetypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qabstracteventdispatcher.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qabstractnativeeventfilter.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qbasictimer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcfsocketnotifier.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcore_mac.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcore_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcoreapplication.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcoreapplication_mac.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcoreapplication_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcoreevent.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qcoreglobaldata.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qdeadlinetimer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qelapsedtimer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qelapsedtimer_generic.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qelapsedtimer_mac.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qelapsedtimer_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qelapsedtimer_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qeventdispatcher_glib.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qeventdispatcher_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qeventdispatcher_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qeventdispatcher_winrt.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qeventloop.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qfunctions_nacl.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qfunctions_vxworks.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qfunctions_winrt.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qjni.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qjnihelpers.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qjnionload.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qmath.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qmetaobject.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qmetaobjectbuilder.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qmetatype.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qmimedata.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qobject.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qobjectcleanuphandler.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qpointer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qpoll.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qppsattribute.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qppsobject.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsharedmemory.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsharedmemory_android.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsharedmemory_posix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsharedmemory_systemv.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsharedmemory_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsharedmemory_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsignalmapper.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsocketnotifier.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsystemerror.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsystemsemaphore.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsystemsemaphore_android.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsystemsemaphore_posix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsystemsemaphore_systemv.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsystemsemaphore_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qsystemsemaphore_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qtcore_eval.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qtestsupport_core.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qtimer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qtimerinfo_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qtranslator.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qvariant.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\kernel\qwineventnotifier.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\itemmodels\qabstractitemmodel.cpp">
+      <Filter>itemmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\itemmodels\qabstractproxymodel.cpp">
+      <Filter>itemmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\itemmodels\qidentityproxymodel.cpp">
+      <Filter>itemmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\itemmodels\qitemselectionmodel.cpp">
+      <Filter>itemmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\itemmodels\qsortfilterproxymodel.cpp">
+      <Filter>itemmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\itemmodels\qstringlistmodel.cpp">
+      <Filter>itemmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\forkfd_qt.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qabstractfileengine.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qbuffer.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qdataurl.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qdebug.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qdir.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qdiriterator.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfile.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfiledevice.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfileinfo.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfileselector.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemengine.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemengine_unix.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemengine_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystementry.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemiterator_unix.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemiterator_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemwatcher.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemwatcher_inotify.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemwatcher_kqueue.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemwatcher_polling.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfilesystemwatcher_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfsfileengine.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfsfileengine_iterator.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfsfileengine_unix.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qfsfileengine_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qiodevice.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qipaddress.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qlockfile.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qlockfile_unix.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qlockfile_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qloggingcategory.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qloggingregistry.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qnoncontiguousbytedevice.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qprocess.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qprocess_unix.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qprocess_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qresource.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qresource_iterator.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qsavefile.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qsettings.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qsettings_mac.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qsettings_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qsettings_winrt.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstandardpaths.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstandardpaths_android.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstandardpaths_haiku.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstandardpaths_unix.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstandardpaths_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstandardpaths_winrt.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstorageinfo.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstorageinfo_mac.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstorageinfo_stub.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstorageinfo_unix.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qstorageinfo_win.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qtemporarydir.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qtemporaryfile.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qtldurl.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qurl.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qurlidna.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qurlquery.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qurlrecode.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qwindowspipereader.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\io\qwindowspipewriter.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qabstractanimation.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qabstractanimation_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qabstracteventdispatcher.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qabstractitemmodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qabstractproxymodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qabstractstate.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qabstracttransition.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qanimationgroup.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qbuffer.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qcborcommon.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qcborstream.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qcborvalue.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qcoreapplication.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qcoreevent.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qcryptographichash.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qeasingcurve.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qeventloop.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qeventtransition.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfactoryloader_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfile.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfiledevice.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfileselector.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfilesystemwatcher.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfilesystemwatcher_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfilesystemwatcher_polling_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfinalstate.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfuturewatcher.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qhistorystate.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qidentityproxymodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qiodevice.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qitemselectionmodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qlibrary.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qlocale.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qmimedata.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qnamespace.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qnoncontiguousbytedevice_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qobject.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qobjectcleanuphandler.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qparallelanimationgroup.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qpauseanimation.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qpluginloader.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qprocess.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qpropertyanimation.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qsavefile.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qsequentialanimationgroup.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qsettings.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qsharedmemory.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qsignalmapper.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qsignaltransition.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qsocketnotifier.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qsortfilterproxymodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qstandardpaths.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qstate.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qstatemachine.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qstringlistmodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qtemporaryfile.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qtextstream_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qthread.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qthreadpool.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qtimeline.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qtimer.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qtranslator.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qvariantanimation.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qeventdispatcher_win_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qfilesystemwatcher_win_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qmimetype.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qwindowspipereader_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qwindowspipewriter_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.moc\moc_qwineventnotifier.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-core\.rcc\qrc_mimetypes.cpp">
+      <Filter>.rcc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtCore\qconfig.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtCore\qconfig-bootstrapped.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtCore\qglobal.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtCore\mkspecs\win32-msvc\qplatformdefs.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtCore\qtcore-config.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtCore\private\qtcore-config_p.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtCore\private\qconfig_p.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

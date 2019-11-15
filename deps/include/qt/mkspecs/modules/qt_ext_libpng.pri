@@ -1,0 +1,7 @@
+QMAKE_DEPENDS_LIBPNG_CC =
+QMAKE_DEPENDS_LIBPNG_LD =
+QMAKE_INCDIR_LIBPNG = C:/Qt/5.12.4/Src/qtbase/src/3rdparty/libpng
+QMAKE_DEFINES_LIBPNG = 
+QMAKE_LIBS_LIBPNG =
+QMAKE_LIBS_LIBPNG_DEBUG = C:/Qt/5.12.4/Src/qtbase/lib/qtlibpngd.lib
+QMAKE_LIBS_LIBPNG_RELEASE = C:/Qt/5.12.4/Src/qtbase/lib/qtlibpng.lib

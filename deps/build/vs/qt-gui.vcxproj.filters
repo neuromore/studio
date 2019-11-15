@@ -1,0 +1,1064 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="accessible">
+      <UniqueIdentifier>{fa9fff77-674d-43a6-be59-e66fd7a0947e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="animation">
+      <UniqueIdentifier>{7d202efe-0c72-4c84-bac6-5b7b53e60c12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="image">
+      <UniqueIdentifier>{561b2aa7-a29e-45c9-b548-4bd84521ad89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="itemmodels">
+      <UniqueIdentifier>{18570409-3a22-4499-9c9c-e71ee6729d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel">
+      <UniqueIdentifier>{cb910421-ab20-4196-807b-44456b090b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math3d">
+      <UniqueIdentifier>{555d3b40-1bcb-4a06-bfbe-a101055b737b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl">
+      <UniqueIdentifier>{72befd6c-d6f8-435f-835f-b3524349d98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{45ebc983-4dc2-4266-b3db-590f1a298816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="painting">
+      <UniqueIdentifier>{f6f0664d-14bf-4eb7-8145-8ae2ed92a0b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="text">
+      <UniqueIdentifier>{ae4f153b-5e9b-420b-a414-dcc83a9bbc65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{008155ba-b34d-4b7f-b0c2-41d298e1b874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vulkan">
+      <UniqueIdentifier>{e990ca87-8159-4b22-af0b-e13087d50a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{9e05cb9d-62da-41b0-94c2-42c3a5319868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".rcc">
+      <UniqueIdentifier>{fdc41453-cd17-4b5c-95e2-7128142a54c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-gui\accessible\qaccessible.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\accessible\qaccessiblebridge.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\accessible\qaccessiblecache.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\accessible\qaccessibleobject.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\accessible\qaccessibleplugin.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\accessible\qplatformaccessibility.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\animation\qguivariantanimation.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qbitmap.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qbmphandler.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qicon.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qiconengine.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qiconengineplugin.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qiconloader.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimage.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimage_compat.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimage_conversions.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimage_mips_dspr2.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimage_neon.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimage_ssse3.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimageiohandler.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimagepixmapcleanuphooks.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimagereader.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimagereaderwriterhelpers.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qimagewriter.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qmovie.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpaintengine_pic.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpicture.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpictureformatplugin.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpixmap.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpixmap_blitter.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpixmap_raster.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpixmap_win.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpixmapcache.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qplatformpixmap.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qpnghandler.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qppmhandler.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qxbmhandler.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\image\qxpmhandler.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\itemmodels\qstandarditemmodel.cpp">
+      <Filter>itemmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qclipboard.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qcursor.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qdnd.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qdrag.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qevent.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qgenericplugin.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qgenericpluginfactory.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qguiapplication.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qguivariant.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qhighdpiscaling.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qinputdevicemanager.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qinputmethod.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qinternalmimedata.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qkeymapper.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qkeysequence.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qoffscreensurface.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qopenglcontext.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qopenglwindow.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qpaintdevicewindow.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qpalette.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qpixelformat.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformclipboard.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformcursor.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformdialoghelper.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformdrag.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformgraphicsbuffer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformgraphicsbufferhelper.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatforminputcontext.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatforminputcontextfactory.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatforminputcontextplugin.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformintegration.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformintegrationfactory.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformintegrationplugin.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformmenu.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformnativeinterface.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformoffscreensurface.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformopenglcontext.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformscreen.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformservices.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformsessionmanager.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformsharedgraphicscache.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformsurface.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformsystemtrayicon.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformtheme.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformthemefactory.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformthemeplugin.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qplatformwindow.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qrasterwindow.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qscreen.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qsessionmanager.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qshapedpixmapdndwindow.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qshortcutmap.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qsimpledrag.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qstylehints.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qsurface.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qsurfaceformat.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qtestsupport_gui.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qtouchdevice.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qwindow.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\kernel\qwindowsysteminterface.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\math3d\qgenericmatrix.cpp">
+      <Filter>math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\math3d\qmatrix4x4.cpp">
+      <Filter>math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\math3d\qquaternion.cpp">
+      <Filter>math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\math3d\qvector2d.cpp">
+      <Filter>math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\math3d\qvector3d.cpp">
+      <Filter>math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\math3d\qvector4d.cpp">
+      <Filter>math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengl.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengl2pexvertexarray.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglbuffer.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglcustomshaderstage.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengldebug.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglengineshadermanager.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglframebufferobject.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglgradientcache.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglpaintdevice.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglpaintengine.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglpixeltransferoptions.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglprogrambinarycache.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglshaderprogram.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengltexture.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengltextureblitter.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengltexturecache.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengltextureglyphcache.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengltexturehelper.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengltextureuploader.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopengltimerquery.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglversionfunctions.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglversionfunctionsfactory.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglvertexarrayobject.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_1_0.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_1_1.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_1_2.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_1_3.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_1_4.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_1_5.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_2_0.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_2_1.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_3_0.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_3_1.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_3_2_compatibility.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_3_2_core.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_3_3_compatibility.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_3_3_core.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_0_compatibility.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_0_core.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_1_compatibility.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_1_core.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_2_compatibility.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_2_core.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_3_compatibility.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_3_core.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_4_compatibility.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_4_core.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_5_compatibility.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_4_5_core.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\opengl\qopenglfunctions_es2.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qbackingstore.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qbezier.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qblendfunctions.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qblittable.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qbrush.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qcolor.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qcolorprofile.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qcompositionfunctions.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qcosmeticstroker.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qcssutil.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qdrawhelper.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qdrawhelper_avx2.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qdrawhelper_mips_dsp.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qdrawhelper_neon.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qdrawhelper_sse2.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qdrawhelper_sse4.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qdrawhelper_ssse3.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qemulationpaintengine.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qimagescale.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qimagescale_neon.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qimagescale_sse4.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qmatrix.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qmemrotate.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qoutlinemapper.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpagedpaintdevice.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpagelayout.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpagesize.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpaintdevice.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpaintengine.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpaintengine_blitter.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpaintengine_raster.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpaintengineex.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpainter.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpainterpath.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpathclipper.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpathsimplifier.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpdf.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpdfwriter.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpen.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qplatformbackingstore.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qpolygon.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qrasterizer.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qregion.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qstroker.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qtextureglyphcache.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qtransform.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qtriangulatingstroker.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qtriangulator.cpp">
+      <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qabstracttextdocumentlayout.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qcssparser.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qcssscanner.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qdistancefield.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfont.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfontdatabase.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfontengine.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfontengine_qpf2.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfontengineglyphcache.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfontmetrics.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfontsubset.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfontsubset_agl.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qfragmentmap.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qglyphrun.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qharfbuzzng.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qinputcontrol.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qplatformfontdatabase.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qrawfont.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qstatictext.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qsyntaxhighlighter.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextcursor.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextdocument.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextdocument_p.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextdocumentfragment.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextdocumentlayout.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextdocumentwriter.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextengine.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextformat.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtexthtmlparser.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextimagehandler.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextlayout.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextlist.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextobject.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextodfwriter.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtextoption.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qtexttable.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\text\qzip.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qabstractlayoutstyleinfo.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qdesktopservices.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qgridlayoutengine.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qktxhandler.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qlayoutpolicy.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qpkmhandler.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qshaderformat.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qshadergenerator.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qshadergraph.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qshadergraphloader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qshaderlanguage.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qshadernode.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qshadernodeport.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qshadernodesloader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qtexturefiledata.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qtexturefilereader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\util\qvalidator.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\vulkan\qplatformvulkaninstance.cpp">
+      <Filter>vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\vulkan\qvulkanfunctions.cpp">
+      <Filter>vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\vulkan\qvulkanfunctions_p.cpp">
+      <Filter>vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\vulkan\qvulkaninstance.cpp">
+      <Filter>vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\vulkan\qvulkanwindow.cpp">
+      <Filter>vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qaccessible.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qaccessiblebridge.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qaccessibleplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qabstracttextdocumentlayout.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qguiapplication.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qinputmethod.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qmovie.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qopenglcontext.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qopengldebug.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qopenglvertexarrayobject.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformsystemtrayicon.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qstandarditemmodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qsyntaxhighlighter.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qtextdocumentlayout_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qwindow.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qiconengineplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qimage.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qimageiohandler.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qclipboard.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qdrag.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qevent.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qgenericplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qkeysequence.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qoffscreensurface.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qopenglwindow.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qpaintdevicewindow.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qpalette.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qscreen.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qsessionmanager.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qsurface.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qtouchdevice.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qfont.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qfontdatabase.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qtextdocument.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qtexttable.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qvalidator.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qaccessiblecache_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qopenglshaderprogram.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformgraphicsbuffer.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformdialoghelper.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformbackingstore.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatforminputcontext.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qbrush.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qdnd_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qtextformat.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qtextlist.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qtextobject.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qinputcontrol_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qinputdevicemanager_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qinternalmimedata_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qkeymapper_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qopenglengineshadermanager_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qopengltexture.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qpainter.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qpdfwriter.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qpictureformatplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatforminputcontextplugin_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformintegrationplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformmenu.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformnativeinterface.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformsharedgraphicscache.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qplatformthemeplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qrasterwindow.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qshaderlanguage_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qshapedpixmapdndwindow_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qstylehints.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qsurfaceformat.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qtextimagehandler_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.rcc\qrc_qpdf.cpp">
+      <Filter>.rcc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.rcc\qrc_qmake_webgradients.cpp">
+      <Filter>.rcc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\painting\qgrayraster.c">
+      <Filter>painting</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\qt-gui\accessible\qaccessiblecache_mac.mm">
+      <Filter>accessible</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtGui\qtgui-config.h">
+      <Filter>config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtGui\private\qtgui-config_p.h">
+      <Filter>config</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

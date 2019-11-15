@@ -1,0 +1,1070 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="accessible">
+      <UniqueIdentifier>{7e042f64-585a-42e1-918b-699ed24fb297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dialogs">
+      <UniqueIdentifier>{084a49a3-88e1-40db-b6f0-287d76b81bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0CONF">
+      <UniqueIdentifier>{90b589c0-b727-4b8a-b0e0-487b23bd47c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="effects">
+      <UniqueIdentifier>{885693d7-6b58-4a08-ae75-f6084fca473c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphicsview">
+      <UniqueIdentifier>{95e4e247-416c-4fe9-a957-e408a4f0767d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="itemviews">
+      <UniqueIdentifier>{e996fd25-eaf1-4284-ab66-98faec3c4470}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel">
+      <UniqueIdentifier>{11253829-c32e-49b2-bf33-ee3e51823821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="statemachine">
+      <UniqueIdentifier>{a63ba670-1201-4900-827d-f3b83687eb34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="styles">
+      <UniqueIdentifier>{51085434-c35a-46b9-be55-6499fda61858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".rcc">
+      <UniqueIdentifier>{543a0c0b-5992-450d-8b4a-b4cb318a1a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{4d33e110-f9cb-40f3-84d3-6e1516b26376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widgets">
+      <UniqueIdentifier>{86bd3407-2edd-4b54-8ccb-2453e02867c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{e14de265-7db0-4e0a-8b7f-bb17e53a4dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".uic">
+      <UniqueIdentifier>{f4998593-ce34-4a3a-a2b8-cc82bef51997}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-widgets\accessible\complexwidgets.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\accessible\itemviews.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\accessible\qaccessiblemenu.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\accessible\qaccessiblewidget.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\accessible\qaccessiblewidgetfactory.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\accessible\qaccessiblewidgets.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\accessible\rangecontrols.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\accessible\simplewidgets.cpp">
+      <Filter>accessible</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qcolordialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qdialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qerrormessage.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qfiledialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qfileinfogatherer.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qfilesystemmodel.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qfontdialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qinputdialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qmessagebox.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qprogressdialog.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qsidebar.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qwizard.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\dialogs\qwizard_win.cpp">
+      <Filter>dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\effects\qgraphicseffect.cpp">
+      <Filter>effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\effects\qpixmapfilter.cpp">
+      <Filter>effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsanchorlayout.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsanchorlayout_p.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsgridlayout.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsgridlayoutengine.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsitem.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsitemanimation.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicslayout.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicslayout_p.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicslayoutitem.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicslayoutstyleinfo.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicslinearlayout.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsproxywidget.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsscene.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsscene_bsp.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsscenebsptreeindex.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicssceneevent.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicssceneindex.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsscenelinearindex.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicstransform.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicsview.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicswidget.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qgraphicswidget_p.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\graphicsview\qsimplex_p.cpp">
+      <Filter>graphicsview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qabstractitemdelegate.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qabstractitemview.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qbsptree.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qcolumnview.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qcolumnviewgrip.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qdatawidgetmapper.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qdirmodel.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qfileiconprovider.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qheaderview.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qitemdelegate.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qitemeditorfactory.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qlistview.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qlistwidget.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qstyleditemdelegate.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qtableview.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qtablewidget.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qtreeview.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qtreewidget.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\itemviews\qtreewidgetitemiterator.cpp">
+      <Filter>itemviews</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qaction.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qactiongroup.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qapplication.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qboxlayout.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qdesktopwidget.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qformlayout.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qgesture.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qgesturemanager.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qgesturerecognizer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qgridlayout.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qlayout.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qlayoutengine.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qlayoutitem.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qmacgesturerecognizer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qopenglwidget.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qshortcut.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qsizepolicy.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qstackedlayout.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qstandardgestures.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qtestsupport_widgets.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qtooltip.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qwhatsthis.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qwidget.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qwidgetaction.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qwidgetbackingstore.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qwidgetsvariant.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qwidgetwindow.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\kernel\qwindowcontainer.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\statemachine\qbasickeyeventtransition.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\statemachine\qbasicmouseeventtransition.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\statemachine\qguistatemachine.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\statemachine\qkeyeventtransition.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\statemachine\qmouseeventtransition.cpp">
+      <Filter>statemachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.rcc\qrc_qmessagebox.cpp">
+      <Filter>.rcc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qcommonstyle.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qdrawutil.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qfusionstyle.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qpixmapstyle.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qproxystyle.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstyle.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstyleanimation.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstylefactory.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstylehelper.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstyleoption.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstylepainter.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstyleplugin.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstylesheetstyle.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qstylesheetstyle_default.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\styles\qwindowsstyle.cpp">
+      <Filter>styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.rcc\qrc_qstyle.cpp">
+      <Filter>.rcc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qcolormap.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qcompleter.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qflickgesture.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qscroller.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qscrollerproperties.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qsystemtrayicon.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qsystemtrayicon_qpa.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qsystemtrayicon_x11.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qundogroup.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qundostack.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\util\qundoview.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qabstractbutton.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qabstractscrollarea.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qabstractslider.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qabstractspinbox.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qbuttongroup.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qcalendarwidget.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qcheckbox.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qcombobox.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qcommandlinkbutton.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qdatetimeedit.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qdial.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qdialogbuttonbox.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qdockarealayout.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qdockwidget.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qeffects.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qfocusframe.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qfontcombobox.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qframe.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qgroupbox.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qkeysequenceedit.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qlabel.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qlcdnumber.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qlineedit.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qlineedit_p.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qmainwindow.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qmainwindowlayout.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qmdiarea.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qmdisubwindow.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qmenu.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qmenubar.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qplaintextedit.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qprogressbar.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qpushbutton.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qradiobutton.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qrubberband.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qscrollarea.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qscrollbar.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qsizegrip.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qslider.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qspinbox.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qsplashscreen.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qsplitter.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qstackedwidget.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qstatusbar.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtabbar.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtabwidget.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtextbrowser.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtextedit.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtoolbar.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtoolbararealayout.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtoolbarextension.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtoolbarlayout.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtoolbarseparator.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtoolbox.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qtoolbutton.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qwidgetanimator.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qwidgetlinecontrol.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qwidgetresizehandler.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\widgets\qwidgettextcontrol.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qabstractbutton.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qabstractitemdelegate.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qabstractitemview.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qabstractscrollarea.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qabstractscrollarea_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qabstractslider.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qabstractspinbox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qaction.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qactiongroup.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qapplication.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qbasickeyeventtransition_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qbasicmouseeventtransition_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qboxlayout.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qbuttongroup.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcalendarwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcheckbox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcolordialog.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcolumnview.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcolumnviewgrip_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcombobox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcombobox_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcommandlinkbutton.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcommonstyle.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcompleter.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qcompleter_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdatawidgetmapper.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdatetimeedit.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdatetimeedit_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdesktopwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdesktopwidget_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdial.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdialog.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdialogbuttonbox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdirmodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdockwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qdockwidget_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qerrormessage.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qfiledialog.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qfileinfogatherer_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qfilesystemmodel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qflickgesture_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qfocusframe.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qfontcombobox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qfontdialog.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qformlayout.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qframe.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qfusionstyle_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgesture.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgesturemanager_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicsanchorlayout.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicseffect.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicseffect_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicsitem.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicsitemanimation.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicsproxywidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicsscene.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicsscenebsptreeindex_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicssceneindex_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicsscenelinearindex_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicstransform.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicsview.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgraphicswidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgridlayout.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qgroupbox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qheaderview.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qinputdialog.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qitemdelegate.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qitemeditorfactory_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qkeyeventtransition.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qkeysequenceedit.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qlabel.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qlayout.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qlcdnumber.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qlineedit.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qlineedit_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qlistview.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qlistwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qlistwidget_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qmainwindow.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qmainwindowlayout_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qmdiarea.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qmdisubwindow.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qmenu.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qmenubar.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qmessagebox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qmouseeventtransition.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qopenglwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qpixmapfilter_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qplaintextedit.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qplaintextedit_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qprogressbar.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qprogressdialog.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qproxystyle.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qpushbutton.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qradiobutton.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qrubberband.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qscrollarea.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qscrollbar.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qscroller.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qscroller_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qshortcut.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qsidebar_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qsizegrip.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qsizepolicy.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qslider.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qspinbox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qsplashscreen.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qsplitter.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qstackedlayout.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qstackedwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qstatusbar.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qstyle.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qstyleanimation_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qstyleditemdelegate.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qstyleplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qstylesheetstyle_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qsystemtrayicon.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qsystemtrayicon_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtabbar.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtableview.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtablewidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtablewidget_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtabwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtextbrowser.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtextedit.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtoolbar.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtoolbarextension_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtoolbarlayout_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtoolbarseparator_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtoolbox.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtoolbutton.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtreeview.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtreewidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qtreewidget_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qundogroup.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qundostack.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qundostack_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qundoview.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwidget.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwidgetaction.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwidgetanimator_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwidgetbackingstore_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwidgetlinecontrol_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwidgetresizehandler_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwidgettextcontrol_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwidgetwindow_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwindowcontainer_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwindowsstyle_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-widgets\.moc\moc_qwizard.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtWidgets\qtwidgets-config.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtWidgets\private\qtwidgets-config_p.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-widgets\.uic\ui_qfiledialog.h">
+      <Filter>.uic</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\qt-widgets\dialogs\qmessagebox.qrc">
+      <Filter>.rcc</Filter>
+    </None>
+    <None Include="..\..\src\qt-widgets\styles\qstyle.qrc">
+      <Filter>.rcc</Filter>
+    </None>
+  </ItemGroup>
+</Project>

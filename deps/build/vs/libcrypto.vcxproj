@@ -1,0 +1,1483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_cbc.c" />
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_cfb.c" />
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_core.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_ecb.c" />
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_ige.c" />
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_misc.c" />
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_ofb.c" />
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_wrap.c" />
+    <ClCompile Include="..\..\src\libcrypto\aes\aes_x86core.c" />
+    <ClCompile Include="..\..\src\libcrypto\armcap.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\asn1\ameth_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\asn1_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\asn1_gen.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\asn1_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\asn1_par.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\asn_mime.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\asn_moid.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\asn_mstbl.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\asn_pack.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_bitstr.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_d2i_fp.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_digest.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_dup.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_gentm.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_i2d_fp.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_int.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_mbstr.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_object.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_octet.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_print.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_sign.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_strex.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_strnid.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_time.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_type.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_utctm.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_utf8.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\a_verify.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\bio_asn1.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\asn1\bio_ndef.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\d2i_pr.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\d2i_pu.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\evp_asn1.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\f_int.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\f_string.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\i2d_pr.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\i2d_pu.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\nsseq.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\n_pkey.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\p5_pbe.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\p5_pbev2.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\p5_scrypt.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\p8_pkey.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\tasn_dec.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\tasn_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\tasn_fre.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\tasn_new.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\tasn_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\tasn_scn.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\tasn_typ.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\tasn_utl.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\t_bitst.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\t_pkey.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\t_spki.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_algor.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_bignum.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_info.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_int64.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_long.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_pkey.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_sig.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_spki.c" />
+    <ClCompile Include="..\..\src\libcrypto\asn1\x_val.c" />
+    <ClCompile Include="..\..\src\libcrypto\async\arch\async_null.c" />
+    <ClCompile Include="..\..\src\libcrypto\async\arch\async_posix.c" />
+    <ClCompile Include="..\..\src\libcrypto\async\arch\async_win.c" />
+    <ClCompile Include="..\..\src\libcrypto\async\async.c" />
+    <ClCompile Include="..\..\src\libcrypto\async\async_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\async\async_wait.c" />
+    <ClCompile Include="..\..\src\libcrypto\bf\bf_cbc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bf\bf_cfb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\bf\bf_ecb.c" />
+    <ClCompile Include="..\..\src\libcrypto\bf\bf_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\bf\bf_ofb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\bf\bf_skey.c" />
+    <ClCompile Include="..\..\src\libcrypto\bio\bf_buff.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bf_lbuf.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bf_nbio.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bf_null.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bio_cb.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bio_err.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bio_lib.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bio_meth.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_acpt.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_bio.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_conn.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_dgram.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_fd.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_file.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_log.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_mem.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_null.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\bss_sock.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\b_addr.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\b_dump.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\b_print.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\b_sock.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\bio\b_sock2.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\blake2\blake2b.c" />
+    <ClCompile Include="..\..\src\libcrypto\blake2\blake2s.c" />
+    <ClCompile Include="..\..\src\libcrypto\blake2\m_blake2b.c" />
+    <ClCompile Include="..\..\src\libcrypto\blake2\m_blake2s.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_add.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_asm.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_blind.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_const.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_ctx.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_depr.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_dh.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_div.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_exp.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_exp2.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_gcd.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_gf2m.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_intern.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_kron.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_mod.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_mont.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_mpi.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_mul.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_nist.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_prime.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_print.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_rand.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_recp.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_shift.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_sqr.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_sqrt.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_srp.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_word.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\bn_x931p.c" />
+    <ClCompile Include="..\..\src\libcrypto\bn\rsaz_exp.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\buffer\buffer.c" />
+    <ClCompile Include="..\..\src\libcrypto\buffer\buf_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\camellia\camellia.c" />
+    <ClCompile Include="..\..\src\libcrypto\camellia\cmll_cbc.c" />
+    <ClCompile Include="..\..\src\libcrypto\camellia\cmll_cfb.c" />
+    <ClCompile Include="..\..\src\libcrypto\camellia\cmll_ctr.c" />
+    <ClCompile Include="..\..\src\libcrypto\camellia\cmll_ecb.c" />
+    <ClCompile Include="..\..\src\libcrypto\camellia\cmll_misc.c" />
+    <ClCompile Include="..\..\src\libcrypto\camellia\cmll_ofb.c" />
+    <ClCompile Include="..\..\src\libcrypto\cast\c_cfb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\cast\c_ecb.c" />
+    <ClCompile Include="..\..\src\libcrypto\cast\c_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\cast\c_ofb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\cast\c_skey.c" />
+    <ClCompile Include="..\..\src\libcrypto\chacha\chacha_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\cmac\cmac.c" />
+    <ClCompile Include="..\..\src\libcrypto\cmac\cm_ameth.c" />
+    <ClCompile Include="..\..\src\libcrypto\cmac\cm_pmeth.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_asn1.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_att.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_cd.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_dd.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_env.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_ess.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_io.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_kari.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_pwri.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_sd.c" />
+    <ClCompile Include="..\..\src\libcrypto\cms\cms_smime.c" />
+    <ClCompile Include="..\..\src\libcrypto\comp\comp_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\comp\comp_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\comp\c_zlib.c" />
+    <ClCompile Include="..\..\src\libcrypto\conf\conf_api.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\conf\conf_def.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\conf\conf_err.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\conf\conf_lib.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\conf\conf_mall.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\conf\conf_mod.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\conf\conf_sap.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\conf\conf_ssl.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\cpt_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\cryptlib.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_b64.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_log.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_oct.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_policy.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_sct.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_sct_ctx.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_vfy.c" />
+    <ClCompile Include="..\..\src\libcrypto\ct\ct_x509v3.c" />
+    <ClCompile Include="..\..\src\libcrypto\cversion.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\cbc_cksm.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\cbc_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\cfb64ede.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\cfb64enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\cfb_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\des_enc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\des\ecb3_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\ecb_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\fcrypt.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\fcrypt_b.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\ncbc_enc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\des\ofb64ede.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\ofb64enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\ofb_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\pcbc_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\qud_cksm.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\rand_key.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\rpc_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\set_key.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\str2key.c" />
+    <ClCompile Include="..\..\src\libcrypto\des\xcbc_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_ameth.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_asn1.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_check.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_depr.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_gen.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_kdf.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_key.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_meth.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_pmeth.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\dh\dh_rfc5114.c" />
+    <ClCompile Include="..\..\src\libcrypto\dllmain.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_ameth.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_asn1.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_depr.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_gen.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_key.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_meth.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_ossl.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_pmeth.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_sign.c" />
+    <ClCompile Include="..\..\src\libcrypto\dsa\dsa_vrf.c" />
+    <ClCompile Include="..\..\src\libcrypto\dso\dso_dl.c" />
+    <ClCompile Include="..\..\src\libcrypto\dso\dso_dlfcn.c" />
+    <ClCompile Include="..\..\src\libcrypto\dso\dso_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\dso\dso_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\dso\dso_openssl.c" />
+    <ClCompile Include="..\..\src\libcrypto\dso\dso_vms.c" />
+    <ClCompile Include="..\..\src\libcrypto\dso\dso_win32.c" />
+    <ClCompile Include="..\..\src\libcrypto\ebcdic.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\curve25519.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\ec2_mult.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec2_oct.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec2_smpl.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecdh_kdf.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecdh_ossl.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecdsa_ossl.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecdsa_sign.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecdsa_vrf.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\eck_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_mont.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_nist.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_nistp224.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_nistp256.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_nistp521.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_nistputil.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_nistz256.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_nistz256_table.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_oct.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecp_smpl.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ecx_meth.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_ameth.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_asn1.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_check.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_curve.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_cvt.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_key.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_kmeth.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_mult.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_oct.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_pmeth.c" />
+    <ClCompile Include="..\..\src\libcrypto\ec\ec_print.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_all.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_cnf.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_cryptodev.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_ctrl.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_dyn.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_fat.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_init.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_list.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_openssl.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_pkey.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_rdrand.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\eng_table.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_asnmth.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_cipher.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_dh.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_digest.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_dsa.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_eckey.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_pkmeth.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_rand.c" />
+    <ClCompile Include="..\..\src\libcrypto\engine\tb_rsa.c" />
+    <ClCompile Include="..\..\src\libcrypto\err\err.c" />
+    <ClCompile Include="..\..\src\libcrypto\err\err_all.c" />
+    <ClCompile Include="..\..\src\libcrypto\err\err_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\bio_b64.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\evp\bio_enc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\evp\bio_md.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\evp\bio_ok.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\evp\cmeth_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\c_allc.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\c_alld.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\digest.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\encode.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\evp_cnf.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\evp_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\evp_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\evp_key.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\evp_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\evp_pbe.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\evp_pkey.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_aes.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_aes_cbc_hmac_sha1.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_aes_cbc_hmac_sha256.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_bf.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_camellia.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_cast.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_chacha20_poly1305.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_des.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_des3.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_idea.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_null.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_old.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_rc2.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_rc4.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_rc4_hmac_md5.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_rc5.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_seed.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\e_xcbc_d.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_md2.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_md4.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_md5.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_md5_sha1.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_mdc2.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_null.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_ripemd.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_sha1.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_sigver.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\m_wp.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\names.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p5_crpt.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p5_crpt2.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\pmeth_fn.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\pmeth_gn.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\pmeth_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p_dec.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p_open.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p_seal.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p_sign.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\p_verify.c" />
+    <ClCompile Include="..\..\src\libcrypto\evp\scrypt.c" />
+    <ClCompile Include="..\..\src\libcrypto\ex_data.c" />
+    <ClCompile Include="..\..\src\libcrypto\getenv.c" />
+    <ClCompile Include="..\..\src\libcrypto\hmac\hmac.c" />
+    <ClCompile Include="..\..\src\libcrypto\hmac\hm_ameth.c" />
+    <ClCompile Include="..\..\src\libcrypto\hmac\hm_pmeth.c" />
+    <ClCompile Include="..\..\src\libcrypto\idea\i_cbc.c" />
+    <ClCompile Include="..\..\src\libcrypto\idea\i_cfb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\idea\i_ecb.c" />
+    <ClCompile Include="..\..\src\libcrypto\idea\i_ofb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\idea\i_skey.c" />
+    <ClCompile Include="..\..\src\libcrypto\init.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\kdf\hkdf.c" />
+    <ClCompile Include="..\..\src\libcrypto\kdf\kdf_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\kdf\tls1_prf.c" />
+    <ClCompile Include="..\..\src\libcrypto\lhash\lhash.c" />
+    <ClCompile Include="..\..\src\libcrypto\lhash\lh_stats.c" />
+    <ClCompile Include="..\..\src\libcrypto\LPdir_nyi.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\LPdir_unix.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\LPdir_vms.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\LPdir_win.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\LPdir_win32.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\LPdir_wince.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\md2\md2_dgst.c" />
+    <ClCompile Include="..\..\src\libcrypto\md2\md2_one.c" />
+    <ClCompile Include="..\..\src\libcrypto\md4\md4_dgst.c" />
+    <ClCompile Include="..\..\src\libcrypto\md4\md4_one.c" />
+    <ClCompile Include="..\..\src\libcrypto\md5\md5_dgst.c" />
+    <ClCompile Include="..\..\src\libcrypto\md5\md5_one.c" />
+    <ClCompile Include="..\..\src\libcrypto\mdc2\mdc2dgst.c" />
+    <ClCompile Include="..\..\src\libcrypto\mdc2\mdc2_one.c" />
+    <ClCompile Include="..\..\src\libcrypto\mem.c" />
+    <ClCompile Include="..\..\src\libcrypto\mem_clr.c" />
+    <ClCompile Include="..\..\src\libcrypto\mem_dbg.c" />
+    <ClCompile Include="..\..\src\libcrypto\mem_sec.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\cbc128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\ccm128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\cfb128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\ctr128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\cts128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\gcm128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\ocb128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\ofb128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\wrap128.c" />
+    <ClCompile Include="..\..\src\libcrypto\modes\xts128.c" />
+    <ClCompile Include="..\..\src\libcrypto\objects\obj_dat.c" />
+    <ClCompile Include="..\..\src\libcrypto\objects\obj_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\objects\obj_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\objects\obj_xref.c" />
+    <ClCompile Include="..\..\src\libcrypto\objects\o_names.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_asn.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_cl.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_ext.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_ht.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_srv.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\ocsp_vfy.c" />
+    <ClCompile Include="..\..\src\libcrypto\ocsp\v3_ocsp.c" />
+    <ClCompile Include="..\..\src\libcrypto\o_dir.c" />
+    <ClCompile Include="..\..\src\libcrypto\o_fips.c" />
+    <ClCompile Include="..\..\src\libcrypto\o_fopen.c" />
+    <ClCompile Include="..\..\src\libcrypto\o_init.c" />
+    <ClCompile Include="..\..\src\libcrypto\o_str.c" />
+    <ClCompile Include="..\..\src\libcrypto\o_time.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_all.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_info.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_oth.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_pk8.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_pkey.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_sign.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_x509.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pem_xaux.c" />
+    <ClCompile Include="..\..\src\libcrypto\pem\pvkfmt.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_add.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_asn.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_attr.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_crpt.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_crt.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_decr.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_init.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_key.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_kiss.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_mutl.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_npas.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_p8d.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_p8e.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_sbag.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\p12_utl.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs12\pk12err.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\bio_pk7.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pk7_asn1.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pk7_attr.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pk7_dgst.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pk7_doit.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pk7_enc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pk7_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pk7_mime.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pk7_smime.c" />
+    <ClCompile Include="..\..\src\libcrypto\pkcs7\pkcs7err.c" />
+    <ClCompile Include="..\..\src\libcrypto\poly1305\poly1305.c" />
+    <ClCompile Include="..\..\src\libcrypto\poly1305\poly1305_ieee754.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\ppccap.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\rand\md_rand.c" />
+    <ClCompile Include="..\..\src\libcrypto\rand\randfile.c" />
+    <ClCompile Include="..\..\src\libcrypto\rand\rand_egd.c" />
+    <ClCompile Include="..\..\src\libcrypto\rand\rand_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\rand\rand_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\rand\rand_unix.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\rand\rand_vms.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\rand\rand_win.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc2\rc2cfb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc2\rc2ofb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc2\rc2_cbc.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc2\rc2_ecb.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc2\rc2_skey.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc2\tab.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc4\rc4_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc4\rc4_skey.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc5\rc5cfb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc5\rc5ofb64.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc5\rc5_ecb.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc5\rc5_enc.c" />
+    <ClCompile Include="..\..\src\libcrypto\rc5\rc5_skey.c" />
+    <ClCompile Include="..\..\src\libcrypto\ripemd\rmd_dgst.c" />
+    <ClCompile Include="..\..\src\libcrypto\ripemd\rmd_one.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_ameth.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_asn1.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_chk.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_crpt.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_depr.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_gen.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_meth.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_none.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_null.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_oaep.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_ossl.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_pk1.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_pmeth.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_pss.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_saos.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_sign.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_ssl.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_x931.c" />
+    <ClCompile Include="..\..\src\libcrypto\rsa\rsa_x931g.c" />
+    <ClCompile Include="..\..\src\libcrypto\s390xcap.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\seed\seed.c" />
+    <ClCompile Include="..\..\src\libcrypto\seed\seed_cbc.c" />
+    <ClCompile Include="..\..\src\libcrypto\seed\seed_cfb.c" />
+    <ClCompile Include="..\..\src\libcrypto\seed\seed_ecb.c" />
+    <ClCompile Include="..\..\src\libcrypto\seed\seed_ofb.c" />
+    <ClCompile Include="..\..\src\libcrypto\sha\sha1dgst.c" />
+    <ClCompile Include="..\..\src\libcrypto\sha\sha1_one.c" />
+    <ClCompile Include="..\..\src\libcrypto\sha\sha256.c" />
+    <ClCompile Include="..\..\src\libcrypto\sha\sha512.c" />
+    <ClCompile Include="..\..\src\libcrypto\sparcv9cap.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\srp\srp_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\srp\srp_vfy.c" />
+    <ClCompile Include="..\..\src\libcrypto\stack\stack.c" />
+    <ClCompile Include="..\..\src\libcrypto\threads_none.c" />
+    <ClCompile Include="..\..\src\libcrypto\threads_pthread.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\threads_win.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_asn1.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_conf.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_req_print.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_req_utils.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_rsp_print.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_rsp_sign.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_rsp_utils.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_rsp_verify.c" />
+    <ClCompile Include="..\..\src\libcrypto\ts\ts_verify_ctx.c" />
+    <ClCompile Include="..\..\src\libcrypto\txt_db\txt_db.c" />
+    <ClCompile Include="..\..\src\libcrypto\uid.c" />
+    <ClCompile Include="..\..\src\libcrypto\ui\ui_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\ui\ui_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\ui\ui_openssl.c" />
+    <ClCompile Include="..\..\src\libcrypto\ui\ui_util.c" />
+    <ClCompile Include="..\..\src\libcrypto\whrlpool\wp_block.c" />
+    <ClCompile Include="..\..\src\libcrypto\whrlpool\wp_dgst.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\pcy_cache.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\pcy_data.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\pcy_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\pcy_map.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\pcy_node.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\pcy_tree.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\tabtest.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3conf.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3err.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3prin.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_addr.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_akey.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_akeya.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_alt.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_asid.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_bcons.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_bitst.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_conf.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_cpols.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_crld.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_enum.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_extku.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_genn.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_ia5.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_info.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_int.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_lib.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_ncons.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_pci.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_pcia.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_pcons.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_pku.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_pmaps.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_prn.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_purp.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_skey.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_sxnet.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_tlsf.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509v3\v3_utl.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\by_dir.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\by_file.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\t_crl.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\t_req.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\t_x509.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509cset.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509name.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509rset.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509spki.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509type.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_att.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_cmp.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_d2.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_def.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_err.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_ext.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_lu.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_meth.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_obj.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_r2x.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_req.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_set.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_trs.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_txt.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_v3.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_vfy.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x509_vpm.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_all.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_attrib.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_crl.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_exten.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_name.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_pubkey.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_req.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_x509.c" />
+    <ClCompile Include="..\..\src\libcrypto\x509\x_x509a.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\openssl\internal\conf.h" />
+    <ClInclude Include="..\..\include\openssl\opensslconf.h" />
+    <ClInclude Include="..\..\src\libcrypto\aes\aes_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\async\arch\async_null.h" />
+    <ClInclude Include="..\..\src\libcrypto\async\arch\async_posix.h" />
+    <ClInclude Include="..\..\src\libcrypto\async\arch\async_win.h" />
+    <ClInclude Include="..\..\src\libcrypto\async\async_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\bf\bf_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\bf\bf_pi.h" />
+    <ClInclude Include="..\..\src\libcrypto\bio\bio_lcl.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\src\libcrypto\blake2\blake2_impl.h" />
+    <ClInclude Include="..\..\src\libcrypto\blake2\blake2_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\bn\bn_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\bn\bn_prime.h" />
+    <ClInclude Include="..\..\src\libcrypto\bn\rsaz_exp.h" />
+    <ClInclude Include="..\..\src\libcrypto\camellia\cmll_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\cast\cast_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\cast\cast_s.h" />
+    <ClInclude Include="..\..\src\libcrypto\cms\cms_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\comp\comp_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\conf\conf_def.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\src\libcrypto\conf\conf_lcl.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\src\libcrypto\ct\ct_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\des\des_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\des\rpc_des.h" />
+    <ClInclude Include="..\..\src\libcrypto\des\spr.h" />
+    <ClInclude Include="..\..\src\libcrypto\dh\dh_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\dsa\dsa_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\dso\dso_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\ec\ec_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\engine\eng_int.h" />
+    <ClInclude Include="..\..\src\libcrypto\evp\evp_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\hmac\hmac_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\idea\idea_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\lhash\lhash_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\md4\md4_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\md5\md5_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\modes\modes_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\objects\obj_dat.h" />
+    <ClInclude Include="..\..\src\libcrypto\objects\obj_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\objects\obj_xref.h" />
+    <ClInclude Include="..\..\src\libcrypto\ocsp\ocsp_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\pkcs12\p12_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\rand\rand_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\rc2\rc2_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\rc4\rc4_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\rc5\rc5_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\ripemd\rmdconst.h" />
+    <ClInclude Include="..\..\src\libcrypto\ripemd\rmd_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\rsa\rsa_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\seed\seed_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\sha\sha_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\ts\ts_lcl.h" />
+    <ClInclude Include="..\..\src\libcrypto\ui\ui_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\whrlpool\wp_locl.h" />
+    <ClInclude Include="..\..\src\libcrypto\x509v3\ext_dat.h" />
+    <ClInclude Include="..\..\src\libcrypto\x509v3\pcy_int.h" />
+    <ClInclude Include="..\..\src\libcrypto\x509\x509_lcl.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{B9C29AB5-8688-410B-A99C-FF63ADC05FAC}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>libcrypto</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\x86\$(TargetName)_d\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_d</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">obj\x86\$(TargetName)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>lib\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>lib\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\openssl;..\..\src\openssl;..\..\src\libcrypto\modes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>
+      </CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32_LEAN_AND_MEAN;_WINSOCK_DEPRECATED_NO_WARNINGS;L_ENDIAN;DSO_WIN32;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;OPENSSL_SYS_WIN32;OPENSSL_IA32_SSE2;OPENSSL_THREADS;OPENSSL_PIC;OPENSSLDIR=".";ENGINESDIR=".";_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4090;4133;4244;4267;</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\openssl;..\..\src\openssl;..\..\src\libcrypto\modes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>
+      </CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32_LEAN_AND_MEAN;_WINSOCK_DEPRECATED_NO_WARNINGS;L_ENDIAN;DSO_WIN32;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;OPENSSL_SYS_WIN64;OPENSSL_IA32_SSE2;OPENSSL_THREADS;OPENSSL_PIC;OPENSSLDIR=".";ENGINESDIR=".";_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4090;4133;4244;4267;</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\openssl;..\..\src\openssl;..\..\src\libcrypto\modes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>
+      </CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32_LEAN_AND_MEAN;_WINSOCK_DEPRECATED_NO_WARNINGS;L_ENDIAN;DSO_WIN32;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;OPENSSL_SYS_WIN32;OPENSSL_IA32_SSE2;OPENSSL_THREADS;OPENSSL_PIC;OPENSSLDIR=".";ENGINESDIR=".";NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <StringPooling>true</StringPooling>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableSpecificWarnings>4090;4133;4244;4267;</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\openssl;..\..\src\openssl;..\..\src\libcrypto\modes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>
+      </CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32_LEAN_AND_MEAN;_WINSOCK_DEPRECATED_NO_WARNINGS;L_ENDIAN;DSO_WIN32;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;OPENSSL_SYS_WIN64;OPENSSL_IA32_SSE2;OPENSSL_THREADS;OPENSSL_PIC;OPENSSLDIR=".";ENGINESDIR=".";NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <StringPooling>true</StringPooling>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableSpecificWarnings>4090;4133;4244;4267;</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

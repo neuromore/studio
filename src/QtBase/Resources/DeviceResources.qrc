@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/Devices/Test Device.png</file>
+        <file>Images/Devices/Emotiv EPOC.png</file>
+        <file>Images/Devices/Emotiv Insight.png</file>
+        <file>Images/Devices/InteraXon Muse.png</file>
+        <file>Images/Devices/NeuroSky MindWave.png</file>
+        <file>Images/Devices/Zephyr BioHarness 3.png</file>
+        <file>Images/Devices/UnknownDevice.png</file>
+        <file>Images/Devices/Versus.png</file>
+        <file>Images/Devices/B-Alert X24.png</file>
+        <file>Images/Devices/OpenBCI.png</file>
+        <file>Images/Devices/OpenBCI + Daisy.png</file>
+        <file>Images/Devices/Bluetooth Smart Device.png</file>
+        <file>Images/Devices/Mitsar-EEG 201 v50.png</file>
+        <file>Images/Devices/Mitsar-EEG 201 v60.png</file>
+        <file>Images/Devices/Mitsar-EEG 201 v65.png</file>
+        <file>Images/Devices/Mitsar (Error).png</file>
+        <file>Images/Devices/HeartRate.png</file>
+        <file>Images/Devices/eSense Skin Response.png</file>
+    </qresource>
+</RCC>

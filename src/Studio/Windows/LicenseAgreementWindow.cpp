@@ -1,0 +1,200 @@
+/****************************************************************************
+**
+** Copyright 2019 neuromore co
+** Contact: https://neuromore.com/contact
+**
+** Commercial License Usage
+** Licensees holding valid commercial neuromore licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and neuromore. For licensing terms
+** and conditions see https://neuromore.com/licensing. For further
+** information use the contact form at https://neuromore.com/contact.
+**
+** neuromore Public License Usage
+** Alternatively, this file may be used under the terms of the neuromore
+** Public License version 1 as published by neuromore co with exceptions as 
+** appearing in the file neuromore-class-exception.md included in the 
+** packaging of this file. Please review the following information to 
+** ensure the neuromore Public License requirements will be met: 
+** https://neuromore.com/npl
+**
+****************************************************************************/
+
+// include the required headers
+#include "LicenseAgreementWindow.h"
+#include "../AppManager.h"
+#include <Core/LogManager.h>
+#include <Backend/UsersAgreementRequest.h>
+#include <Backend/UsersAgreementResponse.h>
+#include <QtBaseManager.h>
+#include <EngineManager.h>
+#include <QLabel>
+#include <QSizePolicy>
+#include <QPixmap>
+#include <QMessageBox>
+#include <QTextEdit>
+#include <QPushButton>
+#include <QVBoxLayout>
+
+
+using namespace Core;
+
+// constructor
+LicenseAgreementWindow::LicenseAgreementWindow(bool showAgreeAndCancelButtons, QWidget* parent) : QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint)
+{
+	setWindowTitle("Licenses");
+
+	// create the about dialog's layout
+	QVBoxLayout* mainLayout = new QVBoxLayout();
+	mainLayout->setMargin(0);
+	setLayout(mainLayout);
+
+	// load the about dialog image and add it to the dialog
+	QPixmap aboutImage( ":/Images/About.png" );
+	const uint32 imageWidth = aboutImage.width();
+	QLabel* aboutImageLabel = new QLabel(this);
+	aboutImageLabel->setPixmap(aboutImage);
+	mainLayout->addWidget( aboutImageLabel, 0, Qt::AlignTop );
+
+
+	QVBoxLayout* layout = new QVBoxLayout();
+	layout->setSpacing(0);
+	mainLayout->addLayout( layout );
+
+
+	// add tab bar
+	mTabBar = new QTabBar(this);
+	connect(mTabBar, SIGNAL(currentChanged(int)), this, SLOT(OnChangeCategoryTab(int)));
+	layout->addWidget( mTabBar );
+
+
+	// text edit
+	mTextEdit = new QTextEdit(this);
+	mTextEdit->append("Loading license ...");
+	mTextEdit->setMinimumHeight( 400 );
+	layout->addWidget( mTextEdit );
+
+	// agree & cancel buttons
+	if (showAgreeAndCancelButtons)
+	{
+		QHBoxLayout* buttonsLayout = new QHBoxLayout();
+		buttonsLayout->setMargin(5);
+		layout->addLayout(buttonsLayout);
+
+		// license i agree button
+		mAgreeLicenseButton = new QPushButton( "I Agree", this );
+		//mAgreeLicenseButton->setEnabled(false);
+		mAgreeLicenseButton->setMinimumWidth( imageWidth / 4 );
+		mAgreeLicenseButton->setMaximumWidth( imageWidth / 4 );
+		buttonsLayout->addWidget( mAgreeLicenseButton );
+
+		connect( mAgreeLicenseButton, SIGNAL(clicked()), this, SLOT(OnAgreedLicense()) );
+
+		// cancel button
+		QPushButton* cancelButton = new QPushButton( "Cancel", this );
+		cancelButton->setMinimumWidth( imageWidth / 4 );
+		cancelButton->setMaximumWidth( imageWidth / 4 );
+		buttonsLayout->addWidget( cancelButton );
+
+		connect( cancelButton, SIGNAL(clicked()), this, SLOT(reject()) );
+	}
+	else
+	{
+		mAgreeLicenseButton = NULL;
+	}
+
+	// avoid resizing
+	setSizeGripEnabled(false);
+	setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
+
+	AddLicense( "Licensing", "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md" );
+	AddLicense( "neuromore Cloud Terms", "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md" );
+	AddLicense( "neuromore Cloud Privacy Policy", "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md" );
+
+	// position window in the screen center
+	GetQtBaseManager()->CenterToScreen(this);
+}
+
+
+// destructor
+LicenseAgreementWindow::~LicenseAgreementWindow()
+{
+}
+
+
+void LicenseAgreementWindow::AddLicense(const char* name, const char* url)
+{
+	LicenseAgreement* license = new LicenseAgreement(QUrl(url), this);
+	connect( license, &LicenseAgreement::TextChanged, this, &LicenseAgreementWindow::OnTextChanged );
+
+	mLicenses.Add( license );
+	mTabBar->addTab(name);
+}
+
+
+void LicenseAgreementWindow::SetText(const char* text)
+{
+	mTextEdit->clear();
+	mTextEdit->append( text );
+	
+	// set the cursor to the beginning
+	QTextCursor textCursor = mTextEdit->textCursor();
+	textCursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
+	mTextEdit->setTextCursor( textCursor );
+
+	mTextEdit->setReadOnly(true);
+	mTextEdit->setStyleSheet("color: rgb(0,159,227);");
+}
+
+
+void LicenseAgreementWindow::OnTextChanged()
+{
+	// get the sender license
+	LicenseAgreement* senderLicense = qobject_cast<LicenseAgreement*>( sender() );
+	
+	// get the currently visible license
+	int tabIndex = mTabBar->currentIndex();
+	if (tabIndex < 0)
+		return;
+	LicenseAgreement* currentLicense = mLicenses[tabIndex];
+	
+	// return directly if we're viewing a different license
+	if (senderLicense != currentLicense)
+		return;
+
+	String text = currentLicense->GetText();
+	SetText(text.AsChar());
+}
+
+
+void LicenseAgreementWindow::OnChangeCategoryTab(int index)
+{
+	LicenseAgreement* license = mLicenses[index];
+	SetText( license->GetText() );
+}
+
+
+void LicenseAgreementWindow::OnAgreedLicense()
+{
+	// construct /users/agreement request
+	UsersAgreementRequest request( GetUser()->GetToken(), GetUser()->GetId(), "license_agreement" );
+
+	// process request and connect to the reply
+	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
+
+	// lambda slot for processing reply
+	connect(reply, &QNetworkReply::finished, this, [reply, this]()
+	{
+		// translate it to our data model
+		UsersAgreementResponse response(reply);
+		if (response.HasError() == true)
+		{
+			// TODO error message
+			return;
+		}
+
+		// accept and close the window
+		accept();
+	});
+}

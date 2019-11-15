@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-blob.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-buffer-serialize.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-buffer.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-common.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-coretext.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-face.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-fallback-shape.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-font.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-font.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-layout.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-map.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-math.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-arabic.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-default.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-hangul.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-hebrew.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-indic-table.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-indic.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-myanmar.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-thai.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-tibetan.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-use-table.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-complex-use.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-fallback.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape-normalize.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-shape.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-tag.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-ot-var.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-set.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-shape-plan.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-shape.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-shaper.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-unicode.cc" />
+    <ClCompile Include="..\..\src\harfbuzz-ng\hb-warning.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-atomic-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-blob.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-buffer-deserialize-json.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-buffer-deserialize-text.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-buffer-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-buffer.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-cache-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-common.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-coretext.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-debug.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-deprecated.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-dsalgs.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-face-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-face.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-font-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-font.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-mutex-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-object-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-open-file-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-open-type-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-cbdt-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-cmap-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-font.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-glyf-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-head-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-hhea-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-hmtx-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-kern-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout-common-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout-gdef-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout-gpos-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout-gsub-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout-gsubgpos-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout-jstf-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout-math-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-layout.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-map-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-math-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-math.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-maxp-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-name-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-os2-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-post-macroman.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-post-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-arabic-fallback.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-arabic-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-arabic-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-arabic-win1256.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-indic-machine.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-indic-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-myanmar-machine.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-use-machine.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-complex-use-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-fallback-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-normalize-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-shape.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-tag.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-var-avar-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-var-fvar-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-var-hvar-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-var-mvar-table.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot-var.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-ot.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-set-digest-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-set-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-set.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-shape-plan-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-shape-plan.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-shape.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-shaper-impl-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-shaper-list.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-shaper-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-string-array.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-unicode-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-unicode.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-utf-private.hh" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb-version.h" />
+    <ClInclude Include="..\..\include\harfbuzz-ng\hb.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{B9F27AB5-8688-421B-A99C-FF62ADC05FAC}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>harfbuzz-ng</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\x86\$(TargetName)_d\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_d</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">obj\x86\$(TargetName)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>lib\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>lib\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\include\harfbuzz-ng;..\..\include\qt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_ENABLE_EXTENDED_ALIGNED_STORAGE;HB_NO_UNICODE_FUNCS;HB_DISABLE_DEPRECATED;HB_EXTERN=;HB_NO_WIN1256;QT_NO_VERSION_TAGGING;QT_NO_DYNAMIC_CAST;QT_NO_EXCEPTIONS;HAVE_OT;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\include\harfbuzz-ng;..\..\include\qt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_ENABLE_EXTENDED_ALIGNED_STORAGE;HB_NO_UNICODE_FUNCS;HB_DISABLE_DEPRECATED;HB_EXTERN=;HB_NO_WIN1256;QT_NO_VERSION_TAGGING;QT_NO_DYNAMIC_CAST;QT_NO_EXCEPTIONS;HAVE_OT;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\include\harfbuzz-ng;..\..\include\qt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_ENABLE_EXTENDED_ALIGNED_STORAGE;HB_NO_UNICODE_FUNCS;HB_DISABLE_DEPRECATED;HB_EXTERN=;HB_NO_WIN1256;QT_NO_VERSION_TAGGING;QT_NO_DYNAMIC_CAST;QT_NO_EXCEPTIONS;HAVE_OT;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <StringPooling>true</StringPooling>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\include\harfbuzz-ng;..\..\include\qt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_ENABLE_EXTENDED_ALIGNED_STORAGE;HB_NO_UNICODE_FUNCS;HB_DISABLE_DEPRECATED;HB_EXTERN=;HB_NO_WIN1256;QT_NO_VERSION_TAGGING;QT_NO_DYNAMIC_CAST;QT_NO_EXCEPTIONS;HAVE_OT;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <StringPooling>true</StringPooling>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Midl>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <TargetMachine>MachineX64</TargetMachine>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

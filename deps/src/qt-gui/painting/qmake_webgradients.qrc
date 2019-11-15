@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="qgradient">
+<file alias="webgradients.binaryjson">webgradients.binaryjson</file>
+</qresource>
+</RCC>

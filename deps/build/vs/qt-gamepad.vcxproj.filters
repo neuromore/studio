@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-gamepad\qgamepad.cpp" />
+    <ClCompile Include="..\..\src\qt-gamepad\qgamepadbackend.cpp" />
+    <ClCompile Include="..\..\src\qt-gamepad\qgamepadbackendfactory.cpp" />
+    <ClCompile Include="..\..\src\qt-gamepad\qgamepadbackendplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-gamepad\qgamepadkeynavigation.cpp" />
+    <ClCompile Include="..\..\src\qt-gamepad\qgamepadmanager.cpp" />
+    <ClCompile Include="..\..\src\qt-gamepad\.moc\moc_qgamepad.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gamepad\.moc\moc_qgamepadkeynavigation.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gamepad\.moc\moc_qgamepadmanager.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="0CONF">
+      <UniqueIdentifier>{2d1ee746-0c70-4477-99d1-d94ca6785d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{a550a7c2-2b8a-4df8-b97b-866080e95dc0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtGamepad\qtgamepad-config.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtGamepad\private\qtgamepad-config_p.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

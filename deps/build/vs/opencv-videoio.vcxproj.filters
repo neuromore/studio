@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\opencv-videoio\cap.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_dshow.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_ffmpeg.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_images.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_mjpeg_decoder.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_mjpeg_encoder.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_vfw.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\precomp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\opencv2\cvconfig.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\opencv2\opencv_modules.hpp">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-videoio\cap_dshow.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_ffmpeg_api.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_ffmpeg_impl.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_intelperc.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_msmf.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_winrt_bridge.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_winrt_capture.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_winrt_video.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\ffmpeg_codecs.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\precomp.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\wrl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Config">
+      <UniqueIdentifier>{215bb73e-71f1-40cb-a50e-cb56839c55fb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

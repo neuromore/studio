@@ -1,0 +1,1215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Devices">
+      <UniqueIdentifier>{92ff39bf-2d5e-4737-9b28-c59fb4a1c165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenCV">
+      <UniqueIdentifier>{9f1d20a5-f9ab-41a3-b27c-636a31b8eaf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins">
+      <UniqueIdentifier>{26976726-3da4-4249-97de-4c1c9c66ee04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{4d7496a7-31f9-4cd4-8aae-cfb95bfd787b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{2c400be3-254d-43a7-b5d6-61967f449e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTests">
+      <UniqueIdentifier>{cb1b0119-769a-4d29-bb09-e6b0cd08d3e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{8e4907a3-a8f1-4fd8-9b8a-6a9ce617a4ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{5d4d1f69-117e-4a3a-a48e-e710e022a224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\ABM">
+      <UniqueIdentifier>{26d04f1b-98fe-468a-a1a0-96f07d165134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Audio">
+      <UniqueIdentifier>{ff7abcff-bcc2-43c9-8f8a-a508d3f900a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Bluetooth">
+      <UniqueIdentifier>{0b10c66e-d6a8-420a-8ddd-eaf237fb58d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainProducts">
+      <UniqueIdentifier>{c3eed6b3-96d3-4060-888c-0689d752a104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Brainquiry">
+      <UniqueIdentifier>{65e0dcbb-8eaf-4f80-93bc-a54aea37c349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Emotiv">
+      <UniqueIdentifier>{e78d072a-6f89-4d23-8a49-d10a842a4589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\EyeX">
+      <UniqueIdentifier>{0735106d-5c30-4fb9-86f9-45a4d72aa164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Mitsar">
+      <UniqueIdentifier>{98816af3-9eb3-4460-91d4-6374e59fba50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\NeuroSky">
+      <UniqueIdentifier>{a68ed791-bc55-449c-8546-509f5e59674d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\OpenBCI">
+      <UniqueIdentifier>{cfe0ea55-803b-4f13-9f29-bd1cfe35167e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Versus">
+      <UniqueIdentifier>{0d9d2318-b96f-4873-960e-d2b0b768e732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ABM">
+      <UniqueIdentifier>{1d74b12a-34b5-4150-a052-ea69d78d3e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\BackendFileSystem">
+      <UniqueIdentifier>{8791a75a-43f1-45d4-8582-d5436945ccf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Development">
+      <UniqueIdentifier>{1c116d09-6ded-4511-ae4f-57e6d9f6502b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Devices">
+      <UniqueIdentifier>{1ec6b566-ca1e-4fc6-8a82-9aae7f4be3d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\EngineStatus">
+      <UniqueIdentifier>{1ddecc90-2dc9-4375-bf41-8f34f07adeee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Examples">
+      <UniqueIdentifier>{5f553044-ed51-4ef0-a48c-678633aa6060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Experience">
+      <UniqueIdentifier>{dd480e39-366b-4b3b-9ba0-b7bce1b42fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ExperienceSelection">
+      <UniqueIdentifier>{d73efd83-dc77-4f76-b70d-5b21ec026366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Feedback">
+      <UniqueIdentifier>{2016013d-f88c-4627-855d-0576ff9fa7f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Graph">
+      <UniqueIdentifier>{a7f8bd5d-c47d-42dd-a2ff-26a9f95e8174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Networking">
+      <UniqueIdentifier>{08c16229-b31e-4c23-9fe4-cc2e40890a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Parameter">
+      <UniqueIdentifier>{02ce324d-e728-467b-bf72-aae0ab9a7898}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\RawWaveform">
+      <UniqueIdentifier>{a8c29229-8c35-4d84-a71a-8e11d96de40d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SessionControl">
+      <UniqueIdentifier>{5f9c547d-72f5-42d8-b4fc-9c8ada9a43de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Spectrogram">
+      <UniqueIdentifier>{1237b3c3-282a-4562-b378-fe873403b3bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Spectrogram2D">
+      <UniqueIdentifier>{73e400ba-e7cb-48ea-9165-7b0cfca16e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SpectrumAnalyzerSettings">
+      <UniqueIdentifier>{65251b24-fb06-4207-9afa-16eb104a8941}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\View">
+      <UniqueIdentifier>{80db7be9-909f-4bbe-9c06-b8ef440a2afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Development\EEGElectrodePlacementPlugin">
+      <UniqueIdentifier>{bba0ffec-f9d9-4b39-9771-c1bee8d6835a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Development\HeatmapPlugin">
+      <UniqueIdentifier>{1685b802-53ca-4a44-ad4f-76fb87ec1e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Development\LatencyTestPlugin">
+      <UniqueIdentifier>{1a7b1c5a-ca52-4d80-944c-235086d016b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Examples\SimpleOpenGLPlugin">
+      <UniqueIdentifier>{0c16eddb-ebbe-485b-a712-f7e8424560fe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\DriverInventory.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\ABM\AbmDriver.cpp">
+      <Filter>Devices\ABM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\ABM\AbmThreadHandler.cpp">
+      <Filter>Devices\ABM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Audio\AudioDriver.cpp">
+      <Filter>Devices\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Audio\QtAudioDevices.cpp">
+      <Filter>Devices\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDevice.cpp">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.cpp">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.cpp">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.cpp">
+      <Filter>Devices\BrainProducts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.cpp">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.cpp">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Emotiv\EmotivDriver.cpp">
+      <Filter>Devices\Emotiv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.cpp">
+      <Filter>Devices\EyeX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.cpp">
+      <Filter>Devices\Mitsar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.cpp">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.cpp">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.cpp">
+      <Filter>Devices\Versus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.cpp">
+      <Filter>Devices\Versus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.cpp">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.cpp">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\AppManager.cpp" />
+    <ClCompile Include="..\..\src\Studio\AuthenticationCenter.cpp" />
+    <ClCompile Include="..\..\src\Studio\CrashReporter.cpp" />
+    <ClCompile Include="..\..\src\Studio\DocumentationExporter.cpp" />
+    <ClCompile Include="..\..\src\Studio\main.cpp" />
+    <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Visualization.cpp" />
+    <ClCompile Include="..\..\src\Studio\VisualizationManager.cpp" />
+    <ClCompile Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.cpp">
+      <Filter>OpenCV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.cpp">
+      <Filter>Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.cpp">
+      <Filter>Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.cpp">
+      <Filter>Plugins\ABM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.cpp">
+      <Filter>Plugins\ABM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemPlugin.cpp">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemWidget.cpp">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFileWindow.cpp">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFolderWindow.cpp">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\EEGElectrodePlacementPlugin\EEGElectrodePlacementPlugin.cpp">
+      <Filter>Plugins\Development\EEGElectrodePlacementPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapPlugin.cpp">
+      <Filter>Plugins\Development\HeatmapPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapWidget.cpp">
+      <Filter>Plugins\Development\HeatmapPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestPlugin.cpp">
+      <Filter>Plugins\Development\LatencyTestPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.cpp">
+      <Filter>Plugins\Development\LatencyTestPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesPlugin.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesWidget.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DeviceWidget.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\NoDeviceWidget.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\EngineStatus\EngineStatusPlugin.cpp">
+      <Filter>Plugins\EngineStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLPlugin.cpp">
+      <Filter>Plugins\Examples\SimpleOpenGLPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLWidget.cpp">
+      <Filter>Plugins\Examples\SimpleOpenGLPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.cpp">
+      <Filter>Plugins\Experience</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.cpp">
+      <Filter>Plugins\Experience</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionPlugin.cpp">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.cpp">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.cpp">
+      <Filter>Plugins\Feedback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackPlugin.cpp">
+      <Filter>Plugins\Feedback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\ClassifierPlugin.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPaletteWidget.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphTextPixmapCache.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphWidget.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\StateMachinePlugin.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Networking\NetworkTestClientPlugin.cpp">
+      <Filter>Plugins\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewPlugin.cpp">
+      <Filter>Plugins\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumPlugin.cpp">
+      <Filter>Plugins\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumWidget.cpp">
+      <Filter>Plugins\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewWidget.cpp">
+      <Filter>Plugins\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsPlugin.cpp">
+      <Filter>Plugins\SpectrumAnalyzerSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsWidget.cpp">
+      <Filter>Plugins\SpectrumAnalyzerSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DPlugin.cpp">
+      <Filter>Plugins\Spectrogram2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DWidget.cpp">
+      <Filter>Plugins\Spectrogram2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.cpp">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.cpp">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.cpp">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\ClientInfoWidget.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\PreSessionWidget.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\SessionControlPlugin.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\SessionInfoWidget.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\StageControlWidget.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\WhileSessionWidget.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformPlugin.cpp">
+      <Filter>Plugins\RawWaveform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformWidget.cpp">
+      <Filter>Plugins\RawWaveform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParameterControlPlugin.cpp">
+      <Filter>Plugins\Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParametersWidget.cpp">
+      <Filter>Plugins\Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParameterWidgets.cpp">
+      <Filter>Plugins\Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Rendering\Mesh.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLManager.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidget.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidget2DHelpers.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidgetCallback.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Rendering\TextureManager.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\UnitTests\StudioTestFacility.cpp">
+      <Filter>UnitTests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\BatteryStatusWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\BreathingRateWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\ChannelMultiSelectionWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\ChannelSelectionWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\DeviceSelectionWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\EEGElectrodesWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\FrequencyBandCheckboxWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\HeartRateWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\HMultiCheckboxWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\ImpedanceTestWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\SensorCheckboxWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\SignalQualityWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\SkinTemperatureWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\StopwatchWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\SwitchingImage.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\ThermometerWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\AboutWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\CreateUserWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\EmailValidator.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\InviteUserWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreement.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreementWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\LoginWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\ReportWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\SelectUserWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\SettingsWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\UpgradeWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\VisualizationSelectWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\AppManager.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\AuthenticationCenter.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\MainWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\VisualizationManager.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\AboutWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\CreateUserWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\EmailValidator.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\InviteUserWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreement.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreementWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\LoginWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\ReportWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\SelectUserWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\SettingsWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\UpgradeWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\VisualizationSelectWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\BatteryStatusWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\BreathingRateWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\ChannelMultiSelectionWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\ChannelSelectionWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\DeviceSelectionWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\EEGElectrodesWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\FrequencyBandCheckboxWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\HeartRateWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\HMultiCheckboxWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\ImpedanceTestWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\SensorCheckboxWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\SignalQualityWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\SkinTemperatureWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\StopwatchWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\SwitchingImage.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Widgets\ThermometerWidget.moc.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.moc.cpp">
+      <Filter>Plugins\ABM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.moc.cpp">
+      <Filter>Plugins\ABM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemPlugin.moc.cpp">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemWidget.moc.cpp">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFileWindow.moc.cpp">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFolderWindow.moc.cpp">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\EEGElectrodePlacementPlugin\EEGElectrodePlacementPlugin.moc.cpp">
+      <Filter>Plugins\Development\EEGElectrodePlacementPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapPlugin.moc.cpp">
+      <Filter>Plugins\Development\HeatmapPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapWidget.moc.cpp">
+      <Filter>Plugins\Development\HeatmapPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestPlugin.moc.cpp">
+      <Filter>Plugins\Development\LatencyTestPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.moc.cpp">
+      <Filter>Plugins\Development\LatencyTestPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.moc.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesPlugin.moc.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesWidget.moc.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\DeviceWidget.moc.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Devices\NoDeviceWidget.moc.cpp">
+      <Filter>Plugins\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\EngineStatus\EngineStatusPlugin.moc.cpp">
+      <Filter>Plugins\EngineStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLPlugin.moc.cpp">
+      <Filter>Plugins\Examples\SimpleOpenGLPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLWidget.moc.cpp">
+      <Filter>Plugins\Examples\SimpleOpenGLPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.moc.cpp">
+      <Filter>Plugins\Experience</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.moc.cpp">
+      <Filter>Plugins\Experience</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionPlugin.moc.cpp">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.moc.cpp">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.moc.cpp">
+      <Filter>Plugins\Feedback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackPlugin.moc.cpp">
+      <Filter>Plugins\Feedback</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\ClassifierPlugin.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPaletteWidget.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphTextPixmapCache.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphWidget.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Graph\StateMachinePlugin.moc.cpp">
+      <Filter>Plugins\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Networking\NetworkTestClientPlugin.moc.cpp">
+      <Filter>Plugins\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParameterControlPlugin.moc.cpp">
+      <Filter>Plugins\Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParametersWidget.moc.cpp">
+      <Filter>Plugins\Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Parameter\ParameterWidgets.moc.cpp">
+      <Filter>Plugins\Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformPlugin.moc.cpp">
+      <Filter>Plugins\RawWaveform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformWidget.moc.cpp">
+      <Filter>Plugins\RawWaveform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\ClientInfoWidget.moc.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\PreSessionWidget.moc.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\SessionControlPlugin.moc.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\SessionInfoWidget.moc.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\StageControlWidget.moc.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SessionControl\WhileSessionWidget.moc.cpp">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.moc.cpp">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.moc.cpp">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPluginCollection.moc.cpp">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.moc.cpp">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DPlugin.moc.cpp">
+      <Filter>Plugins\Spectrogram2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DWidget.moc.cpp">
+      <Filter>Plugins\Spectrogram2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsPlugin.moc.cpp">
+      <Filter>Plugins\SpectrumAnalyzerSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsWidget.moc.cpp">
+      <Filter>Plugins\SpectrumAnalyzerSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewPlugin.moc.cpp">
+      <Filter>Plugins\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumPlugin.moc.cpp">
+      <Filter>Plugins\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumWidget.moc.cpp">
+      <Filter>Plugins\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\View\ViewWidget.moc.cpp">
+      <Filter>Plugins\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.moc.cpp">
+      <Filter>Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.moc.cpp">
+      <Filter>Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLManager.moc.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidget.moc.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDevice.moc.cpp">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.moc.cpp">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.moc.cpp">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.moc.cpp">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.moc.cpp">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.moc.cpp">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.moc.cpp">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.moc.cpp">
+      <Filter>Devices\Versus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.moc.cpp">
+      <Filter>Devices\Versus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Resources\StudioResources.rcc.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.moc.cpp">
+      <Filter>OpenCV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.moc.cpp">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.moc.cpp">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\DriverInventory.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\ABM\AbmDriver.h">
+      <Filter>Devices\ABM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\ABM\AbmThreadHandler.h">
+      <Filter>Devices\ABM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Audio\AudioDriver.h">
+      <Filter>Devices\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Audio\QtAudioDevices.h">
+      <Filter>Devices\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDevice.h">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.h">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.h">
+      <Filter>Devices\Bluetooth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.h">
+      <Filter>Devices\BrainProducts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.h">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.h">
+      <Filter>Devices\Brainquiry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Emotiv\EmotivDriver.h">
+      <Filter>Devices\Emotiv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.h">
+      <Filter>Devices\EyeX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.h">
+      <Filter>Devices\Mitsar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.h">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.h">
+      <Filter>Devices\NeuroSky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusCommands.h">
+      <Filter>Devices\Versus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusDriver.h">
+      <Filter>Devices\Versus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.h">
+      <Filter>Devices\Versus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\OpenBCI\OpenBCICommands.h">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.h">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.h">
+      <Filter>Devices\OpenBCI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\AppManager.h" />
+    <ClInclude Include="..\..\src\Studio\AuthenticationCenter.h" />
+    <ClInclude Include="..\..\src\Studio\Config.h" />
+    <ClInclude Include="..\..\src\Studio\CrashReporter.h" />
+    <ClInclude Include="..\..\src\Studio\DocumentationExporter.h" />
+    <ClInclude Include="..\..\src\Studio\MainWindow.h" />
+    <ClInclude Include="..\..\src\Studio\Version.h" />
+    <ClInclude Include="..\..\src\Studio\Visualization.h" />
+    <ClInclude Include="..\..\src\Studio\VisualizationManager.h" />
+    <ClInclude Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.h">
+      <Filter>OpenCV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.h">
+      <Filter>Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.h">
+      <Filter>Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.h">
+      <Filter>Plugins\ABM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.h">
+      <Filter>Plugins\ABM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemPlugin.h">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemWidget.h">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFileWindow.h">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFolderWindow.h">
+      <Filter>Plugins\BackendFileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\EEGElectrodePlacementPlugin\EEGElectrodePlacementPlugin.h">
+      <Filter>Plugins\Development\EEGElectrodePlacementPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapPlugin.h">
+      <Filter>Plugins\Development\HeatmapPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapWidget.h">
+      <Filter>Plugins\Development\HeatmapPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestPlugin.h">
+      <Filter>Plugins\Development\LatencyTestPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.h">
+      <Filter>Plugins\Development\LatencyTestPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.h">
+      <Filter>Plugins\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\DevicesPlugin.h">
+      <Filter>Plugins\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\DevicesWidget.h">
+      <Filter>Plugins\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\DeviceWidget.h">
+      <Filter>Plugins\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Devices\NoDeviceWidget.h">
+      <Filter>Plugins\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\EngineStatus\EngineStatusPlugin.h">
+      <Filter>Plugins\EngineStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLPlugin.h">
+      <Filter>Plugins\Examples\SimpleOpenGLPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLWidget.h">
+      <Filter>Plugins\Examples\SimpleOpenGLPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.h">
+      <Filter>Plugins\Experience</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.h">
+      <Filter>Plugins\Experience</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionPlugin.h">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.h">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.h">
+      <Filter>Plugins\Feedback</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Feedback\FeedbackPlugin.h">
+      <Filter>Plugins\Feedback</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\ClassifierPlugin.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphPaletteWidget.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphShared.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphTextPixmapCache.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\GraphWidget.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Graph\StateMachinePlugin.h">
+      <Filter>Plugins\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Networking\NetworkTestClientPlugin.h">
+      <Filter>Plugins\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\View\ViewPlugin.h">
+      <Filter>Plugins\View</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\View\ViewSpectrumPlugin.h">
+      <Filter>Plugins\View</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\View\ViewSpectrumWidget.h">
+      <Filter>Plugins\View</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\View\ViewWidget.h">
+      <Filter>Plugins\View</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsPlugin.h">
+      <Filter>Plugins\SpectrumAnalyzerSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsWidget.h">
+      <Filter>Plugins\SpectrumAnalyzerSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DPlugin.h">
+      <Filter>Plugins\Spectrogram2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DWidget.h">
+      <Filter>Plugins\Spectrogram2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.h">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.h">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPluginCollection.h">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.h">
+      <Filter>Plugins\Spectrogram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\ClientInfoWidget.h">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\PreSessionWidget.h">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\SessionControlPlugin.h">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\SessionInfoWidget.h">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\StageControlWidget.h">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\SessionControl\WhileSessionWidget.h">
+      <Filter>Plugins\SessionControl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformPlugin.h">
+      <Filter>Plugins\RawWaveform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\RawWaveform\RawWaveformWidget.h">
+      <Filter>Plugins\RawWaveform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Parameter\ParameterControlPlugin.h">
+      <Filter>Plugins\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Parameter\ParametersWidget.h">
+      <Filter>Plugins\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Parameter\ParameterWidgets.h">
+      <Filter>Plugins\Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Rendering\Mesh.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Rendering\OpenGLManager.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Rendering\OpenGLWidget.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Rendering\OpenGLWidget2DHelpers.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Rendering\OpenGLWidgetCallback.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Rendering\TextureManager.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\UnitTests\StudioTestFacility.h">
+      <Filter>UnitTests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\BatteryStatusWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\BreathingRateWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\ChannelMultiSelectionWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\ChannelSelectionWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\DeviceSelectionWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\EEGElectrodesWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\FrequencyBandCheckboxWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\HeartRateWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\HMultiCheckboxWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\ImpedanceTestWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\SensorCheckboxWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\SignalQualityWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\SkinTemperatureWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\StopwatchWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\SwitchingImage.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Widgets\ThermometerWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\AboutWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\CreateUserWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\EmailValidator.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\InviteUserWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\LicenseAgreement.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\LicenseAgreementWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\LoginWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\ReportWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\SelectUserWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\SettingsWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\UpgradeWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Windows\VisualizationSelectWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\Studio\Resources\AppIcon.icns">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\..\src\Studio\Resources\NMStudio.aps">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\..\src\Studio\Resources\StudioResources.qrc">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\src\Studio\Resources\AppIcon.ico">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\src\Studio\Resources\NMStudio.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

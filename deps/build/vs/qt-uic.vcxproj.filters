@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{c961b1aa-e970-49c7-8ce2-e48b430bab71}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-uic\cpp\cppwritedeclaration.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-uic\cpp\cppwriteincludes.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-uic\cpp\cppwriteinitialization.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-uic\customwidgetsinfo.cpp" />
+    <ClCompile Include="..\..\src\qt-uic\databaseinfo.cpp" />
+    <ClCompile Include="..\..\src\qt-uic\driver.cpp" />
+    <ClCompile Include="..\..\src\qt-uic\main.cpp" />
+    <ClCompile Include="..\..\src\qt-uic\treewalker.cpp" />
+    <ClCompile Include="..\..\src\qt-uic\ui4.cpp" />
+    <ClCompile Include="..\..\src\qt-uic\uic.cpp" />
+    <ClCompile Include="..\..\src\qt-uic\validator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\qt-uic\cpp\cppwritedeclaration.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-uic\cpp\cppwriteincludes.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-uic\cpp\cppwriteinitialization.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-uic\customwidgetsinfo.h" />
+    <ClInclude Include="..\..\src\qt-uic\databaseinfo.h" />
+    <ClInclude Include="..\..\src\qt-uic\driver.h" />
+    <ClInclude Include="..\..\src\qt-uic\globaldefs.h" />
+    <ClInclude Include="..\..\src\qt-uic\option.h" />
+    <ClInclude Include="..\..\src\qt-uic\qclass_lib_map.h" />
+    <ClInclude Include="..\..\src\qt-uic\treewalker.h" />
+    <ClInclude Include="..\..\src\qt-uic\ui4.h" />
+    <ClInclude Include="..\..\src\qt-uic\uic.h" />
+    <ClInclude Include="..\..\src\qt-uic\utils.h" />
+    <ClInclude Include="..\..\src\qt-uic\validator.h" />
+  </ItemGroup>
+</Project>

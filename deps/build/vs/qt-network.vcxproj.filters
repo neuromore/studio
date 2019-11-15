@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="access">
+      <UniqueIdentifier>{a8f40dc9-4844-4b15-902a-c26865a4d650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\http2">
+      <UniqueIdentifier>{a636665b-bca0-451f-b02d-f6fd682d1056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bearer">
+      <UniqueIdentifier>{02af799f-85b3-4b0c-b9ab-497f39bf036d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kernel">
+      <UniqueIdentifier>{03a6ed32-81dc-4638-814c-12d7b79a6167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="socket">
+      <UniqueIdentifier>{4d446b15-84bb-42a2-8f39-f7b6bfd81163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0CONF">
+      <UniqueIdentifier>{1a9dba89-2dc1-488b-a144-099b5e47ec91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ssl">
+      <UniqueIdentifier>{d67dd9be-e076-4f3d-9d42-9550a459c005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{93fd2a5a-948b-4f0b-8350-001fd97b649b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-network\access\qabstractnetworkcache.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qabstractprotocolhandler.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qftp.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhsts.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhstspolicy.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhstsstore.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttp2protocolhandler.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttpmultipart.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttpnetworkconnection.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttpnetworkconnectionchannel.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttpnetworkheader.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttpnetworkreply.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttpnetworkrequest.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttpprotocolhandler.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qhttpthreaddelegate.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkaccessauthenticationmanager.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkaccessbackend.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkaccesscache.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkaccesscachebackend.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkaccessdebugpipebackend.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkaccessfilebackend.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkaccessftpbackend.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkaccessmanager.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkcookie.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkcookiejar.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkdiskcache.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkfile.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkreply.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkreplydataimpl.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkreplyfileimpl.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkreplyhttpimpl.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkreplyimpl.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkreplywasmimpl.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qnetworkrequest.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\qspdyprotocolhandler.cpp">
+      <Filter>access</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\http2\bitstreams.cpp">
+      <Filter>access\http2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\http2\hpack.cpp">
+      <Filter>access\http2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\http2\hpacktable.cpp">
+      <Filter>access\http2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\http2\http2frames.cpp">
+      <Filter>access\http2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\http2\http2protocol.cpp">
+      <Filter>access\http2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\http2\http2streams.cpp">
+      <Filter>access\http2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\access\http2\huffman.cpp">
+      <Filter>access\http2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\bearer\qbearerengine.cpp">
+      <Filter>bearer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\bearer\qbearerplugin.cpp">
+      <Filter>bearer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\bearer\qnetworkconfigmanager.cpp">
+      <Filter>bearer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\bearer\qnetworkconfigmanager_p.cpp">
+      <Filter>bearer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\bearer\qnetworkconfiguration.cpp">
+      <Filter>bearer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\bearer\qnetworksession.cpp">
+      <Filter>bearer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\bearer\qsharednetworksession.cpp">
+      <Filter>bearer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qauthenticator.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qdnslookup.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qdnslookup_android.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qdnslookup_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qdnslookup_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qdnslookup_winrt.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qhostaddress.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qhostinfo.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qhostinfo_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qhostinfo_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkdatagram.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkinterface.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkinterface_linux.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkinterface_unix.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkinterface_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkinterface_winrt.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkproxy.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkproxy_generic.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkproxy_libproxy.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkproxy_mac.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qnetworkproxy_win.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\kernel\qurlinfo.cpp">
+      <Filter>kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qabstractsocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qabstractsocketengine.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qhttpsocketengine.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qlocalserver.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qlocalserver_tcp.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qlocalserver_unix.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qlocalserver_win.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qlocalsocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qlocalsocket_tcp.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qlocalsocket_unix.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qlocalsocket_win.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qnativesocketengine.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qnativesocketengine_unix.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qnativesocketengine_win.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qnativesocketengine_winrt.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qsctpserver.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qsctpsocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qsocks5socketengine.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qtcpserver.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qtcpsocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\socket\qudpsocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qasn1element.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qdtls.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qdtls_openssl.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qpassworddigestor.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qssl.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcertificate.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcertificate_openssl.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcertificate_qt.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcertificate_winrt.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcertificateextension.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcipher.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslconfiguration.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcontext_openssl.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcontext_openssl11.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslcontext_opensslpre11.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qssldiffiehellmanparameters.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qssldiffiehellmanparameters_dummy.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qssldiffiehellmanparameters_openssl.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslellipticcurve.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslellipticcurve_dummy.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslellipticcurve_openssl.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslerror.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslkey_mac.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslkey_openssl.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslkey_p.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslkey_qt.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslkey_winrt.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslpresharedkeyauthenticator.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket_mac.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket_mac_shared.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket_openssl.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket_openssl_android.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket_openssl_symbols.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket_openssl11.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket_opensslpre11.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qsslsocket_winrt.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\ssl\qwindowscarootfetcher.cpp">
+      <Filter>ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qabstractnetworkcache.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qabstractsocket.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qbearerengine_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qdnslookup.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qftp_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qhttpnetworkconnection_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qhttpnetworkconnectionchannel_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qlocalserver.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qlocalsocket.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkaccessmanager.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkconfigmanager.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkinterface.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkreplydataimpl_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkreplyfileimpl_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkreplyimpl_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworksession.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qsslsocket.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qtcpserver.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qabstractsocketengine_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qbearerplugin_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qdnslookup_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qhostinfo_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qhttp2protocolhandler_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qhttpmultipart.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qhttpnetworkreply_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qhttpsocketengine_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qhttpthreaddelegate_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnativesocketengine_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkaccessbackend_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkaccesscache_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkaccessdebugpipebackend_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkaccessfilebackend_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkaccessftpbackend_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkconfigmanager_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkcookiejar.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkdiskcache.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkfile_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkproxy.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkreply.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworkreplyhttpimpl_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qnetworksession_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qsocks5socketengine_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qtcpsocket.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qudpsocket.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qwindowscarootfetcher_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qspdyprotocolhandler_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-network\.moc\moc_qdtls.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtNetwork\qtnetwork-config.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\qt\QtNetwork\private\qtnetwork-config_p.h">
+      <Filter>0CONF</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
