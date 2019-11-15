@@ -138,6 +138,7 @@ llvm-ar -version
 ```
 sudo apt-get install \
  libgl1-mesa-dev \
+ libglu1-mesa-dev \
  libsm-dev \
  libx11-dev \
  libx11-xcb-dev \
