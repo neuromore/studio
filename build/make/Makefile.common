@@ -214,7 +214,7 @@ ENGINE_OBJS_ALL     = Core/AABB.o \
                       Device.o \
                       DeviceDriver.o \
                       DeviceManager.o \
-                      EEGelectrodes.o \
+                      EEGElectrodes.o \
                       EngineManager.o \
                       Experience.o \
                       License.o \
@@ -790,7 +790,7 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        UnitTests/StudioTestFacility.o \
                        Widgets/BatteryStatusWidget.o \
                        Widgets/BreathingRateWidget.o \
-                       Widgets/ChannelMultiSElectionWidget.o \
+                       Widgets/ChannelMultiSelectionWidget.o \
                        Widgets/ChannelSelectionWidget.o \
                        Widgets/DeviceSelectionWidget.o \
                        Widgets/EEGElectrodesWidget.o \
