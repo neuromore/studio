@@ -1299,6 +1299,61 @@ qt-xml-x64-clean:
 
 qt-xml-clean: qt-xml-x86-clean qt-xml-x64-clean
 ###################################################################################################################
+# SINGLEAPPLICATION
+###################################################################################################################
+SINGLEAPPLICATION_MOCH_X86     := $(patsubst %,$(SINGLEAPPLICATION_MOCDIR_X86)/%,$(SINGLEAPPLICATION_MOCH))
+SINGLEAPPLICATION_MOCH_X64     := $(patsubst %,$(SINGLEAPPLICATION_MOCDIR_X64)/%,$(SINGLEAPPLICATION_MOCH))
+SINGLEAPPLICATION_MOCC_X86     := $(patsubst %,$(SINGLEAPPLICATION_MOCDIR_X86)/%,$(SINGLEAPPLICATION_MOCC))
+SINGLEAPPLICATION_MOCC_X64     := $(patsubst %,$(SINGLEAPPLICATION_MOCDIR_X64)/%,$(SINGLEAPPLICATION_MOCC))
+SINGLEAPPLICATION_UICH_X86     := $(patsubst %,$(SINGLEAPPLICATION_UICDIR_X86)/%,$(SINGLEAPPLICATION_UICH))
+SINGLEAPPLICATION_UICH_X64     := $(patsubst %,$(SINGLEAPPLICATION_UICDIR_X64)/%,$(SINGLEAPPLICATION_UICH))
+SINGLEAPPLICATION_RCCH_X86     := $(patsubst %,$(SINGLEAPPLICATION_RCCDIR_X86)/%,$(SINGLEAPPLICATION_RCCH))
+SINGLEAPPLICATION_RCCH_X64     := $(patsubst %,$(SINGLEAPPLICATION_RCCDIR_X64)/%,$(SINGLEAPPLICATION_RCCH))
+SINGLEAPPLICATION_OBJS_X86     := $(patsubst %,$(SINGLEAPPLICATION_OBJDIR_X86)/%,$(SINGLEAPPLICATION_OBJS))
+SINGLEAPPLICATION_OBJS_X64     := $(patsubst %,$(SINGLEAPPLICATION_OBJDIR_X64)/%,$(SINGLEAPPLICATION_OBJS))
+SINGLEAPPLICATION_OBJS_MOC_X86 := $(patsubst %,$(SINGLEAPPLICATION_OBJDIR_X86)/%,$(SINGLEAPPLICATION_OBJS_MOC))
+SINGLEAPPLICATION_OBJS_MOC_X64 := $(patsubst %,$(SINGLEAPPLICATION_OBJDIR_X64)/%,$(SINGLEAPPLICATION_OBJS_MOC))
+SINGLEAPPLICATION_OBJS_RCC_X86 := $(patsubst %,$(SINGLEAPPLICATION_OBJDIR_X86)/%,$(SINGLEAPPLICATION_OBJS_RCC))
+SINGLEAPPLICATION_OBJS_RCC_X64 := $(patsubst %,$(SINGLEAPPLICATION_OBJDIR_X64)/%,$(SINGLEAPPLICATION_OBJS_RCC))
+SINGLEAPPLICATION_PRES_X86     := $(SINGLEAPPLICATION_MOCH_X86) $(SINGLEAPPLICATION_MOCC_X86) $(SINGLEAPPLICATION_UICH_X86) $(SINGLEAPPLICATION_RCCH_X86)
+SINGLEAPPLICATION_PRES_X64     := $(SINGLEAPPLICATION_MOCH_X64) $(SINGLEAPPLICATION_MOCC_X64) $(SINGLEAPPLICATION_UICH_X64) $(SINGLEAPPLICATION_RCCH_X64) 
+SINGLEAPPLICATION_OBLS_X86     := $(SINGLEAPPLICATION_OBJS_X86) $(SINGLEAPPLICATION_OBJS_MOC_X86) $(SINGLEAPPLICATION_OBJS_RCC_X86)
+SINGLEAPPLICATION_OBLS_X64     := $(SINGLEAPPLICATION_OBJS_X64) $(SINGLEAPPLICATION_OBJS_MOC_X64) $(SINGLEAPPLICATION_OBJS_RCC_X64)
+
+$(SINGLEAPPLICATION_OBLS_X86) : $(SINGLEAPPLICATION_PRES_X86)
+$(SINGLEAPPLICATION_OBLS_X64) : $(SINGLEAPPLICATION_PRES_X64)
+
+$(SINGLEAPPLICATION_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(SINGLEAPPLICATION_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+singleapplication-x86: $(SINGLEAPPLICATION_PRES_X86) $(SINGLEAPPLICATION_OBLS_X86)
+	$(call createlib32,singleapplication,$(SINGLEAPPLICATION_OBLS_X86))
+
+singleapplication-x64: $(SINGLEAPPLICATION_PRES_X64) $(SINGLEAPPLICATION_OBLS_X64)
+	$(call createlib64,singleapplication,$(SINGLEAPPLICATION_OBLS_X64))
+
+singleapplication: singleapplication-x86 singleapplication-x64
+
+singleapplication-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),singleapplication.*)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_OBJDIR_X86),*.orcc)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_RCCDIR_X86),*.cpp)
+
+singleapplication-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),singleapplication.*)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_OBJDIR_X64),*.orcc)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(SINGLEAPPLICATION_RCCDIR_X64),*.cpp)
+
+singleapplication-clean: singleapplication-x86-clean singleapplication-x64-clean
+###################################################################################################################
 # ALL
 ###################################################################################################################
 all-x86: zlib-x86 \
@@ -1339,7 +1394,8 @@ all-x86: zlib-x86 \
          qt-printsupport-x86 \
          qt-serialport-x86 \
          qt-widgets-x86 \
-         qt-xml-x86
+         qt-xml-x86 \
+         singleapplication-x86
 
 all-x64: zlib-x64 \
          libcrypto-x64 \
@@ -1379,7 +1435,8 @@ all-x64: zlib-x64 \
          qt-printsupport-x64 \
          qt-serialport-x64 \
          qt-widgets-x64 \
-         qt-xml-x64
+         qt-xml-x64 \
+         singleapplication-x64
 
 all: all-x86 all-x64
 

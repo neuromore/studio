@@ -84,6 +84,8 @@ QTWIDGETS_DEFINES_X86_PLAT          =
 QTWIDGETS_DEFINES_X64_PLAT          =
 QTXML_DEFINES_X86_PLAT              =
 QTXML_DEFINES_X64_PLAT              =
+SINGLEAPPLICATION_DEFINES_X86_PLAT  =
+SINGLEAPPLICATION_DEFINES_X64_PLAT  =
 
 # Platform Specific additional includes
 QTBOOTSTRAP_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/win32-clang-msvc
@@ -128,6 +130,8 @@ QTWIDGETS_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/win32-clang-ms
 QTWIDGETS_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/win32-clang-msvc
 QTXML_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
 QTXML_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
+SINGLEAPPLICATION_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/win32-clang-msvc
+SINGLEAPPLICATION_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/win32-clang-msvc
 
 #####################################################################################
 # Qt MOC+RCC+UIC
@@ -494,6 +498,13 @@ QTWIDGETS_OBJS              = $(QTWIDGETS_OBJS_ALL) \
 QTWIDGETS_OBJS_MOC          = $(QTWIDGETS_OBJS_MOC_ALL)
 QTWIDGETS_OBJS_RCC          = $(QTWIDGETS_OBJS_RCC_ALL)
 QTXML_OBJS                  = $(QTXML_OBJS_ALL)
+SINGLEAPPLICATION_MOCH      = $(SINGLEAPPLICATION_MOCH_ALL)
+SINGLEAPPLICATION_MOCC      = $(SINGLEAPPLICATION_MOCC_ALL)
+SINGLEAPPLICATION_UICH      = $(SINGLEAPPLICATION_UICH_ALL)
+SINGLEAPPLICATION_RCCH      = $(SINGLEAPPLICATION_RCCH_ALL)
+SINGLEAPPLICATION_OBJS      = $(SINGLEAPPLICATION_OBJS_ALL)
+SINGLEAPPLICATION_OBJS_MOC  = $(SINGLEAPPLICATION_OBJS_MOC_ALL)
+SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 
 #####################################################################################
 # Include Targets

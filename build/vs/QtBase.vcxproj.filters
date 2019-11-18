@@ -276,7 +276,6 @@
     <ClCompile Include="..\..\src\QtBase\MainWindowBase.cpp" />
     <ClCompile Include="..\..\src\QtBase\PainterStaticTextCache.cpp" />
     <ClCompile Include="..\..\src\QtBase\QtBaseManager.cpp" />
-    <ClCompile Include="..\..\src\QtBase\singleapplication.cpp" />
     <ClCompile Include="..\..\src\QtBase\Slider.cpp" />
     <ClCompile Include="..\..\src\QtBase\Spinbox.cpp" />
     <ClCompile Include="..\..\src\QtBase\SystemInfo.cpp" />
@@ -415,8 +414,6 @@
     <ClCompile Include="..\..\src\QtBase\Windows\ProgressWindow.moc.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\singleapplication.moc.cpp" />
-    <ClCompile Include="..\..\src\QtBase\singleapplication_p.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Windows\StatusPopupWindow.moc.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
@@ -699,12 +696,10 @@
     <ClInclude Include="..\..\src\QtBase\PainterStaticTextCache.h" />
     <ClInclude Include="..\..\src\QtBase\QtBaseConfig.h" />
     <ClInclude Include="..\..\src\QtBase\QtBaseManager.h" />
-    <ClInclude Include="..\..\src\QtBase\singleapplication.h" />
     <ClInclude Include="..\..\src\QtBase\Slider.h" />
     <ClInclude Include="..\..\src\QtBase\Spinbox.h" />
     <ClInclude Include="..\..\src\QtBase\SystemInfo.h" />
     <ClInclude Include="..\..\src\QtBase\Version.h" />
-    <ClInclude Include="..\..\src\QtBase\singleapplication_p.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

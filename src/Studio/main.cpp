@@ -122,6 +122,7 @@
       #pragma comment(lib, "harfbuzz_d.lib")             // 3rdparty: harfbuzz
       #pragma comment(lib, "harfbuzz-ng_d.lib")          // 3rdparty: harfbuzz nextgen
       #pragma comment(lib, "freetype_d.lib")             // 3rdparty: freetype
+      #pragma comment(lib, "singleapplication_d.lib")    // 3rdparty: singleapplication
       #pragma comment(lib, "qt-bluetooth_d.lib")         // 3rdparty: qt bluetooth
       #pragma comment(lib, "qt-core_d.lib")              // 3rdparty: qt core
       #pragma comment(lib, "qt-concurrent_d.lib")        // 3rdparty: qt concurrent
@@ -168,6 +169,7 @@
       #pragma comment(lib, "harfbuzz.lib")
       #pragma comment(lib, "harfbuzz-ng.lib")
       #pragma comment(lib, "freetype.lib")
+      #pragma comment(lib, "singleapplication.lib")
       #pragma comment(lib, "qt-bluetooth.lib")
       #pragma comment(lib, "qt-core.lib")
       #pragma comment(lib, "qt-concurrent.lib")

@@ -319,8 +319,6 @@ QTBASE_MOCH_ALL      = AttributeWidgets/AttributeSetGridWidget.cpp \
                        PainterStaticTextCache.cpp \
                        QtBaseConfig.cpp \
                        QtBaseManager.cpp \
-                       singleapplication.cpp \
-                       singleapplication_p.cpp \
                        Slider.cpp \
                        Spinbox.cpp \
                        SystemInfo.cpp
@@ -456,7 +454,6 @@ QTBASE_OBJS_ALL      = AttributeWidgets/AttributeSetGridWidget.o \
                        MainWindowBase.o \
                        PainterStaticTextCache.o \
                        QtBaseManager.o \
-                       singleapplication.o \
                        Slider.o \
                        Spinbox.o \
                        SystemInfo.o
