@@ -1,0 +1,30 @@
+Package: studio
+Version: 1.4.2-1
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libexpat1 (>= 2.2.5),
+ libsm6 (>= 1.2.2),
+ libx11-6 (>= 1.6.4),
+ libx11-xcb1 (>= 1.6.4),
+ libxkbcommon0 (>= 0.8.0),
+ libxcb1 (>= 1.13),
+ libxcb-glx0 (>= 1.13),
+ libxcb-icccm4 (>= 0.4.1),
+ libxcb-image0 (>= 0.4.0),
+ libxcb-keysyms1 (>=0.4.0),
+ libxcb-randr0 (>= 1.13),
+ libxcb-render0 (>= 1.13),
+ libxcb-render-util0 (>= 0.3.9),
+ libxcb-shape0 (>= 1.13),
+ libxcb-shm0 (>= 1.13),
+ libxcb-sync1 (>= 1.13),
+ libxcb-xfixes0 (>= 1.13),
+ libxcb-xinerama0 (>= 1.13),
+ libxcb-xkb1 (>= 1.13),
+ libxcb-util1 (>= 0.4.0)
+Maintainer: neuromore <support@neuromore.com>
+Description: neuromore Studio
+ Text Text Text Text Text Text Text Text Text Text Text
+ Text Text Text Text Text Text Text Text Text Text Text
+ Text Text Text Text Text Text Text Text Text Text Text
