@@ -33,7 +33,7 @@
 #include <QtBaseManager.h>
 #include <PluginSystem/PluginManager.h>
 #include "Windows/LoginWindow.h"
-#include <QtBase/singleapplication.h>
+#include <singleapplication/singleapplication.h>
 
 // include Qt
 #include <QObject>
