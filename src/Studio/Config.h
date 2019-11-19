@@ -93,7 +93,7 @@
 
 	// crash reporting system
 	#ifdef NEUROMORE_PLATFORM_WINDOWS
-		#define USE_CRASHREPORTER
+		//#define USE_CRASHREPORTER
 	#endif
 #endif
 
