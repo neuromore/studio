@@ -675,9 +675,9 @@ void MainWindow::OnPostAuthenticationInit()
 	}
 
 #ifndef PRODUCTION_BUILD
-	// production backend while dev version message box
-	if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)
-		QMessageBox::warning(this, "WARNING", "You are using the Production (AWS) backend with a development version of neuromore Studio.\n\nPlease switch back to the Test (AWS) backend." );
+	// production backend while dev version message box (EDIT: This is OK since Open-Source)
+	//if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)
+		//QMessageBox::warning(this, "WARNING", "You are using the Production (AWS) backend with a development version of neuromore Studio.\n\nPlease switch back to the Test (AWS) backend." );
 #endif
 }
 
