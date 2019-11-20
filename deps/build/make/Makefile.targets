@@ -330,6 +330,98 @@ minizip-x64-clean:
 
 minizip-clean: minizip-x86-clean minizip-x64-clean
 ###################################################################################################################
+# OPENCV-CORE
+###################################################################################################################
+OPENCVCORE_OBJS_X86 := $(patsubst %,$(OPENCVCORE_OBJDIR_X86)/%,$(OPENCVCORE_OBJS))
+OPENCVCORE_OBJS_X64 := $(patsubst %,$(OPENCVCORE_OBJDIR_X64)/%,$(OPENCVCORE_OBJS))
+
+opencv-core-x86: $(OPENCVCORE_OBJS_X86)
+	$(call createlib32,opencv-core,$(OPENCVCORE_OBJS_X86))
+
+opencv-core-x64: $(OPENCVCORE_OBJS_X64)
+	$(call createlib64,opencv-core,$(OPENCVCORE_OBJS_X64))
+
+opencv-core: opencv-core-x86 opencv-core-x64
+
+opencv-core-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),opencv-core.*)
+	$(call deletefilepattern,$(OPENCVCORE_OBJDIR_X86),*.o)
+
+opencv-core-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),opencv-core.*)
+	$(call deletefilepattern,$(OPENCVCORE_OBJDIR_X64),*.o)
+
+opencv-core-clean: opencv-core-x86-clean opencv-core-x64-clean
+###################################################################################################################
+# OPENCV-IMGCODECS
+###################################################################################################################
+OPENCVIMGCODECS_OBJS_X86 := $(patsubst %,$(OPENCVIMGCODECS_OBJDIR_X86)/%,$(OPENCVIMGCODECS_OBJS))
+OPENCVIMGCODECS_OBJS_X64 := $(patsubst %,$(OPENCVIMGCODECS_OBJDIR_X64)/%,$(OPENCVIMGCODECS_OBJS))
+
+opencv-imgcodecs-x86: $(OPENCVIMGCODECS_OBJS_X86)
+	$(call createlib32,opencv-imgcodecs,$(OPENCVIMGCODECS_OBJS_X86))
+
+opencv-imgcodecs-x64: $(OPENCVIMGCODECS_OBJS_X64)
+	$(call createlib64,opencv-imgcodecs,$(OPENCVIMGCODECS_OBJS_X64))
+
+opencv-imgcodecs: opencv-imgcodecs-x86 opencv-imgcodecs-x64
+
+opencv-imgcodecs-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),opencv-imgcodecs.*)
+	$(call deletefilepattern,$(OPENCVIMGCODECS_OBJDIR_X86),*.o)
+
+opencv-imgcodecs-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),opencv-imgcodecs.*)
+	$(call deletefilepattern,$(OPENCVIMGCODECS_OBJDIR_X64),*.o)
+
+opencv-imgcodecs-clean: opencv-imgcodecs-x86-clean opencv-imgcodecs-x64-clean
+###################################################################################################################
+# OPENCV-IMGPROC
+###################################################################################################################
+OPENCVIMGPROC_OBJS_X86 := $(patsubst %,$(OPENCVIMGPROC_OBJDIR_X86)/%,$(OPENCVIMGPROC_OBJS))
+OPENCVIMGPROC_OBJS_X64 := $(patsubst %,$(OPENCVIMGPROC_OBJDIR_X64)/%,$(OPENCVIMGPROC_OBJS))
+
+opencv-imgproc-x86: $(OPENCVIMGPROC_OBJS_X86)
+	$(call createlib32,opencv-imgproc,$(OPENCVIMGPROC_OBJS_X86))
+
+opencv-imgproc-x64: $(OPENCVIMGPROC_OBJS_X64)
+	$(call createlib64,opencv-imgproc,$(OPENCVIMGPROC_OBJS_X64))
+
+opencv-imgproc: opencv-imgproc-x86 opencv-imgproc-x64
+
+opencv-imgproc-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),opencv-imgproc.*)
+	$(call deletefilepattern,$(OPENCVIMGPROC_OBJDIR_X86),*.o)
+
+opencv-imgproc-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),opencv-imgproc.*)
+	$(call deletefilepattern,$(OPENCVIMGPROC_OBJDIR_X64),*.o)
+
+opencv-imgproc-clean: opencv-imgproc-x86-clean opencv-imgproc-x64-clean
+###################################################################################################################
+# OPENCV-VIDEOIO
+###################################################################################################################
+OPENCVVIDEOIO_OBJS_X86 := $(patsubst %,$(OPENCVVIDEOIO_OBJDIR_X86)/%,$(OPENCVVIDEOIO_OBJS))
+OPENCVVIDEOIO_OBJS_X64 := $(patsubst %,$(OPENCVVIDEOIO_OBJDIR_X64)/%,$(OPENCVVIDEOIO_OBJS))
+
+opencv-videoio-x86: $(OPENCVVIDEOIO_OBJS_X86)
+	$(call createlib32,opencv-videoio,$(OPENCVVIDEOIO_OBJS_X86))
+
+opencv-videoio-x64: $(OPENCVVIDEOIO_OBJS_X64)
+	$(call createlib64,opencv-videoio,$(OPENCVVIDEOIO_OBJS_X64))
+
+opencv-videoio: opencv-videoio-x86 opencv-videoio-x64
+
+opencv-videoio-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),opencv-videoio.*)
+	$(call deletefilepattern,$(OPENCVVIDEOIO_OBJDIR_X86),*.o)
+
+opencv-videoio-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),opencv-videoio.*)
+	$(call deletefilepattern,$(OPENCVVIDEOIO_OBJDIR_X64),*.o)
+
+opencv-videoio-clean: opencv-videoio-x86-clean opencv-videoio-x64-clean
+###################################################################################################################
 # OSCPACK
 ###################################################################################################################
 OSCPACK_OBJS_X86 := $(patsubst %,$(OSCPACK_OBJDIR_X86)/%,$(OSCPACK_OBJS))
@@ -1370,6 +1462,10 @@ all-x86: zlib-x86 \
          harfbuzz-ng-x86 \
          kissfft-x86 \
          minizip-x86 \
+         opencv-core-x86 \
+         opencv-imgcodecs-x86 \
+         opencv-imgproc-x86 \
+         opencv-videoio-x86 \
          oscpack-x86 \
          tinyaes-x86 \
          tinyobjloader-x86 \
@@ -1411,6 +1507,10 @@ all-x64: zlib-x64 \
          harfbuzz-ng-x64 \
          kissfft-x64 \
          minizip-x64 \
+         opencv-core-x64 \
+         opencv-imgcodecs-x64 \
+         opencv-imgproc-x64 \
+         opencv-videoio-x64 \
          oscpack-x64 \
          tinyaes-x64 \
          tinyobjloader-x64 \
@@ -1454,6 +1554,10 @@ clean-x86: zlib-x86-clean \
            harfbuzz-ng-x86-clean \
            kissfft-x86-clean \
            minizip-x86-clean \
+           opencv-core-x86-clean \
+           opencv-imgcodecs-x86-clean \
+           opencv-imgproc-x86-clean \
+           opencv-videoio-x86-clean \
            oscpack-x86-clean \
            tinyaes-x86-clean \
            tinyobjloader-x86-clean \
@@ -1494,6 +1598,10 @@ clean-x64: zlib-x64-clean \
            harfbuzz-ng-x64-clean \
            kissfft-x64-clean \
            minizip-x64-clean \
+           opencv-core-x64-clean \
+           opencv-imgcodecs-x64-clean \
+           opencv-imgproc-x64-clean \
+           opencv-videoio-x64-clean \
            oscpack-x64-clean \
            tinyaes-x64-clean \
            tinyobjloader-x64-clean \
