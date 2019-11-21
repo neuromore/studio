@@ -266,6 +266,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qt-uic", "..\..\deps\build\
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "singleapplication", "..\..\deps\build\vs\singleappliocation.vcxproj", "{07A0D17A-6E53-4B36-8FAC-9ACB0603B7BD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9C29AF5-8688-410B-A99C-FF62ADC05FAC} = {B9C29AF5-8688-410B-A99C-FF62ADC05FAC}
+		{B9C29AF5-8688-420B-A99C-FF62ADC05FAC} = {B9C29AF5-8688-420B-A99C-FF62ADC05FAC}
+		{B9C29AF5-8688-411B-A99C-FF62ADC05FAC} = {B9C29AF5-8688-411B-A99C-FF62ADC05FAC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
