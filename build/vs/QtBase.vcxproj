@@ -82,7 +82,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\deps\include;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -98,7 +98,7 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <ProgramDataBaseFileName>F:\nm\QtBase\Lib\QtBase_x86Windows_ReleaseStatic_VS2015_Compiler.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <DisableSpecificWarnings>4065</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -106,10 +106,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;QT_BLUETOOTH_LIB;QT_CORE_LIB;QT_CONCURRENT_LIB;QT_GAMEPAD_LIB;QT_GUI_LIB;QT_MULTIMEDIA_LIB;QT_NETWORK_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_PRINTSUPPORT_LIB;QT_SERIALPORT_LIB;QT_XML_LIB;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;QT_NO_DEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\nm\QtBase-build;F:\nm\QtBase;F:\nm\QtBase-build\QtBase_autogen\include_Release;F:\nm\QtBase\..\Engine\SDKs\spuce;F:\nm\Engine\Source;C:\Qt\5.12.4\msvc2017\include;C:\Qt\5.12.4\msvc2017\include\QtBluetooth;C:\Qt\5.12.4\msvc2017\include\QtCore;C:\Qt\5.12.4\msvc2017\.\mkspecs\win32-msvc;C:\Qt\5.12.4\msvc2017\include\QtConcurrent;C:\Qt\5.12.4\msvc2017\include\QtGamepad;C:\Qt\5.12.4\msvc2017\include\QtGui;C:\Qt\5.12.4\msvc2017\include\QtANGLE;C:\Qt\5.12.4\msvc2017\include\QtMultimedia;C:\Qt\5.12.4\msvc2017\include\QtNetwork;C:\Qt\5.12.4\msvc2017\include\QtMultimediaWidgets;C:\Qt\5.12.4\msvc2017\include\QtWidgets;C:\Qt\5.12.4\msvc2017\include\QtOpenGL;C:\Qt\5.12.4\msvc2017\include\QtPrintSupport;C:\Qt\5.12.4\msvc2017\include\QtSerialPort;C:\Qt\5.12.4\msvc2017\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>F:\nm\QtBase-build;F:\nm\QtBase;F:\nm\QtBase-build\QtBase_autogen\include_Release;F:\nm\QtBase\..\Engine\SDKs\spuce;F:\nm\Engine\Source;C:\Qt\5.12.4\msvc2017\include;C:\Qt\5.12.4\msvc2017\include\QtBluetooth;C:\Qt\5.12.4\msvc2017\include\QtCore;C:\Qt\5.12.4\msvc2017\.\mkspecs\win32-msvc;C:\Qt\5.12.4\msvc2017\include\QtConcurrent;C:\Qt\5.12.4\msvc2017\include\QtGamepad;C:\Qt\5.12.4\msvc2017\include\QtGui;C:\Qt\5.12.4\msvc2017\include\QtANGLE;C:\Qt\5.12.4\msvc2017\include\QtMultimedia;C:\Qt\5.12.4\msvc2017\include\QtNetwork;C:\Qt\5.12.4\msvc2017\include\QtMultimediaWidgets;C:\Qt\5.12.4\msvc2017\include\QtWidgets;C:\Qt\5.12.4\msvc2017\include\QtOpenGL;C:\Qt\5.12.4\msvc2017\include\QtPrintSupport;C:\Qt\5.12.4\msvc2017\include\QtSerialPort;C:\Qt\5.12.4\msvc2017\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -135,7 +135,7 @@ QtBase.cmd
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\deps\include;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -151,7 +151,7 @@ QtBase.cmd
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <ProgramDataBaseFileName>F:\nm\QtBase\Lib\QtBase_x86Windows_ReleaseStatic_VS2015_Compiler.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <DisableSpecificWarnings>4065</DisableSpecificWarnings>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -159,10 +159,10 @@ QtBase.cmd
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;QT_BLUETOOTH_LIB;QT_CORE_LIB;QT_CONCURRENT_LIB;QT_GAMEPAD_LIB;QT_GUI_LIB;QT_MULTIMEDIA_LIB;QT_NETWORK_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_PRINTSUPPORT_LIB;QT_SERIALPORT_LIB;QT_XML_LIB;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;QT_NO_DEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\nm\QtBase-build;F:\nm\QtBase;F:\nm\QtBase-build\QtBase_autogen\include_Release;F:\nm\QtBase\..\Engine\SDKs\spuce;F:\nm\Engine\Source;C:\Qt\5.12.4\msvc2017\include;C:\Qt\5.12.4\msvc2017\include\QtBluetooth;C:\Qt\5.12.4\msvc2017\include\QtCore;C:\Qt\5.12.4\msvc2017\.\mkspecs\win32-msvc;C:\Qt\5.12.4\msvc2017\include\QtConcurrent;C:\Qt\5.12.4\msvc2017\include\QtGamepad;C:\Qt\5.12.4\msvc2017\include\QtGui;C:\Qt\5.12.4\msvc2017\include\QtANGLE;C:\Qt\5.12.4\msvc2017\include\QtMultimedia;C:\Qt\5.12.4\msvc2017\include\QtNetwork;C:\Qt\5.12.4\msvc2017\include\QtMultimediaWidgets;C:\Qt\5.12.4\msvc2017\include\QtWidgets;C:\Qt\5.12.4\msvc2017\include\QtOpenGL;C:\Qt\5.12.4\msvc2017\include\QtPrintSupport;C:\Qt\5.12.4\msvc2017\include\QtSerialPort;C:\Qt\5.12.4\msvc2017\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>F:\nm\QtBase-build;F:\nm\QtBase;F:\nm\QtBase-build\QtBase_autogen\include_Release;F:\nm\QtBase\..\Engine\SDKs\spuce;F:\nm\Engine\Source;C:\Qt\5.12.4\msvc2017\include;C:\Qt\5.12.4\msvc2017\include\QtBluetooth;C:\Qt\5.12.4\msvc2017\include\QtCore;C:\Qt\5.12.4\msvc2017\.\mkspecs\win32-msvc;C:\Qt\5.12.4\msvc2017\include\QtConcurrent;C:\Qt\5.12.4\msvc2017\include\QtGamepad;C:\Qt\5.12.4\msvc2017\include\QtGui;C:\Qt\5.12.4\msvc2017\include\QtANGLE;C:\Qt\5.12.4\msvc2017\include\QtMultimedia;C:\Qt\5.12.4\msvc2017\include\QtNetwork;C:\Qt\5.12.4\msvc2017\include\QtMultimediaWidgets;C:\Qt\5.12.4\msvc2017\include\QtWidgets;C:\Qt\5.12.4\msvc2017\include\QtOpenGL;C:\Qt\5.12.4\msvc2017\include\QtPrintSupport;C:\Qt\5.12.4\msvc2017\include\QtSerialPort;C:\Qt\5.12.4\msvc2017\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -187,7 +187,7 @@ QtBase.cmd
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\deps\include;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -208,10 +208,10 @@ QtBase.cmd
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_UNICODE;UNICODE;QT_BLUETOOTH_LIB;QT_CORE_LIB;QT_CONCURRENT_LIB;QT_GAMEPAD_LIB;QT_GUI_LIB;QT_MULTIMEDIA_LIB;QT_NETWORK_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_PRINTSUPPORT_LIB;QT_SERIALPORT_LIB;QT_XML_LIB;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\nm\QtBase-build;F:\nm\QtBase;F:\nm\QtBase-build\QtBase_autogen\include_Debug;F:\nm\QtBase\..\Engine\SDKs\spuce;F:\nm\Engine\Source;C:\Qt\5.12.4\msvc2017\include;C:\Qt\5.12.4\msvc2017\include\QtBluetooth;C:\Qt\5.12.4\msvc2017\include\QtCore;C:\Qt\5.12.4\msvc2017\.\mkspecs\win32-msvc;C:\Qt\5.12.4\msvc2017\include\QtConcurrent;C:\Qt\5.12.4\msvc2017\include\QtGamepad;C:\Qt\5.12.4\msvc2017\include\QtGui;C:\Qt\5.12.4\msvc2017\include\QtANGLE;C:\Qt\5.12.4\msvc2017\include\QtMultimedia;C:\Qt\5.12.4\msvc2017\include\QtNetwork;C:\Qt\5.12.4\msvc2017\include\QtMultimediaWidgets;C:\Qt\5.12.4\msvc2017\include\QtWidgets;C:\Qt\5.12.4\msvc2017\include\QtOpenGL;C:\Qt\5.12.4\msvc2017\include\QtPrintSupport;C:\Qt\5.12.4\msvc2017\include\QtSerialPort;C:\Qt\5.12.4\msvc2017\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>F:\nm\QtBase-build;F:\nm\QtBase;F:\nm\QtBase-build\QtBase_autogen\include_Debug;F:\nm\QtBase\..\Engine\SDKs\spuce;F:\nm\Engine\Source;C:\Qt\5.12.4\msvc2017\include;C:\Qt\5.12.4\msvc2017\include\QtBluetooth;C:\Qt\5.12.4\msvc2017\include\QtCore;C:\Qt\5.12.4\msvc2017\.\mkspecs\win32-msvc;C:\Qt\5.12.4\msvc2017\include\QtConcurrent;C:\Qt\5.12.4\msvc2017\include\QtGamepad;C:\Qt\5.12.4\msvc2017\include\QtGui;C:\Qt\5.12.4\msvc2017\include\QtANGLE;C:\Qt\5.12.4\msvc2017\include\QtMultimedia;C:\Qt\5.12.4\msvc2017\include\QtNetwork;C:\Qt\5.12.4\msvc2017\include\QtMultimediaWidgets;C:\Qt\5.12.4\msvc2017\include\QtWidgets;C:\Qt\5.12.4\msvc2017\include\QtOpenGL;C:\Qt\5.12.4\msvc2017\include\QtPrintSupport;C:\Qt\5.12.4\msvc2017\include\QtSerialPort;C:\Qt\5.12.4\msvc2017\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -236,7 +236,7 @@ QtBase.cmd
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\deps\include;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -257,10 +257,10 @@ QtBase.cmd
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_UNICODE;UNICODE;QT_BLUETOOTH_LIB;QT_CORE_LIB;QT_CONCURRENT_LIB;QT_GAMEPAD_LIB;QT_GUI_LIB;QT_MULTIMEDIA_LIB;QT_NETWORK_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_PRINTSUPPORT_LIB;QT_SERIALPORT_LIB;QT_XML_LIB;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>F:\nm\QtBase-build;F:\nm\QtBase;F:\nm\QtBase-build\QtBase_autogen\include_Debug;F:\nm\QtBase\..\Engine\SDKs\spuce;F:\nm\Engine\Source;C:\Qt\5.12.4\msvc2017\include;C:\Qt\5.12.4\msvc2017\include\QtBluetooth;C:\Qt\5.12.4\msvc2017\include\QtCore;C:\Qt\5.12.4\msvc2017\.\mkspecs\win32-msvc;C:\Qt\5.12.4\msvc2017\include\QtConcurrent;C:\Qt\5.12.4\msvc2017\include\QtGamepad;C:\Qt\5.12.4\msvc2017\include\QtGui;C:\Qt\5.12.4\msvc2017\include\QtANGLE;C:\Qt\5.12.4\msvc2017\include\QtMultimedia;C:\Qt\5.12.4\msvc2017\include\QtNetwork;C:\Qt\5.12.4\msvc2017\include\QtMultimediaWidgets;C:\Qt\5.12.4\msvc2017\include\QtWidgets;C:\Qt\5.12.4\msvc2017\include\QtOpenGL;C:\Qt\5.12.4\msvc2017\include\QtPrintSupport;C:\Qt\5.12.4\msvc2017\include\QtSerialPort;C:\Qt\5.12.4\msvc2017\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>F:\nm\QtBase-build;F:\nm\QtBase;F:\nm\QtBase-build\QtBase_autogen\include_Debug;F:\nm\QtBase\..\Engine\SDKs\spuce;F:\nm\Engine\Source;C:\Qt\5.12.4\msvc2017\include;C:\Qt\5.12.4\msvc2017\include\QtBluetooth;C:\Qt\5.12.4\msvc2017\include\QtCore;C:\Qt\5.12.4\msvc2017\.\mkspecs\win32-msvc;C:\Qt\5.12.4\msvc2017\include\QtConcurrent;C:\Qt\5.12.4\msvc2017\include\QtGamepad;C:\Qt\5.12.4\msvc2017\include\QtGui;C:\Qt\5.12.4\msvc2017\include\QtANGLE;C:\Qt\5.12.4\msvc2017\include\QtMultimedia;C:\Qt\5.12.4\msvc2017\include\QtNetwork;C:\Qt\5.12.4\msvc2017\include\QtMultimediaWidgets;C:\Qt\5.12.4\msvc2017\include\QtWidgets;C:\Qt\5.12.4\msvc2017\include\QtOpenGL;C:\Qt\5.12.4\msvc2017\include\QtPrintSupport;C:\Qt\5.12.4\msvc2017\include\QtSerialPort;C:\Qt\5.12.4\msvc2017\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
