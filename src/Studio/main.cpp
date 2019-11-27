@@ -105,8 +105,6 @@
          #pragma comment(lib, "opencv-imgcodecs_d.lib")  // 3rdparty: OpenCV Image Codecs
          #pragma comment(lib, "opencv-imgproc_d.lib")    // 3rdparty: OpenCV Image Processing
          #pragma comment(lib, "opencv-videoio_d.lib")    // 3rdparty: OpenCV VideoIO
-         #pragma comment(lib, "tbb_d.lib")               // 3rdparty: tbb
-         #pragma comment(lib, "tbb-asm_d.lib")           // 3rdparty: tbb assembler code
       #endif
       #pragma comment(lib, "tinyaes_d.lib")              // 3rdparty: TinyAES
       #pragma comment(lib, "tinyobjloader_d.lib")        // 3rdparty: tinyobjloader
@@ -152,8 +150,6 @@
          #pragma comment(lib, "opencv-imgcodecs.lib")
          #pragma comment(lib, "opencv-imgproc.lib")
          #pragma comment(lib, "opencv-videoio.lib")
-         #pragma comment(lib, "tbb.lib")
-         #pragma comment(lib, "tbb-asm.lib")
       #endif
       #pragma comment(lib, "tinyaes.lib")
       #pragma comment(lib, "tinyobjloader.lib")

@@ -169,23 +169,23 @@ enum CpuFeatures {
 #  define CV_MMX 1
 #  define CV_SSE 1
 #  define CV_SSE2 1
-#  if defined __SSE3__ || (defined _MSC_VER && _MSC_VER >= 1500)
+#  if defined __SSE3__
 #    include <pmmintrin.h>
 #    define CV_SSE3 1
 #  endif
-#  if defined __SSSE3__  || (defined _MSC_VER && _MSC_VER >= 1500)
+#  if defined __SSSE3__
 #    include <tmmintrin.h>
 #    define CV_SSSE3 1
 #  endif
-#  if defined __SSE4_1__ || (defined _MSC_VER && _MSC_VER >= 1500)
+#  if defined __SSE4_1__
 #    include <smmintrin.h>
 #    define CV_SSE4_1 1
 #  endif
-#  if defined __SSE4_2__ || (defined _MSC_VER && _MSC_VER >= 1500)
+#  if defined __SSE4_2__
 #    include <nmmintrin.h>
 #    define CV_SSE4_2 1
 #  endif
-#  if defined __POPCNT__ || (defined _MSC_VER && _MSC_VER >= 1500)
+#  if defined __POPCNT__
 #    ifdef _MSC_VER
 #      include <nmmintrin.h>
 #    else

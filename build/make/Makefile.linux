@@ -188,6 +188,10 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/kissfft.a \
                   $(DEPSLIBDIR_X86)/libssl.a \
                   $(DEPSLIBDIR_X86)/libcrypto.a \
+                  $(DEPSLIBDIR_X86)/opencv-core.a \
+                  $(DEPSLIBDIR_X86)/opencv-imgcodecs.a \
+                  $(DEPSLIBDIR_X86)/opencv-imgproc.a \
+                  $(DEPSLIBDIR_X86)/opencv-videoio.a \
                   $(DEPSLIBDIR_X86)/minizip.a \
                   $(DEPSLIBDIR_X86)/oscpack.a \
                   $(DEPSLIBDIR_X86)/pcre2.a \
@@ -225,6 +229,10 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/kissfft.a \
                   $(DEPSLIBDIR_X64)/libssl.a \
                   $(DEPSLIBDIR_X64)/libcrypto.a \
+                  $(DEPSLIBDIR_X64)/opencv-core.a \
+                  $(DEPSLIBDIR_X64)/opencv-imgcodecs.a \
+                  $(DEPSLIBDIR_X64)/opencv-imgproc.a \
+                  $(DEPSLIBDIR_X64)/opencv-videoio.a \
                   $(DEPSLIBDIR_X64)/minizip.a \
                   $(DEPSLIBDIR_X64)/oscpack.a \
                   $(DEPSLIBDIR_X64)/pcre2.a \
