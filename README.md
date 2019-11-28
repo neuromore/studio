@@ -182,7 +182,9 @@ sudo apt-get install \
 
 * Configure in Engine [Config.h](https://github.com/neuromore/studio/blob/master/src/Engine/Config.h)
 * Enabling these requires proprietary contents from compatible SDK versions at compile/link/run time
-* Proprietary SDK contents (headers, libs, dlls) must be placed at proper locations - they are NOT included in this repository
+* Compile-Time: Headers from SDK go to: /deps/include/some-device/
+* Link-Time: Prebuilt proprietary Libs from SDK go to: /deps/prebuilt/win/x86/ (respectively /linux/ or /x64/)
+* Run-Time: Prebuilt proprietary DLLs from SDK go to wherever you place and start your Studio.exe from
 
 | Macro/Define                           | Version  | Description                        |
 |----------------------------------------|----------|------------------------------------|
