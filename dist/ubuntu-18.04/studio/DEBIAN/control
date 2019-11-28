@@ -23,8 +23,26 @@ Depends: libexpat1 (>= 2.2.5),
  libxcb-xinerama0 (>= 1.13),
  libxcb-xkb1 (>= 1.13),
  libxcb-util1 (>= 0.4.0)
-Maintainer: neuromore <support@neuromore.com>
+Maintainer: neuromore <contact@neuromore.com>
 Description: neuromore Studio
- Text Text Text Text Text Text Text Text Text Text Text
- Text Text Text Text Text Text Text Text Text Text Text
- Text Text Text Text Text Text Text Text Text Text Text
+ neuromore Studio is a human machine interface visual 
+ programming development environment suited to deploy 
+ software on desktop or native mobile operating 
+ systems (Ex. Mac, Windows, Linux, Android, iOS). 
+ It's developed in C++ for speed and natively links to 
+ many other languages including Python.
+ neuromore Studio makes it easy to create amazing apps, 
+ which use real-time biodata, powerful algorithms, and 
+ machine intelligence to create interactive, mesmerizing 
+ audio-visual experiences.
+ The stresses of modern life are pushing people everywhere 
+ to look for better focus, deeper relaxation, and more 
+ creativity and connection in life. Everyone wants to 
+ perform their best when it matters most. Wearables and 
+ virtual reality devices are enabling entirely new 
+ categories of apps.
+ neuromore Studio is the best tool to harness the power 
+ of these new technologies and create jaw-dropping 
+ experiences. The market is wide-open for groundbreaking 
+ new applications for everyone from executives and artists 
+ to parents and students.
