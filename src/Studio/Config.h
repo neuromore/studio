@@ -89,7 +89,7 @@
 
 
 	// updates
-	#define USE_AUTOUPDATE
+	//#define USE_AUTOUPDATE
 
 	// crash reporting system
 	#ifdef NEUROMORE_PLATFORM_WINDOWS
