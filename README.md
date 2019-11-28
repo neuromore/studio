@@ -169,7 +169,42 @@ sudo apt-get install \
 
 ### Customizing the Build
 
-TODO: Info about defines for device support/features
+* Using preprocessor C/C++ macro defines.
+* Set in Config.h files or in build environment.
+
+#### General
+
+| Macro/Define      | Description                                               |
+|-------------------|-----------------------------------------------------------|
+| PRODUCTION_BUILD  | Tweaks builds for production instead of development usage |
+
+#### Engine Devices
+
+* Configure in Engine [Config.h](https://github.com/neuromore/studio/blob/master/src/Engine/Config.h)
+* Enabling these requires proprietary contents from compatible SDK versions at compile/link/run time
+* Proprietary SDK contents (headers, libs, dlls) must be placed at proper locations - they are NOT included in this repository
+
+| Macro/Define                           | Version  | Description                        |
+|----------------------------------------|----------|------------------------------------|
+| INCLUDE_DEVICE_EMOTIV                  | 3.0.0.41 | Emotiv EEG                         |
+| INCLUDE_DEVICE_MITSAR                  | ?        | Mitsar EEG                         |
+| INCLUDE_DEVICE_NEUROSKY_MINDWAVE       | 1.2.0    | MindWave EEG                       |
+| INCLUDE_DEVICE_TOBIIEYEX               | ?        | TobiEyeX Eye Tracking              | 
+| INCLUDE_DEVICE_ADVANCEDBRAINMONITORING | ?        | ABM EEG                            |
+| INCLUDE_DEVICE_BRAINQUIRY              | ?        | Brainquiry EEG                     |
+| INCLUDE_DEVICE_ACTICHAMP               | ?        | ActiChamp EEG                      |
+
+#### Studio Features
+
+* Configure in Studio [Config.h](https://github.com/neuromore/studio/blob/master/src/Studio/Config.h)
+
+| Macro/Define            | Description                                              |
+|-------------------------|----------------------------------------------------------|
+| BACKEND_LOGGING         | Controls Backend Logging                                 |
+| OPENCV_SUPPORT          | OpenCV support in Studio                                 |
+| USE_CRASHREPORTER       | Enables/Disables CrashReporter utility                   |
+| USE_QTDATAVISUALIZATION | Not supported / WIP                                      |
+| USE_AUTOUPDATE          | deprecated: controlled autoupdate-feature                |
 
 ## FAQ
 
