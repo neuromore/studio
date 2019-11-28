@@ -319,8 +319,6 @@ QTBASE_MOCH_ALL      = AttributeWidgets/AttributeSetGridWidget.cpp \
                        PainterStaticTextCache.cpp \
                        QtBaseConfig.cpp \
                        QtBaseManager.cpp \
-                       singleapplication.cpp \
-                       singleapplication_p.cpp \
                        Slider.cpp \
                        Spinbox.cpp \
                        SystemInfo.cpp
@@ -456,7 +454,6 @@ QTBASE_OBJS_ALL      = AttributeWidgets/AttributeSetGridWidget.o \
                        MainWindowBase.o \
                        PainterStaticTextCache.o \
                        QtBaseManager.o \
-                       singleapplication.o \
                        Slider.o \
                        Spinbox.o \
                        SystemInfo.o
@@ -540,7 +537,6 @@ STUDIO_DEFINES       = -DQT_STATIC \
                        -DOPENSSL_STATIC \
                        -DOPENSSL_NO_DYNAMIC_ENGINE \
                        -DHAVE_CONFIG_H
-
 STUDIO_DEFINES_X86   = $(STUDIO_DEFINES) $(STUDIO_DEFINES_X86_PLAT)
 STUDIO_DEFINES_X64   = $(STUDIO_DEFINES) $(STUDIO_DEFINES_X64_PLAT)
 STUDIO_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) -I$(ENGINE_SRCDIR) -I$(ENGINE_INCDIR) \
@@ -552,7 +548,6 @@ STUDIO_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) -I$(ENGINE_SRCDIR) -I$(ENGINE_INC
                        -I$(DEPSINCDIR)/qt/QtNetwork \
                        -I$(DEPSINCDIR)/qt/QtWidgets \
                        -I$(SRCDIR)/QtBase
-
 STUDIO_INCLUDES_X86  = $(STUDIO_INCLUDES) -I$(STUDIO_MOCDIR_X86) \
                        -I$(STUDIO_UICDIR_X86) $(STUDIO_INCLUDES_X86_PLAT)
 STUDIO_INCLUDES_X64  = $(STUDIO_INCLUDES) -I$(STUDIO_MOCDIR_X64) \

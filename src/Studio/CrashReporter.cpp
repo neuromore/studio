@@ -21,6 +21,8 @@
 **
 ****************************************************************************/
 
+#include "Config.h"
+
 // only on Windows
 #if defined(NEUROMORE_PLATFORM_WINDOWS) && defined(USE_CRASHREPORTER)
 

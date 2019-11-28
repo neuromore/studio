@@ -1,0 +1,2 @@
+# Enforce CRLF line endings for some Windows files that break without
+*.cmd text eol=crlf

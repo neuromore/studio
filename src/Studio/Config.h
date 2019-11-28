@@ -55,7 +55,7 @@
 
 	// OpenCV support
     #ifdef NEUROMORE_PLATFORM_WINDOWS
-        //#define OPENCV_SUPPORT //TODO: RE-enable once integrated in clang+make
+        #define OPENCV_SUPPORT
     #endif
 
 
@@ -93,7 +93,7 @@
 
 	// crash reporting system
 	#ifdef NEUROMORE_PLATFORM_WINDOWS
-		#define USE_CRASHREPORTER
+		//#define USE_CRASHREPORTER
 	#endif
 #endif
 

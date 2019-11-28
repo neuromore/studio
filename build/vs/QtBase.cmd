@@ -26,8 +26,6 @@ set DIR=../../src/QtBase
 %MOC% %DIR%/MainWindowBase.h -o %DIR%/MainWindowBase.moc.cpp
 %MOC% %DIR%/PainterStaticTextCache.h -o %DIR%/PainterStaticTextCache.moc.cpp
 %MOC% %DIR%/QtBaseManager.h -o %DIR%/QtBaseManager.moc.cpp
-%MOC% %DIR%/singleapplication.h -o %DIR%/singleapplication.moc.cpp
-%MOC% %DIR%/singleapplication_p.h -o %DIR%/singleapplication_p.moc.cpp
 %MOC% %DIR%/Slider.h -o %DIR%/Slider.moc.cpp
 %MOC% %DIR%/Spinbox.h -o %DIR%/Spinbox.moc.cpp
 %MOC% %DIR%/SystemInfo.h -o %DIR%/SystemInfo.moc.cpp

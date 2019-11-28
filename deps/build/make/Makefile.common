@@ -407,6 +407,221 @@ $(MINIZIP_OBJDIR_X86)/%.o:
 $(MINIZIP_OBJDIR_X64)/%.o:
 	$(MINIZIP_BUILD_X64)
 ###################################################################################################################
+# OPENCV-CORE
+###################################################################################################################
+OPENCVCORE_INCDIR       = $(INCDIR)/opencv2
+OPENCVCORE_SRCDIR       = $(SRCDIR)/opencv-core
+OPENCVCORE_OBJDIR_X86   = $(OBJDIR_X86)/opencv-core
+OPENCVCORE_OBJDIR_X64   = $(OBJDIR_X64)/opencv-core
+OPENCVCORE_INCLUDES     = -I$(INCDIR) -I$(OPENCVCORE_INCDIR) -I$(SRCDIR)/opencv-core -I$(INCDIR)/zlib
+OPENCVCORE_INCLUDES_X86 = $(OPENCVCORE_INCLUDES) $(OPENCVCORE_INCLUDES_X86_PLAT)
+OPENCVCORE_INCLUDES_X64 = $(OPENCVCORE_INCLUDES) $(OPENCVCORE_INCLUDES_X64_PLAT)
+OPENCVCORE_DEFINES      = -DHAVE_CONFIG_H \
+                          -D__OPENCV_BUILD \
+                          -D_MT \
+                          -Wno-return-type-c-linkage \
+                          -Wno-invalid-noreturn
+OPENCVCORE_DEFINES_X86  = $(OPENCVCORE_DEFINES) $(OPENCVCORE_DEFINES_X86_PLAT)
+OPENCVCORE_DEFINES_X64  = $(OPENCVCORE_DEFINES) $(OPENCVCORE_DEFINES_X64_PLAT)
+OPENCVCORE_BUILD_X86    = $(CXX) $(CXX14FLAGS_X86) $(OPENCVCORE_DEFINES_X86) $(OPENCVCORE_INCLUDES_X86) \
+                          -c $(@:$(OPENCVCORE_OBJDIR_X86)%.o=$(OPENCVCORE_SRCDIR)%.cpp) -o $@
+OPENCVCORE_BUILD_X64    = $(CXX) $(CXX14FLAGS_X64) $(OPENCVCORE_DEFINES_X64) $(OPENCVCORE_INCLUDES_X64) \
+                          -c $(@:$(OPENCVCORE_OBJDIR_X64)%.o=$(OPENCVCORE_SRCDIR)%.cpp) -o $@
+OPENCVCORE_OBJS_ALL     = algorithm.o \
+                          alloc.o \
+                          arithm.o \
+                          array.o \
+                          command_line_parser.o \
+                          conjugate_gradient.o \
+                          convert.o \
+                          copy.o \
+                          cuda_gpu_mat.o \
+                          cuda_host_mem.o \
+                          cuda_info.o \
+                          cuda_stream.o \
+                          datastructs.o \
+                          downhill_simplex.o \
+                          dxt.o \
+                          gl_core_3_1.o \
+                          glob.o \
+                          kmeans.o \
+                          lapack.o \
+                          lda.o \
+                          lpsolver.o \
+                          mathfuncs.o \
+                          mathfuncs_core.o \
+                          matmul.o \
+                          matop.o \
+                          matrix.o \
+                          matrix_decomp.o \
+                          merge.o \
+                          ocl.o \
+                          opencl_core.o \
+                          opencl_kernels_calib3d.o \
+                          opencl_kernels_core.o \
+                          opencl_kernels_features2d.o \
+                          opencl_kernels_imgproc.o \
+                          opencl_kernels_objdetect.o \
+                          opencl_kernels_photo.o \
+                          opencl_kernels_stitching.o \
+                          opencl_kernels_superres.o \
+                          opencl_kernels_video.o \
+                          opengl.o \
+                          out.o \
+                          parallel.o \
+                          pca.o \
+                          persistence.o \
+                          rand.o \
+                          split.o \
+                          stat.o \
+                          stl.o \
+                          system.o \
+                          tables.o \
+                          types.o \
+                          umatrix.o \
+                          va_intel.o
+
+$(OPENCVCORE_OBJDIR_X86)/%.o:
+	$(OPENCVCORE_BUILD_X86)
+
+$(OPENCVCORE_OBJDIR_X64)/%.o:
+	$(OPENCVCORE_BUILD_X64)
+###################################################################################################################
+# OPENCV-IMGCODECS
+###################################################################################################################
+OPENCVIMGCODECS_INCDIR       = $(INCDIR)/opencv2
+OPENCVIMGCODECS_SRCDIR       = $(SRCDIR)/opencv-imgcodecs
+OPENCVIMGCODECS_OBJDIR_X86   = $(OBJDIR_X86)/opencv-imgcodecs
+OPENCVIMGCODECS_OBJDIR_X64   = $(OBJDIR_X64)/opencv-imgcodecs
+OPENCVIMGCODECS_INCLUDES     = -I$(INCDIR) -I$(OPENCVIMGCODECS_INCDIR) -I$(OPENCVIMGCODECS_SRCDIR) -I$(INCDIR)/zlib
+OPENCVIMGCODECS_INCLUDES_X86 = $(OPENCVIMGCODECS_INCLUDES) $(OPENCVIMGCODECS_INCLUDES_X86_PLAT)
+OPENCVIMGCODECS_INCLUDES_X64 = $(OPENCVIMGCODECS_INCLUDES) $(OPENCVIMGCODECS_INCLUDES_X64_PLAT)
+OPENCVIMGCODECS_DEFINES      = -DHAVE_CONFIG_H \
+                               -D__OPENCV_BUILD \
+                               -D_MT \
+                               -Wno-return-type-c-linkage \
+                               -Wno-invalid-noreturn
+OPENCVIMGCODECS_DEFINES_X86  = $(OPENCVIMGCODECS_DEFINES) $(OPENCVIMGCODECS_DEFINES_X86_PLAT)
+OPENCVIMGCODECS_DEFINES_X64  = $(OPENCVIMGCODECS_DEFINES) $(OPENCVIMGCODECS_DEFINES_X64_PLAT)
+OPENCVIMGCODECS_BUILD_X86    = $(CXX) $(CXX14FLAGS_X86) $(OPENCVIMGCODECS_DEFINES_X86) $(OPENCVIMGCODECS_INCLUDES_X86) \
+                               -c $(@:$(OPENCVIMGCODECS_OBJDIR_X86)%.o=$(OPENCVIMGCODECS_SRCDIR)%.cpp) -o $@
+OPENCVIMGCODECS_BUILD_X64    = $(CXX) $(CXX14FLAGS_X64) $(OPENCVIMGCODECS_DEFINES_X64) $(OPENCVIMGCODECS_INCLUDES_X64) \
+                               -c $(@:$(OPENCVIMGCODECS_OBJDIR_X64)%.o=$(OPENCVIMGCODECS_SRCDIR)%.cpp) -o $@
+OPENCVIMGCODECS_OBJS_ALL     = bitstrm.o grfmt_base.o grfmt_bmp.o grfmt_hdr.o grfmt_png.o grfmt_pxm.o \
+                               grfmt_sunras.o grfmt_tiff.o jpeg_exif.o loadsave.o rgbe.o utils.o
+
+$(OPENCVIMGCODECS_OBJDIR_X86)/%.o:
+	$(OPENCVIMGCODECS_BUILD_X86)
+
+$(OPENCVIMGCODECS_OBJDIR_X64)/%.o:
+	$(OPENCVIMGCODECS_BUILD_X64)
+###################################################################################################################
+# OPENCV-IMGPROC
+###################################################################################################################
+OPENCVIMGPROC_INCDIR       = $(INCDIR)/opencv2
+OPENCVIMGPROC_SRCDIR       = $(SRCDIR)/opencv-imgproc
+OPENCVIMGPROC_OBJDIR_X86   = $(OBJDIR_X86)/opencv-imgproc
+OPENCVIMGPROC_OBJDIR_X64   = $(OBJDIR_X64)/opencv-imgproc
+OPENCVIMGPROC_INCLUDES     = -I$(INCDIR) -I$(OPENCVIMGPROC_INCDIR) -I$(OPENCVIMGPROC_SRCDIR) \
+                             -I$(SRCDIR)/opencv-core
+OPENCVIMGPROC_INCLUDES_X86 = $(OPENCVIMGPROC_INCLUDES) $(OPENCVIMGPROC_INCLUDES_X86_PLAT)
+OPENCVIMGPROC_INCLUDES_X64 = $(OPENCVIMGPROC_INCLUDES) $(OPENCVIMGPROC_INCLUDES_X64_PLAT)
+OPENCVIMGPROC_DEFINES      = -DHAVE_CONFIG_H \
+                             -D__OPENCV_BUILD \
+                             -D_MT \
+                             -Wno-return-type-c-linkage \
+                             -Wno-invalid-noreturn
+OPENCVIMGPROC_DEFINES_X86  = $(OPENCVIMGPROC_DEFINES) $(OPENCVIMGPROC_DEFINES_X86_PLAT)
+OPENCVIMGPROC_DEFINES_X64  = $(OPENCVIMGPROC_DEFINES) $(OPENCVIMGPROC_DEFINES_X64_PLAT)
+OPENCVIMGPROC_BUILD_X86    = $(CXX) $(CXX14FLAGS_X86) $(OPENCVIMGPROC_DEFINES_X86) $(OPENCVIMGPROC_INCLUDES_X86) \
+                             -c $(@:$(OPENCVIMGPROC_OBJDIR_X86)%.o=$(OPENCVIMGPROC_SRCDIR)%.cpp) -o $@
+OPENCVIMGPROC_BUILD_X64    = $(CXX) $(CXX14FLAGS_X64) $(OPENCVIMGPROC_DEFINES_X64) $(OPENCVIMGPROC_INCLUDES_X64) \
+                             -c $(@:$(OPENCVIMGPROC_OBJDIR_X64)%.o=$(OPENCVIMGPROC_SRCDIR)%.cpp) -o $@
+OPENCVIMGPROC_OBJS_ALL     = accum.o \
+                             approx.o \
+                             blend.o \
+                             canny.o \
+                             clahe.o \
+                             color.o \
+                             colormap.o \
+                             connectedcomponents.o \
+                             contours.o \
+                             convhull.o \
+                             corner.o \
+                             cornersubpix.o \
+                             demosaicing.o \
+                             deriv.o \
+                             distransform.o \
+                             drawing.o \
+                             emd.o \
+                             featureselect.o \
+                             filter.o \
+                             floodfill.o \
+                             gabor.o \
+                             generalized_hough.o \
+                             geometry.o \
+                             grabcut.o \
+                             hershey_fonts.o \
+                             histogram.o \
+                             hough.o \
+                             imgwarp.o \
+                             intersection.o \
+                             linefit.o \
+                             lsd.o \
+                             matchcontours.o \
+                             min_enclosing_triangle.o \
+                             moments.o \
+                             morph.o \
+                             phasecorr.o \
+                             pyramids.o \
+                             rotcalipers.o \
+                             samplers.o \
+                             segmentation.o \
+                             shapedescr.o \
+                             smooth.o \
+                             spatialgradient.o \
+                             subdivision2d.o \
+                             sumpixels.o \
+                             tables.o \
+                             templmatch.o \
+                             thresh.o \
+                             undistort.o \
+                             utils.o
+
+$(OPENCVIMGPROC_OBJDIR_X86)/%.o:
+	$(OPENCVIMGPROC_BUILD_X86)
+
+$(OPENCVIMGPROC_OBJDIR_X64)/%.o:
+	$(OPENCVIMGPROC_BUILD_X64)
+###################################################################################################################
+# OPENCV-VIDEOIO
+###################################################################################################################
+OPENCVVIDEOIO_INCDIR       = $(INCDIR)/opencv2
+OPENCVVIDEOIO_SRCDIR       = $(SRCDIR)/opencv-videoio
+OPENCVVIDEOIO_OBJDIR_X86   = $(OBJDIR_X86)/opencv-videoio
+OPENCVVIDEOIO_OBJDIR_X64   = $(OBJDIR_X64)/opencv-videoio
+OPENCVVIDEOIO_INCLUDES     = -I$(INCDIR) -I$(OPENCVVIDEOIO_INCDIR) -I$(OPENCVVIDEOIO_SRCDIR)
+OPENCVVIDEOIO_INCLUDES_X86 = $(OPENCVVIDEOIO_INCLUDES) $(OPENCVVIDEOIO_INCLUDES_X86_PLAT)
+OPENCVVIDEOIO_INCLUDES_X64 = $(OPENCVVIDEOIO_INCLUDES) $(OPENCVVIDEOIO_INCLUDES_X64_PLAT)
+OPENCVVIDEOIO_DEFINES      = -DHAVE_CONFIG_H \
+                             -D__OPENCV_BUILD \
+                             -D_MT \
+                             -Wno-return-type-c-linkage \
+                             -Wno-invalid-noreturn
+OPENCVVIDEOIO_DEFINES_X86  = $(OPENCVVIDEOIO_DEFINES) $(OPENCVVIDEOIO_DEFINES_X86_PLAT)
+OPENCVVIDEOIO_DEFINES_X64  = $(OPENCVVIDEOIO_DEFINES) $(OPENCVVIDEOIO_DEFINES_X64_PLAT)
+OPENCVVIDEOIO_BUILD_X86    = $(CXX) $(CXX14FLAGS_X86) $(OPENCVVIDEOIO_DEFINES_X86) $(OPENCVVIDEOIO_INCLUDES_X86) \
+                             -c $(@:$(OPENCVVIDEOIO_OBJDIR_X86)%.o=$(OPENCVVIDEOIO_SRCDIR)%.cpp) -o $@
+OPENCVVIDEOIO_BUILD_X64    = $(CXX) $(CXX14FLAGS_X64) $(OPENCVVIDEOIO_DEFINES_X64) $(OPENCVVIDEOIO_INCLUDES_X64) \
+                             -c $(@:$(OPENCVVIDEOIO_OBJDIR_X64)%.o=$(OPENCVVIDEOIO_SRCDIR)%.cpp) -o $@
+OPENCVVIDEOIO_OBJS_ALL     = cap.o cap_ffmpeg.o cap_images.o cap_mjpeg_decoder.o cap_mjpeg_encoder.o
+
+$(OPENCVVIDEOIO_OBJDIR_X86)/%.o:
+	$(OPENCVVIDEOIO_BUILD_X86)
+
+$(OPENCVVIDEOIO_OBJDIR_X64)/%.o:
+	$(OPENCVVIDEOIO_BUILD_X64)
+###################################################################################################################
 # OSCPACK
 ###################################################################################################################
 OSCPACK_INCDIR     = $(INCDIR)/oscpack
@@ -3692,3 +3907,113 @@ $(QTXML_OBJDIR_X86)/%.o:
 
 $(QTXML_OBJDIR_X64)/%.o:
 	$(QTXML_BUILD_X64)
+###################################################################################################################
+# SINGLEAPPLICATION
+###################################################################################################################
+SINGLEAPPLICATION_SRCDIR        = $(SRCDIR)/singleapplication
+SINGLEAPPLICATION_MOCDIR_X86    = $(SINGLEAPPLICATION_SRCDIR)/.moc/x86
+SINGLEAPPLICATION_MOCDIR_X64    = $(SINGLEAPPLICATION_SRCDIR)/.moc/x64
+SINGLEAPPLICATION_UICDIR_X86    = $(SINGLEAPPLICATION_SRCDIR)/.uic/x86
+SINGLEAPPLICATION_UICDIR_X64    = $(SINGLEAPPLICATION_SRCDIR)/.uic/x64
+SINGLEAPPLICATION_RCCDIR_X86    = $(SINGLEAPPLICATION_SRCDIR)/.rcc/x86
+SINGLEAPPLICATION_RCCDIR_X64    = $(SINGLEAPPLICATION_SRCDIR)/.rcc/x64
+SINGLEAPPLICATION_OBJDIR_X86    = $(OBJDIR_X86)/singleapplication
+SINGLEAPPLICATION_OBJDIR_X64    = $(OBJDIR_X64)/singleapplication
+SINGLEAPPLICATION_DEFINES       = -DQT_STATIC \
+                                  -DQT_USE_QSTRINGBUILDER \
+                                  -DQT_NO_DEBUG \
+                                  -DHAVE_CONFIG_H \
+                                  -DUNICODE \
+                                  -D_ENABLE_EXTENDED_ALIGNED_STORAGE
+SINGLEAPPLICATION_DEFINES_X86   = $(SINGLEAPPLICATION_DEFINES) $(SINGLEAPPLICATION_DEFINES_X86_PLAT)
+SINGLEAPPLICATION_DEFINES_X64   = $(SINGLEAPPLICATION_DEFINES) $(SINGLEAPPLICATION_DEFINES_X64_PLAT)
+SINGLEAPPLICATION_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) -I$(INCDIR)/singleapplication -I$(INCDIR)/qt -I$(INCDIR)/qt/QtWidgets
+SINGLEAPPLICATION_INCLUDES_X86  = $(SINGLEAPPLICATION_INCLUDES) -I$(SINGLEAPPLICATION_MOCDIR_X86) \
+                                  -I$(SINGLEAPPLICATION_UICDIR_X86) $(SINGLEAPPLICATION_INCLUDES_X86_PLAT)
+SINGLEAPPLICATION_INCLUDES_X64  = $(SINGLEAPPLICATION_INCLUDES) -I$(SINGLEAPPLICATION_MOCDIR_X64) \
+                                  -I$(SINGLEAPPLICATION_UICDIR_X64) $(SINGLEAPPLICATION_INCLUDES_X64_PLAT)
+SINGLEAPPLICATION_MOC_H_X86     = $(MOC_X86) $(SINGLEAPPLICATION_DEFINES_X86) $(SINGLEAPPLICATION_INCLUDES_X86) \
+                                  $(@:$(SINGLEAPPLICATION_MOCDIR_X86)/%.cpp=$(INCDIR)/singleapplication/%.h) \
+                                  -o $(@:$(SINGLEAPPLICATION_MOCDIR_X86)/%.cpp=$(SINGLEAPPLICATION_MOCDIR_X86)/moc_$(@F))
+SINGLEAPPLICATION_MOC_H_X64     = $(MOC_X64) $(SINGLEAPPLICATION_DEFINES_X64) $(SINGLEAPPLICATION_INCLUDES_X64) \
+                                  $(@:$(SINGLEAPPLICATION_MOCDIR_X64)/%.cpp=$(INCDIR)/singleapplication/%.h) \
+                                  -o $(@:$(SINGLEAPPLICATION_MOCDIR_X64)/%.cpp=$(SINGLEAPPLICATION_MOCDIR_X64)/moc_$(@F))
+SINGLEAPPLICATION_MOCH_ALL      = singleapplication.cpp singleapplication_p.cpp
+SINGLEAPPLICATION_MOC_C_X86     = $(MOC_X86) $(SINGLEAPPLICATION_DEFINES_X86) $(SINGLEAPPLICATION_INCLUDES_X86) \
+                                  $(@:$(SINGLEAPPLICATION_MOCDIR_X86)/%.moc=$(SINGLEAPPLICATION_SRCDIR)/%.cpp) \
+                                  -o $(@:$(SINGLEAPPLICATION_MOCDIR_X86)/%.moc=$(SINGLEAPPLICATION_MOCDIR_X86)/$(@F))
+SINGLEAPPLICATION_MOC_C_X64     = $(MOC_X64) $(SINGLEAPPLICATION_DEFINES_X64) $(SINGLEAPPLICATION_INCLUDES_X64) \
+                                  $(@:$(SINGLEAPPLICATION_MOCDIR_X64)/%.moc=$(SINGLEAPPLICATION_SRCDIR)/%.cpp) \
+                                  -o $(@:$(SINGLEAPPLICATION_MOCDIR_X64)/%.moc=$(SINGLEAPPLICATION_MOCDIR_X64)/$(@F))
+SINGLEAPPLICATION_MOCC_ALL      = 
+SINGLEAPPLICATION_UIC_X86       = $(UIC_X86)  \
+                                  $(@:$(SINGLEAPPLICATION_UICDIR_X86)/%.h=$(SINGLEAPPLICATION_SRCDIR)/%.ui) \
+                                  -o $(@:$(SINGLEAPPLICATION_UICDIR_X86)/%.h=$(SINGLEAPPLICATION_UICDIR_X86)/ui_$(@F))
+SINGLEAPPLICATION_UIC_X64       = $(UIC_X64)  \
+                                  $(@:$(SINGLEAPPLICATION_UICDIR_X64)/%.h=$(SINGLEAPPLICATION_SRCDIR)/%.ui) \
+                                  -o $(@:$(SINGLEAPPLICATION_UICDIR_X64)/%.h=$(SINGLEAPPLICATION_UICDIR_X64)/ui_$(@F))
+SINGLEAPPLICATION_UICH_ALL      = 
+SINGLEAPPLICATION_RCC_X86       = $(RCC_X86) --name $(basename $(@F)) \
+                                  $(@:$(SINGLEAPPLICATION_RCCDIR_X86)/%.cpp=$(SINGLEAPPLICATION_SRCDIR)/%.qrc) \
+                                  --output $(@:$(SINGLEAPPLICATION_RCCDIR_X86)/%.cpp=$(SINGLEAPPLICATION_RCCDIR_X86)/qrc_$(@F))
+SINGLEAPPLICATION_RCC_X64       = $(RCC_X64) --name $(basename $(@F)) \
+                                  $(@:$(SINGLEAPPLICATION_RCCDIR_X64)/%.cpp=$(SINGLEAPPLICATION_SRCDIR)/%.qrc) \
+                                  --output $(@:$(SINGLEAPPLICATION_RCCDIR_X64)/%.cpp=$(SINGLEAPPLICATION_RCCDIR_X64)/qrc_$(@F))
+SINGLEAPPLICATION_RCCH_ALL      = 
+SINGLEAPPLICATION_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(SINGLEAPPLICATION_DEFINES_X86) $(SINGLEAPPLICATION_INCLUDES_X86) \
+                                  -c $(@:$(SINGLEAPPLICATION_OBJDIR_X86)%.o=$(SINGLEAPPLICATION_SRCDIR)%.cpp) -o $@
+SINGLEAPPLICATION_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(SINGLEAPPLICATION_DEFINES_X64) $(SINGLEAPPLICATION_INCLUDES_X64) \
+                                  -c $(@:$(SINGLEAPPLICATION_OBJDIR_X64)%.o=$(SINGLEAPPLICATION_SRCDIR)%.cpp) -o $@
+SINGLEAPPLICATION_OBJS_ALL      = singleapplication.o                       
+SINGLEAPPLICATION_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(SINGLEAPPLICATION_DEFINES_X86) $(SINGLEAPPLICATION_INCLUDES_X86) \
+                                  -c $(@:$(SINGLEAPPLICATION_OBJDIR_X86)/%.omoc=$(SINGLEAPPLICATION_MOCDIR_X86)/moc_%.cpp) -o $@
+SINGLEAPPLICATION_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(SINGLEAPPLICATION_DEFINES_X64) $(SINGLEAPPLICATION_INCLUDES_X64) \
+                                  -c $(@:$(SINGLEAPPLICATION_OBJDIR_X64)/%.omoc=$(SINGLEAPPLICATION_MOCDIR_X64)/moc_%.cpp) -o $@
+SINGLEAPPLICATION_OBJS_MOC_ALL  = singleapplication.omoc singleapplication_p.omoc
+SINGLEAPPLICATION_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(SINGLEAPPLICATION_DEFINES_X86) $(SINGLEAPPLICATION_INCLUDES_X86) \
+                                  -c $(@:$(SINGLEAPPLICATION_OBJDIR_X86)/%.orcc=$(SINGLEAPPLICATION_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
+SINGLEAPPLICATION_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(SINGLEAPPLICATION_DEFINES_X64) $(SINGLEAPPLICATION_INCLUDES_X64) \
+                                  -c $(@:$(SINGLEAPPLICATION_OBJDIR_X64)/%.orcc=$(SINGLEAPPLICATION_RCCDIR_X64)/qrc_$(@F:.orcc=.cpp)) -o $@
+SINGLEAPPLICATION_OBJS_RCC_ALL  =
+
+$(SINGLEAPPLICATION_MOCDIR_X86)/%.cpp:
+	$(SINGLEAPPLICATION_MOC_H_X86)
+
+$(SINGLEAPPLICATION_MOCDIR_X64)/%.cpp:
+	$(SINGLEAPPLICATION_MOC_H_X64)
+
+$(SINGLEAPPLICATION_MOCDIR_X86)/%.moc:
+	$(SINGLEAPPLICATION_MOC_C_X86)
+
+$(SINGLEAPPLICATION_MOCDIR_X64)/%.moc:
+	$(SINGLEAPPLICATION_MOC_C_X64)
+
+$(SINGLEAPPLICATION_UICDIR_X86)/%.h:
+	$(SINGLEAPPLICATION_UIC_X86)
+
+$(SINGLEAPPLICATION_UICDIR_X64)/%.h:
+	$(SINGLEAPPLICATION_UIC_X64)
+
+$(SINGLEAPPLICATION_RCCDIR_X86)/%.cpp:
+	$(SINGLEAPPLICATION_RCC_X86)
+
+$(SINGLEAPPLICATION_RCCDIR_X64)/%.cpp:
+	$(SINGLEAPPLICATION_RCC_X64)
+
+$(SINGLEAPPLICATION_OBJDIR_X86)/%.o:
+	$(SINGLEAPPLICATION_BUILD_X86)
+
+$(SINGLEAPPLICATION_OBJDIR_X64)/%.o:
+	$(SINGLEAPPLICATION_BUILD_X64)
+
+$(SINGLEAPPLICATION_OBJDIR_X86)/%.omoc:
+	$(SINGLEAPPLICATION_BUILD_MOC_X86)
+
+$(SINGLEAPPLICATION_OBJDIR_X64)/%.omoc:
+	$(SINGLEAPPLICATION_BUILD_MOC_X64)
+	
+$(SINGLEAPPLICATION_OBJDIR_X86)/%.orcc:
+	$(SINGLEAPPLICATION_BUILD_RCC_X86)
+
+$(SINGLEAPPLICATION_OBJDIR_X64)/%.orcc:
+	$(SINGLEAPPLICATION_BUILD_RCC_X64)

@@ -24,9 +24,14 @@ CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CFLAGS_X64   = -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX          = clang++
-CXXFLAGS_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
-CXXFLAGS_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+CXX            = clang++
+CXXFLAGS_ALL   = -Xclang -flto-visibility-public-std $(FLAGS)
+CXXFLAGS_A_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) $(CXXFLAGS_ALL)
+CXXFLAGS_A_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) $(CXXFLAGS_ALL)
+CXXFLAGS_X86   = $(CXXFLAGS_A_X86) -std=c++17 
+CXXFLAGS_X64   = $(CXXFLAGS_A_X64) -std=c++17 
+CXX14FLAGS_X86 = $(CXXFLAGS_A_X86) -std=c++14
+CXX14FLAGS_X64 = $(CXXFLAGS_A_X64) -std=c++14
 
 # File Operations
 define deletefilepattern
@@ -40,6 +45,14 @@ LIBSSL_DEFINES_X86_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".
 LIBSSL_DEFINES_X64_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
 FONTCONFIG_DEFINES_X86_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 FONTCONFIG_DEFINES_X64_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
+OPENCVCORE_DEFINES_X86_PLAT         =
+OPENCVCORE_DEFINES_X64_PLAT         =
+OPENCVIMGCODECS_DEFINES_X86_PLAT    =
+OPENCVIMGCODECS_DEFINES_X64_PLAT    =
+OPENCVIMGPROC_DEFINES_X86_PLAT      =
+OPENCVIMGPROC_DEFINES_X64_PLAT      =
+OPENCVVIDEOIO_DEFINES_X86_PLAT      =
+OPENCVVIDEOIO_DEFINES_X64_PLAT      =
 QTBOOTSTRAP_DEFINES_X86_PLAT        =
 QTBOOTSTRAP_DEFINES_X64_PLAT        =
 QTMOC_DEFINES_X86_PLAT              =
@@ -82,8 +95,18 @@ QTWIDGETS_DEFINES_X86_PLAT          =
 QTWIDGETS_DEFINES_X64_PLAT          =
 QTXML_DEFINES_X86_PLAT              =
 QTXML_DEFINES_X64_PLAT              =
+SINGLEAPPLICATION_DEFINES_X86_PLAT  =
+SINGLEAPPLICATION_DEFINES_X64_PLAT  =
 
 # Platform Specific additional includes
+OPENCVCORE_INCLUDES_X86_PLAT         =
+OPENCVCORE_INCLUDES_X64_PLAT         =
+OPENCVIMGCODECS_INCLUDES_X86_PLAT    =
+OPENCVIMGCODECS_INCLUDES_X64_PLAT    =
+OPENCVIMGPROC_INCLUDES_X86_PLAT      =
+OPENCVIMGPROC_INCLUDES_X64_PLAT      =
+OPENCVVIDEOIO_INCLUDES_X86_PLAT      =
+OPENCVVIDEOIO_INCLUDES_X64_PLAT      =
 QTBOOTSTRAP_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/linux-clang
 QTBOOTSTRAP_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/linux-clang
 QTMOC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
@@ -126,6 +149,8 @@ QTWIDGETS_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/linux-clang
 QTWIDGETS_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/linux-clang
 QTXML_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
 QTXML_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/linux-clang
+SINGLEAPPLICATION_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/linux-clang
+SINGLEAPPLICATION_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/linux-clang
 
 #####################################################################################
 # Qt MOC+RCC+UIC
@@ -204,30 +229,35 @@ endef
 #####################################################################################
 
 # Small libraries
-ZLIB_OBJS          = $(ZLIB_OBJS_ALL)
-LIBCRYPTO_OBJS     = $(LIBCRYPTO_OBJS_ALL)
-LIBSSL_OBJS        = $(LIBSSL_OBJS_ALL)
-LIBPNG_OBJS        = $(LIBPNG_OBJS_ALL)
-LIBJPEG_OBJS       = $(LIBJPEG_OBJS_ALL)
-PCRE2_OBJS         = $(PCRE2_OBJS_ALL)
-DOUBLECONV_OBJS    = $(DOUBLECONV_OBJS_ALL)
-EDFLIB_OBJS        = $(EDFLIB_OBJS_ALL)
-FONTCONFIG_OBJS    = $(FONTCONFIG_OBJS_ALL) \
-                     fcarch.o fcatomic.o fccache.o fccfg.o fccharset.o fccompat.o \
-                     fcdbg.o fcdefault.o fcdir.o fcformat.o fcfreetype.o fcfs.o \
-                     fchash.o fcinit.o fclang.o fclist.o fcmatch.o fcmatrix.o \
-                     fcname.o fcobjs.o fcpat.o fcptrlist.o fcrange.o fcserialize.o \
-                     fcstat.o fcstr.o fcweight.o fcxml.o ftglue.o
-FREETYPE_OBJS      = $(FREETYPE_OBJS_ALL)
-HARFBUZZ_OBJS_C    = $(HARFBUZZ_OBJS_ALL_C)
-HARFBUZZ_OBJS_CXX  = $(HARFBUZZ_OBJS_ALL_CXX)
-HARFBUZZNG_OBJS    = $(HARFBUZZNG_OBJS_ALL)
-KISSFFT_OBJS       = $(KISSFFT_OBJS_ALL)
-MINIZIP_OBJS       = $(MINIZIP_OBJS_ALL)
-OSCPACK_OBJS       = $(OSCPACK_OBJS_ALL)
-TINYAES_OBJS       = $(TINYAES_OBJS_ALL)
-TINYOBJLOADER_OBJS = $(TINYOBJLOADER_OBJS_ALL)
-TINYXML_OBJS       = $(TINYXML_OBJS_ALL)
+ZLIB_OBJS            = $(ZLIB_OBJS_ALL)
+LIBCRYPTO_OBJS       = $(LIBCRYPTO_OBJS_ALL)
+LIBSSL_OBJS          = $(LIBSSL_OBJS_ALL)
+LIBPNG_OBJS          = $(LIBPNG_OBJS_ALL)
+LIBJPEG_OBJS         = $(LIBJPEG_OBJS_ALL)
+PCRE2_OBJS           = $(PCRE2_OBJS_ALL)
+DOUBLECONV_OBJS      = $(DOUBLECONV_OBJS_ALL)
+EDFLIB_OBJS          = $(EDFLIB_OBJS_ALL)
+FONTCONFIG_OBJS      = $(FONTCONFIG_OBJS_ALL) \
+                       fcarch.o fcatomic.o fccache.o fccfg.o fccharset.o fccompat.o \
+                       fcdbg.o fcdefault.o fcdir.o fcformat.o fcfreetype.o fcfs.o \
+                       fchash.o fcinit.o fclang.o fclist.o fcmatch.o fcmatrix.o \
+                       fcname.o fcobjs.o fcpat.o fcptrlist.o fcrange.o fcserialize.o \
+                       fcstat.o fcstr.o fcweight.o fcxml.o ftglue.o
+FREETYPE_OBJS        = $(FREETYPE_OBJS_ALL)
+HARFBUZZ_OBJS_C      = $(HARFBUZZ_OBJS_ALL_C)
+HARFBUZZ_OBJS_CXX    = $(HARFBUZZ_OBJS_ALL_CXX)
+HARFBUZZNG_OBJS      = $(HARFBUZZNG_OBJS_ALL)
+KISSFFT_OBJS         = $(KISSFFT_OBJS_ALL)
+MINIZIP_OBJS         = $(MINIZIP_OBJS_ALL)
+OPENCVCORE_OBJS      = $(OPENCVCORE_OBJS_ALL)
+OPENCVIMGCODECS_OBJS = $(OPENCVIMGCODECS_OBJS_ALL)
+OPENCVIMGPROC_OBJS   = $(OPENCVIMGPROC_OBJS_ALL)
+OPENCVVIDEOIO_OBJS   = $(OPENCVVIDEOIO_OBJS_ALL) \
+                       cap_v4l.o
+OSCPACK_OBJS         = $(OSCPACK_OBJS_ALL)
+TINYAES_OBJS         = $(TINYAES_OBJS_ALL)
+TINYOBJLOADER_OBJS   = $(TINYOBJLOADER_OBJS_ALL)
+TINYXML_OBJS         = $(TINYXML_OBJS_ALL)
 
 # Qt Bootstrap
 QTBOOTSTRAP_OBJS = $(QTBOOTSTRAP_OBJS_ALL) \
@@ -448,6 +478,13 @@ QTWIDGETS_OBJS              = $(QTWIDGETS_OBJS_ALL) \
 QTWIDGETS_OBJS_MOC          = $(QTWIDGETS_OBJS_MOC_ALL)
 QTWIDGETS_OBJS_RCC          = $(QTWIDGETS_OBJS_RCC_ALL)
 QTXML_OBJS                  = $(QTXML_OBJS_ALL)
+SINGLEAPPLICATION_MOCH      = $(SINGLEAPPLICATION_MOCH_ALL)
+SINGLEAPPLICATION_MOCC      = $(SINGLEAPPLICATION_MOCC_ALL)
+SINGLEAPPLICATION_UICH      = $(SINGLEAPPLICATION_UICH_ALL)
+SINGLEAPPLICATION_RCCH      = $(SINGLEAPPLICATION_RCCH_ALL)
+SINGLEAPPLICATION_OBJS      = $(SINGLEAPPLICATION_OBJS_ALL)
+SINGLEAPPLICATION_OBJS_MOC  = $(SINGLEAPPLICATION_OBJS_MOC_ALL)
+SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 
 #####################################################################################
 # Include Targets

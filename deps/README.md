@@ -36,8 +36,8 @@ Open-Source Third Party Software included in this repository.
 | rfc6234             | ?.?.?    |                                                       | RFC6234 Implementation                  |
 | sha1                | ?.?.?    |                                                       | SHA1                                    |
 | sha3                | ?.?.?    |                                                       | SHA3                                    |
+| singleapplication   | ?.?.?    | https://github.com/itay-grudev/SingleApplication      | Qt Single Application Extension         |
 | stb                 | 2.24     | https://github.com/nothings/stb                       | Single File Header Libraries            |
-| tbb                 | ?.?.?    | https://github.com/intel/tbb                          | Intel Threading Building Blocks         |
 | tinyaes             | 1.0.0    | https://github.com/kokke/tiny-AES-c                   | AES Support                             |
 | tinycbor            | 0.6.0    | https://github.com/intel/tinycbor                     | Concise Binary Object Representation    |
 | tinyobjectloader    | < 0.9    | https://github.com/syoyo/tinyobjloader                | WaveFront OBJ Format Support            |

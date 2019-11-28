@@ -54,14 +54,14 @@
 /* #undef HAVE_DC1394_2 */
 
 /* Intel Threading Building Blocks */
-#define HAVE_TBB
+//#define HAVE_TBB
 
 /* PNG codec */
 #define HAVE_PNG
 
 
 /**** PLATFORM SPECIFIC ****/
-#if defined(ANDROID)
+#if defined(__linux__)
 
 /* V4L2 capturing support */
 #define HAVE_CAMV4L2
@@ -70,7 +70,7 @@
 //#define HAVE_VIDEOIO
 
 #define HAVE_PTHREADS
-#else
+#elif defined(_WIN32)
 
 /* Intel Integrated Performance Primitives */
 //#define HAVE_IPP
