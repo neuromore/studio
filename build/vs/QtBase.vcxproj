@@ -5,6 +5,14 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Production|Win32">
+      <Configuration>Production</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Production|x64">
+      <Configuration>Production</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -33,7 +41,19 @@
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
@@ -59,11 +79,17 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib\x86\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">lib\x86\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">obj\x86\$(TargetName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">obj\x86\$(TargetName)\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">$(ProjectName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Production|x64'">$(ProjectName)</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">.lib</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Production|x64'">.lib</TargetExt>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib\x86\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\x86\$(TargetName)_d\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_d</TargetName>
@@ -76,6 +102,10 @@
     <IntDir>obj\x64\$(TargetName)_d\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>lib\x64\</OutDir>
+    <IntDir>obj\x64\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
     <OutDir>lib\x64\</OutDir>
     <IntDir>obj\x64\$(TargetName)\</IntDir>
   </PropertyGroup>
@@ -132,6 +162,59 @@ QtBase.cmd
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>false</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>PRODUCTION_BUILD;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_UNICODE;UNICODE;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_BLUETOOTH_LIB;QT_CORE_LIB;QT_CONCURRENT_LIB;QT_GAMEPAD_LIB;QT_GUI_LIB;QT_MULTIMEDIA_LIB;QT_NETWORK_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_PRINTSUPPORT_LIB;QT_SERIALPORT_LIB;QT_XML_LIB;QT_LINKED_OPENSSL;QT_STATIC;WIN32;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <DisableSpecificWarnings>4065</DisableSpecificWarnings>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;QT_BLUETOOTH_LIB;QT_CORE_LIB;QT_CONCURRENT_LIB;QT_GAMEPAD_LIB;QT_GUI_LIB;QT_MULTIMEDIA_LIB;QT_NETWORK_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_PRINTSUPPORT_LIB;QT_SERIALPORT_LIB;QT_XML_LIB;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;QT_NO_DEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <Message>QT MOC+RCC</Message>
+      <Command>setlocal
+set MOC="../../deps/build/vs/bin/x86/qt-moc.exe" -DPRODUCTION_BUILD
+set RCC="../../deps/build/vs/bin/x86/qt-rcc.exe"
+set UIC="../../deps/build/vs/bin/x86/qt-uic.exe"
+QtBase.cmd
+</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <TargetMachine>MachineX86</TargetMachine>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\deps\include;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -173,6 +256,58 @@ QtBase.cmd
       <Message>QT MOC+RCC</Message>
       <Command>setlocal
 set MOC="../../deps/build/vs/bin/x64/qt-moc.exe"
+set RCC="../../deps/build/vs/bin/x64/qt-rcc.exe"
+set UIC="../../deps/build/vs/bin/x64/qt-uic.exe"
+QtBase.cmd
+</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>false</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>PRODUCTION_BUILD;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_UNICODE;UNICODE;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_BLUETOOTH_LIB;QT_CORE_LIB;QT_CONCURRENT_LIB;QT_GAMEPAD_LIB;QT_GUI_LIB;QT_MULTIMEDIA_LIB;QT_NETWORK_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_PRINTSUPPORT_LIB;QT_SERIALPORT_LIB;QT_XML_LIB;QT_LINKED_OPENSSL;QT_STATIC;QT_NO_DEBUG;WIN32;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <DisableSpecificWarnings>4065</DisableSpecificWarnings>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;QT_BLUETOOTH_LIB;QT_CORE_LIB;QT_CONCURRENT_LIB;QT_GAMEPAD_LIB;QT_GUI_LIB;QT_MULTIMEDIA_LIB;QT_NETWORK_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_PRINTSUPPORT_LIB;QT_SERIALPORT_LIB;QT_XML_LIB;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;QT_NO_DEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <Message>QT MOC+RCC</Message>
+      <Command>setlocal
+set MOC="../../deps/build/vs/bin/x64/qt-moc.exe"  -DPRODUCTION_BUILD
 set RCC="../../deps/build/vs/bin/x64/qt-rcc.exe"
 set UIC="../../deps/build/vs/bin/x64/qt-uic.exe"
 QtBase.cmd
