@@ -193,7 +193,7 @@
 
 using namespace Core;
 
-// Entry Point for Windows Production (No Console, requires Subsystem:/WINDOWS)
+// Entry Point for Windows Production (No Console, requires /subsystem:WINDOWS)
 #if defined(NEUROMORE_PLATFORM_WINDOWS) && defined(PRODUCTION_BUILD)
 int APIENTRY WinMain(
    HINSTANCE hInstance,
