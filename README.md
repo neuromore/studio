@@ -44,6 +44,14 @@ We provide two integrated build environments in this repository:
 * For VS2019: Select upgrade from v141 (2017) to v142 (2019) as wizard suggests
 * Build the "Studio" project in release mode or start it directly in debug mode
 
+*Configurations:*
+
+| Name        | Optimized | Debuggable | Logging | Notes                          |
+|-------------|-----------|------------|---------|--------------------------------|
+| Debug       | No        | Yes        | Max     |                                |
+| Release     | Yes       | No         | Medium  | Also called DEVELOPMENT        |
+| Production  | Yes       | No         | Min     | Release + PRODUCTION_BUILD set |
+
 *Build Output Studio:*
 
 | Arch | Folder            |
