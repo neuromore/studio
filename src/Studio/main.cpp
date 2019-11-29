@@ -193,8 +193,21 @@
 
 using namespace Core;
 
+// Entry Point for Windows Production (No Console, requires /subsystem:WINDOWS)
+#if defined(NEUROMORE_PLATFORM_WINDOWS) && defined(PRODUCTION_BUILD)
+int APIENTRY WinMain(
+   HINSTANCE hInstance,
+   HINSTANCE hPrevInstance,
+   LPSTR     lpCmdLine,
+   int       nCmdShow)
+{
+   int    argc = __argc;
+   char** argv = __argv;
+#else
+// Entry Point for All Others (with Console)
 int main(int argc, char *argv[])
 {
+#endif
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// crash reporting system
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
