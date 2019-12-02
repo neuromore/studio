@@ -41,7 +41,7 @@
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 	// windows-only closed-source devices
 	//#define INCLUDE_DEVICE_EMOTIV
-	//#define INCLUDE_DEVICE_MITSAR
+	#define INCLUDE_DEVICE_MITSAR
 	//#define INCLUDE_DEVICE_NEUROSKY_MINDWAVE
 	//#define INCLUDE_DEVICE_TOBIIEYEX
 	// x86 only devices
@@ -81,7 +81,7 @@
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 	// windows-only devices
 	//#define INCLUDE_DEVICE_EMOTIV
-	//#define INCLUDE_DEVICE_MITSAR
+	#define INCLUDE_DEVICE_MITSAR
 	//#define INCLUDE_DEVICE_NEUROSKY_MINDWAVE
 	//#define INCLUDE_DEVICE_TOBIIEYEX
 	// x86 only devices
