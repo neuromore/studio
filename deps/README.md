@@ -45,6 +45,12 @@ Open-Source Third Party Software included in this repository.
 | wtl                 | 9.1      | http://wtl.sourceforge.net/                           | Windows Template Library (Windows only) |
 | zlib                | 1.2.11   | https://zlib.net/                                     | ZIP Compression                         |
 
+## Proprietary
+
+| Name                | Version  | Link                                                  | Remarks                                 |
+|---------------------|----------|-------------------------------------------------------|-----------------------------------------|
+| eemagine            | 1.3.19   | https://www.ant-neuro.com/                            | eego amplifier / antneuro eeg           |
+
 ## Resources
 
 Third Party Resources included in this repository.
