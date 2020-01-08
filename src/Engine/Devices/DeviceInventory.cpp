@@ -69,6 +69,11 @@
 	#include "Mitsar/MitsarNodes.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_EEMAGINE
+  #include "eemagine/eemagineDevices.h"
+  #include "eemagine/eemagineNodes.h"
+#endif
+
 #ifdef INCLUDE_DEVICE_BRAINQUIRY
 	#include "Brainquiry/BrainquiryDevice.h"
 	#include "Brainquiry/BrainquiryNode.h"
@@ -186,6 +191,14 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	{
 		GetDeviceManager()->RegisterDeviceType(new EmotivInsightDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new EmotivInsightNode(NULL));
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_EEMAGINE
+	if (disablePermissionCheck || user->ReadAllowed(eemagineDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new eemagineEE214Device());
+		GetGraphObjectFactory()->RegisterObjectType(new eemagineEE214Node(NULL));
 	}
 #endif
 

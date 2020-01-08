@@ -57,6 +57,7 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\DriverInventory.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\eemagine\eemagineDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Emotiv\EmotivDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.h" />
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h" />
     <ClInclude Include="..\..\src\Studio\Devices\DriverInventory.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\eemagine\eemagineDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Emotiv\EmotivDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.h" />
@@ -560,8 +562,7 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -617,8 +618,7 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -685,8 +685,7 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">
@@ -753,8 +752,7 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -822,8 +820,7 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
@@ -891,8 +888,7 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

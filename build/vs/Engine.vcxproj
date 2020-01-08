@@ -462,7 +462,10 @@
     <ClInclude Include="..\..\src\Engine\Core\Version.h" />
     <ClCompile Include="..\..\src\Engine\Creud.cpp" />
     <ClInclude Include="..\..\src\Engine\Creud.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\DSP\AttributeChannels.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineNodes.h" />
     <ClInclude Include="..\..\src\Engine\DSP\AttributeChannels.h" />
     <ClInclude Include="..\..\src\Engine\DSP\AttributeDoubleChannels.h" />
     <ClInclude Include="..\..\src\Engine\DSP\AttributeSpectrumChannels.h" />

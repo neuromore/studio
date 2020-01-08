@@ -203,6 +203,7 @@ sudo apt-get install \
 | INCLUDE_DEVICE_ADVANCEDBRAINMONITORING | ?        | ABM EEG                            |
 | INCLUDE_DEVICE_BRAINQUIRY              | ?        | Brainquiry EEG                     |
 | INCLUDE_DEVICE_ACTICHAMP               | ?        | ActiChamp EEG                      |
+| INCLUDE_DEVICE_EEMAGINE                | 1.3.19   | eego Amplifiers/EEG                |
 
 #### Studio Features
 
