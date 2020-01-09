@@ -225,3 +225,6 @@ sudo apt-get install \
 
 *Q:* Is the backend code included or available so that I can host it myself?
 *A*: No. The backend code and database design is not included in this repository.
+
+*Q:* How do I reset my password?
+*A:* https://account.neuromore.com/#/login
