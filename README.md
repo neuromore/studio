@@ -35,13 +35,14 @@ We provide two integrated build environments in this repository:
 *Folder:* [/build/vs](https://github.com/neuromore/studio/tree/master/build/vs)
 
 *Requirements:*
-* Visual Studio 2017 (default) or 2019 (new)
+* Visual Studio 2019 (default) or 2017 (old)
 * Installed VS-Feature: Desktop Development (C/MSVC++ tools/components)
-* Installed VS-Feature: Windows 10 SDK 10.0.17763
+* Installed VS-Feature: Windows 10 SDK (any version, the later the better)
 
 *Steps:*
 * Open [Neuromore.sln](https://github.com/neuromore/studio/blob/master/build/vs/Neuromore.sln) in Visual Studio
-* For VS2019: Select upgrade from v141 (2017) to v142 (2019) as wizard suggests
+* For VS2017: Manually downgrade project platformtoolset from v142 (2019) to v141 (2017)
+* For VS2017: Manually set a Win 10 SDK version that you have installed
 * Build the "Studio" project in release mode or start it directly in debug mode
 
 *Configurations:*
