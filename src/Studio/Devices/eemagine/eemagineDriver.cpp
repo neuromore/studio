@@ -37,8 +37,19 @@ eemagineDriver::eemagineDriver() : DeviceDriver(), mDevice(NULL), mAmplifier(NUL
    LogDetailedInfo("Constructing eemagine driver ...");
 
    // add devices of this driver
+   AddSupportedDevice(eemagineEE211Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE212Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE213Device::TYPE_ID);
    AddSupportedDevice(eemagineEE214Device::TYPE_ID);
-   //TODO: add more devices
+   AddSupportedDevice(eemagineEE215Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE221Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE222Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE223Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE224Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE225Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE410Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE411Device::TYPE_ID);
+   AddSupportedDevice(eemagineEE430Device::TYPE_ID);
 }
 
 
@@ -142,8 +153,19 @@ Device* eemagineDriver::CreateDevice(uint32 deviceTypeID)
 
    switch (deviceTypeID)
    {
+   case eemagineEE211Device::TYPE_ID:  return new eemagineEE211Device(this);
+   case eemagineEE212Device::TYPE_ID:  return new eemagineEE212Device(this);
+   case eemagineEE213Device::TYPE_ID:  return new eemagineEE213Device(this);
    case eemagineEE214Device::TYPE_ID:  return new eemagineEE214Device(this);
-   // TODO more devices
+   case eemagineEE215Device::TYPE_ID:  return new eemagineEE215Device(this);
+   case eemagineEE221Device::TYPE_ID:  return new eemagineEE221Device(this);
+   case eemagineEE222Device::TYPE_ID:  return new eemagineEE222Device(this);
+   case eemagineEE223Device::TYPE_ID:  return new eemagineEE223Device(this);
+   case eemagineEE224Device::TYPE_ID:  return new eemagineEE224Device(this);
+   case eemagineEE225Device::TYPE_ID:  return new eemagineEE225Device(this);
+   case eemagineEE410Device::TYPE_ID:  return new eemagineEE410Device(this);
+   case eemagineEE411Device::TYPE_ID:  return new eemagineEE411Device(this);
+   case eemagineEE430Device::TYPE_ID:  return new eemagineEE430Device(this);
    default: return NULL;
    }
 }
@@ -156,16 +178,29 @@ void eemagineDriver::DetectDevices()
 
    try
    {
-      // get first amplifier
+      // get first amplifier or raise exception
       mAmplifier = mFactory.getAmplifier();
-      
+
       // get type
-      const std::string type = mAmplifier->getType();
+      const std::string& type = mAmplifier->getType();
+
+      // log found device
+      LogInfo("eemagine found amplifier of type %s, checking compatilibty...", type.c_str());
 
       // create device for type if supported
-      if      (type == "EE214") { mDevice = static_cast<eemagineEE214Device*>(CreateDevice(eemagineEE214Device::TYPE_ID)); }
-      //else if (type == "EE215") { mDevice = static_cast<eemagineEE215Device*>(CreateDevice(eemagineEE215Device::TYPE_ID)); }
-      // TODO
+      if      (type == "EE211") { mDevice = static_cast<eemagineEE211Device*>(CreateDevice(eemagineEE211Device::TYPE_ID)); }
+      else if (type == "EE212") { mDevice = static_cast<eemagineEE212Device*>(CreateDevice(eemagineEE212Device::TYPE_ID)); }
+      else if (type == "EE213") { mDevice = static_cast<eemagineEE213Device*>(CreateDevice(eemagineEE213Device::TYPE_ID)); }
+      else if (type == "EE214") { mDevice = static_cast<eemagineEE214Device*>(CreateDevice(eemagineEE214Device::TYPE_ID)); }
+      else if (type == "EE215") { mDevice = static_cast<eemagineEE215Device*>(CreateDevice(eemagineEE215Device::TYPE_ID)); }
+      else if (type == "EE221") { mDevice = static_cast<eemagineEE221Device*>(CreateDevice(eemagineEE221Device::TYPE_ID)); }
+      else if (type == "EE222") { mDevice = static_cast<eemagineEE222Device*>(CreateDevice(eemagineEE222Device::TYPE_ID)); }
+      else if (type == "EE223") { mDevice = static_cast<eemagineEE223Device*>(CreateDevice(eemagineEE223Device::TYPE_ID)); }
+      else if (type == "EE224") { mDevice = static_cast<eemagineEE224Device*>(CreateDevice(eemagineEE224Device::TYPE_ID)); }
+      else if (type == "EE225") { mDevice = static_cast<eemagineEE225Device*>(CreateDevice(eemagineEE225Device::TYPE_ID)); }
+      else if (type == "EE410") { mDevice = static_cast<eemagineEE410Device*>(CreateDevice(eemagineEE410Device::TYPE_ID)); }
+      else if (type == "EE411") { mDevice = static_cast<eemagineEE411Device*>(CreateDevice(eemagineEE411Device::TYPE_ID)); }
+      else if (type == "EE430") { mDevice = static_cast<eemagineEE430Device*>(CreateDevice(eemagineEE430Device::TYPE_ID)); }
 
       // supported device
       if (mDevice)

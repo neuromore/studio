@@ -195,11 +195,47 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 #endif
 
 #ifdef INCLUDE_DEVICE_EEMAGINE
-	if (disablePermissionCheck || user->ReadAllowed(eemagineDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new eemagineEE214Device());
-		GetGraphObjectFactory()->RegisterObjectType(new eemagineEE214Node(NULL));
-	}
+   if (disablePermissionCheck || user->ReadAllowed(eemagineDevice::GetRuleName()))
+   {
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE211Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE211Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE212Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE212Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE213Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE213Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE214Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE214Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE215Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE215Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE221Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE221Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE222Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE222Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE223Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE223Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE224Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE224Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE225Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE225Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE410Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE410Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE411Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE411Node(NULL));
+
+      GetDeviceManager()->RegisterDeviceType(new eemagineEE430Device());
+      GetGraphObjectFactory()->RegisterObjectType(new eemagineEE430Node(NULL));
+   }
 #endif
 
 #ifdef INCLUDE_DEVICE_OPENBCI

@@ -64,6 +64,108 @@ void eemagineDevice::CreateSensors()
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-211
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE211Device::eemagineEE211Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-211 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE211Device::~eemagineEE211Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-211 ...");
+}
+
+void eemagineEE211Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes
+}
+
+void eemagineEE211Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE211Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-212
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE212Device::eemagineEE212Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-212 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE212Device::~eemagineEE212Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-212 ...");
+}
+
+void eemagineEE212Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE212Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE212Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-213
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE213Device::eemagineEE213Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-213 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE213Device::~eemagineEE213Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-213 ...");
+}
+
+void eemagineEE213Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE213Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE213Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-214
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -160,6 +262,312 @@ int eemagineEE214Device::GetHwChannelIndexForElectrode(const char* electrode)
    if (String::SafeCompare(electrode, "O1") == 0)     return 29;
    if (String::SafeCompare(electrode, "Oz") == 0)     return 30;
    if (String::SafeCompare(electrode, "O2") == 0)     return 31;
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-215
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE215Device::eemagineEE215Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-215 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE215Device::~eemagineEE215Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-215 ...");
+}
+
+void eemagineEE215Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE215Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE215Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-221
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE221Device::eemagineEE221Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-221 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE221Device::~eemagineEE221Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-221 ...");
+}
+
+void eemagineEE221Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE221Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE221Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-222
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE222Device::eemagineEE222Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-222 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE222Device::~eemagineEE222Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-222 ...");
+}
+
+void eemagineEE222Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE222Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE222Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-223
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE223Device::eemagineEE223Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-223 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE223Device::~eemagineEE223Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-223 ...");
+}
+
+void eemagineEE223Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE223Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE223Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-224
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE224Device::eemagineEE224Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-224 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE224Device::~eemagineEE224Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-224 ...");
+}
+
+void eemagineEE224Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE224Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE224Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-225
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE225Device::eemagineEE225Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-225 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE225Device::~eemagineEE225Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-225 ...");
+}
+
+void eemagineEE225Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE225Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE225Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-410
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE410Device::eemagineEE410Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-410 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE410Device::~eemagineEE410Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-410 ...");
+}
+
+void eemagineEE410Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE410Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE410Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-411
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE411Device::eemagineEE411Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-411 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE411Device::~eemagineEE411Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-411 ...");
+}
+
+void eemagineEE411Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE411Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE411Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
+   return -1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EE-430
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+eemagineEE430Device::eemagineEE430Device(DeviceDriver* driver) : eemagineDevice(driver)
+{
+   LogDetailedInfo("Constructing eemagine EE-430 ...");
+
+   // create all sensors
+   CreateSensors();
+}
+
+eemagineEE430Device::~eemagineEE430Device()
+{
+   LogDetailedInfo("Destructing eemagine EE-430 ...");
+}
+
+void eemagineEE430Device::CreateElectrodes()
+{
+   mElectrodes.Clear();
+   // TODO: Create electrodes, see EE-214
+}
+
+void eemagineEE430Device::CreateSensors()
+{
+   eemagineDevice::CreateSensors();
+}
+
+int eemagineEE430Device::GetHwChannelIndexForElectrode(const char* electrode)
+{
+   // TODO: return hw channel idx of electrode, see EE-214
    return -1;
 }
 
