@@ -49,14 +49,160 @@ void eemagineDevice::CreateSensors()
    // create EEG sensors first
    BciDevice::CreateSensors();
 
-   // iterate neuro sensors, set buffer size to 10s
-   // TODO: Implement this more generic as new
-   // SetBufferSizeInSeconds() in class Channel
+   // iterate neuro sensors (electrodes)
    const uint32_t numSensors = GetNumNeuroSensors();
    for (uint32_t e = 0; e < numSensors; e++)
    {
       if (Sensor* sensor = GetNeuroSensor(e))
       {
+         // assign hw channel index to sensor
+
+         // cap with 8 electrodes
+         // taken from cap: CA-411
+         if (numSensors == 8)
+         {
+            if      (String::SafeCompare(sensor->GetName(), "Fz") == 0)  sensor->SetHardwareChannel(0);
+            else if (String::SafeCompare(sensor->GetName(), "Cz") == 0)  sensor->SetHardwareChannel(1);
+            else if (String::SafeCompare(sensor->GetName(), "Pz") == 0)  sensor->SetHardwareChannel(2);
+            else if (String::SafeCompare(sensor->GetName(), "F3") == 0)  sensor->SetHardwareChannel(3);
+            else if (String::SafeCompare(sensor->GetName(), "F4") == 0)  sensor->SetHardwareChannel(4);
+            else if (String::SafeCompare(sensor->GetName(), "Fpz") == 0) sensor->SetHardwareChannel(5);
+            else if (String::SafeCompare(sensor->GetName(), "C3") == 0)  sensor->SetHardwareChannel(6);
+            else if (String::SafeCompare(sensor->GetName(), "C4") == 0)  sensor->SetHardwareChannel(7);
+         }
+
+         // cap with 16 electrodes
+         // taken from: CA-204
+         else if (numSensors == 16)
+         {
+            if      (String::SafeCompare(sensor->GetName(), "Fp1") == 0)   sensor->SetHardwareChannel(0);
+            else if (String::SafeCompare(sensor->GetName(), "Fp2") == 0)   sensor->SetHardwareChannel(2);
+            else if (String::SafeCompare(sensor->GetName(), "F3") == 0)    sensor->SetHardwareChannel(4);
+            else if (String::SafeCompare(sensor->GetName(), "Fz") == 0)    sensor->SetHardwareChannel(5);
+            else if (String::SafeCompare(sensor->GetName(), "F4") == 0)    sensor->SetHardwareChannel(6);
+            else if (String::SafeCompare(sensor->GetName(), "T7") == 0)    sensor->SetHardwareChannel(13);
+            else if (String::SafeCompare(sensor->GetName(), "C3") == 0)    sensor->SetHardwareChannel(14);
+            else if (String::SafeCompare(sensor->GetName(), "Cz") == 0)    sensor->SetHardwareChannel(15);
+            else if (String::SafeCompare(sensor->GetName(), "C4") == 0)    sensor->SetHardwareChannel(16);
+            else if (String::SafeCompare(sensor->GetName(), "T8") == 0)    sensor->SetHardwareChannel(17);
+            else if (String::SafeCompare(sensor->GetName(), "P3") == 0)    sensor->SetHardwareChannel(24);
+            else if (String::SafeCompare(sensor->GetName(), "Pz") == 0)    sensor->SetHardwareChannel(25);
+            else if (String::SafeCompare(sensor->GetName(), "P4") == 0)    sensor->SetHardwareChannel(26);
+            else if (String::SafeCompare(sensor->GetName(), "O1") == 0)    sensor->SetHardwareChannel(29);
+            else if (String::SafeCompare(sensor->GetName(), "Oz") == 0)    sensor->SetHardwareChannel(30);
+            else if (String::SafeCompare(sensor->GetName(), "O2") == 0)    sensor->SetHardwareChannel(31);
+         }
+
+         // cap with 32 electrodes
+         // taken from: CAP-32CU
+         else if (numSensors == 32)
+         {
+            if      (String::SafeCompare(sensor->GetName(), "Fp1") == 0)    sensor->SetHardwareChannel(0);
+            else if (String::SafeCompare(sensor->GetName(), "Fpz") == 0)    sensor->SetHardwareChannel(1);
+            else if (String::SafeCompare(sensor->GetName(), "Fp2") == 0)    sensor->SetHardwareChannel(2);
+            else if (String::SafeCompare(sensor->GetName(), "F7") == 0)     sensor->SetHardwareChannel(3);
+            else if (String::SafeCompare(sensor->GetName(), "F3") == 0)     sensor->SetHardwareChannel(4);
+            else if (String::SafeCompare(sensor->GetName(), "Fz") == 0)     sensor->SetHardwareChannel(5);
+            else if (String::SafeCompare(sensor->GetName(), "F4") == 0)     sensor->SetHardwareChannel(6);
+            else if (String::SafeCompare(sensor->GetName(), "F8") == 0)     sensor->SetHardwareChannel(7);
+            else if (String::SafeCompare(sensor->GetName(), "FC5") == 0)    sensor->SetHardwareChannel(8);
+            else if (String::SafeCompare(sensor->GetName(), "FC1") == 0)    sensor->SetHardwareChannel(9);
+            else if (String::SafeCompare(sensor->GetName(), "FC2") == 0)    sensor->SetHardwareChannel(10);
+            else if (String::SafeCompare(sensor->GetName(), "FC6") == 0)    sensor->SetHardwareChannel(11);
+            else if (String::SafeCompare(sensor->GetName(), "A1") == 0)     sensor->SetHardwareChannel(12);
+            else if (String::SafeCompare(sensor->GetName(), "T7") == 0)     sensor->SetHardwareChannel(13);
+            else if (String::SafeCompare(sensor->GetName(), "C3") == 0)     sensor->SetHardwareChannel(14);
+            else if (String::SafeCompare(sensor->GetName(), "Cz") == 0)     sensor->SetHardwareChannel(15);
+            else if (String::SafeCompare(sensor->GetName(), "C4") == 0)     sensor->SetHardwareChannel(16);
+            else if (String::SafeCompare(sensor->GetName(), "T8") == 0)     sensor->SetHardwareChannel(17);
+            else if (String::SafeCompare(sensor->GetName(), "A2") == 0)     sensor->SetHardwareChannel(18);
+            else if (String::SafeCompare(sensor->GetName(), "CP5") == 0)    sensor->SetHardwareChannel(19);
+            else if (String::SafeCompare(sensor->GetName(), "CP1") == 0)    sensor->SetHardwareChannel(20);
+            else if (String::SafeCompare(sensor->GetName(), "CP2") == 0)    sensor->SetHardwareChannel(21);
+            else if (String::SafeCompare(sensor->GetName(), "CP6") == 0)    sensor->SetHardwareChannel(22);
+            else if (String::SafeCompare(sensor->GetName(), "P7") == 0)     sensor->SetHardwareChannel(23);
+            else if (String::SafeCompare(sensor->GetName(), "P3") == 0)     sensor->SetHardwareChannel(24);
+            else if (String::SafeCompare(sensor->GetName(), "Pz") == 0)     sensor->SetHardwareChannel(25);
+            else if (String::SafeCompare(sensor->GetName(), "P4") == 0)     sensor->SetHardwareChannel(26);
+            else if (String::SafeCompare(sensor->GetName(), "P8") == 0)     sensor->SetHardwareChannel(27);
+            else if (String::SafeCompare(sensor->GetName(), "POz") == 0)    sensor->SetHardwareChannel(28);
+            else if (String::SafeCompare(sensor->GetName(), "O1") == 0)     sensor->SetHardwareChannel(29);
+            else if (String::SafeCompare(sensor->GetName(), "Oz") == 0)     sensor->SetHardwareChannel(30);
+            else if (String::SafeCompare(sensor->GetName(), "O2") == 0)     sensor->SetHardwareChannel(31);
+         }
+
+         // cap with 64 electrodes
+         // taken from: CA-208.s1
+         else if (numSensors == 64)
+         {
+            if      (String::SafeCompare(sensor->GetName(), "Fp1") == 0)    sensor->SetHardwareChannel(0);
+            else if (String::SafeCompare(sensor->GetName(), "Fpz") == 0)    sensor->SetHardwareChannel(1);
+            else if (String::SafeCompare(sensor->GetName(), "Fp2") == 0)    sensor->SetHardwareChannel(2);
+            else if (String::SafeCompare(sensor->GetName(), "F7") == 0)     sensor->SetHardwareChannel(3);
+            else if (String::SafeCompare(sensor->GetName(), "F3") == 0)     sensor->SetHardwareChannel(4);
+            else if (String::SafeCompare(sensor->GetName(), "Fz") == 0)     sensor->SetHardwareChannel(5);
+            else if (String::SafeCompare(sensor->GetName(), "F4") == 0)     sensor->SetHardwareChannel(6);
+            else if (String::SafeCompare(sensor->GetName(), "F8") == 0)     sensor->SetHardwareChannel(7);
+            else if (String::SafeCompare(sensor->GetName(), "FC5") == 0)    sensor->SetHardwareChannel(8);
+            else if (String::SafeCompare(sensor->GetName(), "FC1") == 0)    sensor->SetHardwareChannel(9);
+            else if (String::SafeCompare(sensor->GetName(), "FC2") == 0)    sensor->SetHardwareChannel(10);
+            else if (String::SafeCompare(sensor->GetName(), "FC6") == 0)    sensor->SetHardwareChannel(11);
+            else if (String::SafeCompare(sensor->GetName(), "A1") == 0)     sensor->SetHardwareChannel(12);
+            else if (String::SafeCompare(sensor->GetName(), "T7") == 0)     sensor->SetHardwareChannel(13);
+            else if (String::SafeCompare(sensor->GetName(), "C3") == 0)     sensor->SetHardwareChannel(14);
+            else if (String::SafeCompare(sensor->GetName(), "Cz") == 0)     sensor->SetHardwareChannel(15);
+            else if (String::SafeCompare(sensor->GetName(), "C4") == 0)     sensor->SetHardwareChannel(16);
+            else if (String::SafeCompare(sensor->GetName(), "T8") == 0)     sensor->SetHardwareChannel(17);
+            else if (String::SafeCompare(sensor->GetName(), "A2") == 0)     sensor->SetHardwareChannel(18);
+            else if (String::SafeCompare(sensor->GetName(), "CP5") == 0)    sensor->SetHardwareChannel(19);
+            else if (String::SafeCompare(sensor->GetName(), "CP1") == 0)    sensor->SetHardwareChannel(20);
+            else if (String::SafeCompare(sensor->GetName(), "CP2") == 0)    sensor->SetHardwareChannel(21);
+            else if (String::SafeCompare(sensor->GetName(), "CP6") == 0)    sensor->SetHardwareChannel(22);
+            else if (String::SafeCompare(sensor->GetName(), "P7") == 0)     sensor->SetHardwareChannel(23);
+            else if (String::SafeCompare(sensor->GetName(), "P3") == 0)     sensor->SetHardwareChannel(24);
+            else if (String::SafeCompare(sensor->GetName(), "Pz") == 0)     sensor->SetHardwareChannel(25);
+            else if (String::SafeCompare(sensor->GetName(), "P4") == 0)     sensor->SetHardwareChannel(26);
+            else if (String::SafeCompare(sensor->GetName(), "P8") == 0)     sensor->SetHardwareChannel(27);
+            else if (String::SafeCompare(sensor->GetName(), "POz") == 0)    sensor->SetHardwareChannel(28);
+            else if (String::SafeCompare(sensor->GetName(), "O1") == 0)     sensor->SetHardwareChannel(29);
+            else if (String::SafeCompare(sensor->GetName(), "O2") == 0)     sensor->SetHardwareChannel(30);
+            else if (String::SafeCompare(sensor->GetName(), "EOG") == 0)    sensor->SetHardwareChannel(31);
+            else if (String::SafeCompare(sensor->GetName(), "AF7") == 0)    sensor->SetHardwareChannel(32);
+            else if (String::SafeCompare(sensor->GetName(), "AF3") == 0)    sensor->SetHardwareChannel(33);
+            else if (String::SafeCompare(sensor->GetName(), "AF4") == 0)    sensor->SetHardwareChannel(34);
+            else if (String::SafeCompare(sensor->GetName(), "AF8") == 0)    sensor->SetHardwareChannel(35);
+            else if (String::SafeCompare(sensor->GetName(), "F5") == 0)     sensor->SetHardwareChannel(36);
+            else if (String::SafeCompare(sensor->GetName(), "F1") == 0)     sensor->SetHardwareChannel(37);
+            else if (String::SafeCompare(sensor->GetName(), "F2") == 0)     sensor->SetHardwareChannel(38);
+            else if (String::SafeCompare(sensor->GetName(), "F6") == 0)     sensor->SetHardwareChannel(39);
+            else if (String::SafeCompare(sensor->GetName(), "FC3") == 0)    sensor->SetHardwareChannel(40);
+            else if (String::SafeCompare(sensor->GetName(), "FCz") == 0)    sensor->SetHardwareChannel(41);
+            else if (String::SafeCompare(sensor->GetName(), "FC4") == 0)    sensor->SetHardwareChannel(42);
+            else if (String::SafeCompare(sensor->GetName(), "C5") == 0)     sensor->SetHardwareChannel(43);
+            else if (String::SafeCompare(sensor->GetName(), "C1") == 0)     sensor->SetHardwareChannel(44);
+            else if (String::SafeCompare(sensor->GetName(), "C2") == 0)     sensor->SetHardwareChannel(45);
+            else if (String::SafeCompare(sensor->GetName(), "C6") == 0)     sensor->SetHardwareChannel(46);
+            else if (String::SafeCompare(sensor->GetName(), "CP3") == 0)    sensor->SetHardwareChannel(47);
+            else if (String::SafeCompare(sensor->GetName(), "CP4") == 0)    sensor->SetHardwareChannel(48);
+            else if (String::SafeCompare(sensor->GetName(), "P5") == 0)     sensor->SetHardwareChannel(49);
+            else if (String::SafeCompare(sensor->GetName(), "P1") == 0)     sensor->SetHardwareChannel(50);
+            else if (String::SafeCompare(sensor->GetName(), "P2") == 0)     sensor->SetHardwareChannel(51);
+            else if (String::SafeCompare(sensor->GetName(), "P6") == 0)     sensor->SetHardwareChannel(52);
+            else if (String::SafeCompare(sensor->GetName(), "PO5") == 0)    sensor->SetHardwareChannel(53);
+            else if (String::SafeCompare(sensor->GetName(), "PO3") == 0)    sensor->SetHardwareChannel(54);
+            else if (String::SafeCompare(sensor->GetName(), "PO4") == 0)    sensor->SetHardwareChannel(55);
+            else if (String::SafeCompare(sensor->GetName(), "PO6") == 0)    sensor->SetHardwareChannel(56);
+            else if (String::SafeCompare(sensor->GetName(), "FT7") == 0)    sensor->SetHardwareChannel(57);
+            else if (String::SafeCompare(sensor->GetName(), "FT8") == 0)    sensor->SetHardwareChannel(58);
+            else if (String::SafeCompare(sensor->GetName(), "TP7") == 0)    sensor->SetHardwareChannel(59);
+            else if (String::SafeCompare(sensor->GetName(), "TP8") == 0)    sensor->SetHardwareChannel(60);
+            else if (String::SafeCompare(sensor->GetName(), "PO7") == 0)    sensor->SetHardwareChannel(61);
+            else if (String::SafeCompare(sensor->GetName(), "PO8") == 0)    sensor->SetHardwareChannel(62);
+            else if (String::SafeCompare(sensor->GetName(), "Oz") == 0)     sensor->SetHardwareChannel(63);
+         }
+
+         // TODO: Implement this more generic as new
+         // SetBufferSizeInSeconds() in class Channel
          sensor->GetInput()->SetBufferSize((uint32_t)(GetSampleRate() * 10.0));
          sensor->GetOutput()->SetBufferSize((uint32_t)(GetSampleRate() * 10.0));
       }
@@ -219,157 +365,6 @@ bool eemagineDevice::CreateDefaultElectrodes(const uint32_t count)
    return true;
 }
 
-int eemagineDevice::GetDefaultHwChannelIndexForElectrode(const uint32_t count, const char* electrode)
-{
-   // must return CHANNELIDX of the electrode in SDK calls to getSample(CHANNELIDX, sampleidx)
-
-   // default cap with 8 electrodes
-   // taken from cap: CA-411
-   if (count == 8)
-   {
-      if (String::SafeCompare(electrode, "Fz") == 0)    return 0;
-      if (String::SafeCompare(electrode, "Cz") == 0)    return 1;
-      if (String::SafeCompare(electrode, "Pz") == 0)    return 2;
-      if (String::SafeCompare(electrode, "F3") == 0)    return 3;
-      if (String::SafeCompare(electrode, "F4") == 0)    return 4;
-      if (String::SafeCompare(electrode, "Fpz") == 0)   return 5;
-      if (String::SafeCompare(electrode, "C3") == 0)    return 6;
-      if (String::SafeCompare(electrode, "C4") == 0)    return 7;
-   }
-
-   // cap with 16 electrodes
-   // taken from: CA-204
-   else if (count == 16)
-   {
-      if (String::SafeCompare(electrode, "Fp1") == 0)   return 0;
-      if (String::SafeCompare(electrode, "Fp2") == 0)   return 2;
-      if (String::SafeCompare(electrode, "F3") == 0)    return 4;
-      if (String::SafeCompare(electrode, "Fz") == 0)    return 5;
-      if (String::SafeCompare(electrode, "F4") == 0)    return 6;
-      if (String::SafeCompare(electrode, "T7") == 0)    return 13;
-      if (String::SafeCompare(electrode, "C3") == 0)    return 14;
-      if (String::SafeCompare(electrode, "Cz") == 0)    return 15;
-      if (String::SafeCompare(electrode, "C4") == 0)    return 16;
-      if (String::SafeCompare(electrode, "T8") == 0)    return 17;
-      if (String::SafeCompare(electrode, "P3") == 0)    return 24;
-      if (String::SafeCompare(electrode, "Pz") == 0)    return 25;
-      if (String::SafeCompare(electrode, "P4") == 0)    return 26;
-      if (String::SafeCompare(electrode, "O1") == 0)    return 29;
-      if (String::SafeCompare(electrode, "Oz") == 0)    return 30;
-      if (String::SafeCompare(electrode, "O2") == 0)    return 31;
-   }
-
-   // cap with 32 electrodes
-   // taken from: CAP-32CU
-   else if (count == 32)
-   {
-      if (String::SafeCompare(electrode, "Fp1") == 0)    return 0;
-      if (String::SafeCompare(electrode, "Fpz") == 0)    return 1;
-      if (String::SafeCompare(electrode, "Fp2") == 0)    return 2;
-      if (String::SafeCompare(electrode, "F7") == 0)     return 3;
-      if (String::SafeCompare(electrode, "F3") == 0)     return 4;
-      if (String::SafeCompare(electrode, "Fz") == 0)     return 5;
-      if (String::SafeCompare(electrode, "F4") == 0)     return 6;
-      if (String::SafeCompare(electrode, "F8") == 0)     return 7;
-      if (String::SafeCompare(electrode, "FC5") == 0)    return 8;
-      if (String::SafeCompare(electrode, "FC1") == 0)    return 9;
-      if (String::SafeCompare(electrode, "FC2") == 0)    return 10;
-      if (String::SafeCompare(electrode, "FC6") == 0)    return 11;
-      if (String::SafeCompare(electrode, "A1") == 0)     return 12;
-      if (String::SafeCompare(electrode, "T7") == 0)     return 13;
-      if (String::SafeCompare(electrode, "C3") == 0)     return 14;
-      if (String::SafeCompare(electrode, "Cz") == 0)     return 15;
-      if (String::SafeCompare(electrode, "C4") == 0)     return 16;
-      if (String::SafeCompare(electrode, "T8") == 0)     return 17;
-      if (String::SafeCompare(electrode, "A2") == 0)     return 18;
-      if (String::SafeCompare(electrode, "CP5") == 0)    return 19;
-      if (String::SafeCompare(electrode, "CP1") == 0)    return 20;
-      if (String::SafeCompare(electrode, "CP2") == 0)    return 21;
-      if (String::SafeCompare(electrode, "CP6") == 0)    return 22;
-      if (String::SafeCompare(electrode, "P7") == 0)     return 23;
-      if (String::SafeCompare(electrode, "P3") == 0)     return 24;
-      if (String::SafeCompare(electrode, "Pz") == 0)     return 25;
-      if (String::SafeCompare(electrode, "P4") == 0)     return 26;
-      if (String::SafeCompare(electrode, "P8") == 0)     return 27;
-      if (String::SafeCompare(electrode, "POz") == 0)    return 28;
-      if (String::SafeCompare(electrode, "O1") == 0)     return 29;
-      if (String::SafeCompare(electrode, "Oz") == 0)     return 30;
-      if (String::SafeCompare(electrode, "O2") == 0)     return 31;
-   }
-
-   // cap with 64 electrodes
-   // taken from: CA-208.s1
-   else if (count == 64)
-   {
-      if (String::SafeCompare(electrode, "Fp1") == 0)    return 0;
-      if (String::SafeCompare(electrode, "Fpz") == 0)    return 1;
-      if (String::SafeCompare(electrode, "Fp2") == 0)    return 2;
-      if (String::SafeCompare(electrode, "F7") == 0)     return 3;
-      if (String::SafeCompare(electrode, "F3") == 0)     return 4;
-      if (String::SafeCompare(electrode, "Fz") == 0)     return 5;
-      if (String::SafeCompare(electrode, "F4") == 0)     return 6;
-      if (String::SafeCompare(electrode, "F8") == 0)     return 7;
-      if (String::SafeCompare(electrode, "FC5") == 0)    return 8;
-      if (String::SafeCompare(electrode, "FC1") == 0)    return 9;
-      if (String::SafeCompare(electrode, "FC2") == 0)    return 10;
-      if (String::SafeCompare(electrode, "FC6") == 0)    return 11;
-      if (String::SafeCompare(electrode, "A1") == 0)     return 12;
-      if (String::SafeCompare(electrode, "T7") == 0)     return 13;
-      if (String::SafeCompare(electrode, "C3") == 0)     return 14;
-      if (String::SafeCompare(electrode, "Cz") == 0)     return 15;
-      if (String::SafeCompare(electrode, "C4") == 0)     return 16;
-      if (String::SafeCompare(electrode, "T8") == 0)     return 17;
-      if (String::SafeCompare(electrode, "A2") == 0)     return 18;
-      if (String::SafeCompare(electrode, "CP5") == 0)    return 19;
-      if (String::SafeCompare(electrode, "CP1") == 0)    return 20;
-      if (String::SafeCompare(electrode, "CP2") == 0)    return 21;
-      if (String::SafeCompare(electrode, "CP6") == 0)    return 22;
-      if (String::SafeCompare(electrode, "P7") == 0)     return 23;
-      if (String::SafeCompare(electrode, "P3") == 0)     return 24;
-      if (String::SafeCompare(electrode, "Pz") == 0)     return 25;
-      if (String::SafeCompare(electrode, "P4") == 0)     return 26;
-      if (String::SafeCompare(electrode, "P8") == 0)     return 27;
-      if (String::SafeCompare(electrode, "POz") == 0)    return 28;
-      if (String::SafeCompare(electrode, "O1") == 0)     return 29;
-      if (String::SafeCompare(electrode, "O2") == 0)     return 30;
-      if (String::SafeCompare(electrode, "EOG") == 0)    return 31;
-      if (String::SafeCompare(electrode, "AF7") == 0)    return 32;
-      if (String::SafeCompare(electrode, "AF3") == 0)    return 33;
-      if (String::SafeCompare(electrode, "AF4") == 0)    return 34;
-      if (String::SafeCompare(electrode, "AF8") == 0)    return 35;
-      if (String::SafeCompare(electrode, "F5") == 0)     return 36;
-      if (String::SafeCompare(electrode, "F1") == 0)     return 37;
-      if (String::SafeCompare(electrode, "F2") == 0)     return 38;
-      if (String::SafeCompare(electrode, "F6") == 0)     return 39;
-      if (String::SafeCompare(electrode, "FC3") == 0)    return 40;
-      if (String::SafeCompare(electrode, "FCz") == 0)    return 41;
-      if (String::SafeCompare(electrode, "FC4") == 0)    return 42;
-      if (String::SafeCompare(electrode, "C5") == 0)     return 43;
-      if (String::SafeCompare(electrode, "C1") == 0)     return 44;
-      if (String::SafeCompare(electrode, "C2") == 0)     return 45;
-      if (String::SafeCompare(electrode, "C6") == 0)     return 46;
-      if (String::SafeCompare(electrode, "CP3") == 0)    return 47;
-      if (String::SafeCompare(electrode, "CP4") == 0)    return 48;
-      if (String::SafeCompare(electrode, "P5") == 0)     return 49;
-      if (String::SafeCompare(electrode, "P1") == 0)     return 50;
-      if (String::SafeCompare(electrode, "P2") == 0)     return 51;
-      if (String::SafeCompare(electrode, "P6") == 0)     return 52;
-      if (String::SafeCompare(electrode, "PO5") == 0)    return 53;
-      if (String::SafeCompare(electrode, "PO3") == 0)    return 54;
-      if (String::SafeCompare(electrode, "PO4") == 0)    return 55;
-      if (String::SafeCompare(electrode, "PO6") == 0)    return 56;
-      if (String::SafeCompare(electrode, "FT7") == 0)    return 57;
-      if (String::SafeCompare(electrode, "FT8") == 0)    return 58;
-      if (String::SafeCompare(electrode, "TP7") == 0)    return 59;
-      if (String::SafeCompare(electrode, "TP8") == 0)    return 60;
-      if (String::SafeCompare(electrode, "PO7") == 0)    return 61;
-      if (String::SafeCompare(electrode, "PO8") == 0)    return 62;
-      if (String::SafeCompare(electrode, "Oz") == 0)     return 63;
-   }
-
-   return -1;
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-211
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -395,11 +390,6 @@ void eemagineEE211Device::CreateElectrodes()
 void eemagineEE211Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
-}
-
-int eemagineEE211Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(64, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -429,11 +419,6 @@ void eemagineEE212Device::CreateSensors()
    eemagineDevice::CreateSensors();
 }
 
-int eemagineEE212Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(32, electrode);
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-213
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -459,11 +444,6 @@ void eemagineEE213Device::CreateElectrodes()
 void eemagineEE213Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
-}
-
-int eemagineEE213Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(16, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -493,11 +473,6 @@ void eemagineEE214Device::CreateSensors()
    eemagineDevice::CreateSensors();
 }
 
-int eemagineEE214Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(32, electrode);
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-215
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -523,11 +498,6 @@ void eemagineEE215Device::CreateElectrodes()
 void eemagineEE215Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
-}
-
-int eemagineEE215Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(64, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -557,11 +527,6 @@ void eemagineEE221Device::CreateSensors()
    eemagineDevice::CreateSensors();
 }
 
-int eemagineEE221Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(16, electrode);
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-222
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -587,11 +552,6 @@ void eemagineEE222Device::CreateElectrodes()
 void eemagineEE222Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
-}
-
-int eemagineEE222Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(32, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -621,11 +581,6 @@ void eemagineEE223Device::CreateSensors()
    eemagineDevice::CreateSensors();
 }
 
-int eemagineEE223Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(32, electrode);
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-224
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -651,11 +606,6 @@ void eemagineEE224Device::CreateElectrodes()
 void eemagineEE224Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
-}
-
-int eemagineEE224Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(64, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -685,11 +635,6 @@ void eemagineEE225Device::CreateSensors()
    eemagineDevice::CreateSensors();
 }
 
-int eemagineEE225Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(64, electrode);
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-410
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -715,11 +660,6 @@ void eemagineEE410Device::CreateElectrodes()
 void eemagineEE410Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
-}
-
-int eemagineEE410Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(8, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -749,11 +689,6 @@ void eemagineEE411Device::CreateSensors()
    eemagineDevice::CreateSensors();
 }
 
-int eemagineEE411Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(8, electrode);
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-430
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -779,11 +714,6 @@ void eemagineEE430Device::CreateElectrodes()
 void eemagineEE430Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
-}
-
-int eemagineEE430Device::GetHwChannelIndexForElectrode(const char* electrode)
-{
-   return GetDefaultHwChannelIndexForElectrode(8, electrode);
 }
 
 #endif

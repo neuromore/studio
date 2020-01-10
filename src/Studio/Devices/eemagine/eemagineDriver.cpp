@@ -134,11 +134,11 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
          if (Sensor* sensor = mDevice->GetNeuroSensor(e))
          {
             // get hw channel index for sensor from hardcoded mapping
-            const int idx = mDevice->GetHwChannelIndexForElectrode(sensor->GetName());
+            const int32 idx = sensor->GetHardwareChannel();
 
             // add sample for sensor
-            if (idx >= 0)
-               sensor->AddQueuedSample(mBuffer.getSample(idx, s));
+            if (idx >= 0 && idx < (int)mBuffer.getChannelCount())
+               sensor->AddQueuedSample(mBuffer.getSample((uint32)idx, s));
          }
       }
    }
