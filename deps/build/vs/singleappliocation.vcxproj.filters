@@ -12,5 +12,10 @@
     <ClCompile Include="..\..\src\singleapplication\.moc\moc_singleapplication_p.cpp">
       <Filter>.moc</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\singleapplication\singleapplication.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\singleapplication\singleapplication.h" />
+    <ClInclude Include="..\..\include\singleapplication\singleapplication_p.h" />
   </ItemGroup>
 </Project>
