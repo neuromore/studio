@@ -49,6 +49,8 @@ public:
    virtual int GetHwChannelIndexForElectrode(const char* electrode) = 0;
 
 protected:
+   bool CreateDefaultElectrodes(const uint32_t count);
+   int GetDefaultHwChannelIndexForElectrode(const uint32_t count, const char* electrode);
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////

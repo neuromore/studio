@@ -406,6 +406,7 @@ void EEGElectrodes::Init()
 	mElectrodes.Add( Electrode("LM",  -162.000,  -22.500) );	// not sure what position this is
 	mElectrodes.Add( Electrode("RM",  -18.000,  -22.500) );	    // not sure what position this is
 	mElectrodes.Add( Electrode("Nose", 90.000, -22.500) );
+	mElectrodes.Add( Electrode("EOG", 0.000, 0.000));
 
 
     // Others

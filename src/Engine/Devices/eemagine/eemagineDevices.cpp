@@ -63,6 +63,313 @@ void eemagineDevice::CreateSensors()
    }
 }
 
+bool eemagineDevice::CreateDefaultElectrodes(const uint32_t count)
+{
+   // only 8, 16, 32 and 64er default electrode sets supported
+   if (count != 8 && count != 16 && count != 32 && count != 64)
+      return false;
+
+   mElectrodes.Clear();
+   mElectrodes.Reserve(count);
+
+   // default cap with 8 electrodes
+   // taken from cap: CA-411
+   if (count == 8)
+   {
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 01
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 02
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 03
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 04
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 05
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 06
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 07
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 08
+   }
+
+   // cap with 16 electrodes
+   // taken from: CA-204
+   else if (count == 16)
+   {
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));  // 01
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));  // 02
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 03
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 04
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 05
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));   // 06
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 07
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 08
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 09
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));   // 10
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 11
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 12
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 13
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 14
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 15
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 16
+   }
+
+   // cap with 32 electrodes
+   // taken from: CAP-32CU
+   else if (count == 32)
+   {
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));  // 01
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 02
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));  // 03
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));   // 04
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 05
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 06
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 07
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));   // 08
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC5"));  // 09
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC1"));  // 10
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC2"));  // 11
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC6"));  // 12
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1"));   // 13 (= M1 ?)
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));   // 14
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 15
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 16
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 17
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));   // 18
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));   // 19 (= M2 ?)
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));  // 20
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP1"));  // 21
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP2"));  // 22
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));  // 23
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));   // 24
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 25
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 26
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 27
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));   // 28
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("POz"));  // 29
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 30
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 31
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 32
+   }
+
+   // cap with 64 electrodes
+   // taken from: CA-208.s1
+   else if (count == 64)
+   {
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));  // 01
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 02
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));  // 03
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));   // 04
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 05
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 06
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 07
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));   // 08
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC5"));  // 09
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC1"));  // 10
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC2"));  // 11
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC6"));  // 12
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1"));   // 13 (= M1 ?)
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));   // 14
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 15
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 16
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 17
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));   // 18
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));   // 19 (= M2 ?)
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));  // 20
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP1"));  // 21
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP2"));  // 22
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));  // 23
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));   // 24
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 25
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 26
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 27
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));   // 28
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("POz"));  // 29
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 30
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 31 (different than in 32er)
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("EOG"));  // 32 (different than in 32er)
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF7"));  // 33
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF3"));  // 34
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF4"));  // 35
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF8"));  // 36
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));   // 37
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F1"));   // 38
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F2"));   // 39
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));   // 40
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC3"));  // 41
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FCz"));  // 42
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC4"));  // 43
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C5"));   // 44
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C1"));   // 45
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C2"));   // 46
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C6"));   // 47
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3"));  // 48
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4"));  // 49
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P5"));   // 50
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P1"));   // 51
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P2"));   // 52
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P6"));   // 53
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO5"));  // 54
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO3"));  // 55
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO4"));  // 56
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO6"));  // 57
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FT7"));  // 58
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FT8"));  // 59
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("TP7"));  // 60
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("TP8"));  // 61 
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO7"));  // 62
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO8"));  // 63
+      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 64
+   }
+
+   return true;
+}
+
+int eemagineDevice::GetDefaultHwChannelIndexForElectrode(const uint32_t count, const char* electrode)
+{
+   // must return CHANNELIDX of the electrode in SDK calls to getSample(CHANNELIDX, sampleidx)
+
+   // default cap with 8 electrodes
+   // taken from cap: CA-411
+   if (count == 8)
+   {
+      if (String::SafeCompare(electrode, "Fz") == 0)    return 0;
+      if (String::SafeCompare(electrode, "Cz") == 0)    return 1;
+      if (String::SafeCompare(electrode, "Pz") == 0)    return 2;
+      if (String::SafeCompare(electrode, "F3") == 0)    return 3;
+      if (String::SafeCompare(electrode, "F4") == 0)    return 4;
+      if (String::SafeCompare(electrode, "Fpz") == 0)   return 5;
+      if (String::SafeCompare(electrode, "C3") == 0)    return 6;
+      if (String::SafeCompare(electrode, "C4") == 0)    return 7;
+   }
+
+   // cap with 16 electrodes
+   // taken from: CA-204
+   else if (count == 16)
+   {
+      if (String::SafeCompare(electrode, "Fp1") == 0)   return 0;
+      if (String::SafeCompare(electrode, "Fp2") == 0)   return 2;
+      if (String::SafeCompare(electrode, "F3") == 0)    return 4;
+      if (String::SafeCompare(electrode, "Fz") == 0)    return 5;
+      if (String::SafeCompare(electrode, "F4") == 0)    return 6;
+      if (String::SafeCompare(electrode, "T7") == 0)    return 13;
+      if (String::SafeCompare(electrode, "C3") == 0)    return 14;
+      if (String::SafeCompare(electrode, "Cz") == 0)    return 15;
+      if (String::SafeCompare(electrode, "C4") == 0)    return 16;
+      if (String::SafeCompare(electrode, "T8") == 0)    return 17;
+      if (String::SafeCompare(electrode, "P3") == 0)    return 24;
+      if (String::SafeCompare(electrode, "Pz") == 0)    return 25;
+      if (String::SafeCompare(electrode, "P4") == 0)    return 26;
+      if (String::SafeCompare(electrode, "O1") == 0)    return 29;
+      if (String::SafeCompare(electrode, "Oz") == 0)    return 30;
+      if (String::SafeCompare(electrode, "O2") == 0)    return 31;
+   }
+
+   // cap with 32 electrodes
+   // taken from: CAP-32CU
+   else if (count == 32)
+   {
+      if (String::SafeCompare(electrode, "Fp1") == 0)    return 0;
+      if (String::SafeCompare(electrode, "Fpz") == 0)    return 1;
+      if (String::SafeCompare(electrode, "Fp2") == 0)    return 2;
+      if (String::SafeCompare(electrode, "F7") == 0)     return 3;
+      if (String::SafeCompare(electrode, "F3") == 0)     return 4;
+      if (String::SafeCompare(electrode, "Fz") == 0)     return 5;
+      if (String::SafeCompare(electrode, "F4") == 0)     return 6;
+      if (String::SafeCompare(electrode, "F8") == 0)     return 7;
+      if (String::SafeCompare(electrode, "FC5") == 0)    return 8;
+      if (String::SafeCompare(electrode, "FC1") == 0)    return 9;
+      if (String::SafeCompare(electrode, "FC2") == 0)    return 10;
+      if (String::SafeCompare(electrode, "FC6") == 0)    return 11;
+      if (String::SafeCompare(electrode, "A1") == 0)     return 12;
+      if (String::SafeCompare(electrode, "T7") == 0)     return 13;
+      if (String::SafeCompare(electrode, "C3") == 0)     return 14;
+      if (String::SafeCompare(electrode, "Cz") == 0)     return 15;
+      if (String::SafeCompare(electrode, "C4") == 0)     return 16;
+      if (String::SafeCompare(electrode, "T8") == 0)     return 17;
+      if (String::SafeCompare(electrode, "A2") == 0)     return 18;
+      if (String::SafeCompare(electrode, "CP5") == 0)    return 19;
+      if (String::SafeCompare(electrode, "CP1") == 0)    return 20;
+      if (String::SafeCompare(electrode, "CP2") == 0)    return 21;
+      if (String::SafeCompare(electrode, "CP6") == 0)    return 22;
+      if (String::SafeCompare(electrode, "P7") == 0)     return 23;
+      if (String::SafeCompare(electrode, "P3") == 0)     return 24;
+      if (String::SafeCompare(electrode, "Pz") == 0)     return 25;
+      if (String::SafeCompare(electrode, "P4") == 0)     return 26;
+      if (String::SafeCompare(electrode, "P8") == 0)     return 27;
+      if (String::SafeCompare(electrode, "POz") == 0)    return 28;
+      if (String::SafeCompare(electrode, "O1") == 0)     return 29;
+      if (String::SafeCompare(electrode, "Oz") == 0)     return 30;
+      if (String::SafeCompare(electrode, "O2") == 0)     return 31;
+   }
+
+   // cap with 64 electrodes
+   // taken from: CA-208.s1
+   else if (count == 64)
+   {
+      if (String::SafeCompare(electrode, "Fp1") == 0)    return 0;
+      if (String::SafeCompare(electrode, "Fpz") == 0)    return 1;
+      if (String::SafeCompare(electrode, "Fp2") == 0)    return 2;
+      if (String::SafeCompare(electrode, "F7") == 0)     return 3;
+      if (String::SafeCompare(electrode, "F3") == 0)     return 4;
+      if (String::SafeCompare(electrode, "Fz") == 0)     return 5;
+      if (String::SafeCompare(electrode, "F4") == 0)     return 6;
+      if (String::SafeCompare(electrode, "F8") == 0)     return 7;
+      if (String::SafeCompare(electrode, "FC5") == 0)    return 8;
+      if (String::SafeCompare(electrode, "FC1") == 0)    return 9;
+      if (String::SafeCompare(electrode, "FC2") == 0)    return 10;
+      if (String::SafeCompare(electrode, "FC6") == 0)    return 11;
+      if (String::SafeCompare(electrode, "A1") == 0)     return 12;
+      if (String::SafeCompare(electrode, "T7") == 0)     return 13;
+      if (String::SafeCompare(electrode, "C3") == 0)     return 14;
+      if (String::SafeCompare(electrode, "Cz") == 0)     return 15;
+      if (String::SafeCompare(electrode, "C4") == 0)     return 16;
+      if (String::SafeCompare(electrode, "T8") == 0)     return 17;
+      if (String::SafeCompare(electrode, "A2") == 0)     return 18;
+      if (String::SafeCompare(electrode, "CP5") == 0)    return 19;
+      if (String::SafeCompare(electrode, "CP1") == 0)    return 20;
+      if (String::SafeCompare(electrode, "CP2") == 0)    return 21;
+      if (String::SafeCompare(electrode, "CP6") == 0)    return 22;
+      if (String::SafeCompare(electrode, "P7") == 0)     return 23;
+      if (String::SafeCompare(electrode, "P3") == 0)     return 24;
+      if (String::SafeCompare(electrode, "Pz") == 0)     return 25;
+      if (String::SafeCompare(electrode, "P4") == 0)     return 26;
+      if (String::SafeCompare(electrode, "P8") == 0)     return 27;
+      if (String::SafeCompare(electrode, "POz") == 0)    return 28;
+      if (String::SafeCompare(electrode, "O1") == 0)     return 29;
+      if (String::SafeCompare(electrode, "O2") == 0)     return 30;
+      if (String::SafeCompare(electrode, "EOG") == 0)    return 31;
+      if (String::SafeCompare(electrode, "AF7") == 0)    return 32;
+      if (String::SafeCompare(electrode, "AF3") == 0)    return 33;
+      if (String::SafeCompare(electrode, "AF4") == 0)    return 34;
+      if (String::SafeCompare(electrode, "AF8") == 0)    return 35;
+      if (String::SafeCompare(electrode, "F5") == 0)     return 36;
+      if (String::SafeCompare(electrode, "F1") == 0)     return 37;
+      if (String::SafeCompare(electrode, "F2") == 0)     return 38;
+      if (String::SafeCompare(electrode, "F6") == 0)     return 39;
+      if (String::SafeCompare(electrode, "FC3") == 0)    return 40;
+      if (String::SafeCompare(electrode, "FCz") == 0)    return 41;
+      if (String::SafeCompare(electrode, "FC4") == 0)    return 42;
+      if (String::SafeCompare(electrode, "C5") == 0)     return 43;
+      if (String::SafeCompare(electrode, "C1") == 0)     return 44;
+      if (String::SafeCompare(electrode, "C2") == 0)     return 45;
+      if (String::SafeCompare(electrode, "C6") == 0)     return 46;
+      if (String::SafeCompare(electrode, "CP3") == 0)    return 47;
+      if (String::SafeCompare(electrode, "CP4") == 0)    return 48;
+      if (String::SafeCompare(electrode, "P5") == 0)     return 49;
+      if (String::SafeCompare(electrode, "P1") == 0)     return 50;
+      if (String::SafeCompare(electrode, "P2") == 0)     return 51;
+      if (String::SafeCompare(electrode, "P6") == 0)     return 52;
+      if (String::SafeCompare(electrode, "PO5") == 0)    return 53;
+      if (String::SafeCompare(electrode, "PO3") == 0)    return 54;
+      if (String::SafeCompare(electrode, "PO4") == 0)    return 55;
+      if (String::SafeCompare(electrode, "PO6") == 0)    return 56;
+      if (String::SafeCompare(electrode, "FT7") == 0)    return 57;
+      if (String::SafeCompare(electrode, "FT8") == 0)    return 58;
+      if (String::SafeCompare(electrode, "TP7") == 0)    return 59;
+      if (String::SafeCompare(electrode, "TP8") == 0)    return 60;
+      if (String::SafeCompare(electrode, "PO7") == 0)    return 61;
+      if (String::SafeCompare(electrode, "PO8") == 0)    return 62;
+      if (String::SafeCompare(electrode, "Oz") == 0)     return 63;
+   }
+
+   return -1;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EE-211
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,8 +389,7 @@ eemagineEE211Device::~eemagineEE211Device()
 
 void eemagineEE211Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes
+   CreateDefaultElectrodes(64);
 }
 
 void eemagineEE211Device::CreateSensors()
@@ -93,8 +399,7 @@ void eemagineEE211Device::CreateSensors()
 
 int eemagineEE211Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(64, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -116,8 +421,7 @@ eemagineEE212Device::~eemagineEE212Device()
 
 void eemagineEE212Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(32);
 }
 
 void eemagineEE212Device::CreateSensors()
@@ -127,8 +431,7 @@ void eemagineEE212Device::CreateSensors()
 
 int eemagineEE212Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(32, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -150,8 +453,7 @@ eemagineEE213Device::~eemagineEE213Device()
 
 void eemagineEE213Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(16);
 }
 
 void eemagineEE213Device::CreateSensors()
@@ -161,8 +463,7 @@ void eemagineEE213Device::CreateSensors()
 
 int eemagineEE213Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(16, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -184,41 +485,7 @@ eemagineEE214Device::~eemagineEE214Device()
 
 void eemagineEE214Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-
-   mElectrodes.Reserve(32);
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC5"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC1"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC2"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC6"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1")); // = M1 ?
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2")); // = M2 ?
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP1"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP2"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("POz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));
+   CreateDefaultElectrodes(32);
 }
 
 void eemagineEE214Device::CreateSensors()
@@ -228,41 +495,7 @@ void eemagineEE214Device::CreateSensors()
 
 int eemagineEE214Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // channelidx of the electrode in SDK calls to getSample(channelidx, sampleidx)
-
-   if (String::SafeCompare(electrode, "Fp1") == 0)    return 0;
-   if (String::SafeCompare(electrode, "Fpz") == 0)    return 1;
-   if (String::SafeCompare(electrode, "Fp2") == 0)    return 2;
-   if (String::SafeCompare(electrode, "F7") == 0)     return 3;
-   if (String::SafeCompare(electrode, "F3") == 0)     return 4;
-   if (String::SafeCompare(electrode, "Fz") == 0)     return 5;
-   if (String::SafeCompare(electrode, "F4") == 0)     return 6;
-   if (String::SafeCompare(electrode, "F8") == 0)     return 7;
-   if (String::SafeCompare(electrode, "FC5") == 0)    return 8;
-   if (String::SafeCompare(electrode, "FC1") == 0)    return 9;
-   if (String::SafeCompare(electrode, "FC2") == 0)    return 10;
-   if (String::SafeCompare(electrode, "FC6") == 0)    return 11;
-   if (String::SafeCompare(electrode, "A1") == 0)     return 12;
-   if (String::SafeCompare(electrode, "T7") == 0)     return 13;
-   if (String::SafeCompare(electrode, "C3") == 0)     return 14;
-   if (String::SafeCompare(electrode, "Cz") == 0)     return 15;
-   if (String::SafeCompare(electrode, "C4") == 0)     return 16;
-   if (String::SafeCompare(electrode, "T8") == 0)     return 17;
-   if (String::SafeCompare(electrode, "A2") == 0)     return 18;
-   if (String::SafeCompare(electrode, "CP5") == 0)    return 19;
-   if (String::SafeCompare(electrode, "CP1") == 0)    return 20;
-   if (String::SafeCompare(electrode, "CP2") == 0)    return 21;
-   if (String::SafeCompare(electrode, "CP6") == 0)    return 22;
-   if (String::SafeCompare(electrode, "P7") == 0)     return 23;
-   if (String::SafeCompare(electrode, "P3") == 0)     return 24;
-   if (String::SafeCompare(electrode, "Pz") == 0)     return 25;
-   if (String::SafeCompare(electrode, "P4") == 0)     return 26;
-   if (String::SafeCompare(electrode, "P8") == 0)     return 27;
-   if (String::SafeCompare(electrode, "POz") == 0)    return 28;
-   if (String::SafeCompare(electrode, "O1") == 0)     return 29;
-   if (String::SafeCompare(electrode, "Oz") == 0)     return 30;
-   if (String::SafeCompare(electrode, "O2") == 0)     return 31;
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(32, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -284,8 +517,7 @@ eemagineEE215Device::~eemagineEE215Device()
 
 void eemagineEE215Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(64);
 }
 
 void eemagineEE215Device::CreateSensors()
@@ -295,8 +527,7 @@ void eemagineEE215Device::CreateSensors()
 
 int eemagineEE215Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(64, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -318,8 +549,7 @@ eemagineEE221Device::~eemagineEE221Device()
 
 void eemagineEE221Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(16);
 }
 
 void eemagineEE221Device::CreateSensors()
@@ -329,8 +559,7 @@ void eemagineEE221Device::CreateSensors()
 
 int eemagineEE221Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(16, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -352,8 +581,7 @@ eemagineEE222Device::~eemagineEE222Device()
 
 void eemagineEE222Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(32);
 }
 
 void eemagineEE222Device::CreateSensors()
@@ -363,8 +591,7 @@ void eemagineEE222Device::CreateSensors()
 
 int eemagineEE222Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(32, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -386,8 +613,7 @@ eemagineEE223Device::~eemagineEE223Device()
 
 void eemagineEE223Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(32);
 }
 
 void eemagineEE223Device::CreateSensors()
@@ -397,8 +623,7 @@ void eemagineEE223Device::CreateSensors()
 
 int eemagineEE223Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(32, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -420,8 +645,7 @@ eemagineEE224Device::~eemagineEE224Device()
 
 void eemagineEE224Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(64);
 }
 
 void eemagineEE224Device::CreateSensors()
@@ -431,8 +655,7 @@ void eemagineEE224Device::CreateSensors()
 
 int eemagineEE224Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(64, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -454,8 +677,7 @@ eemagineEE225Device::~eemagineEE225Device()
 
 void eemagineEE225Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(64);
 }
 
 void eemagineEE225Device::CreateSensors()
@@ -465,8 +687,7 @@ void eemagineEE225Device::CreateSensors()
 
 int eemagineEE225Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(64, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -488,8 +709,7 @@ eemagineEE410Device::~eemagineEE410Device()
 
 void eemagineEE410Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(8);
 }
 
 void eemagineEE410Device::CreateSensors()
@@ -499,8 +719,7 @@ void eemagineEE410Device::CreateSensors()
 
 int eemagineEE410Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(8, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -522,8 +741,7 @@ eemagineEE411Device::~eemagineEE411Device()
 
 void eemagineEE411Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(8);
 }
 
 void eemagineEE411Device::CreateSensors()
@@ -533,8 +751,7 @@ void eemagineEE411Device::CreateSensors()
 
 int eemagineEE411Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(8, electrode);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -556,8 +773,7 @@ eemagineEE430Device::~eemagineEE430Device()
 
 void eemagineEE430Device::CreateElectrodes()
 {
-   mElectrodes.Clear();
-   // TODO: Create electrodes, see EE-214
+   CreateDefaultElectrodes(8);
 }
 
 void eemagineEE430Device::CreateSensors()
@@ -567,8 +783,7 @@ void eemagineEE430Device::CreateSensors()
 
 int eemagineEE430Device::GetHwChannelIndexForElectrode(const char* electrode)
 {
-   // TODO: return hw channel idx of electrode, see EE-214
-   return -1;
+   return GetDefaultHwChannelIndexForElectrode(8, electrode);
 }
 
 #endif

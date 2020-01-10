@@ -222,11 +222,11 @@ void eemagineDriver::DetectDevices()
             LogDetailedInfo("eemagine error: requested sampling rate is not supported by device.");
       }
    }
-   catch (const eemagine::sdk::exceptions::notFound& e)
+   catch (const eemagine::sdk::exceptions::notFound&)
    {
       LogDetailedInfo("eemagine device scan finished without results...");
    }
-   catch (const std::exception& e)
+   catch (const std::exception&)
    {
       LogDetailedInfo("eemagine unexpected error");
    }
