@@ -7,7 +7,7 @@ TARGET_X86 = i686-linux-gnu
 TARGET_X64 = x86_64-linux-gnu
 
 # flags shared between all
-FLAGS = -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
+FLAGS = -O2 -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations
 
 # Architecture flags
