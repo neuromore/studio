@@ -56,13 +56,8 @@ CreateFileWindow::CreateFileWindow(const char* windowTitle, const char* defaultL
 	mTypeCombo = new QComboBox();
 	layout->addWidget(mTypeCombo);
 	mTypeCombo->addItem( GetQtBaseManager()->FindIcon("Images/Graph/ab16b7ee-bb6e-11e4-8dfc-aa07a5b093db.png"), "Classifier", ITEM_TYPE_CLASSIFIER );
-
-	// HACKY: don't display state machine / experience in the list for community edition users
-	if ( GetUser()->FindRule("ROLE_Community") == NULL)
-	{
-		mTypeCombo->addItem( GetQtBaseManager()->FindIcon("Images/Graph/532b918c-bb6c-11e4-8dfc-aa07a5b093db.png"), "State Machine", ITEM_TYPE_STATEMACHINE );
-		mTypeCombo->addItem( GetQtBaseManager()->FindIcon("Images/Graph/Experience.png"), "Design", ITEM_TYPE_EXPERIENCE );
-	}
+	mTypeCombo->addItem( GetQtBaseManager()->FindIcon("Images/Graph/532b918c-bb6c-11e4-8dfc-aa07a5b093db.png"), "State Machine", ITEM_TYPE_STATEMACHINE );
+	mTypeCombo->addItem( GetQtBaseManager()->FindIcon("Images/Graph/Experience.png"), "Design", ITEM_TYPE_EXPERIENCE );
 
 	// add the cancel and cancel buttons
 	QHBoxLayout* hlayout = new QHBoxLayout();
