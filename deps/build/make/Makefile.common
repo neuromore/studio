@@ -709,6 +709,10 @@ QTBOOTSTRAP_BUILD_X86    = $(CXX) $(CXXFLAGS_X86) $(QTBOOTSTRAP_DEFINES_X86) $(Q
                            -c $(@:$(QTBOOTSTRAP_OBJDIR_X86)%.o=$(QTBOOTSTRAP_SRCDIR)%.cpp) -o $@
 QTBOOTSTRAP_BUILD_X64    = $(CXX) $(CXXFLAGS_X64) $(QTBOOTSTRAP_DEFINES_X64) $(QTBOOTSTRAP_INCLUDES_X64) \
                            -c $(@:$(QTBOOTSTRAP_OBJDIR_X64)%.o=$(QTBOOTSTRAP_SRCDIR)%.cpp) -o $@
+QTBOOTSTRAP_BUILD_OMM_X86= $(CXX) $(CXXFLAGS_X86) $(QTBOOTSTRAP_DEFINES_X86) $(QTBOOTSTRAP_INCLUDES_X86) \
+                           -c $(@:$(QTBOOTSTRAP_OBJDIR_X86)%.omm=$(QTBOOTSTRAP_SRCDIR)%.mm) -o $@
+QTBOOTSTRAP_BUILD_OMM_X64= $(CXX) $(CXXFLAGS_X64) $(QTBOOTSTRAP_DEFINES_X64) $(QTBOOTSTRAP_INCLUDES_X64) \
+                           -c $(@:$(QTBOOTSTRAP_OBJDIR_X64)%.omm=$(QTBOOTSTRAP_SRCDIR)%.mm) -o $@
 QTBOOTSTRAP_OBJS_ALL     = qt-core/codecs/qlatincodec.o \
                            qt-core/codecs/qtextcodec.o \
                            qt-core/codecs/qutfcodec.o \
@@ -790,6 +794,13 @@ $(QTBOOTSTRAP_OBJDIR_X86)/%.o:
 
 $(QTBOOTSTRAP_OBJDIR_X64)/%.o:
 	$(QTBOOTSTRAP_BUILD_X64)
+
+$(QTBOOTSTRAP_OBJDIR_X86)/%.omm:
+	$(QTBOOTSTRAP_BUILD_OMM_X86)
+
+$(QTBOOTSTRAP_OBJDIR_X64)/%.omm:
+	$(QTBOOTSTRAP_BUILD_OMM_X64)
+
 ###################################################################################################################
 # QT-MOC
 ###################################################################################################################
