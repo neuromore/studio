@@ -3246,6 +3246,142 @@ $(QTPLATFORMXCB_OBJDIR_X86)/%.orcc:
 $(QTPLATFORMXCB_OBJDIR_X64)/%.orcc:
 	$(QTPLATFORMXCB_BUILD_RCC_X64)
 ###################################################################################################################
+# QT-PLATFORM-COCOA
+###################################################################################################################
+QTPLATFORMCOCOA_SRCDIR        = $(SRCDIR)/qt-platform-cocoa
+QTPLATFORMCOCOA_MOCDIR_X86    = $(QTPLATFORMCOCOA_SRCDIR)/.moc/x86
+QTPLATFORMCOCOA_MOCDIR_X64    = $(QTPLATFORMCOCOA_SRCDIR)/.moc/x64
+QTPLATFORMCOCOA_UICDIR_X86    = $(QTPLATFORMCOCOA_SRCDIR)/.uic/x86
+QTPLATFORMCOCOA_UICDIR_X64    = $(QTPLATFORMCOCOA_SRCDIR)/.uic/x64
+QTPLATFORMCOCOA_RCCDIR_X86    = $(QTPLATFORMCOCOA_SRCDIR)/.rcc/x86
+QTPLATFORMCOCOA_RCCDIR_X64    = $(QTPLATFORMCOCOA_SRCDIR)/.rcc/x64
+QTPLATFORMCOCOA_OBJDIR_X86    = $(OBJDIR_X86)/qt-platform-cocoa
+QTPLATFORMCOCOA_OBJDIR_X64    = $(OBJDIR_X64)/qt-platform-cocoa
+QTPLATFORMCOCOA_DEFINES       = -DQT_STATIC \
+                                -DQT_STATICPLUGIN \
+                                -DQT_USE_QSTRINGBUILDER \
+                                -DQT_NO_DEBUG \
+                                -DQT_NO_DBUS \
+                                -DHAVE_CONFIG_H \
+                                -DUNICODE \
+                                -D_ENABLE_EXTENDED_ALIGNED_STORAGE
+QTPLATFORMCOCOA_DEFINES_X86   = $(QTPLATFORMCOCOA_DEFINES) $(QTPLATFORMCOCOA_DEFINES_X86_PLAT)
+QTPLATFORMCOCOA_DEFINES_X64   = $(QTPLATFORMCOCOA_DEFINES) $(QTPLATFORMCOCOA_DEFINES_X64_PLAT)
+QTPLATFORMCOCOA_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) \
+                                -I$(INCDIR)/wintab \
+                                -I$(INCDIR)/freetype \
+                                -I$(INCDIR)/qt \
+                                -I$(INCDIR)/qt/QtCore \
+                                -I$(INCDIR)/qt/QtGui \
+                                -I$(INCDIR)/qt/QtGlxSupport \
+                                -I$(INCDIR)/qt/QtGlxSupport/private \
+                                -I$(INCDIR)/qt/QtEdidSupport \
+                                -I$(INCDIR)/qt/QtEdidSupport/private \
+                                -I$(INCDIR)/qt/QtServiceSupport \
+                                -I$(INCDIR)/qt/QtServiceSupport/private \
+                                -I$(INCDIR)/qt/QtThemeSupport \
+                                -I$(INCDIR)/qt/QtThemeSupport/private \
+                                -I$(QTPLATFORMCOCOA_SRCDIR)
+QTPLATFORMCOCOA_INCLUDES_X86  = $(QTPLATFORMCOCOA_INCLUDES) -I$(QTPLATFORMCOCOA_MOCDIR_X86) \
+                                -I$(QTPLATFORMCOCOA_UICDIR_X86) $(QTPLATFORMCOCOA_INCLUDES_X86_PLAT)
+QTPLATFORMCOCOA_INCLUDES_X64  = $(QTPLATFORMCOCOA_INCLUDES) -I$(QTPLATFORMCOCOA_MOCDIR_X64) \
+                                -I$(QTPLATFORMCOCOA_UICDIR_X64) $(QTPLATFORMCOCOA_INCLUDES_X64_PLAT)
+QTPLATFORMCOCOA_MOC_H_X86     = $(MOC_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                $(@:$(QTPLATFORMCOCOA_MOCDIR_X86)/%.cpp=$(QTPLATFORMCOCOA_SRCDIR)/%.h) \
+                                -o $(@:$(QTPLATFORMCOCOA_MOCDIR_X86)/%.cpp=$(QTPLATFORMCOCOA_MOCDIR_X86)/moc_$(@F))
+QTPLATFORMCOCOA_MOC_H_X64     = $(MOC_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                $(@:$(QTPLATFORMCOCOA_MOCDIR_X64)/%.cpp=$(QTPLATFORMCOCOA_SRCDIR)/%.h) \
+                                -o $(@:$(QTPLATFORMCOCOA_MOCDIR_X64)/%.cpp=$(QTPLATFORMCOCOA_MOCDIR_X64)/moc_$(@F))
+QTPLATFORMCOCOA_MOCH_ALL      = 
+QTPLATFORMCOCOA_MOC_C_X86     = $(MOC_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                $(@:$(QTPLATFORMCOCOA_MOCDIR_X86)/%.moc=$(QTPLATFORMCOCOA_SRCDIR)/%.cpp) \
+                                -o $(@:$(QTPLATFORMCOCOA_MOCDIR_X86)/%.moc=$(QTPLATFORMCOCOA_MOCDIR_X86)/$(@F))
+QTPLATFORMCOCOA_MOC_C_X64     = $(MOC_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                $(@:$(QTPLATFORMCOCOA_MOCDIR_X64)/%.moc=$(QTPLATFORMCOCOA_SRCDIR)/%.cpp) \
+                                -o $(@:$(QTPLATFORMCOCOA_MOCDIR_X64)/%.moc=$(QTPLATFORMCOCOA_MOCDIR_X64)/$(@F))
+QTPLATFORMCOCOA_MOCC_ALL      = 
+QTPLATFORMCOCOA_UIC_X86       = $(UIC_X86)  \
+                                $(@:$(QTPLATFORMCOCOA_UICDIR_X86)/%.h=$(QTPLATFORMCOCOA_SRCDIR)/%.ui) \
+                                -o $(@:$(QTPLATFORMCOCOA_UICDIR_X86)/%.h=$(QTPLATFORMCOCOA_UICDIR_X86)/ui_$(@F))
+QTPLATFORMCOCOA_UIC_X64       = $(UIC_X64)  \
+                                $(@:$(QTPLATFORMCOCOA_UICDIR_X64)/%.h=$(QTPLATFORMCOCOA_SRCDIR)/%.ui) \
+                                -o $(@:$(QTPLATFORMCOCOA_UICDIR_X64)/%.h=$(QTPLATFORMCOCOA_UICDIR_X64)/ui_$(@F))
+QTPLATFORMCOCOA_UICH_ALL      = 
+QTPLATFORMCOCOA_RCC_X86       = $(RCC_X86) --name $(basename $(@F)) \
+                                $(@:$(QTPLATFORMCOCOA_RCCDIR_X86)/%.cpp=$(QTPLATFORMCOCOA_SRCDIR)/%.qrc) \
+                                --output $(@:$(QTPLATFORMCOCOA_RCCDIR_X86)/%.cpp=$(QTPLATFORMCOCOA_RCCDIR_X86)/qrc_$(@F))
+QTPLATFORMCOCOA_RCC_X64       = $(RCC_X64) --name $(basename $(@F)) \
+                                $(@:$(QTPLATFORMCOCOA_RCCDIR_X64)/%.cpp=$(QTPLATFORMCOCOA_SRCDIR)/%.qrc) \
+                                --output $(@:$(QTPLATFORMCOCOA_RCCDIR_X64)/%.cpp=$(QTPLATFORMCOCOA_RCCDIR_X64)/qrc_$(@F))
+QTPLATFORMCOCOA_RCCH_ALL      = 
+QTPLATFORMCOCOA_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X86)%.o=$(QTPLATFORMCOCOA_SRCDIR)%.cpp) -o $@
+QTPLATFORMCOCOA_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X64)%.o=$(QTPLATFORMCOCOA_SRCDIR)%.cpp) -o $@
+QTPLATFORMCOCOA_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X86)%.omm=$(QTPLATFORMCOCOA_SRCDIR)%.mm) -o $@
+QTPLATFORMCOCOA_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X64)%.omm=$(QTPLATFORMCOCOA_SRCDIR)%.mm) -o $@
+QTPLATFORMCOCOA_OBJS_ALL      = 
+QTPLATFORMCOCOA_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X86)/%.omoc=$(QTPLATFORMCOCOA_MOCDIR_X86)/moc_%.cpp) -o $@
+QTPLATFORMCOCOA_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X64)/%.omoc=$(QTPLATFORMCOCOA_MOCDIR_X64)/moc_%.cpp) -o $@
+QTPLATFORMCOCOA_OBJS_MOC_ALL  = 
+QTPLATFORMCOCOA_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X86)/%.orcc=$(QTPLATFORMCOCOA_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
+QTPLATFORMCOCOA_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X64)/%.orcc=$(QTPLATFORMCOCOA_RCCDIR_X64)/qrc_$(@F:.orcc=.cpp)) -o $@
+QTPLATFORMCOCOA_OBJS_RCC_ALL  = 
+
+$(QTPLATFORMCOCOA_MOCDIR_X86)/%.cpp:
+	$(QTPLATFORMCOCOA_MOC_H_X86)
+
+$(QTPLATFORMCOCOA_MOCDIR_X64)/%.cpp:
+	$(QTPLATFORMCOCOA_MOC_H_X64)
+
+$(QTPLATFORMCOCOA_MOCDIR_X86)/%.moc:
+	$(QTPLATFORMCOCOA_MOC_C_X86)
+
+$(QTPLATFORMCOCOA_MOCDIR_X64)/%.moc:
+	$(QTPLATFORMCOCOA_MOC_C_X64)
+
+$(QTPLATFORMCOCOA_UICDIR_X86)/%.h:
+	$(QTPLATFORMCOCOA_UIC_X86)
+
+$(QTPLATFORMCOCOA_UICDIR_X64)/%.h:
+	$(QTPLATFORMCOCOA_UIC_X64)
+
+$(QTPLATFORMCOCOA_RCCDIR_X86)/%.cpp:
+	$(QTPLATFORMCOCOA_RCC_X86)
+
+$(QTPLATFORMCOCOA_RCCDIR_X64)/%.cpp:
+	$(QTPLATFORMCOCOA_RCC_X64)
+
+$(QTPLATFORMCOCOA_OBJDIR_X86)/%.o:
+	$(QTPLATFORMCOCOA_BUILD_X86)
+
+$(QTPLATFORMCOCOA_OBJDIR_X64)/%.o:
+	$(QTPLATFORMCOCOA_BUILD_X64)
+
+$(QTPLATFORMCOCOA_OBJDIR_X86)/%.omm:
+	$(QTPLATFORMCOCOA_BUILD_OMM_X86)
+
+$(QTPLATFORMCOCOA_OBJDIR_X64)/%.omm:
+	$(QTPLATFORMCOCOA_BUILD_OMM_X64)
+
+$(QTPLATFORMCOCOA_OBJDIR_X86)/%.omoc:
+	$(QTPLATFORMCOCOA_BUILD_MOC_X86)
+
+$(QTPLATFORMCOCOA_OBJDIR_X64)/%.omoc:
+	$(QTPLATFORMCOCOA_BUILD_MOC_X64)
+	
+$(QTPLATFORMCOCOA_OBJDIR_X86)/%.orcc:
+	$(QTPLATFORMCOCOA_BUILD_RCC_X86)
+
+$(QTPLATFORMCOCOA_OBJDIR_X64)/%.orcc:
+	$(QTPLATFORMCOCOA_BUILD_RCC_X64)
+###################################################################################################################
 # QT-PRINTSUPPORT
 ###################################################################################################################
 QTPRINTSUPPORT_SRCDIR        = $(SRCDIR)/qt-printsupport

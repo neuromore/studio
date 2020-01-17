@@ -1211,6 +1211,59 @@ qt-platform-xcb-x64-clean:
 
 qt-platform-xcb-clean: qt-platform-xcb-x86-clean qt-platform-xcb-x64-clean
 ###################################################################################################################
+# QT-PLATFORM-COCOA
+###################################################################################################################
+QTPLATFORMCOCOA_MOCH_X86     := $(patsubst %,$(QTPLATFORMCOCOA_MOCDIR_X86)/%,$(QTPLATFORMCOCOA_MOCH))
+QTPLATFORMCOCOA_MOCH_X64     := $(patsubst %,$(QTPLATFORMCOCOA_MOCDIR_X64)/%,$(QTPLATFORMCOCOA_MOCH))
+QTPLATFORMCOCOA_MOCC_X86     := $(patsubst %,$(QTPLATFORMCOCOA_MOCDIR_X86)/%,$(QTPLATFORMCOCOA_MOCC))
+QTPLATFORMCOCOA_MOCC_X64     := $(patsubst %,$(QTPLATFORMCOCOA_MOCDIR_X64)/%,$(QTPLATFORMCOCOA_MOCC))
+QTPLATFORMCOCOA_UICH_X86     := $(patsubst %,$(QTPLATFORMCOCOA_UICDIR_X86)/%,$(QTPLATFORMCOCOA_UICH))
+QTPLATFORMCOCOA_UICH_X64     := $(patsubst %,$(QTPLATFORMCOCOA_UICDIR_X64)/%,$(QTPLATFORMCOCOA_UICH))
+QTPLATFORMCOCOA_RCCH_X86     := $(patsubst %,$(QTPLATFORMCOCOA_RCCDIR_X86)/%,$(QTPLATFORMCOCOA_RCCH))
+QTPLATFORMCOCOA_RCCH_X64     := $(patsubst %,$(QTPLATFORMCOCOA_RCCDIR_X64)/%,$(QTPLATFORMCOCOA_RCCH))
+QTPLATFORMCOCOA_OBJS_X86     := $(patsubst %,$(QTPLATFORMCOCOA_OBJDIR_X86)/%,$(QTPLATFORMCOCOA_OBJS))
+QTPLATFORMCOCOA_OBJS_X64     := $(patsubst %,$(QTPLATFORMCOCOA_OBJDIR_X64)/%,$(QTPLATFORMCOCOA_OBJS))
+QTPLATFORMCOCOA_OBJS_MOC_X86 := $(patsubst %,$(QTPLATFORMCOCOA_OBJDIR_X86)/%,$(QTPLATFORMCOCOA_OBJS_MOC))
+QTPLATFORMCOCOA_OBJS_MOC_X64 := $(patsubst %,$(QTPLATFORMCOCOA_OBJDIR_X64)/%,$(QTPLATFORMCOCOA_OBJS_MOC))
+QTPLATFORMCOCOA_OBJS_RCC_X86 := $(patsubst %,$(QTPLATFORMCOCOA_OBJDIR_X86)/%,$(QTPLATFORMCOCOA_OBJS_RCC))
+QTPLATFORMCOCOA_OBJS_RCC_X64 := $(patsubst %,$(QTPLATFORMCOCOA_OBJDIR_X64)/%,$(QTPLATFORMCOCOA_OBJS_RCC))
+QTPLATFORMCOCOA_PRES_X86     := $(QTPLATFORMCOCOA_MOCH_X86) $(QTPLATFORMCOCOA_MOCC_X86) $(QTPLATFORMCOCOA_UICH_X86) $(QTPLATFORMCOCOA_RCCH_X86)
+QTPLATFORMCOCOA_PRES_X64     := $(QTPLATFORMCOCOA_MOCH_X64) $(QTPLATFORMCOCOA_MOCC_X64) $(QTPLATFORMCOCOA_UICH_X64) $(QTPLATFORMCOCOA_RCCH_X64) 
+QTPLATFORMCOCOA_OBLS_X86     := $(QTPLATFORMCOCOA_OBJS_X86) $(QTPLATFORMCOCOA_OBJS_MOC_X86) $(QTPLATFORMCOCOA_OBJS_RCC_X86)
+QTPLATFORMCOCOA_OBLS_X64     := $(QTPLATFORMCOCOA_OBJS_X64) $(QTPLATFORMCOCOA_OBJS_MOC_X64) $(QTPLATFORMCOCOA_OBJS_RCC_X64)
+
+$(QTPLATFORMCOCOA_OBLS_X86) : $(QTPLATFORMCOCOA_PRES_X86)
+$(QTPLATFORMCOCOA_OBLS_X64) : $(QTPLATFORMCOCOA_PRES_X64)
+
+$(QTPLATFORMCOCOA_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTPLATFORMCOCOA_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-platform-cocoa-x86: $(QTPLATFORMCOCOA_PRES_X86) $(QTPLATFORMCOCOA_OBLS_X86)
+	$(call createlib32,qt-platform-cocoa,$(QTPLATFORMCOCOA_OBLS_X86))
+
+qt-platform-cocoa-x64: $(QTPLATFORMCOCOA_PRES_X64) $(QTPLATFORMCOCOA_OBLS_X64)
+	$(call createlib64,qt-platform-cocoa,$(QTPLATFORMCOCOA_OBLS_X64))
+
+qt-platform-cocoa: qt-platform-cocoa-x86 qt-platform-cocoa-x64
+
+qt-platform-cocoa-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-platform-cocoa.*)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_OBJDIR_X86),*.omm)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_MOCDIR_X86),*.moc)
+
+qt-platform-cocoa-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-platform-cocoa.*)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_OBJDIR_X64),*.omm)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTPLATFORMCOCOA_MOCDIR_X64),*.moc)
+	
+qt-platform-cocoa-clean: qt-platform-cocoa-x86-clean qt-platform-cocoa-x64-clean
+###################################################################################################################
 # QT-PRINTSUPPORT
 ###################################################################################################################
 QTPRINTSUPPORT_MOCH_X86     := $(patsubst %,$(QTPRINTSUPPORT_MOCDIR_X86)/%,$(QTPRINTSUPPORT_MOCH))
@@ -1489,6 +1542,7 @@ all-x86: zlib-x86 \
          qt-opengl-x86 \
          qt-platform-windows-x86 \
          qt-platform-xcb-x86 \
+         qt-platform-cocoa-x86 \
          qt-printsupport-x86 \
          qt-serialport-x86 \
          qt-widgets-x86 \
@@ -1534,6 +1588,7 @@ all-x64: zlib-x64 \
          qt-opengl-x64 \
          qt-platform-windows-x64 \
          qt-platform-xcb-x64 \
+         qt-platform-cocoa-x64 \
          qt-printsupport-x64 \
          qt-serialport-x64 \
          qt-widgets-x64 \
@@ -1581,6 +1636,7 @@ clean-x86: zlib-x86-clean \
            qt-opengl-x86-clean \
            qt-platform-windows-x86-clean \
            qt-platform-xcb-x86-clean \
+           qt-platform-cocoa-x86-clean \
            qt-printsupport-x86-clean \
            qt-serialport-x86-clean \
            qt-widgets-x86-clean \
@@ -1625,6 +1681,7 @@ clean-x64: zlib-x64-clean \
            qt-opengl-x64-clean \
            qt-platform-windows-x64-clean \
            qt-platform-xcb-x64-clean \
+           qt-platform-cocoa-x64-clean \
            qt-printsupport-x64-clean \
            qt-serialport-x64-clean \
            qt-widgets-x64-clean \
