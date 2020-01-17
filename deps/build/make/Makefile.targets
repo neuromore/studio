@@ -530,10 +530,12 @@ qt-bootstrap: qt-bootstrap-x86 qt-bootstrap-x64
 qt-bootstrap-x86-clean:
 	$(call deletefilepattern,$(LIBDIR_X86),qt-bootstrap.*)
 	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X86),*.omm)
 
 qt-bootstrap-x64-clean:
 	$(call deletefilepattern,$(LIBDIR_X64),qt-bootstrap.*)
 	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X64),*.omm)
 
 qt-bootstrap-clean: qt-bootstrap-x86-clean qt-bootstrap-x64-clean
 ###################################################################################################################
