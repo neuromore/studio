@@ -43,7 +43,7 @@
 #include "qfilesystemwatcher.h"
 #include "qfilesystemwatcher_fsevents_p.h"
 #include "private/qcore_unix_p.h"
-#include "kernel/qcore_mac_p.h"
+#include "private/qcore_mac_p.h"
 
 #include <qdebug.h>
 #include <qdir.h>

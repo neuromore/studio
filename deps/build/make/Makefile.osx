@@ -69,12 +69,12 @@ QTCORE_DEFINES_X86_PLAT             = -DQT_UNIX_SEMAPHORE
 QTCORE_DEFINES_X64_PLAT             = -DQT_UNIX_SEMAPHORE
 QTEVENTDISPATCHERS_DEFINES_X86_PLAT =
 QTEVENTDISPATCHERS_DEFINES_X64_PLAT =
-QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_FEATURE_fontconfig=1
-QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_FEATURE_fontconfig=1
+QTFONTDATABASES_DEFINES_X86_PLAT    = 
+QTFONTDATABASES_DEFINES_X64_PLAT    = 
 QTGAMEPAD_DEFINES_X86_PLAT          =
 QTGAMEPAD_DEFINES_X64_PLAT          =
-QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
+QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\"
+QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\"
 QTMULTIMEDIA_DEFINES_X86_PLAT       =
 QTMULTIMEDIA_DEFINES_X64_PLAT       =
 QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT=
@@ -85,8 +85,8 @@ QTOPENGL_DEFINES_X86_PLAT           =
 QTOPENGL_DEFINES_X64_PLAT           =
 QTPLATFORMWINDOWS_DEFINES_X86_PLAT  =
 QTPLATFORMWINDOWS_DEFINES_X64_PLAT  =
-QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
+QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\"
+QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\"
 QTPRINTSUPPORT_DEFINES_X86_PLAT     =
 QTPRINTSUPPORT_DEFINES_X64_PLAT     =
 QTSERIALPORT_DEFINES_X86_PLAT       =
@@ -237,12 +237,7 @@ LIBJPEG_OBJS         = $(LIBJPEG_OBJS_ALL)
 PCRE2_OBJS           = $(PCRE2_OBJS_ALL)
 DOUBLECONV_OBJS      = $(DOUBLECONV_OBJS_ALL)
 EDFLIB_OBJS          = $(EDFLIB_OBJS_ALL)
-FONTCONFIG_OBJS      = $(FONTCONFIG_OBJS_ALL) \
-                       fcarch.o fcatomic.o fccache.o fccfg.o fccharset.o fccompat.o \
-                       fcdbg.o fcdefault.o fcdir.o fcformat.o fcfreetype.o fcfs.o \
-                       fchash.o fcinit.o fclang.o fclist.o fcmatch.o fcmatrix.o \
-                       fcname.o fcobjs.o fcpat.o fcptrlist.o fcrange.o fcserialize.o \
-                       fcstat.o fcstr.o fcweight.o fcxml.o ftglue.o
+FONTCONFIG_OBJS      = $(FONTCONFIG_OBJS_ALL)
 FREETYPE_OBJS        = $(FREETYPE_OBJS_ALL)
 HARFBUZZ_OBJS_C      = $(HARFBUZZ_OBJS_ALL_C)
 HARFBUZZ_OBJS_CXX    = $(HARFBUZZ_OBJS_ALL_CXX)
@@ -275,7 +270,7 @@ QTBOOTSTRAP_OBJS = $(QTBOOTSTRAP_OBJS_ALL) \
                    qt-core/kernel/qcore_foundation.omm \
                    qt-core/kernel/qcore_mac_objc.omm \
                    qt-core/kernel/qcore_mac.o \
-                   qt-core/kernel/qcoreapplication_mac.o \
+                   qt-core/kernel/qcoreapplication_mac.o
 
 # Qt Tools
 QTMOC_OBJS     = $(QTMOC_OBJS_ALL)
@@ -305,12 +300,13 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               io/forkfd_qt.o \
                               io/qfilesystemengine_unix.o \
                               io/qfilesystemiterator_unix.o \
-                              io/qfilesystemwatcher_inotify.o \
+                              io/qfilesystemwatcher_fsevents.omm \
                               io/qfsfileengine_unix.o \
                               io/qlockfile_unix.o \
                               io/qprocess_unix.o \
-                              io/qstandardpaths_unix.o \
-                              io/qstorageinfo_unix.o \
+                              io/qprocess_darwin.omm \
+                              io/qstandardpaths_mac.omm \
+                              io/qstorageinfo_mac.omm \
                               kernel/qcore_unix.o \
                               kernel/qelapsedtimer_unix.o \
                               kernel/qeventdispatcher_unix.o \
@@ -465,12 +461,12 @@ QTPLATFORMXCB_OBJS_MOC      = $(QTPLATFORMXCB_OBJS_MOC_ALL) \
 QTPLATFORMXCB_OBJS_RCC      = $(QTPLATFORMXCB_OBJS_RCC_ALL)
 QTPRINTSUPPORT_MOCH         = $(QTPRINTSUPPORT_MOCH_ALL)
 QTPRINTSUPPORT_MOCC         = $(QTPRINTSUPPORT_MOCC_ALL) \
-                              dialogs/qprintdialog_unix.moc
+#                              dialogs/qprintdialog_unix.moc
 QTPRINTSUPPORT_UICH         = $(QTPRINTSUPPORT_UICH_ALL)
 QTPRINTSUPPORT_RCCH         = $(QTPRINTSUPPORT_RCCH_ALL)
 QTPRINTSUPPORT_OBJS         = $(QTPRINTSUPPORT_OBJS_ALL) \
-                              dialogs/qpagesetupdialog_unix.o \
-                              dialogs/qprintdialog_unix.o
+                              dialogs/qpagesetupdialog_mac.omm \
+#                              dialogs/qprintdialog_mac.omm
 QTPRINTSUPPORT_OBJS_MOC     = $(QTPRINTSUPPORT_OBJS_MOC_ALL)
 QTPRINTSUPPORT_OBJS_RCC     = $(QTPRINTSUPPORT_OBJS_RCC_ALL)
 QTSERIALPORT_MOCH           = $(QTSERIALPORT_MOCH_ALL)
