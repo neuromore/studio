@@ -1404,6 +1404,7 @@ qt-widgets: qt-widgets-x86 qt-widgets-x64
 qt-widgets-x86-clean:
 	$(call deletefilepattern,$(LIBDIR_X86),qt-widgets.*)
 	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X86),*.omm)
 	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X86),*.omoc)
 	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X86),*.orcc)
 	$(call deletefilepattern,$(QTWIDGETS_MOCDIR_X86),*.cpp)
@@ -1414,6 +1415,7 @@ qt-widgets-x86-clean:
 qt-widgets-x64-clean:
 	$(call deletefilepattern,$(LIBDIR_X64),qt-widgets.*)
 	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X64),*.omm)
 	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X64),*.omoc)
 	$(call deletefilepattern,$(QTWIDGETS_OBJDIR_X64),*.orcc)
 	$(call deletefilepattern,$(QTWIDGETS_MOCDIR_X64),*.cpp)

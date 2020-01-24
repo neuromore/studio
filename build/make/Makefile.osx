@@ -95,35 +95,18 @@ endef
 #####################################################################################
 # Linker
 LINK          = $(CXX)
-LINKFLAGS_X86 = $(CXXFLAGS_X86) -framework AppKit -framework OpenGL -framework GLUT
-LINKFLAGS_X64 = $(CXXFLAGS_X64) -framework AppKit -framework OpenGL -framework GLUT
+LINKFLAGS_X86 = $(CXXFLAGS_X86) 
+LINKFLAGS_X64 = $(CXXFLAGS_X64)
 
 # Additional Linker Library Path for shared libraries
 LINKPATH_X86 = -L./lib/x86
 LINKPATH_X64 = -L./lib/x64
 
 # Shared Libraries for X86 and X64
-LINKLIBS_ALL = -lpthread \
-#               -ldl \
-#               -lGL \
-#               -lexpat \
-#               -lX11 \
-#               -lX11-xcb \
-#               -lxkbcommon \
-#               -lxcb \
-#               -lxcb-glx \
-#               -lxcb-icccm \
-#               -lxcb-image \
-#               -lxcb-keysyms \
-#               -lxcb-randr \
-#               -lxcb-render \
-#               -lxcb-render-util \
-#               -lxcb-shape \
-#               -lxcb-shm \
-#               -lxcb-sync \
-#               -lxcb-xfixes \
-#               -lxcb-xinerama \
-#               -lxcb-xkb
+LINKLIBS_ALL = -framework AppKit \
+               -framework GLUT \
+               -framework OpenGL \
+               -framework Security
 
 # Libraries for X86 or X64
 LINKLIBS_X86 = $(LINKLIBS_ALL)

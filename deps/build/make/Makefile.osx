@@ -410,10 +410,8 @@ QTPLATFORMCOCOA_MOCH        = $(QTPLATFORMCOCOA_MOCH_ALL) \
                               qcocoaclipboard.cpp \
                               qcocoaintegration.cpp \
                               qcocoawindow.cpp \
-
 QTPLATFORMCOCOA_MOCC        = $(QTPLATFORMCOCOA_MOCC_ALL) \
-                              main.moc \
-
+                              main.moc
 QTPLATFORMCOCOA_UICH        = $(QTPLATFORMCOCOA_UICH_ALL)
 QTPLATFORMCOCOA_RCCH        = $(QTPLATFORMCOCOA_RCCH_ALL) \
                               qcocoaresources.cpp
@@ -486,7 +484,10 @@ QTWIDGETS_MOCC              = $(QTWIDGETS_MOCC_ALL)
 QTWIDGETS_UICH              = $(QTWIDGETS_UICH_ALL)
 QTWIDGETS_RCCH              = $(QTWIDGETS_RCCH_ALL)
 QTWIDGETS_OBJS              = $(QTWIDGETS_OBJS_ALL) \
-                              util/qsystemtrayicon_x11.o
+                              util/qscroller_mac.omm \
+                              widgets/qmaccocoaviewcontainer_mac.omm \
+                              widgets/qmacnativewidget_mac.omm \
+                              widgets/qmenu_mac.omm
 QTWIDGETS_OBJS_MOC          = $(QTWIDGETS_OBJS_MOC_ALL)
 QTWIDGETS_OBJS_RCC          = $(QTWIDGETS_OBJS_RCC_ALL)
 QTXML_OBJS                  = $(QTXML_OBJS_ALL)

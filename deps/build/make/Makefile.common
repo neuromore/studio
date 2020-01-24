@@ -3826,6 +3826,10 @@ QTWIDGETS_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTWIDGETS_DEFINES_X86) $(QTWI
                           -c $(@:$(QTWIDGETS_OBJDIR_X86)%.o=$(QTWIDGETS_SRCDIR)%.cpp) -o $@
 QTWIDGETS_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTWIDGETS_DEFINES_X64) $(QTWIDGETS_INCLUDES_X64) \
                           -c $(@:$(QTWIDGETS_OBJDIR_X64)%.o=$(QTWIDGETS_SRCDIR)%.cpp) -o $@
+QTWIDGETS_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTWIDGETS_DEFINES_X86) $(QTWIDGETS_INCLUDES_X86) \
+                          -c $(@:$(QTWIDGETS_OBJDIR_X86)%.omm=$(QTWIDGETS_SRCDIR)%.mm) -o $@
+QTWIDGETS_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTWIDGETS_DEFINES_X64) $(QTWIDGETS_INCLUDES_X64) \
+                          -c $(@:$(QTWIDGETS_OBJDIR_X64)%.omm=$(QTWIDGETS_SRCDIR)%.mm) -o $@
 QTWIDGETS_OBJS_ALL      = accessible/complexwidgets.o \
                           accessible/itemviews.o \
                           accessible/qaccessiblemenu.o \
@@ -4045,6 +4049,12 @@ $(QTWIDGETS_OBJDIR_X86)/%.o:
 
 $(QTWIDGETS_OBJDIR_X64)/%.o:
 	$(QTWIDGETS_BUILD_X64)
+
+$(QTWIDGETS_OBJDIR_X86)/%.omm:
+	$(QTWIDGETS_BUILD_OMM_X86)
+
+$(QTWIDGETS_OBJDIR_X64)/%.omm:
+	$(QTWIDGETS_BUILD_OMM_X64)
 
 $(QTWIDGETS_OBJDIR_X86)/%.omoc:
 	$(QTWIDGETS_BUILD_MOC_X86)
