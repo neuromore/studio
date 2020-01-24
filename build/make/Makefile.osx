@@ -171,7 +171,7 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/qt-multimediawidgets.a \
                   $(DEPSLIBDIR_X86)/qt-network.a \
                   $(DEPSLIBDIR_X86)/qt-opengl.a \
-#                  $(DEPSLIBDIR_X86)/qt-platform-xcb.a \
+                  $(DEPSLIBDIR_X86)/qt-platform-cocoa.a \
                   $(DEPSLIBDIR_X86)/qt-fontdatabases.a \
                   $(DEPSLIBDIR_X86)/qt-printsupport.a \
                   $(DEPSLIBDIR_X86)/qt-serialport.a \
@@ -181,7 +181,6 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/qt-core.a \
                   $(DEPSLIBDIR_X86)/double-conversion.a \
                   $(DEPSLIBDIR_X86)/edflib.a \
-#                  $(DEPSLIBDIR_X86)/fontconfig.a \
                   $(DEPSLIBDIR_X86)/freetype.a \
                   $(DEPSLIBDIR_X86)/harfbuzz.a \
                   $(DEPSLIBDIR_X86)/harfbuzz-ng.a \
@@ -212,7 +211,7 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/qt-multimediawidgets.a \
                   $(DEPSLIBDIR_X64)/qt-network.a \
                   $(DEPSLIBDIR_X64)/qt-opengl.a \
-#                  $(DEPSLIBDIR_X64)/qt-platform-xcb.a \
+                  $(DEPSLIBDIR_X64)/qt-platform-cocoa.a \
                   $(DEPSLIBDIR_X64)/qt-fontdatabases.a \
                   $(DEPSLIBDIR_X64)/qt-printsupport.a \
                   $(DEPSLIBDIR_X64)/qt-serialport.a \
@@ -222,7 +221,6 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/qt-core.a \
                   $(DEPSLIBDIR_X64)/double-conversion.a \
                   $(DEPSLIBDIR_X64)/edflib.a \
-#                  $(DEPSLIBDIR_X64)/fontconfig.a \
                   $(DEPSLIBDIR_X64)/freetype.a \
                   $(DEPSLIBDIR_X64)/harfbuzz.a \
                   $(DEPSLIBDIR_X64)/harfbuzz-ng.a \

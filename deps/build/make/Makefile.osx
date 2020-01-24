@@ -294,10 +294,11 @@ QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL)
 QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL)
 QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
 QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
-                              private/qeventdispatcher_unix_p.cpp \
+                              private/qeventdispatcher_cf_p.cpp \
                               private/qfilesystemwatcher_kqueue_p.cpp \
                               private/qfilesystemwatcher_inotify_p.cpp
-QTCORE_MOCC                 = $(QTCORE_MOCC_ALL)
+QTCORE_MOCC                 = $(QTCORE_MOCC_ALL) \
+                              kernel/qeventdispatcher_cf.moc
 QTCORE_UICH                 = $(QTCORE_UICH_ALL)
 QTCORE_RCCH                 = $(QTCORE_RCCH_ALL)
 QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
@@ -310,10 +311,12 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               io/qprocess_unix.o \
                               io/qprocess_darwin.omm \
                               io/qstandardpaths_mac.omm \
-                              io/qstorageinfo_mac.omm \
-                              kernel/qcore_unix.o \
-                              kernel/qelapsedtimer_unix.o \
-                              kernel/qeventdispatcher_unix.o \
+                              io/qstorageinfo_mac.o \
+                              kernel/qcore_foundation.omm \
+                              kernel/qcore_mac.o \
+                              kernel/qcore_mac_objc.omm \
+                              kernel/qelapsedtimer_mac.o \
+                              kernel/qeventdispatcher_cf.omm \
                               kernel/qpoll.o \
                               kernel/qsharedmemory_systemv.o \
                               kernel/qsharedmemory_unix.o \
@@ -322,11 +325,12 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               kernel/qtimerinfo_unix.o \
                               plugin/qelfparser_p.o \
                               plugin/qlibrary_unix.o \
+                              thread/qmutex_mac.o \
                               thread/qthread_unix.o \
                               thread/qwaitcondition_unix.o \
-                              tools/qcollator_posix.o \
-                              tools/qlocale_unix.o \
-                              tools/qtimezoneprivate_tz.o
+                              tools/qcollator_macx.o \
+                              tools/qlocale_mac.omm \
+                              tools/qtimezoneprivate_mac.omm
 QTCORE_OBJS_MOC             = $(QTCORE_OBJS_MOC_ALL)
 QTCORE_OBJS_RCC             = $(QTCORE_OBJS_RCC_ALL)
 QTEVENTDISPATCHERS_MOCH     = $(QTEVENTDISPATCHERS_MOCH_ALL) \

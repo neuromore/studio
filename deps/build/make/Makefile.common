@@ -1146,6 +1146,12 @@ QTCORE_MOC_C_X86     = $(MOC_X86) $(QTCORE_DEFINES_X86) $(QTCORE_INCLUDES_X86) \
 QTCORE_MOC_C_X64     = $(MOC_X64) $(QTCORE_DEFINES_X64) $(QTCORE_INCLUDES_X64) \
                        $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) \
                        -o $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_MOCDIR_X64)/$(@F))
+QTCORE_MOC_MM_X86    = $(MOC_X86) $(QTCORE_DEFINES_X86) $(QTCORE_INCLUDES_X86) \
+                       $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.mm) \
+                       -o $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_MOCDIR_X86)/$(@F))
+QTCORE_MOC_MM_X64    = $(MOC_X64) $(QTCORE_DEFINES_X64) $(QTCORE_INCLUDES_X64) \
+                       $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.mm) \
+                       -o $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_MOCDIR_X64)/$(@F))
 QTCORE_MOCC_ALL      = kernel/qtimer.moc \
                        statemachine/qhistorystate.moc \
                        statemachine/qstatemachine.moc
@@ -1389,10 +1395,10 @@ $(QTCORE_MOCDIR_X64)/%.cpp:
 	$(QTCORE_MOC_H_X64)
 
 $(QTCORE_MOCDIR_X86)/%.moc:
-	$(QTCORE_MOC_C_X86)
+	if [ -f $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ]; then $(QTCORE_MOC_C_X86); else $(QTCORE_MOC_MM_X86); fi
 
 $(QTCORE_MOCDIR_X64)/%.moc:
-	$(QTCORE_MOC_C_X64)
+	if [ -f $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ]; then $(QTCORE_MOC_C_X64); else $(QTCORE_MOC_MM_X64); fi
 
 $(QTCORE_UICDIR_X86)/%.h:
 	$(QTCORE_UIC_X86)
