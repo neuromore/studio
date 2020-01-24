@@ -402,16 +402,62 @@ QTPLATFORMXCB_RCCH          = $(QTPLATFORMXCB_RCCH_ALL)
 QTPLATFORMXCB_OBJS          = $(QTPLATFORMXCB_OBJS_ALL)
 QTPLATFORMXCB_OBJS_MOC      = $(QTPLATFORMXCB_OBJS_MOC_ALL)
 QTPLATFORMXCB_OBJS_RCC      = $(QTPLATFORMXCB_OBJS_RCC_ALL)
-QTPLATFORMCOCOA_MOCH        = $(QTPLATFORMCOCOA_MOCH_ALL)
+QTPLATFORMCOCOA_MOCH        = $(QTPLATFORMCOCOA_MOCH_ALL) \
+                              qcocoaclipboard.cpp \
+                              qcocoaintegration.cpp \
+                              qcocoawindow.cpp \
+
 QTPLATFORMCOCOA_MOCC        = $(QTPLATFORMCOCOA_MOCC_ALL) \
-                              main.moc
+                              main.moc \
+
 QTPLATFORMCOCOA_UICH        = $(QTPLATFORMCOCOA_UICH_ALL)
 QTPLATFORMCOCOA_RCCH        = $(QTPLATFORMCOCOA_RCCH_ALL) \
                               qcocoaresources.cpp
 QTPLATFORMCOCOA_OBJS        = $(QTPLATFORMCOCOA_OBJS_ALL) \
                               main.omm \
                               messages.o \
-                              qcocoaaccessibility.omm
+                              qcocoaaccessibility.omm \
+                              qcocoaaccessibilityelement.omm \
+                              qcocoaapplication.omm \
+                              qcocoaapplicationdelegate.omm \
+                              qcocoabackingstore.omm \
+                              qcocoaclipboard.omm \
+                              qcocoacolordialoghelper.omm \
+                              qcocoacursor.omm \
+                              qcocoadrag.omm \
+                              qcocoaeventdispatcher.omm \
+                              qcocoafiledialoghelper.omm \
+                              qcocoafontdialoghelper.omm \
+                              qcocoaglcontext.omm \
+                              qcocoahelpers.omm \
+                              qcocoainputcontext.omm \
+                              qcocoaintegration.omm \
+                              qcocoaintrospection.omm \
+                              qcocoakeymapper.omm \
+                              qcocoamenu.omm \
+                              qcocoamenubar.omm \
+                              qcocoamenuitem.omm \
+                              qcocoamenuloader.omm \
+                              qcocoamimetypes.omm \
+                              qcocoanativeinterface.omm \
+                              qcocoansmenu.omm \
+                              qcocoaprintdevice.omm \
+                              qcocoaprintersupport.omm \
+                              qcocoascreen.omm \
+                              qcocoaservices.omm \
+                              qcocoasystemsettings.omm \
+                              qcocoasystemtrayicon.omm \
+                              qcocoatheme.omm \
+                              qcocoawindow.omm \
+                              qiosurfacegraphicsbuffer.omm \
+                              qmacclipboard.omm \
+                              qmacmime.omm \
+                              qmultitouch_mac.omm \
+                              qnsview.omm \
+                              qnswindow.omm \
+                              qnswindowdelegate.omm \
+                              qpaintengine_mac.omm \
+                              qprintengine_mac.omm
 QTPLATFORMCOCOA_OBJS_MOC    = $(QTPLATFORMCOCOA_OBJS_MOC_ALL)
 QTPLATFORMCOCOA_OBJS_RCC    = $(QTPLATFORMCOCOA_OBJS_RCC_ALL) \
                               qcocoaresources.orcc

@@ -3273,6 +3273,11 @@ QTPLATFORMCOCOA_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) \
                                 -I$(INCDIR)/qt \
                                 -I$(INCDIR)/qt/QtCore \
                                 -I$(INCDIR)/qt/QtGui \
+                                -I$(INCDIR)/qt/QtWidgets \
+                                -I$(INCDIR)/qt/QtFontDatabaseSupport \
+                                -I$(INCDIR)/qt/QtPrintSupport \
+                                -I$(INCDIR)/qt/QtClipboardSupport \
+                                -I$(INCDIR)/qt/QtClipboardSupport/private \
                                 -I$(INCDIR)/qt/QtGlxSupport \
                                 -I$(INCDIR)/qt/QtGlxSupport/private \
                                 -I$(INCDIR)/qt/QtEdidSupport \
