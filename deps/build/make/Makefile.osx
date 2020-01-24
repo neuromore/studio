@@ -73,8 +73,8 @@ QTFONTDATABASES_DEFINES_X86_PLAT    =
 QTFONTDATABASES_DEFINES_X64_PLAT    = 
 QTGAMEPAD_DEFINES_X86_PLAT          =
 QTGAMEPAD_DEFINES_X64_PLAT          =
-QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\"
-QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\"
+QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\"
+QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\"
 QTMULTIMEDIA_DEFINES_X86_PLAT       =
 QTMULTIMEDIA_DEFINES_X64_PLAT       =
 QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT=
@@ -85,10 +85,10 @@ QTOPENGL_DEFINES_X86_PLAT           =
 QTOPENGL_DEFINES_X64_PLAT           =
 QTPLATFORMWINDOWS_DEFINES_X86_PLAT  =
 QTPLATFORMWINDOWS_DEFINES_X64_PLAT  =
-QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\"
-QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\"
-QTPLATFORMCOCOA_DEFINES_X86_PLAT    =
-QTPLATFORMCOCOA_DEFINES_X64_PLAT    =
+QTPLATFORMXCB_DEFINES_X86_PLAT      =
+QTPLATFORMXCB_DEFINES_X64_PLAT      =
+QTPLATFORMCOCOA_DEFINES_X86_PLAT    = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\"
+QTPLATFORMCOCOA_DEFINES_X64_PLAT    = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\"
 QTPRINTSUPPORT_DEFINES_X86_PLAT     =
 QTPRINTSUPPORT_DEFINES_X64_PLAT     =
 QTSERIALPORT_DEFINES_X86_PLAT       =
@@ -295,6 +295,7 @@ QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL)
 QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
 QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
                               private/qeventdispatcher_cf_p.cpp \
+                              private/qeventdispatcher_unix_p.cpp \
                               private/qfilesystemwatcher_kqueue_p.cpp \
                               private/qfilesystemwatcher_inotify_p.cpp
 QTCORE_MOCC                 = $(QTCORE_MOCC_ALL) \
@@ -302,6 +303,7 @@ QTCORE_MOCC                 = $(QTCORE_MOCC_ALL) \
 QTCORE_UICH                 = $(QTCORE_UICH_ALL)
 QTCORE_RCCH                 = $(QTCORE_RCCH_ALL)
 QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
+                              global/qoperatingsystemversion_darwin.omm \
                               io/forkfd_qt.o \
                               io/qfilesystemengine_unix.o \
                               io/qfilesystemiterator_unix.o \
@@ -310,13 +312,17 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               io/qlockfile_unix.o \
                               io/qprocess_unix.o \
                               io/qprocess_darwin.omm \
+                              io/qsettings_mac.o \
                               io/qstandardpaths_mac.omm \
                               io/qstorageinfo_mac.o \
+                              kernel/qcfsocketnotifier.o \
                               kernel/qcore_foundation.omm \
                               kernel/qcore_mac.o \
                               kernel/qcore_mac_objc.omm \
+                              kernel/qcore_unix.o \
                               kernel/qelapsedtimer_mac.o \
                               kernel/qeventdispatcher_cf.omm \
+                              kernel/qeventdispatcher_unix.o \
                               kernel/qpoll.o \
                               kernel/qsharedmemory_systemv.o \
                               kernel/qsharedmemory_unix.o \
@@ -325,6 +331,7 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               kernel/qtimerinfo_unix.o \
                               plugin/qelfparser_p.o \
                               plugin/qlibrary_unix.o \
+                              plugin/qmachparser.o \
                               thread/qmutex_mac.o \
                               thread/qthread_unix.o \
                               thread/qwaitcondition_unix.o \
