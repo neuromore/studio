@@ -370,7 +370,9 @@ QTGUI_MOCC                  = $(QTGUI_MOCC_ALL)
 QTGUI_UICH                  = $(QTGUI_UICH_ALL)
 QTGUI_RCCH                  = $(QTGUI_RCCH_ALL)
 QTGUI_OBJS                  = $(QTGUI_OBJS_ALL) \
-                              accessible/qaccessiblecache_mac.omm
+                              accessible/qaccessiblecache_mac.omm \
+                              image/qimage_darwin.omm \
+                              painting/qcoregraphics.omm
 QTGUI_OBJS_C                = $(QTGUI_OBJS_C_ALL)
 QTGUI_OBJS_MOC              = $(QTGUI_OBJS_MOC_ALL)
 QTGUI_OBJS_RCC              = $(QTGUI_OBJS_RCC_ALL)
