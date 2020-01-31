@@ -189,6 +189,9 @@
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
    Q_IMPORT_PLUGIN(QXcbGlxIntegrationPlugin);
+#elif defined(NEUROMORE_PLATFORM_OSX)
+   // STATIC QT PLUGIN
+   Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
 #endif
 
 using namespace Core;
