@@ -3445,7 +3445,8 @@ QTPRINTSUPPORT_MOC_H_X86     = $(MOC_X86) $(QTPRINTSUPPORT_DEFINES_X86) $(QTPRIN
 QTPRINTSUPPORT_MOC_H_X64     = $(MOC_X64) $(QTPRINTSUPPORT_DEFINES_X64) $(QTPRINTSUPPORT_INCLUDES_X64) \
                                $(@:$(QTPRINTSUPPORT_MOCDIR_X64)/%.cpp=$(INCDIR)/qt/QtPrintSupport/%.h) \
                                -o $(@:$(QTPRINTSUPPORT_MOCDIR_X64)/%.cpp=$(QTPRINTSUPPORT_MOCDIR_X64)/moc_$(@F))
-QTPRINTSUPPORT_MOCH_ALL      = qpagesetupdialog.cpp \
+QTPRINTSUPPORT_MOCH_ALL      = qabstractprintdialog.cpp \
+                               qpagesetupdialog.cpp \
                                qprintdialog.cpp \
                                qprintpreviewdialog.cpp \
                                qprintpreviewwidget.cpp
@@ -3499,7 +3500,7 @@ QTPRINTSUPPORT_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPRINTSUPPORT_DEFINES_X
                                -c $(@:$(QTPRINTSUPPORT_OBJDIR_X86)/%.omoc=$(QTPRINTSUPPORT_MOCDIR_X86)/moc_%.cpp) -o $@
 QTPRINTSUPPORT_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPRINTSUPPORT_DEFINES_X64) $(QTPRINTSUPPORT_INCLUDES_X64) \
                                -c $(@:$(QTPRINTSUPPORT_OBJDIR_X64)/%.omoc=$(QTPRINTSUPPORT_MOCDIR_X64)/moc_%.cpp) -o $@
-QTPRINTSUPPORT_OBJS_MOC_ALL  = 
+QTPRINTSUPPORT_OBJS_MOC_ALL  = qabstractprintdialog.omoc
 QTPRINTSUPPORT_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPRINTSUPPORT_DEFINES_X86) $(QTPRINTSUPPORT_INCLUDES_X86) \
                                -c $(@:$(QTPRINTSUPPORT_OBJDIR_X86)/%.orcc=$(QTPRINTSUPPORT_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
 QTPRINTSUPPORT_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPRINTSUPPORT_DEFINES_X64) $(QTPRINTSUPPORT_INCLUDES_X64) \

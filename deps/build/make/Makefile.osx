@@ -159,8 +159,8 @@ SINGLEAPPLICATION_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/macx-clang
 #####################################################################################
 # Qt MOC+RCC+UIC
 
-MOC_X86 = bin/x86/qt-moc
-MOC_X64 = bin/x64/qt-moc
+MOC_X86 = bin/x86/qt-moc -DQ_OS_MAC
+MOC_X64 = bin/x64/qt-moc -DQ_OS_MAC
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     MOC = $(MOC_X86)
 endif
@@ -492,13 +492,12 @@ QTPLATFORMCOCOA_OBJS_RCC    = $(QTPLATFORMCOCOA_OBJS_RCC_ALL) \
                               qcocoaresources.orcc
 QTPRINTSUPPORT_MOCH         = $(QTPRINTSUPPORT_MOCH_ALL) \
                               qpa/qplatformprintplugin.cpp
-QTPRINTSUPPORT_MOCC         = $(QTPRINTSUPPORT_MOCC_ALL) \
-#                              dialogs/qprintdialog_unix.moc
+QTPRINTSUPPORT_MOCC         = $(QTPRINTSUPPORT_MOCC_ALL)
 QTPRINTSUPPORT_UICH         = $(QTPRINTSUPPORT_UICH_ALL)
 QTPRINTSUPPORT_RCCH         = $(QTPRINTSUPPORT_RCCH_ALL)
 QTPRINTSUPPORT_OBJS         = $(QTPRINTSUPPORT_OBJS_ALL) \
-                              dialogs/qpagesetupdialog_mac.omm
-#                              dialogs/qprintdialog_mac.omm
+                              dialogs/qpagesetupdialog_mac.omm \
+                              dialogs/qprintdialog_mac.omm
 QTPRINTSUPPORT_OBJS_MOC     = $(QTPRINTSUPPORT_OBJS_MOC_ALL) \
                               qplatformprintplugin.omoc
 QTPRINTSUPPORT_OBJS_RCC     = $(QTPRINTSUPPORT_OBJS_RCC_ALL)
