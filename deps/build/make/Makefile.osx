@@ -486,7 +486,9 @@ QTSERIALPORT_OBJS           = $(QTSERIALPORT_OBJS_ALL) \
                               qserialport_unix.o \
                               qserialportinfo_unix.o
 QTSERIALPORT_OBJS_MOC       = $(QTSERIALPORT_OBJS_MOC_ALL)
-QTWIDGETS_MOCH              = $(QTWIDGETS_MOCH_ALL)
+QTWIDGETS_MOCH              = $(QTWIDGETS_MOCH_ALL) \
+                              qmaccocoaviewcontainer_mac.cpp \
+                              qmacnativewidget_mac.cpp
 QTWIDGETS_MOCC              = $(QTWIDGETS_MOCC_ALL)
 QTWIDGETS_UICH              = $(QTWIDGETS_UICH_ALL)
 QTWIDGETS_RCCH              = $(QTWIDGETS_RCCH_ALL)
@@ -495,7 +497,9 @@ QTWIDGETS_OBJS              = $(QTWIDGETS_OBJS_ALL) \
                               widgets/qmaccocoaviewcontainer_mac.omm \
                               widgets/qmacnativewidget_mac.omm \
                               widgets/qmenu_mac.omm
-QTWIDGETS_OBJS_MOC          = $(QTWIDGETS_OBJS_MOC_ALL)
+QTWIDGETS_OBJS_MOC          = $(QTWIDGETS_OBJS_MOC_ALL) \
+                              qmaccocoaviewcontainer_mac.omoc \
+                              qmacnativewidget_mac.omoc
 QTWIDGETS_OBJS_RCC          = $(QTWIDGETS_OBJS_RCC_ALL)
 QTXML_OBJS                  = $(QTXML_OBJS_ALL)
 SINGLEAPPLICATION_MOCH      = $(SINGLEAPPLICATION_MOCH_ALL)
