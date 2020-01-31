@@ -321,6 +321,7 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               kernel/qcore_mac.o \
                               kernel/qcore_mac_objc.omm \
                               kernel/qcore_unix.o \
+                              kernel/qcoreapplication_mac.o \
                               kernel/qelapsedtimer_mac.o \
                               kernel/qeventdispatcher_cf.omm \
                               kernel/qeventdispatcher_unix.o \
@@ -398,7 +399,8 @@ QTNETWORK_OBJS              = $(QTNETWORK_OBJS_ALL) \
                               kernel/qnetworkproxy_generic.o \
                               socket/qlocalserver_unix.o \
                               socket/qlocalsocket_unix.o \
-                              socket/qnativesocketengine_unix.o
+                              socket/qnativesocketengine_unix.o \
+                              ssl/qsslsocket_mac_shared.o
 QTNETWORK_OBJS_MOC          = $(QTNETWORK_OBJS_MOC_ALL)
 QTNETWORK_OBJS_RCC          = $(QTNETWORK_OBJS_RCC_ALL)
 QTOPENGL_OBJS               = $(QTOPENGL_OBJS_ALL)
