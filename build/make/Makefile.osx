@@ -104,8 +104,14 @@ LINKPATH_X64 = -L./lib/x64
 
 # Shared Libraries for X86 and X64
 LINKLIBS_ALL = -framework AppKit \
+               -framework Carbon \
+               -framework Cocoa \
                -framework GLUT \
+               -framework IOKit \
+               -framework IOSurface \
+               -framework Metal \
                -framework OpenGL \
+               -framework Quartz \
                -framework Security
 
 # Libraries for X86 or X64
