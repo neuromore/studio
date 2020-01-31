@@ -912,6 +912,7 @@ qt-gui: qt-gui-x86 qt-gui-x64
 qt-gui-x86-clean:
 	$(call deletefilepattern,$(LIBDIR_X86),qt-gui.*)
 	$(call deletefilepattern,$(QTGUI_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTGUI_OBJDIR_X86),*.omm)
 	$(call deletefilepattern,$(QTGUI_OBJDIR_X86),*.omoc)
 	$(call deletefilepattern,$(QTGUI_OBJDIR_X86),*.orcc)
 	$(call deletefilepattern,$(QTGUI_MOCDIR_X86),*.cpp)
@@ -921,6 +922,7 @@ qt-gui-x86-clean:
 qt-gui-x64-clean:
 	$(call deletefilepattern,$(LIBDIR_X64),qt-gui.*)
 	$(call deletefilepattern,$(QTGUI_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTGUI_OBJDIR_X64),*.omm)
 	$(call deletefilepattern,$(QTGUI_OBJDIR_X64),*.omoc)
 	$(call deletefilepattern,$(QTGUI_OBJDIR_X64),*.orcc)
 	$(call deletefilepattern,$(QTGUI_MOCDIR_X64),*.cpp)

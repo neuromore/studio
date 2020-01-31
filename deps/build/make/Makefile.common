@@ -1896,6 +1896,10 @@ QTGUI_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTGUI_DEFINES_X86) $(QTGUI_INCLUD
                       -c $(@:$(QTGUI_OBJDIR_X86)%.o=$(QTGUI_SRCDIR)%.cpp) -o $@
 QTGUI_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTGUI_DEFINES_X64) $(QTGUI_INCLUDES_X64) \
                       -c $(@:$(QTGUI_OBJDIR_X64)%.o=$(QTGUI_SRCDIR)%.cpp) -o $@
+QTGUI_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTGUI_DEFINES_X86) $(QTGUI_INCLUDES_X86) \
+                      -c $(@:$(QTGUI_OBJDIR_X86)%.omm=$(QTGUI_SRCDIR)%.mm) -o $@
+QTGUI_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTGUI_DEFINES_X64) $(QTGUI_INCLUDES_X64) \
+                      -c $(@:$(QTGUI_OBJDIR_X64)%.omm=$(QTGUI_SRCDIR)%.mm) -o $@
 QTGUI_OBJS_ALL      = accessible/qaccessible.o \
                       accessible/qaccessiblebridge.o \
                       accessible/qaccessiblecache.o \
@@ -2239,6 +2243,12 @@ $(QTGUI_OBJDIR_X86)/%.o:
 
 $(QTGUI_OBJDIR_X64)/%.o:
 	$(QTGUI_BUILD_X64)
+
+$(QTGUI_OBJDIR_X86)/%.omm:
+	$(QTGUI_BUILD_OMM_X86)
+
+$(QTGUI_OBJDIR_X64)/%.omm:
+	$(QTGUI_BUILD_OMM_X64)
 
 $(QTGUI_OBJDIR_X86)/%.oc:
 	$(QTGUI_BUILD_X86_C)
