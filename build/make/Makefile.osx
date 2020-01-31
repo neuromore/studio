@@ -103,7 +103,8 @@ LINKPATH_X86 = -L./lib/x86
 LINKPATH_X64 = -L./lib/x64
 
 # Shared Libraries for X86 and X64
-LINKLIBS_ALL = -framework AppKit \
+LINKLIBS_ALL = -lcups \
+               -framework AppKit \
                -framework Carbon \
                -framework Cocoa \
                -framework GLUT \
