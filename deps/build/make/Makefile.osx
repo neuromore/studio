@@ -479,7 +479,8 @@ QTPLATFORMCOCOA_OBJS        = $(QTPLATFORMCOCOA_OBJS_ALL) \
                               qnswindow.omm \
                               qnswindowdelegate.omm \
                               qpaintengine_mac.omm \
-                              qprintengine_mac.omm
+                              qprintengine_mac.omm \
+                              qrasterbackingstore.o
 QTPLATFORMCOCOA_OBJS_MOC    = $(QTPLATFORMCOCOA_OBJS_MOC_ALL) \
                               qcocoaeventdispatcher.omoc \
                               qcocoainputcontext.omoc \
