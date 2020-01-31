@@ -820,10 +820,12 @@ qt-fontdatabases: qt-fontdatabases-x86 qt-fontdatabases-x64
 qt-fontdatabases-x86-clean:
 	$(call deletefilepattern,$(LIBDIR_X86),qt-fontdatabases.*)
 	$(call deletefilepattern,$(QTFONTDATABASES_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTFONTDATABASES_OBJDIR_X86),*.omm)
 
 qt-fontdatabases-x64-clean:
 	$(call deletefilepattern,$(LIBDIR_X64),qt-fontdatabases.*)
 	$(call deletefilepattern,$(QTFONTDATABASES_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTFONTDATABASES_OBJDIR_X64),*.omm)
 
 qt-fontdatabases-clean: qt-fontdatabases-x86-clean qt-fontdatabases-x64-clean
 ###################################################################################################################

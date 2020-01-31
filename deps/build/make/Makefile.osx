@@ -352,14 +352,16 @@ QTEVENTDISPATCHERS_OBJS     = $(QTEVENTDISPATCHERS_OBJS_ALL) \
                               qunixeventdispatcher.o
 QTEVENTDISPATCHERS_OBJS_MOC = $(QTEVENTDISPATCHERS_OBJS_MOC_ALL)
 QTEVENTDISPATCHERS_OBJS_RCC = $(QTEVENTDISPATCHERS_OBJS_RCC_ALL)
-QTFONTDATABASES_MOCH        = $(QTFONTDATABASES_MOCH_ALL)
+QTFONTDATABASES_MOCH        = $(QTFONTDATABASES_MOCH_ALL) \
+                              private/qfontengine_coretext_p.cpp
 QTFONTDATABASES_MOCC        = $(QTFONTDATABASES_MOCC_ALL)
 QTFONTDATABASES_UICH        = $(QTFONTDATABASES_UICH_ALL)
 QTFONTDATABASES_RCCH        = $(QTFONTDATABASES_RCCH_ALL)
 QTFONTDATABASES_OBJS        = $(QTFONTDATABASES_OBJS_ALL) \
-                              fontconfig/qfontconfigdatabase.o \
-                              fontconfig/qfontenginemultifontconfig.o
-QTFONTDATABASES_OBJS_MOC    = $(QTFONTDATABASES_OBJS_MOC_ALL)
+                              mac/qcoretextfontdatabase.omm \
+                              mac/qfontengine_coretext.omm  
+QTFONTDATABASES_OBJS_MOC    = $(QTFONTDATABASES_OBJS_MOC_ALL) \
+                              qfontengine_coretext_p.omoc
 QTFONTDATABASES_OBJS_RCC    = $(QTFONTDATABASES_OBJS_RCC_ALL)
 QTGAMEPAD_MOCH              = $(QTGAMEPAD_MOCH_ALL)
 QTGAMEPAD_MOCC              = $(QTGAMEPAD_MOCC_ALL)
