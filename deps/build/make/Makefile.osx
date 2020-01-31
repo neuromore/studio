@@ -420,8 +420,12 @@ QTPLATFORMXCB_OBJS_MOC      = $(QTPLATFORMXCB_OBJS_MOC_ALL)
 QTPLATFORMXCB_OBJS_RCC      = $(QTPLATFORMXCB_OBJS_RCC_ALL)
 QTPLATFORMCOCOA_MOCH        = $(QTPLATFORMCOCOA_MOCH_ALL) \
                               qcocoaclipboard.cpp \
+                              qcocoaeventdispatcher.cpp \
                               qcocoaintegration.cpp \
-                              qcocoawindow.cpp \
+                              qcocoainputcontext.cpp \
+                              qcocoamenubar.cpp \
+                              qcocoanativeinterface.cpp \
+                              qcocoawindow.cpp
 QTPLATFORMCOCOA_MOCC        = $(QTPLATFORMCOCOA_MOCC_ALL) \
                               main.moc
 QTPLATFORMCOCOA_UICH        = $(QTPLATFORMCOCOA_UICH_ALL)
@@ -472,7 +476,11 @@ QTPLATFORMCOCOA_OBJS        = $(QTPLATFORMCOCOA_OBJS_ALL) \
                               qnswindowdelegate.omm \
                               qpaintengine_mac.omm \
                               qprintengine_mac.omm
-QTPLATFORMCOCOA_OBJS_MOC    = $(QTPLATFORMCOCOA_OBJS_MOC_ALL)
+QTPLATFORMCOCOA_OBJS_MOC    = $(QTPLATFORMCOCOA_OBJS_MOC_ALL) \
+                              qcocoaeventdispatcher.omoc \
+                              qcocoainputcontext.omoc \
+                              qcocoamenubar.omoc \
+                              qcocoanativeinterface.omoc
 QTPLATFORMCOCOA_OBJS_RCC    = $(QTPLATFORMCOCOA_OBJS_RCC_ALL) \
                               qcocoaresources.orcc
 QTPRINTSUPPORT_MOCH         = $(QTPRINTSUPPORT_MOCH_ALL)
