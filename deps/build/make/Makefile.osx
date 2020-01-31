@@ -297,7 +297,8 @@ QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
                               private/qeventdispatcher_cf_p.cpp \
                               private/qeventdispatcher_unix_p.cpp \
                               private/qfilesystemwatcher_kqueue_p.cpp \
-                              private/qfilesystemwatcher_inotify_p.cpp
+                              private/qfilesystemwatcher_inotify_p.cpp \
+                              private/qfilesystemwatcher_fsevents_p.cpp                              
 QTCORE_MOCC                 = $(QTCORE_MOCC_ALL) \
                               kernel/qeventdispatcher_cf.moc
 QTCORE_UICH                 = $(QTCORE_UICH_ALL)
@@ -338,7 +339,8 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               tools/qcollator_macx.o \
                               tools/qlocale_mac.omm \
                               tools/qtimezoneprivate_mac.omm
-QTCORE_OBJS_MOC             = $(QTCORE_OBJS_MOC_ALL)
+QTCORE_OBJS_MOC             = $(QTCORE_OBJS_MOC_ALL) \
+                              qfilesystemwatcher_fsevents_p.omoc
 QTCORE_OBJS_RCC             = $(QTCORE_OBJS_RCC_ALL)
 QTEVENTDISPATCHERS_MOCH     = $(QTEVENTDISPATCHERS_MOCH_ALL) \
                               private/qunixeventdispatcher_qpa_p.cpp
