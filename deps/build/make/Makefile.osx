@@ -438,6 +438,8 @@ QTPLATFORMCOCOA_RCCH        = $(QTPLATFORMCOCOA_RCCH_ALL) \
 QTPLATFORMCOCOA_OBJS        = $(QTPLATFORMCOCOA_OBJS_ALL) \
                               main.omm \
                               messages.o \
+                              qabstractfileiconengine.o \
+                              qaccessiblebridgeutils.o \
                               qcocoaaccessibility.omm \
                               qcocoaaccessibilityelement.omm \
                               qcocoaapplication.omm \
