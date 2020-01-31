@@ -483,15 +483,17 @@ QTPLATFORMCOCOA_OBJS_MOC    = $(QTPLATFORMCOCOA_OBJS_MOC_ALL) \
                               qcocoanativeinterface.omoc
 QTPLATFORMCOCOA_OBJS_RCC    = $(QTPLATFORMCOCOA_OBJS_RCC_ALL) \
                               qcocoaresources.orcc
-QTPRINTSUPPORT_MOCH         = $(QTPRINTSUPPORT_MOCH_ALL)
+QTPRINTSUPPORT_MOCH         = $(QTPRINTSUPPORT_MOCH_ALL) \
+                              qpa/qplatformprintplugin.cpp
 QTPRINTSUPPORT_MOCC         = $(QTPRINTSUPPORT_MOCC_ALL) \
 #                              dialogs/qprintdialog_unix.moc
 QTPRINTSUPPORT_UICH         = $(QTPRINTSUPPORT_UICH_ALL)
 QTPRINTSUPPORT_RCCH         = $(QTPRINTSUPPORT_RCCH_ALL)
 QTPRINTSUPPORT_OBJS         = $(QTPRINTSUPPORT_OBJS_ALL) \
-                              dialogs/qpagesetupdialog_mac.omm \
+                              dialogs/qpagesetupdialog_mac.omm
 #                              dialogs/qprintdialog_mac.omm
-QTPRINTSUPPORT_OBJS_MOC     = $(QTPRINTSUPPORT_OBJS_MOC_ALL)
+QTPRINTSUPPORT_OBJS_MOC     = $(QTPRINTSUPPORT_OBJS_MOC_ALL) \
+                              qplatformprintplugin.omoc
 QTPRINTSUPPORT_OBJS_RCC     = $(QTPRINTSUPPORT_OBJS_RCC_ALL)
 QTSERIALPORT_MOCH           = $(QTSERIALPORT_MOCH_ALL)
 QTSERIALPORT_MOCC           = $(QTSERIALPORT_MOCC_ALL)
