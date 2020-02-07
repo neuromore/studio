@@ -290,7 +290,24 @@ QTUIC_LIBS_X64 = $(LIBDIR_X64)/qt-bootstrap.a $(LIBDIR_X64)/zlib.a
 # Qt Libraries
 QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL)
 QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL)
-QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL)
+QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
+                              osx/osxbtcentralmanager.omm \
+                              osx/osxbtchanneldelegate.omm \
+                              osx/osxbtconnectionmonitor.omm \
+                              osx/osxbtdeviceinquiry.omm \
+                              osx/osxbtdevicepair.omm \
+                              osx/osxbtgcdtimer.omm \
+                              osx/osxbtl2capchannel.omm \
+                              osx/osxbtledeviceinquiry.omm \
+                              osx/osxbtnotifier.o \
+                              osx/osxbtobexsession.omm \
+                              osx/osxbtperipheralmanager.omm \
+                              osx/osxbtrfcommchannel.omm \
+                              osx/osxbtsdpinquiry.omm \
+                              osx/osxbtservicerecord.omm \
+                              osx/osxbtsocketlistener.omm \
+                              osx/osxbtutility.omm \
+                              osx/uistrings.o
 QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL)
 QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
 QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \

@@ -640,6 +640,7 @@ qt-bluetooth: qt-bluetooth-x86 qt-bluetooth-x64
 qt-bluetooth-x86-clean:
 	$(call deletefilepattern,$(LIBDIR_X86),qt-bluetooth.*)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.omm)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.omoc)
 	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X86),*.cpp)
 	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X86),*.moc)
@@ -647,6 +648,7 @@ qt-bluetooth-x86-clean:
 qt-bluetooth-x64-clean:
 	$(call deletefilepattern,$(LIBDIR_X64),qt-bluetooth.*)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.omm)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.omoc)
 	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X64),*.cpp)
 	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X64),*.moc)
