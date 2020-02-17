@@ -107,7 +107,9 @@ LINKLIBS_ALL = -lcups \
                -framework AppKit \
                -framework Carbon \
                -framework Cocoa \
+               -framework CoreBluetooth \
                -framework GLUT \
+               -framework IOBluetooth \
                -framework IOKit \
                -framework IOSurface \
                -framework Metal \
