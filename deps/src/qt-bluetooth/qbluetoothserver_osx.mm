@@ -142,7 +142,7 @@ void QBluetoothServerPrivate::stopListener()
 
 void QBluetoothServerPrivate::openNotify(IOBluetoothRFCOMMChannel *channel)
 {
-    Q_ASSERT_X(listener, Q_FUNC_INFO, "invalid listener (nil)");
+    Q_ASSERT_X(listener.data(), Q_FUNC_INFO, "invalid listener (nil)");
     Q_ASSERT_X(channel, Q_FUNC_INFO, "invalid channel (nil)");
     Q_ASSERT_X(q_ptr, Q_FUNC_INFO, "invalid q_ptr (null)");
 
@@ -154,7 +154,7 @@ void QBluetoothServerPrivate::openNotify(IOBluetoothRFCOMMChannel *channel)
 
 void QBluetoothServerPrivate::openNotify(IOBluetoothL2CAPChannel *channel)
 {
-    Q_ASSERT_X(listener, Q_FUNC_INFO, "invalid listener (nil)");
+    Q_ASSERT_X(listener.data(), Q_FUNC_INFO, "invalid listener (nil)");
     Q_ASSERT_X(channel, Q_FUNC_INFO, "invalid channel (nil)");
     Q_ASSERT_X(q_ptr, Q_FUNC_INFO, "invalid q_ptr (null)");
 
@@ -293,7 +293,7 @@ bool QBluetoothServer::listen(const QBluetoothAddress &address, quint16 port)
 
     OSXBluetooth::qt_test_iobluetooth_runloop();
 
-    if (d_ptr->listener) {
+    if (d_ptr->listener.data()) {
         qCWarning(QT_BT_OSX) << "already in listen mode, close server first";
         return false;
     }

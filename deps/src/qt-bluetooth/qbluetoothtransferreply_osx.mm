@@ -136,13 +136,13 @@ QBluetoothTransferReplyOSXPrivate::~QBluetoothTransferReplyOSXPrivate()
     // The OBEX session will be closed then. If
     // somehow IOBluetooth/OBEX still has a reference to our
     // session, it will not call any of delegate's callbacks.
-    if (session)
+    if (session.data())
         [session closeSession];
 }
 
 bool QBluetoothTransferReplyOSXPrivate::isActive() const
 {
-    return agent || (session && [session hasActiveRequest]);
+    return agent || (session.data() && [session hasActiveRequest]);
 }
 
 bool QBluetoothTransferReplyOSXPrivate::startOPP(const QBluetoothAddress &device)
@@ -218,7 +218,7 @@ void QBluetoothTransferReplyOSXPrivate::sendConnect(const QBluetoothAddress &dev
 void QBluetoothTransferReplyOSXPrivate::sendPut()
 {
     Q_ASSERT_X(inputStream, Q_FUNC_INFO, "invalid input stream (null)");
-    Q_ASSERT_X(session, Q_FUNC_INFO, "invalid OBEX session (nil)");
+    Q_ASSERT_X(session.data(), Q_FUNC_INFO, "invalid OBEX session (nil)");
     Q_ASSERT_X([session isConnected], Q_FUNC_INFO, "not connected");
     Q_ASSERT_X(![session hasActiveRequest], Q_FUNC_INFO,
                "session already has an active request");
@@ -268,7 +268,7 @@ void QBluetoothTransferReplyOSXPrivate::OBEXConnectError(OBEXError errorCode, OB
     Q_UNUSED(errorCode)
     Q_UNUSED(response)
 
-    if (session) {
+    if (session.data()) {
         setReplyError(QBluetoothTransferReply::SessionError,
                       QCoreApplication::translate(TRANSFER_REPLY, TR_CONNECT_FAILED));
     } else {

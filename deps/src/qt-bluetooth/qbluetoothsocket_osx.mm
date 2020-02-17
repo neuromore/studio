@@ -101,13 +101,13 @@ void QBluetoothSocketPrivate::connectToService(const QBluetoothAddress &address,
 
     if (socketType == QBluetoothServiceInfo::RfcommProtocol) {
         rfcommChannel.reset([[ObjCRFCOMMChannel alloc] initWithDelegate:this]);
-        if (rfcommChannel)
+        if (rfcommChannel.data())
             status = [rfcommChannel connectAsyncToDevice:address withChannelID:port];
         else
             status = kIOReturnNoMemory;
     } else if (socketType == QBluetoothServiceInfo::L2capProtocol) {
         l2capChannel.reset([[ObjCL2CAPChannel alloc] initWithDelegate:this]);
-        if (l2capChannel)
+        if (l2capChannel.data())
             status = [l2capChannel connectAsyncToDevice:address withPSM:port];
         else
             status = kIOReturnNoMemory;
@@ -181,10 +181,10 @@ QString QBluetoothSocketPrivate::peerName() const
 
     NSString *nsName = nil;
     if (socketType == QBluetoothServiceInfo::RfcommProtocol) {
-        if (rfcommChannel)
+        if (rfcommChannel.data())
             nsName = [rfcommChannel peerName];
     } else if (socketType == QBluetoothServiceInfo::L2capProtocol) {
-        if (l2capChannel)
+        if (l2capChannel.data())
             nsName = [l2capChannel peerName];
     }
 
@@ -198,10 +198,10 @@ QBluetoothAddress QBluetoothSocketPrivate::peerAddress() const
 {
     BluetoothDeviceAddress addr = {};
     if (socketType == QBluetoothServiceInfo::RfcommProtocol) {
-        if (rfcommChannel)
+        if (rfcommChannel.data())
             addr = [rfcommChannel peerAddress];
     } else if (socketType == QBluetoothServiceInfo::L2capProtocol) {
-        if (l2capChannel)
+        if (l2capChannel.data())
             addr = [l2capChannel peerAddress];
     }
 
@@ -211,10 +211,10 @@ QBluetoothAddress QBluetoothSocketPrivate::peerAddress() const
 quint16 QBluetoothSocketPrivate::peerPort() const
 {
     if (socketType == QBluetoothServiceInfo::RfcommProtocol) {
-        if (rfcommChannel)
+        if (rfcommChannel.data())
             return [rfcommChannel getChannelID];
     } else if (socketType == QBluetoothServiceInfo::L2capProtocol) {
-        if (l2capChannel)
+        if (l2capChannel.data())
             return [l2capChannel getPSM];
     }
 
@@ -231,7 +231,7 @@ void QBluetoothSocketPrivate::_q_writeNotify()
     Q_ASSERT_X(socketType == QBluetoothServiceInfo::L2capProtocol
                || socketType == QBluetoothServiceInfo::RfcommProtocol,
                Q_FUNC_INFO, "invalid socket type");
-    Q_ASSERT_X(l2capChannel || rfcommChannel, Q_FUNC_INFO,
+    Q_ASSERT_X(l2capChannel.data()|| rfcommChannel.data(), Q_FUNC_INFO,
                "invalid socket (no open channel)");
     Q_ASSERT_X(q_ptr, Q_FUNC_INFO, "invalid q_ptr (null)");
 
@@ -275,13 +275,13 @@ bool QBluetoothSocketPrivate::setChannel(IOBluetoothRFCOMMChannel *channel)
 
     openMode = QIODevice::ReadWrite;
     rfcommChannel.reset([[ObjCRFCOMMChannel alloc] initWithDelegate:this channel:channel]);
-    if (rfcommChannel) {// We do not handle errors, up to an external user.
+    if (rfcommChannel.data()) {// We do not handle errors, up to an external user.
         q_ptr->setOpenMode(QIODevice::ReadWrite);
         state = QBluetoothSocket::ConnectedState;
         socketType = QBluetoothServiceInfo::RfcommProtocol;
     }
 
-    return rfcommChannel;
+    return rfcommChannel.data();
 }
 
 bool QBluetoothSocketPrivate::setChannel(IOBluetoothL2CAPChannel *channel)
@@ -299,13 +299,13 @@ bool QBluetoothSocketPrivate::setChannel(IOBluetoothL2CAPChannel *channel)
 
     openMode = QIODevice::ReadWrite;
     l2capChannel.reset([[ObjCL2CAPChannel alloc] initWithDelegate:this channel:channel]);
-    if (l2capChannel) {// We do not handle errors, up to an external user.
+    if (l2capChannel.data()) {// We do not handle errors, up to an external user.
         q_ptr->setOpenMode(QIODevice::ReadWrite);
         state = QBluetoothSocket::ConnectedState;
         socketType = QBluetoothServiceInfo::L2capProtocol;
     }
 
-    return l2capChannel;
+    return l2capChannel.data();
 }
 
 

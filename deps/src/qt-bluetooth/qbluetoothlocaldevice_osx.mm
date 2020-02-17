@@ -149,7 +149,7 @@ QBluetoothLocalDevicePrivate::QBluetoothLocalDevicePrivate(QBluetoothLocalDevice
 
 bool QBluetoothLocalDevicePrivate::isValid() const
 {
-    return hostController;
+    return hostController.data();
 }
 
 void QBluetoothLocalDevicePrivate::requestPairing(const QBluetoothAddress &address, Pairing pairing)

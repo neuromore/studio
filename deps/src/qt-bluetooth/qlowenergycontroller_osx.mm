@@ -202,7 +202,7 @@ bool QLowEnergyControllerPrivateOSX::isValid() const
 #ifdef Q_OS_TVOS
     return centralManager;
 #else
-    return centralManager || peripheralManager;
+    return centralManager.data() || peripheralManager.data();
 #endif
 }
 
