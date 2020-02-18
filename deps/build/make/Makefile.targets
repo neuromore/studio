@@ -610,18 +610,22 @@ qt-uic-clean: qt-uic-x86-clean qt-uic-x64-clean
 ###################################################################################################################
 # QTBLUETOOTH
 ###################################################################################################################
-QTBLUETOOTH_MOCH_X86     := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X86)/%,$(QTBLUETOOTH_MOCH))
-QTBLUETOOTH_MOCH_X64     := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X64)/%,$(QTBLUETOOTH_MOCH))
-QTBLUETOOTH_MOCC_X86     := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X86)/%,$(QTBLUETOOTH_MOCC))
-QTBLUETOOTH_MOCC_X64     := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X64)/%,$(QTBLUETOOTH_MOCC))
-QTBLUETOOTH_OBJS_X86     := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X86)/%,$(QTBLUETOOTH_OBJS))
-QTBLUETOOTH_OBJS_X64     := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X64)/%,$(QTBLUETOOTH_OBJS))
-QTBLUETOOTH_OBJS_MOC_X86 := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X86)/%,$(QTBLUETOOTH_OBJS_MOC))
-QTBLUETOOTH_OBJS_MOC_X64 := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X64)/%,$(QTBLUETOOTH_OBJS_MOC))
-QTBLUETOOTH_PRES_X86     := $(QTBLUETOOTH_MOCH_X86) $(QTBLUETOOTH_MOCC_X86)
-QTBLUETOOTH_PRES_X64     := $(QTBLUETOOTH_MOCH_X64) $(QTBLUETOOTH_MOCC_X64)
-QTBLUETOOTH_OBLS_X86     := $(QTBLUETOOTH_OBJS_X86) $(QTBLUETOOTH_OBJS_MOC_X86)
-QTBLUETOOTH_OBLS_X64     := $(QTBLUETOOTH_OBJS_X64) $(QTBLUETOOTH_OBJS_MOC_X64)
+QTBLUETOOTH_MOCH_X86       := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X86)/%,$(QTBLUETOOTH_MOCH))
+QTBLUETOOTH_MOCH_X64       := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X64)/%,$(QTBLUETOOTH_MOCH))
+QTBLUETOOTH_MOCC_X86       := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X86)/%,$(QTBLUETOOTH_MOCC))
+QTBLUETOOTH_MOCC_X64       := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X64)/%,$(QTBLUETOOTH_MOCC))
+QTBLUETOOTH_MOCMM_X86      := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X86)/%,$(QTBLUETOOTH_MOCMM))
+QTBLUETOOTH_MOCMM_X64      := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X64)/%,$(QTBLUETOOTH_MOCMM))
+QTBLUETOOTH_OBJS_X86       := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X86)/%,$(QTBLUETOOTH_OBJS))
+QTBLUETOOTH_OBJS_X64       := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X64)/%,$(QTBLUETOOTH_OBJS))
+QTBLUETOOTH_OBJS_MOC_X86   := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X86)/%,$(QTBLUETOOTH_OBJS_MOC))
+QTBLUETOOTH_OBJS_MOC_X64   := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X64)/%,$(QTBLUETOOTH_OBJS_MOC))
+QTBLUETOOTH_OBJS_MOCMM_X86 := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X86)/%,$(QTBLUETOOTH_OBJS_MOCMM))
+QTBLUETOOTH_OBJS_MOCMM_X64 := $(patsubst %,$(QTBLUETOOTH_OBJDIR_X64)/%,$(QTBLUETOOTH_OBJS_MOCMM))
+QTBLUETOOTH_PRES_X86       := $(QTBLUETOOTH_MOCH_X86) $(QTBLUETOOTH_MOCC_X86) $(QTBLUETOOTH_MOCMM_X86)
+QTBLUETOOTH_PRES_X64       := $(QTBLUETOOTH_MOCH_X64) $(QTBLUETOOTH_MOCC_X64) $(QTBLUETOOTH_MOCMM_X64)
+QTBLUETOOTH_OBLS_X86       := $(QTBLUETOOTH_OBJS_X86) $(QTBLUETOOTH_OBJS_MOC_X86) $(QTBLUETOOTH_OBJS_MOCMM_X86)
+QTBLUETOOTH_OBLS_X64       := $(QTBLUETOOTH_OBJS_X64) $(QTBLUETOOTH_OBJS_MOC_X64) $(QTBLUETOOTH_OBJS_MOCMM_X64)
 
 $(QTBLUETOOTH_OBLS_X86) : $(QTBLUETOOTH_PRES_X86)
 $(QTBLUETOOTH_OBLS_X64) : $(QTBLUETOOTH_PRES_X64)
@@ -642,16 +646,20 @@ qt-bluetooth-x86-clean:
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.o)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.omm)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X86),*.omocmm)
 	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X86),*.cpp)
 	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X86),*.mm)
 
 qt-bluetooth-x64-clean:
 	$(call deletefilepattern,$(LIBDIR_X64),qt-bluetooth.*)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.o)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.omm)
 	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTBLUETOOTH_OBJDIR_X64),*.omocmm)
 	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X64),*.cpp)
 	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(QTBLUETOOTH_MOCDIR_X64),*.mm)
 
 qt-bluetooth-clean: qt-bluetooth-x86-clean qt-bluetooth-x64-clean
 ###################################################################################################################

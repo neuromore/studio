@@ -61,8 +61,8 @@ QTRCC_DEFINES_X86_PLAT              =
 QTRCC_DEFINES_X64_PLAT              =
 QTUIC_DEFINES_X86_PLAT              =
 QTUIC_DEFINES_X64_PLAT              =
-QTBLUETOOTH_DEFINES_X86_PLAT        =
-QTBLUETOOTH_DEFINES_X64_PLAT        =
+QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_OSX_BLUETOOTH
+QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_OSX_BLUETOOTH
 QTCONCURRENT_DEFINES_X86_PLAT       =
 QTCONCURRENT_DEFINES_X64_PLAT       =
 QTCORE_DEFINES_X86_PLAT             = -DQT_UNIX_SEMAPHORE
@@ -159,8 +159,8 @@ SINGLEAPPLICATION_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/macx-clang
 #####################################################################################
 # Qt MOC+RCC+UIC
 
-MOC_X86 = bin/x86/qt-moc -DQ_OS_MAC
-MOC_X64 = bin/x64/qt-moc -DQ_OS_MAC
+MOC_X86 = bin/x86/qt-moc -DQ_OS_MAC -DQT_OSX_BLUETOOTH
+MOC_X64 = bin/x64/qt-moc -DQ_OS_MAC -DQT_OSX_BLUETOOTH
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     MOC = $(MOC_X86)
 endif
@@ -288,8 +288,14 @@ QTUIC_LIBS_X86 = $(LIBDIR_X86)/qt-bootstrap.a $(LIBDIR_X86)/zlib.a
 QTUIC_LIBS_X64 = $(LIBDIR_X64)/qt-bootstrap.a $(LIBDIR_X64)/zlib.a
 
 # Qt Libraries
-QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL)
-QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL)
+QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL) \
+                              private/osxbtnotifier_p.cpp
+QTBLUETOOTH_MOCMM           = $(QTBLUETOOTH_MOCMM_ALL) \
+                              private/qbluetoothtransferreply_osx_p.mm \
+                              private/qlowenergycontroller_osx_p.mm \
+                              private/osxbtcentralmanager_p.mm
+QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL) \
+                              private/qlowenergycontroller_osx_p.cpp
 QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
                               osx/osxbtcentralmanager.omm \
                               osx/osxbtchanneldelegate.omm \
@@ -307,8 +313,21 @@ QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
                               osx/osxbtservicerecord.omm \
                               osx/osxbtsocketlistener.omm \
                               osx/osxbtutility.omm \
-                              osx/uistrings.o
-QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL)
+                              osx/uistrings.o \
+                              qbluetoothdevicediscoveryagent_osx.omm \
+                              qbluetoothtransferreply_osx.omm \
+                              qbluetoothlocaldevice_osx.omm \
+                              qbluetoothserver_osx.omm \
+                              qbluetoothservicediscoveryagent_osx.omm \
+                              qbluetoothserviceinfo_osx.omm \
+                              qbluetoothsocket_osx.omm \
+                              qlowenergycontroller_osx.omm \
+                              qlowenergyservice_osx.omm
+QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL) \
+                              osxbtnotifier_p.omoc
+QTBLUETOOTH_OBJS_MOCMM      = $(QTBLUETOOTH_OBJS_MOCMM_ALL) \
+                              qbluetoothtransferreply_osx_p.omocmm \
+                              qlowenergycontroller_osx_p.omocmm
 QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
 QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
                               private/qeventdispatcher_cf_p.cpp \

@@ -952,17 +952,27 @@ QTBLUETOOTH_MOC_H_X64     = $(MOC_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_
 QTBLUETOOTH_MOCH_ALL      = qbluetoothdevicediscoveryagent.cpp \
                             qbluetoothlocaldevice.cpp \
                             qbluetoothserver.cpp \
-                            qbluetoothservicediscoveryagent.cpp \
-                            private/qbluetoothserviceinfo_p.cpp \
                             qbluetoothsocket.cpp \
                             qbluetoothtransfermanager.cpp \
                             qbluetoothtransferreply.cpp \
-                            private/qleadvertiser_p.cpp \
+                            qbluetoothservicediscoveryagent.cpp \
                             qlowenergycontroller.cpp \
-                            private/qlowenergycontroller_p.cpp \
-                            private/qlowenergycontrollerbase_p.cpp \
                             qlowenergyservice.cpp \
-                            private/qlowenergyserviceprivate_p.cpp						
+                            private/qbluetoothdevicediscoveryagent_p.cpp \
+                            private/qbluetoothlocaldevice_p.cpp \
+                            private/qbluetoothservicediscoveryagent_p.cpp \
+                            private/qbluetoothserviceinfo_p.cpp \
+                            private/qbluetoothsocketbase_p.cpp \
+                            private/qleadvertiser_p.cpp \
+                            private/qlowenergycontrollerbase_p.cpp \
+                            private/qlowenergyserviceprivate_p.cpp
+QTBLUETOOTH_MOC_H_MM_X86  = $(MOC_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
+                            $(@:$(QTBLUETOOTH_MOCDIR_X86)/%.mm=$(INCDIR)/qt/QtBluetooth/%.h) \
+                            -o $(@:$(QTBLUETOOTH_MOCDIR_X86)/%.mm=$(QTBLUETOOTH_MOCDIR_X86)/moc_$(@F))
+QTBLUETOOTH_MOC_H_MM_X64  = $(MOC_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
+                            $(@:$(QTBLUETOOTH_MOCDIR_X64)/%.mm=$(INCDIR)/qt/QtBluetooth/%.h) \
+                            -o $(@:$(QTBLUETOOTH_MOCDIR_X64)/%.mm=$(QTBLUETOOTH_MOCDIR_X64)/moc_$(@F))
+QTBLUETOOTH_MOCMM_ALL     = 
 QTBLUETOOTH_MOC_C_X86     = $(MOC_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
                             $(@:$(QTBLUETOOTH_MOCDIR_X86)/%.moc=$(QTBLUETOOTH_SRCDIR)/%.cpp) -o $@
 QTBLUETOOTH_MOC_C_X64     = $(MOC_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
@@ -984,15 +994,8 @@ QTBLUETOOTH_OBJS_ALL      = dummy/dummy_helper.o \
                             qbluetoothdeviceinfo.o \
                             qbluetoothhostinfo.o \
                             qbluetoothlocaldevice.o \
-                            qbluetoothlocaldevice_p.o \
-                            qbluetoothserver.o \
-                            qbluetoothserver_p.o \
                             qbluetoothservicediscoveryagent.o \
                             qbluetoothservicediscoveryagent_p.o \
-                            qbluetoothserviceinfo.o \
-                            qbluetoothserviceinfo_p.o \
-                            qbluetoothsocket.o \
-                            qbluetoothsocketbase.o \
                             qbluetoothtransfermanager.o \
                             qbluetoothtransferreply.o \
                             qbluetoothtransferrequest.o \
@@ -1002,12 +1005,8 @@ QTBLUETOOTH_OBJS_ALL      = dummy/dummy_helper.o \
                             qlowenergycharacteristic.o \
                             qlowenergycharacteristicdata.o \
                             qlowenergyconnectionparameters.o \
-                            qlowenergycontroller.o \
-                            qlowenergycontroller_p.o \
-                            qlowenergycontrollerbase.o \
                             qlowenergydescriptor.o \
                             qlowenergydescriptordata.o \
-                            qlowenergyservice.o \
                             qlowenergyservicedata.o \
                             qlowenergyserviceprivate.o
 QTBLUETOOTH_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
@@ -1015,18 +1014,30 @@ QTBLUETOOTH_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(
 QTBLUETOOTH_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X64)/%.omoc=$(QTBLUETOOTH_MOCDIR_X64)/moc_%.cpp) -o $@
 QTBLUETOOTH_OBJS_MOC_ALL  = qbluetoothserviceinfo_p.omoc \
+                            qbluetoothservicediscoveryagent_p.omoc \
+                            qbluetoothsocketbase_p.omoc \
                             qleadvertiser_p.omoc \
                             qlowenergycontroller.omoc \
-                            qlowenergycontroller_p.omoc \
                             qlowenergycontrollerbase_p.omoc \
                             qlowenergyservice.omoc \
                             qlowenergyserviceprivate_p.omoc
+QTBLUETOOTH_BUILD_MOCMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
+                            -c $(@:$(QTBLUETOOTH_OBJDIR_X86)/%.omocmm=$(QTBLUETOOTH_MOCDIR_X86)/moc_%.mm) -o $@
+QTBLUETOOTH_BUILD_MOCMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
+                            -c $(@:$(QTBLUETOOTH_OBJDIR_X64)/%.omocmm=$(QTBLUETOOTH_MOCDIR_X64)/moc_%.mm) -o $@
+QTBLUETOOTH_OBJS_MOCMM_ALL  =
 
 $(QTBLUETOOTH_MOCDIR_X86)/%.cpp:
 	$(QTBLUETOOTH_MOC_H_X86)
 
 $(QTBLUETOOTH_MOCDIR_X64)/%.cpp:
 	$(QTBLUETOOTH_MOC_H_X64)
+
+$(QTBLUETOOTH_MOCDIR_X86)/%.mm:
+	$(QTBLUETOOTH_MOC_H_MM_X86)
+
+$(QTBLUETOOTH_MOCDIR_X64)/%.mm:
+	$(QTBLUETOOTH_MOC_H_MM_X64)
 
 $(QTBLUETOOTH_MOCDIR_X86)/%.moc:
 	$(QTBLUETOOTH_MOC_C_X86)
@@ -1051,6 +1062,13 @@ $(QTBLUETOOTH_OBJDIR_X86)/%.omoc:
 
 $(QTBLUETOOTH_OBJDIR_X64)/%.omoc:
 	$(QTBLUETOOTH_BUILD_MOC_X64)
+
+$(QTBLUETOOTH_OBJDIR_X86)/%.omocmm:
+	$(QTBLUETOOTH_BUILD_MOCMM_X86)
+
+$(QTBLUETOOTH_OBJDIR_X64)/%.omocmm:
+	$(QTBLUETOOTH_BUILD_MOCMM_X64)
+
 ###################################################################################################################
 # QT-CORE
 ###################################################################################################################
