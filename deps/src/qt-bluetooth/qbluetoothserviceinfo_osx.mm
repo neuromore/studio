@@ -152,7 +152,7 @@ bool QBluetoothServiceInfoPrivate::unregisterService()
     if (!registered)
         return false;
 
-    Q_ASSERT_X(serviceRecord, Q_FUNC_INFO, "service registered, but serviceRecord is nil");
+    Q_ASSERT_X(serviceRecord.data(), Q_FUNC_INFO, "service registered, but serviceRecord is nil");
 
     [serviceRecord removeServiceRecord];
     serviceRecord.reset(nil);
