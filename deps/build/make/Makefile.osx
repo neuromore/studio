@@ -7,7 +7,8 @@ TARGET_X86 = i686-apple-darwin19.2.0
 TARGET_X64 = x86_64-apple-darwin19.2.0
 
 # flags shared between all
-FLAGS = -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
+FLAGS = -O2 \
+        -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations \
         -Wno-incompatible-pointer-types \
         -Wno-implicit-function-declaration \
@@ -43,8 +44,8 @@ LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".
 LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
 LIBSSL_DEFINES_X86_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
 LIBSSL_DEFINES_X64_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-FONTCONFIG_DEFINES_X86_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
-FONTCONFIG_DEFINES_X64_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
+FONTCONFIG_DEFINES_X86_PLAT         =
+FONTCONFIG_DEFINES_X64_PLAT         =
 OPENCVCORE_DEFINES_X86_PLAT         =
 OPENCVCORE_DEFINES_X64_PLAT         =
 OPENCVIMGCODECS_DEFINES_X86_PLAT    =
@@ -571,3 +572,11 @@ SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 # Include Targets
 
 include Makefile.targets
+
+all-x86: all-common-x86 \
+         qt-platform-cocoa-x86
+
+all-x64: all-common-x64 \
+         qt-platform-cocoa-x64
+
+all: all-x86 all-x64

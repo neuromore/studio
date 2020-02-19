@@ -1519,7 +1519,7 @@ singleapplication-clean: singleapplication-x86-clean singleapplication-x64-clean
 ###################################################################################################################
 # ALL
 ###################################################################################################################
-all-x86: zlib-x86 \
+all-common-x86: zlib-x86 \
          libcrypto-x86 \
          libssl-x86 \
          libpng-x86 \
@@ -1527,7 +1527,6 @@ all-x86: zlib-x86 \
          pcre2-x86 \
          double-conversion-x86 \
          edflib-x86 \
-         fontconfig-x86 \
          freetype-x86 \
          harfbuzz-x86 \
          harfbuzz-ng-x86 \
@@ -1556,16 +1555,13 @@ all-x86: zlib-x86 \
          qt-multimediawidgets-x86 \
          qt-network-x86 \
          qt-opengl-x86 \
-         qt-platform-windows-x86 \
-         qt-platform-xcb-x86 \
-         qt-platform-cocoa-x86 \
          qt-printsupport-x86 \
          qt-serialport-x86 \
          qt-widgets-x86 \
          qt-xml-x86 \
          singleapplication-x86
 
-all-x64: zlib-x64 \
+all-common-x64: zlib-x64 \
          libcrypto-x64 \
          libssl-x64 \
          libpng-x64 \
@@ -1573,7 +1569,6 @@ all-x64: zlib-x64 \
          pcre2-x64 \
          double-conversion-x64 \
          edflib-x64 \
-         fontconfig-x64 \
          freetype-x64 \
          harfbuzz-x64 \
          harfbuzz-ng-x64 \
@@ -1602,16 +1597,11 @@ all-x64: zlib-x64 \
          qt-multimediawidgets-x64 \
          qt-network-x64 \
          qt-opengl-x64 \
-         qt-platform-windows-x64 \
-         qt-platform-xcb-x64 \
-         qt-platform-cocoa-x64 \
          qt-printsupport-x64 \
          qt-serialport-x64 \
          qt-widgets-x64 \
          qt-xml-x64 \
          singleapplication-x64
-
-all: all-x86 all-x64
 
 clean-x86: zlib-x86-clean \
            libcrypto-x86-clean \

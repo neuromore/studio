@@ -564,3 +564,11 @@ SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 # Include Targets
 
 include Makefile.targets
+
+all-x86: all-common-x86 \
+         qt-platform-windows-x86
+
+all-x64: all-common-x64 \
+         qt-platform-windows-x64
+
+all: all-x86 all-x64
