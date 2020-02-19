@@ -66,11 +66,8 @@ uint64 SystemInfo::GetTotalVirtualMemoryInBytes() const
 	// macOS
 	#ifdef NEUROMORE_PLATFORM_OSX
 		struct statfs stats;
-		if (0 == statfs("/", &stats))
-		{
-			myFreeSwap = (uint64_t)stats.f_bsize * stats.f_bfree;
-		}
-		return myFreeSwap;
+        return (0 == statfs("/", &stats)) ?
+            (uint64_t)stats.f_bsize * stats.f_bfree : 0;
 	#endif
 
 	// linux
@@ -199,7 +196,7 @@ uint64 SystemInfo::GetTotalMemoryInBytes() const
 		int64_t physical_memory;
 		mib[0] = CTL_HW;
 		mib[1] = HW_MEMSIZE;
-		length = sizeof(int64_t);
+		size_t length = sizeof(int64_t);
 		sysctl(mib, 2, &physical_memory, &length, NULL, 0);
 		return length;
 	#endif
