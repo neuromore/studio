@@ -73,7 +73,7 @@ It supports the following platforms:
 
 * Windows
 * Linux
-* Mac (Work-In-Progress)
+* Mac OSX
 
 #### General
 
@@ -107,7 +107,7 @@ make clean -f Makefile.linux -j 4
 
 *Notes:*
 
-* Replace 'linux' in 'Makefile.linux' by 'windows' to build on Windows instead of Linux
+* Replace 'linux' in 'Makefile.linux' by 'windows' or 'osx' to build on Windows or OSX
 * Replace 'x64' by 'x86' to build the 32 Bit version instead of 64 Bit
 * Replace '4' in '-j 4' by the number of cores you want to use for compilation
 * Building the dependencies is only required once (or when they change, which doesn't occur often)
@@ -168,6 +168,23 @@ sudo apt-get install \
  libxcb-xinerama0-dev \
  libxcb-xkb-dev \
  libxcb-util-dev
+```
+
+#### Mac OSX
+
+*Install these*
+
+```
+Xcode
+Xcode Command Line Tools
+```
+
+*Verify the build tool versions:*
+
+```
+make -v
+clang++ -v
+ar
 ```
 
 #### Windows
