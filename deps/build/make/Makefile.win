@@ -189,6 +189,10 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     UIC = $(UIC_X64)
 endif
 
+# Platform specific bash file exists check
+QTCORE_MOC_CMD_X86 = if exists $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X86) ) else ( $(QTCORE_MOC_MM_X86) )
+QTCORE_MOC_CMD_X64 = if exists $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X64) ) else ( $(QTCORE_MOC_MM_X64) )
+
 #####################################################################################
 # Include Common Makefile
 include Makefile.common
