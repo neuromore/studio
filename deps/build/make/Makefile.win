@@ -7,7 +7,8 @@ TARGET_X86 = i686-pc-windows-msvc
 TARGET_X64 = x86_64-pc-windows-msvc
 
 # flags shared between all
-FLAGS = -DWIN32 \
+FLAGS = -O2 \
+        -DWIN32 \
         -D_CRT_SECURE_NO_WARNINGS \
         -D_CRT_NONSTDC_NO_DEPRECATE \
         -D_WINSOCK_DEPRECATED_NO_WARNINGS \
@@ -190,8 +191,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
 endif
 
 # Platform specific bash file exists check
-QTCORE_MOC_CMD_X86 = if exists $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X86) ) else ( $(QTCORE_MOC_MM_X86) )
-QTCORE_MOC_CMD_X64 = if exists $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X64) ) else ( $(QTCORE_MOC_MM_X64) )
+QTCORE_MOC_CMD_X86 = if exist $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X86) ) else ( $(QTCORE_MOC_MM_X86) )
+QTCORE_MOC_CMD_X64 = if exist $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X64) ) else ( $(QTCORE_MOC_MM_X64) )
 
 #####################################################################################
 # Include Common Makefile
