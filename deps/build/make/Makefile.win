@@ -319,10 +319,12 @@ QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL) \
                               qbluetoothsocket_winrt.moc \
                               qlowenergycontroller_winrt.moc
 QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
+                              qbluetoothdevicediscoveryagent.o \
                               qbluetoothdevicediscoveryagent_winrt.o \
                               qbluetoothlocaldevice_p.o \
                               qbluetoothserver.o \
                               qbluetoothserver_winrt.o \
+                              qbluetoothservicediscoveryagent.o \
                               qbluetoothservicediscoveryagent_winrt.o \
                               qbluetoothserviceinfo.o \
                               qbluetoothserviceinfo_winrt.o \

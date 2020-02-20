@@ -988,11 +988,9 @@ QTBLUETOOTH_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X64)%.omm=$(QTBLUETOOTH_SRCDIR)%.mm) -o $@
 QTBLUETOOTH_OBJS_ALL      = qbluetooth.o \
                             qbluetoothaddress.o \
-                            qbluetoothdevicediscoveryagent.o \
                             qbluetoothdeviceinfo.o \
                             qbluetoothhostinfo.o \
                             qbluetoothlocaldevice.o \
-                            qbluetoothservicediscoveryagent.o \
                             qbluetoothtransfermanager.o \
                             qbluetoothtransferreply.o \
                             qbluetoothtransferrequest.o \

@@ -293,10 +293,12 @@ QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL) \
 QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL)
 QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
                               dummy/dummy_helper.o \
+                              qbluetoothdevicediscoveryagent.o \
                               qbluetoothdevicediscoveryagent_p.o \
                               qbluetoothlocaldevice_p.o \
                               qbluetoothserver.o \
                               qbluetoothserver_p.o \
+                              qbluetoothservicediscoveryagent.o \
                               qbluetoothservicediscoveryagent_p.o \
                               qbluetoothserviceinfo.o \
                               qbluetoothserviceinfo_p.o \
