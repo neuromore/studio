@@ -56,6 +56,7 @@
    #pragma comment(lib, "Dwmapi.lib")           // winapi: desktop window manager
    #pragma comment(lib, "Wtsapi32.lib")         // winapi: remote desktop services
    #pragma comment(lib, "Gdi32.lib")            // winapi: gdi
+   #pragma comment(lib, "WindowsApp.lib")       // winapi: WinRT basics
    #pragma comment(lib, "opengl32.lib")         // opengl
    #pragma comment(lib, "glu32.lib")            // opengl
 

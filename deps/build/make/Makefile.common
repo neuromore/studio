@@ -986,16 +986,13 @@ QTBLUETOOTH_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X86)%.omm=$(QTBLUETOOTH_SRCDIR)%.mm) -o $@
 QTBLUETOOTH_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X64)%.omm=$(QTBLUETOOTH_SRCDIR)%.mm) -o $@
-QTBLUETOOTH_OBJS_ALL      = dummy/dummy_helper.o \
-                            qbluetooth.o \
+QTBLUETOOTH_OBJS_ALL      = qbluetooth.o \
                             qbluetoothaddress.o \
                             qbluetoothdevicediscoveryagent.o \
-                            qbluetoothdevicediscoveryagent_p.o \
                             qbluetoothdeviceinfo.o \
                             qbluetoothhostinfo.o \
                             qbluetoothlocaldevice.o \
                             qbluetoothservicediscoveryagent.o \
-                            qbluetoothservicediscoveryagent_p.o \
                             qbluetoothtransfermanager.o \
                             qbluetoothtransferreply.o \
                             qbluetoothtransferrequest.o \

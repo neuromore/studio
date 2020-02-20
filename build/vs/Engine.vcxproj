@@ -156,7 +156,7 @@
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <TargetMachine>MachineX86</TargetMachine>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
@@ -201,7 +201,7 @@
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <TargetMachine>MachineX86</TargetMachine>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
@@ -245,7 +245,7 @@
     </Midl>
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
@@ -289,7 +289,7 @@
     </Midl>
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
@@ -330,7 +330,7 @@
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <TargetMachine>MachineX86</TargetMachine>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
@@ -371,7 +371,7 @@
     </Midl>
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
     </Lib>
   </ItemDefinitionGroup>

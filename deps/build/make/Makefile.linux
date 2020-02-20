@@ -292,9 +292,12 @@ QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL) \
                               private/qlowenergyserviceprivate_p.cpp
 QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL)
 QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
+                              dummy/dummy_helper.o \
+                              qbluetoothdevicediscoveryagent_p.o \
                               qbluetoothlocaldevice_p.o \
                               qbluetoothserver.o \
                               qbluetoothserver_p.o \
+                              qbluetoothservicediscoveryagent_p.o \
                               qbluetoothserviceinfo.o \
                               qbluetoothserviceinfo_p.o \
                               qbluetoothsocket.o \

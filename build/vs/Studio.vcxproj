@@ -552,7 +552,7 @@
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -609,7 +609,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -673,7 +673,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -741,7 +741,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -811,7 +811,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -880,7 +880,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>

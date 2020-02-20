@@ -65,8 +65,8 @@ QTRCC_DEFINES_X86_PLAT              =
 QTRCC_DEFINES_X64_PLAT              =
 QTUIC_DEFINES_X86_PLAT              =
 QTUIC_DEFINES_X64_PLAT              =
-QTBLUETOOTH_DEFINES_X86_PLAT        =
-QTBLUETOOTH_DEFINES_X64_PLAT        =
+QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_WINRT_BLUETOOTH
+QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_WINRT_BLUETOOTH
 QTCONCURRENT_DEFINES_X86_PLAT       =
 QTCONCURRENT_DEFINES_X64_PLAT       =
 QTCORE_DEFINES_X86_PLAT             =
@@ -305,26 +305,43 @@ QTUIC_LIBS_X64 = zlib.lib qt-bootstrap.lib
 
 # Qt Libraries
 QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL) \
+                              private/qbluetoothdevicediscoveryagent_p.cpp \
+                              private/qbluetoothservicediscoveryagent_p.cpp \
+                              private/qbluetoothserviceinfo_p.cpp \
+                              private/qbluetoothsocket_winrt_p.cpp \
+                              private/qbluetoothsocketbase_p.cpp \
                               private/qlowenergycontroller_p.cpp \
+                              private/qlowenergycontroller_winrt_p.cpp \
                               private/qlowenergyserviceprivate_p.cpp
 QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL) \
+                              qbluetoothdevicediscoveryagent_winrt.moc \
+                              qbluetoothservicediscoveryagent_winrt.moc \
+                              qbluetoothsocket_winrt.moc \
                               qlowenergycontroller_winrt.moc
 QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
+                              qbluetoothdevicediscoveryagent_winrt.o \
                               qbluetoothlocaldevice_p.o \
                               qbluetoothserver.o \
-                              qbluetoothserver_p.o \
+                              qbluetoothserver_winrt.o \
+                              qbluetoothservicediscoveryagent_winrt.o \
                               qbluetoothserviceinfo.o \
-                              qbluetoothserviceinfo_p.o \
+                              qbluetoothserviceinfo_winrt.o \
                               qbluetoothsocket.o \
+                              qbluetoothsocket_winrt.o \
                               qbluetoothsocketbase.o \
                               qbluetoothutils_win.o \
                               qlowenergycontroller.o \
-                              qlowenergycontrollerbase.o \
-                              qlowenergycontroller_p.o \
                               qlowenergycontroller_winrt.o \
+                              qlowenergycontrollerbase.o \
                               qlowenergyservice.o
 QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL) \
+                              qbluetoothdevicediscoveryagent_p.omoc \
+                              qbluetoothservicediscoveryagent_p.omoc \
+                              qbluetoothsocket_winrt_p.omoc \
+                              qbluetoothsocketbase_p.omoc \
+                              qbluetoothserviceinfo_p.omoc \
                               qlowenergycontroller_p.omoc \
+                              qlowenergycontroller_winrt_p.omoc \
                               qlowenergyserviceprivate_p.omoc
 QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
 QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
