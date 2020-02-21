@@ -333,6 +333,7 @@ QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
                               qlowenergycontroller_osx.omm \
                               qlowenergyservice_osx.omm
 QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL) \
+                              qbluetoothdevicediscoveryagent.omoc \
                               osxbtnotifier_p.omoc
 QTBLUETOOTH_OBJS_MOCMM      = $(QTBLUETOOTH_OBJS_MOCMM_ALL) \
                               qbluetoothtransferreply_osx_p.omocmm \
