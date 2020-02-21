@@ -402,7 +402,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_FEATURE_bluez=-1;QT_FEATURE_dbus=-1;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -443,7 +443,7 @@ qt-bluetooth.cmd
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_FEATURE_bluez=-1;QT_FEATURE_dbus=-1;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -482,7 +482,7 @@ qt-bluetooth.cmd</Command>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_NO_DEBUG;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_FEATURE_bluez=-1;QT_FEATURE_dbus=-1;QT_NO_DEBUG;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -532,7 +532,7 @@ qt-bluetooth.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_NO_DEBUG;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_FEATURE_bluez=-1;QT_FEATURE_dbus=-1;QT_NO_DEBUG;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
