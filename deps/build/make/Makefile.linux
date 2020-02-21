@@ -358,10 +358,12 @@ QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
                               bluez/service.o \
                               bluez/servicemap.o \
                               lecmaccalculator.o \
+                              qbluetoothdevicediscoveryagent.o \
                               qbluetoothdevicediscoveryagent_bluez.o \
                               qbluetoothlocaldevice_bluez.o \
                               qbluetoothserver.o \
                               qbluetoothserver_bluez.o \
+                              qbluetoothservicediscoveryagent.o \
                               qbluetoothservicediscoveryagent_bluez.o \
                               qbluetoothserviceinfo.o \
                               qbluetoothserviceinfo_bluez.o \
