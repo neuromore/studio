@@ -81,36 +81,44 @@ It supports the following platforms:
 
 ```
 cd deps/build/make
-make all-x64 -f Makefile.linux -j 4
+make
 ```
 
 *Building Studio:*
 
 ```
 cd build/make
-make Studio-x64 -f Makefile.linux -j 4
+make
 ```
 
 *Cleaning third party dependencies:*
 
 ```
 cd deps/build/make
-make clean -f Makefile.linux -j 4
+make clean
 ```
 
 *Cleaning Studio:*
 
 ```
 cd build/make
-make clean -f Makefile.linux -j 4
+make clean
+```
+
+*Building with custom parameters:*
+
+```
+cd deps/build/make
+make all-x64 -f Makefile.linux -j 4
 ```
 
 *Notes:*
 
-* Replace 'linux' in 'Makefile.linux' by 'windows' or 'osx' to build on Windows or OSX
-* Replace 'x64' by 'x86' to build the 32 Bit version instead of 64 Bit
-* Replace '4' in '-j 4' by the number of cores you want to use for compilation
+* Building without parameters will build for your current os, arch and cpu cores count
 * Building the dependencies is only required once (or when they change, which doesn't occur often)
+* Custom: Replace 'linux' in 'Makefile.linux' by 'windows' or 'osx' to build on Windows or OSX
+* Custom: Replace 'x64' by 'x86' to build the 32 Bit version instead of 64 Bit
+* Custom: Replace '4' in '-j 4' by the number of cores you want to use for compilation
 
 *Build Output Studio:*
 
