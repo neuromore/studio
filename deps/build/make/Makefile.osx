@@ -5,9 +5,11 @@
 # target platforms
 TARGET_X86 = i686-apple-darwin19.2.0
 TARGET_X64 = x86_64-apple-darwin19.2.0
+OSX_MINVER = 10.12
 
 # flags shared between all
 FLAGS = -O2 \
+        -mmacosx-version-min=$(OSX_MINVER) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations \
         -Wno-incompatible-pointer-types \
@@ -62,20 +64,22 @@ QTRCC_DEFINES_X86_PLAT              =
 QTRCC_DEFINES_X64_PLAT              =
 QTUIC_DEFINES_X86_PLAT              =
 QTUIC_DEFINES_X64_PLAT              =
-QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_OSX_BLUETOOTH
-QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_OSX_BLUETOOTH
+QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_OSX_BLUETOOTH -DQT_FEATURE_bluez=-1 -DQT_FEATURE_dbus=-1
+QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_OSX_BLUETOOTH -DQT_FEATURE_bluez=-1 -DQT_FEATURE_dbus=-1
 QTCONCURRENT_DEFINES_X86_PLAT       =
 QTCONCURRENT_DEFINES_X64_PLAT       =
-QTCORE_DEFINES_X86_PLAT             = -DQT_UNIX_SEMAPHORE
-QTCORE_DEFINES_X64_PLAT             = -DQT_UNIX_SEMAPHORE
+QTCORE_DEFINES_X86_PLAT             = -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=-1
+QTCORE_DEFINES_X64_PLAT             = -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=-1
+QTDBUS_DEFINES_X86_PLAT             =
+QTDBUS_DEFINES_X64_PLAT             =
 QTEVENTDISPATCHERS_DEFINES_X86_PLAT =
 QTEVENTDISPATCHERS_DEFINES_X64_PLAT =
 QTFONTDATABASES_DEFINES_X86_PLAT    = 
 QTFONTDATABASES_DEFINES_X64_PLAT    = 
 QTGAMEPAD_DEFINES_X86_PLAT          =
 QTGAMEPAD_DEFINES_X64_PLAT          =
-QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\"
-QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\"
+QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_dbus=-1
+QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_dbus=-1
 QTMULTIMEDIA_DEFINES_X86_PLAT       =
 QTMULTIMEDIA_DEFINES_X64_PLAT       =
 QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT=
@@ -124,6 +128,8 @@ QTCONCURRENT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/macx-clang
 QTCONCURRENT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/macx-clang
 QTCORE_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/macx-clang -I../../include/forkfd
 QTCORE_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/macx-clang -I../../include/forkfd
+QTDBUS_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/macx-clang
+QTDBUS_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/macx-clang
 QTEVENTDISPATCHERS_INCLUDES_X86_PLAT = -I../../include/qt/mkspecs/macx-clang
 QTEVENTDISPATCHERS_INCLUDES_X64_PLAT = -I../../include/qt/mkspecs/macx-clang
 QTFONTDATABASES_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/macx-clang
@@ -329,6 +335,7 @@ QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
                               qlowenergycontroller_osx.omm \
                               qlowenergyservice_osx.omm
 QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL) \
+                              qbluetoothdevicediscoveryagent.omoc \
                               osxbtnotifier_p.omoc
 QTBLUETOOTH_OBJS_MOCMM      = $(QTBLUETOOTH_OBJS_MOCMM_ALL) \
                               qbluetoothtransferreply_osx_p.omocmm \
@@ -384,6 +391,13 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
 QTCORE_OBJS_MOC             = $(QTCORE_OBJS_MOC_ALL) \
                               qfilesystemwatcher_fsevents_p.omoc
 QTCORE_OBJS_RCC             = $(QTCORE_OBJS_RCC_ALL)
+QTDBUS_MOCH                 = $(QTDBUS_MOCH_ALL)
+QTDBUS_MOCC                 = $(QTDBUS_MOCC_ALL)
+QTDBUS_UICH                 = $(QTDBUS_UICH_ALL)
+QTDBUS_RCCH                 = $(QTDBUS_RCCH_ALL)
+QTDBUS_OBJS                 = $(QTDBUS_OBJS_ALL)
+QTDBUS_OBJS_MOC             = $(QTDBUS_OBJS_MOC_ALL)
+QTDBUS_OBJS_RCC             = $(QTDBUS_OBJS_RCC_ALL)
 QTEVENTDISPATCHERS_MOCH     = $(QTEVENTDISPATCHERS_MOCH_ALL) \
                               private/qunixeventdispatcher_qpa_p.cpp
 QTEVENTDISPATCHERS_MOCC     = $(QTEVENTDISPATCHERS_MOCC_ALL)

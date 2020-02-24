@@ -939,8 +939,14 @@ QTBLUETOOTH_DEFINES       = -DCLASSIC_APP_BUILD \
                             -D_ENABLE_EXTENDED_ALIGNED_STORAGE
 QTBLUETOOTH_DEFINES_X86   = $(QTBLUETOOTH_DEFINES) $(QTBLUETOOTH_DEFINES_X86_PLAT)
 QTBLUETOOTH_DEFINES_X64   = $(QTBLUETOOTH_DEFINES) $(QTBLUETOOTH_DEFINES_X64_PLAT)
-QTBLUETOOTH_INCLUDES      = -I$(INCDIR)/qt -I$(INCDIR)/qt/QtCore -I$(INCDIR)/qt/QtBluetooth \
-                            -I$(INCDIR)/qt/QtBluetooth/private -I$(QTBLUETOOTH_SRCDIR)
+QTBLUETOOTH_INCLUDES      = -I$(INCDIR)/qt \
+                            -I$(INCDIR)/qt/QtCore \
+                            -I$(INCDIR)/qt/QtConcurrent \
+                            -I$(INCDIR)/qt/QtBluetooth \
+                            -I$(INCDIR)/qt/QtBluetooth/private \
+                            -I$(INCDIR)/qt/QtBluetooth/private/bluez \
+                            -I$(INCDIR)/qt/QtDBus \
+                            -I$(QTBLUETOOTH_SRCDIR)
 QTBLUETOOTH_INCLUDES_X86  = $(QTBLUETOOTH_INCLUDES) -I$(QTBLUETOOTH_MOCDIR_X86) $(QTBLUETOOTH_INCLUDES_X86_PLAT)
 QTBLUETOOTH_INCLUDES_X64  = $(QTBLUETOOTH_INCLUDES) -I$(QTBLUETOOTH_MOCDIR_X64) $(QTBLUETOOTH_INCLUDES_X64_PLAT)
 QTBLUETOOTH_MOC_H_X86     = $(MOC_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
@@ -986,16 +992,11 @@ QTBLUETOOTH_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X86)%.omm=$(QTBLUETOOTH_SRCDIR)%.mm) -o $@
 QTBLUETOOTH_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X64)%.omm=$(QTBLUETOOTH_SRCDIR)%.mm) -o $@
-QTBLUETOOTH_OBJS_ALL      = dummy/dummy_helper.o \
-                            qbluetooth.o \
+QTBLUETOOTH_OBJS_ALL      = qbluetooth.o \
                             qbluetoothaddress.o \
-                            qbluetoothdevicediscoveryagent.o \
-                            qbluetoothdevicediscoveryagent_p.o \
                             qbluetoothdeviceinfo.o \
                             qbluetoothhostinfo.o \
                             qbluetoothlocaldevice.o \
-                            qbluetoothservicediscoveryagent.o \
-                            qbluetoothservicediscoveryagent_p.o \
                             qbluetoothtransfermanager.o \
                             qbluetoothtransferreply.o \
                             qbluetoothtransferrequest.o \
@@ -1463,6 +1464,123 @@ $(QTCORE_OBJDIR_X86)/%.orcc:
 
 $(QTCORE_OBJDIR_X64)/%.orcc:
 	$(QTCORE_BUILD_RCC_X64)
+###################################################################################################################
+# QT-DBUS
+###################################################################################################################
+QTDBUS_SRCDIR        = $(SRCDIR)/qt-dbus
+QTDBUS_MOCDIR_X86    = $(QTDBUS_SRCDIR)/.moc/x86
+QTDBUS_MOCDIR_X64    = $(QTDBUS_SRCDIR)/.moc/x64
+QTDBUS_UICDIR_X86    = $(QTDBUS_SRCDIR)/.uic/x86
+QTDBUS_UICDIR_X64    = $(QTDBUS_SRCDIR)/.uic/x64
+QTDBUS_RCCDIR_X86    = $(QTDBUS_SRCDIR)/.rcc/x86
+QTDBUS_RCCDIR_X64    = $(QTDBUS_SRCDIR)/.rcc/x64
+QTDBUS_OBJDIR_X86    = $(OBJDIR_X86)/qt-dbus
+QTDBUS_OBJDIR_X64    = $(OBJDIR_X64)/qt-dbus
+QTDBUS_DEFINES       = -DQT_STATIC \
+                       -DQT_STATICPLUGIN \
+                       -DQT_USE_QSTRINGBUILDER \
+                       -DQT_NO_DEBUG \
+                       -DHAVE_CONFIG_H \
+                       -DUNICODE \
+                       -D_ENABLE_EXTENDED_ALIGNED_STORAGE
+QTDBUS_DEFINES_X86   = $(QTDBUS_DEFINES) $(QTDBUS_DEFINES_X86_PLAT)
+QTDBUS_DEFINES_X64   = $(QTDBUS_DEFINES) $(QTDBUS_DEFINES_X64_PLAT)
+QTDBUS_INCLUDES      = -I$(INCDIR) \
+                       -I$(SRCDIR) \
+                       -I$(INCDIR)/qt \
+                       -I$(INCDIR)/qt/QtCore \
+                       -I$(INCDIR)/qt/QtCore/private \
+                       -I$(INCDIR)/qt/QtDBus \
+                       -I$(INCDIR)/qt/QtDBus/private
+QTDBUS_INCLUDES_X86  = $(QTDBUS_INCLUDES) -I$(QTDBUS_MOCDIR_X86) \
+                       -I$(QTDBUS_UICDIR_X86) $(QTDBUS_INCLUDES_X86_PLAT)
+QTDBUS_INCLUDES_X64  = $(QTDBUS_INCLUDES) -I$(QTDBUS_MOCDIR_X64) \
+                       -I$(QTDBUS_UICDIR_X64) $(QTDBUS_INCLUDES_X64_PLAT)
+QTDBUS_MOC_H_X86     = $(MOC_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       $(@:$(QTDBUS_MOCDIR_X86)/%.cpp=$(INCDIR)/qt/QtDBus/%.h) \
+                       -o $(@:$(QTDBUS_MOCDIR_X86)/%.cpp=$(QTDBUS_MOCDIR_X86)/moc_$(@F))
+QTDBUS_MOC_H_X64     = $(MOC_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       $(@:$(QTDBUS_MOCDIR_X64)/%.cpp=$(INCDIR)/qt/QtDBus/%.h) \
+                       -o $(@:$(QTDBUS_MOCDIR_X64)/%.cpp=$(QTDBUS_MOCDIR_X64)/moc_$(@F))
+QTDBUS_MOCH_ALL      = 
+QTDBUS_MOC_C_X86     = $(MOC_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       $(@:$(QTDBUS_MOCDIR_X86)/%.moc=$(QTDBUS_SRCDIR)/%.cpp) \
+                       -o $(@:$(QTDBUS_MOCDIR_X86)/%.moc=$(QTDBUS_MOCDIR_X86)/$(@F))
+QTDBUS_MOC_C_X64     = $(MOC_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       $(@:$(QTDBUS_MOCDIR_X64)/%.moc=$(QTDBUS_SRCDIR)/%.cpp) \
+                       -o $(@:$(QTDBUS_MOCDIR_X64)/%.moc=$(QTDBUS_MOCDIR_X64)/$(@F))
+QTDBUS_MOCC_ALL      = 
+QTDBUS_UIC_X86       = $(UIC_X86)  \
+                       $(@:$(QTDBUS_UICDIR_X86)/%.h=$(QTDBUS_SRCDIR)/%.ui) \
+                       -o $(@:$(QTDBUS_UICDIR_X86)/%.h=$(QTDBUS_UICDIR_X86)/ui_$(@F))
+QTDBUS_UIC_X64       = $(UIC_X64)  \
+                       $(@:$(QTDBUS_UICDIR_X64)/%.h=$(QTDBUS_SRCDIR)/%.ui) \
+                       -o $(@:$(QTDBUS_UICDIR_X64)/%.h=$(QTDBUS_UICDIR_X64)/ui_$(@F))
+QTDBUS_UICH_ALL      = 
+QTDBUS_RCC_X86       = $(RCC_X86) --name $(basename $(@F)) \
+                       $(@:$(QTDBUS_RCCDIR_X86)/%.cpp=$(QTDBUS_SRCDIR)/%.qrc) \
+                       --output $(@:$(QTDBUS_RCCDIR_X86)/%.cpp=$(QTDBUS_RCCDIR_X86)/qrc_$(@F))
+QTDBUS_RCC_X64       = $(RCC_X64) --name $(basename $(@F)) \
+                       $(@:$(QTDBUS_RCCDIR_X64)/%.cpp=$(QTDBUS_SRCDIR)/%.qrc) \
+                       --output $(@:$(QTDBUS_RCCDIR_X64)/%.cpp=$(QTDBUS_RCCDIR_X64)/qrc_$(@F))
+QTDBUS_RCCH_ALL      = 
+QTDBUS_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       -c $(@:$(QTDBUS_OBJDIR_X86)%.o=$(QTDBUS_SRCDIR)%.cpp) -o $@
+QTDBUS_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       -c $(@:$(QTDBUS_OBJDIR_X64)%.o=$(QTDBUS_SRCDIR)%.cpp) -o $@
+QTDBUS_OBJS_ALL      = 
+QTDBUS_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       -c $(@:$(QTDBUS_OBJDIR_X86)/%.omoc=$(QTDBUS_MOCDIR_X86)/moc_%.cpp) -o $@
+QTDBUS_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       -c $(@:$(QTDBUS_OBJDIR_X64)/%.omoc=$(QTDBUS_MOCDIR_X64)/moc_%.cpp) -o $@
+QTDBUS_OBJS_MOC_ALL  = 
+QTDBUS_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       -c $(@:$(QTDBUS_OBJDIR_X86)/%.orcc=$(QTDBUS_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
+QTDBUS_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       -c $(@:$(QTDBUS_OBJDIR_X64)/%.orcc=$(QTDBUS_RCCDIR_X64)/qrc_$(@F:.orcc=.cpp)) -o $@
+QTDBUS_OBJS_RCC_ALL  = 
+
+$(QTDBUS_MOCDIR_X86)/%.cpp:
+	$(QTDBUS_MOC_H_X86)
+
+$(QTDBUS_MOCDIR_X64)/%.cpp:
+	$(QTDBUS_MOC_H_X64)
+
+$(QTDBUS_MOCDIR_X86)/%.moc:
+	$(QTDBUS_MOC_C_X86)
+
+$(QTDBUS_MOCDIR_X64)/%.moc:
+	$(QTDBUS_MOC_C_X64)
+
+$(QTDBUS_UICDIR_X86)/%.h:
+	$(QTDBUS_UIC_X86)
+
+$(QTDBUS_UICDIR_X64)/%.h:
+	$(QTDBUS_UIC_X64)
+
+$(QTDBUS_RCCDIR_X86)/%.cpp:
+	$(QTDBUS_RCC_X86)
+
+$(QTDBUS_RCCDIR_X64)/%.cpp:
+	$(QTDBUS_RCC_X64)
+
+$(QTDBUS_OBJDIR_X86)/%.o:
+	$(QTDBUS_BUILD_X86)
+
+$(QTDBUS_OBJDIR_X64)/%.o:
+	$(QTDBUS_BUILD_X64)
+
+$(QTDBUS_OBJDIR_X86)/%.omoc:
+	$(QTDBUS_BUILD_MOC_X86)
+
+$(QTDBUS_OBJDIR_X64)/%.omoc:
+	$(QTDBUS_BUILD_MOC_X64)
+	
+$(QTDBUS_OBJDIR_X86)/%.orcc:
+	$(QTDBUS_BUILD_RCC_X86)
+
+$(QTDBUS_OBJDIR_X64)/%.orcc:
+	$(QTDBUS_BUILD_RCC_X64)
 ###################################################################################################################
 # QT-EVENTDISPATCHERS
 ###################################################################################################################
@@ -3188,7 +3306,6 @@ QTPLATFORMXCB_DEFINES       = -DQT_STATIC \
                               -DQT_STATICPLUGIN \
                               -DQT_USE_QSTRINGBUILDER \
                               -DQT_NO_DEBUG \
-                              -DQT_NO_DBUS \
                               -DHAVE_CONFIG_H \
                               -DUNICODE \
                               -D_ENABLE_EXTENDED_ALIGNED_STORAGE
@@ -3199,6 +3316,7 @@ QTPLATFORMXCB_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) \
                               -I$(INCDIR)/freetype \
                               -I$(INCDIR)/qt \
                               -I$(INCDIR)/qt/QtCore \
+                              -I$(INCDIR)/qt/QtDBus \
                               -I$(INCDIR)/qt/QtGui \
                               -I$(INCDIR)/qt/QtGlxSupport \
                               -I$(INCDIR)/qt/QtGlxSupport/private \

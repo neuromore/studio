@@ -117,6 +117,21 @@
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qlowenergycontroller_p.cpp">
       <Filter>.moc</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothsocket_winrt_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qlowenergycontroller_winrt_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothsocketbase_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothdevicediscoveryagent_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothservicediscoveryagent_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\qt\QtBluetooth\qtbluetooth-config.h">

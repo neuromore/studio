@@ -79,7 +79,6 @@ void DriverInventory::RegisterDrivers()
 	DeviceManager* deviceManager = GetDeviceManager();
 
 #ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-#ifndef NEUROMORE_PLATFORM_OSX
     // NOTE: somehow destroys the Bluetooth LE driver when activated ... why???
 	if (user->ReadAllowed(VersusDevice::GetRuleName()) == true)
 	{
@@ -88,7 +87,6 @@ void DriverInventory::RegisterDrivers()
 		versusDriver->Init();
 		deviceManager->AddDeviceDriver(versusDriver);
 	}
-#endif
 #endif
 
 #ifdef INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
@@ -168,7 +166,6 @@ void DriverInventory::RegisterDrivers()
 #endif
 
 #ifdef INCLUDE_DEVICE_GENERIC_HEARTRATE
-#ifdef NEUROMORE_PLATFORM_OSX
     // NOTE: DOES NOT WORK ANYMORE AS SOON AS THE VERSUS DRIVER GETS ACTIVATED
 	if (user->ReadAllowed(HeartRateDevice::GetRuleName()) == true)
 	{
@@ -177,7 +174,6 @@ void DriverInventory::RegisterDrivers()
 		bluetoothDriver->Init();
 		deviceManager->AddDeviceDriver(bluetoothDriver);
 	}
-#endif
 #endif
 
 

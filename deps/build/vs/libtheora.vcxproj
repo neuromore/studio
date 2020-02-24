@@ -187,7 +187,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>
@@ -231,7 +231,7 @@
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -263,7 +263,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetMachine>MachineX86</TargetMachine>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -297,7 +297,7 @@
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

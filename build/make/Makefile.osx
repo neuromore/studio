@@ -5,9 +5,11 @@
 # target platforms
 TARGET_X86 = i686-apple-darwin19.2.0
 TARGET_X64 = x86_64-apple-darwin19.2.0
+OSX_MINVER = 10.12
 
 # flags shared between all
 FLAGS = -O2 \
+        -mmacosx-version-min=$(OSX_MINVER) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations
 

@@ -164,7 +164,7 @@ QtBase.cmd
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <TargetMachine>MachineX86</TargetMachine>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>
@@ -217,7 +217,7 @@ QtBase.cmd
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <TargetMachine>MachineX86</TargetMachine>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>
@@ -269,7 +269,7 @@ QtBase.cmd
     </PreBuildEvent>
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>
@@ -321,7 +321,7 @@ QtBase.cmd
     </PreBuildEvent>
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
   </ItemDefinitionGroup>
@@ -371,7 +371,7 @@ QtBase.cmd
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <TargetMachine>MachineX86</TargetMachine>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -419,7 +419,7 @@ QtBase.cmd
     </PreBuildEvent>
     <Lib>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

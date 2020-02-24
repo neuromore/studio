@@ -741,6 +741,57 @@ qt-core-x64-clean:
 
 qt-core-clean: qt-core-x86-clean qt-core-x64-clean
 ###################################################################################################################
+# QT-DBUS
+###################################################################################################################
+QTDBUS_MOCH_X86     := $(patsubst %,$(QTDBUS_MOCDIR_X86)/%,$(QTDBUS_MOCH))
+QTDBUS_MOCH_X64     := $(patsubst %,$(QTDBUS_MOCDIR_X64)/%,$(QTDBUS_MOCH))
+QTDBUS_MOCC_X86     := $(patsubst %,$(QTDBUS_MOCDIR_X86)/%,$(QTDBUS_MOCC))
+QTDBUS_MOCC_X64     := $(patsubst %,$(QTDBUS_MOCDIR_X64)/%,$(QTDBUS_MOCC))
+QTDBUS_UICH_X86     := $(patsubst %,$(QTDBUS_UICDIR_X86)/%,$(QTDBUS_UICH))
+QTDBUS_UICH_X64     := $(patsubst %,$(QTDBUS_UICDIR_X64)/%,$(QTDBUS_UICH))
+QTDBUS_RCCH_X86     := $(patsubst %,$(QTDBUS_RCCDIR_X86)/%,$(QTDBUS_RCCH))
+QTDBUS_RCCH_X64     := $(patsubst %,$(QTDBUS_RCCDIR_X64)/%,$(QTDBUS_RCCH))
+QTDBUS_OBJS_X86     := $(patsubst %,$(QTDBUS_OBJDIR_X86)/%,$(QTDBUS_OBJS))
+QTDBUS_OBJS_X64     := $(patsubst %,$(QTDBUS_OBJDIR_X64)/%,$(QTDBUS_OBJS))
+QTDBUS_OBJS_MOC_X86 := $(patsubst %,$(QTDBUS_OBJDIR_X86)/%,$(QTDBUS_OBJS_MOC))
+QTDBUS_OBJS_MOC_X64 := $(patsubst %,$(QTDBUS_OBJDIR_X64)/%,$(QTDBUS_OBJS_MOC))
+QTDBUS_OBJS_RCC_X86 := $(patsubst %,$(QTDBUS_OBJDIR_X86)/%,$(QTDBUS_OBJS_RCC))
+QTDBUS_OBJS_RCC_X64 := $(patsubst %,$(QTDBUS_OBJDIR_X64)/%,$(QTDBUS_OBJS_RCC))
+QTDBUS_PRES_X86     := $(QTDBUS_MOCH_X86) $(QTDBUS_MOCC_X86) $(QTDBUS_UICH_X86) $(QTDBUS_RCCH_X86)
+QTDBUS_PRES_X64     := $(QTDBUS_MOCH_X64) $(QTDBUS_MOCC_X64) $(QTDBUS_UICH_X64) $(QTDBUS_RCCH_X64) 
+QTDBUS_OBLS_X86     := $(QTDBUS_OBJS_X86) $(QTDBUS_OBJS_MOC_X86) $(QTDBUS_OBJS_RCC_X86)
+QTDBUS_OBLS_X64     := $(QTDBUS_OBJS_X64) $(QTDBUS_OBJS_MOC_X64) $(QTDBUS_OBJS_RCC_X64)
+
+$(QTDBUS_OBLS_X86) : $(QTDBUS_PRES_X86)
+$(QTDBUS_OBLS_X64) : $(QTDBUS_PRES_X64)
+
+$(QTDBUS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
+$(QTDBUS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+qt-dbus-x86: $(QTDBUS_PRES_X86) $(QTDBUS_OBLS_X86)
+	$(call createlib32,qt-dbus,$(QTDBUS_OBLS_X86))
+
+qt-dbus-x64: $(QTDBUS_PRES_X64) $(QTDBUS_OBLS_X64)
+	$(call createlib64,qt-dbus,$(QTDBUS_OBLS_X64))
+
+qt-dbus: qt-dbus-x86 qt-dbus-x64
+
+qt-dbus-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-dbus.*)
+	$(call deletefilepattern,$(QTDBUS_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTDBUS_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTDBUS_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTDBUS_MOCDIR_X86),*.moc)
+
+qt-dbus-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-dbus.*)
+	$(call deletefilepattern,$(QTDBUS_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTDBUS_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTDBUS_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTDBUS_MOCDIR_X64),*.moc)
+
+qt-dbus-clean: qt-dbus-x86-clean qt-dbus-x64-clean
+###################################################################################################################
 # QT-EVENTDISPATCHERS
 ###################################################################################################################
 QTEVENTDISPATCHERS_MOCH_X86     := $(patsubst %,$(QTEVENTDISPATCHERS_MOCDIR_X86)/%,$(QTEVENTDISPATCHERS_MOCH))
@@ -1632,6 +1683,7 @@ clean-x86: zlib-x86-clean \
            qt-bluetooth-x86-clean \
            qt-concurrent-x86-clean \
            qt-core-x86-clean \
+           qt-dbus-x86-clean \
            qt-eventdispatchers-x86-clean \
            qt-fontdatabases-x86-clean \
            qt-gamepad-x86-clean \
@@ -1677,6 +1729,7 @@ clean-x64: zlib-x64-clean \
            qt-bluetooth-x64-clean \
            qt-concurrent-x64-clean \
            qt-core-x64-clean \
+           qt-dbus-x64-clean \
            qt-eventdispatchers-x64-clean \
            qt-fontdatabases-x64-clean \
            qt-gamepad-x64-clean \
