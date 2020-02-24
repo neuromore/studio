@@ -65,9 +65,9 @@ We provide two integrated build environments in this repository:
 * Creates portable, stand-alone executable not requiring any special DLLs
 * Runs on Windows 7 and above
 
-### GNU Make + Clang + LLVM
+### GNU Make + Clang
 
-This is our multi-platform build environment based on [GNU Make](https://www.gnu.org/software/make/), [Clang](https://clang.llvm.org/) and [LLVM](https://llvm.org/).
+This is our multi-platform build environment based on [GNU Make](https://www.gnu.org/software/make/) and [Clang](https://clang.llvm.org/).
 
 It supports the following platforms:
 
@@ -147,7 +147,7 @@ sudo apt-get install make clang llvm
 ```
 make -v
 clang++ -v
-llvm-ar -version
+ar
 ```
 
 *Get the required development packages of linked libraries:*
