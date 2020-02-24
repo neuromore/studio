@@ -80,7 +80,7 @@ endif
 include Makefile.common
 
 # LIB Tool
-LIB          = llvm-ar
+LIB          = ar
 LIBFLAGS_X86 = rc
 LIBFLAGS_X64 = rc
 
