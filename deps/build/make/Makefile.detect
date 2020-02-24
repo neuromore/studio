@@ -33,11 +33,8 @@ else
 		DETECTED_OS := osx
 	endif
 	
-	# Detect platform arch
-	DETECTED_ARCH := $(shell uname -m)	
-	
 	# Map platform arch to our x64/x86
-	ifeq ($(DETECTED_ARCH),x86_64)
+	ifeq ($(shell uname -m),x86_64)
 		DETECTED_ARCH := x64
 	else
 		DETECTED_ARCH := x86
