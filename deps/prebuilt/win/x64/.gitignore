@@ -8,3 +8,7 @@ glut32.dll
 msvcp*.dll
 msvcr*.dll
 vcruntime*.dll
+
+# thinkgear sdk
+thinkgear64.lib
+thinkgear64.dll
