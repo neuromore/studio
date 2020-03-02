@@ -222,7 +222,7 @@ ar
 
 | Macro/Define                           | Version  | Description                        |
 |----------------------------------------|----------|------------------------------------|
-| INCLUDE_DEVICE_EMOTIV                  | 3.0.0.41 | Emotiv EEG                         |
+| INCLUDE_DEVICE_EMOTIV                  | [master](https://github.com/Emotiv/community-sdk) | Emotiv EEG |
 | INCLUDE_DEVICE_MITSAR                  | ?        | Mitsar EEG                         |
 | INCLUDE_DEVICE_NEUROSKY_MINDWAVE       | 1.2.0    | MindWave EEG                       |
 | INCLUDE_DEVICE_TOBIIEYEX               | ?        | TobiEyeX Eye Tracking              | 

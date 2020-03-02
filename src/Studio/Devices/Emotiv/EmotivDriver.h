@@ -33,14 +33,18 @@
 #ifdef INCLUDE_DEVICE_EMOTIV
 
 // include Emotiv EPOC SDK
-#include <EmotivLib/EmoStateDLL.h>
-#include <EmotivLib/edk.h>
-#include <EmotivLib/edkErrorCode.h>
+#include <emotiv/EmoStateDLL.h>
+#include <emotiv/EmoStateAffectiv.h>
+#include <emotiv/edk.h>
+#include <emotiv/edkErrorCode.h>
+#include <emotiv/EegData.h>
 
 // include Emotiv Insight SDK
-#include <EmotivLib/IEmoStateDLL.h>
-#include <EmotivLib/Iedk.h>
-#include <EmotivLib/IedkErrorCode.h>
+#include <emotiv/IEmoStateDLL.h>
+#include <emotiv/IEmoStatePerformanceMetric.h>
+#include <emotiv/Iedk.h>
+#include <emotiv/IedkErrorCode.h>
+#include <emotiv/IEegData.h>
 
 
 // the Emotiv system class

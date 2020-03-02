@@ -1,0 +1,10 @@
+# emotiv sdk
+edk.lib
+edk.dll
+glut32.lib
+glut32.dll
+
+# msvc redist
+msvcp*.dll
+msvcr*.dll
+vcruntime*.dll
