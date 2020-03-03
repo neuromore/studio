@@ -12,3 +12,17 @@ vcruntime*.dll
 # thinkgear sdk
 thinkgear.lib
 thinkgear.dll
+
+# ABM sdk
+ABM_Athena.lib
+ABM_Athena.dll
+ABM_CommLib.lib
+ABM_CommLib.dll
+ABM_PlayEbs.lib
+ABM_PlayEbs.dll
+ABM_Datastreaming.lib
+ABM_Datastreaming.dll
+ABM_DeviceConfig.lib
+ABM_DeviceConfig.dll
+ABM_ThirdPartyCommunication.lib
+ABM_ThirdPartyCommunication.dll
