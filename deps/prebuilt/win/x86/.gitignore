@@ -26,3 +26,7 @@ ABM_DeviceConfig.lib
 ABM_DeviceConfig.dll
 ABM_ThirdPartyCommunication.lib
 ABM_ThirdPartyCommunication.dll
+BAlert.dll
+BAlertLab_EventHandling.dll
+BAlertLab_SignalHandling.dll
+SiUSBXp.dll
