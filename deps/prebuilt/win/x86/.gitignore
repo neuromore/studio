@@ -30,3 +30,7 @@ BAlert.dll
 BAlertLab_EventHandling.dll
 BAlertLab_SignalHandling.dll
 SiUSBXp.dll
+
+# brainquiry sdk
+BQPetDLL.lib
+BQPetDLL.dll
