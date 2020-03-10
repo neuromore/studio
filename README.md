@@ -65,15 +65,15 @@ We provide two integrated build environments in this repository:
 * Creates portable, stand-alone executable not requiring any special DLLs
 * Runs on Windows 7 and above
 
-### GNU Make + Clang + LLVM
+### GNU Make + Clang
 
-This is our multi-platform build environment based on [GNU Make](https://www.gnu.org/software/make/), [Clang](https://clang.llvm.org/) and [LLVM](https://llvm.org/).
+This is our multi-platform build environment based on [GNU Make](https://www.gnu.org/software/make/) and [Clang](https://clang.llvm.org/).
 
 It supports the following platforms:
 
 * Windows
 * Linux
-* Mac (Work-In-Progress)
+* Mac OSX
 
 #### General
 
@@ -81,36 +81,44 @@ It supports the following platforms:
 
 ```
 cd deps/build/make
-make all-x64 -f Makefile.linux -j 4
+make
 ```
 
 *Building Studio:*
 
 ```
 cd build/make
-make Studio-x64 -f Makefile.linux -j 4
+make
 ```
 
 *Cleaning third party dependencies:*
 
 ```
 cd deps/build/make
-make clean -f Makefile.linux -j 4
+make clean
 ```
 
 *Cleaning Studio:*
 
 ```
 cd build/make
-make clean -f Makefile.linux -j 4
+make clean
+```
+
+*Building with custom parameters:*
+
+```
+cd deps/build/make
+make all-x64 -f Makefile.linux -j 4
 ```
 
 *Notes:*
 
-* Replace 'linux' in 'Makefile.linux' by 'windows' to build on Windows instead of Linux
-* Replace 'x64' by 'x86' to build the 32 Bit version instead of 64 Bit
-* Replace '4' in '-j 4' by the number of cores you want to use for compilation
+* Building without parameters will build for your current os, arch and cpu cores count
 * Building the dependencies is only required once (or when they change, which doesn't occur often)
+* Custom: Replace 'linux' in 'Makefile.linux' by 'windows' or 'osx' to build on Windows or OSX
+* Custom: Replace 'x64' by 'x86' to build the 32 Bit version instead of 64 Bit
+* Custom: Replace '4' in '-j 4' by the number of cores you want to use for compilation
 
 *Build Output Studio:*
 
@@ -139,7 +147,7 @@ sudo apt-get install make clang llvm
 ```
 make -v
 clang++ -v
-llvm-ar -version
+ar
 ```
 
 *Get the required development packages of linked libraries:*
@@ -170,6 +178,23 @@ sudo apt-get install \
  libxcb-util-dev
 ```
 
+#### Mac OSX
+
+*Install these*
+
+```
+Xcode
+Xcode Command Line Tools
+```
+
+*Verify the build tool versions:*
+
+```
+make -v
+clang++ -v
+ar
+```
+
 #### Windows
 
 * We recommend to use Visual Studio on Windows, not Clang.
@@ -197,7 +222,7 @@ sudo apt-get install \
 
 | Macro/Define                           | Version  | Description                        |
 |----------------------------------------|----------|------------------------------------|
-| INCLUDE_DEVICE_EMOTIV                  | 3.0.0.41 | Emotiv EEG                         |
+| INCLUDE_DEVICE_EMOTIV                  | [master](https://github.com/Emotiv/community-sdk) | Emotiv EEG |
 | INCLUDE_DEVICE_MITSAR                  | ?        | Mitsar EEG                         |
 | INCLUDE_DEVICE_NEUROSKY_MINDWAVE       | 1.2.0    | MindWave EEG                       |
 | INCLUDE_DEVICE_TOBIIEYEX               | ?        | TobiEyeX Eye Tracking              | 

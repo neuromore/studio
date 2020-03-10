@@ -340,7 +340,7 @@ bool qt_validate_value_range(const QLowEnergyCharacteristicData &data)
 - (void)startAdvertising
 {
     state = PeripheralState::waitingForPowerOn;
-    if (manager)
+    if (manager.data())
         [manager setDelegate:nil];
     manager.reset([[CBPeripheralManager alloc] initWithDelegate:self
                    queue:OSXBluetooth::qt_LE_queue()]);
@@ -405,7 +405,7 @@ bool qt_validate_value_range(const QLowEnergyCharacteristicData &data)
 
 - (void) addServicesToPeripheral
 {
-    Q_ASSERT(manager);
+    Q_ASSERT(manager.data());
 
     if (nextServiceToAdd < services.size())
         [manager addService:services[nextServiceToAdd++]];

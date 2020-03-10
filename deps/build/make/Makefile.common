@@ -291,7 +291,7 @@ FONTCONFIG_DEFINES_X86= $(FONTCONFIG_DEFINES) $(FONTCONFIG_DEFINES_X86_PLAT)
 FONTCONFIG_DEFINES_X64= $(FONTCONFIG_DEFINES) $(FONTCONFIG_DEFINES_X64_PLAT)
 FONTCONFIG_BUILD_X86  = $(CC) $(CFLAGS_X86) $(FONTCONFIG_DEFINES_X86) $(FONTCONFIG_INCLUDES) -c $(@:$(FONTCONFIG_OBJDIR_X86)%.o=$(FONTCONFIG_SRCDIR)%.c) -o $@
 FONTCONFIG_BUILD_X64  = $(CC) $(CFLAGS_X64) $(FONTCONFIG_DEFINES_X64) $(FONTCONFIG_INCLUDES) -c $(@:$(FONTCONFIG_OBJDIR_X64)%.o=$(FONTCONFIG_SRCDIR)%.c) -o $@
-FONTCONFIG_OBJS_ALL   = 
+FONTCONFIG_OBJS_ALL   =
 
 $(FONTCONFIG_OBJDIR_X86)/%.o:
 	$(FONTCONFIG_BUILD_X86)
@@ -306,7 +306,7 @@ FREETYPE_SRCDIR     = $(SRCDIR)/freetype
 FREETYPE_OBJDIR_X86 = $(OBJDIR_X86)/freetype
 FREETYPE_OBJDIR_X64 = $(OBJDIR_X64)/freetype
 FREETYPE_INCLUDES   = -I$(INCDIR) -I$(FREETYPE_INCDIR) -I$(ZLIB_INCDIR) -I$(LIBPNG_INCDIR)
-FREETYPE_DEFINES    = -DHAVE_CONFIG_H -DFT2_BUILD_LIBRARY -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_OPTION_SYSTEM_ZLIB
+FREETYPE_DEFINES    = -DHAVE_CONFIG_H -DHAVE_OPENSSL -DFT2_BUILD_LIBRARY -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_OPTION_SYSTEM_ZLIB
 FREETYPE_BUILD_X86  = $(CC) $(CFLAGS_X86) $(FREETYPE_DEFINES) $(FREETYPE_INCLUDES) -c $(@:$(FREETYPE_OBJDIR_X86)%.o=$(FREETYPE_SRCDIR)%.c) -o $@
 FREETYPE_BUILD_X64  = $(CC) $(CFLAGS_X64) $(FREETYPE_DEFINES) $(FREETYPE_INCLUDES) -c $(@:$(FREETYPE_OBJDIR_X64)%.o=$(FREETYPE_SRCDIR)%.c) -o $@
 FREETYPE_OBJS_ALL   = autofit/autofit.o base/ftbase.o base/ftbbox.o base/ftbdf.o base/ftbitmap.o base/ftcid.o base/ftdebug.o base/ftfstype.o \
@@ -709,6 +709,10 @@ QTBOOTSTRAP_BUILD_X86    = $(CXX) $(CXXFLAGS_X86) $(QTBOOTSTRAP_DEFINES_X86) $(Q
                            -c $(@:$(QTBOOTSTRAP_OBJDIR_X86)%.o=$(QTBOOTSTRAP_SRCDIR)%.cpp) -o $@
 QTBOOTSTRAP_BUILD_X64    = $(CXX) $(CXXFLAGS_X64) $(QTBOOTSTRAP_DEFINES_X64) $(QTBOOTSTRAP_INCLUDES_X64) \
                            -c $(@:$(QTBOOTSTRAP_OBJDIR_X64)%.o=$(QTBOOTSTRAP_SRCDIR)%.cpp) -o $@
+QTBOOTSTRAP_BUILD_OMM_X86= $(CXX) $(CXXFLAGS_X86) $(QTBOOTSTRAP_DEFINES_X86) $(QTBOOTSTRAP_INCLUDES_X86) \
+                           -c $(@:$(QTBOOTSTRAP_OBJDIR_X86)%.omm=$(QTBOOTSTRAP_SRCDIR)%.mm) -o $@
+QTBOOTSTRAP_BUILD_OMM_X64= $(CXX) $(CXXFLAGS_X64) $(QTBOOTSTRAP_DEFINES_X64) $(QTBOOTSTRAP_INCLUDES_X64) \
+                           -c $(@:$(QTBOOTSTRAP_OBJDIR_X64)%.omm=$(QTBOOTSTRAP_SRCDIR)%.mm) -o $@
 QTBOOTSTRAP_OBJS_ALL     = qt-core/codecs/qlatincodec.o \
                            qt-core/codecs/qtextcodec.o \
                            qt-core/codecs/qutfcodec.o \
@@ -790,6 +794,13 @@ $(QTBOOTSTRAP_OBJDIR_X86)/%.o:
 
 $(QTBOOTSTRAP_OBJDIR_X64)/%.o:
 	$(QTBOOTSTRAP_BUILD_X64)
+
+$(QTBOOTSTRAP_OBJDIR_X86)/%.omm:
+	$(QTBOOTSTRAP_BUILD_OMM_X86)
+
+$(QTBOOTSTRAP_OBJDIR_X64)/%.omm:
+	$(QTBOOTSTRAP_BUILD_OMM_X64)
+
 ###################################################################################################################
 # QT-MOC
 ###################################################################################################################
@@ -928,8 +939,14 @@ QTBLUETOOTH_DEFINES       = -DCLASSIC_APP_BUILD \
                             -D_ENABLE_EXTENDED_ALIGNED_STORAGE
 QTBLUETOOTH_DEFINES_X86   = $(QTBLUETOOTH_DEFINES) $(QTBLUETOOTH_DEFINES_X86_PLAT)
 QTBLUETOOTH_DEFINES_X64   = $(QTBLUETOOTH_DEFINES) $(QTBLUETOOTH_DEFINES_X64_PLAT)
-QTBLUETOOTH_INCLUDES      = -I$(INCDIR)/qt -I$(INCDIR)/qt/QtCore -I$(INCDIR)/qt/QtBluetooth \
-                            -I$(INCDIR)/qt/QtBluetooth/private -I$(QTBLUETOOTH_SRCDIR)
+QTBLUETOOTH_INCLUDES      = -I$(INCDIR)/qt \
+                            -I$(INCDIR)/qt/QtCore \
+                            -I$(INCDIR)/qt/QtConcurrent \
+                            -I$(INCDIR)/qt/QtBluetooth \
+                            -I$(INCDIR)/qt/QtBluetooth/private \
+                            -I$(INCDIR)/qt/QtBluetooth/private/bluez \
+                            -I$(INCDIR)/qt/QtDBus \
+                            -I$(QTBLUETOOTH_SRCDIR)
 QTBLUETOOTH_INCLUDES_X86  = $(QTBLUETOOTH_INCLUDES) -I$(QTBLUETOOTH_MOCDIR_X86) $(QTBLUETOOTH_INCLUDES_X86_PLAT)
 QTBLUETOOTH_INCLUDES_X64  = $(QTBLUETOOTH_INCLUDES) -I$(QTBLUETOOTH_MOCDIR_X64) $(QTBLUETOOTH_INCLUDES_X64_PLAT)
 QTBLUETOOTH_MOC_H_X86     = $(MOC_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
@@ -941,17 +958,27 @@ QTBLUETOOTH_MOC_H_X64     = $(MOC_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_
 QTBLUETOOTH_MOCH_ALL      = qbluetoothdevicediscoveryagent.cpp \
                             qbluetoothlocaldevice.cpp \
                             qbluetoothserver.cpp \
-                            qbluetoothservicediscoveryagent.cpp \
-                            private/qbluetoothserviceinfo_p.cpp \
                             qbluetoothsocket.cpp \
                             qbluetoothtransfermanager.cpp \
                             qbluetoothtransferreply.cpp \
-                            private/qleadvertiser_p.cpp \
+                            qbluetoothservicediscoveryagent.cpp \
                             qlowenergycontroller.cpp \
-                            private/qlowenergycontroller_p.cpp \
-                            private/qlowenergycontrollerbase_p.cpp \
                             qlowenergyservice.cpp \
-                            private/qlowenergyserviceprivate_p.cpp						
+                            private/qbluetoothdevicediscoveryagent_p.cpp \
+                            private/qbluetoothlocaldevice_p.cpp \
+                            private/qbluetoothservicediscoveryagent_p.cpp \
+                            private/qbluetoothserviceinfo_p.cpp \
+                            private/qbluetoothsocketbase_p.cpp \
+                            private/qleadvertiser_p.cpp \
+                            private/qlowenergycontrollerbase_p.cpp \
+                            private/qlowenergyserviceprivate_p.cpp
+QTBLUETOOTH_MOC_H_MM_X86  = $(MOC_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
+                            $(@:$(QTBLUETOOTH_MOCDIR_X86)/%.mm=$(INCDIR)/qt/QtBluetooth/%.h) \
+                            -o $(@:$(QTBLUETOOTH_MOCDIR_X86)/%.mm=$(QTBLUETOOTH_MOCDIR_X86)/moc_$(@F))
+QTBLUETOOTH_MOC_H_MM_X64  = $(MOC_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
+                            $(@:$(QTBLUETOOTH_MOCDIR_X64)/%.mm=$(INCDIR)/qt/QtBluetooth/%.h) \
+                            -o $(@:$(QTBLUETOOTH_MOCDIR_X64)/%.mm=$(QTBLUETOOTH_MOCDIR_X64)/moc_$(@F))
+QTBLUETOOTH_MOCMM_ALL     = 
 QTBLUETOOTH_MOC_C_X86     = $(MOC_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
                             $(@:$(QTBLUETOOTH_MOCDIR_X86)/%.moc=$(QTBLUETOOTH_SRCDIR)/%.cpp) -o $@
 QTBLUETOOTH_MOC_C_X64     = $(MOC_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
@@ -961,23 +988,15 @@ QTBLUETOOTH_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X86)%.o=$(QTBLUETOOTH_SRCDIR)%.cpp) -o $@
 QTBLUETOOTH_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X64)%.o=$(QTBLUETOOTH_SRCDIR)%.cpp) -o $@
-QTBLUETOOTH_OBJS_ALL      = dummy/dummy_helper.o \
-                            qbluetooth.o \
+QTBLUETOOTH_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
+                            -c $(@:$(QTBLUETOOTH_OBJDIR_X86)%.omm=$(QTBLUETOOTH_SRCDIR)%.mm) -o $@
+QTBLUETOOTH_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
+                            -c $(@:$(QTBLUETOOTH_OBJDIR_X64)%.omm=$(QTBLUETOOTH_SRCDIR)%.mm) -o $@
+QTBLUETOOTH_OBJS_ALL      = qbluetooth.o \
                             qbluetoothaddress.o \
-                            qbluetoothdevicediscoveryagent.o \
-                            qbluetoothdevicediscoveryagent_p.o \
                             qbluetoothdeviceinfo.o \
                             qbluetoothhostinfo.o \
                             qbluetoothlocaldevice.o \
-                            qbluetoothlocaldevice_p.o \
-                            qbluetoothserver.o \
-                            qbluetoothserver_p.o \
-                            qbluetoothservicediscoveryagent.o \
-                            qbluetoothservicediscoveryagent_p.o \
-                            qbluetoothserviceinfo.o \
-                            qbluetoothserviceinfo_p.o \
-                            qbluetoothsocket.o \
-                            qbluetoothsocketbase.o \
                             qbluetoothtransfermanager.o \
                             qbluetoothtransferreply.o \
                             qbluetoothtransferrequest.o \
@@ -987,12 +1006,8 @@ QTBLUETOOTH_OBJS_ALL      = dummy/dummy_helper.o \
                             qlowenergycharacteristic.o \
                             qlowenergycharacteristicdata.o \
                             qlowenergyconnectionparameters.o \
-                            qlowenergycontroller.o \
-                            qlowenergycontroller_p.o \
-                            qlowenergycontrollerbase.o \
                             qlowenergydescriptor.o \
                             qlowenergydescriptordata.o \
-                            qlowenergyservice.o \
                             qlowenergyservicedata.o \
                             qlowenergyserviceprivate.o
 QTBLUETOOTH_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
@@ -1000,18 +1015,30 @@ QTBLUETOOTH_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(
 QTBLUETOOTH_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
                             -c $(@:$(QTBLUETOOTH_OBJDIR_X64)/%.omoc=$(QTBLUETOOTH_MOCDIR_X64)/moc_%.cpp) -o $@
 QTBLUETOOTH_OBJS_MOC_ALL  = qbluetoothserviceinfo_p.omoc \
+                            qbluetoothservicediscoveryagent_p.omoc \
+                            qbluetoothsocketbase_p.omoc \
                             qleadvertiser_p.omoc \
                             qlowenergycontroller.omoc \
-                            qlowenergycontroller_p.omoc \
                             qlowenergycontrollerbase_p.omoc \
                             qlowenergyservice.omoc \
                             qlowenergyserviceprivate_p.omoc
+QTBLUETOOTH_BUILD_MOCMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBLUETOOTH_DEFINES_X86) $(QTBLUETOOTH_INCLUDES_X86) \
+                            -c $(@:$(QTBLUETOOTH_OBJDIR_X86)/%.omocmm=$(QTBLUETOOTH_MOCDIR_X86)/moc_%.mm) -o $@
+QTBLUETOOTH_BUILD_MOCMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBLUETOOTH_DEFINES_X64) $(QTBLUETOOTH_INCLUDES_X64) \
+                            -c $(@:$(QTBLUETOOTH_OBJDIR_X64)/%.omocmm=$(QTBLUETOOTH_MOCDIR_X64)/moc_%.mm) -o $@
+QTBLUETOOTH_OBJS_MOCMM_ALL  =
 
 $(QTBLUETOOTH_MOCDIR_X86)/%.cpp:
 	$(QTBLUETOOTH_MOC_H_X86)
 
 $(QTBLUETOOTH_MOCDIR_X64)/%.cpp:
 	$(QTBLUETOOTH_MOC_H_X64)
+
+$(QTBLUETOOTH_MOCDIR_X86)/%.mm:
+	$(QTBLUETOOTH_MOC_H_MM_X86)
+
+$(QTBLUETOOTH_MOCDIR_X64)/%.mm:
+	$(QTBLUETOOTH_MOC_H_MM_X64)
 
 $(QTBLUETOOTH_MOCDIR_X86)/%.moc:
 	$(QTBLUETOOTH_MOC_C_X86)
@@ -1025,11 +1052,24 @@ $(QTBLUETOOTH_OBJDIR_X86)/%.o:
 $(QTBLUETOOTH_OBJDIR_X64)/%.o:
 	$(QTBLUETOOTH_BUILD_X64)
 
+$(QTBLUETOOTH_OBJDIR_X86)/%.omm:
+	$(QTBLUETOOTH_BUILD_OMM_X86)
+
+$(QTBLUETOOTH_OBJDIR_X64)/%.omm:
+	$(QTBLUETOOTH_BUILD_OMM_X64)
+
 $(QTBLUETOOTH_OBJDIR_X86)/%.omoc:
 	$(QTBLUETOOTH_BUILD_MOC_X86)
 
 $(QTBLUETOOTH_OBJDIR_X64)/%.omoc:
 	$(QTBLUETOOTH_BUILD_MOC_X64)
+
+$(QTBLUETOOTH_OBJDIR_X86)/%.omocmm:
+	$(QTBLUETOOTH_BUILD_MOCMM_X86)
+
+$(QTBLUETOOTH_OBJDIR_X64)/%.omocmm:
+	$(QTBLUETOOTH_BUILD_MOCMM_X64)
+
 ###################################################################################################################
 # QT-CORE
 ###################################################################################################################
@@ -1135,6 +1175,12 @@ QTCORE_MOC_C_X86     = $(MOC_X86) $(QTCORE_DEFINES_X86) $(QTCORE_INCLUDES_X86) \
 QTCORE_MOC_C_X64     = $(MOC_X64) $(QTCORE_DEFINES_X64) $(QTCORE_INCLUDES_X64) \
                        $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) \
                        -o $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_MOCDIR_X64)/$(@F))
+QTCORE_MOC_MM_X86    = $(MOC_X86) $(QTCORE_DEFINES_X86) $(QTCORE_INCLUDES_X86) \
+                       $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.mm) \
+                       -o $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_MOCDIR_X86)/$(@F))
+QTCORE_MOC_MM_X64    = $(MOC_X64) $(QTCORE_DEFINES_X64) $(QTCORE_INCLUDES_X64) \
+                       $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.mm) \
+                       -o $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_MOCDIR_X64)/$(@F))
 QTCORE_MOCC_ALL      = kernel/qtimer.moc \
                        statemachine/qhistorystate.moc \
                        statemachine/qstatemachine.moc
@@ -1156,6 +1202,10 @@ QTCORE_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTCORE_DEFINES_X86) $(QTCORE_INC
                        -c $(@:$(QTCORE_OBJDIR_X86)%.o=$(QTCORE_SRCDIR)%.cpp) -o $@
 QTCORE_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTCORE_DEFINES_X64) $(QTCORE_INCLUDES_X64) \
                        -c $(@:$(QTCORE_OBJDIR_X64)%.o=$(QTCORE_SRCDIR)%.cpp) -o $@
+QTCORE_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTCORE_DEFINES_X86) $(QTCORE_INCLUDES_X86) \
+                       -c $(@:$(QTCORE_OBJDIR_X86)%.omm=$(QTCORE_SRCDIR)%.mm) -o $@
+QTCORE_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTCORE_DEFINES_X64) $(QTCORE_INCLUDES_X64) \
+                       -c $(@:$(QTCORE_OBJDIR_X64)%.omm=$(QTCORE_SRCDIR)%.mm) -o $@
 QTCORE_OBJS_ALL      = animation/qabstractanimation.o \
                        animation/qanimationgroup.o \
                        animation/qparallelanimationgroup.o \
@@ -1374,10 +1424,10 @@ $(QTCORE_MOCDIR_X64)/%.cpp:
 	$(QTCORE_MOC_H_X64)
 
 $(QTCORE_MOCDIR_X86)/%.moc:
-	$(QTCORE_MOC_C_X86)
+	$(QTCORE_MOC_CMD_X86)
 
 $(QTCORE_MOCDIR_X64)/%.moc:
-	$(QTCORE_MOC_C_X64)
+	$(QTCORE_MOC_CMD_X64)
 
 $(QTCORE_UICDIR_X86)/%.h:
 	$(QTCORE_UIC_X86)
@@ -1397,6 +1447,12 @@ $(QTCORE_OBJDIR_X86)/%.o:
 $(QTCORE_OBJDIR_X64)/%.o:
 	$(QTCORE_BUILD_X64)
 
+$(QTCORE_OBJDIR_X86)/%.omm:
+	$(QTCORE_BUILD_OMM_X86)
+
+$(QTCORE_OBJDIR_X64)/%.omm:
+	$(QTCORE_BUILD_OMM_X64)
+
 $(QTCORE_OBJDIR_X86)/%.omoc:
 	$(QTCORE_BUILD_MOC_X86)
 
@@ -1408,6 +1464,123 @@ $(QTCORE_OBJDIR_X86)/%.orcc:
 
 $(QTCORE_OBJDIR_X64)/%.orcc:
 	$(QTCORE_BUILD_RCC_X64)
+###################################################################################################################
+# QT-DBUS
+###################################################################################################################
+QTDBUS_SRCDIR        = $(SRCDIR)/qt-dbus
+QTDBUS_MOCDIR_X86    = $(QTDBUS_SRCDIR)/.moc/x86
+QTDBUS_MOCDIR_X64    = $(QTDBUS_SRCDIR)/.moc/x64
+QTDBUS_UICDIR_X86    = $(QTDBUS_SRCDIR)/.uic/x86
+QTDBUS_UICDIR_X64    = $(QTDBUS_SRCDIR)/.uic/x64
+QTDBUS_RCCDIR_X86    = $(QTDBUS_SRCDIR)/.rcc/x86
+QTDBUS_RCCDIR_X64    = $(QTDBUS_SRCDIR)/.rcc/x64
+QTDBUS_OBJDIR_X86    = $(OBJDIR_X86)/qt-dbus
+QTDBUS_OBJDIR_X64    = $(OBJDIR_X64)/qt-dbus
+QTDBUS_DEFINES       = -DQT_STATIC \
+                       -DQT_STATICPLUGIN \
+                       -DQT_USE_QSTRINGBUILDER \
+                       -DQT_NO_DEBUG \
+                       -DHAVE_CONFIG_H \
+                       -DUNICODE \
+                       -D_ENABLE_EXTENDED_ALIGNED_STORAGE
+QTDBUS_DEFINES_X86   = $(QTDBUS_DEFINES) $(QTDBUS_DEFINES_X86_PLAT)
+QTDBUS_DEFINES_X64   = $(QTDBUS_DEFINES) $(QTDBUS_DEFINES_X64_PLAT)
+QTDBUS_INCLUDES      = -I$(INCDIR) \
+                       -I$(SRCDIR) \
+                       -I$(INCDIR)/qt \
+                       -I$(INCDIR)/qt/QtCore \
+                       -I$(INCDIR)/qt/QtCore/private \
+                       -I$(INCDIR)/qt/QtDBus \
+                       -I$(INCDIR)/qt/QtDBus/private
+QTDBUS_INCLUDES_X86  = $(QTDBUS_INCLUDES) -I$(QTDBUS_MOCDIR_X86) \
+                       -I$(QTDBUS_UICDIR_X86) $(QTDBUS_INCLUDES_X86_PLAT)
+QTDBUS_INCLUDES_X64  = $(QTDBUS_INCLUDES) -I$(QTDBUS_MOCDIR_X64) \
+                       -I$(QTDBUS_UICDIR_X64) $(QTDBUS_INCLUDES_X64_PLAT)
+QTDBUS_MOC_H_X86     = $(MOC_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       $(@:$(QTDBUS_MOCDIR_X86)/%.cpp=$(INCDIR)/qt/QtDBus/%.h) \
+                       -o $(@:$(QTDBUS_MOCDIR_X86)/%.cpp=$(QTDBUS_MOCDIR_X86)/moc_$(@F))
+QTDBUS_MOC_H_X64     = $(MOC_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       $(@:$(QTDBUS_MOCDIR_X64)/%.cpp=$(INCDIR)/qt/QtDBus/%.h) \
+                       -o $(@:$(QTDBUS_MOCDIR_X64)/%.cpp=$(QTDBUS_MOCDIR_X64)/moc_$(@F))
+QTDBUS_MOCH_ALL      = 
+QTDBUS_MOC_C_X86     = $(MOC_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       $(@:$(QTDBUS_MOCDIR_X86)/%.moc=$(QTDBUS_SRCDIR)/%.cpp) \
+                       -o $(@:$(QTDBUS_MOCDIR_X86)/%.moc=$(QTDBUS_MOCDIR_X86)/$(@F))
+QTDBUS_MOC_C_X64     = $(MOC_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       $(@:$(QTDBUS_MOCDIR_X64)/%.moc=$(QTDBUS_SRCDIR)/%.cpp) \
+                       -o $(@:$(QTDBUS_MOCDIR_X64)/%.moc=$(QTDBUS_MOCDIR_X64)/$(@F))
+QTDBUS_MOCC_ALL      = 
+QTDBUS_UIC_X86       = $(UIC_X86)  \
+                       $(@:$(QTDBUS_UICDIR_X86)/%.h=$(QTDBUS_SRCDIR)/%.ui) \
+                       -o $(@:$(QTDBUS_UICDIR_X86)/%.h=$(QTDBUS_UICDIR_X86)/ui_$(@F))
+QTDBUS_UIC_X64       = $(UIC_X64)  \
+                       $(@:$(QTDBUS_UICDIR_X64)/%.h=$(QTDBUS_SRCDIR)/%.ui) \
+                       -o $(@:$(QTDBUS_UICDIR_X64)/%.h=$(QTDBUS_UICDIR_X64)/ui_$(@F))
+QTDBUS_UICH_ALL      = 
+QTDBUS_RCC_X86       = $(RCC_X86) --name $(basename $(@F)) \
+                       $(@:$(QTDBUS_RCCDIR_X86)/%.cpp=$(QTDBUS_SRCDIR)/%.qrc) \
+                       --output $(@:$(QTDBUS_RCCDIR_X86)/%.cpp=$(QTDBUS_RCCDIR_X86)/qrc_$(@F))
+QTDBUS_RCC_X64       = $(RCC_X64) --name $(basename $(@F)) \
+                       $(@:$(QTDBUS_RCCDIR_X64)/%.cpp=$(QTDBUS_SRCDIR)/%.qrc) \
+                       --output $(@:$(QTDBUS_RCCDIR_X64)/%.cpp=$(QTDBUS_RCCDIR_X64)/qrc_$(@F))
+QTDBUS_RCCH_ALL      = 
+QTDBUS_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       -c $(@:$(QTDBUS_OBJDIR_X86)%.o=$(QTDBUS_SRCDIR)%.cpp) -o $@
+QTDBUS_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       -c $(@:$(QTDBUS_OBJDIR_X64)%.o=$(QTDBUS_SRCDIR)%.cpp) -o $@
+QTDBUS_OBJS_ALL      = 
+QTDBUS_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       -c $(@:$(QTDBUS_OBJDIR_X86)/%.omoc=$(QTDBUS_MOCDIR_X86)/moc_%.cpp) -o $@
+QTDBUS_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       -c $(@:$(QTDBUS_OBJDIR_X64)/%.omoc=$(QTDBUS_MOCDIR_X64)/moc_%.cpp) -o $@
+QTDBUS_OBJS_MOC_ALL  = 
+QTDBUS_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTDBUS_DEFINES_X86) $(QTDBUS_INCLUDES_X86) \
+                       -c $(@:$(QTDBUS_OBJDIR_X86)/%.orcc=$(QTDBUS_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
+QTDBUS_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTDBUS_DEFINES_X64) $(QTDBUS_INCLUDES_X64) \
+                       -c $(@:$(QTDBUS_OBJDIR_X64)/%.orcc=$(QTDBUS_RCCDIR_X64)/qrc_$(@F:.orcc=.cpp)) -o $@
+QTDBUS_OBJS_RCC_ALL  = 
+
+$(QTDBUS_MOCDIR_X86)/%.cpp:
+	$(QTDBUS_MOC_H_X86)
+
+$(QTDBUS_MOCDIR_X64)/%.cpp:
+	$(QTDBUS_MOC_H_X64)
+
+$(QTDBUS_MOCDIR_X86)/%.moc:
+	$(QTDBUS_MOC_C_X86)
+
+$(QTDBUS_MOCDIR_X64)/%.moc:
+	$(QTDBUS_MOC_C_X64)
+
+$(QTDBUS_UICDIR_X86)/%.h:
+	$(QTDBUS_UIC_X86)
+
+$(QTDBUS_UICDIR_X64)/%.h:
+	$(QTDBUS_UIC_X64)
+
+$(QTDBUS_RCCDIR_X86)/%.cpp:
+	$(QTDBUS_RCC_X86)
+
+$(QTDBUS_RCCDIR_X64)/%.cpp:
+	$(QTDBUS_RCC_X64)
+
+$(QTDBUS_OBJDIR_X86)/%.o:
+	$(QTDBUS_BUILD_X86)
+
+$(QTDBUS_OBJDIR_X64)/%.o:
+	$(QTDBUS_BUILD_X64)
+
+$(QTDBUS_OBJDIR_X86)/%.omoc:
+	$(QTDBUS_BUILD_MOC_X86)
+
+$(QTDBUS_OBJDIR_X64)/%.omoc:
+	$(QTDBUS_BUILD_MOC_X64)
+	
+$(QTDBUS_OBJDIR_X86)/%.orcc:
+	$(QTDBUS_BUILD_RCC_X86)
+
+$(QTDBUS_OBJDIR_X64)/%.orcc:
+	$(QTDBUS_BUILD_RCC_X64)
 ###################################################################################################################
 # QT-EVENTDISPATCHERS
 ###################################################################################################################
@@ -1584,6 +1757,10 @@ QTFONTDATABASES_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTFONTDATABASES_DEFINES
                                 -c $(@:$(QTFONTDATABASES_OBJDIR_X86)%.o=$(QTFONTDATABASES_SRCDIR)%.cpp) -o $@
 QTFONTDATABASES_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTFONTDATABASES_DEFINES_X64) $(QTFONTDATABASES_INCLUDES_X64) \
                                 -c $(@:$(QTFONTDATABASES_OBJDIR_X64)%.o=$(QTFONTDATABASES_SRCDIR)%.cpp) -o $@
+QTFONTDATABASES_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTFONTDATABASES_DEFINES_X86) $(QTFONTDATABASES_INCLUDES_X86) \
+                                -c $(@:$(QTFONTDATABASES_OBJDIR_X86)%.omm=$(QTFONTDATABASES_SRCDIR)%.mm) -o $@
+QTFONTDATABASES_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTFONTDATABASES_DEFINES_X64) $(QTFONTDATABASES_INCLUDES_X64) \
+                                -c $(@:$(QTFONTDATABASES_OBJDIR_X64)%.omm=$(QTFONTDATABASES_SRCDIR)%.mm) -o $@
 QTFONTDATABASES_OBJS_ALL      = freetype/qfontengine_ft.o freetype/qfreetypefontdatabase.o
 QTFONTDATABASES_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTFONTDATABASES_DEFINES_X86) $(QTFONTDATABASES_INCLUDES_X86) \
                                 -c $(@:$(QTFONTDATABASES_OBJDIR_X86)/%.omoc=$(QTFONTDATABASES_MOCDIR_X86)/moc_%.cpp) -o $@
@@ -1625,6 +1802,12 @@ $(QTFONTDATABASES_OBJDIR_X86)/%.o:
 
 $(QTFONTDATABASES_OBJDIR_X64)/%.o:
 	$(QTFONTDATABASES_BUILD_X64)
+
+$(QTFONTDATABASES_OBJDIR_X86)/%.omm:
+	$(QTFONTDATABASES_BUILD_OMM_X86)
+
+$(QTFONTDATABASES_OBJDIR_X64)/%.omm:
+	$(QTFONTDATABASES_BUILD_OMM_X64)
 
 $(QTFONTDATABASES_OBJDIR_X86)/%.omoc:
 	$(QTFONTDATABASES_BUILD_MOC_X86)
@@ -1869,6 +2052,10 @@ QTGUI_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTGUI_DEFINES_X86) $(QTGUI_INCLUD
                       -c $(@:$(QTGUI_OBJDIR_X86)%.o=$(QTGUI_SRCDIR)%.cpp) -o $@
 QTGUI_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTGUI_DEFINES_X64) $(QTGUI_INCLUDES_X64) \
                       -c $(@:$(QTGUI_OBJDIR_X64)%.o=$(QTGUI_SRCDIR)%.cpp) -o $@
+QTGUI_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTGUI_DEFINES_X86) $(QTGUI_INCLUDES_X86) \
+                      -c $(@:$(QTGUI_OBJDIR_X86)%.omm=$(QTGUI_SRCDIR)%.mm) -o $@
+QTGUI_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTGUI_DEFINES_X64) $(QTGUI_INCLUDES_X64) \
+                      -c $(@:$(QTGUI_OBJDIR_X64)%.omm=$(QTGUI_SRCDIR)%.mm) -o $@
 QTGUI_OBJS_ALL      = accessible/qaccessible.o \
                       accessible/qaccessiblebridge.o \
                       accessible/qaccessiblecache.o \
@@ -2212,6 +2399,12 @@ $(QTGUI_OBJDIR_X86)/%.o:
 
 $(QTGUI_OBJDIR_X64)/%.o:
 	$(QTGUI_BUILD_X64)
+
+$(QTGUI_OBJDIR_X86)/%.omm:
+	$(QTGUI_BUILD_OMM_X86)
+
+$(QTGUI_OBJDIR_X64)/%.omm:
+	$(QTGUI_BUILD_OMM_X64)
 
 $(QTGUI_OBJDIR_X86)/%.oc:
 	$(QTGUI_BUILD_X86_C)
@@ -3113,7 +3306,6 @@ QTPLATFORMXCB_DEFINES       = -DQT_STATIC \
                               -DQT_STATICPLUGIN \
                               -DQT_USE_QSTRINGBUILDER \
                               -DQT_NO_DEBUG \
-                              -DQT_NO_DBUS \
                               -DHAVE_CONFIG_H \
                               -DUNICODE \
                               -D_ENABLE_EXTENDED_ALIGNED_STORAGE
@@ -3124,6 +3316,7 @@ QTPLATFORMXCB_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) \
                               -I$(INCDIR)/freetype \
                               -I$(INCDIR)/qt \
                               -I$(INCDIR)/qt/QtCore \
+                              -I$(INCDIR)/qt/QtDBus \
                               -I$(INCDIR)/qt/QtGui \
                               -I$(INCDIR)/qt/QtGlxSupport \
                               -I$(INCDIR)/qt/QtGlxSupport/private \
@@ -3225,6 +3418,147 @@ $(QTPLATFORMXCB_OBJDIR_X86)/%.orcc:
 $(QTPLATFORMXCB_OBJDIR_X64)/%.orcc:
 	$(QTPLATFORMXCB_BUILD_RCC_X64)
 ###################################################################################################################
+# QT-PLATFORM-COCOA
+###################################################################################################################
+QTPLATFORMCOCOA_SRCDIR        = $(SRCDIR)/qt-platform-cocoa
+QTPLATFORMCOCOA_MOCDIR_X86    = $(QTPLATFORMCOCOA_SRCDIR)/.moc/x86
+QTPLATFORMCOCOA_MOCDIR_X64    = $(QTPLATFORMCOCOA_SRCDIR)/.moc/x64
+QTPLATFORMCOCOA_UICDIR_X86    = $(QTPLATFORMCOCOA_SRCDIR)/.uic/x86
+QTPLATFORMCOCOA_UICDIR_X64    = $(QTPLATFORMCOCOA_SRCDIR)/.uic/x64
+QTPLATFORMCOCOA_RCCDIR_X86    = $(QTPLATFORMCOCOA_SRCDIR)/.rcc/x86
+QTPLATFORMCOCOA_RCCDIR_X64    = $(QTPLATFORMCOCOA_SRCDIR)/.rcc/x64
+QTPLATFORMCOCOA_OBJDIR_X86    = $(OBJDIR_X86)/qt-platform-cocoa
+QTPLATFORMCOCOA_OBJDIR_X64    = $(OBJDIR_X64)/qt-platform-cocoa
+QTPLATFORMCOCOA_DEFINES       = -DQT_STATIC \
+                                -DQT_STATICPLUGIN \
+                                -DQT_USE_QSTRINGBUILDER \
+                                -DQT_NO_DEBUG \
+                                -DQT_NO_DBUS \
+                                -DHAVE_CONFIG_H \
+                                -DUNICODE \
+                                -D_ENABLE_EXTENDED_ALIGNED_STORAGE
+QTPLATFORMCOCOA_DEFINES_X86   = $(QTPLATFORMCOCOA_DEFINES) $(QTPLATFORMCOCOA_DEFINES_X86_PLAT)
+QTPLATFORMCOCOA_DEFINES_X64   = $(QTPLATFORMCOCOA_DEFINES) $(QTPLATFORMCOCOA_DEFINES_X64_PLAT)
+QTPLATFORMCOCOA_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) \
+                                -I$(INCDIR)/wintab \
+                                -I$(INCDIR)/freetype \
+                                -I$(INCDIR)/qt \
+                                -I$(INCDIR)/qt/QtCore \
+                                -I$(INCDIR)/qt/QtGui \
+                                -I$(INCDIR)/qt/QtWidgets \
+                                -I$(INCDIR)/qt/QtFontDatabaseSupport \
+                                -I$(INCDIR)/qt/QtPrintSupport \
+                                -I$(INCDIR)/qt/QtClipboardSupport \
+                                -I$(INCDIR)/qt/QtClipboardSupport/private \
+                                -I$(INCDIR)/qt/QtGlxSupport \
+                                -I$(INCDIR)/qt/QtGlxSupport/private \
+                                -I$(INCDIR)/qt/QtEdidSupport \
+                                -I$(INCDIR)/qt/QtEdidSupport/private \
+                                -I$(INCDIR)/qt/QtServiceSupport \
+                                -I$(INCDIR)/qt/QtServiceSupport/private \
+                                -I$(INCDIR)/qt/QtThemeSupport \
+                                -I$(INCDIR)/qt/QtThemeSupport/private \
+                                -I$(QTPLATFORMCOCOA_SRCDIR)
+QTPLATFORMCOCOA_INCLUDES_X86  = $(QTPLATFORMCOCOA_INCLUDES) -I$(QTPLATFORMCOCOA_MOCDIR_X86) \
+                                -I$(QTPLATFORMCOCOA_UICDIR_X86) $(QTPLATFORMCOCOA_INCLUDES_X86_PLAT)
+QTPLATFORMCOCOA_INCLUDES_X64  = $(QTPLATFORMCOCOA_INCLUDES) -I$(QTPLATFORMCOCOA_MOCDIR_X64) \
+                                -I$(QTPLATFORMCOCOA_UICDIR_X64) $(QTPLATFORMCOCOA_INCLUDES_X64_PLAT)
+QTPLATFORMCOCOA_MOC_H_X86     = $(MOC_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                $(@:$(QTPLATFORMCOCOA_MOCDIR_X86)/%.cpp=$(QTPLATFORMCOCOA_SRCDIR)/%.h) \
+                                -o $(@:$(QTPLATFORMCOCOA_MOCDIR_X86)/%.cpp=$(QTPLATFORMCOCOA_MOCDIR_X86)/moc_$(@F))
+QTPLATFORMCOCOA_MOC_H_X64     = $(MOC_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                $(@:$(QTPLATFORMCOCOA_MOCDIR_X64)/%.cpp=$(QTPLATFORMCOCOA_SRCDIR)/%.h) \
+                                -o $(@:$(QTPLATFORMCOCOA_MOCDIR_X64)/%.cpp=$(QTPLATFORMCOCOA_MOCDIR_X64)/moc_$(@F))
+QTPLATFORMCOCOA_MOCH_ALL      = 
+QTPLATFORMCOCOA_MOC_C_X86     = $(MOC_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                $(@:$(QTPLATFORMCOCOA_MOCDIR_X86)/%.moc=$(QTPLATFORMCOCOA_SRCDIR)/%.mm) \
+                                -o $(@:$(QTPLATFORMCOCOA_MOCDIR_X86)/%.moc=$(QTPLATFORMCOCOA_MOCDIR_X86)/$(@F))
+QTPLATFORMCOCOA_MOC_C_X64     = $(MOC_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                $(@:$(QTPLATFORMCOCOA_MOCDIR_X64)/%.moc=$(QTPLATFORMCOCOA_SRCDIR)/%.mm) \
+                                -o $(@:$(QTPLATFORMCOCOA_MOCDIR_X64)/%.moc=$(QTPLATFORMCOCOA_MOCDIR_X64)/$(@F))
+QTPLATFORMCOCOA_MOCC_ALL      = 
+QTPLATFORMCOCOA_UIC_X86       = $(UIC_X86)  \
+                                $(@:$(QTPLATFORMCOCOA_UICDIR_X86)/%.h=$(QTPLATFORMCOCOA_SRCDIR)/%.ui) \
+                                -o $(@:$(QTPLATFORMCOCOA_UICDIR_X86)/%.h=$(QTPLATFORMCOCOA_UICDIR_X86)/ui_$(@F))
+QTPLATFORMCOCOA_UIC_X64       = $(UIC_X64)  \
+                                $(@:$(QTPLATFORMCOCOA_UICDIR_X64)/%.h=$(QTPLATFORMCOCOA_SRCDIR)/%.ui) \
+                                -o $(@:$(QTPLATFORMCOCOA_UICDIR_X64)/%.h=$(QTPLATFORMCOCOA_UICDIR_X64)/ui_$(@F))
+QTPLATFORMCOCOA_UICH_ALL      = 
+QTPLATFORMCOCOA_RCC_X86       = $(RCC_X86) --name $(basename $(@F)) \
+                                $(@:$(QTPLATFORMCOCOA_RCCDIR_X86)/%.cpp=$(QTPLATFORMCOCOA_SRCDIR)/%.qrc) \
+                                --output $(@:$(QTPLATFORMCOCOA_RCCDIR_X86)/%.cpp=$(QTPLATFORMCOCOA_RCCDIR_X86)/qrc_$(@F))
+QTPLATFORMCOCOA_RCC_X64       = $(RCC_X64) --name $(basename $(@F)) \
+                                $(@:$(QTPLATFORMCOCOA_RCCDIR_X64)/%.cpp=$(QTPLATFORMCOCOA_SRCDIR)/%.qrc) \
+                                --output $(@:$(QTPLATFORMCOCOA_RCCDIR_X64)/%.cpp=$(QTPLATFORMCOCOA_RCCDIR_X64)/qrc_$(@F))
+QTPLATFORMCOCOA_RCCH_ALL      = 
+QTPLATFORMCOCOA_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X86)%.o=$(QTPLATFORMCOCOA_SRCDIR)%.cpp) -o $@
+QTPLATFORMCOCOA_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X64)%.o=$(QTPLATFORMCOCOA_SRCDIR)%.cpp) -o $@
+QTPLATFORMCOCOA_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X86)%.omm=$(QTPLATFORMCOCOA_SRCDIR)%.mm) -o $@
+QTPLATFORMCOCOA_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X64)%.omm=$(QTPLATFORMCOCOA_SRCDIR)%.mm) -o $@
+QTPLATFORMCOCOA_OBJS_ALL      = 
+QTPLATFORMCOCOA_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X86)/%.omoc=$(QTPLATFORMCOCOA_MOCDIR_X86)/moc_%.cpp) -o $@
+QTPLATFORMCOCOA_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X64)/%.omoc=$(QTPLATFORMCOCOA_MOCDIR_X64)/moc_%.cpp) -o $@
+QTPLATFORMCOCOA_OBJS_MOC_ALL  = 
+QTPLATFORMCOCOA_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPLATFORMCOCOA_DEFINES_X86) $(QTPLATFORMCOCOA_INCLUDES_X86) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X86)/%.orcc=$(QTPLATFORMCOCOA_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
+QTPLATFORMCOCOA_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPLATFORMCOCOA_DEFINES_X64) $(QTPLATFORMCOCOA_INCLUDES_X64) \
+                                -c $(@:$(QTPLATFORMCOCOA_OBJDIR_X64)/%.orcc=$(QTPLATFORMCOCOA_RCCDIR_X64)/qrc_$(@F:.orcc=.cpp)) -o $@
+QTPLATFORMCOCOA_OBJS_RCC_ALL  = 
+
+$(QTPLATFORMCOCOA_MOCDIR_X86)/%.cpp:
+	$(QTPLATFORMCOCOA_MOC_H_X86)
+
+$(QTPLATFORMCOCOA_MOCDIR_X64)/%.cpp:
+	$(QTPLATFORMCOCOA_MOC_H_X64)
+
+$(QTPLATFORMCOCOA_MOCDIR_X86)/%.moc:
+	$(QTPLATFORMCOCOA_MOC_C_X86)
+
+$(QTPLATFORMCOCOA_MOCDIR_X64)/%.moc:
+	$(QTPLATFORMCOCOA_MOC_C_X64)
+
+$(QTPLATFORMCOCOA_UICDIR_X86)/%.h:
+	$(QTPLATFORMCOCOA_UIC_X86)
+
+$(QTPLATFORMCOCOA_UICDIR_X64)/%.h:
+	$(QTPLATFORMCOCOA_UIC_X64)
+
+$(QTPLATFORMCOCOA_RCCDIR_X86)/%.cpp:
+	$(QTPLATFORMCOCOA_RCC_X86)
+
+$(QTPLATFORMCOCOA_RCCDIR_X64)/%.cpp:
+	$(QTPLATFORMCOCOA_RCC_X64)
+
+$(QTPLATFORMCOCOA_OBJDIR_X86)/%.o:
+	$(QTPLATFORMCOCOA_BUILD_X86)
+
+$(QTPLATFORMCOCOA_OBJDIR_X64)/%.o:
+	$(QTPLATFORMCOCOA_BUILD_X64)
+
+$(QTPLATFORMCOCOA_OBJDIR_X86)/%.omm:
+	$(QTPLATFORMCOCOA_BUILD_OMM_X86)
+
+$(QTPLATFORMCOCOA_OBJDIR_X64)/%.omm:
+	$(QTPLATFORMCOCOA_BUILD_OMM_X64)
+
+$(QTPLATFORMCOCOA_OBJDIR_X86)/%.omoc:
+	$(QTPLATFORMCOCOA_BUILD_MOC_X86)
+
+$(QTPLATFORMCOCOA_OBJDIR_X64)/%.omoc:
+	$(QTPLATFORMCOCOA_BUILD_MOC_X64)
+	
+$(QTPLATFORMCOCOA_OBJDIR_X86)/%.orcc:
+	$(QTPLATFORMCOCOA_BUILD_RCC_X86)
+
+$(QTPLATFORMCOCOA_OBJDIR_X64)/%.orcc:
+	$(QTPLATFORMCOCOA_BUILD_RCC_X64)
+###################################################################################################################
 # QT-PRINTSUPPORT
 ###################################################################################################################
 QTPRINTSUPPORT_SRCDIR        = $(SRCDIR)/qt-printsupport
@@ -3257,7 +3591,8 @@ QTPRINTSUPPORT_MOC_H_X86     = $(MOC_X86) $(QTPRINTSUPPORT_DEFINES_X86) $(QTPRIN
 QTPRINTSUPPORT_MOC_H_X64     = $(MOC_X64) $(QTPRINTSUPPORT_DEFINES_X64) $(QTPRINTSUPPORT_INCLUDES_X64) \
                                $(@:$(QTPRINTSUPPORT_MOCDIR_X64)/%.cpp=$(INCDIR)/qt/QtPrintSupport/%.h) \
                                -o $(@:$(QTPRINTSUPPORT_MOCDIR_X64)/%.cpp=$(QTPRINTSUPPORT_MOCDIR_X64)/moc_$(@F))
-QTPRINTSUPPORT_MOCH_ALL      = qpagesetupdialog.cpp \
+QTPRINTSUPPORT_MOCH_ALL      = qabstractprintdialog.cpp \
+                               qpagesetupdialog.cpp \
                                qprintdialog.cpp \
                                qprintpreviewdialog.cpp \
                                qprintpreviewwidget.cpp
@@ -3290,6 +3625,10 @@ QTPRINTSUPPORT_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTPRINTSUPPORT_DEFINES_X
                                -c $(@:$(QTPRINTSUPPORT_OBJDIR_X86)%.o=$(QTPRINTSUPPORT_SRCDIR)%.cpp) -o $@
 QTPRINTSUPPORT_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTPRINTSUPPORT_DEFINES_X64) $(QTPRINTSUPPORT_INCLUDES_X64) \
                                -c $(@:$(QTPRINTSUPPORT_OBJDIR_X64)%.o=$(QTPRINTSUPPORT_SRCDIR)%.cpp) -o $@
+QTPRINTSUPPORT_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPRINTSUPPORT_DEFINES_X86) $(QTPRINTSUPPORT_INCLUDES_X86) \
+                               -c $(@:$(QTPRINTSUPPORT_OBJDIR_X86)%.omm=$(QTPRINTSUPPORT_SRCDIR)%.mm) -o $@
+QTPRINTSUPPORT_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPRINTSUPPORT_DEFINES_X64) $(QTPRINTSUPPORT_INCLUDES_X64) \
+                               -c $(@:$(QTPRINTSUPPORT_OBJDIR_X64)%.omm=$(QTPRINTSUPPORT_SRCDIR)%.mm) -o $@
 QTPRINTSUPPORT_OBJS_ALL      = dialogs/qabstractprintdialog.o \
                                dialogs/qpagesetupdialog.o \
                                dialogs/qprintpreviewdialog.o \
@@ -3307,7 +3646,7 @@ QTPRINTSUPPORT_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPRINTSUPPORT_DEFINES_X
                                -c $(@:$(QTPRINTSUPPORT_OBJDIR_X86)/%.omoc=$(QTPRINTSUPPORT_MOCDIR_X86)/moc_%.cpp) -o $@
 QTPRINTSUPPORT_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPRINTSUPPORT_DEFINES_X64) $(QTPRINTSUPPORT_INCLUDES_X64) \
                                -c $(@:$(QTPRINTSUPPORT_OBJDIR_X64)/%.omoc=$(QTPRINTSUPPORT_MOCDIR_X64)/moc_%.cpp) -o $@
-QTPRINTSUPPORT_OBJS_MOC_ALL  = 
+QTPRINTSUPPORT_OBJS_MOC_ALL  = qabstractprintdialog.omoc
 QTPRINTSUPPORT_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTPRINTSUPPORT_DEFINES_X86) $(QTPRINTSUPPORT_INCLUDES_X86) \
                                -c $(@:$(QTPRINTSUPPORT_OBJDIR_X86)/%.orcc=$(QTPRINTSUPPORT_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
 QTPRINTSUPPORT_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTPRINTSUPPORT_DEFINES_X64) $(QTPRINTSUPPORT_INCLUDES_X64) \
@@ -3343,6 +3682,12 @@ $(QTPRINTSUPPORT_OBJDIR_X86)/%.o:
 
 $(QTPRINTSUPPORT_OBJDIR_X64)/%.o:
 	$(QTPRINTSUPPORT_BUILD_X64)
+
+$(QTPRINTSUPPORT_OBJDIR_X86)/%.omm:
+	$(QTPRINTSUPPORT_BUILD_OMM_X86)
+
+$(QTPRINTSUPPORT_OBJDIR_X64)/%.omm:
+	$(QTPRINTSUPPORT_BUILD_OMM_X64)
 
 $(QTPRINTSUPPORT_OBJDIR_X86)/%.omoc:
 	$(QTPRINTSUPPORT_BUILD_MOC_X86)
@@ -3648,6 +3993,10 @@ QTWIDGETS_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTWIDGETS_DEFINES_X86) $(QTWI
                           -c $(@:$(QTWIDGETS_OBJDIR_X86)%.o=$(QTWIDGETS_SRCDIR)%.cpp) -o $@
 QTWIDGETS_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTWIDGETS_DEFINES_X64) $(QTWIDGETS_INCLUDES_X64) \
                           -c $(@:$(QTWIDGETS_OBJDIR_X64)%.o=$(QTWIDGETS_SRCDIR)%.cpp) -o $@
+QTWIDGETS_BUILD_OMM_X86 = $(CXX) $(CXXFLAGS_X86) $(QTWIDGETS_DEFINES_X86) $(QTWIDGETS_INCLUDES_X86) \
+                          -c $(@:$(QTWIDGETS_OBJDIR_X86)%.omm=$(QTWIDGETS_SRCDIR)%.mm) -o $@
+QTWIDGETS_BUILD_OMM_X64 = $(CXX) $(CXXFLAGS_X64) $(QTWIDGETS_DEFINES_X64) $(QTWIDGETS_INCLUDES_X64) \
+                          -c $(@:$(QTWIDGETS_OBJDIR_X64)%.omm=$(QTWIDGETS_SRCDIR)%.mm) -o $@
 QTWIDGETS_OBJS_ALL      = accessible/complexwidgets.o \
                           accessible/itemviews.o \
                           accessible/qaccessiblemenu.o \
@@ -3867,6 +4216,12 @@ $(QTWIDGETS_OBJDIR_X86)/%.o:
 
 $(QTWIDGETS_OBJDIR_X64)/%.o:
 	$(QTWIDGETS_BUILD_X64)
+
+$(QTWIDGETS_OBJDIR_X86)/%.omm:
+	$(QTWIDGETS_BUILD_OMM_X86)
+
+$(QTWIDGETS_OBJDIR_X64)/%.omm:
+	$(QTWIDGETS_BUILD_OMM_X64)
 
 $(QTWIDGETS_OBJDIR_X86)/%.omoc:
 	$(QTWIDGETS_BUILD_MOC_X86)

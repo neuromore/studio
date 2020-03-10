@@ -1,0 +1,14 @@
+# emotiv sdk
+edk.lib
+edk.dll
+glut64.lib
+glut32.dll
+
+# msvc redist
+msvcp*.dll
+msvcr*.dll
+vcruntime*.dll
+
+# thinkgear sdk
+thinkgear64.lib
+thinkgear64.dll

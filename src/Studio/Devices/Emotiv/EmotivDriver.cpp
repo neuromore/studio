@@ -275,7 +275,7 @@ void EmotivDriver::DoEmoStateUpdateEPOC(EmotivEPOCDevice* epocDevice)
 	for (int i = 0; i < numContactQualityChannels; ++i)
 	{
 		// get the contact quality for the given EEG eletrode
-		IEE_EEG_ContactQuality_t contactQuality = IS_GetContactQuality(mStateHandle, i);
+		IEE_EEG_ContactQuality_t contactQuality = IS_GetContactQuality(mStateHandle, (IEE_InputChannels_t)i);
 
 		// retrieve input sensor information
 		InputSensorDescriptor_t sensorData;
@@ -450,7 +450,7 @@ void EmotivDriver::DoEmoStateUpdateInsight(EmotivInsightDevice* insightDevice)
 	for (int i = 0; i<numContactQualityChannels; ++i)
 	{
 		// get the contact quality for the given EEG eletrode
-		IEE_EEG_ContactQuality_t contactQuality = IS_GetContactQuality(mStateHandle, i);
+		IEE_EEG_ContactQuality_t contactQuality = IS_GetContactQuality(mStateHandle, (IEE_InputChannels_t)i);
 
 		// retrieve input sensor information
 		IInputSensorDescriptor_t sensorData;

@@ -12,3 +12,5 @@
 *.log
 *.moc.cpp
 *.rcc.cpp
+
+.DS_Store

@@ -7,7 +7,8 @@ TARGET_X86 = i686-pc-windows-msvc
 TARGET_X64 = x86_64-pc-windows-msvc
 
 # flags shared between all
-FLAGS = -DWIN32 \
+FLAGS = -O2 \
+        -DWIN32 \
         -D_CRT_SECURE_NO_WARNINGS \
         -D_CRT_NONSTDC_NO_DEPRECATE \
         -D_WINSOCK_DEPRECATED_NO_WARNINGS \
@@ -64,20 +65,22 @@ QTRCC_DEFINES_X86_PLAT              =
 QTRCC_DEFINES_X64_PLAT              =
 QTUIC_DEFINES_X86_PLAT              =
 QTUIC_DEFINES_X64_PLAT              =
-QTBLUETOOTH_DEFINES_X86_PLAT        =
-QTBLUETOOTH_DEFINES_X64_PLAT        =
+QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_WINRT_BLUETOOTH -DQT_FEATURE_bluez=-1 -DQT_FEATURE_dbus=-1
+QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_WINRT_BLUETOOTH -DQT_FEATURE_bluez=-1 -DQT_FEATURE_dbus=-1
 QTCONCURRENT_DEFINES_X86_PLAT       =
 QTCONCURRENT_DEFINES_X64_PLAT       =
-QTCORE_DEFINES_X86_PLAT             =
-QTCORE_DEFINES_X64_PLAT             =
+QTCORE_DEFINES_X86_PLAT             = -DQT_FEATURE_dbus=-1
+QTCORE_DEFINES_X64_PLAT             = -DQT_FEATURE_dbus=-1
+QTDBUS_DEFINES_X86_PLAT             =
+QTDBUS_DEFINES_X64_PLAT             =
 QTEVENTDISPATCHERS_DEFINES_X86_PLAT =
 QTEVENTDISPATCHERS_DEFINES_X64_PLAT =
 QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_NO_FONTCONFIG
 QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_NO_FONTCONFIG
 QTGAMEPAD_DEFINES_X86_PLAT          =
 QTGAMEPAD_DEFINES_X64_PLAT          =
-QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG
-QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG
+QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG -DQT_FEATURE_dbus=-1
+QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG -DQT_FEATURE_dbus=-1
 QTMULTIMEDIA_DEFINES_X86_PLAT       =
 QTMULTIMEDIA_DEFINES_X64_PLAT       =
 QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT=
@@ -90,6 +93,8 @@ QTPLATFORMWINDOWS_DEFINES_X86_PLAT  = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
 QTPLATFORMWINDOWS_DEFINES_X64_PLAT  = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG
 QTPLATFORMXCB_DEFINES_X86_PLAT      = 
 QTPLATFORMXCB_DEFINES_X64_PLAT      = 
+QTPLATFORMCOCOA_DEFINES_X86_PLAT    =
+QTPLATFORMCOCOA_DEFINES_X64_PLAT    =
 QTPRINTSUPPORT_DEFINES_X86_PLAT     =
 QTPRINTSUPPORT_DEFINES_X64_PLAT     =
 QTSERIALPORT_DEFINES_X86_PLAT       =
@@ -124,6 +129,8 @@ QTCONCURRENT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/win32-clang-ms
 QTCONCURRENT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
 QTCORE_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/win32-clang-msvc
 QTCORE_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/win32-clang-msvc
+QTDBUS_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/win32-clang-msvc
+QTDBUS_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/win32-clang-msvc
 QTEVENTDISPATCHERS_INCLUDES_X86_PLAT = -I../../include/qt/mkspecs/win32-clang-msvc
 QTEVENTDISPATCHERS_INCLUDES_X64_PLAT = -I../../include/qt/mkspecs/win32-clang-msvc
 QTFONTDATABASES_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/win32-clang-msvc
@@ -144,6 +151,8 @@ QTPLATFORMWINDOWS_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/win32-clang-ms
 QTPLATFORMWINDOWS_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/win32-clang-msvc
 QTPLATFORMXCB_INCLUDES_X86_PLAT      = -I../../include/qt/mkspecs/win32-clang-msvc
 QTPLATFORMXCB_INCLUDES_X64_PLAT      = -I../../include/qt/mkspecs/win32-clang-msvc
+QTPLATFORMCOCOA_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/win32-clang-msvc
+QTPLATFORMCOCOA_INCLUDES_X64_PLAT    = -I../../include/qt/mkspecs/win32-clang-msvc
 QTPRINTSUPPORT_INCLUDES_X86_PLAT     = -I../../include/qt/mkspecs/win32-clang-msvc
 QTPRINTSUPPORT_INCLUDES_X64_PLAT     = -I../../include/qt/mkspecs/win32-clang-msvc
 QTSERIALPORT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
@@ -184,6 +193,10 @@ endif
 ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     UIC = $(UIC_X64)
 endif
+
+# Platform specific bash file exists check
+QTCORE_MOC_CMD_X86 = if exist $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X86) ) else ( $(QTCORE_MOC_MM_X86) )
+QTCORE_MOC_CMD_X64 = if exist $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X64) ) else ( $(QTCORE_MOC_MM_X64) )
 
 #####################################################################################
 # Include Common Makefile
@@ -295,13 +308,47 @@ QTUIC_LIBS_X86 = zlib.lib qt-bootstrap.lib
 QTUIC_LIBS_X64 = zlib.lib qt-bootstrap.lib
 
 # Qt Libraries
-QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL)
+QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL) \
+                              private/qbluetoothdevicediscoveryagent_p.cpp \
+                              private/qbluetoothservicediscoveryagent_p.cpp \
+                              private/qbluetoothserviceinfo_p.cpp \
+                              private/qbluetoothsocket_winrt_p.cpp \
+                              private/qbluetoothsocketbase_p.cpp \
+                              private/qlowenergycontroller_p.cpp \
+                              private/qlowenergycontroller_winrt_p.cpp \
+                              private/qlowenergyserviceprivate_p.cpp
 QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL) \
+                              qbluetoothdevicediscoveryagent_winrt.moc \
+                              qbluetoothservicediscoveryagent_winrt.moc \
+                              qbluetoothsocket_winrt.moc \
                               qlowenergycontroller_winrt.moc
 QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
+                              qbluetoothdevicediscoveryagent.o \
+                              qbluetoothdevicediscoveryagent_winrt.o \
+                              qbluetoothlocaldevice_p.o \
+                              qbluetoothserver.o \
+                              qbluetoothserver_winrt.o \
+                              qbluetoothservicediscoveryagent.o \
+                              qbluetoothservicediscoveryagent_winrt.o \
+                              qbluetoothserviceinfo.o \
+                              qbluetoothserviceinfo_winrt.o \
+                              qbluetoothsocket.o \
+                              qbluetoothsocket_winrt.o \
+                              qbluetoothsocketbase.o \
                               qbluetoothutils_win.o \
-                              qlowenergycontroller_winrt.o
-QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL)
+                              qlowenergycontroller.o \
+                              qlowenergycontroller_winrt.o \
+                              qlowenergycontrollerbase.o \
+                              qlowenergyservice.o
+QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL) \
+                              qbluetoothdevicediscoveryagent_p.omoc \
+                              qbluetoothservicediscoveryagent_p.omoc \
+                              qbluetoothsocket_winrt_p.omoc \
+                              qbluetoothsocketbase_p.omoc \
+                              qbluetoothserviceinfo_p.omoc \
+                              qlowenergycontroller_p.omoc \
+                              qlowenergycontroller_winrt_p.omoc \
+                              qlowenergyserviceprivate_p.omoc
 QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
 QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
                               private/qeventdispatcher_win_p.cpp \
@@ -347,6 +394,13 @@ QTCORE_OBJS_MOC             = $(QTCORE_OBJS_MOC_ALL) \
                               qwindowspipewriter_p.omoc \
                               qwineventnotifier.omoc
 QTCORE_OBJS_RCC             = $(QTCORE_OBJS_RCC_ALL)
+QTDBUS_MOCH                 = $(QTDBUS_MOCH_ALL)
+QTDBUS_MOCC                 = $(QTDBUS_MOCC_ALL)
+QTDBUS_UICH                 = $(QTDBUS_UICH_ALL)
+QTDBUS_RCCH                 = $(QTDBUS_RCCH_ALL)
+QTDBUS_OBJS                 = $(QTDBUS_OBJS_ALL)
+QTDBUS_OBJS_MOC             = $(QTDBUS_OBJS_MOC_ALL)
+QTDBUS_OBJS_RCC             = $(QTDBUS_OBJS_RCC_ALL)
 QTEVENTDISPATCHERS_MOCH     = $(QTEVENTDISPATCHERS_MOCH_ALL) \
                               private/qwindowsguieventdispatcher_p.cpp
 QTEVENTDISPATCHERS_MOCC     = $(QTEVENTDISPATCHERS_MOCC_ALL)
@@ -498,6 +552,13 @@ QTPLATFORMXCB_RCCH          = $(QTPLATFORMXCB_RCCH_ALL)
 QTPLATFORMXCB_OBJS          = $(QTPLATFORMXCB_OBJS_ALL)
 QTPLATFORMXCB_OBJS_MOC      = $(QTPLATFORMXCB_OBJS_MOC_ALL)
 QTPLATFORMXCB_OBJS_RCC      = $(QTPLATFORMXCB_OBJS_RCC_ALL)
+QTPLATFORMCOCOA_MOCH        = $(QTPLATFORMCOCOA_MOCH_ALL)
+QTPLATFORMCOCOA_MOCC        = $(QTPLATFORMCOCOA_MOCC_ALL)
+QTPLATFORMCOCOA_UICH        = $(QTPLATFORMCOCOA_UICH_ALL)
+QTPLATFORMCOCOA_RCCH        = $(QTPLATFORMCOCOA_RCCH_ALL)
+QTPLATFORMCOCOA_OBJS        = $(QTPLATFORMCOCOA_OBJS_ALL)
+QTPLATFORMCOCOA_OBJS_MOC    = $(QTPLATFORMCOCOA_OBJS_MOC_ALL)
+QTPLATFORMCOCOA_OBJS_RCC    = $(QTPLATFORMCOCOA_OBJS_RCC_ALL)
 QTPRINTSUPPORT_MOCH         = $(QTPRINTSUPPORT_MOCH_ALL)
 QTPRINTSUPPORT_MOCC         = $(QTPRINTSUPPORT_MOCC_ALL)
 QTPRINTSUPPORT_UICH         = $(QTPRINTSUPPORT_UICH_ALL)
@@ -538,3 +599,11 @@ SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 # Include Targets
 
 include Makefile.targets
+
+all-x86: all-common-x86 \
+         qt-platform-windows-x86
+
+all-x64: all-common-x64 \
+         qt-platform-windows-x64
+
+all: all-x86 all-x64

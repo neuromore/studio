@@ -38,7 +38,7 @@
 
 #ifdef INCLUDE_DEVICE_NEUROSKY_MINDWAVE
 
-#include <NeuroSky/thinkgear.h>
+#include <neurosky/thinkgear.h>
 
 
 class NeuroSkyAutoDetection;
