@@ -8,8 +8,14 @@ TOOLCHAIN = $(NDK)/toolchains/llvm/prebuilt/windows-x86_64
 API       = 21
 
 # target platforms
+# note: x86/x64 are only synonyms for 32/64 ARM here
 TARGET_X86 = armv7a-linux-androideabi
 TARGET_X64 = aarch64-linux-android
+
+# unfortunately the AR binaries have slightly different naming for armv7a
+# compares to the clang target platform and binaries
+TARGET_AR_X86 = arm-linux-androideabi
+TARGET_AR_X64 = aarch64-linux-android
 
 # flags shared between all
 FLAGS = -O2 -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
@@ -23,7 +29,7 @@ FLAGS = -O2 -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
 ARCHFLAGS_X86 = 
 ARCHFLAGS_X64 = 
 
-# C Compiler TODO need x86/x64
+# C Compiler
 CC_X86       = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang.cmd
 CC_X64       = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang.cmd
 CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
@@ -118,54 +124,54 @@ OPENCVIMGPROC_INCLUDES_X86_PLAT      =
 OPENCVIMGPROC_INCLUDES_X64_PLAT      =
 OPENCVVIDEOIO_INCLUDES_X86_PLAT      =
 OPENCVVIDEOIO_INCLUDES_X64_PLAT      =
-QTBOOTSTRAP_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/linux-clang
-QTBOOTSTRAP_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/linux-clang
-QTMOC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTMOC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTRCC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTRCC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTUIC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTUIC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTBLUETOOTH_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/linux-clang
-QTBLUETOOTH_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/linux-clang
-QTCONCURRENT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTCONCURRENT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTCORE_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/linux-clang -I../../include/forkfd
-QTCORE_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/linux-clang -I../../include/forkfd
-QTDBUS_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/linux-clang
-QTDBUS_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/linux-clang
-QTEVENTDISPATCHERS_INCLUDES_X86_PLAT = -I../../include/qt/mkspecs/linux-clang
-QTEVENTDISPATCHERS_INCLUDES_X64_PLAT = -I../../include/qt/mkspecs/linux-clang
-QTFONTDATABASES_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/linux-clang
-QTFONTDATABASES_INCLUDES_X64_PLAT    = -I../../include/qt/mkspecs/linux-clang
-QTGAMEPAD_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/linux-clang
-QTGAMEPAD_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/linux-clang
-QTGUI_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTGUI_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIA_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIA_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIAWIDGETS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIAWIDGETS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/linux-clang
-QTNETWORK_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/linux-clang
-QTNETWORK_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/linux-clang
-QTOPENGL_INCLUDES_X86_PLAT           = -I../../include/qt/mkspecs/linux-clang
-QTOPENGL_INCLUDES_X64_PLAT           = -I../../include/qt/mkspecs/linux-clang
-QTPLATFORMWINDOWS_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/linux-clang
-QTPLATFORMWINDOWS_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/linux-clang
-QTPLATFORMXCB_INCLUDES_X86_PLAT      = -I../../include/qt/mkspecs/linux-clang
-QTPLATFORMXCB_INCLUDES_X64_PLAT      = -I../../include/qt/mkspecs/linux-clang
-QTPLATFORMCOCOA_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/linux-clang
-QTPLATFORMCOCOA_INCLUDES_X64_PLAT    = -I../../include/qt/mkspecs/linux-clang
-QTPRINTSUPPORT_INCLUDES_X86_PLAT     = -I../../include/qt/mkspecs/linux-clang
-QTPRINTSUPPORT_INCLUDES_X64_PLAT     = -I../../include/qt/mkspecs/linux-clang
-QTSERIALPORT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTSERIALPORT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTWIDGETS_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/linux-clang
-QTWIDGETS_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/linux-clang
-QTXML_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTXML_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/linux-clang
-SINGLEAPPLICATION_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/linux-clang
-SINGLEAPPLICATION_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/linux-clang
+QTBOOTSTRAP_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/android-clang
+QTBOOTSTRAP_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/android-clang
+QTMOC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTMOC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTRCC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTRCC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTUIC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTUIC_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTBLUETOOTH_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/android-clang
+QTBLUETOOTH_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/android-clang
+QTCONCURRENT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/android-clang
+QTCONCURRENT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/android-clang
+QTCORE_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/android-clang -I../../include/forkfd
+QTCORE_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/android-clang -I../../include/forkfd
+QTDBUS_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/android-clang
+QTDBUS_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/android-clang
+QTEVENTDISPATCHERS_INCLUDES_X86_PLAT = -I../../include/qt/mkspecs/android-clang
+QTEVENTDISPATCHERS_INCLUDES_X64_PLAT = -I../../include/qt/mkspecs/android-clang
+QTFONTDATABASES_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/android-clang
+QTFONTDATABASES_INCLUDES_X64_PLAT    = -I../../include/qt/mkspecs/android-clang
+QTGAMEPAD_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/android-clang
+QTGAMEPAD_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/android-clang
+QTGUI_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTGUI_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTMULTIMEDIA_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/android-clang
+QTMULTIMEDIA_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/android-clang
+QTMULTIMEDIAWIDGETS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/android-clang
+QTMULTIMEDIAWIDGETS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/android-clang
+QTNETWORK_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/android-clang
+QTNETWORK_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/android-clang
+QTOPENGL_INCLUDES_X86_PLAT           = -I../../include/qt/mkspecs/android-clang
+QTOPENGL_INCLUDES_X64_PLAT           = -I../../include/qt/mkspecs/android-clang
+QTPLATFORMWINDOWS_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/android-clang
+QTPLATFORMWINDOWS_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/android-clang
+QTPLATFORMXCB_INCLUDES_X86_PLAT      = -I../../include/qt/mkspecs/android-clang
+QTPLATFORMXCB_INCLUDES_X64_PLAT      = -I../../include/qt/mkspecs/android-clang
+QTPLATFORMCOCOA_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/android-clang
+QTPLATFORMCOCOA_INCLUDES_X64_PLAT    = -I../../include/qt/mkspecs/android-clang
+QTPRINTSUPPORT_INCLUDES_X86_PLAT     = -I../../include/qt/mkspecs/android-clang
+QTPRINTSUPPORT_INCLUDES_X64_PLAT     = -I../../include/qt/mkspecs/android-clang
+QTSERIALPORT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/android-clang
+QTSERIALPORT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/android-clang
+QTWIDGETS_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/android-clang
+QTWIDGETS_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/android-clang
+QTXML_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/android-clang
+QTXML_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/android-clang
+SINGLEAPPLICATION_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/android-clang
+SINGLEAPPLICATION_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/android-clang
 
 #####################################################################################
 # Qt MOC+RCC+UIC
@@ -206,21 +212,23 @@ QTCORE_MOC_CMD_X64 = if [ -f $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.c
 include Makefile.common
 
 # LIB Tool
-LIB          = $(TOOLCHAIN)/bin/arm-linux-androideabi-ar.exe
+LIB_X86 = $(TOOLCHAIN)/bin/$(TARGET_AR_X86)-ar.exe
+LIB_X64 = $(TOOLCHAIN)/bin/$(TARGET_AR_X64)-ar.exe
 LIBFLAGS_X86 = rc
 LIBFLAGS_X64 = rc
 
 # LIB Functions
 define createlib32
-	$(LIB) $(LIBFLAGS_X86) $(LIBDIR_X86)/$(1).a $(2)
+	$(LIB_X86) $(LIBFLAGS_X86) $(LIBDIR_X86)/$(1).a $(2)
 endef
 define createlib64
-	$(LIB) $(LIBFLAGS_X64) $(LIBDIR_X64)/$(1).a $(2)
+	$(LIB_X64) $(LIBFLAGS_X64) $(LIBDIR_X64)/$(1).a $(2)
 endef
 
 #####################################################################################
 # Linker
-LINK          = $(CXX)
+LINK_X86      = $(CXX_X86)
+LINK_X64      = $(CXX_X64)
 LINKFLAGS_X86 = $(CXXFLAGS_X86)
 LINKFLAGS_X64 = $(CXXFLAGS_X64)
 
@@ -237,10 +245,10 @@ LINKLIBS_X64 = $(LINKLIBS_ALL)
 
 # Linker Functions
 define createbin32
-	$(LINK) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
 define createbin64
-	$(LINK) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
 endef
 
 #####################################################################################

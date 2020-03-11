@@ -41,10 +41,10 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBSSL_DEFINES_X86_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBSSL_DEFINES_X64_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X86_PLAT             = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X64_PLAT             = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
 FONTCONFIG_DEFINES_X86_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 FONTCONFIG_DEFINES_X64_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 OPENCVCORE_DEFINES_X86_PLAT         =
