@@ -22,12 +22,14 @@ ARCHFLAGS_X86 = -msse -msse2
 ARCHFLAGS_X64 = -msse -msse2
 
 # C Compiler
-CC           = clang
+CC_X86       = clang
+CC_X64       = clang
 CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CFLAGS_X64   = -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX            = clang++
+CXX_X86        = clang++
+CXX_X64        = clang++
 CXXFLAGS_ALL   = -Xclang -fmodules $(FLAGS)
 CXXFLAGS_A_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) $(CXXFLAGS_ALL)
 CXXFLAGS_A_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) $(CXXFLAGS_ALL)
