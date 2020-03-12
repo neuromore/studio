@@ -184,8 +184,8 @@ SINGLEAPPLICATION_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/android-clang
 #####################################################################################
 # Qt MOC+RCC+UIC
 
-MOC_X86 = bin/x86/qt-moc
-MOC_X64 = bin/x64/qt-moc
+MOC_X86 = "../../prebuilt/win/x86/qt-moc.exe"
+MOC_X64 = "../../prebuilt/win/x64/qt-moc.exe"
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     MOC = $(MOC_X86)
 endif
@@ -193,8 +193,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     MOC = $(MOC_X64)
 endif
 
-RCC_X86 = bin/x86/qt-rcc
-RCC_X64 = bin/x64/qt-rcc
+RCC_X86 = "../../prebuilt/win/x86/qt-rcc.exe"
+RCC_X64 = "../../prebuilt/win/x64/qt-rcc.exe"
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     RCC = $(RCC_X86)
 endif
@@ -202,8 +202,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     RCC = $(RCC_X64)
 endif
 
-UIC_X86 = bin/x86/qt-uic
-UIC_X64 = bin/x64/qt-uic
+UIC_X86 = "../../prebuilt/win/x86/qt-uic.exe"
+UIC_X64 = "../../prebuilt/win/x64/qt-uic.exe"
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     UIC = $(UIC_X86)
 endif
@@ -212,8 +212,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
 endif
 
 # Platform specific bash file exists check
-QTCORE_MOC_CMD_X86 = if [ -f $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ]; then $(QTCORE_MOC_C_X86); else $(QTCORE_MOC_MM_X86); fi
-QTCORE_MOC_CMD_X64 = if [ -f $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ]; then $(QTCORE_MOC_C_X64); else $(QTCORE_MOC_MM_X64); fi
+QTCORE_MOC_CMD_X86 = if exist $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X86) ) else ( $(QTCORE_MOC_MM_X86) )
+QTCORE_MOC_CMD_X64 = if exist $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ( $(QTCORE_MOC_C_X64) ) else ( $(QTCORE_MOC_MM_X64) )
 
 #####################################################################################
 # Include Common Makefile
@@ -468,9 +468,9 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               kernel/qelapsedtimer_unix.o \
                               kernel/qeventdispatcher_unix.o \
                               kernel/qpoll.o \
-                              kernel/qsharedmemory_systemv.o \
+                              kernel/qsharedmemory_android.o \
                               kernel/qsharedmemory_unix.o \
-                              kernel/qsystemsemaphore_systemv.o \
+                              kernel/qsystemsemaphore_android.o \
                               kernel/qsystemsemaphore_unix.o \
                               kernel/qtimerinfo_unix.o \
                               plugin/qelfparser_p.o \
@@ -479,7 +479,7 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               thread/qwaitcondition_unix.o \
                               tools/qcollator_posix.o \
                               tools/qlocale_unix.o \
-                              tools/qtimezoneprivate_tz.o
+                              tools/qtimezoneprivate_android.o
 QTCORE_OBJS_MOC             = $(QTCORE_OBJS_MOC_ALL)
 QTCORE_OBJS_RCC             = $(QTCORE_OBJS_RCC_ALL)
 QTDBUS_MOCH                 = $(QTDBUS_MOCH_ALL) \
@@ -740,7 +740,13 @@ SINGLEAPPLICATION_OBJS_MOC  = $(SINGLEAPPLICATION_OBJS_MOC_ALL)
 SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 
 #####################################################################################
+# Project Dependencies
+
+include Makefile.pretargets
+
+#####################################################################################
 # Include Targets
+
 
 include Makefile.targets
 

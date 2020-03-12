@@ -4,29 +4,6 @@
 #
 
 ###################################################################################################################
-# ZLIB
-###################################################################################################################
-ZLIB_OBJS_X86 := $(patsubst %,$(ZLIB_OBJDIR_X86)/%,$(ZLIB_OBJS))
-ZLIB_OBJS_X64 := $(patsubst %,$(ZLIB_OBJDIR_X64)/%,$(ZLIB_OBJS))
-
-zlib-x86: $(ZLIB_OBJS_X86)
-	$(call createlib32,zlib,$(ZLIB_OBJS_X86))
-
-zlib-x64: $(ZLIB_OBJS_X64)
-	$(call createlib64,zlib,$(ZLIB_OBJS_X64))
-
-zlib: zlib-x86 zlib-x64
-
-zlib-x86-clean:
-	$(call deletefilepattern,$(LIBDIR_X86),zlib.*)
-	$(call deletefilepattern,$(ZLIB_OBJDIR_X86),*.o)
-
-zlib-x64-clean:
-	$(call deletefilepattern,$(LIBDIR_X64),zlib.*)
-	$(call deletefilepattern,$(ZLIB_OBJDIR_X64),*.o)
-
-zlib-clean: zlib-x86-clean zlib-x64-clean
-###################################################################################################################
 # LIBCRYPTO
 ###################################################################################################################
 LIBCRYPTO_OBJS_X86 := $(patsubst %,$(LIBCRYPTO_OBJDIR_X86)/%,$(LIBCRYPTO_OBJS))
@@ -514,100 +491,6 @@ tinyxml-x64-clean:
 
 tinyxml-clean: tinyxml-x86-clean tinyxml-x64-clean
 ###################################################################################################################
-# QT-BOOTSTRAP
-###################################################################################################################
-QTBOOTSTRAP_OBJS_X86 := $(patsubst %,$(QTBOOTSTRAP_OBJDIR_X86)/%,$(QTBOOTSTRAP_OBJS))
-QTBOOTSTRAP_OBJS_X64 := $(patsubst %,$(QTBOOTSTRAP_OBJDIR_X64)/%,$(QTBOOTSTRAP_OBJS))
-
-qt-bootstrap-x86: $(QTBOOTSTRAP_OBJS_X86)
-	$(call createlib32,qt-bootstrap,$(QTBOOTSTRAP_OBJS_X86))
-
-qt-bootstrap-x64: $(QTBOOTSTRAP_OBJS_X64)
-	$(call createlib64,qt-bootstrap,$(QTBOOTSTRAP_OBJS_X64))
-
-qt-bootstrap: qt-bootstrap-x86 qt-bootstrap-x64
-
-qt-bootstrap-x86-clean:
-	$(call deletefilepattern,$(LIBDIR_X86),qt-bootstrap.*)
-	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X86),*.o)
-	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X86),*.omm)
-
-qt-bootstrap-x64-clean:
-	$(call deletefilepattern,$(LIBDIR_X64),qt-bootstrap.*)
-	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X64),*.o)
-	$(call deletefilepattern,$(QTBOOTSTRAP_OBJDIR_X64),*.omm)
-
-qt-bootstrap-clean: qt-bootstrap-x86-clean qt-bootstrap-x64-clean
-###################################################################################################################
-# QT-MOC
-###################################################################################################################
-QTMOC_OBJS_X86 := $(patsubst %,$(QTMOC_OBJDIR_X86)/%,$(QTMOC_OBJS))
-QTMOC_OBJS_X64 := $(patsubst %,$(QTMOC_OBJDIR_X64)/%,$(QTMOC_OBJS))
-
-qt-moc-x86: zlib-x86 qt-bootstrap-x86 $(QTMOC_OBJS_X86)
-	$(call createbin32,qt-moc,$(QTMOC_OBJS_X86),$(QTMOC_LIBS_X86))
-
-qt-moc-x64: zlib-x64 qt-bootstrap-x64 $(QTMOC_OBJS_X64)
-	$(call createbin64,qt-moc,$(QTMOC_OBJS_X64),$(QTMOC_LIBS_X64))
-
-qt-moc: qt-moc-x86 qt-moc-x64
-
-qt-moc-x86-clean:
-	$(call deletefilepattern,$(BINDIR_X86),qt-moc*)
-	$(call deletefilepattern,$(QTMOC_OBJDIR_X86),*.o)
-
-qt-moc-x64-clean:
-	$(call deletefilepattern,$(BINDIR_X64),qt-moc*)
-	$(call deletefilepattern,$(QTMOC_OBJDIR_X64),*.o)
-
-qt-moc-clean: qt-moc-x86-clean qt-moc-x64-clean
-###################################################################################################################
-# QT-RCC
-###################################################################################################################
-QTRCC_OBJS_X86 := $(patsubst %,$(QTRCC_OBJDIR_X86)/%,$(QTRCC_OBJS))
-QTRCC_OBJS_X64 := $(patsubst %,$(QTRCC_OBJDIR_X64)/%,$(QTRCC_OBJS))
-
-qt-rcc-x86: zlib-x86 qt-bootstrap-x86 $(QTRCC_OBJS_X86)
-	$(call createbin32,qt-rcc,$(QTRCC_OBJS_X86),$(QTRCC_LIBS_X86))
-
-qt-rcc-x64: zlib-x64 qt-bootstrap-x64 $(QTRCC_OBJS_X64)
-	$(call createbin64,qt-rcc,$(QTRCC_OBJS_X64),$(QTRCC_LIBS_X64))
-
-qt-rcc: qt-rcc-x86 qt-rcc-x64
-
-qt-rcc-x86-clean:
-	$(call deletefilepattern,$(BINDIR_X86),qt-rcc*)
-	$(call deletefilepattern,$(QTRCC_OBJDIR_X86),*.o)
-
-qt-rcc-x64-clean:
-	$(call deletefilepattern,$(BINDIR_X64),qt-rcc*)
-	$(call deletefilepattern,$(QTRCC_OBJDIR_X64),*.o)
-
-qt-rcc-clean: qt-rcc-x86-clean qt-rcc-x64-clean
-###################################################################################################################
-# QT-UIC
-###################################################################################################################
-QTUIC_OBJS_X86 := $(patsubst %,$(QTUIC_OBJDIR_X86)/%,$(QTUIC_OBJS))
-QTUIC_OBJS_X64 := $(patsubst %,$(QTUIC_OBJDIR_X64)/%,$(QTUIC_OBJS))
-
-qt-uic-x86: zlib-x86 qt-bootstrap-x86 $(QTUIC_OBJS_X86)
-	$(call createbin32,qt-uic,$(QTUIC_OBJS_X86),$(QTUIC_LIBS_X86))
-
-qt-uic-x64: zlib-x64 qt-bootstrap-x64 $(QTUIC_OBJS_X64)
-	$(call createbin64,qt-uic,$(QTUIC_OBJS_X64),$(QTUIC_LIBS_X64))
-
-qt-uic: qt-uic-x86 qt-uic-x64
-
-qt-uic-x86-clean:
-	$(call deletefilepattern,$(BINDIR_X86),qt-uic*)
-	$(call deletefilepattern,$(QTUIC_OBJDIR_X86),*.o)
-
-qt-uic-x64-clean:
-	$(call deletefilepattern,$(BINDIR_X64),qt-uic*)
-	$(call deletefilepattern,$(QTUIC_OBJDIR_X64),*.o)
-
-qt-uic-clean: qt-uic-x86-clean qt-uic-x64-clean
-###################################################################################################################
 # QTBLUETOOTH
 ###################################################################################################################
 QTBLUETOOTH_MOCH_X86       := $(patsubst %,$(QTBLUETOOTH_MOCDIR_X86)/%,$(QTBLUETOOTH_MOCH))
@@ -629,9 +512,6 @@ QTBLUETOOTH_OBLS_X64       := $(QTBLUETOOTH_OBJS_X64) $(QTBLUETOOTH_OBJS_MOC_X64
 
 $(QTBLUETOOTH_OBLS_X86) : $(QTBLUETOOTH_PRES_X86)
 $(QTBLUETOOTH_OBLS_X64) : $(QTBLUETOOTH_PRES_X64)
-
-$(QTBLUETOOTH_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTBLUETOOTH_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 qt-bluetooth-x86: $(QTBLUETOOTH_PRES_X86) $(QTBLUETOOTH_OBLS_X86) 
 	$(call createlib32,qt-bluetooth,$(QTBLUETOOTH_OBLS_X86))
@@ -710,9 +590,6 @@ QTCORE_OBLS_X64     := $(QTCORE_OBJS_X64) $(QTCORE_OBJS_MOC_X64) $(QTCORE_OBJS_R
 $(QTCORE_OBLS_X86) : $(QTCORE_PRES_X86)
 $(QTCORE_OBLS_X64) : $(QTCORE_PRES_X64)
 
-$(QTCORE_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTCORE_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-core-x86: $(QTCORE_PRES_X86) $(QTCORE_OBLS_X86)
 	$(call createlib32,qt-core,$(QTCORE_OBLS_X86))
 
@@ -765,9 +642,6 @@ QTDBUS_OBLS_X64     := $(QTDBUS_OBJS_X64) $(QTDBUS_OBJS_MOC_X64) $(QTDBUS_OBJS_R
 $(QTDBUS_OBLS_X86) : $(QTDBUS_PRES_X86)
 $(QTDBUS_OBLS_X64) : $(QTDBUS_PRES_X64)
 
-$(QTDBUS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTDBUS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-dbus-x86: $(QTDBUS_PRES_X86) $(QTDBUS_OBLS_X86)
 	$(call createlib32,qt-dbus,$(QTDBUS_OBLS_X86))
 
@@ -815,9 +689,6 @@ QTEVENTDISPATCHERS_OBLS_X64     := $(QTEVENTDISPATCHERS_OBJS_X64) $(QTEVENTDISPA
 
 $(QTEVENTDISPATCHERS_OBLS_X86) : $(QTEVENTDISPATCHERS_PRES_X86)
 $(QTEVENTDISPATCHERS_OBLS_X64) : $(QTEVENTDISPATCHERS_PRES_X64)
-
-$(QTEVENTDISPATCHERS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTEVENTDISPATCHERS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 qt-eventdispatchers-x86: $(QTEVENTDISPATCHERS_PRES_X86) $(QTEVENTDISPATCHERS_OBLS_X86)
 	$(call createlib32,qt-eventdispatchers,$(QTEVENTDISPATCHERS_OBLS_X86))
@@ -867,9 +738,6 @@ QTFONTDATABASES_OBLS_X64     := $(QTFONTDATABASES_OBJS_X64) $(QTFONTDATABASES_OB
 $(QTFONTDATABASES_OBLS_X86) : $(QTFONTDATABASES_PRES_X86)
 $(QTFONTDATABASES_OBLS_X64) : $(QTFONTDATABASES_PRES_X64)
 
-$(QTFONTDATABASES_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTFONTDATABASES_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-fontdatabases-x86: $(QTFONTDATABASES_PRES_X86) $(QTFONTDATABASES_OBLS_X86)
 	$(call createlib32,qt-fontdatabases,$(QTFONTDATABASES_OBLS_X86))
 
@@ -907,9 +775,6 @@ QTGAMEPAD_OBLS_X64     := $(QTGAMEPAD_OBJS_X64) $(QTGAMEPAD_OBJS_MOC_X64)
 
 $(QTGAMEPAD_OBLS_X86) : $(QTGAMEPAD_PRES_X86)
 $(QTGAMEPAD_OBLS_X64) : $(QTGAMEPAD_PRES_X64)
-
-$(QTGAMEPAD_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTGAMEPAD_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 qt-gamepad-x86: $(QTGAMEPAD_PRES_X86) $(QTGAMEPAD_OBLS_X86)
 	$(call createlib32,qt-gamepad,$(QTGAMEPAD_OBLS_X86))
@@ -960,9 +825,6 @@ QTGUI_OBLS_X64     := $(QTGUI_OBJS_X64) $(QTGUI_OBJS_C_X64) $(QTGUI_OBJS_MOC_X64
 
 $(QTGUI_OBLS_X86) : $(QTGUI_PRES_X86)
 $(QTGUI_OBLS_X64) : $(QTGUI_PRES_X64)
-
-$(QTGUI_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTGUI_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 qt-gui-x86: $(QTGUI_PRES_X86) $(QTGUI_OBLS_X86)
 	$(call createlib32,qt-gui,$(QTGUI_OBLS_X86))
@@ -1018,9 +880,6 @@ QTMULTIMEDIA_OBLS_X64     := $(QTMULTIMEDIA_OBJS_X64) $(QTMULTIMEDIA_OBJS_MOC_X6
 $(QTMULTIMEDIA_OBLS_X86) : $(QTMULTIMEDIA_PRES_X86)
 $(QTMULTIMEDIA_OBLS_X64) : $(QTMULTIMEDIA_PRES_X64)
 
-$(QTMULTIMEDIA_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTMULTIMEDIA_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-multimedia-x86: $(QTMULTIMEDIA_PRES_X86) $(QTMULTIMEDIA_OBLS_X86)
 	$(call createlib32,qt-multimedia,$(QTMULTIMEDIA_OBLS_X86))
 
@@ -1069,9 +928,6 @@ QTMULTIMEDIAWIDGETS_OBLS_X64     := $(QTMULTIMEDIAWIDGETS_OBJS_X64) $(QTMULTIMED
 $(QTMULTIMEDIAWIDGETS_OBLS_X86) : $(QTMULTIMEDIAWIDGETS_PRES_X86)
 $(QTMULTIMEDIAWIDGETS_OBLS_X64) : $(QTMULTIMEDIAWIDGETS_PRES_X64)
 
-$(QTMULTIMEDIAWIDGETS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTMULTIMEDIAWIDGETS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-multimediawidgets-x86: $(QTMULTIMEDIAWIDGETS_PRES_X86) $(QTMULTIMEDIAWIDGETS_OBLS_X86)
 	$(call createlib32,qt-multimediawidgets,$(QTMULTIMEDIAWIDGETS_OBLS_X86))
 
@@ -1119,9 +975,6 @@ QTNETWORK_OBLS_X64     := $(QTNETWORK_OBJS_X64) $(QTNETWORK_OBJS_MOC_X64) $(QTNE
 
 $(QTNETWORK_OBLS_X86) : $(QTNETWORK_PRES_X86)
 $(QTNETWORK_OBLS_X64) : $(QTNETWORK_PRES_X64)
-
-$(QTNETWORK_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTNETWORK_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 qt-network-x86: $(QTNETWORK_PRES_X86) $(QTNETWORK_OBLS_X86)
 	$(call createlib32,qt-network,$(QTNETWORK_OBLS_X86))
@@ -1194,9 +1047,6 @@ QTPLATFORMWINDOWS_OBLS_X64     := $(QTPLATFORMWINDOWS_OBJS_X64) $(QTPLATFORMWIND
 $(QTPLATFORMWINDOWS_OBLS_X86) : $(QTPLATFORMWINDOWS_PRES_X86)
 $(QTPLATFORMWINDOWS_OBLS_X64) : $(QTPLATFORMWINDOWS_PRES_X64)
 
-$(QTPLATFORMWINDOWS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTPLATFORMWINDOWS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-platform-windows-x86: $(QTPLATFORMWINDOWS_PRES_X86) $(QTPLATFORMWINDOWS_OBLS_X86)
 	$(call createlib32,qt-platform-windows,$(QTPLATFORMWINDOWS_OBLS_X86))
 
@@ -1249,9 +1099,6 @@ QTPLATFORMXCB_OBLS_X64     := $(QTPLATFORMXCB_OBJS_X64) $(QTPLATFORMXCB_OBJS_MOC
 $(QTPLATFORMXCB_OBLS_X86) : $(QTPLATFORMXCB_PRES_X86)
 $(QTPLATFORMXCB_OBLS_X64) : $(QTPLATFORMXCB_PRES_X64)
 
-$(QTPLATFORMXCB_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTPLATFORMXCB_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-platform-xcb-x86: $(QTPLATFORMXCB_PRES_X86) $(QTPLATFORMXCB_OBLS_X86)
 	$(call createlib32,qt-platform-xcb,$(QTPLATFORMXCB_OBLS_X86))
 
@@ -1299,9 +1146,6 @@ QTPLATFORMCOCOA_OBLS_X64     := $(QTPLATFORMCOCOA_OBJS_X64) $(QTPLATFORMCOCOA_OB
 
 $(QTPLATFORMCOCOA_OBLS_X86) : $(QTPLATFORMCOCOA_PRES_X86)
 $(QTPLATFORMCOCOA_OBLS_X64) : $(QTPLATFORMCOCOA_PRES_X64)
-
-$(QTPLATFORMCOCOA_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTPLATFORMCOCOA_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 qt-platform-cocoa-x86: $(QTPLATFORMCOCOA_PRES_X86) $(QTPLATFORMCOCOA_OBLS_X86)
 	$(call createlib32,qt-platform-cocoa,$(QTPLATFORMCOCOA_OBLS_X86))
@@ -1353,9 +1197,6 @@ QTPRINTSUPPORT_OBLS_X64     := $(QTPRINTSUPPORT_OBJS_X64) $(QTPRINTSUPPORT_OBJS_
 $(QTPRINTSUPPORT_OBLS_X86) : $(QTPRINTSUPPORT_PRES_X86)
 $(QTPRINTSUPPORT_OBLS_X64) : $(QTPRINTSUPPORT_PRES_X64)
 
-$(QTPRINTSUPPORT_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTPRINTSUPPORT_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-printsupport-x86: $(QTPRINTSUPPORT_PRES_X86) $(QTPRINTSUPPORT_OBLS_X86)
 	$(call createlib32,qt-printsupport,$(QTPRINTSUPPORT_OBLS_X86))
 
@@ -1404,9 +1245,6 @@ QTSERIALPORT_OBLS_X64     := $(QTSERIALPORT_OBJS_X64) $(QTSERIALPORT_OBJS_MOC_X6
 $(QTSERIALPORT_OBLS_X86) : $(QTSERIALPORT_PRES_X86)
 $(QTSERIALPORT_OBLS_X64) : $(QTSERIALPORT_PRES_X64)
 
-$(QTSERIALPORT_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTSERIALPORT_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-
 qt-serialport-x86: $(QTSERIALPORT_PRES_X86) $(QTSERIALPORT_OBLS_X86) 
 	$(call createlib32,qt-serialport,$(QTSERIALPORT_OBLS_X86))
 
@@ -1454,9 +1292,6 @@ QTWIDGETS_OBLS_X64     := $(QTWIDGETS_OBJS_X64) $(QTWIDGETS_OBJS_MOC_X64) $(QTWI
 
 $(QTWIDGETS_OBLS_X86) : $(QTWIDGETS_PRES_X86)
 $(QTWIDGETS_OBLS_X64) : $(QTWIDGETS_PRES_X64)
-
-$(QTWIDGETS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTWIDGETS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 qt-widgets-x86: $(QTWIDGETS_PRES_X86) $(QTWIDGETS_OBLS_X86)
 	$(call createlib32,qt-widgets,$(QTWIDGETS_OBLS_X86))
@@ -1536,9 +1371,6 @@ SINGLEAPPLICATION_OBLS_X64     := $(SINGLEAPPLICATION_OBJS_X64) $(SINGLEAPPLICAT
 
 $(SINGLEAPPLICATION_OBLS_X86) : $(SINGLEAPPLICATION_PRES_X86)
 $(SINGLEAPPLICATION_OBLS_X64) : $(SINGLEAPPLICATION_PRES_X64)
-
-$(SINGLEAPPLICATION_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(SINGLEAPPLICATION_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 singleapplication-x86: $(SINGLEAPPLICATION_PRES_X86) $(SINGLEAPPLICATION_OBLS_X86)
 	$(call createlib32,singleapplication,$(SINGLEAPPLICATION_OBLS_X86))
