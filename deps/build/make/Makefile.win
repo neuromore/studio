@@ -669,9 +669,17 @@ $(SINGLEAPPLICATION_PRES_X64)   : qt-moc-x64 qt-rcc-x64 qt-uic-x64
 include Makefile.targets
 
 all-x86: all-common-x86 \
+         qt-bootstrap-x86 \
+         qt-moc-x86 \
+         qt-rcc-x86 \
+         qt-uic-x86 \
          qt-platform-windows-x86
 
 all-x64: all-common-x64 \
+         qt-bootstrap-x64 \
+         qt-moc-x64 \
+         qt-rcc-x64 \
+         qt-uic-x64 \
          qt-platform-windows-x64
 
 all: all-x86 all-x64

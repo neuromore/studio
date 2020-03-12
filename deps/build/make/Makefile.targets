@@ -1423,10 +1423,6 @@ all-common-x86: zlib-x86 \
          tinyaes-x86 \
          tinyobjloader-x86 \
          tinyxml-x86 \
-         qt-bootstrap-x86 \
-         qt-moc-x86 \
-         qt-rcc-x86 \
-         qt-uic-x86 \
          qt-bluetooth-x86 \
          qt-concurrent-x86 \
          qt-core-x86 \
@@ -1465,10 +1461,6 @@ all-common-x64: zlib-x64 \
          tinyaes-x64 \
          tinyobjloader-x64 \
          tinyxml-x64 \
-         qt-bootstrap-x64 \
-         qt-moc-x64 \
-         qt-rcc-x64 \
-         qt-uic-x64 \
          qt-bluetooth-x64 \
          qt-concurrent-x64 \
          qt-core-x64 \

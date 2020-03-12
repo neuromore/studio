@@ -367,10 +367,7 @@ QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL) \
                               qbluetoothsocket_android_p.omoc \
                               qlowenergycontroller_p.omoc \
                               qlowenergycontroller_android_p.omoc \
-                              qlowenergyserviceprivate_p.omoc \
-                              remotedevicemanager_p.omoc \
-                              service_p.omoc \
-                              servicemap_p.omoc
+                              qlowenergyserviceprivate_p.omoc
 QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
 QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
                               private/qeventdispatcher_unix_p.cpp \
