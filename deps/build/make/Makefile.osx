@@ -431,6 +431,32 @@ QTGUI_RCCH                  = $(QTGUI_RCCH_ALL)
 QTGUI_OBJS                  = $(QTGUI_OBJS_ALL) \
                               accessible/qaccessiblecache_mac.omm \
                               image/qimage_darwin.omm \
+                              opengl/qopenglfunctions_1_0.o \
+                              opengl/qopenglfunctions_1_1.o \
+                              opengl/qopenglfunctions_1_2.o \
+                              opengl/qopenglfunctions_1_3.o \
+                              opengl/qopenglfunctions_1_4.o \
+                              opengl/qopenglfunctions_1_5.o \
+                              opengl/qopenglfunctions_2_0.o \
+                              opengl/qopenglfunctions_2_1.o \
+                              opengl/qopenglfunctions_3_0.o \
+                              opengl/qopenglfunctions_3_1.o \
+                              opengl/qopenglfunctions_3_2_compatibility.o \
+                              opengl/qopenglfunctions_3_2_core.o \
+                              opengl/qopenglfunctions_3_3_compatibility.o \
+                              opengl/qopenglfunctions_3_3_core.o \
+                              opengl/qopenglfunctions_4_0_compatibility.o \
+                              opengl/qopenglfunctions_4_0_core.o \
+                              opengl/qopenglfunctions_4_1_compatibility.o \
+                              opengl/qopenglfunctions_4_1_core.o \
+                              opengl/qopenglfunctions_4_2_compatibility.o \
+                              opengl/qopenglfunctions_4_2_core.o \
+                              opengl/qopenglfunctions_4_3_compatibility.o \
+                              opengl/qopenglfunctions_4_3_core.o \
+                              opengl/qopenglfunctions_4_4_compatibility.o \
+                              opengl/qopenglfunctions_4_4_core.o \
+                              opengl/qopenglfunctions_4_5_compatibility.o \
+                              opengl/qopenglfunctions_4_5_core.o \
                               painting/qcoregraphics.omm
 QTGUI_OBJS_C                = $(QTGUI_OBJS_C_ALL)
 QTGUI_OBJS_MOC              = $(QTGUI_OBJS_MOC_ALL)

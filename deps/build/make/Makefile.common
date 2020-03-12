@@ -946,6 +946,7 @@ QTBLUETOOTH_INCLUDES      = -I$(INCDIR)/qt \
                             -I$(INCDIR)/qt/QtBluetooth/private \
                             -I$(INCDIR)/qt/QtBluetooth/private/bluez \
                             -I$(INCDIR)/qt/QtDBus \
+                            -I$(INCDIR)/qt/QtAndroidExtras \
                             -I$(QTBLUETOOTH_SRCDIR)
 QTBLUETOOTH_INCLUDES_X86  = $(QTBLUETOOTH_INCLUDES) -I$(QTBLUETOOTH_MOCDIR_X86) $(QTBLUETOOTH_INCLUDES_X86_PLAT)
 QTBLUETOOTH_INCLUDES_X64  = $(QTBLUETOOTH_INCLUDES) -I$(QTBLUETOOTH_MOCDIR_X64) $(QTBLUETOOTH_INCLUDES_X64_PLAT)
@@ -2164,32 +2165,6 @@ QTGUI_OBJS_ALL      = accessible/qaccessible.o \
                       opengl/qopenglengineshadermanager.o \
                       opengl/qopenglframebufferobject.o \
                       opengl/qopenglfunctions.o \
-                      opengl/qopenglfunctions_1_0.o \
-                      opengl/qopenglfunctions_1_1.o \
-                      opengl/qopenglfunctions_1_2.o \
-                      opengl/qopenglfunctions_1_3.o \
-                      opengl/qopenglfunctions_1_4.o \
-                      opengl/qopenglfunctions_1_5.o \
-                      opengl/qopenglfunctions_2_0.o \
-                      opengl/qopenglfunctions_2_1.o \
-                      opengl/qopenglfunctions_3_0.o \
-                      opengl/qopenglfunctions_3_1.o \
-                      opengl/qopenglfunctions_3_2_compatibility.o \
-                      opengl/qopenglfunctions_3_2_core.o \
-                      opengl/qopenglfunctions_3_3_compatibility.o \
-                      opengl/qopenglfunctions_3_3_core.o \
-                      opengl/qopenglfunctions_4_0_compatibility.o \
-                      opengl/qopenglfunctions_4_0_core.o \
-                      opengl/qopenglfunctions_4_1_compatibility.o \
-                      opengl/qopenglfunctions_4_1_core.o \
-                      opengl/qopenglfunctions_4_2_compatibility.o \
-                      opengl/qopenglfunctions_4_2_core.o \
-                      opengl/qopenglfunctions_4_3_compatibility.o \
-                      opengl/qopenglfunctions_4_3_core.o \
-                      opengl/qopenglfunctions_4_4_compatibility.o \
-                      opengl/qopenglfunctions_4_4_core.o \
-                      opengl/qopenglfunctions_4_5_compatibility.o \
-                      opengl/qopenglfunctions_4_5_core.o \
                       opengl/qopenglgradientcache.o \
                       opengl/qopenglpaintdevice.o \
                       opengl/qopenglpaintengine.o \
