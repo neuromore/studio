@@ -33,8 +33,8 @@ ENGINE_DEFINES_X64  = $(ENGINE_DEFINES) $(ENGINE_DEFINES_X64_PLAT)
 ENGINE_INCLUDES     = -I$(ENGINE_INCDIR) -I$(ENGINE_SRCDIR) -I$(DEPSINCDIR)
 ENGINE_INCLUDES_X86 = $(ENGINE_INCLUDES) $(ENGINE_INCLUDES_X86_PLAT)
 ENGINE_INCLUDES_X64 = $(ENGINE_INCLUDES) $(ENGINE_INCLUDES_X64_PLAT)
-ENGINE_BUILD_X86    = $(CXX) $(CXXFLAGS_X86) $(ENGINE_DEFINES_X86) $(ENGINE_INCLUDES_X86) -c $(@:$(ENGINE_OBJDIR_X86)%.o=$(ENGINE_SRCDIR)%.cpp) -o $@
-ENGINE_BUILD_X64    = $(CXX) $(CXXFLAGS_X64) $(ENGINE_DEFINES_X64) $(ENGINE_INCLUDES_X64) -c $(@:$(ENGINE_OBJDIR_X64)%.o=$(ENGINE_SRCDIR)%.cpp) -o $@
+ENGINE_BUILD_X86    = $(CXX_X86) $(CXXFLAGS_X86) $(ENGINE_DEFINES_X86) $(ENGINE_INCLUDES_X86) -c $(@:$(ENGINE_OBJDIR_X86)%.o=$(ENGINE_SRCDIR)%.cpp) -o $@
+ENGINE_BUILD_X64    = $(CXX_X64) $(CXXFLAGS_X64) $(ENGINE_DEFINES_X64) $(ENGINE_INCLUDES_X64) -c $(@:$(ENGINE_OBJDIR_X64)%.o=$(ENGINE_SRCDIR)%.cpp) -o $@
 ENGINE_OBJS_ALL     = Core/AABB.o \
                       Core/AES.o \
                       Core/AttributeFactory.o \
@@ -347,9 +347,9 @@ QTBASE_RCCH_ALL      = Resources/Assets.cpp \
                        Resources/GraphResources.cpp \
                        Resources/LayoutResources.cpp \
                        Resources/QtBaseResources.cpp
-QTBASE_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(QTBASE_DEFINES_X86) $(QTBASE_INCLUDES_X86) \
+QTBASE_BUILD_X86     = $(CXX_X86) $(CXXFLAGS_X86) $(QTBASE_DEFINES_X86) $(QTBASE_INCLUDES_X86) \
                        -c $(@:$(QTBASE_OBJDIR_X86)%.o=$(QTBASE_SRCDIR)%.cpp) -o $@
-QTBASE_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(QTBASE_DEFINES_X64) $(QTBASE_INCLUDES_X64) \
+QTBASE_BUILD_X64     = $(CXX_X64) $(CXXFLAGS_X64) $(QTBASE_DEFINES_X64) $(QTBASE_INCLUDES_X64) \
                        -c $(@:$(QTBASE_OBJDIR_X64)%.o=$(QTBASE_SRCDIR)%.cpp) -o $@
 QTBASE_OBJS_ALL      = AttributeWidgets/AttributeSetGridWidget.o \
                        AttributeWidgets/AttributeWidgetCreators.o \
@@ -457,14 +457,14 @@ QTBASE_OBJS_ALL      = AttributeWidgets/AttributeSetGridWidget.o \
                        Slider.o \
                        Spinbox.o \
                        SystemInfo.o
-QTBASE_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBASE_DEFINES_X86) $(QTBASE_INCLUDES_X86) \
+QTBASE_BUILD_MOC_X86 = $(CXX_X86) $(CXXFLAGS_X86) $(QTBASE_DEFINES_X86) $(QTBASE_INCLUDES_X86) \
                        -c $(@:$(QTBASE_OBJDIR_X86)/%.omoc=$(QTBASE_MOCDIR_X86)/moc_$(@F:.omoc=.cpp)) -o $@
-QTBASE_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBASE_DEFINES_X64) $(QTBASE_INCLUDES_X64) \
+QTBASE_BUILD_MOC_X64 = $(CXX_X64) $(CXXFLAGS_X64) $(QTBASE_DEFINES_X64) $(QTBASE_INCLUDES_X64) \
                        -c $(@:$(QTBASE_OBJDIR_X64)/%.omoc=$(QTBASE_MOCDIR_X64)/moc_$(@F:.omoc=.cpp)) -o $@
 QTBASE_OBJS_MOC_ALL  = $(patsubst %.cpp,%.omoc,$(QTBASE_MOCH_ALL))
-QTBASE_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(QTBASE_DEFINES_X86) $(QTBASE_INCLUDES_X86) \
+QTBASE_BUILD_RCC_X86 = $(CXX_X86) $(CXXFLAGS_X86) $(QTBASE_DEFINES_X86) $(QTBASE_INCLUDES_X86) \
                        -c $(@:$(QTBASE_OBJDIR_X86)/%.orcc=$(QTBASE_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
-QTBASE_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(QTBASE_DEFINES_X64) $(QTBASE_INCLUDES_X64) \
+QTBASE_BUILD_RCC_X64 = $(CXX_X64) $(CXXFLAGS_X64) $(QTBASE_DEFINES_X64) $(QTBASE_INCLUDES_X64) \
                        -c $(@:$(QTBASE_OBJDIR_X64)/%.orcc=$(QTBASE_RCCDIR_X64)/qrc_$(@F:.orcc=.cpp)) -o $@
 QTBASE_OBJS_RCC_ALL  = Assets.orcc \
                        DeviceResources.orcc \
@@ -688,9 +688,9 @@ STUDIO_RCC_X64       = $(RCC_X64) --name $(basename $(@F)) \
                        $(@:$(STUDIO_RCCDIR_X64)/%.cpp=$(STUDIO_SRCDIR)/%.qrc) \
                        --output $(@:$(STUDIO_RCCDIR_X64)/%.cpp=$(STUDIO_RCCDIR_X64)/qrc_$(@F))
 STUDIO_RCCH_ALL      = Resources/StudioResources.cpp
-STUDIO_BUILD_X86     = $(CXX) $(CXXFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
+STUDIO_BUILD_X86     = $(CXX_X86) $(CXXFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
                        -c $(@:$(STUDIO_OBJDIR_X86)%.o=$(STUDIO_SRCDIR)%.cpp) -o $@
-STUDIO_BUILD_X64     = $(CXX) $(CXXFLAGS_X64) $(STUDIO_DEFINES_X64) $(STUDIO_INCLUDES_X64) \
+STUDIO_BUILD_X64     = $(CXX_X64) $(CXXFLAGS_X64) $(STUDIO_DEFINES_X64) $(STUDIO_INCLUDES_X64) \
                        -c $(@:$(STUDIO_OBJDIR_X64)%.o=$(STUDIO_SRCDIR)%.cpp) -o $@
 STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/ABM/AbmThreadHandler.o \
@@ -819,14 +819,14 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        MainWindow.o \
                        Visualization.o \
                        VisualizationManager.o
-STUDIO_BUILD_MOC_X86 = $(CXX) $(CXXFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
+STUDIO_BUILD_MOC_X86 = $(CXX_X86) $(CXXFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
                        -c $(@:$(STUDIO_OBJDIR_X86)/%.omoc=$(STUDIO_MOCDIR_X86)/moc_$(@F:.omoc=.cpp)) -o $@
-STUDIO_BUILD_MOC_X64 = $(CXX) $(CXXFLAGS_X64) $(STUDIO_DEFINES_X64) $(STUDIO_INCLUDES_X64) \
+STUDIO_BUILD_MOC_X64 = $(CXX_X64) $(CXXFLAGS_X64) $(STUDIO_DEFINES_X64) $(STUDIO_INCLUDES_X64) \
                        -c $(@:$(STUDIO_OBJDIR_X64)/%.omoc=$(STUDIO_MOCDIR_X64)/moc_$(@F:.omoc=.cpp)) -o $@
 STUDIO_OBJS_MOC_ALL  = $(patsubst %.cpp,%.omoc,$(STUDIO_MOCH_ALL))
-STUDIO_BUILD_RCC_X86 = $(CXX) $(CXXFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
+STUDIO_BUILD_RCC_X86 = $(CXX_X86) $(CXXFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
                        -c $(@:$(STUDIO_OBJDIR_X86)/%.orcc=$(STUDIO_RCCDIR_X86)/qrc_$(@F:.orcc=.cpp)) -o $@
-STUDIO_BUILD_RCC_X64 = $(CXX) $(CXXFLAGS_X64) $(STUDIO_DEFINES_X64) $(STUDIO_INCLUDES_X64) \
+STUDIO_BUILD_RCC_X64 = $(CXX_X64) $(CXXFLAGS_X64) $(STUDIO_DEFINES_X64) $(STUDIO_INCLUDES_X64) \
                        -c $(@:$(STUDIO_OBJDIR_X64)/%.orcc=$(STUDIO_RCCDIR_X64)/qrc_$(@F:.orcc=.cpp)) -o $@
 STUDIO_OBJS_RCC_ALL  = StudioResources.orcc
 STUDIO_BUILD_MRC_X86 = $(MRC) $(MRCFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \

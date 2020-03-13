@@ -1,46 +1,62 @@
 #
-# MAC OS X CLANG MAKEFILE
+# ANDROID CLANG MAKEFILE FOR WINDOWS
 #
 
+# android ndk, toolchain and api version
+NDK       = C:/android-ndk-r21
+TOOLCHAIN = $(NDK)/toolchains/llvm/prebuilt/windows-x86_64
+API       = 21
+
 # target platforms
-TARGET_X86 = i686-apple-darwin19.2.0
-TARGET_X64 = x86_64-apple-darwin19.2.0
-OSX_MINVER = 10.12
+# note: x86/x64 are only synonyms for 32/64 ARM here
+TARGET_X86 = armv7a-linux-androideabi
+TARGET_X64 = aarch64-linux-android
+
+# unfortunately the AR binaries have slightly different naming for armv7a
+# compares to the clang target platform and binaries
+TARGET_AR_X86 = arm-linux-androideabi
+TARGET_AR_X64 = aarch64-linux-android
+
+# android sysroot in ndk
+SYSROOT_X86 = $(NDK)/platforms/android-$(API)/arch-arm
+SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-arm64
 
 # flags shared between all
 FLAGS = -O2 \
-        -mmacosx-version-min=$(OSX_MINVER) \
+        -static \
+        -DANDROID \
+        -D__ANDROID_API__=$(API) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations
 
 # Architecture flags
-ARCHFLAGS_X86 = -msse -msse2
-ARCHFLAGS_X64 = -msse -msse2
+ARCHFLAGS_X86 =
+ARCHFLAGS_X64 =
 
 # C Compiler
-CC_X86       = clang
-CC_X64       = clang
-CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CFLAGS_X64   = -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CC_X86       = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang.cmd
+CC_X64       = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang.cmd
+CFLAGS_X86   = -m32 --target=$(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CFLAGS_X64   = -m64 --target=$(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX_X86      = clang++
-CXX_X64      = clang++
-CXXFLAGS_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
-CXXFLAGS_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+CXX_X86        = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang++.cmd
+CXX_X64        = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang++.cmd
+CXXFLAGS_X86 = -m32 -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CXXFLAGS_X64 = -m64 -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # File Operations
 define deletefilepattern
-	find $(1) -type f -name '$(2)' -delete
+	del /s /q $(subst /,\,$(1))\$(2)
 endef
 
 # Platform Specific additional defines
-ENGINE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_OSX
-ENGINE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_OSX
-QTBASE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
-QTBASE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
-STUDIO_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
-STUDIO_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
+ENGINE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID
+ENGINE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID
+QTBASE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+QTBASE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+STUDIO_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+STUDIO_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
 
 # Platform Specific additional includes
 ENGINE_INCLUDES_X86_PLAT =
@@ -53,8 +69,8 @@ STUDIO_INCLUDES_X64_PLAT =
 #####################################################################################
 # Qt MOC+RCC+UIC
 
-MOC_X86 = ../../deps/build/make/bin/x86/qt-moc
-MOC_X64 = ../../deps/build/make/bin/x64/qt-moc
+MOC_X86 = ../../deps/prebuilt/win/x86/qt-moc.exe
+MOC_X64 = ../../deps/prebuilt/win/x64/qt-moc.exe
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     MOC = $(MOC_X86)
 endif
@@ -62,8 +78,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     MOC = $(MOC_X64)
 endif
 
-RCC_X86 = ../../deps/build/make/bin/x86/qt-rcc
-RCC_X64 = ../../deps/build/make/bin/x64/qt-rcc
+RCC_X86 = ../../deps/prebuilt/win/x86/qt-rcc.exe
+RCC_X64 = ../../deps/prebuilt/win/x64/qt-rcc.exe
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     RCC = $(RCC_X86)
 endif
@@ -71,8 +87,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     RCC = $(RCC_X64)
 endif
 
-UIC_X86 = ../../deps/build/make/bin/x86/qt-uic
-UIC_X64 = ../../deps/build/make/bin/x64/qt-uic
+UIC_X86 = ../../deps/prebuilt/win/x86/qt-rcc.exe
+UIC_X64 = ../../deps/prebuilt/win/x64/qt-rcc.exe
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     UIC = $(UIC_X86)
 endif
@@ -85,8 +101,8 @@ endif
 include Makefile.common
 
 # LIB Tool
-LIB_X86      = ar
-LIB_X64      = ar
+LIB_X86      = $(TOOLCHAIN)/bin/$(TARGET_AR_X86)-ar.exe
+LIB_X64      = $(TOOLCHAIN)/bin/$(TARGET_AR_X64)-ar.exe
 LIBFLAGS_X86 = rc
 LIBFLAGS_X64 = rc
 
@@ -102,7 +118,7 @@ endef
 # Linker
 LINK_X86      = $(CXX_X86)
 LINK_X64      = $(CXX_X64)
-LINKFLAGS_X86 = $(CXXFLAGS_X86) 
+LINKFLAGS_X86 = $(CXXFLAGS_X86)
 LINKFLAGS_X64 = $(CXXFLAGS_X64)
 
 # Additional Linker Library Path for shared libraries
@@ -110,19 +126,27 @@ LINKPATH_X86 = -L./lib/x86
 LINKPATH_X64 = -L./lib/x64
 
 # Shared Libraries for X86 and X64
-LINKLIBS_ALL = -lcups \
-               -framework AppKit \
-               -framework Carbon \
-               -framework Cocoa \
-               -framework CoreBluetooth \
-               -framework GLUT \
-               -framework IOBluetooth \
-               -framework IOKit \
-               -framework IOSurface \
-               -framework Metal \
-               -framework OpenGL \
-               -framework Quartz \
-               -framework Security
+LINKLIBS_ALL = -lpthread \
+               -ldl \
+               -lGL \
+               -lexpat \
+               -lX11 \
+               -lX11-xcb \
+               -lxkbcommon \
+               -lxcb \
+               -lxcb-glx \
+               -lxcb-icccm \
+               -lxcb-image \
+               -lxcb-keysyms \
+               -lxcb-randr \
+               -lxcb-render \
+               -lxcb-render-util \
+               -lxcb-shape \
+               -lxcb-shm \
+               -lxcb-sync \
+               -lxcb-xfixes \
+               -lxcb-xinerama \
+               -lxcb-xkb
 
 # Libraries for X86 or X64
 LINKLIBS_X86 = $(LINKLIBS_ALL)
@@ -170,16 +194,18 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/qt-multimediawidgets.a \
                   $(DEPSLIBDIR_X86)/qt-network.a \
                   $(DEPSLIBDIR_X86)/qt-opengl.a \
-                  $(DEPSLIBDIR_X86)/qt-platform-cocoa.a \
+                  $(DEPSLIBDIR_X86)/qt-platform-android.a \
                   $(DEPSLIBDIR_X86)/qt-fontdatabases.a \
                   $(DEPSLIBDIR_X86)/qt-printsupport.a \
                   $(DEPSLIBDIR_X86)/qt-serialport.a \
                   $(DEPSLIBDIR_X86)/qt-widgets.a \
                   $(DEPSLIBDIR_X86)/qt-gui.a \
                   $(DEPSLIBDIR_X86)/qt-xml.a \
+                  $(DEPSLIBDIR_X86)/qt-dbus.a \
                   $(DEPSLIBDIR_X86)/qt-core.a \
                   $(DEPSLIBDIR_X86)/double-conversion.a \
                   $(DEPSLIBDIR_X86)/edflib.a \
+                  $(DEPSLIBDIR_X86)/fontconfig.a \
                   $(DEPSLIBDIR_X86)/freetype.a \
                   $(DEPSLIBDIR_X86)/harfbuzz.a \
                   $(DEPSLIBDIR_X86)/harfbuzz-ng.a \
@@ -210,16 +236,18 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/qt-multimediawidgets.a \
                   $(DEPSLIBDIR_X64)/qt-network.a \
                   $(DEPSLIBDIR_X64)/qt-opengl.a \
-                  $(DEPSLIBDIR_X64)/qt-platform-cocoa.a \
+                  $(DEPSLIBDIR_X64)/qt-platform-android.a \
                   $(DEPSLIBDIR_X64)/qt-fontdatabases.a \
                   $(DEPSLIBDIR_X64)/qt-printsupport.a \
                   $(DEPSLIBDIR_X64)/qt-serialport.a \
                   $(DEPSLIBDIR_X64)/qt-widgets.a \
                   $(DEPSLIBDIR_X64)/qt-gui.a \
                   $(DEPSLIBDIR_X64)/qt-xml.a \
+                  $(DEPSLIBDIR_X64)/qt-dbus.a \
                   $(DEPSLIBDIR_X64)/qt-core.a \
                   $(DEPSLIBDIR_X64)/double-conversion.a \
                   $(DEPSLIBDIR_X64)/edflib.a \
+                  $(DEPSLIBDIR_X64)/fontconfig.a \
                   $(DEPSLIBDIR_X64)/freetype.a \
                   $(DEPSLIBDIR_X64)/harfbuzz.a \
                   $(DEPSLIBDIR_X64)/harfbuzz-ng.a \

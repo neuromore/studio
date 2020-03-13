@@ -20,12 +20,14 @@ ARCHFLAGS_X86 = -msse -msse2
 ARCHFLAGS_X64 = -msse -msse2
 
 # C Compiler
-CC           = clang-cl
+CC_X86       = clang-cl
+CC_X64       = clang-cl
 CFLAGS_X86   = -MT -TC -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CFLAGS_X64   = -MT -TC -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX          = clang++
+CXX_X86      = clang++
+CXX_X64      = clang++
 CXXFLAGS_X86 = -MT -TP -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 CXXFLAGS_X64 = -MT -TP -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 
@@ -85,21 +87,23 @@ endif
 include Makefile.common
 
 # LIB Tool
-LIB          = llvm-lib
+LIB_X86      = llvm-lib
+LIB_X64      = llvm-lib
 LIBFLAGS_X86 = /NOLOGO /MACHINE:X86 /LIBPATH:$(LIBDIR_X86)
 LIBFLAGS_X64 = /NOLOGO /MACHINE:X64 /LIBPATH:$(LIBDIR_X64)
 
 # LIB Functions
 define createlib32
-	$(LIB) $(LIBFLAGS_X86) /OUT:"$(LIBDIR_X86)\$(1).lib" $(2)
+	$(LIB_X86) $(LIBFLAGS_X86) /OUT:"$(LIBDIR_X86)\$(1).lib" $(2)
 endef
 define createlib64
-	$(LIB) $(LIBFLAGS_X64) /OUT:"$(LIBDIR_X64)\$(1).lib" $(2)
+	$(LIB_X64) $(LIBFLAGS_X64) /OUT:"$(LIBDIR_X64)\$(1).lib" $(2)
 endef
 
 #####################################################################################
 # Linker
-LINK          = lld-link
+LINK_X86      = lld-link
+LINK_X64      = lld-link
 LINKFLAGS_X86 = -machine:x86 -subsystem:console
 LINKFLAGS_X64 = -machine:x64 -subsystem:console
 
@@ -133,10 +137,10 @@ LINKLIBS_X64 = $(LINKLIBS_ALL)
 
 # Linker Functions
 define createbin32
-	$(LINK) $(2) -out:$(BINDIR_X86)/$(1).exe $(LINKFLAGS_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
+	$(LINK_X86) $(2) -out:$(BINDIR_X86)/$(1).exe $(LINKFLAGS_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
 endef
 define createbin64
-	$(LINK) $(2) -out:$(BINDIR_X64)/$(1).exe $(LINKFLAGS_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
+	$(LINK_X64) $(2) -out:$(BINDIR_X64)/$(1).exe $(LINKFLAGS_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
 endef
 
 #####################################################################################

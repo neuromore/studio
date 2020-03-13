@@ -15,12 +15,14 @@ ARCHFLAGS_X86 = -msse -msse2
 ARCHFLAGS_X64 = -msse -msse2
 
 # C Compiler
-CC           = clang
+CC_X86       = clang
+CC_X64       = clang
 CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CFLAGS_X64   = -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX          = clang++
+CXX_X86      = clang++
+CXX_X64      = clang++
 CXXFLAGS_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 CXXFLAGS_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 
@@ -80,21 +82,23 @@ endif
 include Makefile.common
 
 # LIB Tool
-LIB          = ar
+LIB_X86      = ar
+LIB_X64      = ar
 LIBFLAGS_X86 = rc
 LIBFLAGS_X64 = rc
 
 # LIB Functions
 define createlib32
-	$(LIB) $(LIBFLAGS_X86) $(LIBDIR_X86)/$(1).a $(2)
+	$(LIB_X86) $(LIBFLAGS_X86) $(LIBDIR_X86)/$(1).a $(2)
 endef
 define createlib64
-	$(LIB) $(LIBFLAGS_X64) $(LIBDIR_X64)/$(1).a $(2)
+	$(LIB_X64) $(LIBFLAGS_X64) $(LIBDIR_X64)/$(1).a $(2)
 endef
 
 #####################################################################################
 # Linker
-LINK          = $(CXX)
+LINK_X86      = $(CXX_X86)
+LINK_X64      = $(CXX_X64)
 LINKFLAGS_X86 = $(CXXFLAGS_X86)
 LINKFLAGS_X64 = $(CXXFLAGS_X64)
 
@@ -131,10 +135,10 @@ LINKLIBS_X64 = $(LINKLIBS_ALL)
 
 # Linker Functions
 define createbin32
-	$(LINK) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
 define createbin64
-	$(LINK) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
 endef
 
 #####################################################################################
