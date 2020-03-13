@@ -215,7 +215,8 @@ endef
 
 #####################################################################################
 # Linker
-LINK          = $(CXX)
+LINK_X86      = $(CXX_X86)
+LINK_X64      = $(CXX_X64)
 LINKFLAGS_X86 = $(CXXFLAGS_X86)
 LINKFLAGS_X64 = $(CXXFLAGS_X64)
 
@@ -232,10 +233,10 @@ LINKLIBS_X64 = $(LINKLIBS_ALL)
 
 # Linker Functions
 define createbin32
-	$(LINK) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
 define createbin64
-	$(LINK) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
 endef
 
 #####################################################################################
