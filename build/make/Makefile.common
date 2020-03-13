@@ -232,6 +232,31 @@ $(ENGINE_OBJDIR_X64)/%.o:
 	$(ENGINE_BUILD_X64)
 
 ###################################################################################################################
+# ENGINE-SHARED
+###################################################################################################################
+ENGINESHARED_INCDIR       = $(INCDIR)/Engine
+ENGINESHARED_SRCDIR       = $(SRCDIR)/Engine
+ENGINESHARED_OBJDIR_X86   = $(OBJDIR_X86)/Engine
+ENGINESHARED_OBJDIR_X64   = $(OBJDIR_X64)/Engine
+ENGINESHARED_DEFINES      = -DUNICODE \
+                            -DNDEBUG \
+                            -Wno-unknown-warning-option
+ENGINESHARED_DEFINES_X86  = $(ENGINESHARED_DEFINES) $(ENGINESHARED_DEFINES_X86_PLAT)
+ENGINESHARED_DEFINES_X64  = $(ENGINESHARED_DEFINES) $(ENGINESHARED_DEFINES_X64_PLAT)
+ENGINESHARED_INCLUDES     = -I$(ENGINESHARED_INCDIR) -I$(ENGINESHARED_SRCDIR) -I$(DEPSINCDIR)
+ENGINESHARED_INCLUDES_X86 = $(ENGINESHARED_INCLUDES) $(ENGINESHARED_INCLUDES_X86_PLAT)
+ENGINESHARED_INCLUDES_X64 = $(ENGINESHARED_INCLUDES) $(ENGINESHARED_INCLUDES_X64_PLAT)
+ENGINESHARED_BUILD_X86    = $(CXX_X86) $(CXXFLAGS_X86) $(ENGINESHARED_DEFINES_X86) $(ENGINESHARED_INCLUDES_X86) -c $(@:$(ENGINESHARED_OBJDIR_X86)%.o=$(ENGINESHARED_SRCDIR)%.cpp) -o $@
+ENGINESHARED_BUILD_X64    = $(CXX_X64) $(CXXFLAGS_X64) $(ENGINESHARED_DEFINES_X64) $(ENGINESHARED_INCLUDES_X64) -c $(@:$(ENGINESHARED_OBJDIR_X64)%.o=$(ENGINESHARED_SRCDIR)%.cpp) -o $@
+ENGINESHARED_OBJS_ALL     = 
+
+$(ENGINESHARED_OBJDIR_X86)/%.o:
+	$(ENGINESHARED_BUILD_X86)
+
+$(ENGINESHARED_OBJDIR_X64)/%.o:
+	$(ENGINESHARED_BUILD_X64)
+
+###################################################################################################################
 # QTBASE
 ###################################################################################################################
 QTBASE_SRCDIR        = $(SRCDIR)/QtBase

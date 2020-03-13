@@ -23,7 +23,6 @@ SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-arm64
 
 # flags shared between all
 FLAGS = -O2 \
-        -static \
         -DANDROID \
         -D__ANDROID_API__=$(API) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
@@ -36,14 +35,14 @@ ARCHFLAGS_X64 =
 # C Compiler
 CC_X86       = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang.cmd
 CC_X64       = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang.cmd
-CFLAGS_X86   = -m32 --target=$(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CFLAGS_X64   = -m64 --target=$(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CFLAGS_X86   = -static -m32 --target=$(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CFLAGS_X64   = -static -m64 --target=$(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
 CXX_X86        = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang++.cmd
 CXX_X64        = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang++.cmd
-CXXFLAGS_X86 = -m32 -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CXXFLAGS_X64 = -m64 -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # File Operations
 define deletefilepattern
@@ -51,12 +50,14 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-ENGINE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID
-ENGINE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID
-QTBASE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
-QTBASE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
-STUDIO_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
-STUDIO_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+ENGINE_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_ANDROID
+ENGINE_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_ANDROID
+ENGINESHARED_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID
+ENGINESHARED_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID
+QTBASE_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+QTBASE_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+STUDIO_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+STUDIO_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
 
 # Platform Specific additional includes
 ENGINE_INCLUDES_X86_PLAT =
@@ -118,41 +119,30 @@ endef
 # Linker
 LINK_X86      = $(CXX_X86)
 LINK_X64      = $(CXX_X64)
-LINKFLAGS_X86 = $(CXXFLAGS_X86)
-LINKFLAGS_X64 = $(CXXFLAGS_X64)
+LINKFLAGS_X86 = --sysroot=$(SYSROOT_X86) -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(FLAGS)
+LINKFLAGS_X64 = --sysroot=$(SYSROOT_X64) -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(FLAGS)
 
 # Additional Linker Library Path for shared libraries
-LINKPATH_X86 = -L./lib/x86
-LINKPATH_X64 = -L./lib/x64
+LINKPATH_X86 = \
+	-L./lib/x86 \
+	-L$(SYSROOT_X86)/usr/lib/ \
+	-L$(TOOLCHAIN)/sysroot/usr/lib/$(TARGET_AR_X86)/$(API) \
+	-L$(TOOLCHAIN)/sysroot/usr/lib/$(TARGET_AR_X86)
+	
+LINKPATH_X64 = \
+	-L./lib/x64 \
+	-L$(SYSROOT_X64)/usr/lib/ \
+	-L$(TOOLCHAIN)/sysroot/usr/lib/$(TARGET_AR_X64)/$(API) \
+	-L$(TOOLCHAIN)/sysroot/usr/lib/$(TARGET_AR_X64)
 
 # Shared Libraries for X86 and X64
-LINKLIBS_ALL = -lpthread \
-               -ldl \
-               -lGL \
-               -lexpat \
-               -lX11 \
-               -lX11-xcb \
-               -lxkbcommon \
-               -lxcb \
-               -lxcb-glx \
-               -lxcb-icccm \
-               -lxcb-image \
-               -lxcb-keysyms \
-               -lxcb-randr \
-               -lxcb-render \
-               -lxcb-render-util \
-               -lxcb-shape \
-               -lxcb-shm \
-               -lxcb-sync \
-               -lxcb-xfixes \
-               -lxcb-xinerama \
-               -lxcb-xkb
+LINKLIBS_ALL =
 
 # Libraries for X86 or X64
 LINKLIBS_X86 = $(LINKLIBS_ALL)
 LINKLIBS_X64 = $(LINKLIBS_ALL)
 
-# Linker Functions
+# Linker Functions for Executable
 define createbin32
 	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
@@ -160,11 +150,26 @@ define createbin64
 	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
 endef
 
+# Linker Functions for Shared Library
+define createshared32
+	$(LINK_X86) $(LINKFLAGS_X86) -fpic -shared $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
+endef
+define createshared64
+	$(LINK_X64) $(LINKFLAGS_X64) -fpic -shared $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
+endef
+
 #####################################################################################
 # Platform Specific additional objects to build
 #####################################################################################
 
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
+
+ENGINESHARED_OBJS     = $(ENGINESHARED_OBJS_ALL) \
+                        neuromoreEngineJni.o
+ENGINESHARED_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
+                        $(DEPSLIBDIR_X86)/zlib.a
+ENGINESHARED_LIBS_X64 = $(LIBDIR_X64)/Engine.a \
+                        $(DEPSLIBDIR_X64)/zlib.a
 
 QTBASE_MOCH     = $(QTBASE_MOCH_ALL)
 QTBASE_MOCC     = $(QTBASE_MOCC_ALL)
@@ -272,3 +277,11 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
 # Include Targets
 
 include Makefile.targets
+
+all-x86: all-common-x86 \
+         Engine-shared-x86
+
+all-x64: all-common-x64 \
+         Engine-Shared-x64
+
+all: all-x86 all-x64

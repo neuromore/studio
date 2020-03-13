@@ -35,12 +35,14 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-ENGINE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_OSX
-ENGINE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_OSX
-QTBASE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
-QTBASE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
-STUDIO_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
-STUDIO_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
+ENGINE_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_OSX
+ENGINE_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_OSX
+ENGINESHARED_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_OSX
+ENGINESHARED_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_OSX
+QTBASE_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
+QTBASE_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
+STUDIO_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
+STUDIO_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_fontconfig=1
 
 # Platform Specific additional includes
 ENGINE_INCLUDES_X86_PLAT =
@@ -102,8 +104,8 @@ endef
 # Linker
 LINK_X86      = $(CXX_X86)
 LINK_X64      = $(CXX_X64)
-LINKFLAGS_X86 = $(CXXFLAGS_X86) 
-LINKFLAGS_X64 = $(CXXFLAGS_X64)
+LINKFLAGS_X86 = -target $(TARGET_X86) $(FLAGS)
+LINKFLAGS_X64 = -target $(TARGET_X64) $(FLAGS)
 
 # Additional Linker Library Path for shared libraries
 LINKPATH_X86 = -L./lib/x86
@@ -128,7 +130,7 @@ LINKLIBS_ALL = -lcups \
 LINKLIBS_X86 = $(LINKLIBS_ALL)
 LINKLIBS_X64 = $(LINKLIBS_ALL)
 
-# Linker Functions
+# Linker Functions for Executable
 define createbin32
 	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
@@ -136,11 +138,21 @@ define createbin64
 	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
 endef
 
+# Linker Functions for Shared Library
+define createshared32
+	$(LINK_X86) $(LINKFLAGS_X86) -fpic -shared $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
+endef
+define createshared64
+	$(LINK_X64) $(LINKFLAGS_X64) -fpic -shared $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
+endef
+
 #####################################################################################
 # Platform Specific additional objects to build
 #####################################################################################
 
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
+
+ENGINESHARED_OBJS = $(ENGINESHARED_OBJS_ALL)
 
 QTBASE_MOCH     = $(QTBASE_MOCH_ALL)
 QTBASE_MOCC     = $(QTBASE_MOCC_ALL)
@@ -244,3 +256,11 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
 # Include Targets
 
 include Makefile.targets
+
+all-x86: all-common-x86 \
+         Studio-x86
+
+all-x64: all-common-x64 \
+         Studio-x64
+
+all: all-x86 all-x64

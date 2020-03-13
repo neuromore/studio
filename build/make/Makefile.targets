@@ -27,6 +27,31 @@ Engine-x64-clean:
 
 Engine-clean: Engine-x86-clean Engine-x64-clean
 ###################################################################################################################
+# ENGINE-SHARED
+###################################################################################################################
+ENGINESHARED_OBJS_X86 := $(patsubst %,$(ENGINESHARED_OBJDIR_X86)/%,$(ENGINESHARED_OBJS))
+ENGINESHARED_OBJS_X64 := $(patsubst %,$(ENGINESHARED_OBJDIR_X64)/%,$(ENGINESHARED_OBJS))
+
+Engine-shared-x86: Engine-x86 $(ENGINESHARED_OBJS_X86)
+	$(call createshared32,Engine,$(ENGINESHARED_OBJS_X86),$(ENGINESHARED_LIBS_X86))
+#	$(call createlib32,Engine-shared,$(ENGINESHARED_OBJS_X86))
+
+Engine-shared-x64: Engine-x64 $(ENGINESHARED_OBJS_X64)
+	$(call createshared64,Engine,$(ENGINESHARED_OBJS_X64),$(ENGINESHARED_LIBS_X64))
+#	$(call createlib64,Engine-shared,$(ENGINESHARED_OBJS_X64))
+
+Engine-shared: Engine-shared-x86 Engine-shared-x64
+
+Engine-shared-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),Engine.*)
+	$(call deletefilepattern,$(ENGINESHARED_OBJDIR_X86),*.o)
+
+Engine-shared-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),Engine.*)
+	$(call deletefilepattern,$(ENGINESHARED_OBJDIR_X64),*.o)
+
+Engine-shared-clean: Engine-shared-x86-clean Engine-shared-x64-clean
+###################################################################################################################
 # QTBASE
 ###################################################################################################################
 QTBASE_MOCH_X86     := $(patsubst %,$(QTBASE_MOCDIR_X86)/%,$(QTBASE_MOCH))
@@ -135,9 +160,9 @@ Studio-clean: Studio-x86-clean Studio-x64-clean
 ###################################################################################################################
 # ALL
 ###################################################################################################################
-all-x86: Engine-x86 QtBase-x86 Studio-x86 
-all-x64: Engine-x64 QtBase-x64 Studio-x64
-all: all-x86 all-x64
+all-common-x86: Engine-x86 QtBase-x86 
+all-common-x64: Engine-x64 QtBase-x64
+all-common: all-common-x86 all-common-x64
 
 clean-x86: Engine-x86-clean QtBase-x86-clean Studio-x86-clean 
 clean-x64: Engine-x64-clean QtBase-x64-clean Studio-x64-clean
