@@ -102,10 +102,12 @@ endef
 
 #####################################################################################
 # Linker
-LINK_X86      = $(CXX_X86)
-LINK_X64      = $(CXX_X64)
-LINKFLAGS_X86 = -target $(TARGET_X86) $(FLAGS)
-LINKFLAGS_X64 = -target $(TARGET_X64) $(FLAGS)
+LINK_X86         = $(CXX_X86)
+LINK_X64         = $(CXX_X64)
+LINKFLAGS_X86    = -target $(TARGET_X86) $(FLAGS)
+LINKFLAGS_X64    = -target $(TARGET_X64) $(FLAGS)
+LINKFLAGSDYN_X86 = -fpic -shared -static-libstdc++
+LINKFLAGSDYN_X64 = -fpic -shared -static-libstdc++
 
 # Additional Linker Library Path for shared libraries
 LINKPATH_X86 = -L./lib/x86
@@ -140,10 +142,10 @@ endef
 
 # Linker Functions for Shared Library
 define createshared32
-	$(LINK_X86) $(LINKFLAGS_X86) -fpic -shared $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
 endef
 define createshared64
-	$(LINK_X64) $(LINKFLAGS_X64) -fpic -shared $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
 endef
 
 #####################################################################################

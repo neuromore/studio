@@ -7,19 +7,38 @@ NDK       = C:/android-ndk-r21
 TOOLCHAIN = $(NDK)/toolchains/llvm/prebuilt/windows-x86_64
 API       = 21
 
+#########################################################################################
 # target platforms
-# note: x86/x64 are only synonyms for 32/64 ARM here
-TARGET_X86 = armv7a-linux-androideabi
-TARGET_X64 = aarch64-linux-android
+
+#####
+# ARM
+#TARGET_X86 = armv7a-linux-androideabi
+#TARGET_X64 = aarch64-linux-android
 
 # unfortunately the AR binaries have slightly different naming for armv7a
 # compares to the clang target platform and binaries
-TARGET_AR_X86 = arm-linux-androideabi
-TARGET_AR_X64 = aarch64-linux-android
+#TARGET_AR_X86 = arm-linux-androideabi
+#TARGET_AR_X64 = aarch64-linux-android
 
 # android sysroot in ndk
-SYSROOT_X86 = $(NDK)/platforms/android-$(API)/arch-arm
-SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-arm64
+#SYSROOT_X86 = $(NDK)/platforms/android-$(API)/arch-arm
+#SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-arm64
+
+#####
+# X86
+TARGET_X86 = i686-linux-android
+TARGET_X64 = x86_64-linux-android
+
+# unfortunately the AR binaries have slightly different naming for armv7a
+# compares to the clang target platform and binaries
+TARGET_AR_X86 = i686-linux-android
+TARGET_AR_X64 = x86_64-linux-android
+
+# android sysroot in ndk
+SYSROOT_X86 = $(NDK)/platforms/android-$(API)/arch-x86
+SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-x86_64
+
+#########################################################################################
 
 # flags shared between all
 FLAGS = -O2 \
@@ -104,8 +123,8 @@ include Makefile.common
 # LIB Tool
 LIB_X86      = $(TOOLCHAIN)/bin/$(TARGET_AR_X86)-ar.exe
 LIB_X64      = $(TOOLCHAIN)/bin/$(TARGET_AR_X64)-ar.exe
-LIBFLAGS_X86 = rc
-LIBFLAGS_X64 = rc
+LIBFLAGS_X86 = rcs
+LIBFLAGS_X64 = rcs
 
 # LIB Functions
 define createlib32
@@ -117,10 +136,12 @@ endef
 
 #####################################################################################
 # Linker
-LINK_X86      = $(CXX_X86)
-LINK_X64      = $(CXX_X64)
-LINKFLAGS_X86 = --sysroot=$(SYSROOT_X86) -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(FLAGS)
-LINKFLAGS_X64 = --sysroot=$(SYSROOT_X64) -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(FLAGS)
+LINK_X86         = $(CXX_X86)
+LINK_X64         = $(CXX_X64)
+LINKFLAGS_X86    = --sysroot=$(SYSROOT_X86) -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(FLAGS)
+LINKFLAGS_X64    = --sysroot=$(SYSROOT_X64) -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(FLAGS)
+LINKFLAGSDYN_X86 = -fpic -shared -static-libstdc++
+LINKFLAGSDYN_X64 = -fpic -shared -static-libstdc++
 
 # Additional Linker Library Path for shared libraries
 LINKPATH_X86 = \
@@ -136,7 +157,7 @@ LINKPATH_X64 = \
 	-L$(TOOLCHAIN)/sysroot/usr/lib/$(TARGET_AR_X64)
 
 # Shared Libraries for X86 and X64
-LINKLIBS_ALL =
+LINKLIBS_ALL = -llog
 
 # Libraries for X86 or X64
 LINKLIBS_X86 = $(LINKLIBS_ALL)
@@ -152,10 +173,10 @@ endef
 
 # Linker Functions for Shared Library
 define createshared32
-	$(LINK_X86) $(LINKFLAGS_X86) -fpic -shared $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
 endef
 define createshared64
-	$(LINK_X64) $(LINKFLAGS_X64) -fpic -shared $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
 endef
 
 #####################################################################################
@@ -167,8 +188,12 @@ ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
 ENGINESHARED_OBJS     = $(ENGINESHARED_OBJS_ALL) \
                         neuromoreEngineJni.o
 ENGINESHARED_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
+                        $(DEPSLIBDIR_X86)/oscpack.a \
+                        $(DEPSLIBDIR_X86)/kissfft.a \
                         $(DEPSLIBDIR_X86)/zlib.a
 ENGINESHARED_LIBS_X64 = $(LIBDIR_X64)/Engine.a \
+                        $(DEPSLIBDIR_X64)/oscpack.a \
+                        $(DEPSLIBDIR_X64)/kissfft.a \
                         $(DEPSLIBDIR_X64)/zlib.a
 
 QTBASE_MOCH     = $(QTBASE_MOCH_ALL)

@@ -7,19 +7,38 @@ NDK       = C:/android-ndk-r21
 TOOLCHAIN = $(NDK)/toolchains/llvm/prebuilt/windows-x86_64
 API       = 21
 
+#########################################################################################
 # target platforms
-# note: x86/x64 are only synonyms for 32/64 ARM here
-TARGET_X86 = armv7a-linux-androideabi
-TARGET_X64 = aarch64-linux-android
+
+#####
+# ARM
+#TARGET_X86 = armv7a-linux-androideabi
+#TARGET_X64 = aarch64-linux-android
 
 # unfortunately the AR binaries have slightly different naming for armv7a
 # compares to the clang target platform and binaries
-TARGET_AR_X86 = arm-linux-androideabi
-TARGET_AR_X64 = aarch64-linux-android
+#TARGET_AR_X86 = arm-linux-androideabi
+#TARGET_AR_X64 = aarch64-linux-android
 
 # android sysroot in ndk
-SYSROOT_X86 = $(NDK)/platforms/android-$(API)/arch-arm
-SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-arm64
+#SYSROOT_X86 = $(NDK)/platforms/android-$(API)/arch-arm
+#SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-arm64
+
+#####
+# X86
+TARGET_X86 = i686-linux-android
+TARGET_X64 = x86_64-linux-android
+
+# unfortunately the AR binaries have slightly different naming for armv7a
+# compares to the clang target platform and binaries
+TARGET_AR_X86 = i686-linux-android
+TARGET_AR_X64 = x86_64-linux-android
+
+# android sysroot in ndk
+SYSROOT_X86 = $(NDK)/platforms/android-$(API)/arch-x86
+SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-x86_64
+
+#########################################################################################
 
 # flags shared between all
 FLAGS = -O2 \
@@ -222,8 +241,8 @@ include Makefile.common
 # LIB Tool
 LIB_X86 = $(TOOLCHAIN)/bin/$(TARGET_AR_X86)-ar.exe
 LIB_X64 = $(TOOLCHAIN)/bin/$(TARGET_AR_X64)-ar.exe
-LIBFLAGS_X86 = rc
-LIBFLAGS_X64 = rc
+LIBFLAGS_X86 = rcs
+LIBFLAGS_X64 = rcs
 
 # LIB Functions
 define createlib32

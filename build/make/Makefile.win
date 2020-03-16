@@ -104,10 +104,12 @@ endef
 
 #####################################################################################
 # Linker
-LINK_X86      = lld-link
-LINK_X64      = lld-link
-LINKFLAGS_X86 = -machine:x86 -subsystem:console
-LINKFLAGS_X64 = -machine:x64 -subsystem:console
+LINK_X86         = lld-link
+LINK_X64         = lld-link
+LINKFLAGS_X86    = -machine:x86 -subsystem:console
+LINKFLAGS_X64    = -machine:x64 -subsystem:console
+LINKFLAGSDYN_X86 =
+LINKFLAGSDYN_X64 =
 
 # Visual Studio and Windows SDK Folders
 DIRVCTOOLS := $(subst \,/,$(VCToolsInstallDir))
@@ -147,10 +149,10 @@ endef
 
 # Linker Functions for Shared Library
 define createshared32
-	$(LINK_X86) $(2) -out:$(LIBDIR_X86)/$(1).dll $(LINKFLAGS_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
+	$(LINK_X86) $(2) -out:$(LIBDIR_X86)/$(1).dll $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
 endef
 define createshared64
-	$(LINK_X64) $(2) -out:$(LIBDIR_X64)/$(1).dll $(LINKFLAGS_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
+	$(LINK_X64) $(2) -out:$(LIBDIR_X64)/$(1).dll $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
 endef
 
 #####################################################################################
