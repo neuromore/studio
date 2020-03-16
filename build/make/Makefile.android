@@ -42,6 +42,7 @@ SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-x86_64
 
 # flags shared between all
 FLAGS = -O2 \
+        -fpic \
         -DANDROID \
         -D__ANDROID_API__=$(API) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
@@ -140,8 +141,8 @@ LINK_X86         = $(CXX_X86)
 LINK_X64         = $(CXX_X64)
 LINKFLAGS_X86    = --sysroot=$(SYSROOT_X86) -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(FLAGS)
 LINKFLAGS_X64    = --sysroot=$(SYSROOT_X64) -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(FLAGS)
-LINKFLAGSDYN_X86 = -fpic -shared -static-libstdc++
-LINKFLAGSDYN_X64 = -fpic -shared -static-libstdc++
+LINKFLAGSDYN_X86 = -shared -static-libstdc++
+LINKFLAGSDYN_X64 = -shared -static-libstdc++
 
 # Additional Linker Library Path for shared libraries
 LINKPATH_X86 = \

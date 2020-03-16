@@ -42,6 +42,7 @@ SYSROOT_X64 = $(NDK)/platforms/android-$(API)/arch-x86_64
 
 # flags shared between all
 FLAGS = -O2 \
+        -fpic \
         -static \
         -DANDROID \
         -D__ANDROID_API__=$(API) \
