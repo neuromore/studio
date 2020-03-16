@@ -739,42 +739,40 @@ SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 #####################################################################################
 # Project Dependencies
 
-include Makefile.pretargets
-
-$(QTBLUETOOTH_PRES_X86)         : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTBLUETOOTH_PRES_X64)         : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTCORE_PRES_X86)              : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTCORE_PRES_X64)              : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTDBUS_PRES_X86)              : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTDBUS_PRES_X64)              : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTEVENTDISPATCHERS_PRES_X86)  : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTEVENTDISPATCHERS_PRES_X64)  : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTFONTDATABASES_PRES_X86)     : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTFONTDATABASES_PRES_X64)     : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTGAMEPAD_PRES_X86)           : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTGAMEPAD_PRES_X64)           : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTGUI_PRES_X86)               : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTGUI_PRES_X64)               : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTMULTIMEDIA_PRES_X86)        : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTMULTIMEDIA_PRES_X64)        : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTMULTIMEDIAWIDGETS_PRES_X86) : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTMULTIMEDIAWIDGETS_PRES_X64) : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTNETWORK_PRES_X86)           : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTNETWORK_PRES_X64)           : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTPLATFORMWINDOWS_PRES_X86)   : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTPLATFORMWINDOWS_PRES_X64)   : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTPLATFORMXCB_PRES_X86)       : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTPLATFORMXCB_PRES_X64)       : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTPLATFORMCOCOA_PRES_X86)     : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTPLATFORMCOCOA_PRES_X64)     : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTPRINTSUPPORT_PRES_X86)      : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTPRINTSUPPORT_PRES_X64)      : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTSERIALPORT_PRES_X86)        : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTSERIALPORT_PRES_X64)        : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(QTWIDGETS_PRES_X86)           : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(QTWIDGETS_PRES_X64)           : qt-moc-x64 qt-rcc-x64 qt-uic-x64
-$(SINGLEAPPLICATION_PRES_X86)   : qt-moc-x86 qt-rcc-x86 qt-uic-x86
-$(SINGLEAPPLICATION_PRES_X64)   : qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTBLUETOOTH_DEPS_X86         = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTBLUETOOTH_DEPS_X64         = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTCORE_DEPS_X86              = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTCORE_DEPS_X64              = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTDBUS_DEPS_X86              = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTDBUS_DEPS_X64              = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTEVENTDISPATCHERS_DEPS_X86  = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTEVENTDISPATCHERS_DEPS_X64  = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTFONTDATABASES_DEPS_X86     = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTFONTDATABASES_DEPS_X64     = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTGAMEPAD_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTGAMEPAD_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTGUI_DEPS_X86               = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTGUI_DEPS_X64               = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIA_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIA_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIAWIDGETS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIAWIDGETS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTNETWORK_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTNETWORK_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMWINDOWS_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMWINDOWS_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMXCB_DEPS_X86       = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMXCB_DEPS_X64       = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMCOCOA_DEPS_X86     = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMCOCOA_DEPS_X64     = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPRINTSUPPORT_DEPS_X86      = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPRINTSUPPORT_DEPS_X64      = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTSERIALPORT_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTSERIALPORT_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTWIDGETS_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTWIDGETS_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+SINGLEAPPLICATION_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+SINGLEAPPLICATION_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 
 #####################################################################################
 # Include Targets
