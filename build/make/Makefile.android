@@ -187,7 +187,7 @@ endef
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
 
 ENGINESHARED_OBJS     = $(ENGINESHARED_OBJS_ALL) \
-                        neuromoreEngineJni.o
+                        JNI/neuromoreEngineJni.o
 ENGINESHARED_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
                         $(DEPSLIBDIR_X86)/oscpack.a \
                         $(DEPSLIBDIR_X86)/kissfft.a \

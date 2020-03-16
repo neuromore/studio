@@ -28,11 +28,17 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/resource.h>
-#include <android/log.h>
 
+#ifdef ANDROID
+#include <android/log.h>
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "neuromoreEngine", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "neuromoreEngine", __VA_ARGS__))
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "neuromoreEngine", __VA_ARGS__))
+#else
+#define LOGI(...) 
+#define LOGW(...) 
+#define LOGE(...) 
+#endif
 
 // a persistent reference to the JavaVM instance
 // used to retrieve the JNIEnv* from anywhere

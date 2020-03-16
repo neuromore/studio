@@ -534,6 +534,9 @@
     <ClCompile Include="..\..\src\Engine\Session.cpp" />
     <ClCompile Include="..\..\src\Engine\SessionExporter.cpp" />
     <ClCompile Include="..\..\src\Engine\User.cpp" />
+    <ClCompile Include="..\..\src\Engine\JNI\neuromoreEngineJni.cpp">
+      <Filter>JNI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1272,6 +1275,9 @@
     </Filter>
     <Filter Include="Proprietary">
       <UniqueIdentifier>{bd3d4e1e-a144-472e-936a-36602da93b57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JNI">
+      <UniqueIdentifier>{cde4ec55-ae29-4f10-96d3-e13fd48fc78c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
