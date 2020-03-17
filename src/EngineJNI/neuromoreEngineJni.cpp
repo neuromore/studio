@@ -38,10 +38,10 @@
 #define LOGE(...) 
 #endif
 
-#ifdef WIN32
-#define JENVCAST(x) ((void**)x)
-#else
+#ifdef ANDROID
 #define JENVCAST(x) (x)
+#else
+#define JENVCAST(x) ((void**)x)
 #endif
 
 // a persistent reference to the JavaVM instance

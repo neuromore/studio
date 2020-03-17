@@ -8,6 +8,7 @@ TARGET_X64 = x86_64-linux-gnu
 
 # flags shared between all
 FLAGS = -O2 \
+        -fpic \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations
 
@@ -45,8 +46,8 @@ STUDIO_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFOR
 # Platform Specific additional includes
 ENGINE_INCLUDES_X86_PLAT    =
 ENGINE_INCLUDES_X64_PLAT    =
-ENGINEJNI_INCLUDES_X86_PLAT =
-ENGINEJNI_INCLUDES_X64_PLAT =
+ENGINEJNI_INCLUDES_X86_PLAT = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/linux"
+ENGINEJNI_INCLUDES_X64_PLAT = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/linux"
 QTBASE_INCLUDES_X86_PLAT    =
 QTBASE_INCLUDES_X64_PLAT    =
 STUDIO_INCLUDES_X86_PLAT    =
@@ -113,28 +114,8 @@ LINKFLAGSDYN_X64 = -fpic -shared -static-libstdc++
 LINKPATH_X86 = -L./lib/x86
 LINKPATH_X64 = -L./lib/x64
 
-# Shared Libraries for X86 and X64
-LINKLIBS_ALL = -lpthread \
-               -ldl \
-               -lGL \
-               -lexpat \
-               -lX11 \
-               -lX11-xcb \
-               -lxkbcommon \
-               -lxcb \
-               -lxcb-glx \
-               -lxcb-icccm \
-               -lxcb-image \
-               -lxcb-keysyms \
-               -lxcb-randr \
-               -lxcb-render \
-               -lxcb-render-util \
-               -lxcb-shape \
-               -lxcb-shm \
-               -lxcb-sync \
-               -lxcb-xfixes \
-               -lxcb-xinerama \
-               -lxcb-xkb
+# Shared Libraries for X86 and X64 (for ALL projects
+LINKLIBS_ALL = 
 
 # Libraries for X86 or X64
 LINKLIBS_X86 = $(LINKLIBS_ALL)
@@ -190,7 +171,27 @@ STUDIO_OBJS     = $(STUDIO_OBJS_ALL)
 STUDIO_OBJS_MOC = $(STUDIO_OBJS_MOC_ALL)
 STUDIO_OBJS_RCC = $(STUDIO_OBJS_RCC_ALL)
 STUDIO_RES      = $(STUDIO_RES_ALL)
-
+STUDIO_LIBS_ALL = -lpthread \
+                  -ldl \
+                  -lGL \
+                  -lexpat \
+                  -lX11 \
+                  -lX11-xcb \
+                  -lxkbcommon \
+                  -lxcb \
+                  -lxcb-glx \
+                  -lxcb-icccm \
+                  -lxcb-image \
+                  -lxcb-keysyms \
+                  -lxcb-randr \
+                  -lxcb-render \
+                  -lxcb-render-util \
+                  -lxcb-shape \
+                  -lxcb-shm \
+                  -lxcb-sync \
+                  -lxcb-xfixes \
+                  -lxcb-xinerama \
+                  -lxcb-xkb
 STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(LIBDIR_X86)/Engine.a \
                   $(DEPSLIBDIR_X86)/singleapplication.a \
@@ -232,7 +233,8 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/tinyxml.a \
                   $(DEPSLIBDIR_X86)/libjpeg.a \
                   $(DEPSLIBDIR_X86)/libpng.a \
-                  $(DEPSLIBDIR_X86)/zlib.a
+                  $(DEPSLIBDIR_X86)/zlib.a \
+                  $(STUDIO_LIBS_ALL)
 STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(LIBDIR_X64)/Engine.a \
                   $(DEPSLIBDIR_X64)/singleapplication.a \
@@ -274,7 +276,8 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/tinyxml.a \
                   $(DEPSLIBDIR_X64)/libjpeg.a \
                   $(DEPSLIBDIR_X64)/libpng.a \
-                  $(DEPSLIBDIR_X64)/zlib.a
+                  $(DEPSLIBDIR_X64)/zlib.a \
+                  $(STUDIO_LIBS_ALL)
 
 #####################################################################################
 # Include Targets
