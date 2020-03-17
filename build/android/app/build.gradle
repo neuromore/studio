@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.neuromore.test4"
+        applicationId "com.neuromore.app"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
