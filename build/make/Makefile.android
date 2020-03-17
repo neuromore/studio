@@ -186,8 +186,7 @@ endef
 
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
 
-ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL) \
-                     neuromoreEngineJni.o
+ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL)
 ENGINEJNI_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
                      $(DEPSLIBDIR_X86)/oscpack.a \
                      $(DEPSLIBDIR_X86)/kissfft.a \

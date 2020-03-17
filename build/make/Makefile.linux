@@ -160,7 +160,15 @@ endef
 
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
 
-ENGINEJNI_OBJS  = $(ENGINEJNI_OBJS_ALL)
+ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL)
+ENGINEJNI_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
+                     $(DEPSLIBDIR_X86)/oscpack.a \
+                     $(DEPSLIBDIR_X86)/kissfft.a \
+                     $(DEPSLIBDIR_X86)/zlib.a
+ENGINEJNI_LIBS_X64 = $(LIBDIR_X64)/Engine.a \
+                     $(DEPSLIBDIR_X64)/oscpack.a \
+                     $(DEPSLIBDIR_X64)/kissfft.a \
+                     $(DEPSLIBDIR_X64)/zlib.a
 
 QTBASE_MOCH     = $(QTBASE_MOCH_ALL)
 QTBASE_MOCC     = $(QTBASE_MOCC_ALL)

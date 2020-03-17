@@ -168,7 +168,15 @@ MRCFLAGS_X64 = /D \"WIN32\" /l 0x0409 /nologo
 
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
 
-ENGINEJNI_OBJS = $(ENGINEJNI_OBJS_ALL)
+ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL)
+ENGINEJNI_LIBS_X86 = $(LIBDIR_X86)/Engine.lib \
+                     $(DEPSLIBDIR_X86)/oscpack.lib \
+                     $(DEPSLIBDIR_X86)/kissfft.lib \
+                     $(DEPSLIBDIR_X86)/zlib.lib
+ENGINEJNI_LIBS_X64 = $(LIBDIR_X64)/Engine.lib \
+                     $(DEPSLIBDIR_X64)/oscpack.lib \
+                     $(DEPSLIBDIR_X64)/kissfft.lib \
+                     $(DEPSLIBDIR_X64)/zlib.lib
 
 QTBASE_MOCH     = $(QTBASE_MOCH_ALL)
 QTBASE_MOCC     = $(QTBASE_MOCC_ALL)
