@@ -144,11 +144,16 @@ endef
 
 # Linker Functions for Shared Library
 define createshared32
-	$(LINK_X86) $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/lib$(1).so
 endef
 define createshared64
-	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/lib$(1).so
 endef
+
+#####################################################################################
+# JAVA JDK
+
+JAR = "$(JAVA_HOME)/bin/jar.exe"
 
 #####################################################################################
 # Platform Specific additional objects to build

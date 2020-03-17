@@ -34,9 +34,11 @@ ENGINEJNI_OBJS_X64 := $(patsubst %,$(ENGINEJNI_OBJDIR_X64)/%,$(ENGINEJNI_OBJS))
 
 EngineJNI-x86: Engine-x86 $(ENGINEJNI_OBJS_X86)
 	$(call createshared32,EngineJNI,$(ENGINEJNI_OBJS_X86),$(ENGINEJNI_LIBS_X86))
-
+	$(JAR) cf $(LIBDIR_X86)/EngineJNI.jar -C $(ENGINEJNI_SRCDIR)/Java .
+	
 EngineJNI-x64: Engine-x64 $(ENGINEJNI_OBJS_X64)
 	$(call createshared64,EngineJNI,$(ENGINEJNI_OBJS_X64),$(ENGINEJNI_LIBS_X64))
+	$(JAR) cf $(LIBDIR_X64)/EngineJNI.jar -C $(ENGINEJNI_SRCDIR)/Java .
 
 EngineJNI: EngineJNI-x86 EngineJNI-x64
 

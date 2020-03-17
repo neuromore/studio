@@ -17,7 +17,7 @@ public class Wrapper
     static
     {
         // load the neuromore library (libengine.so / engine.dll)
-        System.loadLibrary("engine");
+        System.loadLibrary("EngineJNI");
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
