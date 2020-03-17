@@ -26,8 +26,6 @@
 #include <jni.h>
 #include <errno.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/resource.h>
 
 #ifdef ANDROID
 #include <android/log.h>
@@ -38,6 +36,12 @@
 #define LOGI(...) 
 #define LOGW(...) 
 #define LOGE(...) 
+#endif
+
+#ifdef WIN32
+#define JENVCAST(x) ((void**)x)
+#else
+#define JENVCAST(x) (x)
 #endif
 
 // a persistent reference to the JavaVM instance
@@ -80,7 +84,7 @@ private:
       va_list args;
       JNIEnv* env;
 
-      if (JNI_OK == javavm->AttachCurrentThread(&env, NULL))
+      if (JNI_OK == javavm->AttachCurrentThread(JENVCAST(&env), NULL))
       {
          va_start(args, method);
          env->CallVoidMethod(jcallback, method, args);
@@ -160,7 +164,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnStop || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnStop || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnStop, (int)status);
@@ -184,7 +188,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnPlayAudio || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnPlayAudio || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnPlayAudio,
@@ -195,7 +199,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnStopAudio || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnStopAudio || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnStopAudio,
@@ -206,7 +210,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnPauseAudio || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnPauseAudio || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnPauseAudio,
@@ -217,7 +221,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnSetAudioVolume || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnSetAudioVolume || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnSetAudioVolume,
@@ -228,7 +232,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnSeekAudio || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnSeekAudio || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnSeekAudio,
@@ -239,7 +243,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnPlayVideo || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnPlayVideo || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnPlayVideo,
@@ -250,7 +254,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnStopVideo || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnStopVideo || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnStopVideo);
@@ -260,7 +264,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnPauseVideo || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnPauseVideo || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnPauseVideo,
@@ -271,7 +275,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnSetVideoVolume || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnSetVideoVolume || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnSetVideoVolume,
@@ -282,7 +286,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnSeekVideo || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnSeekVideo || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnSeekVideo,
@@ -293,7 +297,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnShowImage || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnShowImage || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnShowImage,
@@ -304,7 +308,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnHideImage || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnHideImage || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnHideImage);
@@ -314,7 +318,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnShowText || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnShowText || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnShowText,
@@ -325,7 +329,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnHideText || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnHideText || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnHideText);
@@ -335,7 +339,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnShowButton || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnShowButton || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnShowButton,
@@ -346,7 +350,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnClearButtons || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnClearButtons || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnClearButtons);
@@ -356,7 +360,7 @@ public:
    {
       JNIEnv* env;
 
-      if (!methodOnCommand || (JNI_OK != javavm->AttachCurrentThread(&env, NULL)))
+      if (!methodOnCommand || (JNI_OK != javavm->AttachCurrentThread(JENVCAST(&env), NULL)))
          return;
 
       env->CallVoidMethod(jcallback, methodOnCommand,
@@ -373,7 +377,7 @@ static JNICallback* callback;
 /***********************************************************************************************************************************************************************/
 extern "C" 
 {
-   jint JNI_OnLoad(JavaVM* jvm, void* reserved)
+   JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jvm, void* reserved)
    {
       LOGI("JNI starting up..");
 
@@ -385,7 +389,7 @@ extern "C"
       return JNI_VERSION_1_6;
    }
 
-   void JNI_OnUnload(JavaVM* jvm, void* reserved)
+   JNIEXPORT void JNICALL JNI_OnUnload(JavaVM* jvm, void* reserved)
    {
       // cleanup if necessary
    }
@@ -394,22 +398,22 @@ extern "C"
    // Engine initialization
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   jboolean Java_com_neuromore_engine_Wrapper_SetPowerLineFrequencyType(JNIEnv* env, jobject thiz, jint powerLineFrequencyType)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_SetPowerLineFrequencyType(JNIEnv* env, jobject thiz, jint powerLineFrequencyType)
    {
       return neuromoreEngine::SetPowerLineFrequencyType((neuromoreEngine::EPowerLineFrequencyType)powerLineFrequencyType);
    }
 
-   jdouble Java_com_neuromore_engine_Wrapper_GetPowerLineFrequency(JNIEnv* env, jobject thiz)
+   JNIEXPORT jdouble JNICALL Java_com_neuromore_engine_Wrapper_GetPowerLineFrequency(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::GetPowerLineFrequency();
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_SetBufferLength(JNIEnv* env, jobject thiz, jdouble seconds)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_SetBufferLength(JNIEnv* env, jobject thiz, jdouble seconds)
    {
       return neuromoreEngine::SetBufferLength(seconds);
    }
 
-   void Java_com_neuromore_engine_Wrapper_Init(JNIEnv* env, jobject thiz, jobject jcallback)
+   JNIEXPORT void JNICALL Java_com_neuromore_engine_Wrapper_Init(JNIEnv* env, jobject thiz, jobject jcallback)
    {
       // no need to init twice
       if (neuromoreEngine::IsInitialized())
@@ -429,12 +433,12 @@ extern "C"
       callback->OnLog("Initialization successful");
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_IsInitialized(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_IsInitialized(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::IsInitialized();
    }
 
-   void Java_com_neuromore_engine_Wrapper_Shutdown(JNIEnv* env, jobject thiz)
+   JNIEXPORT void JNICALL Java_com_neuromore_engine_Wrapper_Shutdown(JNIEnv* env, jobject thiz)
    {
       if (!neuromoreEngine::IsInitialized())
          return;
@@ -450,47 +454,47 @@ extern "C"
    // Engine basics: Start, Stop, Cleanup, Update etc
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   jboolean Java_com_neuromore_engine_Wrapper_IsReady(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_IsReady(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::IsReady();
    }
 
-   void Java_com_neuromore_engine_Wrapper_SetSessionLength(JNIEnv* env, jobject thiz, jdouble seconds)
+   JNIEXPORT void JNICALL Java_com_neuromore_engine_Wrapper_SetSessionLength(JNIEnv* env, jobject thiz, jdouble seconds)
    {
       neuromoreEngine::SetSessionLength(seconds);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_Start(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_Start(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::Start();
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_StartThreaded(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_StartThreaded(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::StartThreaded();
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_Update(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_Update(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::Update();
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_IsRunning(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_IsRunning(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::IsRunning();
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_Stop(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_Stop(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::Stop();
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_StopThreaded(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_StopThreaded(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::StopThreaded();
    }
 
-   void Java_com_neuromore_engine_Wrapper_Reset(JNIEnv* env, jobject thiz)
+   JNIEXPORT void JNICALL Java_com_neuromore_engine_Wrapper_Reset(JNIEnv* env, jobject thiz)
    {
       neuromoreEngine::Reset();
    }
@@ -499,12 +503,12 @@ extern "C"
    // Helpers
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   void Java_com_neuromore_engine_Wrapper_EnableDebugLogging(JNIEnv* env, jobject thiz)
+   JNIEXPORT void JNICALL Java_com_neuromore_engine_Wrapper_EnableDebugLogging(JNIEnv* env, jobject thiz)
    {
       neuromoreEngine::EnableDebugLogging();
    }
 
-   void Java_com_neuromore_engine_Wrapper_SetAllowAssetStreaming(JNIEnv* env, jobject thiz, jboolean allow)
+   JNIEXPORT void JNICALL Java_com_neuromore_engine_Wrapper_SetAllowAssetStreaming(JNIEnv* env, jobject thiz, jboolean allow)
    {
       neuromoreEngine::SetAllowAssetStreaming(allow);
    }
@@ -513,52 +517,52 @@ extern "C"
    // Devices
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   jint Java_com_neuromore_engine_Wrapper_AddDevice(JNIEnv* env, jobject thiz, jint deviceType)
+   JNIEXPORT jint JNICALL Java_com_neuromore_engine_Wrapper_AddDevice(JNIEnv* env, jobject thiz, jint deviceType)
    {
       return neuromoreEngine::AddDevice((neuromoreEngine::EDevice)deviceType);
    }
 
-   jint Java_com_neuromore_engine_Wrapper_GetNumDevices(JNIEnv* env, jobject thiz)
+   JNIEXPORT jint JNICALL Java_com_neuromore_engine_Wrapper_GetNumDevices(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::GetNumDevices();
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_RemoveDevice(JNIEnv* env, jobject thiz, jint deviceIndex)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_RemoveDevice(JNIEnv* env, jobject thiz, jint deviceIndex)
    {
       return neuromoreEngine::RemoveDevice(deviceIndex);
    }
 
-   jint Java_com_neuromore_engine_Wrapper_GetDevice(JNIEnv* env, jobject thiz, jint deviceIndex)
+   JNIEXPORT jint JNICALL Java_com_neuromore_engine_Wrapper_GetDevice(JNIEnv* env, jobject thiz, jint deviceIndex)
    {
       return neuromoreEngine::GetDevice(deviceIndex);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_HasDevice(JNIEnv* env, jobject thiz, jint deviceType)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_HasDevice(JNIEnv* env, jobject thiz, jint deviceType)
    {
       return neuromoreEngine::HasDevice((neuromoreEngine::EDevice)deviceType);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_ConnectDevice(JNIEnv* env, jobject thiz, jint deviceIndex)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_ConnectDevice(JNIEnv* env, jobject thiz, jint deviceIndex)
    {
       return neuromoreEngine::ConnectDevice(deviceIndex);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_DisconnectDevice(JNIEnv* env, jobject thiz, jint deviceIndex)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_DisconnectDevice(JNIEnv* env, jobject thiz, jint deviceIndex)
    {
       return neuromoreEngine::DisonnectDevice(deviceIndex);
    }
 
-   jint Java_com_neuromore_engine_Wrapper_GetNumInputs(JNIEnv* env, jobject thiz, jint deviceIndex)
+   JNIEXPORT jint JNICALL Java_com_neuromore_engine_Wrapper_GetNumInputs(JNIEnv* env, jobject thiz, jint deviceIndex)
    {
       return neuromoreEngine::GetNumInputs(deviceIndex);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_AddInputSample(JNIEnv* env, jobject thiz, jint deviceIndex, jint inputIndex, jdouble value)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_AddInputSample(JNIEnv* env, jobject thiz, jint deviceIndex, jint inputIndex, jdouble value)
    {
       return neuromoreEngine::AddInputSample(deviceIndex, inputIndex, value);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_SetBatteryChargeLevel(JNIEnv* env, jobject thiz, jint deviceIndex, jdouble normalizedCharge)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_SetBatteryChargeLevel(JNIEnv* env, jobject thiz, jint deviceIndex, jdouble normalizedCharge)
    {
       return neuromoreEngine::SetBatteryChargeLevel(deviceIndex, normalizedCharge);
    }
@@ -567,7 +571,7 @@ extern "C"
    // Classifier
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   jboolean Java_com_neuromore_engine_Wrapper_LoadClassifier(JNIEnv* env, jobject thiz, jstring jsonContent, jstring uuid, jint revision)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_LoadClassifier(JNIEnv* env, jobject thiz, jstring jsonContent, jstring uuid, jint revision)
    {
       const char* cstr_jsonContent = env->GetStringUTFChars(jsonContent, NULL);
       const char* cstr_uuid = env->GetStringUTFChars(uuid, NULL);
@@ -580,32 +584,32 @@ extern "C"
       return ok;
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_HasClassifier(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_HasClassifier(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::HasClassifier();
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_IsDeviceRequiredByClassifier(JNIEnv* env, jobject thiz, jint deviceType)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_IsDeviceRequiredByClassifier(JNIEnv* env, jobject thiz, jint deviceType)
    {
       return neuromoreEngine::IsDeviceRequiredByClassifier((neuromoreEngine::EDevice)deviceType);
    }
 
-   jint Java_com_neuromore_engine_Wrapper_GetNumFeedbacks(JNIEnv* env, jobject thiz)
+   JNIEXPORT jint JNICALL Java_com_neuromore_engine_Wrapper_GetNumFeedbacks(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::GetNumFeedbacks();
    }
 
-   jstring Java_com_neuromore_engine_Wrapper_GetFeedbackName(JNIEnv* env, jobject thiz, jint index)
+   JNIEXPORT jstring JNICALL Java_com_neuromore_engine_Wrapper_GetFeedbackName(JNIEnv* env, jobject thiz, jint index)
    {
       return env->NewStringUTF(neuromoreEngine::GetFeedbackName(index));
    }
 
-   jdouble Java_com_neuromore_engine_Wrapper_GetCurrentFeedbackValue(JNIEnv* env, jobject thiz, jint index)
+   JNIEXPORT jdouble JNICALL Java_com_neuromore_engine_Wrapper_GetCurrentFeedbackValue(JNIEnv* env, jobject thiz, jint index)
    {
       return neuromoreEngine::GetCurrentFeedbackValue(index);
    }
 
-   /*void Java_com_neuromore_engine_Wrapper_GetFeedbackRange(JNIEnv* env, jobject thiz, jint index, jdoubleArray values)
+   /*JNIEXPORT void JNICALL Java_com_neuromore_engine_Wrapper_GetFeedbackRange(JNIEnv* env, jobject thiz, jint index, jdoubleArray values)
    {
       env->doublearray
       //neuromoreEngine::GetFeedbackRange(index, values, value);
@@ -615,7 +619,7 @@ extern "C"
    // Cloud Data Serialization
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   jstring Java_com_neuromore_engine_Wrapper_GetCreateDataChunkJson(JNIEnv* env, jobject thiz, jstring userId, jstring experienceUuid, jint experienceRevision)
+   JNIEXPORT jstring JNICALL Java_com_neuromore_engine_Wrapper_GetCreateDataChunkJson(JNIEnv* env, jobject thiz, jstring userId, jstring experienceUuid, jint experienceRevision)
    {
       const char* cstr_userId = env->GetStringUTFChars(userId, NULL);
       const char* cstr_experienceUuid = env->GetStringUTFChars(experienceUuid, NULL);
@@ -628,12 +632,12 @@ extern "C"
       return env->NewStringUTF(cstr_req);
    }
 
-   jint Java_com_neuromore_engine_Wrapper_GetNumDataChunkChannels(JNIEnv* env, jobject thiz)
+   JNIEXPORT jint JNICALL Java_com_neuromore_engine_Wrapper_GetNumDataChunkChannels(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::GetNumDataChunkChannels();
    }
 
-   jstring Java_com_neuromore_engine_Wrapper_GetDataChunkChannelJson(JNIEnv* env, jobject thiz, jstring userId, jstring dataChunkUuid, jint channelIndex)
+   JNIEXPORT jstring JNICALL Java_com_neuromore_engine_Wrapper_GetDataChunkChannelJson(JNIEnv* env, jobject thiz, jstring userId, jstring dataChunkUuid, jint channelIndex)
    {
       const char* cstr_userId = env->GetStringUTFChars(userId, NULL);
       const char* cstr_dataChunkUuid = env->GetStringUTFChars(dataChunkUuid, NULL);
@@ -646,7 +650,7 @@ extern "C"
       return env->NewStringUTF(cstr_req);
    }
 
-   jbyteArray Java_com_neuromore_engine_Wrapper_GetDataChunkChannelData(JNIEnv* env, jobject thiz, jint channelIndex)
+   JNIEXPORT jbyteArray JNICALL Java_com_neuromore_engine_Wrapper_GetDataChunkChannelData(JNIEnv* env, jobject thiz, jint channelIndex)
    {
       // try generate datachunk for this channel
       if (!neuromoreEngine::GenerateDataChunkChannelData(channelIndex))
@@ -676,7 +680,7 @@ extern "C"
    // Classifier Cloud Parameters
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   jstring Java_com_neuromore_engine_Wrapper_CreateJSONRequestFindParameters(JNIEnv* env, jobject thiz, jstring userId)
+   JNIEXPORT jstring JNICALL Java_com_neuromore_engine_Wrapper_CreateJSONRequestFindParameters(JNIEnv* env, jobject thiz, jstring userId)
    {
       const char* cstr_userId = env->GetStringUTFChars(userId, NULL);	
       const char* cstr_req = neuromoreEngine::CreateJSONRequestFindParameters(cstr_userId);
@@ -685,7 +689,7 @@ extern "C"
       return env->NewStringUTF(cstr_req);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_HandleJSONReplyFindParameters(JNIEnv* env, jobject thiz, jstring jsonString, jstring userId)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_HandleJSONReplyFindParameters(JNIEnv* env, jobject thiz, jstring jsonString, jstring userId)
    {
       const char* cstr_jsonString = env->GetStringUTFChars(jsonString, NULL);
       const char* cstr_userId = env->GetStringUTFChars(userId, NULL);
@@ -698,7 +702,7 @@ extern "C"
       return ok;
    }
 
-   jstring Java_com_neuromore_engine_Wrapper_CreateJSONRequestSetParameters(JNIEnv* env, jobject thiz)
+   JNIEXPORT jstring JNICALL Java_com_neuromore_engine_Wrapper_CreateJSONRequestSetParameters(JNIEnv* env, jobject thiz)
    {
       return env->NewStringUTF(neuromoreEngine::CreateJSONRequestSetParameters());
    }
@@ -707,7 +711,7 @@ extern "C"
    // State Machine
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   jboolean Java_com_neuromore_engine_Wrapper_LoadStateMachine(JNIEnv* env, jobject thiz, jstring jsonContent, jstring uuid, jint revision)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_LoadStateMachine(JNIEnv* env, jobject thiz, jstring jsonContent, jstring uuid, jint revision)
    {
       const char* cstr_jsonContent = env->GetStringUTFChars(jsonContent, NULL);
       const char* cstr_uuid = env->GetStringUTFChars(uuid, NULL);
@@ -720,7 +724,7 @@ extern "C"
       return ok;
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_HasStateMachine(JNIEnv* env, jobject thiz)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_HasStateMachine(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::HasStateMachine();
    }
@@ -729,42 +733,42 @@ extern "C"
    // Multimedia Assets
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   jint Java_com_neuromore_engine_Wrapper_GetNumAssetsOfType(JNIEnv* env, jobject thiz, jint type)
+   JNIEXPORT jint JNICALL Java_com_neuromore_engine_Wrapper_GetNumAssetsOfType(JNIEnv* env, jobject thiz, jint type)
    {
       return neuromoreEngine::GetNumAssetsOfType((neuromoreEngine::AssetType)type);
    }
 
-   jstring Java_com_neuromore_engine_Wrapper_GetAssetLocationOfType(JNIEnv* env, jobject thiz, jint type, jint index)
+   JNIEXPORT jstring JNICALL Java_com_neuromore_engine_Wrapper_GetAssetLocationOfType(JNIEnv* env, jobject thiz, jint type, jint index)
    {
       return env->NewStringUTF(neuromoreEngine::GetAssetLocationOfType((neuromoreEngine::AssetType)type, index));
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_GetAssetAllowStreamingOfType(JNIEnv* env, jobject thiz, jint type, jint index)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_GetAssetAllowStreamingOfType(JNIEnv* env, jobject thiz, jint type, jint index)
    {
       return neuromoreEngine::GetAssetAllowStreamingOfType((neuromoreEngine::AssetType)type, index);
    }
 
-   jint Java_com_neuromore_engine_Wrapper_GetNumAssets(JNIEnv* env, jobject thiz)
+   JNIEXPORT jint JNICALL Java_com_neuromore_engine_Wrapper_GetNumAssets(JNIEnv* env, jobject thiz)
    {
       return neuromoreEngine::GetNumAssets();
    }
 
-   jstring Java_com_neuromore_engine_Wrapper_GetAssetLocation(JNIEnv* env, jobject thiz, jint index)
+   JNIEXPORT jstring JNICALL Java_com_neuromore_engine_Wrapper_GetAssetLocation(JNIEnv* env, jobject thiz, jint index)
    {
       return env->NewStringUTF(neuromoreEngine::GetAssetLocation(index));
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_GetAssetAllowStreaming(JNIEnv* env, jobject thiz, jint index)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_GetAssetAllowStreaming(JNIEnv* env, jobject thiz, jint index)
    {
       return neuromoreEngine::GetAssetAllowStreaming(index);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_ButtonClicked(JNIEnv* env, jobject thiz, jint buttonId)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_ButtonClicked(JNIEnv* env, jobject thiz, jint buttonId)
    {
       return neuromoreEngine::ButtonClicked(buttonId);
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_AudioLooped(JNIEnv* env, jobject thiz, jstring url)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_AudioLooped(JNIEnv* env, jobject thiz, jstring url)
    {
       const char* cstr_url = env->GetStringUTFChars(url, NULL);
 
@@ -775,7 +779,7 @@ extern "C"
       return ok;
    }
 
-   jboolean Java_com_neuromore_engine_Wrapper_VideoLooped(JNIEnv* env, jobject thiz, jstring url)
+   JNIEXPORT jboolean JNICALL Java_com_neuromore_engine_Wrapper_VideoLooped(JNIEnv* env, jobject thiz, jstring url)
    {
       const char* cstr_url = env->GetStringUTFChars(url, NULL);
 

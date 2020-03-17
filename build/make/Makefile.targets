@@ -27,30 +27,28 @@ Engine-x64-clean:
 
 Engine-clean: Engine-x86-clean Engine-x64-clean
 ###################################################################################################################
-# ENGINE-SHARED
+# ENGINEJNI
 ###################################################################################################################
-ENGINESHARED_OBJS_X86 := $(patsubst %,$(ENGINESHARED_OBJDIR_X86)/%,$(ENGINESHARED_OBJS))
-ENGINESHARED_OBJS_X64 := $(patsubst %,$(ENGINESHARED_OBJDIR_X64)/%,$(ENGINESHARED_OBJS))
+ENGINEJNI_OBJS_X86 := $(patsubst %,$(ENGINEJNI_OBJDIR_X86)/%,$(ENGINEJNI_OBJS))
+ENGINEJNI_OBJS_X64 := $(patsubst %,$(ENGINEJNI_OBJDIR_X64)/%,$(ENGINEJNI_OBJS))
 
-Engine-shared-x86: Engine-x86 $(ENGINESHARED_OBJS_X86)
-	$(call createshared32,Engine,$(ENGINESHARED_OBJS_X86),$(ENGINESHARED_LIBS_X86))
-#	$(call createlib32,Engine-shared,$(ENGINESHARED_OBJS_X86))
+EngineJNI-x86: Engine-x86 $(ENGINEJNI_OBJS_X86)
+	$(call createshared32,EngineJNI,$(ENGINEJNI_OBJS_X86),$(ENGINEJNI_LIBS_X86))
 
-Engine-shared-x64: Engine-x64 $(ENGINESHARED_OBJS_X64)
-	$(call createshared64,Engine,$(ENGINESHARED_OBJS_X64),$(ENGINESHARED_LIBS_X64))
-#	$(call createlib64,Engine-shared,$(ENGINESHARED_OBJS_X64))
+EngineJNI-x64: Engine-x64 $(ENGINEJNI_OBJS_X64)
+	$(call createshared64,EngineJNI,$(ENGINEJNI_OBJS_X64),$(ENGINEJNI_LIBS_X64))
 
-Engine-shared: Engine-shared-x86 Engine-shared-x64
+EngineJNI: EngineJNI-x86 EngineJNI-x64
 
-Engine-shared-x86-clean:
-	$(call deletefilepattern,$(LIBDIR_X86),Engine.*)
-	$(call deletefilepattern,$(ENGINESHARED_OBJDIR_X86),*.o)
+EngineJNI-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),EngineJNI.*)
+	$(call deletefilepattern,$(ENGINEJNI_OBJDIR_X86),*.o)
 
-Engine-shared-x64-clean:
-	$(call deletefilepattern,$(LIBDIR_X64),Engine.*)
-	$(call deletefilepattern,$(ENGINESHARED_OBJDIR_X64),*.o)
+EngineJNI-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),EngineJNI.*)
+	$(call deletefilepattern,$(ENGINEJNI_OBJDIR_X64),*.o)
 
-Engine-shared-clean: Engine-shared-x86-clean Engine-shared-x64-clean
+EngineJNI-clean: EngineJNI-x86-clean EngineJNI-x64-clean
 ###################################################################################################################
 # QTBASE
 ###################################################################################################################

@@ -70,14 +70,14 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-ENGINE_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_ANDROID
-ENGINE_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_ANDROID
-ENGINESHARED_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID
-ENGINESHARED_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID
-QTBASE_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
-QTBASE_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
-STUDIO_DEFINES_X86_PLAT       = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
-STUDIO_DEFINES_X64_PLAT       = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+ENGINE_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_ANDROID
+ENGINE_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_ANDROID
+ENGINEJNI_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_ANDROID
+ENGINEJNI_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_ANDROID
+QTBASE_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+QTBASE_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+STUDIO_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
+STUDIO_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_ANDROID -DQT_QPA_DEFAULT_PLATFORM_NAME=\"android\" -DQT_FEATURE_fontconfig=-1
 
 # Platform Specific additional includes
 ENGINE_INCLUDES_X86_PLAT =
@@ -186,16 +186,16 @@ endef
 
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
 
-ENGINESHARED_OBJS     = $(ENGINESHARED_OBJS_ALL) \
-                        JNI/neuromoreEngineJni.o
-ENGINESHARED_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
-                        $(DEPSLIBDIR_X86)/oscpack.a \
-                        $(DEPSLIBDIR_X86)/kissfft.a \
-                        $(DEPSLIBDIR_X86)/zlib.a
-ENGINESHARED_LIBS_X64 = $(LIBDIR_X64)/Engine.a \
-                        $(DEPSLIBDIR_X64)/oscpack.a \
-                        $(DEPSLIBDIR_X64)/kissfft.a \
-                        $(DEPSLIBDIR_X64)/zlib.a
+ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL) \
+                     neuromoreEngineJni.o
+ENGINEJNI_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
+                     $(DEPSLIBDIR_X86)/oscpack.a \
+                     $(DEPSLIBDIR_X86)/kissfft.a \
+                     $(DEPSLIBDIR_X86)/zlib.a
+ENGINEJNI_LIBS_X64 = $(LIBDIR_X64)/Engine.a \
+                     $(DEPSLIBDIR_X64)/oscpack.a \
+                     $(DEPSLIBDIR_X64)/kissfft.a \
+                     $(DEPSLIBDIR_X64)/zlib.a
 
 QTBASE_MOCH     = $(QTBASE_MOCH_ALL)
 QTBASE_MOCC     = $(QTBASE_MOCC_ALL)
@@ -305,9 +305,9 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
 include Makefile.targets
 
 all-x86: all-common-x86 \
-         Engine-shared-x86
+         EngineJNI-x86
 
 all-x64: all-common-x64 \
-         Engine-Shared-x64
+         EngineJNI-x64
 
 all: all-x86 all-x64

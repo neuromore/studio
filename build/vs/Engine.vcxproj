@@ -767,14 +767,6 @@
     <ClInclude Include="..\..\src\Engine\Graph\ViewNode.h" />
     <ClCompile Include="..\..\src\Engine\Graph\WaveformNode.cpp" />
     <ClInclude Include="..\..\src\Engine\Graph\WaveformNode.h" />
-    <ClCompile Include="..\..\src\Engine\JNI\neuromoreEngineJni.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\Engine\License.cpp" />
     <ClInclude Include="..\..\src\Engine\License.h" />
     <ClCompile Include="..\..\src\Engine\Networking\OscFeedbackPacket.cpp" />
