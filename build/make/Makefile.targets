@@ -162,6 +162,6 @@ all-common-x86: Engine-x86 QtBase-x86
 all-common-x64: Engine-x64 QtBase-x64
 all-common: all-common-x86 all-common-x64
 
-clean-x86: Engine-x86-clean QtBase-x86-clean Studio-x86-clean 
-clean-x64: Engine-x64-clean QtBase-x64-clean Studio-x64-clean
+clean-x86: Engine-x86-clean EngineJNI-x86-clean QtBase-x86-clean Studio-x86-clean 
+clean-x64: Engine-x64-clean EngineJNI-x64-clean QtBase-x64-clean Studio-x64-clean
 clean: clean-x86 clean-x64
