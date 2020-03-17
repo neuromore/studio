@@ -24,7 +24,7 @@ android {
     sourceSets {
         main {
             java {
-                srcDir '../../../src/Engine/JNI/Java'
+                srcDir '../../../src/EngineJNI/Java'
             }
         }
     }
