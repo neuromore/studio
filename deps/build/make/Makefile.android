@@ -35,7 +35,7 @@ ARCHFLAGS_X64 = -DANDROID_ARM_NEON=ON -march=armv8-a
 #########################################################################################
 
 # flags shared between all
-FLAGS = -O2 \
+FLAGS = -O3 \
         -fpic \
         -static \
         -DANDROID \
