@@ -35,7 +35,7 @@ ARCHFLAGS_X64 = -DANDROID_ARM_NEON=ON -march=armv8-a
 #########################################################################################
 
 # flags shared between all
-FLAGS = -O2 \
+FLAGS = -O3 \
         -fpic \
         -DANDROID \
         -D__ANDROID_API__=$(API) \
@@ -53,6 +53,9 @@ CXX_X86        = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang++.cmd
 CXX_X64        = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang++.cmd
 CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
+
+# JAVA JDK
+JAR = "$(JAVA_HOME)/bin/jar.exe"
 
 # File Operations
 define deletefilepattern
@@ -171,11 +174,6 @@ endef
 define createshared64
 	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
 endef
-
-#####################################################################################
-# JAVA JDK
-
-JAR = "$(JAVA_HOME)/bin/jar.exe"
 
 #####################################################################################
 # Platform Specific additional objects to build

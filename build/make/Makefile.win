@@ -7,7 +7,7 @@ TARGET_X86 = i686-pc-windows-msvc
 TARGET_X64 = x86_64-pc-windows-msvc
 
 # flags shared between all
-FLAGS = -O2 \
+FLAGS = -O3 \
         -D_CRT_SECURE_NO_WARNINGS \
         -D_CRT_NONSTDC_NO_DEPRECATE \
         -D_WINSOCK_DEPRECATED_NO_WARNINGS \
@@ -30,6 +30,9 @@ CXX_X86      = clang++
 CXX_X64      = clang++
 CXXFLAGS_X86 = -MT -TP -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 CXXFLAGS_X64 = -MT -TP -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+
+# JAVA JDK
+JAR = "$(JAVA_HOME)/bin/jar.exe"
 
 # File Operations
 define deletefilepattern
@@ -156,11 +159,6 @@ endef
 define createshared64
 	$(LINK_X64) $(2) -out:$(LIBDIR_X64)/$(1).dll $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
 endef
-
-#####################################################################################
-# JAVA JDK
-
-JAR = "$(JAVA_HOME)/bin/jar.exe"
 
 #####################################################################################
 # MS Resource Compiler

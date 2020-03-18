@@ -8,14 +8,15 @@ TARGET_X64 = x86_64-apple-darwin19.2.0
 OSX_MINVER = 10.12
 
 # flags shared between all
-FLAGS = -O2 \
+FLAGS = -O3 \
+        -fpic \
         -mmacosx-version-min=$(OSX_MINVER) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations
 
 # Architecture flags
-ARCHFLAGS_X86 = -msse -msse2
-ARCHFLAGS_X64 = -msse -msse2
+ARCHFLAGS_X86 = -mtune=intel -msse -msse2 -msse3 -mssse3
+ARCHFLAGS_X64 = -mtune=intel -msse -msse2 -msse3 -mssse3
 
 # C Compiler
 CC_X86       = clang
@@ -28,6 +29,10 @@ CXX_X86      = clang++
 CXX_X64      = clang++
 CXXFLAGS_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 CXXFLAGS_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+
+# JAVA JDK
+JAVA_HOME:=`/usr/libexec/java_home`
+JAR = "$(JAVA_HOME)/bin/jar"
 
 # File Operations
 define deletefilepattern
@@ -47,8 +52,8 @@ STUDIO_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_OSX -DQT_QPA_DEFAULT_PLATFORM_
 # Platform Specific additional includes
 ENGINE_INCLUDES_X86_PLAT    =
 ENGINE_INCLUDES_X64_PLAT    =
-ENGINEJNI_INCLUDES_X86_PLAT =
-ENGINEJNI_INCLUDES_X64_PLAT =
+ENGINEJNI_INCLUDES_X86_PLAT = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/darwin"
+ENGINEJNI_INCLUDES_X64_PLAT = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/darwin"
 QTBASE_INCLUDES_X86_PLAT    =
 QTBASE_INCLUDES_X64_PLAT    =
 STUDIO_INCLUDES_X86_PLAT    =
@@ -108,8 +113,8 @@ LINK_X86         = $(CXX_X86)
 LINK_X64         = $(CXX_X64)
 LINKFLAGS_X86    = -target $(TARGET_X86) $(FLAGS)
 LINKFLAGS_X64    = -target $(TARGET_X64) $(FLAGS)
-LINKFLAGSDYN_X86 = -fpic -shared -static-libstdc++
-LINKFLAGSDYN_X64 = -fpic -shared -static-libstdc++
+LINKFLAGSDYN_X86 = -fpic -shared
+LINKFLAGSDYN_X64 = -fpic -shared
 
 # Additional Linker Library Path for shared libraries
 LINKPATH_X86 = -L./lib/x86
@@ -149,11 +154,6 @@ endef
 define createshared64
 	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
 endef
-
-#####################################################################################
-# JAVA JDK
-
-JAR = "$(JAVA_HOME)/bin/jar.exe"
 
 #####################################################################################
 # Platform Specific additional objects to build

@@ -8,7 +8,8 @@ TARGET_X64 = x86_64-apple-darwin19.2.0
 OSX_MINVER = 10.12
 
 # flags shared between all
-FLAGS = -O2 \
+FLAGS = -O3 \
+        -fpic \
         -mmacosx-version-min=$(OSX_MINVER) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations \
@@ -18,8 +19,8 @@ FLAGS = -O2 \
         -Wno-int-conversion
 
 # Architecture flags
-ARCHFLAGS_X86 = -msse -msse2
-ARCHFLAGS_X64 = -msse -msse2
+ARCHFLAGS_X86 = -mtune=intel -msse -msse2 -msse3 -mssse3
+ARCHFLAGS_X64 = -mtune=intel -msse -msse2 -msse3 -mssse3
 
 # C Compiler
 CC_X86       = clang
