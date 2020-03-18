@@ -12,25 +12,25 @@ API       = 21
 
 #####
 # ARM
-TARGET_X86    = armv7a-linux-androideabi
-TARGET_X64    = aarch64-linux-android
-TARGET_AR_X86 = arm-linux-androideabi
-TARGET_AR_X64 = aarch64-linux-android
-SYSROOT_X86   = $(NDK)/platforms/android-$(API)/arch-arm
-SYSROOT_X64   = $(NDK)/platforms/android-$(API)/arch-arm64
-ARCHFLAGS_X86 = -DANDROID_ARM_NEON=ON -march=armv7-a -mfloat-abi=softfp -mfpu=neon-fp16
-ARCHFLAGS_X64 = -DANDROID_ARM_NEON=ON -march=armv8-a
+#TARGET_X86    = armv7a-linux-androideabi
+#TARGET_X64    = aarch64-linux-android
+#TARGET_AR_X86 = arm-linux-androideabi
+#TARGET_AR_X64 = aarch64-linux-android
+#SYSROOT_X86   = $(NDK)/platforms/android-$(API)/arch-arm
+#SYSROOT_X64   = $(NDK)/platforms/android-$(API)/arch-arm64
+#ARCHFLAGS_X86 = -DANDROID_ARM_NEON=ON -march=armv7-a -mfloat-abi=softfp -mfpu=neon-fp16
+#ARCHFLAGS_X64 = -DANDROID_ARM_NEON=ON -march=armv8-a
 
 #####
 # X86
-#TARGET_X86    = i686-linux-android
-#TARGET_X64    = x86_64-linux-android
-#TARGET_AR_X86 = i686-linux-android
-#TARGET_AR_X64 = x86_64-linux-android
-#SYSROOT_X86   = $(NDK)/platforms/android-$(API)/arch-x86
-#SYSROOT_X64   = $(NDK)/platforms/android-$(API)/arch-x86_64
-#ARCHFLAGS_X86  = -msse -msse2
-#ARCHFLAGS_X64  = -msse -msse2
+TARGET_X86    = i686-linux-android
+TARGET_X64    = x86_64-linux-android
+TARGET_AR_X86 = i686-linux-android
+TARGET_AR_X64 = x86_64-linux-android
+SYSROOT_X86   = $(NDK)/platforms/android-$(API)/arch-x86
+SYSROOT_X64   = $(NDK)/platforms/android-$(API)/arch-x86_64
+ARCHFLAGS_X86  = -msse -msse2 -msse3
+ARCHFLAGS_X64  = -msse -msse2 -msse3
 
 #########################################################################################
 
