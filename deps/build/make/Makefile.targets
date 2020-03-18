@@ -1674,7 +1674,8 @@ clean-x86: zlib-x86-clean \
            qt-printsupport-x86-clean \
            qt-serialport-x86-clean \
            qt-widgets-x86-clean \
-           qt-xml-x86-clean
+           qt-xml-x86-clean \
+           singleapplication-x86-clean
 
 clean-x64: zlib-x64-clean \
            libcrypto-x64-clean \
@@ -1720,6 +1721,7 @@ clean-x64: zlib-x64-clean \
            qt-printsupport-x64-clean \
            qt-serialport-x64-clean \
            qt-widgets-x64-clean \
-           qt-xml-x64-clean
+           qt-xml-x64-clean \
+           singleapplication-x64-clean
 
 clean: clean-x86 clean-x64
