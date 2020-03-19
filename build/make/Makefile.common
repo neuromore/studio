@@ -252,12 +252,29 @@ ENGINEJNI_INCLUDES_X64 = $(ENGINEJNI_INCLUDES) $(ENGINEJNI_INCLUDES_X64_PLAT)
 ENGINEJNI_BUILD_X86    = $(CXX_X86) $(CXXFLAGS_X86) $(ENGINEJNI_DEFINES_X86) $(ENGINEJNI_INCLUDES_X86) -c $(@:$(ENGINEJNI_OBJDIR_X86)%.o=$(ENGINEJNI_SRCDIR)%.cpp) -o $@
 ENGINEJNI_BUILD_X64    = $(CXX_X64) $(CXXFLAGS_X64) $(ENGINEJNI_DEFINES_X64) $(ENGINEJNI_INCLUDES_X64) -c $(@:$(ENGINEJNI_OBJDIR_X64)%.o=$(ENGINEJNI_SRCDIR)%.cpp) -o $@
 ENGINEJNI_OBJS_ALL     = neuromoreEngineJni.o
+ENGINEJNI_JBUILD_X86   = $(JAVAC) -sourcepath $(ENGINEJNI_SRCDIR)/Java -d $(ENGINEJNI_OBJDIR_X86)/Java $(@:$(ENGINEJNI_OBJDIR_X86)%.class=$(ENGINEJNI_SRCDIR)%.java)
+ENGINEJNI_JBUILD_X64   = $(JAVAC) -sourcepath $(ENGINEJNI_SRCDIR)/Java -d $(ENGINEJNI_OBJDIR_X64)/Java $(@:$(ENGINEJNI_OBJDIR_X64)%.class=$(ENGINEJNI_SRCDIR)%.java)
+ENGINEJNI_JOBJS_ALL    = Java/com/neuromore/engine/ICallback.class \
+                         Java/com/neuromore/engine/Wrapper.class \
+                         Java/com/neuromore/engine/enums/EAssetType.class \
+                         Java/com/neuromore/engine/enums/EDevice.class \
+                         Java/com/neuromore/engine/enums/EGenericDeviceInputs.class \
+                         Java/com/neuromore/engine/enums/EMuseInputs.class \
+                         Java/com/neuromore/engine/enums/EPowerLineFrequencyType.class \
+                         Java/com/neuromore/engine/enums/ESenseSkinResponseInputs.class \
+                         Java/com/neuromore/engine/enums/EStatus.class
 
 $(ENGINEJNI_OBJDIR_X86)/%.o:
 	$(ENGINEJNI_BUILD_X86)
 
 $(ENGINEJNI_OBJDIR_X64)/%.o:
 	$(ENGINEJNI_BUILD_X64)
+
+$(ENGINEJNI_OBJDIR_X86)/%.class:
+	$(ENGINEJNI_JBUILD_X86)
+
+$(ENGINEJNI_OBJDIR_X64)/%.class:
+	$(ENGINEJNI_JBUILD_X64)
 
 ###################################################################################################################
 # QTBASE

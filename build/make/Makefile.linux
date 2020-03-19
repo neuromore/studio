@@ -29,7 +29,8 @@ CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto
 CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 
 # JAVA JDK
-JAR = "$(JAVA_HOME)/bin/jar"
+JAR   = "$(JAVA_HOME)/bin/jar"
+JAVAC = "$(JAVA_HOME)/bin/javac"
 
 # File Operations
 define deletefilepattern
@@ -147,6 +148,7 @@ endef
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
 
 ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL)
+ENGINEJNI_JOBJS    = $(ENGINEJNI_JOBJS_ALL)
 ENGINEJNI_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
                      $(DEPSLIBDIR_X86)/edflib.a \
                      $(DEPSLIBDIR_X86)/oscpack.a \

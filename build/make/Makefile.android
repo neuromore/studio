@@ -55,7 +55,8 @@ CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/in
 CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # JAVA JDK
-JAR = "$(JAVA_HOME)/bin/jar.exe"
+JAR   = "$(JAVA_HOME)/bin/jar.exe"
+JAVAC = "$(JAVA_HOME)/bin/javac.exe"
 
 # File Operations
 define deletefilepattern
@@ -182,6 +183,7 @@ endef
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
 
 ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL)
+ENGINEJNI_JOBJS    = $(ENGINEJNI_JOBJS_ALL)
 ENGINEJNI_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
                      $(DEPSLIBDIR_X86)/edflib.a \
                      $(DEPSLIBDIR_X86)/oscpack.a \
