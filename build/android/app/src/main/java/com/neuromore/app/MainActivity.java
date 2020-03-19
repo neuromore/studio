@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.neuromore.engine.*;
+import com.neuromore.engine.Wrapper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,12 +26,54 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // INIT
-        showToast("Init", false);
+        //////////////////////////////////////////////////////////////////////////////////////
+        // 1) init engine
         Wrapper.Init(engineCallback);
-        if (Wrapper.IsInitialized()) showToast("Init Success", false);
-        else showToast("Init Fail", false);
+
+        // check init
+        if (Wrapper.IsInitialized()) {
+            showToast("Init Success", false);
+        }
+        else {
+            showToast("Init Fail", false);
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////
+        // 2) load some hardcoded experience (classifier/statemachine)
+
+        //Wrapper.LoadClassifier();
+        //Wrapper.LoadStateMachine();
+
+        //////////////////////////////////////////////////////////////////////////////////////
+        // 3) try start engine
+
+        if (Wrapper.IsReady()) {
+            showToast("Ready: Yes", false);
+
+            if (Wrapper.Start()) {
+                showToast("Start Success", false);
+            }
+            else {
+                showToast("Start Fail", false);
+            }
+        }
+        else {
+            showToast("Ready: No", false);
+        }
+
+        Wrapper.Stop();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // shutdown engine
+        if (Wrapper.IsInitialized()) {
+            Wrapper.Shutdown();
+        }
+    }
+
 
     /**
      * Handles callbacks from the Engine
