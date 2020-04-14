@@ -2,9 +2,12 @@
 # ANDROID CLANG MAKEFILE FOR WINDOWS
 #
 
+# REQUIRED ENVIRONMENT ARGS:
+# ANDROID_NDK_HOME  Location of Android NDK
+# JAVA_HOME         Location of Java JDK
+
 # android ndk, toolchain and api version
-NDK       = C:/android-ndk-r21
-TOOLCHAIN = $(NDK)/toolchains/llvm/prebuilt/windows-x86_64
+TOOLCHAIN = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64
 API       = 21
 
 #########################################################################################
@@ -16,8 +19,8 @@ API       = 21
 #TARGET_X64    = aarch64-linux-android
 #TARGET_AR_X86 = arm-linux-androideabi
 #TARGET_AR_X64 = aarch64-linux-android
-#SYSROOT_X86   = $(NDK)/platforms/android-$(API)/arch-arm
-#SYSROOT_X64   = $(NDK)/platforms/android-$(API)/arch-arm64
+#SYSROOT_X86   = $(ANDROID_NDK_HOME)/platforms/android-$(API)/arch-arm
+#SYSROOT_X64   = $(ANDROID_NDK_HOME)/platforms/android-$(API)/arch-arm64
 #ARCHFLAGS_X86 = -DANDROID_ARM_NEON=ON -march=armv7-a -mfloat-abi=softfp -mfpu=neon-fp16
 #ARCHFLAGS_X64 = -DANDROID_ARM_NEON=ON -march=armv8-a 
 
@@ -27,8 +30,8 @@ TARGET_X86    = i686-linux-android
 TARGET_X64    = x86_64-linux-android
 TARGET_AR_X86 = i686-linux-android
 TARGET_AR_X64 = x86_64-linux-android
-SYSROOT_X86   = $(NDK)/platforms/android-$(API)/arch-x86
-SYSROOT_X64   = $(NDK)/platforms/android-$(API)/arch-x86_64
+SYSROOT_X86   = $(ANDROID_NDK_HOME)/platforms/android-$(API)/arch-x86
+SYSROOT_X64   = $(ANDROID_NDK_HOME)/platforms/android-$(API)/arch-x86_64
 ARCHFLAGS_X86  = -msse -msse2 -msse3
 ARCHFLAGS_X64  = -msse -msse2 -msse3
 
@@ -45,14 +48,14 @@ FLAGS = -O3 \
 # C Compiler
 CC_X86       = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang.cmd
 CC_X64       = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang.cmd
-CFLAGS_X86   = -static -m32 --target=$(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CFLAGS_X64   = -static -m64 --target=$(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CFLAGS_X86   = -static -m32 --target=$(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CFLAGS_X64   = -static -m64 --target=$(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
 CXX_X86        = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang++.cmd
 CXX_X64        = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang++.cmd
-CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # JAVA JDK
 JAR   = "$(JAVA_HOME)/bin/jar.exe"
@@ -135,8 +138,8 @@ endef
 # Linker
 LINK_X86         = $(CXX_X86)
 LINK_X64         = $(CXX_X64)
-LINKFLAGS_X86    = --sysroot=$(SYSROOT_X86) -target $(TARGET_X86) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-LINKFLAGS_X64    = --sysroot=$(SYSROOT_X64) -target $(TARGET_X64) -isystem $(NDK)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
+LINKFLAGS_X86    = --sysroot=$(SYSROOT_X86) -target $(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+LINKFLAGS_X64    = --sysroot=$(SYSROOT_X64) -target $(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 LINKFLAGSDYN_X86 = -shared -static-libstdc++
 LINKFLAGSDYN_X64 = -shared -static-libstdc++
 
