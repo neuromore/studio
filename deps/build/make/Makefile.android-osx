@@ -1,13 +1,12 @@
 #
-# ANDROID CLANG MAKEFILE FOR LINUX
+# ANDROID CLANG MAKEFILE FOR OSX
 #
 
 # REQUIRED ENVIRONMENT ARGS:
 # ANDROID_NDK_HOME  Location of Android NDK
-# JAVA_HOME         Location of Java JDK
 
 # android ndk, toolchain and api version
-TOOLCHAIN = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/linux-x86_64
+TOOLCHAIN = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/darwin-x86_64
 API       = 21
 
 #########################################################################################
@@ -40,26 +39,32 @@ endif
 # flags shared between all
 FLAGS = -O3 \
         -fpic \
+        -static \
         -DANDROID \
         -D__ANDROID_API__=$(API) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
-        -Wno-deprecated-declarations
+        -Wno-deprecated-declarations \
+        -Wno-incompatible-pointer-types \
+        -Wno-implicit-function-declaration \
+        -Wno-implicit-int \
+        -Wno-int-conversion
 
 # C Compiler
 CC_X86       = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang
 CC_X64       = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang
-CFLAGS_X86   = -static -m32 --target=$(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CFLAGS_X64   = -static -m64 --target=$(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CFLAGS_X86   = -m32 --target=$(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CFLAGS_X64   = -m64 --target=$(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
 CXX_X86        = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang++
 CXX_X64        = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang++
-CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
-
-# JAVA JDK
-JAR   = "$(JAVA_HOME)/bin/jar"
-JAVAC = "$(JAVA_HOME)/bin/javac"
+CXXFLAGS_ALL   = -Xclang -flto-visibility-public-std $(FLAGS)
+CXXFLAGS_A_X86 = -m32 -target $(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(CXXFLAGS_ALL)
+CXXFLAGS_A_X64 = -m64 -target $(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(CXXFLAGS_ALL)
+CXXFLAGS_X86   = $(CXXFLAGS_A_X86) -std=c++17 
+CXXFLAGS_X64   = $(CXXFLAGS_A_X64) -std=c++17 
+CXX14FLAGS_X86 = $(CXXFLAGS_A_X86) -std=c++14
+CXX14FLAGS_X64 = $(CXXFLAGS_A_X64) -std=c++14
 
 # File Operations
 define deletefilepattern
@@ -67,8 +72,8 @@ define deletefilepattern
 endef
 
 # AR
-LIB_X86      = $(TOOLCHAIN)/bin/$(TARGET_AR_X86)-ar
-LIB_X64      = $(TOOLCHAIN)/bin/$(TARGET_AR_X64)-ar
+LIB_X86 = $(TOOLCHAIN)/bin/$(TARGET_AR_X86)-ar
+LIB_X64 = $(TOOLCHAIN)/bin/$(TARGET_AR_X64)-ar
 LIBFLAGS_X86 = rcs
 LIBFLAGS_X64 = rcs
 
@@ -81,14 +86,12 @@ define createlib64
 endef
 
 # Linker
-LINK_X86         = $(CXX_X86)
-LINK_X64         = $(CXX_X64)
-LINKFLAGS_X86    = --sysroot=$(SYSROOT_X86) -target $(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-LINKFLAGS_X64    = --sysroot=$(SYSROOT_X64) -target $(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
-LINKFLAGSDYN_X86 = -shared -static-libstdc++
-LINKFLAGSDYN_X64 = -shared -static-libstdc++
+LINK_X86      = $(CXX_X86)
+LINK_X64      = $(CXX_X64)
+LINKFLAGS_X86 = --sysroot=$(SYSROOT_X86) $(CXXFLAGS_X86)
+LINKFLAGS_X64 = --sysroot=$(SYSROOT_X64) $(CXXFLAGS_X64)
 
-# Additional Linker Library Path for shared libraries
+# Linker Library Path
 LINKPATH_X86 = \
 	-L./lib/x86 \
 	-L$(SYSROOT_X86)/usr/lib/ \
@@ -101,32 +104,24 @@ LINKPATH_X64 = \
 	-L$(TOOLCHAIN)/sysroot/usr/lib/$(TARGET_AR_X64)/$(API) \
 	-L$(TOOLCHAIN)/sysroot/usr/lib/$(TARGET_AR_X64)
 
-# Shared Libraries for X86 and X64
-LINKLIBS_ALL = -llog
+# Libraries for X86 and X64
+LINKLIBS_ALL = 
 
 # Libraries for X86 or X64
 LINKLIBS_X86 = $(LINKLIBS_ALL)
 LINKLIBS_X64 = $(LINKLIBS_ALL)
 
-# Linker Functions for Executable
+# Linker Functions
 define createbin32
-	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1)
 endef
 define createbin64
-	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
-endef
-
-# Linker Functions for Shared Library
-define createshared32
-	$(LINK_X86) $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
-endef
-define createshared64
-	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)
 endef
 
 # Qt MOC+RCC+UIC
-MOC_X86 = ../../deps/prebuilt/linux/x64/qt-moc
-MOC_X64 = ../../deps/prebuilt/linux/x64/qt-moc
+MOC_X86 = "../../prebuilt/osx/x64/qt-moc"
+MOC_X64 = "../../prebuilt/osx/x64/qt-moc"
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     MOC = $(MOC_X86)
 endif
@@ -134,8 +129,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     MOC = $(MOC_X64)
 endif
 
-RCC_X86 = ../../deps/prebuilt/linux/x64/qt-rcc
-RCC_X64 = ../../deps/prebuilt/linux/x64/qt-rcc
+RCC_X86 = "../../prebuilt/osx/x64/qt-rcc"
+RCC_X64 = "../../prebuilt/osx/x64/qt-rcc"
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     RCC = $(RCC_X86)
 endif
@@ -143,14 +138,18 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     RCC = $(RCC_X64)
 endif
 
-UIC_X86 = ../../deps/prebuilt/linux/x64/qt-rcc
-UIC_X64 = ../../deps/prebuilt/linux/x64/qt-rcc
+UIC_X86 = "../../prebuilt/osx/x64/qt-uic"
+UIC_X64 = "../../prebuilt/osx/x64/qt-uic"
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     UIC = $(UIC_X86)
 endif
 ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     UIC = $(UIC_X64)
 endif
+
+# Platform specific bash file exists check
+QTCORE_MOC_CMD_X86 = if [ -f $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ]; then $(QTCORE_MOC_C_X86); else $(QTCORE_MOC_MM_X86); fi
+QTCORE_MOC_CMD_X64 = if [ -f $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ]; then $(QTCORE_MOC_C_X64); else $(QTCORE_MOC_MM_X64); fi
 
 #####################################################################################
 

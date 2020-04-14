@@ -1,13 +1,12 @@
 #
-# ANDROID CLANG MAKEFILE FOR LINUX
+# ANDROID CLANG MAKEFILE FOR OSX
 #
 
 # REQUIRED ENVIRONMENT ARGS:
 # ANDROID_NDK_HOME  Location of Android NDK
-# JAVA_HOME         Location of Java JDK
 
 # android ndk, toolchain and api version
-TOOLCHAIN = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/linux-x86_64
+TOOLCHAIN = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/darwin-x86_64
 API       = 21
 
 #########################################################################################
@@ -58,6 +57,7 @@ CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/s
 CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # JAVA JDK
+JAVA_HOME:=`/usr/libexec/java_home`
 JAR   = "$(JAVA_HOME)/bin/jar"
 JAVAC = "$(JAVA_HOME)/bin/javac"
 
@@ -125,8 +125,8 @@ define createshared64
 endef
 
 # Qt MOC+RCC+UIC
-MOC_X86 = ../../deps/prebuilt/linux/x64/qt-moc
-MOC_X64 = ../../deps/prebuilt/linux/x64/qt-moc
+MOC_X86 = ../../deps/prebuilt/osx/x64/qt-moc
+MOC_X64 = ../../deps/prebuilt/osx/x64/qt-moc
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     MOC = $(MOC_X86)
 endif
@@ -134,8 +134,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     MOC = $(MOC_X64)
 endif
 
-RCC_X86 = ../../deps/prebuilt/linux/x64/qt-rcc
-RCC_X64 = ../../deps/prebuilt/linux/x64/qt-rcc
+RCC_X86 = ../../deps/prebuilt/osx/x64/qt-rcc
+RCC_X64 = ../../deps/prebuilt/osx/x64/qt-rcc
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     RCC = $(RCC_X86)
 endif
@@ -143,8 +143,8 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     RCC = $(RCC_X64)
 endif
 
-UIC_X86 = ../../deps/prebuilt/linux/x64/qt-rcc
-UIC_X64 = ../../deps/prebuilt/linux/x64/qt-rcc
+UIC_X86 = ../../deps/prebuilt/osx/x64/qt-rcc
+UIC_X64 = ../../deps/prebuilt/osx/x64/qt-rcc
 ifneq (,$(findstring x86,$(MAKECMDGOALS)))
     UIC = $(UIC_X86)
 endif
