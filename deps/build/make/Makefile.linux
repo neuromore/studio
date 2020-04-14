@@ -7,7 +7,10 @@ TARGET_X86 = i686-linux-gnu
 TARGET_X64 = x86_64-linux-gnu
 
 # flags shared between all
-FLAGS = -O2 -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
+FLAGS = -O2 \
+        -fpic \
+        -static \
+        -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations \
         -Wno-incompatible-pointer-types \
         -Wno-implicit-function-declaration \
@@ -19,12 +22,14 @@ ARCHFLAGS_X86 = -msse -msse2
 ARCHFLAGS_X64 = -msse -msse2
 
 # C Compiler
-CC           = clang
+CC_X86       = clang
+CC_X64       = clang
 CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CFLAGS_X64   = -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX            = clang++
+CXX_X86        = clang++
+CXX_X64        = clang++
 CXXFLAGS_ALL   = -Xclang -flto-visibility-public-std $(FLAGS)
 CXXFLAGS_A_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) $(CXXFLAGS_ALL)
 CXXFLAGS_A_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) $(CXXFLAGS_ALL)
@@ -39,10 +44,10 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBSSL_DEFINES_X86_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBSSL_DEFINES_X64_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X86_PLAT             = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X64_PLAT             = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
 FONTCONFIG_DEFINES_X86_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 FONTCONFIG_DEFINES_X64_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 OPENCVCORE_DEFINES_X86_PLAT         =
@@ -53,52 +58,52 @@ OPENCVIMGPROC_DEFINES_X86_PLAT      =
 OPENCVIMGPROC_DEFINES_X64_PLAT      =
 OPENCVVIDEOIO_DEFINES_X86_PLAT      =
 OPENCVVIDEOIO_DEFINES_X64_PLAT      =
-QTBOOTSTRAP_DEFINES_X86_PLAT        =
-QTBOOTSTRAP_DEFINES_X64_PLAT        =
-QTMOC_DEFINES_X86_PLAT              =
-QTMOC_DEFINES_X64_PLAT              =
-QTRCC_DEFINES_X86_PLAT              =
-QTRCC_DEFINES_X64_PLAT              =
-QTUIC_DEFINES_X86_PLAT              =
-QTUIC_DEFINES_X64_PLAT              =
-QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
-QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
-QTCONCURRENT_DEFINES_X86_PLAT       =
-QTCONCURRENT_DEFINES_X64_PLAT       =
-QTCORE_DEFINES_X86_PLAT             = -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
-QTCORE_DEFINES_X64_PLAT             = -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
-QTDBUS_DEFINES_X86_PLAT             = -DQT_FEATURE_dbus=1
-QTDBUS_DEFINES_X64_PLAT             = -DQT_FEATURE_dbus=1
-QTEVENTDISPATCHERS_DEFINES_X86_PLAT =
-QTEVENTDISPATCHERS_DEFINES_X64_PLAT =
-QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_FEATURE_fontconfig=1
-QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_FEATURE_fontconfig=1
-QTGAMEPAD_DEFINES_X86_PLAT          =
-QTGAMEPAD_DEFINES_X64_PLAT          =
-QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
-QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
-QTMULTIMEDIA_DEFINES_X86_PLAT       =
-QTMULTIMEDIA_DEFINES_X64_PLAT       =
-QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT=
-QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT=
-QTNETWORK_DEFINES_X86_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
-QTNETWORK_DEFINES_X64_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
-QTOPENGL_DEFINES_X86_PLAT           =
-QTOPENGL_DEFINES_X64_PLAT           =
+QTBOOTSTRAP_DEFINES_X86_PLAT        = -DQT_LARGEFILE_SUPPORT=64
+QTBOOTSTRAP_DEFINES_X64_PLAT        = -DQT_LARGEFILE_SUPPORT=64
+QTMOC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTMOC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTRCC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTRCC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTUIC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTUIC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
+QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
+QTCONCURRENT_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTCONCURRENT_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTCORE_DEFINES_X86_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
+QTCORE_DEFINES_X64_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
+QTDBUS_DEFINES_X86_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_dbus=1
+QTDBUS_DEFINES_X64_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_dbus=1
+QTEVENTDISPATCHERS_DEFINES_X86_PLAT = -DQT_LARGEFILE_SUPPORT=64
+QTEVENTDISPATCHERS_DEFINES_X64_PLAT = -DQT_LARGEFILE_SUPPORT=64
+QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_fontconfig=1
+QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_fontconfig=1
+QTGAMEPAD_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTGAMEPAD_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTGUI_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTGUI_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTMULTIMEDIA_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIA_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTNETWORK_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
+QTNETWORK_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
+QTOPENGL_DEFINES_X86_PLAT           = -DQT_LARGEFILE_SUPPORT=64
+QTOPENGL_DEFINES_X64_PLAT           = -DQT_LARGEFILE_SUPPORT=64
 QTPLATFORMWINDOWS_DEFINES_X86_PLAT  =
 QTPLATFORMWINDOWS_DEFINES_X64_PLAT  =
-QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
-QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
-QTPLATFORMCOCOA_DEFINES_X86_PLAT    =
-QTPLATFORMCOCOA_DEFINES_X64_PLAT    =
-QTPRINTSUPPORT_DEFINES_X86_PLAT     =
-QTPRINTSUPPORT_DEFINES_X64_PLAT     =
-QTSERIALPORT_DEFINES_X86_PLAT       =
-QTSERIALPORT_DEFINES_X64_PLAT       =
-QTWIDGETS_DEFINES_X86_PLAT          =
-QTWIDGETS_DEFINES_X64_PLAT          =
-QTXML_DEFINES_X86_PLAT              =
-QTXML_DEFINES_X64_PLAT              =
+QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTPLATFORMCOCOA_DEFINES_X86_PLAT    = -DQT_LARGEFILE_SUPPORT=64
+QTPLATFORMCOCOA_DEFINES_X64_PLAT    = -DQT_LARGEFILE_SUPPORT=64
+QTPRINTSUPPORT_DEFINES_X86_PLAT     = -DQT_LARGEFILE_SUPPORT=64
+QTPRINTSUPPORT_DEFINES_X64_PLAT     = -DQT_LARGEFILE_SUPPORT=64
+QTSERIALPORT_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTSERIALPORT_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTWIDGETS_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTWIDGETS_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTXML_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTXML_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
 SINGLEAPPLICATION_DEFINES_X86_PLAT  =
 SINGLEAPPLICATION_DEFINES_X64_PLAT  =
 
@@ -213,7 +218,8 @@ endef
 
 #####################################################################################
 # Linker
-LINK          = $(CXX)
+LINK_X86      = $(CXX_X86)
+LINK_X64      = $(CXX_X64)
 LINKFLAGS_X86 = $(CXXFLAGS_X86)
 LINKFLAGS_X64 = $(CXXFLAGS_X64)
 
@@ -230,10 +236,10 @@ LINKLIBS_X64 = $(LINKLIBS_ALL)
 
 # Linker Functions
 define createbin32
-	$(LINK) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
 define createbin64
-	$(LINK) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
 endef
 
 #####################################################################################
@@ -533,7 +539,33 @@ QTGUI_MOCH                  = $(QTGUI_MOCH_ALL)
 QTGUI_MOCC                  = $(QTGUI_MOCC_ALL)
 QTGUI_UICH                  = $(QTGUI_UICH_ALL)
 QTGUI_RCCH                  = $(QTGUI_RCCH_ALL)
-QTGUI_OBJS                  = $(QTGUI_OBJS_ALL)
+QTGUI_OBJS                  = $(QTGUI_OBJS_ALL) \
+                              opengl/qopenglfunctions_1_0.o \
+                              opengl/qopenglfunctions_1_1.o \
+                              opengl/qopenglfunctions_1_2.o \
+                              opengl/qopenglfunctions_1_3.o \
+                              opengl/qopenglfunctions_1_4.o \
+                              opengl/qopenglfunctions_1_5.o \
+                              opengl/qopenglfunctions_2_0.o \
+                              opengl/qopenglfunctions_2_1.o \
+                              opengl/qopenglfunctions_3_0.o \
+                              opengl/qopenglfunctions_3_1.o \
+                              opengl/qopenglfunctions_3_2_compatibility.o \
+                              opengl/qopenglfunctions_3_2_core.o \
+                              opengl/qopenglfunctions_3_3_compatibility.o \
+                              opengl/qopenglfunctions_3_3_core.o \
+                              opengl/qopenglfunctions_4_0_compatibility.o \
+                              opengl/qopenglfunctions_4_0_core.o \
+                              opengl/qopenglfunctions_4_1_compatibility.o \
+                              opengl/qopenglfunctions_4_1_core.o \
+                              opengl/qopenglfunctions_4_2_compatibility.o \
+                              opengl/qopenglfunctions_4_2_core.o \
+                              opengl/qopenglfunctions_4_3_compatibility.o \
+                              opengl/qopenglfunctions_4_3_core.o \
+                              opengl/qopenglfunctions_4_4_compatibility.o \
+                              opengl/qopenglfunctions_4_4_core.o \
+                              opengl/qopenglfunctions_4_5_compatibility.o \
+                              opengl/qopenglfunctions_4_5_core.o
 QTGUI_OBJS_C                = $(QTGUI_OBJS_C_ALL)
 QTGUI_OBJS_MOC              = $(QTGUI_OBJS_MOC_ALL)
 QTGUI_OBJS_RCC              = $(QTGUI_OBJS_RCC_ALL)
@@ -708,17 +740,63 @@ SINGLEAPPLICATION_OBJS_MOC  = $(SINGLEAPPLICATION_OBJS_MOC_ALL)
 SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 
 #####################################################################################
+# Project Dependencies
+
+QTBLUETOOTH_DEPS_X86         = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTBLUETOOTH_DEPS_X64         = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTCORE_DEPS_X86              = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTCORE_DEPS_X64              = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTDBUS_DEPS_X86              = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTDBUS_DEPS_X64              = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTEVENTDISPATCHERS_DEPS_X86  = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTEVENTDISPATCHERS_DEPS_X64  = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTFONTDATABASES_DEPS_X86     = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTFONTDATABASES_DEPS_X64     = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTGAMEPAD_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTGAMEPAD_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTGUI_DEPS_X86               = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTGUI_DEPS_X64               = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIA_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIA_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIAWIDGETS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIAWIDGETS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTNETWORK_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTNETWORK_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMWINDOWS_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMWINDOWS_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMXCB_DEPS_X86       = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMXCB_DEPS_X64       = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMCOCOA_DEPS_X86     = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMCOCOA_DEPS_X64     = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPRINTSUPPORT_DEPS_X86      = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPRINTSUPPORT_DEPS_X64      = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTSERIALPORT_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTSERIALPORT_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTWIDGETS_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTWIDGETS_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+SINGLEAPPLICATION_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+SINGLEAPPLICATION_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+#####################################################################################
 # Include Targets
 
 include Makefile.targets
 
 all-x86: all-common-x86 \
          fontconfig-x86 \
+         qt-bootstrap-x86 \
+         qt-moc-x86 \
+         qt-rcc-x86 \
+         qt-uic-x86 \
          qt-dbus-x86 \
          qt-platform-xcb-x86
 
 all-x64: all-common-x64 \
          fontconfig-x64 \
+         qt-bootstrap-x64 \
+         qt-moc-x64 \
+         qt-rcc-x64 \
+         qt-uic-x64 \
          qt-dbus-x64 \
          qt-platform-xcb-x64
 
