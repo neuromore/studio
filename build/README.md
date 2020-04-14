@@ -4,7 +4,6 @@
 |---------|----------|----------------------|
 | vs      | Windows  | Visual Studio / MSVC |
 | make    | Multiple | Clang/LLVM           |
-| android | Android  | Android Studio       |
 
 # Signing Assembly (Windows)
 
