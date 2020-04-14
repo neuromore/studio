@@ -1539,7 +1539,6 @@ singleapplication-x86-clean:
 	$(call deletefilepattern,$(SINGLEAPPLICATION_OBJDIR_X86),*.orcc)
 	$(call deletefilepattern,$(SINGLEAPPLICATION_MOCDIR_X86),*.cpp)
 	$(call deletefilepattern,$(SINGLEAPPLICATION_MOCDIR_X86),*.moc)
-	$(call deletefilepattern,$(SINGLEAPPLICATION_RCCDIR_X86),*.cpp)
 
 singleapplication-x64-clean:
 	$(call deletefilepattern,$(LIBDIR_X64),singleapplication.*)
@@ -1548,7 +1547,6 @@ singleapplication-x64-clean:
 	$(call deletefilepattern,$(SINGLEAPPLICATION_OBJDIR_X64),*.orcc)
 	$(call deletefilepattern,$(SINGLEAPPLICATION_MOCDIR_X64),*.cpp)
 	$(call deletefilepattern,$(SINGLEAPPLICATION_MOCDIR_X64),*.moc)
-	$(call deletefilepattern,$(SINGLEAPPLICATION_RCCDIR_X64),*.cpp)
 
 singleapplication-clean: singleapplication-x86-clean singleapplication-x64-clean
 ###################################################################################################################
