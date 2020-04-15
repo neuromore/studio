@@ -25,6 +25,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothdevicediscoveryagent_p.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothlocaldevice.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -43,6 +44,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothservicediscoveryagent_p.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothserviceinfo_p.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothsocket.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -50,6 +52,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothsocketbase_p.cpp" />
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothsocket_winrt_p.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qbluetoothtransfermanager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -66,9 +70,15 @@
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qlowenergycontroller.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qlowenergycontrollerbase_p.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qlowenergycontroller_p.cpp" />
+    <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qlowenergycontroller_winrt_p.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qlowenergyservice.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\.moc\moc_qlowenergyserviceprivate_p.cpp" />
-    <ClCompile Include="..\..\src\qt-bluetooth\dummy\dummy_helper.cpp" />
+    <ClCompile Include="..\..\src\qt-bluetooth\dummy\dummy_helper.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\qt-bluetooth\lecmaccalculator.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -90,12 +100,21 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothdevicediscoveryagent_p.cpp" />
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothdevicediscoveryagent_winrt.cpp">
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothdevicediscoveryagent_p.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothdevicediscoveryagent_winrt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothdeviceinfo.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothhostinfo.cpp" />
@@ -126,12 +145,21 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserver_p.cpp" />
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserver_winrt.cpp">
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserver_p.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserver_winrt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothservicediscoveryagent.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothservicediscoveryagent_android.cpp">
@@ -146,12 +174,21 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothservicediscoveryagent_p.cpp" />
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothservicediscoveryagent_winrt.cpp">
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothservicediscoveryagent_p.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothservicediscoveryagent_winrt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserviceinfo.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserviceinfo_android.cpp">
@@ -166,12 +203,21 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserviceinfo_p.cpp" />
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserviceinfo_winrt.cpp">
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserviceinfo_p.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothserviceinfo_winrt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothsocket.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothsocketbase.cpp" />
@@ -193,12 +239,21 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothsocket_dummy.cpp" />
-    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothsocket_winrt.cpp">
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothsocket_dummy.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothsocket_winrt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothtransfermanager.cpp" />
     <ClCompile Include="..\..\src\qt-bluetooth\qbluetoothtransferreply.cpp" />
@@ -242,7 +297,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\src\qt-bluetooth\qlowenergycontroller_p.cpp" />
+    <ClCompile Include="..\..\src\qt-bluetooth\qlowenergycontroller_p.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\qt-bluetooth\qlowenergycontroller_winrt.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ExcludedFromBuild>
@@ -342,7 +402,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_FEATURE_bluez=-1;QT_FEATURE_dbus=-1;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -362,7 +422,7 @@
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Lib>
     <PreBuildEvent>
       <Command>setlocal
@@ -383,7 +443,7 @@ qt-bluetooth.cmd
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_FEATURE_bluez=-1;QT_FEATURE_dbus=-1;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -403,7 +463,7 @@ qt-bluetooth.cmd
     <Lib>
       <TargetMachine>MachineX64</TargetMachine>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Lib>
     <PreBuildEvent>
       <Command>setlocal
@@ -422,7 +482,7 @@ qt-bluetooth.cmd</Command>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_NO_DEBUG;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_FEATURE_bluez=-1;QT_FEATURE_dbus=-1;QT_NO_DEBUG;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -451,7 +511,7 @@ qt-bluetooth.cmd</Command>
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
     <PreBuildEvent>
@@ -472,7 +532,7 @@ qt-bluetooth.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_USE_QSTRINGBUILDER;QT_NO_DEBUG;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_WINRT_BLUETOOTH;QT_FEATURE_bluez=-1;QT_FEATURE_dbus=-1;QT_NO_DEBUG;CLASSIC_APP_BUILD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -501,7 +561,7 @@ qt-bluetooth.cmd
     <Lib>
       <TargetMachine>MachineX64</TargetMachine>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
     <PreBuildEvent>

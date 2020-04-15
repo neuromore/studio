@@ -27,6 +27,35 @@ Engine-x64-clean:
 
 Engine-clean: Engine-x86-clean Engine-x64-clean
 ###################################################################################################################
+# ENGINEJNI
+###################################################################################################################
+ENGINEJNI_OBJS_X86  := $(patsubst %,$(ENGINEJNI_OBJDIR_X86)/%,$(ENGINEJNI_OBJS))
+ENGINEJNI_OBJS_X64  := $(patsubst %,$(ENGINEJNI_OBJDIR_X64)/%,$(ENGINEJNI_OBJS))
+ENGINEJNI_JOBJS_X86 := $(patsubst %,$(ENGINEJNI_OBJDIR_X86)/%,$(ENGINEJNI_JOBJS))
+ENGINEJNI_JOBJS_X64 := $(patsubst %,$(ENGINEJNI_OBJDIR_X64)/%,$(ENGINEJNI_JOBJS))
+
+EngineJNI-x86: Engine-x86 $(ENGINEJNI_OBJS_X86) $(ENGINEJNI_JOBJS_X86)
+	$(call createshared32,EngineJNI,$(ENGINEJNI_OBJS_X86),$(ENGINEJNI_LIBS_X86))
+	$(JAR) cf $(LIBDIR_X86)/EngineJNI.jar -C $(ENGINEJNI_OBJDIR_X86)/Java .
+	
+EngineJNI-x64: Engine-x64 $(ENGINEJNI_OBJS_X64) $(ENGINEJNI_JOBJS_X64)
+	$(call createshared64,EngineJNI,$(ENGINEJNI_OBJS_X64),$(ENGINEJNI_LIBS_X64))
+	$(JAR) cf $(LIBDIR_X64)/EngineJNI.jar -C $(ENGINEJNI_OBJDIR_X64)/Java .
+
+EngineJNI: EngineJNI-x86 EngineJNI-x64
+
+EngineJNI-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),EngineJNI.*)
+	$(call deletefilepattern,$(ENGINEJNI_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(ENGINEJNI_OBJDIR_X86)/Java,*.class)
+
+EngineJNI-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),EngineJNI.*)
+	$(call deletefilepattern,$(ENGINEJNI_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(ENGINEJNI_OBJDIR_X64)/Java,*.class)
+
+EngineJNI-clean: EngineJNI-x86-clean EngineJNI-x64-clean
+###################################################################################################################
 # QTBASE
 ###################################################################################################################
 QTBASE_MOCH_X86     := $(patsubst %,$(QTBASE_MOCDIR_X86)/%,$(QTBASE_MOCH))
@@ -135,10 +164,10 @@ Studio-clean: Studio-x86-clean Studio-x64-clean
 ###################################################################################################################
 # ALL
 ###################################################################################################################
-all-x86: Engine-x86 QtBase-x86 Studio-x86 
-all-x64: Engine-x64 QtBase-x64 Studio-x64
-all: all-x86 all-x64
+all-common-x86: Engine-x86 QtBase-x86 
+all-common-x64: Engine-x64 QtBase-x64
+all-common: all-common-x86 all-common-x64
 
-clean-x86: Engine-x86-clean QtBase-x86-clean Studio-x86-clean 
-clean-x64: Engine-x64-clean QtBase-x64-clean Studio-x64-clean
+clean-x86: Engine-x86-clean EngineJNI-x86-clean QtBase-x86-clean Studio-x86-clean 
+clean-x64: Engine-x64-clean EngineJNI-x64-clean QtBase-x64-clean Studio-x64-clean
 clean: clean-x86 clean-x64

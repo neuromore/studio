@@ -7,7 +7,9 @@ TARGET_X86 = i686-linux-gnu
 TARGET_X64 = x86_64-linux-gnu
 
 # flags shared between all
-FLAGS = -O2 -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
+FLAGS = -O3 \
+        -fpic \
+        -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations
 
 # Architecture flags
@@ -15,14 +17,20 @@ ARCHFLAGS_X86 = -msse -msse2
 ARCHFLAGS_X64 = -msse -msse2
 
 # C Compiler
-CC           = clang
-CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CFLAGS_X64   = -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CC_X86       = clang
+CC_X64       = clang
+CFLAGS_X86   = -static -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CFLAGS_X64   = -static -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX          = clang++
-CXXFLAGS_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
-CXXFLAGS_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+CXX_X86      = clang++
+CXX_X64      = clang++
+CXXFLAGS_X86 = -static -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+CXXFLAGS_X64 = -static -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+
+# JAVA JDK
+JAR   = "$(JAVA_HOME)/bin/jar"
+JAVAC = "$(JAVA_HOME)/bin/javac"
 
 # File Operations
 define deletefilepattern
@@ -30,20 +38,24 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-ENGINE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_LINUX
-ENGINE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_LINUX
-QTBASE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-QTBASE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-STUDIO_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-STUDIO_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
+ENGINE_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_LINUX
+ENGINE_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_LINUX
+ENGINEJNI_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_LINUX
+ENGINEJNI_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_LINUX
+QTBASE_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
+QTBASE_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
+STUDIO_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
+STUDIO_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_LINUX -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
 
 # Platform Specific additional includes
-ENGINE_INCLUDES_X86_PLAT =
-ENGINE_INCLUDES_X64_PLAT =
-QTBASE_INCLUDES_X86_PLAT =
-QTBASE_INCLUDES_X64_PLAT =
-STUDIO_INCLUDES_X86_PLAT =
-STUDIO_INCLUDES_X64_PLAT =
+ENGINE_INCLUDES_X86_PLAT    =
+ENGINE_INCLUDES_X64_PLAT    =
+ENGINEJNI_INCLUDES_X86_PLAT = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/linux"
+ENGINEJNI_INCLUDES_X64_PLAT = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/linux"
+QTBASE_INCLUDES_X86_PLAT    =
+QTBASE_INCLUDES_X64_PLAT    =
+STUDIO_INCLUDES_X86_PLAT    =
+STUDIO_INCLUDES_X64_PLAT    =
 
 #####################################################################################
 # Qt MOC+RCC+UIC
@@ -80,61 +92,53 @@ endif
 include Makefile.common
 
 # LIB Tool
-LIB          = llvm-ar
+LIB_X86      = ar
+LIB_X64      = ar
 LIBFLAGS_X86 = rc
 LIBFLAGS_X64 = rc
 
 # LIB Functions
 define createlib32
-	$(LIB) $(LIBFLAGS_X86) $(LIBDIR_X86)/$(1).a $(2)
+	$(LIB_X86) $(LIBFLAGS_X86) $(LIBDIR_X86)/$(1).a $(2)
 endef
 define createlib64
-	$(LIB) $(LIBFLAGS_X64) $(LIBDIR_X64)/$(1).a $(2)
+	$(LIB_X64) $(LIBFLAGS_X64) $(LIBDIR_X64)/$(1).a $(2)
 endef
 
 #####################################################################################
 # Linker
-LINK          = $(CXX)
-LINKFLAGS_X86 = $(CXXFLAGS_X86)
-LINKFLAGS_X64 = $(CXXFLAGS_X64)
+LINK_X86         = $(CXX_X86)
+LINK_X64         = $(CXX_X64)
+LINKFLAGS_X86    = -target $(TARGET_X86) $(FLAGS)
+LINKFLAGS_X64    = -target $(TARGET_X64) $(FLAGS)
+LINKFLAGSDYN_X86 = -fpic -shared -static-libstdc++
+LINKFLAGSDYN_X64 = -fpic -shared -static-libstdc++
 
 # Additional Linker Library Path for shared libraries
 LINKPATH_X86 = -L./lib/x86
 LINKPATH_X64 = -L./lib/x64
 
-# Shared Libraries for X86 and X64
-LINKLIBS_ALL = -lpthread \
-               -ldl \
-               -lGL \
-               -lexpat \
-               -lX11 \
-               -lX11-xcb \
-               -lxkbcommon \
-               -lxcb \
-               -lxcb-glx \
-               -lxcb-icccm \
-               -lxcb-image \
-               -lxcb-keysyms \
-               -lxcb-randr \
-               -lxcb-render \
-               -lxcb-render-util \
-               -lxcb-shape \
-               -lxcb-shm \
-               -lxcb-sync \
-               -lxcb-xfixes \
-               -lxcb-xinerama \
-               -lxcb-xkb
+# Shared Libraries for X86 and X64 (for ALL projects
+LINKLIBS_ALL = 
 
 # Libraries for X86 or X64
 LINKLIBS_X86 = $(LINKLIBS_ALL)
 LINKLIBS_X64 = $(LINKLIBS_ALL)
 
-# Linker Functions
+# Linker Functions for Executable
 define createbin32
-	$(LINK) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
 define createbin64
-	$(LINK) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
+endef
+
+# Linker Functions for Shared Library
+define createshared32
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
+endef
+define createshared64
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
 endef
 
 #####################################################################################
@@ -142,6 +146,19 @@ endef
 #####################################################################################
 
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
+
+ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL)
+ENGINEJNI_JOBJS    = $(ENGINEJNI_JOBJS_ALL)
+ENGINEJNI_LIBS_X86 = $(LIBDIR_X86)/Engine.a \
+                     $(DEPSLIBDIR_X86)/edflib.a \
+                     $(DEPSLIBDIR_X86)/oscpack.a \
+                     $(DEPSLIBDIR_X86)/kissfft.a \
+                     $(DEPSLIBDIR_X86)/zlib.a
+ENGINEJNI_LIBS_X64 = $(LIBDIR_X64)/Engine.a \
+                     $(DEPSLIBDIR_X64)/edflib.a \
+                     $(DEPSLIBDIR_X64)/oscpack.a \
+                     $(DEPSLIBDIR_X64)/kissfft.a \
+                     $(DEPSLIBDIR_X64)/zlib.a
 
 QTBASE_MOCH     = $(QTBASE_MOCH_ALL)
 QTBASE_MOCC     = $(QTBASE_MOCC_ALL)
@@ -159,7 +176,27 @@ STUDIO_OBJS     = $(STUDIO_OBJS_ALL)
 STUDIO_OBJS_MOC = $(STUDIO_OBJS_MOC_ALL)
 STUDIO_OBJS_RCC = $(STUDIO_OBJS_RCC_ALL)
 STUDIO_RES      = $(STUDIO_RES_ALL)
-
+STUDIO_LIBS_ALL = -lpthread \
+                  -ldl \
+                  -lGL \
+                  -lexpat \
+                  -lX11 \
+                  -lX11-xcb \
+                  -lxkbcommon \
+                  -lxcb \
+                  -lxcb-glx \
+                  -lxcb-icccm \
+                  -lxcb-image \
+                  -lxcb-keysyms \
+                  -lxcb-randr \
+                  -lxcb-render \
+                  -lxcb-render-util \
+                  -lxcb-shape \
+                  -lxcb-shm \
+                  -lxcb-sync \
+                  -lxcb-xfixes \
+                  -lxcb-xinerama \
+                  -lxcb-xkb
 STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(LIBDIR_X86)/Engine.a \
                   $(DEPSLIBDIR_X86)/singleapplication.a \
@@ -178,6 +215,7 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/qt-widgets.a \
                   $(DEPSLIBDIR_X86)/qt-gui.a \
                   $(DEPSLIBDIR_X86)/qt-xml.a \
+                  $(DEPSLIBDIR_X86)/qt-dbus.a \
                   $(DEPSLIBDIR_X86)/qt-core.a \
                   $(DEPSLIBDIR_X86)/double-conversion.a \
                   $(DEPSLIBDIR_X86)/edflib.a \
@@ -200,7 +238,8 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/tinyxml.a \
                   $(DEPSLIBDIR_X86)/libjpeg.a \
                   $(DEPSLIBDIR_X86)/libpng.a \
-                  $(DEPSLIBDIR_X86)/zlib.a
+                  $(DEPSLIBDIR_X86)/zlib.a \
+                  $(STUDIO_LIBS_ALL)
 STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(LIBDIR_X64)/Engine.a \
                   $(DEPSLIBDIR_X64)/singleapplication.a \
@@ -219,6 +258,7 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/qt-widgets.a \
                   $(DEPSLIBDIR_X64)/qt-gui.a \
                   $(DEPSLIBDIR_X64)/qt-xml.a \
+                  $(DEPSLIBDIR_X64)/qt-dbus.a \
                   $(DEPSLIBDIR_X64)/qt-core.a \
                   $(DEPSLIBDIR_X64)/double-conversion.a \
                   $(DEPSLIBDIR_X64)/edflib.a \
@@ -241,9 +281,18 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/tinyxml.a \
                   $(DEPSLIBDIR_X64)/libjpeg.a \
                   $(DEPSLIBDIR_X64)/libpng.a \
-                  $(DEPSLIBDIR_X64)/zlib.a
+                  $(DEPSLIBDIR_X64)/zlib.a \
+                  $(STUDIO_LIBS_ALL)
 
 #####################################################################################
 # Include Targets
 
 include Makefile.targets
+
+all-x86: all-common-x86 \
+         Studio-x86
+
+all-x64: all-common-x64 \
+         Studio-x64
+
+all: all-x86 all-x64

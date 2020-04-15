@@ -1,0 +1,36 @@
+# emotiv sdk
+edk.lib
+edk.dll
+glut32.lib
+glut32.dll
+
+# msvc redist
+msvcp*.dll
+msvcr*.dll
+vcruntime*.dll
+
+# thinkgear sdk
+thinkgear.lib
+thinkgear.dll
+
+# ABM sdk
+ABM_Athena.lib
+ABM_Athena.dll
+ABM_CommLib.lib
+ABM_CommLib.dll
+ABM_PlayEbs.lib
+ABM_PlayEbs.dll
+ABM_Datastreaming.lib
+ABM_Datastreaming.dll
+ABM_DeviceConfig.lib
+ABM_DeviceConfig.dll
+ABM_ThirdPartyCommunication.lib
+ABM_ThirdPartyCommunication.dll
+BAlert.dll
+BAlertLab_EventHandling.dll
+BAlertLab_SignalHandling.dll
+SiUSBXp.dll
+
+# brainquiry sdk
+BQPetDLL.lib
+BQPetDLL.dll

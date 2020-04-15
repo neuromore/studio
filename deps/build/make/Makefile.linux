@@ -7,7 +7,10 @@ TARGET_X86 = i686-linux-gnu
 TARGET_X64 = x86_64-linux-gnu
 
 # flags shared between all
-FLAGS = -O2 -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
+FLAGS = -O2 \
+        -fpic \
+        -static \
+        -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations \
         -Wno-incompatible-pointer-types \
         -Wno-implicit-function-declaration \
@@ -19,12 +22,14 @@ ARCHFLAGS_X86 = -msse -msse2
 ARCHFLAGS_X64 = -msse -msse2
 
 # C Compiler
-CC           = clang
+CC_X86       = clang
+CC_X64       = clang
 CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CFLAGS_X64   = -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX            = clang++
+CXX_X86        = clang++
+CXX_X64        = clang++
 CXXFLAGS_ALL   = -Xclang -flto-visibility-public-std $(FLAGS)
 CXXFLAGS_A_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) $(CXXFLAGS_ALL)
 CXXFLAGS_A_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) $(CXXFLAGS_ALL)
@@ -39,10 +44,10 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBSSL_DEFINES_X86_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBSSL_DEFINES_X64_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X86_PLAT             = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X64_PLAT             = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
 FONTCONFIG_DEFINES_X86_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 FONTCONFIG_DEFINES_X64_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 OPENCVCORE_DEFINES_X86_PLAT         =
@@ -53,48 +58,52 @@ OPENCVIMGPROC_DEFINES_X86_PLAT      =
 OPENCVIMGPROC_DEFINES_X64_PLAT      =
 OPENCVVIDEOIO_DEFINES_X86_PLAT      =
 OPENCVVIDEOIO_DEFINES_X64_PLAT      =
-QTBOOTSTRAP_DEFINES_X86_PLAT        =
-QTBOOTSTRAP_DEFINES_X64_PLAT        =
-QTMOC_DEFINES_X86_PLAT              =
-QTMOC_DEFINES_X64_PLAT              =
-QTRCC_DEFINES_X86_PLAT              =
-QTRCC_DEFINES_X64_PLAT              =
-QTUIC_DEFINES_X86_PLAT              =
-QTUIC_DEFINES_X64_PLAT              =
-QTBLUETOOTH_DEFINES_X86_PLAT        =
-QTBLUETOOTH_DEFINES_X64_PLAT        =
-QTCONCURRENT_DEFINES_X86_PLAT       =
-QTCONCURRENT_DEFINES_X64_PLAT       =
-QTCORE_DEFINES_X86_PLAT             = -DQT_UNIX_SEMAPHORE
-QTCORE_DEFINES_X64_PLAT             = -DQT_UNIX_SEMAPHORE
-QTEVENTDISPATCHERS_DEFINES_X86_PLAT =
-QTEVENTDISPATCHERS_DEFINES_X64_PLAT =
-QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_FEATURE_fontconfig=1
-QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_FEATURE_fontconfig=1
-QTGAMEPAD_DEFINES_X86_PLAT          =
-QTGAMEPAD_DEFINES_X64_PLAT          =
-QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-QTMULTIMEDIA_DEFINES_X86_PLAT       =
-QTMULTIMEDIA_DEFINES_X64_PLAT       =
-QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT=
-QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT=
-QTNETWORK_DEFINES_X86_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
-QTNETWORK_DEFINES_X64_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
-QTOPENGL_DEFINES_X86_PLAT           =
-QTOPENGL_DEFINES_X64_PLAT           =
+QTBOOTSTRAP_DEFINES_X86_PLAT        = -DQT_LARGEFILE_SUPPORT=64
+QTBOOTSTRAP_DEFINES_X64_PLAT        = -DQT_LARGEFILE_SUPPORT=64
+QTMOC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTMOC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTRCC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTRCC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTUIC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTUIC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
+QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
+QTCONCURRENT_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTCONCURRENT_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTCORE_DEFINES_X86_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
+QTCORE_DEFINES_X64_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
+QTDBUS_DEFINES_X86_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_dbus=1
+QTDBUS_DEFINES_X64_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_dbus=1
+QTEVENTDISPATCHERS_DEFINES_X86_PLAT = -DQT_LARGEFILE_SUPPORT=64
+QTEVENTDISPATCHERS_DEFINES_X64_PLAT = -DQT_LARGEFILE_SUPPORT=64
+QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_fontconfig=1
+QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_fontconfig=1
+QTGAMEPAD_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTGAMEPAD_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTGUI_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTGUI_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTMULTIMEDIA_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIA_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTNETWORK_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
+QTNETWORK_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
+QTOPENGL_DEFINES_X86_PLAT           = -DQT_LARGEFILE_SUPPORT=64
+QTOPENGL_DEFINES_X64_PLAT           = -DQT_LARGEFILE_SUPPORT=64
 QTPLATFORMWINDOWS_DEFINES_X86_PLAT  =
 QTPLATFORMWINDOWS_DEFINES_X64_PLAT  =
-QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1
-QTPRINTSUPPORT_DEFINES_X86_PLAT     =
-QTPRINTSUPPORT_DEFINES_X64_PLAT     =
-QTSERIALPORT_DEFINES_X86_PLAT       =
-QTSERIALPORT_DEFINES_X64_PLAT       =
-QTWIDGETS_DEFINES_X86_PLAT          =
-QTWIDGETS_DEFINES_X64_PLAT          =
-QTXML_DEFINES_X86_PLAT              =
-QTXML_DEFINES_X64_PLAT              =
+QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTPLATFORMCOCOA_DEFINES_X86_PLAT    = -DQT_LARGEFILE_SUPPORT=64
+QTPLATFORMCOCOA_DEFINES_X64_PLAT    = -DQT_LARGEFILE_SUPPORT=64
+QTPRINTSUPPORT_DEFINES_X86_PLAT     = -DQT_LARGEFILE_SUPPORT=64
+QTPRINTSUPPORT_DEFINES_X64_PLAT     = -DQT_LARGEFILE_SUPPORT=64
+QTSERIALPORT_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTSERIALPORT_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTWIDGETS_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTWIDGETS_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTXML_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTXML_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
 SINGLEAPPLICATION_DEFINES_X86_PLAT  =
 SINGLEAPPLICATION_DEFINES_X64_PLAT  =
 
@@ -121,6 +130,8 @@ QTCONCURRENT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/linux-clang
 QTCONCURRENT_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/linux-clang
 QTCORE_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/linux-clang -I../../include/forkfd
 QTCORE_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/linux-clang -I../../include/forkfd
+QTDBUS_INCLUDES_X86_PLAT             = -I../../include/qt/mkspecs/linux-clang
+QTDBUS_INCLUDES_X64_PLAT             = -I../../include/qt/mkspecs/linux-clang
 QTEVENTDISPATCHERS_INCLUDES_X86_PLAT = -I../../include/qt/mkspecs/linux-clang
 QTEVENTDISPATCHERS_INCLUDES_X64_PLAT = -I../../include/qt/mkspecs/linux-clang
 QTFONTDATABASES_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/linux-clang
@@ -141,6 +152,8 @@ QTPLATFORMWINDOWS_INCLUDES_X86_PLAT  = -I../../include/qt/mkspecs/linux-clang
 QTPLATFORMWINDOWS_INCLUDES_X64_PLAT  = -I../../include/qt/mkspecs/linux-clang
 QTPLATFORMXCB_INCLUDES_X86_PLAT      = -I../../include/qt/mkspecs/linux-clang
 QTPLATFORMXCB_INCLUDES_X64_PLAT      = -I../../include/qt/mkspecs/linux-clang
+QTPLATFORMCOCOA_INCLUDES_X86_PLAT    = -I../../include/qt/mkspecs/linux-clang
+QTPLATFORMCOCOA_INCLUDES_X64_PLAT    = -I../../include/qt/mkspecs/linux-clang
 QTPRINTSUPPORT_INCLUDES_X86_PLAT     = -I../../include/qt/mkspecs/linux-clang
 QTPRINTSUPPORT_INCLUDES_X64_PLAT     = -I../../include/qt/mkspecs/linux-clang
 QTSERIALPORT_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/linux-clang
@@ -182,12 +195,16 @@ ifneq (,$(findstring x64,$(MAKECMDGOALS)))
     UIC = $(UIC_X64)
 endif
 
+# Platform specific bash file exists check
+QTCORE_MOC_CMD_X86 = if [ -f $(@:$(QTCORE_MOCDIR_X86)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ]; then $(QTCORE_MOC_C_X86); else $(QTCORE_MOC_MM_X86); fi
+QTCORE_MOC_CMD_X64 = if [ -f $(@:$(QTCORE_MOCDIR_X64)/%.moc=$(QTCORE_SRCDIR)/%.cpp) ]; then $(QTCORE_MOC_C_X64); else $(QTCORE_MOC_MM_X64); fi
+
 #####################################################################################
 # Include Common Makefile
 include Makefile.common
 
 # LIB Tool
-LIB          = llvm-ar
+LIB          = ar
 LIBFLAGS_X86 = rc
 LIBFLAGS_X64 = rc
 
@@ -201,7 +218,8 @@ endef
 
 #####################################################################################
 # Linker
-LINK          = $(CXX)
+LINK_X86      = $(CXX_X86)
+LINK_X64      = $(CXX_X64)
 LINKFLAGS_X86 = $(CXXFLAGS_X86)
 LINKFLAGS_X64 = $(CXXFLAGS_X64)
 
@@ -218,10 +236,10 @@ LINKLIBS_X64 = $(LINKLIBS_ALL)
 
 # Linker Functions
 define createbin32
-	$(LINK) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
 define createbin64
-	$(LINK) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
 endef
 
 #####################################################################################
@@ -279,10 +297,129 @@ QTUIC_LIBS_X86 = $(LIBDIR_X86)/qt-bootstrap.a $(LIBDIR_X86)/zlib.a
 QTUIC_LIBS_X64 = $(LIBDIR_X64)/qt-bootstrap.a $(LIBDIR_X64)/zlib.a
 
 # Qt Libraries
-QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL)
+QTBLUETOOTH_MOCH            = $(QTBLUETOOTH_MOCH_ALL) \
+                              private/qbluetoothsocket_bluez_p.cpp \
+                              private/qbluetoothsocket_bluezdbus_p.cpp \
+                              private/qbluetoothtransferreply_bluez_p.cpp \
+                              private/qlowenergycontroller_p.cpp \
+                              private/qlowenergycontroller_bluez_p.cpp \
+                              private/qlowenergycontroller_bluezdbus_p.cpp \
+                              private/qlowenergyserviceprivate_p.cpp \
+                              private/bluez/adapter_p.cpp \
+                              private/bluez/adapter1_bluez5_p.cpp \
+                              private/bluez/agent_p.cpp \
+                              private/bluez/battery1_p.cpp \
+                              private/bluez/bluetoothmanagement_p.cpp \
+                              private/bluez/bluez5_helper_p.cpp \
+                              private/bluez/device_p.cpp \
+                              private/bluez/device1_bluez5_p.cpp \
+                              private/bluez/gattchar1_p.cpp \
+                              private/bluez/gattdesc1_p.cpp \
+                              private/bluez/gattservice1_p.cpp \
+                              private/bluez/hcimanager_p.cpp \
+                              private/bluez/manager_p.cpp \
+                              private/bluez/obex_agent_p.cpp \
+                              private/bluez/obex_client_p.cpp \
+                              private/bluez/obex_client1_bluez5_p.cpp \
+                              private/bluez/obex_manager_p.cpp \
+                              private/bluez/obex_objectpush1_bluez5_p.cpp \
+                              private/bluez/obex_transfer_p.cpp \
+                              private/bluez/obex_transfer1_bluez5_p.cpp \
+                              private/bluez/objectmanager_p.cpp \
+                              private/bluez/profile1_p.cpp \
+                              private/bluez/profile1context_p.cpp \
+                              private/bluez/profilemanager1_p.cpp \
+                              private/bluez/properties_p.cpp \
+                              private/bluez/remotedevicemanager_p.cpp \
+                              private/bluez/service_p.cpp \
+                              private/bluez/servicemap_p.cpp
 QTBLUETOOTH_MOCC            = $(QTBLUETOOTH_MOCC_ALL)
-QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL)
-QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL)
+QTBLUETOOTH_OBJS            = $(QTBLUETOOTH_OBJS_ALL) \
+                              bluez/adapter.o \
+                              bluez/adapter1_bluez5.o \
+                              bluez/agent.o \
+                              bluez/battery1.o \
+                              bluez/bluetoothmanagement.o \
+                              bluez/bluez5_helper.o \
+                              bluez/device.o \
+                              bluez/device1_bluez5.o \
+                              bluez/gattchar1.o \
+                              bluez/gattdesc1.o \
+                              bluez/gattservice1.o \
+                              bluez/hcimanager.o \
+                              bluez/manager.o \
+                              bluez/obex_agent.o \
+                              bluez/obex_client.o \
+                              bluez/obex_client1_bluez5.o \
+                              bluez/obex_manager.o \
+                              bluez/obex_objectpush1_bluez5.o \
+                              bluez/obex_transfer.o \
+                              bluez/obex_transfer1_bluez5.o \
+                              bluez/objectmanager.o \
+                              bluez/profile1.o \
+                              bluez/profile1context.o \
+                              bluez/profilemanager1.o \
+                              bluez/properties.o \
+                              bluez/remotedevicemanager.o \
+                              bluez/service.o \
+                              bluez/servicemap.o \
+                              lecmaccalculator.o \
+                              qbluetoothdevicediscoveryagent.o \
+                              qbluetoothdevicediscoveryagent_bluez.o \
+                              qbluetoothlocaldevice_bluez.o \
+                              qbluetoothserver.o \
+                              qbluetoothserver_bluez.o \
+                              qbluetoothservicediscoveryagent.o \
+                              qbluetoothservicediscoveryagent_bluez.o \
+                              qbluetoothserviceinfo.o \
+                              qbluetoothserviceinfo_bluez.o \
+                              qbluetoothsocket.o \
+                              qbluetoothsocket_bluez.o \
+                              qbluetoothsocket_bluezdbus.o \
+                              qbluetoothsocketbase.o \
+                              qbluetoothtransferreply_bluez.o \
+                              qleadvertiser_bluez.o \
+                              qlowenergycontroller.o \
+                              qlowenergycontroller_bluez.o \
+                              qlowenergycontroller_bluezdbus.o \
+                              qlowenergycontrollerbase.o \
+                              qlowenergyservice.o
+QTBLUETOOTH_OBJS_MOC        = $(QTBLUETOOTH_OBJS_MOC_ALL) \
+                              adapter_p.omoc \
+                              adapter1_bluez5_p.omoc \
+                              agent_p.omoc \
+                              battery1_p.omoc \
+                              bluetoothmanagement_p.omoc \
+                              bluez5_helper_p.omoc \
+                              device_p.omoc \
+                              device1_bluez5_p.omoc \
+                              gattchar1_p.omoc \
+                              gattdesc1_p.omoc \
+                              gattservice1_p.omoc \
+                              hcimanager_p.omoc \
+                              manager_p.omoc \
+                              obex_agent_p.omoc \
+                              obex_client_p.omoc \
+                              obex_client1_bluez5_p.omoc \
+                              obex_manager_p.omoc \
+                              obex_objectpush1_bluez5_p.omoc \
+                              obex_transfer_p.omoc \
+                              obex_transfer1_bluez5_p.omoc \
+                              objectmanager_p.omoc \
+                              profile1_p.omoc \
+                              profile1context_p.omoc \
+                              profilemanager1_p.omoc \
+                              properties_p.omoc \
+                              qbluetoothsocket_bluez_p.omoc \
+                              qbluetoothsocket_bluezdbus_p.omoc \
+                              qbluetoothtransferreply_bluez_p.omoc \
+                              qlowenergycontroller_p.omoc \
+                              qlowenergycontroller_bluez_p.omoc \
+                              qlowenergycontroller_bluezdbus_p.omoc \
+                              qlowenergyserviceprivate_p.omoc \
+                              remotedevicemanager_p.omoc \
+                              service_p.omoc \
+                              servicemap_p.omoc
 QTCONCURRENT_OBJS           = $(QTCONCURRENT_OBJS_ALL)
 QTCORE_MOCH                 = $(QTCORE_MOCH_ALL) \
                               private/qeventdispatcher_unix_p.cpp \
@@ -319,6 +456,63 @@ QTCORE_OBJS                 = $(QTCORE_OBJS_ALL) \
                               tools/qtimezoneprivate_tz.o
 QTCORE_OBJS_MOC             = $(QTCORE_OBJS_MOC_ALL)
 QTCORE_OBJS_RCC             = $(QTCORE_OBJS_RCC_ALL)
+QTDBUS_MOCH                 = $(QTDBUS_MOCH_ALL) \
+                              qdbusabstractinterface.cpp \
+                              qdbuspendingcall.cpp \
+                              qdbusserver.cpp \
+                              qdbusservicewatcher.cpp \
+                              private/qdbusconnection_p.cpp \
+                              private/qdbusconnectionmanager_p.cpp \
+                              private/qdbuspendingcall_p.cpp \
+                              qdbusabstractadaptor.cpp \
+                              qdbusconnection.cpp \
+                              qdbusconnectioninterface.cpp \
+                              qdbusservicewatcher.cpp \
+                              qdbusvirtualobject.cpp \
+
+QTDBUS_MOCC                 = $(QTDBUS_MOCC_ALL)
+QTDBUS_UICH                 = $(QTDBUS_UICH_ALL)
+QTDBUS_RCCH                 = $(QTDBUS_RCCH_ALL)
+QTDBUS_OBJS                 = $(QTDBUS_OBJS_ALL) \
+                              qdbus_symbols.o \
+                              qdbusabstractadaptor.o \
+                              qdbusabstractinterface.o \
+                              qdbusargument.o \
+                              qdbusconnection.o \
+                              qdbusconnectioninterface.o \
+                              qdbuscontext.o \
+                              qdbusdemarshaller.o \
+                              qdbuserror.o \
+                              qdbusextratypes.o \
+                              qdbusintegrator.o \
+                              qdbusinterface.o \
+                              qdbusinternalfilters.o \
+                              qdbusintrospection.o \
+                              qdbusmarshaller.o \
+                              qdbusmessage.o \
+                              qdbusmetaobject.o \
+                              qdbusmetatype.o \
+                              qdbusmisc.o \
+                              qdbuspendingcall.o \
+                              qdbuspendingreply.o \
+                              qdbusreply.o \
+                              qdbusserver.o \
+                              qdbusservicewatcher.o \
+                              qdbusunixfiledescriptor.o \
+                              qdbusutil.o \
+                              qdbusvirtualobject.o \
+                              qdbusxmlgenerator.o \
+                              qdbusxmlparser.o
+QTDBUS_OBJS_MOC             = $(QTDBUS_OBJS_MOC_ALL) \
+                              qdbusabstractadaptor.omoc \
+                              qdbusconnection.omoc \
+                              qdbusconnection_p.omoc \
+                              qdbusconnectioninterface.omoc \
+                              qdbusconnectionmanager_p.omoc \
+                              qdbuspendingcall_p.omoc \
+                              qdbusvirtualobject.omoc \
+
+QTDBUS_OBJS_RCC             = $(QTDBUS_OBJS_RCC_ALL)
 QTEVENTDISPATCHERS_MOCH     = $(QTEVENTDISPATCHERS_MOCH_ALL) \
                               private/qunixeventdispatcher_qpa_p.cpp
 QTEVENTDISPATCHERS_MOCC     = $(QTEVENTDISPATCHERS_MOCC_ALL)
@@ -345,7 +539,33 @@ QTGUI_MOCH                  = $(QTGUI_MOCH_ALL)
 QTGUI_MOCC                  = $(QTGUI_MOCC_ALL)
 QTGUI_UICH                  = $(QTGUI_UICH_ALL)
 QTGUI_RCCH                  = $(QTGUI_RCCH_ALL)
-QTGUI_OBJS                  = $(QTGUI_OBJS_ALL)
+QTGUI_OBJS                  = $(QTGUI_OBJS_ALL) \
+                              opengl/qopenglfunctions_1_0.o \
+                              opengl/qopenglfunctions_1_1.o \
+                              opengl/qopenglfunctions_1_2.o \
+                              opengl/qopenglfunctions_1_3.o \
+                              opengl/qopenglfunctions_1_4.o \
+                              opengl/qopenglfunctions_1_5.o \
+                              opengl/qopenglfunctions_2_0.o \
+                              opengl/qopenglfunctions_2_1.o \
+                              opengl/qopenglfunctions_3_0.o \
+                              opengl/qopenglfunctions_3_1.o \
+                              opengl/qopenglfunctions_3_2_compatibility.o \
+                              opengl/qopenglfunctions_3_2_core.o \
+                              opengl/qopenglfunctions_3_3_compatibility.o \
+                              opengl/qopenglfunctions_3_3_core.o \
+                              opengl/qopenglfunctions_4_0_compatibility.o \
+                              opengl/qopenglfunctions_4_0_core.o \
+                              opengl/qopenglfunctions_4_1_compatibility.o \
+                              opengl/qopenglfunctions_4_1_core.o \
+                              opengl/qopenglfunctions_4_2_compatibility.o \
+                              opengl/qopenglfunctions_4_2_core.o \
+                              opengl/qopenglfunctions_4_3_compatibility.o \
+                              opengl/qopenglfunctions_4_3_core.o \
+                              opengl/qopenglfunctions_4_4_compatibility.o \
+                              opengl/qopenglfunctions_4_4_core.o \
+                              opengl/qopenglfunctions_4_5_compatibility.o \
+                              opengl/qopenglfunctions_4_5_core.o
 QTGUI_OBJS_C                = $(QTGUI_OBJS_C_ALL)
 QTGUI_OBJS_MOC              = $(QTGUI_OBJS_MOC_ALL)
 QTGUI_OBJS_RCC              = $(QTGUI_OBJS_RCC_ALL)
@@ -386,6 +606,14 @@ QTPLATFORMWINDOWS_OBJS      = $(QTPLATFORMWINDOWS_OBJS_ALL)
 QTPLATFORMWINDOWS_OBJS_MOC  = $(QTPLATFORMWINDOWS_OBJS_MOC_ALL)
 QTPLATFORMWINDOWS_OBJS_RCC  = $(QTPLATFORMWINDOWS_OBJS_RCC_ALL)
 QTPLATFORMXCB_MOCH          = $(QTPLATFORMXCB_MOCH_ALL) \
+                              dbusmenu/qdbusmenuadaptor_p.cpp \
+                              dbusmenu/qdbusmenubar_p.cpp \
+                              dbusmenu/qdbusmenuconnection_p.cpp \
+                              dbusmenu/qdbusmenuregistrarproxy_p.cpp \
+                              dbusmenu/qdbusplatformmenu_p.cpp \
+                              dbustray/qdbustrayicon_p.cpp \
+                              dbustray/qstatusnotifieritemadaptor_p.cpp \
+                              dbustray/qxdgnotificationproxy_p.cpp \
                               gl_integrations/qxcbglintegrationplugin.cpp \
                               qxcbclipboard.cpp \
                               qxcbconnection.cpp \
@@ -404,6 +632,16 @@ QTPLATFORMXCB_MOCC          = $(QTPLATFORMXCB_MOCC_ALL) \
 QTPLATFORMXCB_UICH          = $(QTPLATFORMXCB_UICH_ALL)
 QTPLATFORMXCB_RCCH          = $(QTPLATFORMXCB_RCCH_ALL)
 QTPLATFORMXCB_OBJS          = $(QTPLATFORMXCB_OBJS_ALL) \
+                              dbusmenu/qdbusmenuadaptor.o \
+                              dbusmenu/qdbusmenubar.o \
+                              dbusmenu/qdbusmenuconnection.o \
+                              dbusmenu/qdbusmenuregistrarproxy.o \
+                              dbusmenu/qdbusmenutypes.o \
+                              dbusmenu/qdbusplatformmenu.o \
+                              dbustray/qdbustrayicon.o \
+                              dbustray/qdbustraytypes.o \
+                              dbustray/qstatusnotifieritemadaptor.o \
+                              dbustray/qxdgnotificationproxy.o \
                               gl_integrations/xcb_egl/qxcbeglintegration.o \
                               gl_integrations/xcb_egl/qxcbeglmain.o \
                               gl_integrations/xcb_egl/qxcbeglnativeinterfacehandler.o \
@@ -443,6 +681,14 @@ QTPLATFORMXCB_OBJS          = $(QTPLATFORMXCB_OBJS_ALL) \
                               qxcbwmsupport.o \
                               qxcbxsettings.o
 QTPLATFORMXCB_OBJS_MOC      = $(QTPLATFORMXCB_OBJS_MOC_ALL) \
+                              qdbusmenuadaptor_p.omoc \
+                              qdbusmenubar_p.omoc \
+                              qdbusmenuconnection_p.omoc \
+                              qdbusmenuregistrarproxy_p.omoc \
+                              qdbusplatformmenu_p.omoc \
+                              qdbustrayicon_p.omoc \
+                              qstatusnotifieritemadaptor_p.omoc \
+                              qxdgnotificationproxy_p.omoc \
                               qxcbglintegrationplugin.omoc \
                               qxcbclipboard.omoc \
                               qxcbconnection.omoc \
@@ -453,6 +699,13 @@ QTPLATFORMXCB_OBJS_MOC      = $(QTPLATFORMXCB_OBJS_MOC_ALL) \
                               qxcbnativeinterface.omoc \
                               qxcbsystemtraytracker.omoc
 QTPLATFORMXCB_OBJS_RCC      = $(QTPLATFORMXCB_OBJS_RCC_ALL)
+QTPLATFORMCOCOA_MOCH        = $(QTPLATFORMCOCOA_MOCH_ALL)
+QTPLATFORMCOCOA_MOCC        = $(QTPLATFORMCOCOA_MOCC_ALL)
+QTPLATFORMCOCOA_UICH        = $(QTPLATFORMCOCOA_UICH_ALL)
+QTPLATFORMCOCOA_RCCH        = $(QTPLATFORMCOCOA_RCCH_ALL)
+QTPLATFORMCOCOA_OBJS        = $(QTPLATFORMCOCOA_OBJS_ALL)
+QTPLATFORMCOCOA_OBJS_MOC    = $(QTPLATFORMCOCOA_OBJS_MOC_ALL)
+QTPLATFORMCOCOA_OBJS_RCC    = $(QTPLATFORMCOCOA_OBJS_RCC_ALL)
 QTPRINTSUPPORT_MOCH         = $(QTPRINTSUPPORT_MOCH_ALL)
 QTPRINTSUPPORT_MOCC         = $(QTPRINTSUPPORT_MOCC_ALL) \
                               dialogs/qprintdialog_unix.moc
@@ -487,6 +740,64 @@ SINGLEAPPLICATION_OBJS_MOC  = $(SINGLEAPPLICATION_OBJS_MOC_ALL)
 SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 
 #####################################################################################
+# Project Dependencies
+
+QTBLUETOOTH_DEPS_X86         = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTBLUETOOTH_DEPS_X64         = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTCORE_DEPS_X86              = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTCORE_DEPS_X64              = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTDBUS_DEPS_X86              = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTDBUS_DEPS_X64              = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTEVENTDISPATCHERS_DEPS_X86  = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTEVENTDISPATCHERS_DEPS_X64  = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTFONTDATABASES_DEPS_X86     = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTFONTDATABASES_DEPS_X64     = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTGAMEPAD_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTGAMEPAD_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTGUI_DEPS_X86               = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTGUI_DEPS_X64               = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIA_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIA_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIAWIDGETS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIAWIDGETS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTNETWORK_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTNETWORK_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMWINDOWS_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMWINDOWS_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMXCB_DEPS_X86       = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMXCB_DEPS_X64       = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMCOCOA_DEPS_X86     = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMCOCOA_DEPS_X64     = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPRINTSUPPORT_DEPS_X86      = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPRINTSUPPORT_DEPS_X64      = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTSERIALPORT_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTSERIALPORT_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTWIDGETS_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTWIDGETS_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+SINGLEAPPLICATION_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+SINGLEAPPLICATION_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+#####################################################################################
 # Include Targets
 
 include Makefile.targets
+
+all-x86: all-common-x86 \
+         fontconfig-x86 \
+         qt-bootstrap-x86 \
+         qt-moc-x86 \
+         qt-rcc-x86 \
+         qt-uic-x86 \
+         qt-dbus-x86 \
+         qt-platform-xcb-x86
+
+all-x64: all-common-x64 \
+         fontconfig-x64 \
+         qt-bootstrap-x64 \
+         qt-moc-x64 \
+         qt-rcc-x64 \
+         qt-uic-x64 \
+         qt-dbus-x64 \
+         qt-platform-xcb-x64
+
+all: all-x86 all-x64

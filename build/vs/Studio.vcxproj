@@ -529,7 +529,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;PCRE2_STATIC;QT_STATIC;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT=64;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;PCRE2_STATIC;QT_STATIC;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -554,7 +554,7 @@
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -569,6 +569,7 @@ Studio.cmd
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -583,7 +584,7 @@ Studio.cmd
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;QT_STATIC;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT=64;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;QT_STATIC;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -610,7 +611,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -625,6 +626,7 @@ Studio.cmd
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -638,7 +640,7 @@ Studio.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_UNICODE;UNICODE;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;QT_LINKED_OPENSSL;QT_STATIC;WIN32;_WINDOWS;QT_NO_DEBUG;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT=64;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_UNICODE;UNICODE;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;QT_LINKED_OPENSSL;QT_STATIC;WIN32;_WINDOWS;QT_NO_DEBUG;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -673,7 +675,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -692,6 +694,7 @@ Studio.cmd
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">
@@ -705,7 +708,7 @@ Studio.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>PRODUCTION_BUILD;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_UNICODE;UNICODE;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;QT_LINKED_OPENSSL;QT_STATIC;WIN32;_WINDOWS;QT_NO_DEBUG;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT=64;PRODUCTION_BUILD;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_UNICODE;UNICODE;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;QT_LINKED_OPENSSL;QT_STATIC;WIN32;_WINDOWS;QT_NO_DEBUG;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -740,7 +743,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -759,6 +762,7 @@ Studio.cmd
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -772,7 +776,7 @@ Studio.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;QT_NO_DEBUG;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT=64;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;QT_NO_DEBUG;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -809,7 +813,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -827,6 +831,7 @@ Studio.cmd
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
@@ -840,7 +845,7 @@ Studio.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>PRODUCTION_BUILD;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;QT_NO_DEBUG;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT=64;PRODUCTION_BUILD;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;QT_NO_DEBUG;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -877,7 +882,7 @@ Studio.cmd
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -895,6 +900,7 @@ Studio.cmd
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
