@@ -59,6 +59,8 @@ public:
    void OnDeviceAdded(Device* device) override;
 
 private:
+   void Cleanup();
+
    eemagineDevice*           mDevice;
    eemagine::sdk::buffer     mBuffer;
    eemagine::sdk::factory    mFactory;

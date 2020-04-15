@@ -61,14 +61,8 @@ eemagineDriver::~eemagineDriver()
    // remove event handler
    CORE_EVENTMANAGER.RemoveEventHandler(this);
 
-   if (mStream)
-      delete mStream;
-
-   if (mAmplifier)
-      delete mAmplifier;
-
-   mStream = NULL;
-   mAmplifier = NULL;
+   // cleanup
+   Cleanup();
 }
 
 
@@ -104,14 +98,8 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
       // remove device from manager (will delete device instance)
       GetDeviceManager()->RemoveDeviceAsync(mDevice);
 
-      // delete sdk instances
-      delete mStream;
-      delete mAmplifier;
-
-      // reset pointers
-      mStream = NULL;
-      mAmplifier = NULL;
-      mDevice = NULL;
+      // do already? (also done in callback for remove)
+      Cleanup();
 
       // don't go on
       return;
@@ -237,6 +225,9 @@ void eemagineDriver::OnRemoveDevice(Device* device)
    // not our device
    if (device != mDevice)
       return;
+
+   // else cleanup
+   Cleanup();
 }
 
 void eemagineDriver::OnDeviceAdded(Device* device)
@@ -246,4 +237,15 @@ void eemagineDriver::OnDeviceAdded(Device* device)
       return;
 }
 
+void eemagineDriver::Cleanup()
+{
+   // delete sdk instances
+   if (mStream)    delete mStream;
+   if (mAmplifier) delete mAmplifier;
+
+   // reset pointers
+   mStream    = NULL;
+   mAmplifier = NULL;
+   mDevice    = NULL;
+}
 #endif
