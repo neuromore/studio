@@ -258,3 +258,4 @@ ar
 ## Related Projects
 
 * [Run the muse-2 in neuromore](https://github.com/naxocaballero/muse2-neuromore) - https://github.com/naxocaballero/muse2-neuromore - thanks to [@naxocaballero](https://github.com/naxocaballero)
+* [There's also an LSL to OSC converter](https://github.com/ViacheslavBobrov/Muse_Neuromore) by @ViacheslavBobrov that works with the muse.
