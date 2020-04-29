@@ -560,6 +560,9 @@ void MainWindow::OnPostAuthenticationInit()
 	GetPluginManager()->RegisterPlugin( new ExperiencePlugin() );
 	GetPluginManager()->RegisterPlugin( new ExperienceSelectionPlugin() );
 
+	// others
+	GetPluginManager()->RegisterPlugin( new EngineStatusPlugin() );
+
 #ifdef USE_QTDATAVISUALIZATION
 	// Qt data visualization plugins
 	GetPluginManager()->RegisterPlugin( new SpectrogramSurfacePlugin() );
@@ -570,7 +573,6 @@ void MainWindow::OnPostAuthenticationInit()
 #ifndef PRODUCTION_BUILD
 	// include these plugins only in DEV version
 	GetPluginManager()->RegisterPlugin( new NetworkTestClientPlugin() );
-	GetPluginManager()->RegisterPlugin( new EngineStatusPlugin() );
 
 	// example plugins (only for development version)
 	GetPluginManager()->RegisterPlugin( new ExampleOpenGLPlugin() );
