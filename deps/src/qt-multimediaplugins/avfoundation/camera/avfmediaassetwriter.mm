@@ -382,7 +382,7 @@ enum WriterState
 
 
     m_audioOutput.reset([[AVCaptureAudioDataOutput alloc] init]);
-    if (m_audioOutput && [captureSession canAddOutput:m_audioOutput]) {
+    if (m_audioOutput.data() && [captureSession canAddOutput:m_audioOutput]) {
         [captureSession addOutput:m_audioOutput];
     } else {
         qDebugCamera() << Q_FUNC_INFO << "failed to add audio output";
@@ -400,7 +400,7 @@ enum WriterState
 {
     Q_ASSERT(m_service && m_service->videoOutput()
              && m_service->videoOutput()->videoDataOutput());
-    Q_ASSERT(m_assetWriter);
+    Q_ASSERT(m_assetWriter.data());
 
     m_cameraWriterInput.reset([[AVAssetWriterInput alloc] initWithMediaType:AVMediaTypeVideo
                                                           outputSettings:m_videoSettings
@@ -420,7 +420,7 @@ enum WriterState
 
     m_cameraWriterInput.data().expectsMediaDataInRealTime = YES;
 
-    if (m_audioOutput) {
+    if (m_audioOutput.data()) {
         CMFormatDescriptionRef sourceFormat = m_audioCaptureDevice ? m_audioCaptureDevice.activeFormat.formatDescription : 0;
         m_audioWriterInput.reset([[AVAssetWriterInput alloc] initWithMediaType:AVMediaTypeAudio
                                                              outputSettings:m_audioSettings
@@ -448,7 +448,7 @@ enum WriterState
 
     [m_service->videoOutput()->videoDataOutput() setSampleBufferDelegate:self queue:m_videoQueue];
 
-    if (m_audioOutput) {
+    if (m_audioOutput.data()) {
         Q_ASSERT(m_audioQueue);
         [m_audioOutput setSampleBufferDelegate:self queue:m_audioQueue];
     }

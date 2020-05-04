@@ -205,6 +205,7 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/qt-eventdispatchers.a \
                   $(DEPSLIBDIR_X86)/qt-gamepad.a \
                   $(DEPSLIBDIR_X86)/qt-multimedia.a \
+                  $(DEPSLIBDIR_X86)/qt-multimediaplugins.a \
                   $(DEPSLIBDIR_X86)/qt-multimediawidgets.a \
                   $(DEPSLIBDIR_X86)/qt-network.a \
                   $(DEPSLIBDIR_X86)/qt-opengl.a \
@@ -248,6 +249,7 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/qt-eventdispatchers.a \
                   $(DEPSLIBDIR_X64)/qt-gamepad.a \
                   $(DEPSLIBDIR_X64)/qt-multimedia.a \
+                  $(DEPSLIBDIR_X64)/qt-multimediaplugins.a \
                   $(DEPSLIBDIR_X64)/qt-multimediawidgets.a \
                   $(DEPSLIBDIR_X64)/qt-network.a \
                   $(DEPSLIBDIR_X64)/qt-opengl.a \

@@ -213,6 +213,8 @@
 #elif defined(NEUROMORE_PLATFORM_OSX)
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
+   Q_IMPORT_PLUGIN(AVFServicePlugin);
+   Q_IMPORT_PLUGIN(AVFMediaPlayerServicePlugin);
 #endif
 
 using namespace Core;
