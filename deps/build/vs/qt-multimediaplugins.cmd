@@ -40,7 +40,6 @@ echo MOC for root
 %MOC% %DIRIN%/directshow/camera/dsimagecapturecontrol.h -o %DIROUT%/moc_dsimagecapturecontrol.cpp
 %MOC% %DIRIN%/directshow/camera/dsvideodevicecontrol.h -o %DIROUT%/moc_dsvideodevicecontrol.cpp
 %MOC% %DIRIN%/directshow/camera/dsvideorenderer.h -o %DIROUT%/moc_dsvideorenderer.cpp
-
 %MOC% %DIRIN%/directshow/common/directshowaudioprobecontrol.h -o %DIROUT%/moc_directshowaudioprobecontrol.cpp
 %MOC% %DIRIN%/directshow/common/directshoweventloop.h -o %DIROUT%/moc_directshoweventloop.cpp
 %MOC% %DIRIN%/directshow/common/directshowsamplegrabber.h -o %DIROUT%/moc_directshowsamplegrabber.cpp
@@ -55,3 +54,8 @@ echo MOC for root
 %MOC% %DIRIN%/directshow/player/videosurfacefilter.h -o %DIROUT%/moc_videosurfacefilter.cpp
 %MOC% %DIRIN%/directshow/player/vmr9videowindowcontrol.h -o %DIROUT%/moc_vmr9videowindowcontrol.cpp
 %MOC% %DIRIN%/directshow/dsserviceplugin.h -o %DIROUT%/moc_dsserviceplugin.cpp
+
+%MOC% %DIRIN%/windowsaudio/qwindowsaudioinput.h -o %DIROUT%/moc_qwindowsaudioinput.cpp
+%MOC% %DIRIN%/windowsaudio/qwindowsaudiooutput.h -o %DIROUT%/moc_qwindowsaudiooutput.cpp
+%MOC% %DIRIN%/windowsaudio/qwindowsaudiodeviceinfo.h -o %DIROUT%/moc_qwindowsaudiodeviceinfo.cpp
+%MOC% %DIRIN%/windowsaudio/qwindowsaudioplugin.h -o %DIROUT%/moc_qwindowsaudioplugin.cpp

@@ -62,6 +62,11 @@
     <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowvideorenderercontrol.h" />
     <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\videosurfacefilter.h" />
     <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\vmr9videowindowcontrol.h" />
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiodeviceinfo.h" />
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioinput.h" />
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiooutput.h" />
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioplugin.h" />
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioutils.h" />
     <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfaudiodecodercontrol.h" />
     <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfdecoderservice.h" />
     <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfdecodersourcereader.h" />
@@ -124,6 +129,20 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudiodeviceinfo.cpp" />
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudioinput.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudiooutput.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudioplugin.cpp" />
     <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_sourceresolver.cpp" />
     <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_videosurfacefilter.cpp" />
     <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_vmr9videowindowcontrol.cpp" />
@@ -168,6 +187,11 @@
     <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowvideorenderercontrol.cpp" />
     <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\videosurfacefilter.cpp" />
     <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\vmr9videowindowcontrol.cpp" />
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiodeviceinfo.cpp" />
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioinput.cpp" />
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiooutput.cpp" />
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioutils.cpp" />
     <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfaudiodecodercontrol.cpp" />
     <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfdecoderservice.cpp" />
     <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfdecodersourcereader.cpp" />

@@ -31,6 +31,9 @@
     <Filter Include="directshow\player">
       <UniqueIdentifier>{743253b6-4448-4e80-a456-d17aec6729c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="windowsaudio">
+      <UniqueIdentifier>{f99d10c5-23dc-40a6-b723-fd73e3728379}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\mfstream.h">
@@ -215,6 +218,21 @@
     </ClInclude>
     <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\vmr9videowindowcontrol.h">
       <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiodeviceinfo.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioinput.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiooutput.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioplugin.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioutils.h">
+      <Filter>windowsaudio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -513,6 +531,33 @@
       <Filter>.moc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dsvideorenderer.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiodeviceinfo.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioinput.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiooutput.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioplugin.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioutils.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudioinput.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudiooutput.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudiodeviceinfo.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudioplugin.cpp">
       <Filter>.moc</Filter>
     </ClCompile>
   </ItemGroup>
