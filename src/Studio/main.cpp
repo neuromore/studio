@@ -210,6 +210,10 @@
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
    Q_IMPORT_PLUGIN(QXcbGlxIntegrationPlugin);
+   Q_IMPORT_PLUGIN(QGstreamerAudioDecoderServicePlugin);
+   Q_IMPORT_PLUGIN(CameraBinServicePlugin);
+   Q_IMPORT_PLUGIN(QGstreamerCaptureServicePlugin);
+   Q_IMPORT_PLUGIN(QGstreamerPlayerServicePlugin);
 #elif defined(NEUROMORE_PLATFORM_OSX)
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);

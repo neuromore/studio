@@ -84,8 +84,8 @@ QTGUI_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT
 QTGUI_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
 QTMULTIMEDIA_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
 QTMULTIMEDIA_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
-QTMULTIMEDIAPLUGINS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
-QTMULTIMEDIAPLUGINS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAPLUGINS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64 -DGST_USE_UNSTABLE_API
+QTMULTIMEDIAPLUGINS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64 -DGST_USE_UNSTABLE_API
 QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
 QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
 QTNETWORK_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
@@ -142,10 +142,20 @@ QTGAMEPAD_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/linux-clang
 QTGAMEPAD_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/linux-clang
 QTGUI_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
 QTGUI_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIA_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIA_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIAPLUGINS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIAPLUGINS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/linux-clang
+QTMULTIMEDIA_INCLUDES_ALL_PLAT       = -I../../include/qt/mkspecs/linux-clang \
+                                       -I /usr/include/gstreamer-1.0 \
+                                       -I /usr/include/glib-2.0 
+QTMULTIMEDIA_INCLUDES_X86_PLAT       = $(QTMULTIMEDIA_INCLUDES_ALL_PLAT) \
+                                       -I /usr/lib/i386-linux-gnu/glib-2.0/include
+QTMULTIMEDIA_INCLUDES_X64_PLAT       = $(QTMULTIMEDIA_INCLUDES_ALL_PLAT) \
+                                       -I /usr/lib/x86_64-linux-gnu/glib-2.0/include
+QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT= -I../../include/qt/mkspecs/linux-clang \
+                                       -I /usr/include/gstreamer-1.0 \
+                                       -I /usr/include/glib-2.0 
+QTMULTIMEDIAPLUGINS_INCLUDES_X86_PLAT= $(QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT) \
+                                       -I /usr/lib/i386-linux-gnu/glib-2.0/include
+QTMULTIMEDIAPLUGINS_INCLUDES_X64_PLAT= $(QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT) \
+                                       -I /usr/lib/x86_64-linux-gnu/glib-2.0/include
 QTMULTIMEDIAWIDGETS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/linux-clang
 QTMULTIMEDIAWIDGETS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/linux-clang
 QTNETWORK_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/linux-clang
@@ -573,19 +583,208 @@ QTGUI_OBJS                  = $(QTGUI_OBJS_ALL) \
 QTGUI_OBJS_C                = $(QTGUI_OBJS_C_ALL)
 QTGUI_OBJS_MOC              = $(QTGUI_OBJS_MOC_ALL)
 QTGUI_OBJS_RCC              = $(QTGUI_OBJS_RCC_ALL)
-QTMULTIMEDIA_MOCH           = $(QTMULTIMEDIA_MOCH_ALL)
-QTMULTIMEDIA_MOCC           = $(QTMULTIMEDIA_MOCC_ALL)
+QTMULTIMEDIA_MOCH           = $(QTMULTIMEDIA_MOCH_ALL) \
+                              private/qgstappsrc_p.cpp \
+                              private/qgstreameraudioinputselector_p.cpp \
+                              private/qgstreameraudioprobecontrol_p.cpp \
+                              private/qgstreamerbushelper_p.cpp \
+                              private/qgstreamermirtexturerenderer_p.cpp \
+                              private/qgstreamerplayercontrol_p.cpp \
+                              private/qgstreamerplayersession_p.cpp \
+                              private/qgstreamervideoinputdevicecontrol_p.cpp \
+                              private/qgstreamervideooverlay_p.cpp \
+                              private/qgstreamervideoprobecontrol_p.cpp \
+                              private/qgstreamervideorenderer_p.cpp \
+                              private/qgstreamervideowidget_p.cpp \
+                              private/qgstreamervideowindow_p.cpp \
+                              private/qgstvideorendererplugin_p.cpp \
+                              private/qgstvideorenderersink_p.cpp \
+                              private/qgstbufferpoolinterface_p.cpp \
+                              private/qgstvideorendererplugin_p.cpp
+QTMULTIMEDIA_MOCC           = $(QTMULTIMEDIA_MOCC_ALL) \
+                              gsttools/qgstreamerbushelper.moc
 QTMULTIMEDIA_UICH           = $(QTMULTIMEDIA_UICH_ALL)
 QTMULTIMEDIA_RCCH           = $(QTMULTIMEDIA_RCCH_ALL)
-QTMULTIMEDIA_OBJS           = $(QTMULTIMEDIA_OBJS_ALL)
-QTMULTIMEDIA_OBJS_MOC       = $(QTMULTIMEDIA_OBJS_MOC_ALL)
+QTMULTIMEDIA_OBJS           = $(QTMULTIMEDIA_OBJS_ALL) \
+                              gsttools/qgstappsrc.o \
+                              gsttools/qgstbufferpoolinterface.o \
+                              gsttools/qgstcodecsinfo.o \
+                              gsttools/qgstreameraudioinputselector.o \
+                              gsttools/qgstreameraudioprobecontrol.o \
+                              gsttools/qgstreamerbufferprobe.o \
+                              gsttools/qgstreamerbushelper.o \
+                              gsttools/qgstreamermessage.o \
+                              gsttools/qgstreamerplayercontrol.o \
+                              gsttools/qgstreamerplayersession.o \
+                              gsttools/qgstreamervideoinputdevicecontrol.o \
+                              gsttools/qgstreamervideooverlay.o \
+                              gsttools/qgstreamervideoprobecontrol.o \
+                              gsttools/qgstreamervideorenderer.o \
+                              gsttools/qgstreamervideorendererinterface.o \
+                              gsttools/qgstreamervideowidget.o \
+                              gsttools/qgstreamervideowindow.o \
+                              gsttools/qgstutils.o \
+                              gsttools/qgstvideobuffer.o \
+                              gsttools/qgstvideorendererplugin.o \
+                              gsttools/qgstvideorenderersink.o
+QTMULTIMEDIA_OBJS_MOC       = $(QTMULTIMEDIA_OBJS_MOC_ALL) \
+                              qgstappsrc_p.omoc \
+                              qgstreameraudioinputselector_p.omoc \
+                              qgstreameraudioprobecontrol_p.omoc \
+                              qgstreamerbushelper_p.omoc \
+                              qgstreamermirtexturerenderer_p.omoc \
+                              qgstreamerplayercontrol_p.omoc \
+                              qgstreamerplayersession_p.omoc \
+                              qgstreamervideoinputdevicecontrol_p.omoc \
+                              qgstreamervideooverlay_p.omoc \
+                              qgstreamervideoprobecontrol_p.omoc \
+                              qgstreamervideorenderer_p.omoc \
+                              qgstreamervideowidget_p.omoc \
+                              qgstreamervideowindow_p.omoc \
+                              qgstvideorendererplugin_p.omoc \
+                              qgstvideorenderersink_p.omoc
 QTMULTIMEDIA_OBJS_RCC       = $(QTMULTIMEDIA_OBJS_RCC_ALL)
-QTMULTIMEDIAPLUGINS_MOCH    = $(QTMULTIMEDIAPLUGINS_MOCH_ALL) 
+QTMULTIMEDIAPLUGINS_MOCH    = $(QTMULTIMEDIAPLUGINS_MOCH_ALL) \
+                              gstreamer/audiodecoder/qgstreameraudiodecodercontrol.cpp \
+                              gstreamer/audiodecoder/qgstreameraudiodecoderservice.cpp \
+                              gstreamer/audiodecoder/qgstreameraudiodecoderserviceplugin.cpp \
+                              gstreamer/audiodecoder/qgstreameraudiodecodersession.cpp \
+                              gstreamer/camerabin/camerabinaudioencoder.cpp \
+                              gstreamer/camerabin/camerabincapturebufferformat.cpp \
+                              gstreamer/camerabin/camerabincapturedestination.cpp \
+                              gstreamer/camerabin/camerabincontainer.cpp \
+                              gstreamer/camerabin/camerabincontrol.cpp \
+                              gstreamer/camerabin/camerabinexposure.cpp \
+                              gstreamer/camerabin/camerabinflash.cpp \
+                              gstreamer/camerabin/camerabinfocus.cpp \
+                              gstreamer/camerabin/camerabinimagecapture.cpp \
+                              gstreamer/camerabin/camerabinimageencoder.cpp \
+                              gstreamer/camerabin/camerabinimageprocessing.cpp \
+                              gstreamer/camerabin/camerabininfocontrol.cpp \
+                              gstreamer/camerabin/camerabinlocks.cpp \
+                              gstreamer/camerabin/camerabinmetadata.cpp \
+                              gstreamer/camerabin/camerabinrecorder.cpp \
+                              gstreamer/camerabin/camerabinresourcepolicy.cpp \
+                              gstreamer/camerabin/camerabinservice.cpp \
+                              gstreamer/camerabin/camerabinserviceplugin.cpp \
+                              gstreamer/camerabin/camerabinsession.cpp \
+                              gstreamer/camerabin/camerabinv4limageprocessing.cpp \
+                              gstreamer/camerabin/camerabinvideoencoder.cpp \
+                              gstreamer/camerabin/camerabinviewfindersettings.cpp \
+                              gstreamer/camerabin/camerabinviewfindersettings2.cpp \
+                              gstreamer/camerabin/camerabinzoom.cpp \
+                              gstreamer/mediacapture/qgstreameraudioencode.cpp \
+                              gstreamer/mediacapture/qgstreamercameracontrol.cpp \
+                              gstreamer/mediacapture/qgstreamercapturemetadatacontrol.cpp \
+                              gstreamer/mediacapture/qgstreamercaptureservice.cpp \
+                              gstreamer/mediacapture/qgstreamercaptureserviceplugin.cpp \
+                              gstreamer/mediacapture/qgstreamercapturesession.cpp \
+                              gstreamer/mediacapture/qgstreamerimagecapturecontrol.cpp \
+                              gstreamer/mediacapture/qgstreamerimageencode.cpp \
+                              gstreamer/mediacapture/qgstreamermediacontainercontrol.cpp \
+                              gstreamer/mediacapture/qgstreamerrecordercontrol.cpp \
+                              gstreamer/mediacapture/qgstreamerv4l2input.cpp \
+                              gstreamer/mediacapture/qgstreamervideoencode.cpp \
+                              gstreamer/mediaplayer/qgstreameravailabilitycontrol.cpp \
+                              gstreamer/mediaplayer/qgstreamermetadataprovider.cpp \
+                              gstreamer/mediaplayer/qgstreamerplayerservice.cpp \
+                              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.cpp \
+                              gstreamer/mediaplayer/qgstreamerstreamscontrol.cpp
 QTMULTIMEDIAPLUGINS_MOCC    = $(QTMULTIMEDIAPLUGINS_MOCC_ALL) 
 QTMULTIMEDIAPLUGINS_UICH    = $(QTMULTIMEDIAPLUGINS_UICH_ALL)
 QTMULTIMEDIAPLUGINS_RCCH    = $(QTMULTIMEDIAPLUGINS_RCCH_ALL)
-QTMULTIMEDIAPLUGINS_OBJS    = $(QTMULTIMEDIAPLUGINS_OBJS_ALL) 
-QTMULTIMEDIAPLUGINS_OBJS_MOC= $(QTMULTIMEDIAPLUGINS_OBJS_MOC_ALL)
+QTMULTIMEDIAPLUGINS_OBJS    = $(QTMULTIMEDIAPLUGINS_OBJS_ALL) \
+                              gstreamer/audiodecoder/qgstreameraudiodecodercontrol.o \
+                              gstreamer/audiodecoder/qgstreameraudiodecoderservice.o \
+                              gstreamer/audiodecoder/qgstreameraudiodecoderserviceplugin.o \
+                              gstreamer/audiodecoder/qgstreameraudiodecodersession.o \
+                              gstreamer/camerabin/camerabinaudioencoder.o \
+                              gstreamer/camerabin/camerabincapturebufferformat.o \
+                              gstreamer/camerabin/camerabincapturedestination.o \
+                              gstreamer/camerabin/camerabincontainer.o \
+                              gstreamer/camerabin/camerabincontrol.o \
+                              gstreamer/camerabin/camerabinexposure.o \
+                              gstreamer/camerabin/camerabinflash.o \
+                              gstreamer/camerabin/camerabinfocus.o \
+                              gstreamer/camerabin/camerabinimagecapture.o \
+                              gstreamer/camerabin/camerabinimageencoder.o \
+                              gstreamer/camerabin/camerabinimageprocessing.o \
+                              gstreamer/camerabin/camerabininfocontrol.o \
+                              gstreamer/camerabin/camerabinlocks.o \
+                              gstreamer/camerabin/camerabinmetadata.o \
+                              gstreamer/camerabin/camerabinrecorder.o \
+                              gstreamer/camerabin/camerabinresourcepolicy.o \
+                              gstreamer/camerabin/camerabinservice.o \
+                              gstreamer/camerabin/camerabinserviceplugin.o \
+                              gstreamer/camerabin/camerabinsession.o \
+                              gstreamer/camerabin/camerabinv4limageprocessing.o \
+                              gstreamer/camerabin/camerabinvideoencoder.o \
+                              gstreamer/camerabin/camerabinviewfindersettings.o \
+                              gstreamer/camerabin/camerabinviewfindersettings2.o \
+                              gstreamer/camerabin/camerabinzoom.o \
+                              gstreamer/mediacapture/qgstreameraudioencode.o \
+                              gstreamer/mediacapture/qgstreamercameracontrol.o \
+                              gstreamer/mediacapture/qgstreamercapturemetadatacontrol.o \
+                              gstreamer/mediacapture/qgstreamercaptureservice.o \
+                              gstreamer/mediacapture/qgstreamercaptureserviceplugin.o \
+                              gstreamer/mediacapture/qgstreamercapturesession.o \
+                              gstreamer/mediacapture/qgstreamerimagecapturecontrol.o \
+                              gstreamer/mediacapture/qgstreamerimageencode.o \
+                              gstreamer/mediacapture/qgstreamermediacontainercontrol.o \
+                              gstreamer/mediacapture/qgstreamerrecordercontrol.o \
+                              gstreamer/mediacapture/qgstreamerv4l2input.o \
+                              gstreamer/mediacapture/qgstreamervideoencode.o \
+                              gstreamer/mediaplayer/qgstreameravailabilitycontrol.o \
+                              gstreamer/mediaplayer/qgstreamermetadataprovider.o \
+                              gstreamer/mediaplayer/qgstreamerplayerservice.o \
+                              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.o \
+                              gstreamer/mediaplayer/qgstreamerstreamscontrol.o
+QTMULTIMEDIAPLUGINS_OBJS_MOC= $(QTMULTIMEDIAPLUGINS_OBJS_MOC_ALL) \
+                              qgstreameraudiodecodercontrol.omoc \
+                              qgstreameraudiodecoderservice.omoc \
+                              qgstreameraudiodecoderserviceplugin.omoc \
+                              qgstreameraudiodecodersession.omoc \
+                              camerabinaudioencoder.omoc \
+                              camerabincapturebufferformat.omoc \
+                              camerabincapturedestination.omoc \
+                              camerabincontainer.omoc \
+                              camerabincontrol.omoc \
+                              camerabinexposure.omoc \
+                              camerabinflash.omoc \
+                              camerabinfocus.omoc \
+                              camerabinimagecapture.omoc \
+                              camerabinimageencoder.omoc \
+                              camerabinimageprocessing.omoc \
+                              camerabininfocontrol.omoc \
+                              camerabinlocks.omoc \
+                              camerabinmetadata.omoc \
+                              camerabinrecorder.omoc \
+                              camerabinresourcepolicy.omoc \
+                              camerabinservice.omoc \
+                              camerabinserviceplugin.omoc \
+                              camerabinsession.omoc \
+                              camerabinv4limageprocessing.omoc \
+                              camerabinvideoencoder.omoc \
+                              camerabinviewfindersettings.omoc \
+                              camerabinviewfindersettings2.omoc \
+                              camerabinzoom.omoc \
+                              qgstreameraudioencode.omoc \
+                              qgstreamercameracontrol.omoc \
+                              qgstreamercapturemetadatacontrol.omoc \
+                              qgstreamercaptureservice.omoc \
+                              qgstreamercaptureserviceplugin.omoc \
+                              qgstreamercapturesession.omoc \
+                              qgstreamerimagecapturecontrol.omoc \
+                              qgstreamerimageencode.omoc \
+                              qgstreamermediacontainercontrol.omoc \
+                              qgstreamerrecordercontrol.omoc \
+                              qgstreamerv4l2input.omoc \
+                              qgstreamervideoencode.omoc \
+                              qgstreameravailabilitycontrol.omoc \
+                              qgstreamermetadataprovider.omoc \
+                              qgstreamerplayerservice.omoc \
+                              qgstreamerplayerserviceplugin.omoc \
+                              qgstreamerstreamscontrol.omoc
 QTMULTIMEDIAPLUGINS_OBJS_RCC= $(QTMULTIMEDIAPLUGINS_OBJS_RCC_ALL)
 QTMULTIMEDIAWIDGETS_MOCH    = $(QTMULTIMEDIAWIDGETS_MOCH_ALL) 
 QTMULTIMEDIAWIDGETS_MOCC    = $(QTMULTIMEDIAWIDGETS_MOCC_ALL) 

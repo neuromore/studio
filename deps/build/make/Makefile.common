@@ -2421,7 +2421,8 @@ QTMULTIMEDIA_DEFINES_X64   = $(QTMULTIMEDIA_DEFINES) $(QTMULTIMEDIA_DEFINES_X64_
 QTMULTIMEDIA_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) -I$(INCDIR)/qt \
                              -I$(INCDIR)/qt/QtCore -I$(INCDIR)/qt/QtCore/private \
                              -I$(INCDIR)/qt/QtGui -I$(INCDIR)/qt/QtGui/private \
-                             -I$(INCDIR)/qt/QtMultimedia -I$(INCDIR)/qt/QtMultimedia/private
+                             -I$(INCDIR)/qt/QtMultimedia -I$(INCDIR)/qt/QtMultimedia/private \
+                             -I$(INCDIR)/qt/QtMultimediaWidgets -I$(INCDIR)/qt/QtMultimediaWidgets/private
 QTMULTIMEDIA_INCLUDES_X86  = $(QTMULTIMEDIA_INCLUDES) -I$(QTMULTIMEDIA_MOCDIR_X86) \
                              -I$(QTMULTIMEDIA_UICDIR_X86) $(QTMULTIMEDIA_INCLUDES_X86_PLAT)
 QTMULTIMEDIA_INCLUDES_X64  = $(QTMULTIMEDIA_INCLUDES) -I$(QTMULTIMEDIA_MOCDIR_X64) \
@@ -2729,6 +2730,7 @@ QTMULTIMEDIAPLUGINS_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) -I$(INCDIR)/qt \
                                     -I$(INCDIR)/qt/QtOpenGL \
                                     -I$(INCDIR)/qt/QtWidgets \
                                     -I$(INCDIR)/qt/QtMultimedia \
+                                    -I$(INCDIR)/qt/QtMultimedia/private \
                                     -I$(INCDIR)/qt/QtMultimediaWidgets
 QTMULTIMEDIAPLUGINS_INCLUDES_X86  = $(QTMULTIMEDIAPLUGINS_INCLUDES) -I$(QTMULTIMEDIAPLUGINS_MOCDIR_X86) \
                                     -I$(QTMULTIMEDIAPLUGINS_UICDIR_X86) $(QTMULTIMEDIAPLUGINS_INCLUDES_X86_PLAT)
