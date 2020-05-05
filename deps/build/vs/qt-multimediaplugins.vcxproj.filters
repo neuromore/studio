@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="wmf">
+      <UniqueIdentifier>{4cc310c1-eea3-499a-a925-fea168afef5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wmf\decoder">
+      <UniqueIdentifier>{56d2fefa-2beb-41e7-8c44-b43d5472e4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wmf\player">
+      <UniqueIdentifier>{a03d64c1-9c7a-40a3-a7fb-d85bac2b3ce3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{e8e330d2-2750-475c-a542-089142ef399b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{82d342a4-0146-41dd-aa9c-725c3cc687c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\evr">
+      <UniqueIdentifier>{f2eeb782-61d1-4524-9cde-c9bf7eba78b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="directshow">
+      <UniqueIdentifier>{bd48fd3d-c9ef-49a9-b742-48a6254734c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="directshow\camera">
+      <UniqueIdentifier>{770e887a-3908-4d89-8720-2e91238c7da8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="directshow\common">
+      <UniqueIdentifier>{399b26ca-a65f-474d-ad30-345102da5407}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="directshow\player">
+      <UniqueIdentifier>{743253b6-4448-4e80-a456-d17aec6729c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="windowsaudio">
+      <UniqueIdentifier>{f99d10c5-23dc-40a6-b723-fd73e3728379}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\mfstream.h">
+      <Filter>wmf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\sourceresolver.h">
+      <Filter>wmf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\wmfserviceplugin.h">
+      <Filter>wmf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfaudiodecodercontrol.h">
+      <Filter>wmf\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfdecoderservice.h">
+      <Filter>wmf\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfdecodersourcereader.h">
+      <Filter>wmf\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfactivate.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfaudioendpointcontrol.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfaudioprobecontrol.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfevrvideowindowcontrol.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfmetadatacontrol.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfplayercontrol.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfplayerservice.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfplayersession.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mftvideo.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfvideoprobecontrol.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\mfvideorenderercontrol.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\wmf\player\samplegrabber.h">
+      <Filter>wmf\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\common\evr\evrcustompresenter.h">
+      <Filter>common\evr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\common\evr\evrd3dpresentengine.h">
+      <Filter>common\evr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\common\evr\evrdefs.h">
+      <Filter>common\evr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\common\evr\evrhelpers.h">
+      <Filter>common\evr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\common\evr\evrvideowindowcontrol.h">
+      <Filter>common\evr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\dsserviceplugin.h">
+      <Filter>directshow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameracapturebufferformatcontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameracapturedestinationcontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameraexposurecontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameraglobal.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameraimageencodercontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcamerazoomcontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\dscameracontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\dscameraimageprocessingcontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\dscameraservice.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\dscamerasession.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\dscameraviewfindersettingscontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\dsimagecapturecontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\dsvideodevicecontrol.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\camera\dsvideorenderer.h">
+      <Filter>directshow\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowaudioprobecontrol.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowbasefilter.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshoweventloop.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowglobal.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowmediatype.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowmediatypeenum.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowobject.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowpin.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowpinenum.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowsamplegrabber.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowutils.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowvideobuffer.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\common\directshowvideoprobecontrol.h">
+      <Filter>directshow\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowaudioendpointcontrol.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowevrvideowindowcontrol.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowioreader.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowiosource.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowmetadatacontrol.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowplayercontrol.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowplayerservice.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\directshowvideorenderercontrol.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\videosurfacefilter.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\directshow\player\vmr9videowindowcontrol.h">
+      <Filter>directshow\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiodeviceinfo.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioinput.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiooutput.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioplugin.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioutils.h">
+      <Filter>windowsaudio</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\mfstream.cpp">
+      <Filter>wmf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\sourceresolver.cpp">
+      <Filter>wmf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\wmfserviceplugin.cpp">
+      <Filter>wmf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfaudiodecodercontrol.cpp">
+      <Filter>wmf\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfdecoderservice.cpp">
+      <Filter>wmf\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\decoder\mfdecodersourcereader.cpp">
+      <Filter>wmf\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfactivate.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfaudioendpointcontrol.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfaudioprobecontrol.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfevrvideowindowcontrol.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfmetadatacontrol.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfplayercontrol.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfplayerservice.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfplayersession.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mftvideo.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfvideoprobecontrol.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\mfvideorenderercontrol.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\wmf\player\samplegrabber.cpp">
+      <Filter>wmf\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfvideorenderercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\common\evr\evrcustompresenter.cpp">
+      <Filter>common\evr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\common\evr\evrd3dpresentengine.cpp">
+      <Filter>common\evr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\common\evr\evrdefs.cpp">
+      <Filter>common\evr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\common\evr\evrhelpers.cpp">
+      <Filter>common\evr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\common\evr\evrvideowindowcontrol.cpp">
+      <Filter>common\evr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_wmfserviceplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfstream.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_sourceresolver.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfaudioendpointcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfaudioprobecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfmetadatacontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfplayercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfplayerservice.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfplayersession.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfvideoprobecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfaudiodecodercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfdecoderservice.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_mfdecodersourcereader.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_evrvideowindowcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\dsserviceplugin.cpp">
+      <Filter>directshow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameracapturebufferformatcontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameracapturedestinationcontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameraexposurecontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcameraimageencodercontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\directshowcamerazoomcontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\dscameracontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\dscameraimageprocessingcontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\dscameraservice.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\dscamerasession.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\dscameraviewfindersettingscontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\dsimagecapturecontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\dsvideodevicecontrol.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\camera\dsvideorenderer.cpp">
+      <Filter>directshow\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowaudioprobecontrol.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowbasefilter.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshoweventloop.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowmediatype.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowmediatypeenum.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowpin.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowpinenum.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowsamplegrabber.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowutils.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowvideobuffer.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\common\directshowvideoprobecontrol.cpp">
+      <Filter>directshow\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowaudioendpointcontrol.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowevrvideowindowcontrol.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowioreader.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowiosource.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowmetadatacontrol.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowplayercontrol.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowplayerservice.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\directshowvideorenderercontrol.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\videosurfacefilter.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\directshow\player\vmr9videowindowcontrol.cpp">
+      <Filter>directshow\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowaudioendpointcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowaudioprobecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshoweventloop.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowsamplegrabber.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowevrvideowindowcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowioreader.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowmetadatacontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowplayercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowplayerservice.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowvideoprobecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowvideorenderercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_videosurfacefilter.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_vmr9videowindowcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dsserviceplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowcameracapturebufferformatcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowcameracapturedestinationcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowcameraexposurecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowcameraimageencodercontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_directshowcamerazoomcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dscameracontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dscameraimageprocessingcontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dscameraservice.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dscamerasession.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dsimagecapturecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dsvideodevicecontrol.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_dsvideorenderer.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiodeviceinfo.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioinput.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudiooutput.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioplugin.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\windowsaudio\qwindowsaudioutils.cpp">
+      <Filter>windowsaudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudioinput.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudiooutput.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudiodeviceinfo.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-multimediaplugins\.moc\moc_qwindowsaudioplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\qt-multimediaplugins\.moc\mfvideorenderercontrol.moc">
+      <Filter>.moc</Filter>
+    </None>
+  </ItemGroup>
+</Project>

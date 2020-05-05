@@ -37,8 +37,15 @@
 // Library Linking
 #if defined(NEUROMORE_PLATFORM_WINDOWS)
 
-   // STATIC QT PLUGIN
+   // STATIC QT PLATFORM PLUGIN
    Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
+
+   // STATIC QT MEDIASERVICE PLUGIN
+   #if defined(NEUROMORE_USE_WMF)
+   Q_IMPORT_PLUGIN(WMFServicePlugin);   // Windows Media Foundation (alternative)
+   #else
+   Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow (default)
+   #endif
 
    // WINAPI
    #pragma comment(lib, "Version.lib")          // winapi: version
@@ -57,8 +64,19 @@
    #pragma comment(lib, "Wtsapi32.lib")         // winapi: remote desktop services
    #pragma comment(lib, "Gdi32.lib")            // winapi: gdi
    #pragma comment(lib, "WindowsApp.lib")       // winapi: WinRT basics
+   #pragma comment(lib, "dxva2.lib")            // winapi: DirectX Video Acceleration
+   #pragma comment(lib, "D3d9.lib")             // winapi: Direct3D 9
+   #pragma comment(lib, "evr.lib")              // winapi: media foundation
+   #pragma comment(lib, "mf.lib")               // winapi: media foundation
+   #pragma comment(lib, "mfplat.lib")           // winapi: media foundation
+   #pragma comment(lib, "mfplay.lib")           // winapi: media foundation
+   #pragma comment(lib, "mfreadwrite.lib")      // winapi: media foundation
+   #pragma comment(lib, "mfuuid.lib")           // winapi: media foundation
+   #pragma comment(lib, "wmcodecdspuuid.lib")   // winapi: 
+   #pragma comment(lib, "strmiids.lib")         // winapi: 
    #pragma comment(lib, "opengl32.lib")         // opengl
    #pragma comment(lib, "glu32.lib")            // opengl
+   
 
    // PROPRIETARY (TOBIIEYEX)
    #ifdef INCLUDE_DEVICE_TOBIIEYEX
@@ -131,6 +149,7 @@
       #pragma comment(lib, "qt-gui_d.lib")               // 3rdparty: qt gui
       #pragma comment(lib, "qt-multimedia_d.lib")        // 3rdparty: qt multimedia
       #pragma comment(lib, "qt-network_d.lib")           // 3rdparty: qt network
+      #pragma comment(lib, "qt-multimediaplugins_d.lib") // 3rdparty: qt multimedia plugins
       #pragma comment(lib, "qt-multimediawidgets_d.lib") // 3rdparty: qt multimedia widgets
       #pragma comment(lib, "qt-widgets_d.lib")           // 3rdparty: qt widgets
       #pragma comment(lib, "qt-opengl_d.lib")            // 3rdparty: qt opengl
@@ -176,6 +195,7 @@
       #pragma comment(lib, "qt-gui.lib")
       #pragma comment(lib, "qt-multimedia.lib")
       #pragma comment(lib, "qt-network.lib")
+      #pragma comment(lib, "qt-multimediaplugins.lib")
       #pragma comment(lib, "qt-multimediawidgets.lib")
       #pragma comment(lib, "qt-widgets.lib")
       #pragma comment(lib, "qt-opengl.lib")
@@ -190,9 +210,15 @@
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
    Q_IMPORT_PLUGIN(QXcbGlxIntegrationPlugin);
+   Q_IMPORT_PLUGIN(QGstreamerAudioDecoderServicePlugin);
+   Q_IMPORT_PLUGIN(CameraBinServicePlugin);
+   Q_IMPORT_PLUGIN(QGstreamerCaptureServicePlugin);
+   Q_IMPORT_PLUGIN(QGstreamerPlayerServicePlugin);
 #elif defined(NEUROMORE_PLATFORM_OSX)
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
+   Q_IMPORT_PLUGIN(AVFServicePlugin);
+   Q_IMPORT_PLUGIN(AVFMediaPlayerServicePlugin);
 #endif
 
 using namespace Core;

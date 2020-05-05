@@ -1038,6 +1038,64 @@ qt-multimedia-x64-clean:
 
 qt-multimedia-clean: qt-multimedia-x86-clean qt-multimedia-x64-clean
 ###################################################################################################################
+# QT-MULTIMEDIAPLUGINS
+###################################################################################################################
+QTMULTIMEDIAPLUGINS_MOCH_X86     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_MOCDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_MOCH))
+QTMULTIMEDIAPLUGINS_MOCH_X64     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_MOCDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_MOCH))
+QTMULTIMEDIAPLUGINS_MOCC_X86     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_MOCDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_MOCC))
+QTMULTIMEDIAPLUGINS_MOCC_X64     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_MOCDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_MOCC))
+QTMULTIMEDIAPLUGINS_MOCMM_X86    := $(patsubst %,$(QTMULTIMEDIAPLUGINS_MOCDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_MOCMM))
+QTMULTIMEDIAPLUGINS_MOCMM_X64    := $(patsubst %,$(QTMULTIMEDIAPLUGINS_MOCDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_MOCMM))
+QTMULTIMEDIAPLUGINS_UICH_X86     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_UICDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_UICH))
+QTMULTIMEDIAPLUGINS_UICH_X64     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_UICDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_UICH))
+QTMULTIMEDIAPLUGINS_RCCH_X86     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_RCCDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_RCCH))
+QTMULTIMEDIAPLUGINS_RCCH_X64     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_RCCDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_RCCH))
+QTMULTIMEDIAPLUGINS_OBJS_X86     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_OBJDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_OBJS))
+QTMULTIMEDIAPLUGINS_OBJS_X64     := $(patsubst %,$(QTMULTIMEDIAPLUGINS_OBJDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_OBJS))
+QTMULTIMEDIAPLUGINS_OBJS_MOC_X86 := $(patsubst %,$(QTMULTIMEDIAPLUGINS_OBJDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_OBJS_MOC))
+QTMULTIMEDIAPLUGINS_OBJS_MOC_X64 := $(patsubst %,$(QTMULTIMEDIAPLUGINS_OBJDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_OBJS_MOC))
+QTMULTIMEDIAPLUGINS_OBJS_MOCMM_X86 := $(patsubst %,$(QTMULTIMEDIAPLUGINS_OBJDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_OBJS_MOCMM))
+QTMULTIMEDIAPLUGINS_OBJS_MOCMM_X64 := $(patsubst %,$(QTMULTIMEDIAPLUGINS_OBJDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_OBJS_MOCMM))
+QTMULTIMEDIAPLUGINS_OBJS_RCC_X86 := $(patsubst %,$(QTMULTIMEDIAPLUGINS_OBJDIR_X86)/%,$(QTMULTIMEDIAPLUGINS_OBJS_RCC))
+QTMULTIMEDIAPLUGINS_OBJS_RCC_X64 := $(patsubst %,$(QTMULTIMEDIAPLUGINS_OBJDIR_X64)/%,$(QTMULTIMEDIAPLUGINS_OBJS_RCC))
+QTMULTIMEDIAPLUGINS_PRES_X86     := $(QTMULTIMEDIAPLUGINS_MOCH_X86) $(QTMULTIMEDIAPLUGINS_MOCC_X86) $(QTMULTIMEDIAPLUGINS_MOCMM_X86) $(QTMULTIMEDIAPLUGINS_UICH_X86) $(QTMULTIMEDIAPLUGINS_RCCH_X86)
+QTMULTIMEDIAPLUGINS_PRES_X64     := $(QTMULTIMEDIAPLUGINS_MOCH_X64) $(QTMULTIMEDIAPLUGINS_MOCC_X64) $(QTMULTIMEDIAPLUGINS_MOCMM_X64) $(QTMULTIMEDIAPLUGINS_UICH_X64) $(QTMULTIMEDIAPLUGINS_RCCH_X64) 
+QTMULTIMEDIAPLUGINS_OBLS_X86     := $(QTMULTIMEDIAPLUGINS_OBJS_X86) $(QTMULTIMEDIAPLUGINS_OBJS_MOC_X86) $(QTMULTIMEDIAPLUGINS_OBJS_MOCMM_X86) $(QTMULTIMEDIAPLUGINS_OBJS_RCC_X86)
+QTMULTIMEDIAPLUGINS_OBLS_X64     := $(QTMULTIMEDIAPLUGINS_OBJS_X64) $(QTMULTIMEDIAPLUGINS_OBJS_MOC_X64) $(QTMULTIMEDIAPLUGINS_OBJS_MOCMM_X64) $(QTMULTIMEDIAPLUGINS_OBJS_RCC_X64)
+
+$(QTMULTIMEDIAPLUGINS_PRES_X86) : $(QTMULTIMEDIAPLUGINS_DEPS_X86)
+$(QTMULTIMEDIAPLUGINS_PRES_X64) : $(QTMULTIMEDIAPLUGINS_DEPS_X64)
+$(QTMULTIMEDIAPLUGINS_OBLS_X86) : $(QTMULTIMEDIAPLUGINS_PRES_X86)
+$(QTMULTIMEDIAPLUGINS_OBLS_X64) : $(QTMULTIMEDIAPLUGINS_PRES_X64)
+
+qt-multimediaplugins-x86: $(QTMULTIMEDIAPLUGINS_PRES_X86) $(QTMULTIMEDIAPLUGINS_OBLS_X86)
+	$(call createlib32,qt-multimediaplugins,$(QTMULTIMEDIAPLUGINS_OBLS_X86))
+
+qt-multimediaplugins-x64: $(QTMULTIMEDIAPLUGINS_PRES_X64) $(QTMULTIMEDIAPLUGINS_OBLS_X64)
+	$(call createlib64,qt-multimediaplugins,$(QTMULTIMEDIAPLUGINS_OBLS_X64))
+
+qt-multimediaplugins: qt-multimediaplugins-x86 qt-multimediaplugins-x64
+
+qt-multimediaplugins-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),qt-multimediaplugins.*)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_OBJDIR_X86),*.o)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_OBJDIR_X86),*.omocmm)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_MOCDIR_X86),*.cpp)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_MOCDIR_X86),*.moc)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_MOCDIR_X86),*.mm)
+
+qt-multimediaplugins-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),qt-multimediaplugins.*)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_OBJDIR_X64),*.o)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_OBJDIR_X64),*.omocmm)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_MOCDIR_X64),*.cpp)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_MOCDIR_X64),*.moc)
+	$(call deletefilepattern,$(QTMULTIMEDIAPLUGINS_MOCDIR_X64),*.mm)
+
+qt-multimediaplugins-clean: qt-multimediaplugins-x86-clean qt-multimediaplugins-x64-clean
+###################################################################################################################
 # QT-MULTIMEDIAWIDGETS
 ###################################################################################################################
 QTMULTIMEDIAWIDGETS_MOCH_X86     := $(patsubst %,$(QTMULTIMEDIAWIDGETS_MOCDIR_X86)/%,$(QTMULTIMEDIAWIDGETS_MOCH))
@@ -1581,6 +1639,7 @@ all-common-x86: zlib-x86 \
          qt-gamepad-x86 \
          qt-gui-x86 \
          qt-multimedia-x86 \
+         qt-multimediaplugins-x86 \
          qt-multimediawidgets-x86 \
          qt-network-x86 \
          qt-opengl-x86 \
@@ -1619,6 +1678,7 @@ all-common-x64: zlib-x64 \
          qt-gamepad-x64 \
          qt-gui-x64 \
          qt-multimedia-x64 \
+         qt-multimediaplugins-x64 \
          qt-multimediawidgets-x64 \
          qt-network-x64 \
          qt-opengl-x64 \
@@ -1663,6 +1723,7 @@ clean-x86: zlib-x86-clean \
            qt-gamepad-x86-clean \
            qt-gui-x86-clean \
            qt-multimedia-x86-clean \
+           qt-multimediaplugins-x86-clean \
            qt-multimediawidgets-x86-clean \
            qt-network-x86-clean \
            qt-opengl-x86-clean \
@@ -1710,6 +1771,7 @@ clean-x64: zlib-x64-clean \
            qt-gamepad-x64-clean \
            qt-gui-x64-clean \
            qt-multimedia-x64-clean \
+           qt-multimediaplugins-x64-clean \
            qt-multimediawidgets-x64-clean \
            qt-network-x64-clean \
            qt-opengl-x64-clean \

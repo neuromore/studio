@@ -5,6 +5,10 @@ Priority: optional
 Architecture: amd64
 Depends: libexpat1 (>= 2.2.5),
  libsm6 (>= 1.2.2),
+ libgstreamer1.0-0 (>= 1.14.0),
+ libgstreamer-plugins-base1.0-0 (>= 1.14.0),
+ libgstreamer-plugins-good1.0-0 (>= 1.14.0),
+ libglib2.0-0 (>= 2.56.4),
  libx11-6 (>= 1.6.4),
  libx11-xcb1 (>= 1.6.4),
  libxkbcommon0 (>= 0.8.0),

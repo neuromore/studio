@@ -16,7 +16,9 @@ FLAGS = -O2 \
         -Wno-deprecated-declarations \
         -Wno-incompatible-pointer-types \
         -Wno-ignored-pragma-optimize \
-        -Wno-microsoft-cast
+        -Wno-microsoft-cast \
+        -Wno-enum-compare-switch \
+        -Wno-switch
 
 # Architecture flags
 ARCHFLAGS_X86 = -msse -msse2
@@ -85,6 +87,8 @@ QTGUI_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT
 QTGUI_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\" -DQT_NO_FONTCONFIG -DQT_FEATURE_dbus=-1
 QTMULTIMEDIA_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
 QTMULTIMEDIA_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAPLUGINS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAPLUGINS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
 QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
 QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
 QTNETWORK_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\".\" -DENGINESDIR=\".\" 
@@ -143,6 +147,17 @@ QTGUI_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/win32-clang-ms
 QTGUI_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/win32-clang-msvc
 QTMULTIMEDIA_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
 QTMULTIMEDIA_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/win32-clang-msvc
+QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT= -I../../include/qt/mkspecs/win32-clang-msvc \
+                                       -I../../src/qt-multimediaplugins/common/evr \
+                                       -I../../src/qt-multimediaplugins/directshow/camera \
+                                       -I../../src/qt-multimediaplugins/directshow/common \
+                                       -I../../src/qt-multimediaplugins/directshow/player \
+                                       -I../../src/qt-multimediaplugins/directshow \
+                                       -I../../src/qt-multimediaplugins/wmf/decoder \
+                                       -I../../src/qt-multimediaplugins/wmf/player \
+                                       -I../../src/qt-multimediaplugins/wmf
+QTMULTIMEDIAPLUGINS_INCLUDES_X86_PLAT= $(QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT)
+QTMULTIMEDIAPLUGINS_INCLUDES_X64_PLAT= $(QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT)
 QTMULTIMEDIAWIDGETS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/win32-clang-msvc
 QTMULTIMEDIAWIDGETS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/win32-clang-msvc
 QTNETWORK_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/win32-clang-msvc
@@ -471,6 +486,153 @@ QTMULTIMEDIA_RCCH           = $(QTMULTIMEDIA_RCCH_ALL)
 QTMULTIMEDIA_OBJS           = $(QTMULTIMEDIA_OBJS_ALL)
 QTMULTIMEDIA_OBJS_MOC       = $(QTMULTIMEDIA_OBJS_MOC_ALL)
 QTMULTIMEDIA_OBJS_RCC       = $(QTMULTIMEDIA_OBJS_RCC_ALL)
+QTMULTIMEDIAPLUGINS_MOCH    = $(QTMULTIMEDIAPLUGINS_MOCH_ALL) \
+                              common/evr/evrvideowindowcontrol.cpp \
+                              wmf/decoder/mfaudiodecodercontrol.cpp \
+                              wmf/decoder/mfdecoderservice.cpp \
+                              wmf/decoder/mfdecodersourcereader.cpp \
+                              wmf/player/mfaudioendpointcontrol.cpp \
+                              wmf/player/mfaudioprobecontrol.cpp \
+                              wmf/player/mfmetadatacontrol.cpp \
+                              wmf/player/mfplayercontrol.cpp \
+                              wmf/player/mfplayerservice.cpp \
+                              wmf/player/mfplayersession.cpp \
+                              wmf/player/mfvideoprobecontrol.cpp \
+                              wmf/player/mfvideorenderercontrol.cpp \
+                              wmf/wmfserviceplugin.cpp \
+                              wmf/sourceresolver.cpp \
+                              wmf/mfstream.cpp \
+                              directshow/camera/directshowcameracapturebufferformatcontrol.cpp \
+                              directshow/camera/directshowcameracapturedestinationcontrol.cpp \
+                              directshow/camera/directshowcameraexposurecontrol.cpp \
+                              directshow/camera/directshowcameraimageencodercontrol.cpp \
+                              directshow/camera/directshowcamerazoomcontrol.cpp \
+                              directshow/camera/dscameracontrol.cpp \
+                              directshow/camera/dscameraimageprocessingcontrol.cpp \
+                              directshow/camera/dscameraservice.cpp \
+                              directshow/camera/dscamerasession.cpp \
+                              directshow/camera/dsimagecapturecontrol.cpp \
+                              directshow/camera/dsvideodevicecontrol.cpp \
+                              directshow/camera/dsvideorenderer.cpp \
+                              directshow/common/directshowaudioprobecontrol.cpp \
+                              directshow/common/directshoweventloop.cpp \
+                              directshow/common/directshowsamplegrabber.cpp \
+                              directshow/common/directshowvideoprobecontrol.cpp \
+                              directshow/player/directshowaudioendpointcontrol.cpp \
+                              directshow/player/directshowevrvideowindowcontrol.cpp \
+                              directshow/player/directshowioreader.cpp \
+                              directshow/player/directshowmetadatacontrol.cpp \
+                              directshow/player/directshowplayercontrol.cpp \
+                              directshow/player/directshowplayerservice.cpp \
+                              directshow/player/directshowvideorenderercontrol.cpp \
+                              directshow/player/videosurfacefilter.cpp \
+                              directshow/player/vmr9videowindowcontrol.cpp \
+                              directshow/dsserviceplugin.cpp
+QTMULTIMEDIAPLUGINS_MOCC    = $(QTMULTIMEDIAPLUGINS_MOCC_ALL) \
+                              wmf/player/mfvideorenderercontrol.moc
+QTMULTIMEDIAPLUGINS_UICH    = $(QTMULTIMEDIAPLUGINS_UICH_ALL)
+QTMULTIMEDIAPLUGINS_RCCH    = $(QTMULTIMEDIAPLUGINS_RCCH_ALL)
+QTMULTIMEDIAPLUGINS_OBJS    = $(QTMULTIMEDIAPLUGINS_OBJS_ALL) \
+                              common/evr/evrcustompresenter.o \
+                              common/evr/evrd3dpresentengine.o \
+                              common/evr/evrdefs.o \
+                              common/evr/evrhelpers.o \
+                              common/evr/evrvideowindowcontrol.o \
+                              directshow/camera/directshowcameracapturebufferformatcontrol.o \
+                              directshow/camera/directshowcameracapturedestinationcontrol.o \
+                              directshow/camera/directshowcameraexposurecontrol.o \
+                              directshow/camera/directshowcameraimageencodercontrol.o \
+                              directshow/camera/directshowcamerazoomcontrol.o \
+                              directshow/camera/dscameracontrol.o \
+                              directshow/camera/dscameraimageprocessingcontrol.o \
+                              directshow/camera/dscameraservice.o \
+                              directshow/camera/dscamerasession.o \
+                              directshow/camera/dscameraviewfindersettingscontrol.o \
+                              directshow/camera/dsimagecapturecontrol.o \
+                              directshow/camera/dsvideodevicecontrol.o \
+                              directshow/camera/dsvideorenderer.o \
+                              directshow/common/directshowaudioprobecontrol.o \
+                              directshow/common/directshowbasefilter.o \
+                              directshow/common/directshoweventloop.o \
+                              directshow/common/directshowmediatype.o \
+                              directshow/common/directshowmediatypeenum.o \
+                              directshow/common/directshowpin.o \
+                              directshow/common/directshowpinenum.o \
+                              directshow/common/directshowsamplegrabber.o \
+                              directshow/common/directshowutils.o \
+                              directshow/common/directshowvideobuffer.o \
+                              directshow/common/directshowvideoprobecontrol.o \
+                              directshow/player/directshowaudioendpointcontrol.o \
+                              directshow/player/directshowevrvideowindowcontrol.o \
+                              directshow/player/directshowioreader.o \
+                              directshow/player/directshowiosource.o \
+                              directshow/player/directshowmetadatacontrol.o \
+                              directshow/player/directshowplayercontrol.o \
+                              directshow/player/directshowplayerservice.o \
+                              directshow/player/directshowvideorenderercontrol.o \
+                              directshow/player/videosurfacefilter.o \
+                              directshow/player/vmr9videowindowcontrol.o \
+                              directshow/dsserviceplugin.o \
+                              wmf/decoder/mfaudiodecodercontrol.o \
+                              wmf/decoder/mfdecoderservice.o \
+                              wmf/decoder/mfdecodersourcereader.o \
+                              wmf/player/mfactivate.o \
+                              wmf/player/mfaudioendpointcontrol.o \
+                              wmf/player/mfaudioprobecontrol.o \
+                              wmf/player/mfevrvideowindowcontrol.o \
+                              wmf/player/mfmetadatacontrol.o \
+                              wmf/player/mfplayercontrol.o \
+                              wmf/player/mfplayerservice.o \
+                              wmf/player/mfplayersession.o \
+                              wmf/player/mftvideo.o \
+                              wmf/player/mfvideoprobecontrol.o \
+                              wmf/player/mfvideorenderercontrol.o \
+                              wmf/player/samplegrabber.o \
+                              wmf/mfstream.o \
+                              wmf/sourceresolver.o \
+                              wmf/wmfserviceplugin.o
+QTMULTIMEDIAPLUGINS_OBJS_MOC= $(QTMULTIMEDIAPLUGINS_OBJS_MOC_ALL) \
+                              evrvideowindowcontrol.omoc \
+                              mfaudiodecodercontrol.omoc \
+                              mfdecoderservice.omoc \
+                              mfdecodersourcereader.omoc \
+                              mfaudioendpointcontrol.omoc \
+                              mfaudioprobecontrol.omoc \
+                              mfmetadatacontrol.omoc \
+                              mfplayercontrol.omoc \
+                              mfplayerservice.omoc \
+                              mfplayersession.omoc \
+                              mfvideoprobecontrol.omoc \
+                              wmfserviceplugin.omoc \
+                              sourceresolver.omoc \
+                              mfstream.omoc \
+                              directshowcameracapturebufferformatcontrol.omoc \
+                              directshowcameracapturedestinationcontrol.omoc \
+                              directshowcameraexposurecontrol.omoc \
+                              directshowcameraimageencodercontrol.omoc \
+                              directshowcamerazoomcontrol.omoc \
+                              dscameracontrol.omoc \
+                              dscameraimageprocessingcontrol.omoc \
+                              dscameraservice.omoc \
+                              dscamerasession.omoc \
+                              dsimagecapturecontrol.omoc \
+                              dsvideodevicecontrol.omoc \
+                              dsvideorenderer.omoc \
+                              directshowaudioprobecontrol.omoc \
+                              directshoweventloop.omoc \
+                              directshowsamplegrabber.omoc \
+                              directshowvideoprobecontrol.omoc \
+                              directshowaudioendpointcontrol.omoc \
+                              directshowevrvideowindowcontrol.omoc \
+                              directshowioreader.omoc \
+                              directshowmetadatacontrol.omoc \
+                              directshowplayercontrol.omoc \
+                              directshowplayerservice.omoc \
+                              directshowvideorenderercontrol.omoc \
+                              videosurfacefilter.omoc \
+                              vmr9videowindowcontrol.omoc \
+                              dsserviceplugin.omoc
+QTMULTIMEDIAPLUGINS_OBJS_RCC= $(QTMULTIMEDIAPLUGINS_OBJS_RCC_ALL)
 QTMULTIMEDIAWIDGETS_MOCH    = $(QTMULTIMEDIAWIDGETS_MOCH_ALL) 
 QTMULTIMEDIAWIDGETS_MOCC    = $(QTMULTIMEDIAWIDGETS_MOCC_ALL) 
 QTMULTIMEDIAWIDGETS_UICH    = $(QTMULTIMEDIAWIDGETS_UICH_ALL)
@@ -642,6 +804,8 @@ QTGUI_DEPS_X86               = qt-moc-x86 qt-rcc-x86 qt-uic-x86
 QTGUI_DEPS_X64               = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 QTMULTIMEDIA_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
 QTMULTIMEDIA_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIAPLUGINS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIAPLUGINS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 QTMULTIMEDIAWIDGETS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
 QTMULTIMEDIAWIDGETS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 QTNETWORK_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
