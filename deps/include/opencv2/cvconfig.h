@@ -1,5 +1,11 @@
+#ifndef OPENCV_CVCONFIG_H_INCLUDED
+#define OPENCV_CVCONFIG_H_INCLUDED
+
 /* OpenCV compiled as static or dynamic libs */
 /* #undef BUILD_SHARED_LIBS */
+
+/* OpenCV intrinsics optimized code */
+#define CV_ENABLE_INTRINSICS
 
 /* Compile for 'real' NVIDIA GPU architectures */
 #define CUDA_ARCH_BIN ""
@@ -69,6 +75,12 @@
 /* V4L2 capturing support in videoio.h */
 //#define HAVE_VIDEOIO
 
+/* V4L/V4L2 capturing support via libv4l */
+/* #undef HAVE_LIBV4L */
+
+/* GStreamer multimedia framework */
+/* #undef HAVE_GSTREAMER */
+
 #define HAVE_PTHREADS
 #elif defined(_WIN32)
 
@@ -86,15 +98,19 @@
 /* DirectShow Video Capture library */
 #define HAVE_DSHOW
 
+/* Microsoft Media Foundation Capture library */
+/* #undef HAVE_MSMF */
+
 /* Video for Windows support */
 #define HAVE_VFW
 
 /* Win32 UI */
 #define HAVE_WIN32UI
 
-/* OpenCL Support */
-#define HAVE_OPENCL
 #endif
+
+/* OpenCL Support */
+//#define HAVE_OPENCL
 
 /* Eigen Matrix & Linear Algebra Library */
 /* #undef HAVE_EIGEN */
@@ -110,9 +126,6 @@
 
 /* Geospatial Data Abstraction Library */
 /* #undef HAVE_GDAL */
-
-/* GStreamer multimedia framework */
-/* #undef HAVE_GSTREAMER */
 
 /* GTK+ 2.0 Thread support */
 /* #undef HAVE_GTHREAD */
@@ -137,12 +150,6 @@
 
 /* libpng/png.h needs to be included */
 /* #undef HAVE_LIBPNG_PNG_H */
-
-/* V4L/V4L2 capturing support via libv4l */
-/* #undef HAVE_LIBV4L */
-
-/* Microsoft Media Foundation Capture library */
-/* #undef HAVE_MSMF */
 
 /* NVidia Video Decoding API*/
 /* #undef HAVE_NVCUVID */
@@ -205,3 +212,5 @@
 
 /* Intel VA-API/OpenCL */
 /* #undef HAVE_VA_INTEL */
+
+#endif // OPENCV_CVCONFIG_H_INCLUDED

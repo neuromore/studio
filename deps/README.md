@@ -27,7 +27,7 @@ Open-Source Third Party Software included in this repository.
 | md4                 | ?.?.?    |                                                       | MD4 Hash Implementation                 |
 | md5                 | ?.?.?    |                                                       | MD5 Hash Implementation                 |
 | minizip             | 1.2.11   | https://zlib.net/                                     | Minimal Zip File Support (from zlib)    |
-| opencv              | 3.1.0    | https://opencv.org/                                   | OpenCV Framework (only partial)         |
+| opencv              | 3.4.10   | https://opencv.org/                                   | OpenCV Framework (only partial)         |
 | openssl             | 1.1.0l   | https://www.openssl.org/                              | SSL+TLS and various crypt-algorithms    |
 | oscpack             | 1.1.0    | http://www.rossbencina.com/code/oscpack               | OSC protocol                            |
 | pcre2               | 10.33    | https://www.pcre.org/                                 | Perl Compatible Regular Expressions     |

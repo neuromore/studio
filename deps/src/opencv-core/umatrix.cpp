@@ -41,6 +41,9 @@
 
 #include "precomp.hpp"
 #include "opencl_kernels_core.hpp"
+#include "umatrix.hpp"
+
+#include <opencv2/core/utils/tls.hpp>
 
 ///////////////////////////////// UMat implementation ///////////////////////////////
 
@@ -83,14 +86,11 @@ UMatData::~UMatData()
     allocatorFlags_ = 0;
     if (originalUMatData)
     {
-        UMatData* u = originalUMatData;
-        CV_XADD(&(u->urefcount), -1);
-        CV_XADD(&(u->refcount), -1);
         bool showWarn = false;
-        if (u->refcount == 0)
+        UMatData* u = originalUMatData;
+        bool zero_Ref = CV_XADD(&(u->refcount), -1) == 1;
+        if (zero_Ref)
         {
-            if (u->urefcount > 0)
-                showWarn = true;
             // simulate Mat::deallocate
             if (u->mapcount != 0)
             {
@@ -101,7 +101,10 @@ UMatData::~UMatData()
                 // we don't do "map", so we can't do "unmap"
             }
         }
-        if (u->refcount == 0 && u->urefcount == 0) // oops, we need to free resources
+        bool zero_URef = CV_XADD(&(u->urefcount), -1) == 1;
+        if (zero_Ref && !zero_URef)
+            showWarn = true;
+        if (zero_Ref && zero_URef) // oops, we need to free resources
         {
             showWarn = true;
             // simulate UMat::deallocate
@@ -121,27 +124,114 @@ UMatData::~UMatData()
             }
         }
 #else
-        (void)showWarn;
+        CV_UNUSED(showWarn);
 #endif
         originalUMatData = NULL;
     }
 }
 
+static size_t getUMatDataLockIndex(const UMatData* u)
+{
+    size_t idx = ((size_t)(void*)u) % UMAT_NLOCKS;
+    return idx;
+}
+
 void UMatData::lock()
 {
-    umatLocks[(size_t)(void*)this % UMAT_NLOCKS].lock();
+    size_t idx = getUMatDataLockIndex(this);
+    //printf("%d lock(%d)\n", cv::utils::getThreadID(), (int)idx);
+    umatLocks[idx].lock();
 }
 
 void UMatData::unlock()
 {
-    umatLocks[(size_t)(void*)this % UMAT_NLOCKS].unlock();
+    size_t idx = getUMatDataLockIndex(this);
+    //printf("%d unlock(%d)\n", cv::utils::getThreadID(), (int)idx);
+    umatLocks[idx].unlock();
+}
+
+
+// Do not allow several lock() calls with different UMatData objects.
+struct UMatDataAutoLocker
+{
+    int usage_count;
+    UMatData* locked_objects[2];
+    UMatDataAutoLocker() : usage_count(0) { locked_objects[0] = NULL; locked_objects[1] = NULL; }
+
+    void lock(UMatData*& u1)
+    {
+        bool locked_1 = (u1 == locked_objects[0] || u1 == locked_objects[1]);
+        if (locked_1)
+        {
+            u1 = NULL;
+            return;
+        }
+        CV_Assert(usage_count == 0);  // UMatDataAutoLock can't be used multiple times from the same thread
+        usage_count = 1;
+        locked_objects[0] = u1;
+        u1->lock();
+    }
+    void lock(UMatData*& u1, UMatData*& u2)
+    {
+        bool locked_1 = (u1 == locked_objects[0] || u1 == locked_objects[1]);
+        bool locked_2 = (u2 == locked_objects[0] || u2 == locked_objects[1]);
+        if (locked_1)
+            u1 = NULL;
+        if (locked_2)
+            u2 = NULL;
+        if (locked_1 && locked_2)
+            return;
+        CV_Assert(usage_count == 0);  // UMatDataAutoLock can't be used multiple times from the same thread
+        usage_count = 1;
+        locked_objects[0] = u1;
+        locked_objects[1] = u2;
+        if (u1)
+            u1->lock();
+        if (u2)
+            u2->lock();
+    }
+    void release(UMatData* u1, UMatData* u2)
+    {
+        if (u1 == NULL && u2 == NULL)
+            return;
+        CV_Assert(usage_count == 1);
+        usage_count = 0;
+        if (u1)
+            u1->unlock();
+        if (u2)
+            u2->unlock();
+        locked_objects[0] = NULL; locked_objects[1] = NULL;
+    }
+};
+static TLSData<UMatDataAutoLocker>& getUMatDataAutoLockerTLS()
+{
+    CV_SINGLETON_LAZY_INIT_REF(TLSData<UMatDataAutoLocker>, new TLSData<UMatDataAutoLocker>());
+}
+static UMatDataAutoLocker& getUMatDataAutoLocker() { return getUMatDataAutoLockerTLS().getRef(); }
+
+
+UMatDataAutoLock::UMatDataAutoLock(UMatData* u) : u1(u), u2(NULL)
+{
+    getUMatDataAutoLocker().lock(u1);
+}
+UMatDataAutoLock::UMatDataAutoLock(UMatData* u1_, UMatData* u2_) : u1(u1_), u2(u2_)
+{
+    if (getUMatDataLockIndex(u1) > getUMatDataLockIndex(u2))
+    {
+        std::swap(u1, u2);
+    }
+    getUMatDataAutoLocker().lock(u1, u2);
+}
+UMatDataAutoLock::~UMatDataAutoLock()
+{
+    getUMatDataAutoLocker().release(u1, u2);
 }
 
 
 MatAllocator* UMat::getStdAllocator()
 {
 #ifdef HAVE_OPENCL
-    if( ocl::haveOpenCL() && ocl::useOpenCL() )
+    if (ocl::useOpenCL())
         return ocl::getOpenCLAllocator();
 #endif
     return Mat::getDefaultAllocator();
@@ -230,32 +320,15 @@ void setSize( UMat& m, int _dims, const int* _sz,
 }
 
 
-void updateContinuityFlag(UMat& m)
+void UMat::updateContinuityFlag()
 {
-    int i, j;
-    for( i = 0; i < m.dims; i++ )
-    {
-        if( m.size[i] > 1 )
-            break;
-    }
-
-    for( j = m.dims-1; j > i; j-- )
-    {
-        if( m.step[j]*m.size[j] < m.step[j-1] )
-            break;
-    }
-
-    uint64 total = (uint64)m.step[0]*m.size[0];
-    if( j <= i && total == (size_t)total )
-        m.flags |= UMat::CONTINUOUS_FLAG;
-    else
-        m.flags &= ~UMat::CONTINUOUS_FLAG;
+    flags = cv::updateContinuityFlag(flags, dims, size.p, step.p);
 }
 
 
 void finalizeHdr(UMat& m)
 {
-    updateContinuityFlag(m);
+    m.updateContinuityFlag();
     int d = m.dims;
     if( d > 2 )
         m.rows = m.cols = -1;
@@ -267,19 +340,22 @@ UMat Mat::getUMat(int accessFlags, UMatUsageFlags usageFlags) const
     UMat hdr;
     if(!data)
         return hdr;
-    Size wholeSize;
-    Point ofs;
-    locateROI(wholeSize, ofs);
-    Size sz(cols, rows);
-    if (ofs.x != 0 || ofs.y != 0)
+    if (data != datastart)
     {
-        Mat src = *this;
-        int dtop = ofs.y;
-        int dbottom = wholeSize.height - src.rows - ofs.y;
-        int dleft = ofs.x;
-        int dright = wholeSize.width - src.cols - ofs.x;
-        src.adjustROI(dtop, dbottom, dleft, dright);
-        return src.getUMat(accessFlags, usageFlags)(cv::Rect(ofs.x, ofs.y, sz.width, sz.height));
+        Size wholeSize;
+        Point ofs;
+        locateROI(wholeSize, ofs);
+        Size sz(cols, rows);
+        if (ofs.x != 0 || ofs.y != 0)
+        {
+            Mat src = *this;
+            int dtop = ofs.y;
+            int dbottom = wholeSize.height - src.rows - ofs.y;
+            int dleft = ofs.x;
+            int dright = wholeSize.width - src.cols - ofs.x;
+            src.adjustROI(dtop, dbottom, dleft, dright);
+            return src.getUMat(accessFlags, usageFlags)(cv::Rect(ofs.x, ofs.y, sz.width, sz.height));
+        }
     }
     CV_Assert(data == datastart);
 
@@ -290,6 +366,7 @@ UMat Mat::getUMat(int accessFlags, UMatUsageFlags usageFlags) const
         if(!a)
             a = a0;
         new_u = a->allocate(dims, size.p, type(), data, step.p, accessFlags, usageFlags);
+        new_u->originalUMatData = u;
     }
     bool allocated = false;
     try
@@ -313,7 +390,6 @@ UMat Mat::getUMat(int accessFlags, UMatUsageFlags usageFlags) const
             CV_Assert(new_u->tempUMat());
         }
 #endif
-        new_u->originalUMatData = u;
         CV_XADD(&(u->refcount), 1);
         CV_XADD(&(u->urefcount), 1);
     }
@@ -343,6 +419,14 @@ void UMat::create(int d, const int* _sizes, int _type, UMatUsageFlags _usageFlag
                 break;
         if( i == d && (d > 1 || size[1] == 1))
             return;
+    }
+
+    int _sizes_backup[CV_MAX_DIM]; // #5991
+    if (_sizes == (this->size.p))
+    {
+        for(i = 0; i < d; i++ )
+            _sizes_backup[i] = _sizes[i];
+        _sizes = _sizes_backup;
     }
 
     release();
@@ -378,6 +462,11 @@ void UMat::create(int d, const int* _sizes, int _type, UMatUsageFlags _usageFlag
     addref();
 }
 
+void UMat::create(const std::vector<int>& _sizes, int _type, UMatUsageFlags _usageFlags)
+{
+    create((int)_sizes.size(), _sizes.data(), _type, _usageFlags);
+}
+
 void UMat::copySize(const UMat& m)
 {
     setSize(*this, m.dims, 0, 0);
@@ -398,8 +487,9 @@ UMat::~UMat()
 
 void UMat::deallocate()
 {
-    u->currAllocator->deallocate(u);
+    UMatData* u_ = u;
     u = NULL;
+    u_->currAllocator->deallocate(u_);
 }
 
 
@@ -414,7 +504,7 @@ UMat::UMat(const UMat& m, const Range& _rowRange, const Range& _colRange)
         rs[1] = _colRange;
         for( int i = 2; i < m.dims; i++ )
             rs[i] = Range::all();
-        *this = m(rs);
+        *this = m(rs.data());
         return;
     }
 
@@ -432,12 +522,10 @@ UMat::UMat(const UMat& m, const Range& _rowRange, const Range& _colRange)
         CV_Assert( 0 <= _colRange.start && _colRange.start <= _colRange.end && _colRange.end <= m.cols );
         cols = _colRange.size();
         offset += _colRange.start*elemSize();
-        flags &= cols < m.cols ? ~CONTINUOUS_FLAG : -1;
         flags |= SUBMATRIX_FLAG;
     }
 
-    if( rows == 1 )
-        flags |= CONTINUOUS_FLAG;
+    updateContinuityFlag();
 
     if( rows <= 0 || cols <= 0 )
     {
@@ -452,8 +540,6 @@ UMat::UMat(const UMat& m, const Rect& roi)
     allocator(m.allocator), usageFlags(m.usageFlags), u(m.u), offset(m.offset + roi.y*m.step[0]), size(&rows)
 {
     CV_Assert( m.dims <= 2 );
-    flags &= roi.width < m.cols ? ~CONTINUOUS_FLAG : -1;
-    flags |= roi.height == 1 ? CONTINUOUS_FLAG : 0;
 
     size_t esz = CV_ELEM_SIZE(flags);
     offset += roi.x*esz;
@@ -465,6 +551,7 @@ UMat::UMat(const UMat& m, const Rect& roi)
         flags |= SUBMATRIX_FLAG;
 
     step[0] = m.step[0]; step[1] = esz;
+    updateContinuityFlag();
 
     if( rows <= 0 || cols <= 0 )
     {
@@ -496,7 +583,32 @@ UMat::UMat(const UMat& m, const Range* ranges)
             flags |= SUBMATRIX_FLAG;
         }
     }
-    updateContinuityFlag(*this);
+    updateContinuityFlag();
+}
+
+UMat::UMat(const UMat& m, const std::vector<Range>& ranges)
+    : flags(MAGIC_VAL), dims(0), rows(0), cols(0), allocator(0), usageFlags(USAGE_DEFAULT), u(0), offset(0), size(&rows)
+{
+    int i, d = m.dims;
+
+    CV_Assert((int)ranges.size() == d);
+    for (i = 0; i < d; i++)
+    {
+        Range r = ranges[i];
+        CV_Assert(r == Range::all() || (0 <= r.start && r.start < r.end && r.end <= m.size[i]));
+    }
+    *this = m;
+    for (i = 0; i < d; i++)
+    {
+        Range r = ranges[i];
+        if (r != Range::all() && r != Range(0, size.p[i]))
+        {
+            size.p[i] = r.end - r.start;
+            offset += r.start*step.p[i];
+            flags |= SUBMATRIX_FLAG;
+        }
+    }
+    updateContinuityFlag();
 }
 
 UMat UMat::diag(int d) const
@@ -522,10 +634,7 @@ UMat UMat::diag(int d) const
     m.size[1] = m.cols = 1;
     m.step[0] += (len > 1 ? esz : 0);
 
-    if( m.rows > 1 )
-        m.flags &= ~CONTINUOUS_FLAG;
-    else
-        m.flags |= CONTINUOUS_FLAG;
+    m.updateContinuityFlag();
 
     if( size() != Size(1,1) )
         m.flags |= SUBMATRIX_FLAG;
@@ -561,15 +670,17 @@ UMat& UMat::adjustROI( int dtop, int dbottom, int dleft, int dright )
     Size wholeSize; Point ofs;
     size_t esz = elemSize();
     locateROI( wholeSize, ofs );
-    int row1 = std::max(ofs.y - dtop, 0), row2 = std::min(ofs.y + rows + dbottom, wholeSize.height);
-    int col1 = std::max(ofs.x - dleft, 0), col2 = std::min(ofs.x + cols + dright, wholeSize.width);
+    int row1 = std::min(std::max(ofs.y - dtop, 0), wholeSize.height), row2 = std::max(0, std::min(ofs.y + rows + dbottom, wholeSize.height));
+    int col1 = std::min(std::max(ofs.x - dleft, 0), wholeSize.width), col2 = std::max(0, std::min(ofs.x + cols + dright, wholeSize.width));
+    if(row1 > row2)
+        std::swap(row1, row2);
+    if(col1 > col2)
+        std::swap(col1, col2);
+
     offset += (row1 - ofs.y)*step + (col1 - ofs.x)*esz;
     rows = row2 - row1; cols = col2 - col1;
     size.p[0] = rows; size.p[1] = cols;
-    if( esz*cols == step[0] || rows == 1 )
-        flags |= CONTINUOUS_FLAG;
-    else
-        flags &= ~CONTINUOUS_FLAG;
+    updateContinuityFlag();
     return *this;
 }
 
@@ -696,14 +807,12 @@ UMat UMat::reshape(int _cn, int _newndims, const int* _newsz) const
 
         UMat hdr = *this;
         hdr.flags = (hdr.flags & ~CV_MAT_CN_MASK) | ((_cn-1) << CV_CN_SHIFT);
-        setSize(hdr, _newndims, (int*)newsz_buf, NULL, true);
+        setSize(hdr, _newndims, newsz_buf.data(), NULL, true);
 
         return hdr;
     }
 
     CV_Error(CV_StsNotImplemented, "Reshaping of n-dimensional non-continuous matrices is not supported yet");
-    // TBD
-    return UMat();
 }
 
 Mat UMat::getMat(int accessFlags) const
@@ -765,6 +874,16 @@ void UMat::ndoffset(size_t* ofs) const
 
 void UMat::copyTo(OutputArray _dst) const
 {
+    CV_INSTRUMENT_REGION();
+
+#ifdef HAVE_CUDA
+    if (_dst.isGpuMat())
+    {
+        _dst.getGpuMat().upload(*this);
+        return;
+    }
+#endif
+
     int dtype = _dst.type();
     if( _dst.fixedType() && dtype != type() )
     {
@@ -779,7 +898,7 @@ void UMat::copyTo(OutputArray _dst) const
         return;
     }
 
-    size_t i, sz[CV_MAX_DIM], srcofs[CV_MAX_DIM], dstofs[CV_MAX_DIM], esz = elemSize();
+    size_t i, sz[CV_MAX_DIM] = {0}, srcofs[CV_MAX_DIM], dstofs[CV_MAX_DIM], esz = elemSize();
     for( i = 0; i < (size_t)dims; i++ )
         sz[i] = size.p[i];
     sz[dims-1] *= esz;
@@ -790,6 +909,7 @@ void UMat::copyTo(OutputArray _dst) const
     if( _dst.isUMat() )
     {
         UMat dst = _dst.getUMat();
+        CV_Assert(dst.u);
         if( u == dst.u && dst.offset == offset )
             return;
 
@@ -808,6 +928,8 @@ void UMat::copyTo(OutputArray _dst) const
 
 void UMat::copyTo(OutputArray _dst, InputArray _mask) const
 {
+    CV_INSTRUMENT_REGION();
+
     if( _mask.empty() )
     {
         copyTo(_dst);
@@ -855,6 +977,8 @@ void UMat::copyTo(OutputArray _dst, InputArray _mask) const
 
 void UMat::convertTo(OutputArray _dst, int _type, double alpha, double beta) const
 {
+    CV_INSTRUMENT_REGION();
+
     bool noScale = std::fabs(alpha - 1) < DBL_EPSILON && std::fabs(beta) < DBL_EPSILON;
     int stype = type(), cn = CV_MAT_CN(stype);
 
@@ -910,12 +1034,16 @@ void UMat::convertTo(OutputArray _dst, int _type, double alpha, double beta) con
         }
     }
 #endif
+    UMat src = *this;  // Fake reference to itself.
+                       // Resolves issue 8693 in case of src == dst.
     Mat m = getMat(ACCESS_READ);
     m.convertTo(_dst, _type, alpha, beta);
 }
 
 UMat& UMat::setTo(InputArray _value, InputArray _mask)
 {
+    CV_INSTRUMENT_REGION();
+
     bool haveMask = !_mask.empty();
 #ifdef HAVE_OPENCL
     int tp = type(), cn = CV_MAT_CN(tp), d = CV_MAT_DEPTH(tp);
@@ -940,7 +1068,7 @@ UMat& UMat::setTo(InputArray _value, InputArray _mask)
         ocl::Kernel setK(haveMask ? "setMask" : "set", ocl::core::copyset_oclsrc, opts);
         if( !setK.empty() )
         {
-            ocl::KernelArg scalararg(0, 0, 0, 0, buf, CV_ELEM_SIZE(d) * scalarcn);
+            ocl::KernelArg scalararg(ocl::KernelArg::CONSTANT, 0, 0, 0, buf, CV_ELEM_SIZE(d) * scalarcn);
             UMat mask;
 
             if( haveMask )
@@ -1054,6 +1182,8 @@ static bool ocl_dot( InputArray _src1, InputArray _src2, double & res )
 
 double UMat::dot(InputArray m) const
 {
+    CV_INSTRUMENT_REGION();
+
     CV_Assert(m.sameSize(*this) && m.type() == type());
 
 #ifdef HAVE_OPENCL

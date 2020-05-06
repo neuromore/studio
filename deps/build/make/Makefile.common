@@ -508,7 +508,7 @@ OPENCVIMGCODECS_BUILD_X86    = $(CXX_X86) $(CXX14FLAGS_X86) $(OPENCVIMGCODECS_DE
 OPENCVIMGCODECS_BUILD_X64    = $(CXX_X64) $(CXX14FLAGS_X64) $(OPENCVIMGCODECS_DEFINES_X64) $(OPENCVIMGCODECS_INCLUDES_X64) \
                                -c $(@:$(OPENCVIMGCODECS_OBJDIR_X64)%.o=$(OPENCVIMGCODECS_SRCDIR)%.cpp) -o $@
 OPENCVIMGCODECS_OBJS_ALL     = bitstrm.o grfmt_base.o grfmt_bmp.o grfmt_hdr.o grfmt_png.o grfmt_pxm.o \
-                               grfmt_sunras.o grfmt_tiff.o jpeg_exif.o loadsave.o rgbe.o utils.o
+                               grfmt_sunras.o grfmt_tiff.o loadsave.o rgbe.o utils.o
 
 $(OPENCVIMGCODECS_OBJDIR_X86)/%.o:
 	$(OPENCVIMGCODECS_BUILD_X86)
