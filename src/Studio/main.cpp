@@ -41,11 +41,8 @@
    Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 
    // STATIC QT MEDIASERVICE PLUGIN
-   #if defined(NEUROMORE_USE_WMF)
-   Q_IMPORT_PLUGIN(WMFServicePlugin);   // Windows Media Foundation (alternative)
-   #else
-   Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow (default)
-   #endif
+   Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow
+   //Q_IMPORT_PLUGIN(WMFServicePlugin); // Windows Media Foundation
 
    // WINAPI
    #pragma comment(lib, "Version.lib")          // winapi: version
