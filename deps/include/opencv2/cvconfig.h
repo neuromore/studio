@@ -89,7 +89,7 @@
 #elif defined(__APPLE__)
 
 /* AVFoundation video libraries */
-/* #undef HAVE_AVFOUNDATION */
+#define HAVE_AVFOUNDATION
 
 // WINDOWS
 #elif defined(_WIN32)

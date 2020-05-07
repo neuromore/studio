@@ -671,6 +671,10 @@ OPENCVVIDEOIO_BUILD_X86    = $(CXX_X86) $(CXX14FLAGS_X86) $(OPENCVVIDEOIO_DEFINE
                              -c $(@:$(OPENCVVIDEOIO_OBJDIR_X86)%.o=$(OPENCVVIDEOIO_SRCDIR)%.cpp) -o $@
 OPENCVVIDEOIO_BUILD_X64    = $(CXX_X64) $(CXX14FLAGS_X64) $(OPENCVVIDEOIO_DEFINES_X64) $(OPENCVVIDEOIO_INCLUDES_X64) \
                              -c $(@:$(OPENCVVIDEOIO_OBJDIR_X64)%.o=$(OPENCVVIDEOIO_SRCDIR)%.cpp) -o $@
+OPENCVVIDEOIO_BUILD_OMM_X86= $(CXX_X86) $(CXXFLAGS_X86) $(OPENCVVIDEOIO_DEFINES_X86) $(OPENCVVIDEOIO_INCLUDES_X86) \
+                             -c $(@:$(OPENCVVIDEOIO_OBJDIR_X86)%.omm=$(OPENCVVIDEOIO_SRCDIR)%.mm) -o $@
+OPENCVVIDEOIO_BUILD_OMM_X64= $(CXX_X64) $(CXXFLAGS_X64) $(OPENCVVIDEOIO_DEFINES_X64) $(OPENCVVIDEOIO_INCLUDES_X64) \
+                             -c $(@:$(OPENCVVIDEOIO_OBJDIR_X64)%.omm=$(OPENCVVIDEOIO_SRCDIR)%.mm) -o $@
 OPENCVVIDEOIO_OBJS_ALL     = cap.o \
                              cap_aravis.o \
                              cap_cmu.o \
@@ -692,6 +696,13 @@ $(OPENCVVIDEOIO_OBJDIR_X86)/%.o:
 
 $(OPENCVVIDEOIO_OBJDIR_X64)/%.o:
 	$(OPENCVVIDEOIO_BUILD_X64)
+
+$(OPENCVVIDEOIO_OBJDIR_X86)/%.omm:
+	$(OPENCVVIDEOIO_BUILD_OMM_X86)
+
+$(OPENCVVIDEOIO_OBJDIR_X64)/%.omm:
+	$(OPENCVVIDEOIO_BUILD_OMM_X64)
+
 ###################################################################################################################
 # OSCPACK
 ###################################################################################################################
