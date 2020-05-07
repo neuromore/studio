@@ -19,12 +19,6 @@
 /* Compile for 'virtual' NVIDIA PTX architectures */
 #define CUDA_ARCH_PTX ""
 
-/* AVFoundation video libraries */
-/* #undef HAVE_AVFOUNDATION */
-
-/* V4L capturing support */
-/* #undef HAVE_CAMV4L */
-
 
 /* Carbon windowing environment */
 /* #undef HAVE_CARBON */
@@ -65,8 +59,15 @@
 /* PNG codec */
 #define HAVE_PNG
 
+/* Intel Integrated Performance Primitives */
+//#define HAVE_IPP
+//#define HAVE_IPP_ICV_ONLY
 
-/**** PLATFORM SPECIFIC ****/
+///////////////////////////////////////////
+////////// PLATFORM SPECIFIC  /////////////
+///////////////////////////////////////////
+
+// LINUX
 #if defined(__linux__)
 
 /* V4L2 capturing support */
@@ -78,15 +79,20 @@
 /* V4L/V4L2 capturing support via libv4l */
 /* #undef HAVE_LIBV4L */
 
-/* GStreamer multimedia framework */
-/* #undef HAVE_GSTREAMER */
+/* V4L capturing support */
+/* #undef HAVE_CAMV4L */
 
+#define HAVE_GSTREAMER
 #define HAVE_PTHREADS
-#elif defined(_WIN32)
 
-/* Intel Integrated Performance Primitives */
-//#define HAVE_IPP
-//#define HAVE_IPP_ICV_ONLY
+// OSX/IOS
+#elif defined(__APPLE__)
+
+/* AVFoundation video libraries */
+/* #undef HAVE_AVFOUNDATION */
+
+// WINDOWS
+#elif defined(_WIN32)
 
 /* DirectX */
 #define HAVE_DIRECTX
@@ -153,7 +159,6 @@
 
 /* NVidia Video Decoding API*/
 /* #undef HAVE_NVCUVID */
-
 
 /* #undef HAVE_OPENCL_STATIC */
 /* #undef HAVE_OPENCL_SVM */

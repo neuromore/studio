@@ -79,17 +79,6 @@
     <ClCompile Include="..\..\src\opencv-core\stat_c.cpp" />
     <ClCompile Include="..\..\src\opencv-core\sum.dispatch.cpp" />
     <ClCompile Include="..\..\src\opencv-core\trace.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\arithm.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\convert.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\convert_scale.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\count_non_zero.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\mathfuncs_core.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\matmul.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\mean.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\merge.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\split.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\stat.sse4_2.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\sum.sse2.cpp" />
     <ClCompile Include="..\..\src\opencv-core\utils\datafile.cpp">
       <Filter>utils</Filter>
     </ClCompile>
@@ -99,7 +88,6 @@
     <ClCompile Include="..\..\src\opencv-core\utils\samples.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_core.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\opencv-core\bufferpool.impl.hpp" />
@@ -148,10 +136,10 @@
     <ClInclude Include="..\..\src\opencv-core\split.simd_declarations.hpp" />
     <ClInclude Include="..\..\src\opencv-core\stat.simd_declarations.hpp" />
     <ClInclude Include="..\..\src\opencv-core\sum.simd_declarations.hpp" />
-    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_core.hpp" />
     <ClInclude Include="..\..\include\opencv2\opencv_data_config.hpp">
       <Filter>Config</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\opencv-core\opencl_kernels_core.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">

@@ -23,12 +23,6 @@
     <ClCompile Include="..\..\src\opencv-core\alloc.cpp" />
     <ClCompile Include="..\..\src\opencv-core\arithm.cpp" />
     <ClCompile Include="..\..\src\opencv-core\arithm.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\arithm.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\array.cpp" />
     <ClCompile Include="..\..\src\opencv-core\async.cpp" />
     <ClCompile Include="..\..\src\opencv-core\batch_distance.cpp" />
@@ -39,28 +33,10 @@
     <ClCompile Include="..\..\src\opencv-core\command_line_parser.cpp" />
     <ClCompile Include="..\..\src\opencv-core\conjugate_gradient.cpp" />
     <ClCompile Include="..\..\src\opencv-core\convert.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\convert.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\convert_c.cpp" />
     <ClCompile Include="..\..\src\opencv-core\convert_scale.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\convert_scale.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\copy.cpp" />
     <ClCompile Include="..\..\src\opencv-core\count_non_zero.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\count_non_zero.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\cuda_gpu_mat.cpp" />
     <ClCompile Include="..\..\src\opencv-core\cuda_host_mem.cpp" />
     <ClCompile Include="..\..\src\opencv-core\cuda_info.cpp" />
@@ -80,19 +56,7 @@
     <ClCompile Include="..\..\src\opencv-core\lut.cpp" />
     <ClCompile Include="..\..\src\opencv-core\mathfuncs.cpp" />
     <ClCompile Include="..\..\src\opencv-core\mathfuncs_core.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\mathfuncs_core.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\matmul.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\matmul.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\matrix.cpp" />
     <ClCompile Include="..\..\src\opencv-core\matrix_c.cpp" />
     <ClCompile Include="..\..\src\opencv-core\matrix_decomp.cpp" />
@@ -102,23 +66,10 @@
     <ClCompile Include="..\..\src\opencv-core\matrix_sparse.cpp" />
     <ClCompile Include="..\..\src\opencv-core\matrix_wrap.cpp" />
     <ClCompile Include="..\..\src\opencv-core\mean.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\mean.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\merge.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\merge.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\minmax.cpp" />
     <ClCompile Include="..\..\src\opencv-core\norm.cpp" />
     <ClCompile Include="..\..\src\opencv-core\ocl.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\opencl_kernels_core.cpp" />
     <ClCompile Include="..\..\src\opencv-core\opengl.cpp" />
     <ClCompile Include="..\..\src\opencv-core\out.cpp" />
     <ClCompile Include="..\..\src\opencv-core\ovx.cpp" />
@@ -136,28 +87,10 @@
     <ClCompile Include="..\..\src\opencv-core\rand.cpp" />
     <ClCompile Include="..\..\src\opencv-core\softfloat.cpp" />
     <ClCompile Include="..\..\src\opencv-core\split.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\split.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\stat.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\stat.sse4_2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\stat_c.cpp" />
     <ClCompile Include="..\..\src\opencv-core\stl.cpp" />
     <ClCompile Include="..\..\src\opencv-core\sum.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-core\sum.sse2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\src\opencv-core\system.cpp" />
     <ClCompile Include="..\..\src\opencv-core\tables.cpp" />
     <ClCompile Include="..\..\src\opencv-core\trace.cpp" />

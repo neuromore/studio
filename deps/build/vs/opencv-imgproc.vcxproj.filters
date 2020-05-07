@@ -55,27 +55,13 @@
     <ClCompile Include="..\..\src\opencv-imgproc\color_yuv.dispatch.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\corner.avx.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\filter.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\imgwarp.sse4_1.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\median_blur.dispatch.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\morph.dispatch.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\precomp.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\resize.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\resize.sse4_1.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\smooth.dispatch.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\sumpixels.dispatch.cpp" />
     <ClCompile Include="..\..\src\opencv-imgproc\undistort.dispatch.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\bilateral_filter.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\box_filter.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\color_hsv.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\color_rgb.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\color_yuv.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\filter.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\median_blur.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\morph.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\opencl_kernels_imgproc.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\smooth.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\sumpixels.sse2.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgproc\undistort.sse2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\opencv-imgproc\filterengine.hpp" />
