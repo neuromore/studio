@@ -1198,25 +1198,42 @@ qt-network-clean: qt-network-x86-clean qt-network-x64-clean
 ###################################################################################################################
 # QT-OPENGL
 ###################################################################################################################
-QTOPENGL_OBJS_X86 := $(patsubst %,$(QTOPENGL_OBJDIR_X86)/%,$(QTOPENGL_OBJS))
-QTOPENGL_OBJS_X64 := $(patsubst %,$(QTOPENGL_OBJDIR_X64)/%,$(QTOPENGL_OBJS))
+QTOPENGL_MOCH_X86     := $(patsubst %,$(QTOPENGL_MOCDIR_X86)/%,$(QTOPENGL_MOCH))
+QTOPENGL_MOCH_X64     := $(patsubst %,$(QTOPENGL_MOCDIR_X64)/%,$(QTOPENGL_MOCH))
+QTOPENGL_OBJS_X86     := $(patsubst %,$(QTOPENGL_OBJDIR_X86)/%,$(QTOPENGL_OBJS))
+QTOPENGL_OBJS_X64     := $(patsubst %,$(QTOPENGL_OBJDIR_X64)/%,$(QTOPENGL_OBJS))
+QTOPENGL_OBJS_MOC_X86 := $(patsubst %,$(QTOPENGL_OBJDIR_X86)/%,$(QTOPENGL_OBJS_MOC))
+QTOPENGL_OBJS_MOC_X64 := $(patsubst %,$(QTOPENGL_OBJDIR_X64)/%,$(QTOPENGL_OBJS_MOC))
+QTOPENGL_PRES_X86     := $(QTOPENGL_MOCH_X86) $(QTOPENGL_MOCC_X86) $(QTOPENGL_UICH_X86) $(QTOPENGL_RCCH_X86)
+QTOPENGL_PRES_X64     := $(QTOPENGL_MOCH_X64) $(QTOPENGL_MOCC_X64) $(QTOPENGL_UICH_X64) $(QTOPENGL_RCCH_X64) 
+QTOPENGL_OBLS_X86     := $(QTOPENGL_OBJS_X86) $(QTOPENGL_OBJS_MOC_X86) $(QTOPENGL_OBJS_RCC_X86)
+QTOPENGL_OBLS_X64     := $(QTOPENGL_OBJS_X64) $(QTOPENGL_OBJS_MOC_X64) $(QTOPENGL_OBJS_RCC_X64)
 
-qt-opengl-x86: $(QTOPENGL_OBJS_X86)
-	$(call createlib32,qt-opengl,$(QTOPENGL_OBJS_X86))
+$(QTOPENGL_PRES_X86) : $(QTOPENGL_DEPS_X86)
+$(QTOPENGL_PRES_X64) : $(QTOPENGL_DEPS_X64)
+$(QTOPENGL_OBLS_X86) : $(QTOPENGL_PRES_X86)
+$(QTOPENGL_OBLS_X64) : $(QTOPENGL_PRES_X64)
 
-qt-opengl-x64: $(QTOPENGL_OBJS_X64)
-	$(call createlib64,qt-opengl,$(QTOPENGL_OBJS_X64))
+qt-opengl-x86: $(QTOPENGL_PRES_X86) $(QTOPENGL_OBLS_X86)
+	$(call createlib32,qt-opengl,$(QTOPENGL_OBLS_X86))
+
+qt-opengl-x64: $(QTOPENGL_PRES_X64) $(QTOPENGL_OBLS_X64)
+	$(call createlib64,qt-opengl,$(QTOPENGL_OBLS_X64))
 
 qt-opengl: qt-opengl-x86 qt-opengl-x64
 
 qt-opengl-x86-clean:
 	$(call deletefilepattern,$(LIBDIR_X86),qt-opengl.*)
 	$(call deletefilepattern,$(QTOPENGL_OBJDIR_X86),*.o)
-
+	$(call deletefilepattern,$(QTOPENGL_OBJDIR_X86),*.omoc)
+	$(call deletefilepattern,$(QTOPENGL_MOCDIR_X86),*.cpp)
+	
 qt-opengl-x64-clean:
 	$(call deletefilepattern,$(LIBDIR_X64),qt-opengl.*)
 	$(call deletefilepattern,$(QTOPENGL_OBJDIR_X64),*.o)
-
+	$(call deletefilepattern,$(QTOPENGL_OBJDIR_X64),*.omoc)
+	$(call deletefilepattern,$(QTOPENGL_MOCDIR_X64),*.cpp)
+	
 qt-opengl-clean: qt-opengl-x86-clean qt-opengl-x64-clean
 ###################################################################################################################
 # QT-PLATFORM-WINDOWS

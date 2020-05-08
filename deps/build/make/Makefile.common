@@ -3344,6 +3344,12 @@ $(QTNETWORK_OBJDIR_X64)/%.orcc:
 # QT-OPENGL
 ###################################################################################################################
 QTOPENGL_SRCDIR       = $(SRCDIR)/qt-opengl
+QTOPENGL_MOCDIR_X86   = $(QTOPENGL_SRCDIR)/.moc/x86
+QTOPENGL_MOCDIR_X64   = $(QTOPENGL_SRCDIR)/.moc/x64
+QTOPENGL_UICDIR_X86   = $(QTOPENGL_SRCDIR)/.uic/x86
+QTOPENGL_UICDIR_X64   = $(QTOPENGL_SRCDIR)/.uic/x64
+QTOPENGL_RCCDIR_X86   = $(QTOPENGL_SRCDIR)/.rcc/x86
+QTOPENGL_RCCDIR_X64   = $(QTOPENGL_SRCDIR)/.rcc/x64
 QTOPENGL_OBJDIR_X86   = $(OBJDIR_X86)/qt-opengl
 QTOPENGL_OBJDIR_X64   = $(OBJDIR_X64)/qt-opengl
 QTOPENGL_DEFINES      = -DQT_STATIC \
@@ -3358,6 +3364,16 @@ QTOPENGL_INCLUDES     = -I$(INCDIR)/qt -I$(INCDIR)/qt/QtCore -I$(INCDIR)/qt/QtOp
                         -I$(INCDIR)/qt/QtGui -I$(INCDIR)/qt/QtWidgets
 QTOPENGL_INCLUDES_X86 = $(QTOPENGL_INCLUDES) $(QTOPENGL_INCLUDES_X86_PLAT)
 QTOPENGL_INCLUDES_X64 = $(QTOPENGL_INCLUDES) $(QTOPENGL_INCLUDES_X64_PLAT)
+QTOPENGL_MOC_H_X86    = $(MOC_X86) $(QTOPENGL_DEFINES_X86) $(QTOPENGL_INCLUDES_X86) \
+                        $(@:$(QTOPENGL_MOCDIR_X86)/%.cpp=$(INCDIR)/qt/QtOpenGL/%.h) \
+                        -o $(@:$(QTOPENGL_MOCDIR_X86)/%.cpp=$(QTOPENGL_MOCDIR_X86)/moc_$(@F))
+QTOPENGL_MOC_H_X64    = $(MOC_X64) $(QTOPENGL_DEFINES_X64) $(QTOPENGL_INCLUDES_X64) \
+                        $(@:$(QTOPENGL_MOCDIR_X64)/%.cpp=$(INCDIR)/qt/QtOpenGL/%.h) \
+                        -o $(@:$(QTOPENGL_MOCDIR_X64)/%.cpp=$(QTOPENGL_MOCDIR_X64)/moc_$(@F))
+QTOPENGL_MOCH_ALL     = qgl.cpp \
+                        qglshaderprogram.cpp \
+                        private/qgl_p.cpp \
+                        private/qglengineshadermanager_p.cpp                 
 QTOPENGL_BUILD_X86    = $(CXX_X86) $(CXXFLAGS_X86) $(QTOPENGL_DEFINES_X86) $(QTOPENGL_INCLUDES_X86) \
                         -c $(@:$(QTOPENGL_OBJDIR_X86)%.o=$(QTOPENGL_SRCDIR)%.cpp) -o $@
 QTOPENGL_BUILD_X64    = $(CXX_X64) $(CXXFLAGS_X64) $(QTOPENGL_DEFINES_X64) $(QTOPENGL_INCLUDES_X64) \
@@ -3377,12 +3393,32 @@ QTOPENGL_OBJS_ALL     = gl2paintengineex/qgl2pexvertexarray.o \
                         qglpixelbuffer.o \
                         qglshaderprogram.o \
                         qgraphicsshadereffect.o
+QTOPENGL_BUILD_MOC_X86 = $(CXX_X86) $(CXXFLAGS_X86) $(QTOPENGL_DEFINES_X86) $(QTOPENGL_INCLUDES_X86) \
+                         -c $(@:$(QTOPENGL_OBJDIR_X86)/%.omoc=$(QTOPENGL_MOCDIR_X86)/moc_%.cpp) -o $@
+QTOPENGL_BUILD_MOC_X64 = $(CXX_X64) $(CXXFLAGS_X64) $(QTOPENGL_DEFINES_X64) $(QTOPENGL_INCLUDES_X64) \
+                         -c $(@:$(QTOPENGL_OBJDIR_X64)/%.omoc=$(QTOPENGL_MOCDIR_X64)/moc_%.cpp) -o $@
+QTOPENGL_OBJS_MOC_ALL  = qgl.omoc \
+                         qgl_p.omoc \
+                         qglshaderprogram.omoc \
+                         qglengineshadermanager_p.omoc  
 
+$(QTOPENGL_MOCDIR_X86)/%.cpp:
+	$(QTOPENGL_MOC_H_X86)
+
+$(QTOPENGL_MOCDIR_X64)/%.cpp:
+	$(QTOPENGL_MOC_H_X64)
+	
 $(QTOPENGL_OBJDIR_X86)/%.o:
 	$(QTOPENGL_BUILD_X86)
 
 $(QTOPENGL_OBJDIR_X64)/%.o:
 	$(QTOPENGL_BUILD_X64)
+	
+$(QTOPENGL_OBJDIR_X86)/%.omoc:
+	$(QTOPENGL_BUILD_MOC_X86)
+
+$(QTOPENGL_OBJDIR_X64)/%.omoc:
+	$(QTOPENGL_BUILD_MOC_X64)
 ###################################################################################################################
 # QT-PLATFORM-WINDOWS
 ###################################################################################################################
