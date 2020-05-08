@@ -105,7 +105,8 @@
 #define HAVE_DSHOW
 
 /* Microsoft Media Foundation Capture library */
-/* #undef HAVE_MSMF */
+#define HAVE_MSMF
+#define HAVE_MSMF_DXVA
 
 /* Video for Windows support */
 #define HAVE_VFW
@@ -123,6 +124,7 @@
 
 /* FFMpeg video library */
 //#define HAVE_FFMPEG
+//#define HAVE_FFMPEG_WRAPPER
 
 /* ffmpeg's libswscale */
 //#define HAVE_FFMPEG_SWSCALE
