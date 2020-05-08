@@ -427,56 +427,84 @@ OPENCVCORE_BUILD_X86    = $(CXX_X86) $(CXX14FLAGS_X86) $(OPENCVCORE_DEFINES_X86)
                           -c $(@:$(OPENCVCORE_OBJDIR_X86)%.o=$(OPENCVCORE_SRCDIR)%.cpp) -o $@
 OPENCVCORE_BUILD_X64    = $(CXX_X64) $(CXX14FLAGS_X64) $(OPENCVCORE_DEFINES_X64) $(OPENCVCORE_INCLUDES_X64) \
                           -c $(@:$(OPENCVCORE_OBJDIR_X64)%.o=$(OPENCVCORE_SRCDIR)%.cpp) -o $@
-OPENCVCORE_OBJS_ALL     = algorithm.o \
+OPENCVCORE_OBJS_ALL     = utils/datafile.o \
+                          utils/filesystem.o \
+                          utils/samples.o \
+                          algorithm.o \
                           alloc.o \
                           arithm.o \
+                          arithm.dispatch.o \
                           array.o \
+                          async.o \
+                          batch_distance.o \
+                          bindings_utils.o \
+                          buffer_area.o \
+                          channels.o \
+                          check.o \
                           command_line_parser.o \
                           conjugate_gradient.o \
-                          convert.o \
+                          convert.dispatch.o \
+                          convert_c.o \
+                          convert_scale.dispatch.o \
                           copy.o \
+                          count_non_zero.dispatch.o \
                           cuda_gpu_mat.o \
                           cuda_host_mem.o \
                           cuda_info.o \
                           cuda_stream.o \
                           datastructs.o \
+                          directx.o \
                           downhill_simplex.o \
                           dxt.o \
                           gl_core_3_1.o \
                           glob.o \
+                          hal_internal.o \
                           kmeans.o \
                           lapack.o \
                           lda.o \
+                          logger.o \
                           lpsolver.o \
+                          lut.o \
                           mathfuncs.o \
-                          mathfuncs_core.o \
-                          matmul.o \
-                          matop.o \
+                          mathfuncs_core.dispatch.o \
+                          matmul.dispatch.o \
                           matrix.o \
+                          matrix_c.o \
                           matrix_decomp.o \
-                          merge.o \
+                          matrix_expressions.o \
+                          matrix_iterator.o \
+                          matrix_operations.o \
+                          matrix_sparse.o \
+                          matrix_wrap.o \
+                          mean.dispatch.o \
+                          merge.dispatch.o \
+                          minmax.o \
+                          norm.o \
                           ocl.o \
-                          opencl_core.o \
-                          opencl_kernels_calib3d.o \
-                          opencl_kernels_core.o \
-                          opencl_kernels_features2d.o \
-                          opencl_kernels_imgproc.o \
-                          opencl_kernels_objdetect.o \
-                          opencl_kernels_photo.o \
-                          opencl_kernels_stitching.o \
-                          opencl_kernels_superres.o \
-                          opencl_kernels_video.o \
                           opengl.o \
                           out.o \
+                          ovx.o \
                           parallel.o \
+                          parallel_impl.o \
                           pca.o \
                           persistence.o \
+                          persistence_base64.o \
+                          persistence_c.o \
+                          persistence_cpp.o \
+                          persistence_json.o \
+                          persistence_types.o \
+                          persistence_xml.o \
+                          persistence_yml.o \
                           rand.o \
-                          split.o \
-                          stat.o \
+                          softfloat.o \
+                          split.dispatch.o \
+                          stat.dispatch.o \
+                          stat_c.o \
                           stl.o \
+                          sum.dispatch.o \
                           system.o \
                           tables.o \
+                          trace.o \
                           types.o \
                           umatrix.o \
                           va_intel.o
@@ -493,7 +521,11 @@ OPENCVIMGCODECS_INCDIR       = $(INCDIR)/opencv2
 OPENCVIMGCODECS_SRCDIR       = $(SRCDIR)/opencv-imgcodecs
 OPENCVIMGCODECS_OBJDIR_X86   = $(OBJDIR_X86)/opencv-imgcodecs
 OPENCVIMGCODECS_OBJDIR_X64   = $(OBJDIR_X64)/opencv-imgcodecs
-OPENCVIMGCODECS_INCLUDES     = -I$(INCDIR) -I$(OPENCVIMGCODECS_INCDIR) -I$(OPENCVIMGCODECS_SRCDIR) -I$(INCDIR)/zlib
+OPENCVIMGCODECS_INCLUDES     = -I$(INCDIR) \
+                               -I$(OPENCVIMGCODECS_INCDIR) \
+                               -I$(OPENCVIMGCODECS_SRCDIR) \
+                               -I$(INCDIR)/libpng \
+                               -I$(INCDIR)/zlib
 OPENCVIMGCODECS_INCLUDES_X86 = $(OPENCVIMGCODECS_INCLUDES) $(OPENCVIMGCODECS_INCLUDES_X86_PLAT)
 OPENCVIMGCODECS_INCLUDES_X64 = $(OPENCVIMGCODECS_INCLUDES) $(OPENCVIMGCODECS_INCLUDES_X64_PLAT)
 OPENCVIMGCODECS_DEFINES      = -DHAVE_CONFIG_H \
@@ -507,8 +539,25 @@ OPENCVIMGCODECS_BUILD_X86    = $(CXX_X86) $(CXX14FLAGS_X86) $(OPENCVIMGCODECS_DE
                                -c $(@:$(OPENCVIMGCODECS_OBJDIR_X86)%.o=$(OPENCVIMGCODECS_SRCDIR)%.cpp) -o $@
 OPENCVIMGCODECS_BUILD_X64    = $(CXX_X64) $(CXX14FLAGS_X64) $(OPENCVIMGCODECS_DEFINES_X64) $(OPENCVIMGCODECS_INCLUDES_X64) \
                                -c $(@:$(OPENCVIMGCODECS_OBJDIR_X64)%.o=$(OPENCVIMGCODECS_SRCDIR)%.cpp) -o $@
-OPENCVIMGCODECS_OBJS_ALL     = bitstrm.o grfmt_base.o grfmt_bmp.o grfmt_hdr.o grfmt_png.o grfmt_pxm.o \
-                               grfmt_sunras.o grfmt_tiff.o jpeg_exif.o loadsave.o rgbe.o utils.o
+OPENCVIMGCODECS_OBJS_ALL     = bitstrm.o \
+                               exif.o \
+                               grfmt_base.o \
+                               grfmt_bmp.o \
+                               grfmt_exr.o \
+                               grfmt_gdal.o \
+                               grfmt_gdcm.o \
+                               grfmt_hdr.o \
+                               grfmt_jpeg.o \
+                               grfmt_jpeg2000.o \
+                               grfmt_pam.o \
+                               grfmt_png.o \
+                               grfmt_pxm.o \
+                               grfmt_sunras.o \
+                               grfmt_tiff.o \
+                               grfmt_webp.o \
+                               loadsave.o \
+                               rgbe.o \
+                               utils.o
 
 $(OPENCVIMGCODECS_OBJDIR_X86)/%.o:
 	$(OPENCVIMGCODECS_BUILD_X86)
@@ -538,11 +587,18 @@ OPENCVIMGPROC_BUILD_X86    = $(CXX_X86) $(CXX14FLAGS_X86) $(OPENCVIMGPROC_DEFINE
 OPENCVIMGPROC_BUILD_X64    = $(CXX_X64) $(CXX14FLAGS_X64) $(OPENCVIMGPROC_DEFINES_X64) $(OPENCVIMGPROC_INCLUDES_X64) \
                              -c $(@:$(OPENCVIMGPROC_OBJDIR_X64)%.o=$(OPENCVIMGPROC_SRCDIR)%.cpp) -o $@
 OPENCVIMGPROC_OBJS_ALL     = accum.o \
+                             accum.dispatch.o \
                              approx.o \
+                             bilateral_filter.dispatch.o \
                              blend.o \
+                             box_filter.dispatch.o \
                              canny.o \
                              clahe.o \
                              color.o \
+                             color_hsv.dispatch.o \
+                             color_lab.o \
+                             color_rgb.dispatch.o \
+                             color_yuv.dispatch.o \
                              colormap.o \
                              connectedcomponents.o \
                              contours.o \
@@ -555,7 +611,7 @@ OPENCVIMGPROC_OBJS_ALL     = accum.o \
                              drawing.o \
                              emd.o \
                              featureselect.o \
-                             filter.o \
+                             filter.dispatch.o \
                              floodfill.o \
                              gabor.o \
                              generalized_hough.o \
@@ -571,21 +627,22 @@ OPENCVIMGPROC_OBJS_ALL     = accum.o \
                              matchcontours.o \
                              min_enclosing_triangle.o \
                              moments.o \
-                             morph.o \
+                             morph.dispatch.o \
                              phasecorr.o \
                              pyramids.o \
+                             resize.o \
                              rotcalipers.o \
                              samplers.o \
                              segmentation.o \
                              shapedescr.o \
-                             smooth.o \
+                             smooth.dispatch.o \
                              spatialgradient.o \
                              subdivision2d.o \
-                             sumpixels.o \
+                             sumpixels.dispatch.o \
                              tables.o \
                              templmatch.o \
                              thresh.o \
-                             undistort.o \
+                             undistort.dispatch.o \
                              utils.o
 
 $(OPENCVIMGPROC_OBJDIR_X86)/%.o:
@@ -614,13 +671,38 @@ OPENCVVIDEOIO_BUILD_X86    = $(CXX_X86) $(CXX14FLAGS_X86) $(OPENCVVIDEOIO_DEFINE
                              -c $(@:$(OPENCVVIDEOIO_OBJDIR_X86)%.o=$(OPENCVVIDEOIO_SRCDIR)%.cpp) -o $@
 OPENCVVIDEOIO_BUILD_X64    = $(CXX_X64) $(CXX14FLAGS_X64) $(OPENCVVIDEOIO_DEFINES_X64) $(OPENCVVIDEOIO_INCLUDES_X64) \
                              -c $(@:$(OPENCVVIDEOIO_OBJDIR_X64)%.o=$(OPENCVVIDEOIO_SRCDIR)%.cpp) -o $@
-OPENCVVIDEOIO_OBJS_ALL     = cap.o cap_ffmpeg.o cap_images.o cap_mjpeg_decoder.o cap_mjpeg_encoder.o
+OPENCVVIDEOIO_BUILD_OMM_X86= $(CXX_X86) $(CXXFLAGS_X86) $(OPENCVVIDEOIO_DEFINES_X86) $(OPENCVVIDEOIO_INCLUDES_X86) \
+                             -c $(@:$(OPENCVVIDEOIO_OBJDIR_X86)%.omm=$(OPENCVVIDEOIO_SRCDIR)%.mm) -o $@
+OPENCVVIDEOIO_BUILD_OMM_X64= $(CXX_X64) $(CXXFLAGS_X64) $(OPENCVVIDEOIO_DEFINES_X64) $(OPENCVVIDEOIO_INCLUDES_X64) \
+                             -c $(@:$(OPENCVVIDEOIO_OBJDIR_X64)%.omm=$(OPENCVVIDEOIO_SRCDIR)%.mm) -o $@
+OPENCVVIDEOIO_OBJS_ALL     = cap.o \
+                             cap_aravis.o \
+                             cap_cmu.o \
+                             cap_dc1394.o \
+                             cap_dc1394_v2.o \
+                             cap_ffmpeg.o \
+                             cap_images.o \
+                             cap_mjpeg_decoder.o \
+                             cap_mjpeg_encoder.o \
+                             cap_openni.o \
+                             cap_openni2.o \
+                             cap_pvapi.o \
+                             container_avi.o \
+                             videoio_c.o \
+                             videoio_registry.o
 
 $(OPENCVVIDEOIO_OBJDIR_X86)/%.o:
 	$(OPENCVVIDEOIO_BUILD_X86)
 
 $(OPENCVVIDEOIO_OBJDIR_X64)/%.o:
 	$(OPENCVVIDEOIO_BUILD_X64)
+
+$(OPENCVVIDEOIO_OBJDIR_X86)/%.omm:
+	$(OPENCVVIDEOIO_BUILD_OMM_X86)
+
+$(OPENCVVIDEOIO_OBJDIR_X64)/%.omm:
+	$(OPENCVVIDEOIO_BUILD_OMM_X64)
+
 ###################################################################################################################
 # OSCPACK
 ###################################################################################################################

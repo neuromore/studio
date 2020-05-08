@@ -297,6 +297,7 @@ OPENCVIMGCODECS_OBJS = $(OPENCVIMGCODECS_OBJS_ALL)
 OPENCVIMGPROC_OBJS   = $(OPENCVIMGPROC_OBJS_ALL)
 OPENCVVIDEOIO_OBJS   = $(OPENCVVIDEOIO_OBJS_ALL) \
                        cap_dshow.o \
+                       cap_msmf.o \
                        cap_vfw.o
 OSCPACK_OBJS         = $(OSCPACK_OBJS_ALL)
 TINYAES_OBJS         = $(TINYAES_OBJS_ALL)

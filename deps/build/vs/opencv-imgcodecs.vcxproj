@@ -20,14 +20,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\opencv-imgcodecs\bitstrm.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\exif.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_base.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_bmp.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_exr.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_gdal.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_gdcm.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_hdr.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_jpeg.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_jpeg2000.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_pam.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_png.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_pxm.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_sunras.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_tiff.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgcodecs\jpeg_exif.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_webp.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\loadsave.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\precomp.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -39,26 +46,37 @@
     <ClCompile Include="..\..\src\opencv-imgcodecs\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\opencv2\core\cv_cpu_config.h" />
     <ClInclude Include="..\..\include\opencv2\cvconfig.h" />
     <ClInclude Include="..\..\include\opencv2\opencv_modules.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\bitstrm.hpp" />
+    <ClInclude Include="..\..\src\opencv-imgcodecs\exif.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmts.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_base.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_bmp.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_exr.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_gdal.hpp" />
+    <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_gdcm.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_hdr.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_jpeg.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_jpeg2000.hpp" />
+    <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_pam.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_png.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_pxm.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_sunras.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_tiff.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_webp.hpp" />
-    <ClInclude Include="..\..\src\opencv-imgcodecs\jpeg_exif.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\precomp.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\rgbe.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\utils.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\opencv-imgcodecs\ios_conversions.mm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{ED6E7109-B2D9-412D-A654-A00421DD923C}</ProjectGuid>

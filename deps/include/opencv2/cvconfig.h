@@ -1,5 +1,11 @@
+#ifndef OPENCV_CVCONFIG_H_INCLUDED
+#define OPENCV_CVCONFIG_H_INCLUDED
+
 /* OpenCV compiled as static or dynamic libs */
 /* #undef BUILD_SHARED_LIBS */
+
+/* OpenCV intrinsics optimized code */
+#define CV_ENABLE_INTRINSICS
 
 /* Compile for 'real' NVIDIA GPU architectures */
 #define CUDA_ARCH_BIN ""
@@ -12,12 +18,6 @@
 
 /* Compile for 'virtual' NVIDIA PTX architectures */
 #define CUDA_ARCH_PTX ""
-
-/* AVFoundation video libraries */
-/* #undef HAVE_AVFOUNDATION */
-
-/* V4L capturing support */
-/* #undef HAVE_CAMV4L */
 
 
 /* Carbon windowing environment */
@@ -59,8 +59,15 @@
 /* PNG codec */
 #define HAVE_PNG
 
+/* Intel Integrated Performance Primitives */
+//#define HAVE_IPP
+//#define HAVE_IPP_ICV_ONLY
 
-/**** PLATFORM SPECIFIC ****/
+///////////////////////////////////////////
+////////// PLATFORM SPECIFIC  /////////////
+///////////////////////////////////////////
+
+// LINUX
 #if defined(__linux__)
 
 /* V4L2 capturing support */
@@ -69,12 +76,23 @@
 /* V4L2 capturing support in videoio.h */
 //#define HAVE_VIDEOIO
 
-#define HAVE_PTHREADS
-#elif defined(_WIN32)
+/* V4L/V4L2 capturing support via libv4l */
+/* #undef HAVE_LIBV4L */
 
-/* Intel Integrated Performance Primitives */
-//#define HAVE_IPP
-//#define HAVE_IPP_ICV_ONLY
+/* V4L capturing support */
+/* #undef HAVE_CAMV4L */
+
+#define HAVE_GSTREAMER
+#define HAVE_PTHREADS
+
+// OSX/IOS
+#elif defined(__APPLE__)
+
+/* AVFoundation video libraries */
+#define HAVE_AVFOUNDATION
+
+// WINDOWS
+#elif defined(_WIN32)
 
 /* DirectX */
 #define HAVE_DIRECTX
@@ -86,21 +104,27 @@
 /* DirectShow Video Capture library */
 #define HAVE_DSHOW
 
+/* Microsoft Media Foundation Capture library */
+#define HAVE_MSMF
+#define HAVE_MSMF_DXVA
+
 /* Video for Windows support */
 #define HAVE_VFW
 
 /* Win32 UI */
 #define HAVE_WIN32UI
 
-/* OpenCL Support */
-#define HAVE_OPENCL
 #endif
+
+/* OpenCL Support */
+//#define HAVE_OPENCL
 
 /* Eigen Matrix & Linear Algebra Library */
 /* #undef HAVE_EIGEN */
 
 /* FFMpeg video library */
 //#define HAVE_FFMPEG
+//#define HAVE_FFMPEG_WRAPPER
 
 /* ffmpeg's libswscale */
 //#define HAVE_FFMPEG_SWSCALE
@@ -110,9 +134,6 @@
 
 /* Geospatial Data Abstraction Library */
 /* #undef HAVE_GDAL */
-
-/* GStreamer multimedia framework */
-/* #undef HAVE_GSTREAMER */
 
 /* GTK+ 2.0 Thread support */
 /* #undef HAVE_GTHREAD */
@@ -138,15 +159,8 @@
 /* libpng/png.h needs to be included */
 /* #undef HAVE_LIBPNG_PNG_H */
 
-/* V4L/V4L2 capturing support via libv4l */
-/* #undef HAVE_LIBV4L */
-
-/* Microsoft Media Foundation Capture library */
-/* #undef HAVE_MSMF */
-
 /* NVidia Video Decoding API*/
 /* #undef HAVE_NVCUVID */
-
 
 /* #undef HAVE_OPENCL_STATIC */
 /* #undef HAVE_OPENCL_SVM */
@@ -205,3 +219,5 @@
 
 /* Intel VA-API/OpenCL */
 /* #undef HAVE_VA_INTEL */
+
+#endif // OPENCV_CVCONFIG_H_INCLUDED

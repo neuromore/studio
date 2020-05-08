@@ -116,8 +116,12 @@ OPENCVIMGCODECS_INCLUDES_X86_PLAT    =
 OPENCVIMGCODECS_INCLUDES_X64_PLAT    =
 OPENCVIMGPROC_INCLUDES_X86_PLAT      =
 OPENCVIMGPROC_INCLUDES_X64_PLAT      =
-OPENCVVIDEOIO_INCLUDES_X86_PLAT      =
-OPENCVVIDEOIO_INCLUDES_X64_PLAT      =
+OPENCVVIDEOIO_INCLUDES_X86_PLAT      = -I /usr/include/gstreamer-1.0 \
+                                       -I /usr/include/glib-2.0 \
+                                       -I /usr/lib/i386-linux-gnu/glib-2.0/include
+OPENCVVIDEOIO_INCLUDES_X64_PLAT      = -I /usr/include/gstreamer-1.0 \
+                                       -I /usr/include/glib-2.0 \
+                                       -I /usr/lib/x86_64-linux-gnu/glib-2.0/include
 QTBOOTSTRAP_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/linux-clang
 QTBOOTSTRAP_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/linux-clang
 QTMOC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
@@ -285,6 +289,9 @@ OPENCVCORE_OBJS      = $(OPENCVCORE_OBJS_ALL)
 OPENCVIMGCODECS_OBJS = $(OPENCVIMGCODECS_OBJS_ALL)
 OPENCVIMGPROC_OBJS   = $(OPENCVIMGPROC_OBJS_ALL)
 OPENCVVIDEOIO_OBJS   = $(OPENCVVIDEOIO_OBJS_ALL) \
+                       cap_gphoto2.o \
+                       cap_gstreamer.o \
+                       cap_libv4l.o \
                        cap_v4l.o
 OSCPACK_OBJS         = $(OSCPACK_OBJS_ALL)
 TINYAES_OBJS         = $(TINYAES_OBJS_ALL)
