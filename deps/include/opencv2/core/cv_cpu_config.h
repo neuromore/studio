@@ -1,4 +1,7 @@
-// OpenCV CPU baseline features
+///////////////////////////////////////////////////////////////////////////////////
+// X86/X64
+///////////////////////////////////////////////////////////////////////////////////
+#if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || defined(_M_X64)
 
 #define CV_CPU_COMPILE_SSE 1
 #define CV_CPU_BASELINE_COMPILE_SSE 1
@@ -18,9 +21,6 @@
     , CV_CPU_SSE2 \
     , CV_CPU_SSE3 \*/
 
-
-// OpenCV supported CPU dispatched features
-
 /*#define CV_CPU_DISPATCH_COMPILE_SSE4_1 1
 #define CV_CPU_DISPATCH_COMPILE_SSE4_2 1
 #define CV_CPU_DISPATCH_COMPILE_FP16 1
@@ -38,3 +38,22 @@
     , CV_CPU_AVX2 \
     , CV_CPU_AVX512_SKX \*/
 
+///////////////////////////////////////////////////////////////////////////////////
+// ARM
+///////////////////////////////////////////////////////////////////////////////////
+#elif defined(__arm__) || defined(__aarch64__) || defined(_M_ARM)
+
+#define CV_CPU_BASELINE_FEATURES 0
+
+#define CV_CPU_DISPATCH_FEATURES 0
+
+///////////////////////////////////////////////////////////////////////////////////
+// UNKNOWN
+///////////////////////////////////////////////////////////////////////////////////
+#else
+
+#define CV_CPU_BASELINE_FEATURES 0
+
+#define CV_CPU_DISPATCH_FEATURES 0
+
+#endif
