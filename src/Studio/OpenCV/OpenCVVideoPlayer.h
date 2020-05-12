@@ -26,89 +26,97 @@
 
 // include required headers
 #include "../Config.h"
-#ifdef OPENCV_SUPPORT
-
-#include <opencv2/opencv.hpp>
-
 #include <QMutex>
 #include <QThread>
 #include <QImage>
 #include <QWaitCondition>
-#include <Audio/MediaContent.h>
+#include <QAbstractVideoSurface>
+#include <QMediaPlayer>
 #include <Backend/WebDataCache.h>
 #include <time.h>
 
+// internal qt function
+QImage qt_imageFromVideoFrame(const QVideoFrame& f);
 
-// OpenCV video player
-class OpenCVVideoPlayer : public QThread
+// Custom video player creating QImage from frames.
+class OpenCVVideoPlayer : public QAbstractVideoSurface
 {
-	Q_OBJECT
+   Q_OBJECT
 
-	public:
-		// constructor & destructor
-		OpenCVVideoPlayer(QObject *parent=NULL);
-		virtual ~OpenCVVideoPlayer();
+   public:
+      // constructor
+      OpenCVVideoPlayer(QObject *parent=NULL);
 
-		bool Load(const char* url, const char* key, WebDataCache* cache);
-		bool Clear();
+      // destructor
+      ~OpenCVVideoPlayer();
 
-		void Play(int numPlayCount=-1);
-		void Pause()											{ mIsPaused = true; if (mMediaContent != NULL) mMediaContent->Pause(); }
-		void Continue()											{ mIsPaused = false; if (mMediaContent != NULL) mMediaContent->Continue();}
-		void Stop();
+      ///////////////////////////////////////////////////////////////////////////////////////////////
 
-		bool IsPlaying() const									{ return mIsPlaying; }
-		void SetCurrentFrame(int frameNumber)					{ if (mVideoCapture != NULL) mVideoCapture->set(CV_CAP_PROP_POS_FRAMES, frameNumber); }
-		//void SetPosition(double milliseconds)					{ SetCurrentFrame( milliseconds * 0.001 * mFrameRate ); }
-		void SetPositionNormalized(double normalizedPos)		{ if (normalizedPos < 0.0) normalizedPos = 0.0; if (normalizedPos > 1.0) normalizedPos = 1.0; SetCurrentFrame( normalizedPos * GetNumFrames() ); }
+      // from QAbstractVideoSurface, specify supported formats
+      inline QList<QVideoFrame::PixelFormat> supportedPixelFormats(
+         QAbstractVideoBuffer::HandleType handleType = QAbstractVideoBuffer::NoHandle) const override
+      {
+         return QList<QVideoFrame::PixelFormat>() << QVideoFrame::Format_RGB32;
+      }
 
-		double GetFrameRate()									{ return mFrameRate; }
-		double GetCurrentFrame()								{ return mVideoCapture->get(CV_CAP_PROP_POS_FRAMES); }
-		double GetNumFrames()									{ return mVideoCapture->get(CV_CAP_PROP_FRAME_COUNT); }
+      // from QAbstractVideoSurface, convert frame to image
+      inline bool present(const QVideoFrame& frame) override
+      {
+         if (frame.isValid())
+         {
+            mImage = qt_imageFromVideoFrame(frame);
+            emit ProcessedImage(mImage);
+            return true;
+         }
+         else
+            return false;
+      }
 
-		// in milliseconds
-		double GetPosition()									{ return (GetCurrentFrame() / mFrameRate) * 1000.0; }
-		double GetDuration()									{ return (GetNumFrames() / mFrameRate) * 1000.0; }
+      ///////////////////////////////////////////////////////////////////////////////////////////////
 
-		uint32 GetWidth()										{ return mVideoCapture->get(CV_CAP_PROP_FRAME_WIDTH); }
-		uint32 GetHeight()										{ return mVideoCapture->get(CV_CAP_PROP_FRAME_HEIGHT); }
+      bool Load(const char* url, const char* key, WebDataCache* cache);
+      bool Clear();
+      void Play(int numPlayCount=-1);
+      void Stop();
 
-	signals:
-		// called when a new video frame got rendered
-		void ProcessedImage(QImage image);
+      inline void Pause()           { mIsPaused = true;  mPlayer.pause(); }
+      inline void Continue()        { mIsPaused = false; mPlayer.play(); }
+      inline bool IsPlaying() const { return mIsPlaying; }
 
-		// fired when video playback reached the end
-		void ReachedEnd(QString url);
+      // in milliseconds
+      inline qint64 GetPosition() const { return mPlayer.position(); }
+      inline qint64 GetDuration() const { return mPlayer.duration(); }
+      inline void   SetPosition(qint64 milliseconds) { mPlayer.setPosition(milliseconds); }
+      inline void   SetPositionNormalized(double normalizedPos) 
+      {
+         if      (normalizedPos < 0.0) SetPosition(0);
+         else if (normalizedPos > 1.0) SetPosition(GetDuration());
+         else                          SetPosition(normalizedPos * GetDuration());
+      }
 
-	protected:
-		void run();
+   signals:
+      // called when a new video frame got rendered
+      void ProcessedImage(QImage image);
 
-	protected slots:
-		void OnMediaLooped(const Core::String& url);
-	
-	private:
-		void UpdateDefaultImage();
-		void SetToDefaultImage();
+      // fired when video playback reached the end
+      void ReachedEnd(QString url);
 
-		Core::String		mUrl;
-		Core::String		mKey;
-		bool				mIsPlaying;
-		bool				mIsPaused;
-		QMutex				mMutex;
-		QWaitCondition		mWaitCondition;
-		cv::Mat				mFrame;
-		cv::Mat				mRgbFrame;
-		double				mFrameRate;
-		cv::VideoCapture*	mVideoCapture;
-		QImage				mImage;
-		QImage				mDefaultImage;
-		int					mNumPlayCount;
-		int					mCurrentPlayCount;
+   protected slots:
+      void OnMediaStatusChanged(QMediaPlayer::MediaStatus status);
 
-		// audio
-		MediaContent*		mMediaContent;
+   private:
+      void UpdateDefaultImage();
+      void SetToDefaultImage();
+
+      Core::String   mUrl;
+      Core::String   mKey;
+      bool           mIsPlaying;
+      bool           mIsPaused;
+      QImage         mImage;
+      QImage         mDefaultImage;
+      int            mNumPlayCount;
+      int            mCurrentPlayCount;
+      QMediaPlayer   mPlayer;
 };
-
-#endif
 
 #endif

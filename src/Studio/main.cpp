@@ -41,8 +41,8 @@
    Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 
    // STATIC QT MEDIASERVICE PLUGIN
-   Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow
-   //Q_IMPORT_PLUGIN(WMFServicePlugin); // Windows Media Foundation
+   //Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow
+   Q_IMPORT_PLUGIN(WMFServicePlugin); // Windows Media Foundation
 
    // WINAPI
    #pragma comment(lib, "Version.lib")          // winapi: version
