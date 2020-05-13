@@ -162,60 +162,6 @@ Studio-x64-clean:
 
 Studio-clean: Studio-x86-clean Studio-x64-clean
 ###################################################################################################################
-# QTTEST
-###################################################################################################################
-QTTEST_MOCH_X86     := $(patsubst %,$(QTTEST_MOCDIR_X86)/%,$(QTTEST_MOCH))
-QTTEST_MOCH_X64     := $(patsubst %,$(QTTEST_MOCDIR_X64)/%,$(QTTEST_MOCH))
-QTTEST_MOCC_X86     := $(patsubst %,$(QTTEST_MOCDIR_X86)/%,$(QTTEST_MOCC))
-QTTEST_MOCC_X64     := $(patsubst %,$(QTTEST_MOCDIR_X64)/%,$(QTTEST_MOCC))
-QTTEST_UICH_X86     := $(patsubst %,$(QTTEST_UICDIR_X86)/%,$(QTTEST_UICH))
-QTTEST_UICH_X64     := $(patsubst %,$(QTTEST_UICDIR_X64)/%,$(QTTEST_UICH))
-QTTEST_RCCH_X86     := $(patsubst %,$(QTTEST_RCCDIR_X86)/%,$(QTTEST_RCCH))
-QTTEST_RCCH_X64     := $(patsubst %,$(QTTEST_RCCDIR_X64)/%,$(QTTEST_RCCH))
-QTTEST_OBJS_X86     := $(patsubst %,$(QTTEST_OBJDIR_X86)/%,$(QTTEST_OBJS))
-QTTEST_OBJS_X64     := $(patsubst %,$(QTTEST_OBJDIR_X64)/%,$(QTTEST_OBJS))
-QTTEST_OBJS_MOC_X86 := $(patsubst %,$(QTTEST_OBJDIR_X86)/%,$(QTTEST_OBJS_MOC))
-QTTEST_OBJS_MOC_X64 := $(patsubst %,$(QTTEST_OBJDIR_X64)/%,$(QTTEST_OBJS_MOC))
-QTTEST_OBJS_RCC_X86 := $(patsubst %,$(QTTEST_OBJDIR_X86)/%,$(QTTEST_OBJS_RCC))
-QTTEST_OBJS_RCC_X64 := $(patsubst %,$(QTTEST_OBJDIR_X64)/%,$(QTTEST_OBJS_RCC))
-QTTEST_RES_X86      := $(patsubst %,$(QTTEST_OBJDIR_X86)/%,$(QTTEST_RES))
-QTTEST_RES_X64      := $(patsubst %,$(QTTEST_OBJDIR_X64)/%,$(QTTEST_RES))
-QTTEST_PRES_X86     := $(QTTEST_MOCH_X86) $(QTTEST_MOCC_X86) $(QTTEST_UICH_X86) $(QTTEST_RCCH_X86)
-QTTEST_PRES_X64     := $(QTTEST_MOCH_X64) $(QTTEST_MOCC_X64) $(QTTEST_UICH_X64) $(QTTEST_RCCH_X64) 
-QTTEST_OBLS_X86     := $(QTTEST_OBJS_X86) $(QTTEST_OBJS_MOC_X86) $(QTTEST_OBJS_RCC_X86) $(QTTEST_RES_X86)
-QTTEST_OBLS_X64     := $(QTTEST_OBJS_X64) $(QTTEST_OBJS_MOC_X64) $(QTTEST_OBJS_RCC_X64) $(QTTEST_RES_X64)
-
-$(QTTEST_OBLS_X86) : $(QTTEST_PRES_X86)
-$(QTTEST_OBLS_X64) : $(QTTEST_PRES_X64)
-
-QtTest-x86: Engine-x86 QtBase-x86 $(QTTEST_PRES_X86) $(QTTEST_OBLS_X86)
-	$(call createbin32,QtTest,$(QTTEST_OBLS_X86),$(QTTEST_LIBS_X86))
-
-QtTest-x64: Engine-x64 QtBase-x64 $(QTTEST_PRES_X64) $(QTTEST_OBLS_X64)
-	$(call createbin64,QtTest,$(QTTEST_OBLS_X64),$(QTTEST_LIBS_X64))
-
-QtTest: QtTest-x86 QtTest-x64
-
-QtTest-x86-clean:
-	$(call deletefilepattern,$(BINDIR_X86),QtTest*)
-	$(call deletefilepattern,$(QTTEST_OBJDIR_X86),*.o)
-	$(call deletefilepattern,$(QTTEST_OBJDIR_X86),*.omoc)
-	$(call deletefilepattern,$(QTTEST_OBJDIR_X86),*.orcc)
-	$(call deletefilepattern,$(QTTEST_MOCDIR_X86),*.cpp)
-	$(call deletefilepattern,$(QTTEST_MOCDIR_X86),*.moc)
-	$(call deletefilepattern,$(QTTEST_RCCDIR_X86),*.cpp)
-
-QtTest-x64-clean:
-	$(call deletefilepattern,$(BINDIR_X64),QtTest*)
-	$(call deletefilepattern,$(QTTEST_OBJDIR_X64),*.o)
-	$(call deletefilepattern,$(QTTEST_OBJDIR_X64),*.omoc)
-	$(call deletefilepattern,$(QTTEST_OBJDIR_X64),*.orcc)
-	$(call deletefilepattern,$(QTTEST_MOCDIR_X64),*.cpp)
-	$(call deletefilepattern,$(QTTEST_MOCDIR_X64),*.moc)
-	$(call deletefilepattern,$(QTTEST_RCCDIR_X64),*.cpp)
-
-QtTest-clean: QtTest-x86-clean QtTest-x64-clean
-###################################################################################################################
 # ALL
 ###################################################################################################################
 all-common-x86: Engine-x86 QtBase-x86 
