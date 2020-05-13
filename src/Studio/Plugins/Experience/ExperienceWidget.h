@@ -39,7 +39,7 @@
 #include <Audio/MediaContent.h>
 
 // VideoPlayer
-#include "../../OpenCV/OpenCVVideoPlayer.h"
+#include "../../VideoPlayer.h"
 
 // for system master volume control
 #ifdef NEUROMORE_PLATFORM_WINDOWS

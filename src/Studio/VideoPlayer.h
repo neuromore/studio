@@ -25,7 +25,7 @@
 #define __NEUROMORE_OPENCVVIDEOPLAYER
 
 // include required headers
-#include "../Config.h"
+#include "Config.h"
 #include <QMutex>
 #include <QThread>
 #include <QImage>

@@ -22,7 +22,7 @@
 ****************************************************************************/
 
 // include required headers
-#include "OpenCVVideoPlayer.h"
+#include "VideoPlayer.h"
 #include <Core/LogManager.h>
 
 using namespace Core;
