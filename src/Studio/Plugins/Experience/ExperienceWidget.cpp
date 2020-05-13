@@ -777,10 +777,17 @@ void ExperienceWidget::OnShowImage(const char* url)
 			mGifBuffer = new QBuffer();
 			mGifBuffer->setData(data);
 
-			mGifMovie = new QMovie( mGifBuffer );
+			mGifMovie = new QMovie();
 			mGifMovie->setCacheMode( QMovie::CacheAll );
-			mGifMovie->start();
-			SetTimerEnabled(true);
+			mGifMovie->setDevice(mGifBuffer);
+
+			if (mGifMovie->isValid())
+			{
+				mGifMovie->start();
+				SetTimerEnabled(true);
+			}
+			else
+				LogError("ExperienceWidget: Cannot play gif '%s'. Because: %s", filename.AsChar(), mGifMovie->lastErrorString().toStdString().c_str());
 		}
 	}
 }
