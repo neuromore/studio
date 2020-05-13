@@ -705,8 +705,6 @@ void ExperienceWidget::OnPlayVideo(const char* url, int32 numLoops, double begin
 	WebDataCache* cache = GetQtBaseManager()->GetExperienceAssetCache()->GetCache();
 	String filename = cache->GetCacheFilenameForUrl(url);
 
-   printf("ExperienceWidget: Loading %s", url);
-
 	bool movieLoaded = mVideoPlayer->Load( filename.AsChar(), url, cache );
 	if (movieLoaded == false)
 		LogError( "ExperienceWIdget: Loading movie '%s' failed. Cannot play it back.", url );
