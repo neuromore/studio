@@ -702,6 +702,8 @@ void ExperienceWidget::OnPauseAudio(const char* url, bool unpause)
 
 void ExperienceWidget::OnPlayVideo(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream)
 {
+   ClearAnimatedGif();
+
 	WebDataCache* cache = GetQtBaseManager()->GetExperienceAssetCache()->GetCache();
 
 	bool movieLoaded = mVideoPlayer->Load(url, cache);

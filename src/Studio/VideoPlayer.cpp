@@ -33,36 +33,22 @@ OpenCVVideoPlayer::OpenCVVideoPlayer(QObject *parent) :
    mIsPaused(false),
    mCurrentPlayCount(0),
    mNumPlayCount(0),
-   mImage(64, 64, QImage::Format_RGB32),
-   mDefaultImage(64, 64, QImage::Format_RGB32)
+   mImage(64, 64, QImage::Format_RGB32)
 {
-   mDefaultImage.fill(Qt::black);
+   // set custom video output surface
    mPlayer.setVideoOutput(this);
+
+   // connect signals
    connect(&mPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(OnMediaStatusChanged(QMediaPlayer::MediaStatus)));
+
+   // init image
+   mImage.fill(Qt::black);
+   emit ProcessedImage(mImage);
 }
 
 OpenCVVideoPlayer::~OpenCVVideoPlayer()
 {
-   mPlayer.stop();
    Clear();
-}
-
-void OpenCVVideoPlayer::UpdateDefaultImage()
-{
-   const QSize videoSize = mImage.size();
-   const QSize defaultSize = mDefaultImage.size();
-
-   if (videoSize != defaultSize)
-   {
-      mDefaultImage = QImage( videoSize, QImage::Format_RGB32 );
-      mDefaultImage.fill( Qt::black );
-   }
-}
-
-void OpenCVVideoPlayer::SetToDefaultImage()
-{
-   UpdateDefaultImage();
-   mImage = mDefaultImage;
 }
 
 bool OpenCVVideoPlayer::Load(const char* url, WebDataCache* cache)
@@ -98,7 +84,6 @@ void OpenCVVideoPlayer::Play(int numPlayCount)
    mIsPaused = false;
    mCurrentPlayCount = 0;
    mNumPlayCount = numPlayCount;
-
    mPlayer.setVolume(100);
    mPlayer.play();
 }
@@ -108,6 +93,8 @@ void OpenCVVideoPlayer::Stop()
    mIsPlaying = false;
    mIsPaused = false;
    mPlayer.stop();
+   mImage.fill(Qt::black);
+   emit ProcessedImage(mImage);
 }
 
 void OpenCVVideoPlayer::OnMediaStatusChanged(QMediaPlayer::MediaStatus status)

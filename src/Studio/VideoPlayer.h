@@ -21,8 +21,8 @@
 **
 ****************************************************************************/
 
-#ifndef __NEUROMORE_OPENCVVIDEOPLAYER
-#define __NEUROMORE_OPENCVVIDEOPLAYER
+#ifndef __NEUROMORE_VIDEOPLAYER
+#define __NEUROMORE_VIDEOPLAYER
 
 // include required headers
 #include "Config.h"
@@ -62,7 +62,7 @@ class OpenCVVideoPlayer : public QAbstractVideoSurface
       // from QAbstractVideoSurface, convert frame to image
       inline bool present(const QVideoFrame& frame) override
       {
-         if (frame.isValid())
+         if (frame.isValid() && mIsPlaying)
          {
             mImage = qt_imageFromVideoFrame(frame);
             emit ProcessedImage(mImage);
@@ -105,15 +105,11 @@ class OpenCVVideoPlayer : public QAbstractVideoSurface
       void OnMediaStatusChanged(QMediaPlayer::MediaStatus status);
 
    private:
-      void UpdateDefaultImage();
-      void SetToDefaultImage();
-
       Core::String   mUrl;
       Core::String   mKey;
       bool           mIsPlaying;
       bool           mIsPaused;
       QImage         mImage;
-      QImage         mDefaultImage;
       int            mNumPlayCount;
       int            mCurrentPlayCount;
       QMediaPlayer   mPlayer;
