@@ -79,13 +79,10 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) : QWidget(parent)
 	// create the network access manager for downloading images etc.
 	mNetworkAccessManager = new QNetworkAccessManager(this);
 
-	// create the OpenCV video player
-#ifdef OPENCV_SUPPORT
+	// create the video player
 	mVideoPlayer = new OpenCVVideoPlayer(this);
 	connect(mVideoPlayer, SIGNAL(ProcessedImage(QImage)), this, SLOT(ShowImage(QImage)));
 	connect(mVideoPlayer, SIGNAL(ReachedEnd(QString)), this, SLOT(OnVideoLooped(QString)));
-#endif
-
 
 	// start pre-loading assets in case a state machine already got loaded
 	QTimer::singleShot(1000, this, SLOT(PreloadAssets())); // wait one 1 second and then start pre-loading data
@@ -708,22 +705,19 @@ void ExperienceWidget::OnPlayVideo(const char* url, int32 numLoops, double begin
 	WebDataCache* cache = GetQtBaseManager()->GetExperienceAssetCache()->GetCache();
 	String filename = cache->GetCacheFilenameForUrl(url);
 
-#ifdef OPENCV_SUPPORT
+   printf("ExperienceWidget: Loading %s", url);
+
 	bool movieLoaded = mVideoPlayer->Load( filename.AsChar(), url, cache );
 	if (movieLoaded == false)
 		LogError( "ExperienceWIdget: Loading movie '%s' failed. Cannot play it back.", url );
-    
+
 	mVideoPlayer->Play(numLoops);
-#endif
 }
 
 
 void ExperienceWidget::OnStopVideo()
 {
-#ifdef OPENCV_SUPPORT
 	mVideoPlayer->Clear();
-#endif
-
 	ShowImage( QPixmap() );
 }
 
@@ -737,13 +731,11 @@ void ExperienceWidget::OnSeekVideo(const char* url, uint32 position)
 
 void ExperienceWidget::OnPauseVideo(const char* url, bool unpause)
 {
-#ifdef OPENCV_SUPPORT
 	// TODO implement pause/unpause
 	if (unpause == false)
 		mVideoPlayer->Pause();
 	else
 		mVideoPlayer->Continue();
-#endif
 }
 
 
