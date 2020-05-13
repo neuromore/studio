@@ -74,7 +74,7 @@ class OpenCVVideoPlayer : public QAbstractVideoSurface
 
       ///////////////////////////////////////////////////////////////////////////////////////////////
 
-      bool Load(const char* url, const char* key, WebDataCache* cache);
+      bool Load(const char* url, WebDataCache* cache);
       bool Clear();
       void Play(int numPlayCount=-1);
       void Stop();

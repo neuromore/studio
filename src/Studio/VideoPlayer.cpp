@@ -65,12 +65,22 @@ void OpenCVVideoPlayer::SetToDefaultImage()
    mImage = mDefaultImage;
 }
 
-bool OpenCVVideoPlayer::Load(const char* url, const char* key, WebDataCache* cache)
+bool OpenCVVideoPlayer::Load(const char* url, WebDataCache* cache)
 {
    Clear();
+
+   // save url and try resolve to cached local file
    mUrl = url;
-   mKey = key;
-   mPlayer.setMedia(QUrl(key));
+   mKey = cache->GetCacheFilenameForUrl(url);
+
+   // cached/local-file mode
+   if (mUrl != mKey)
+      mPlayer.setMedia(QUrl::fromLocalFile(mKey.AsChar()));
+
+   // streaming mode
+   else
+      mPlayer.setMedia(QUrl(mUrl.AsChar()));
+
    return true;
 }
 

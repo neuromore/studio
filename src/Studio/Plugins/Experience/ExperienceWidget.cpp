@@ -703,9 +703,8 @@ void ExperienceWidget::OnPauseAudio(const char* url, bool unpause)
 void ExperienceWidget::OnPlayVideo(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream)
 {
 	WebDataCache* cache = GetQtBaseManager()->GetExperienceAssetCache()->GetCache();
-	String filename = cache->GetCacheFilenameForUrl(url);
 
-	bool movieLoaded = mVideoPlayer->Load( filename.AsChar(), url, cache );
+	bool movieLoaded = mVideoPlayer->Load(url, cache);
 	if (movieLoaded == false)
 		LogError( "ExperienceWIdget: Loading movie '%s' failed. Cannot play it back.", url );
 
