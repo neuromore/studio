@@ -218,6 +218,9 @@
    Q_IMPORT_PLUGIN(AVFMediaPlayerServicePlugin);
 #endif
 
+// STATIC QT PLUGINS FOR ALL PLATFORMS
+Q_IMPORT_PLUGIN(QGifPlugin);
+
 using namespace Core;
 
 // Entry Point for Windows Production (No Console, requires /subsystem:WINDOWS)

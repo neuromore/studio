@@ -2022,6 +2022,7 @@ QTGUI_RCCDIR_X64    = $(QTGUI_SRCDIR)/.rcc/x64
 QTGUI_OBJDIR_X86    = $(OBJDIR_X86)/qt-gui
 QTGUI_OBJDIR_X64    = $(OBJDIR_X64)/qt-gui
 QTGUI_DEFINES       = -DQT_STATIC \
+                      -DQT_STATICPLUGIN \
                       -DQT_USE_QSTRINGBUILDER \
                       -DQT_NO_DEBUG \
                       -DHAVE_CONFIG_H \
@@ -2029,9 +2030,17 @@ QTGUI_DEFINES       = -DQT_STATIC \
                       -D_ENABLE_EXTENDED_ALIGNED_STORAGE
 QTGUI_DEFINES_X86   = $(QTGUI_DEFINES) $(QTGUI_DEFINES_X86_PLAT)
 QTGUI_DEFINES_X64   = $(QTGUI_DEFINES) $(QTGUI_DEFINES_X64_PLAT)
-QTGUI_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) -I$(INCDIR)/libpng -I$(INCDIR)/zlib -I$(INCDIR)/qt \
-                      -I$(INCDIR)/qt/QtCore -I$(INCDIR)/qt/QtCore/private \
-                      -I$(INCDIR)/qt/QtGui -I$(INCDIR)/qt/QtGui/private -I$(INCDIR)/qt/QtGui/qpa
+QTGUI_INCLUDES      = -I$(INCDIR) \
+                      -I$(SRCDIR) \
+                      -I$(INCDIR)/libpng \
+                      -I$(INCDIR)/zlib \
+                      -I$(INCDIR)/qt \
+                      -I$(INCDIR)/qt/QtCore \
+                      -I$(INCDIR)/qt/QtCore/private \
+                      -I$(INCDIR)/qt/QtGui \
+                      -I$(INCDIR)/qt/QtGui/imageformats \
+                      -I$(INCDIR)/qt/QtGui/private \
+                      -I$(INCDIR)/qt/QtGui/qpa
 QTGUI_INCLUDES_X86  = $(QTGUI_INCLUDES) -I$(QTGUI_MOCDIR_X86) \
                       -I$(QTGUI_UICDIR_X86) $(QTGUI_INCLUDES_X86_PLAT)
 QTGUI_INCLUDES_X64  = $(QTGUI_INCLUDES) -I$(QTGUI_MOCDIR_X64) \
@@ -2109,7 +2118,8 @@ QTGUI_MOCH_ALL      = qabstracttextdocumentlayout.cpp \
                       qtexttable.cpp \
                       qtouchdevice.cpp \
                       qvalidator.cpp \
-                      qwindow.cpp
+                      qwindow.cpp \
+                      imageformats/qgifplugin.cpp
 QTGUI_MOC_C_X86     = $(MOC_X86) $(QTGUI_DEFINES_X86) $(QTGUI_INCLUDES_X86) \
                       $(@:$(QTGUI_MOCDIR_X86)/%.moc=$(QTGUI_SRCDIR)/%.cpp) \
                       -o $(@:$(QTGUI_MOCDIR_X86)/%.moc=$(QTGUI_MOCDIR_X86)/$(@F))
@@ -2174,6 +2184,8 @@ QTGUI_OBJS_ALL      = accessible/qaccessible.o \
                       image/qppmhandler.o \
                       image/qxbmhandler.o \
                       image/qxpmhandler.o \
+                      imageformats/gif/qgifhandler.o \
+                      imageformats/gif/qgifplugin.o \
                       itemmodels/qstandarditemmodel.o \
                       kernel/qclipboard.o \
                       kernel/qcursor.o \
@@ -2377,6 +2389,7 @@ QTGUI_OBJS_MOC_ALL  = qaccessible.omoc \
                       qfont.omoc \
                       qfontdatabase.omoc \
                       qgenericplugin.omoc \
+                      qgifplugin.omoc \
                       qiconengineplugin.omoc \
                       qimage.omoc \
                       qimageiohandler.omoc \
