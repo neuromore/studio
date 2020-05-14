@@ -79,13 +79,10 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) : QWidget(parent)
 	// create the network access manager for downloading images etc.
 	mNetworkAccessManager = new QNetworkAccessManager(this);
 
-	// create the OpenCV video player
-#ifdef OPENCV_SUPPORT
+	// create the video player
 	mVideoPlayer = new OpenCVVideoPlayer(this);
 	connect(mVideoPlayer, SIGNAL(ProcessedImage(QImage)), this, SLOT(ShowImage(QImage)));
 	connect(mVideoPlayer, SIGNAL(ReachedEnd(QString)), this, SLOT(OnVideoLooped(QString)));
-#endif
-
 
 	// start pre-loading assets in case a state machine already got loaded
 	QTimer::singleShot(1000, this, SLOT(PreloadAssets())); // wait one 1 second and then start pre-loading data
@@ -705,25 +702,21 @@ void ExperienceWidget::OnPauseAudio(const char* url, bool unpause)
 
 void ExperienceWidget::OnPlayVideo(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream)
 {
-	WebDataCache* cache = GetQtBaseManager()->GetExperienceAssetCache()->GetCache();
-	String filename = cache->GetCacheFilenameForUrl(url);
+   ClearAnimatedGif();
 
-#ifdef OPENCV_SUPPORT
-	bool movieLoaded = mVideoPlayer->Load( filename.AsChar(), url, cache );
+	WebDataCache* cache = GetQtBaseManager()->GetExperienceAssetCache()->GetCache();
+
+	bool movieLoaded = mVideoPlayer->Load(url, cache);
 	if (movieLoaded == false)
 		LogError( "ExperienceWIdget: Loading movie '%s' failed. Cannot play it back.", url );
-    
+
 	mVideoPlayer->Play(numLoops);
-#endif
 }
 
 
 void ExperienceWidget::OnStopVideo()
 {
-#ifdef OPENCV_SUPPORT
 	mVideoPlayer->Clear();
-#endif
-
 	ShowImage( QPixmap() );
 }
 
@@ -737,13 +730,11 @@ void ExperienceWidget::OnSeekVideo(const char* url, uint32 position)
 
 void ExperienceWidget::OnPauseVideo(const char* url, bool unpause)
 {
-#ifdef OPENCV_SUPPORT
 	// TODO implement pause/unpause
 	if (unpause == false)
 		mVideoPlayer->Pause();
 	else
 		mVideoPlayer->Continue();
-#endif
 }
 
 
@@ -786,10 +777,17 @@ void ExperienceWidget::OnShowImage(const char* url)
 			mGifBuffer = new QBuffer();
 			mGifBuffer->setData(data);
 
-			mGifMovie = new QMovie( mGifBuffer );
+			mGifMovie = new QMovie();
 			mGifMovie->setCacheMode( QMovie::CacheAll );
-			mGifMovie->start();
-			SetTimerEnabled(true);
+			mGifMovie->setDevice(mGifBuffer);
+
+			if (mGifMovie->isValid())
+			{
+				mGifMovie->start();
+				SetTimerEnabled(true);
+			}
+			else
+				LogError("ExperienceWidget: Cannot play gif '%s'. Because: %s", filename.AsChar(), mGifMovie->lastErrorString().toStdString().c_str());
 		}
 	}
 }

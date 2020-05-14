@@ -210,7 +210,7 @@ LIBJPEG_OBJDIR_X64 = $(OBJDIR_X64)/libjpeg
 LIBJPEG_INCLUDES   = -I$(LIBJPEG_INCDIR)
 LIBJPEG_BUILD_X86  = $(CC_X86) $(CFLAGS_X86) $(LIBJPEG_INCLUDES) -c $(@:$(LIBJPEG_OBJDIR_X86)%.o=$(LIBJPEG_SRCDIR)%.c) -o $@
 LIBJPEG_BUILD_X64  = $(CC_X64) $(CFLAGS_X64) $(LIBJPEG_INCLUDES) -c $(@:$(LIBJPEG_OBJDIR_X64)%.o=$(LIBJPEG_SRCDIR)%.c) -o $@
-LIBJPEG_OBJS_ALL   = jaricom.o jcapimin.o jcarith.o jccoefct.o jccolor.o jcdctmgr.o jchuff.o jcinit.o jcmainct.o \
+LIBJPEG_OBJS_ALL   = jaricom.o jcapimin.o jcapistd.o jcarith.o jccoefct.o jccolor.o jcdctmgr.o jchuff.o jcinit.o jcmainct.o \
                      jcmarker.o jcmaster.o jcomapi.o jcparam.o jcprepct.o jcsample.o jctrans.o jdapimin.o jdapistd.o \
                      jdarith.o jdatadst.o jdatasrc.o jdcoefct.o jdcolor.o jddctmgr.o jdhuff.o jdinput.o jdmainct.o \
                      jdmarker.o jdmaster.o jdmerge.o jdpostct.o jdsample.o jdtrans.o jerror.o jfdctflt.o jfdctfst.o \
@@ -2022,6 +2022,7 @@ QTGUI_RCCDIR_X64    = $(QTGUI_SRCDIR)/.rcc/x64
 QTGUI_OBJDIR_X86    = $(OBJDIR_X86)/qt-gui
 QTGUI_OBJDIR_X64    = $(OBJDIR_X64)/qt-gui
 QTGUI_DEFINES       = -DQT_STATIC \
+                      -DQT_STATICPLUGIN \
                       -DQT_USE_QSTRINGBUILDER \
                       -DQT_NO_DEBUG \
                       -DHAVE_CONFIG_H \
@@ -2029,9 +2030,18 @@ QTGUI_DEFINES       = -DQT_STATIC \
                       -D_ENABLE_EXTENDED_ALIGNED_STORAGE
 QTGUI_DEFINES_X86   = $(QTGUI_DEFINES) $(QTGUI_DEFINES_X86_PLAT)
 QTGUI_DEFINES_X64   = $(QTGUI_DEFINES) $(QTGUI_DEFINES_X64_PLAT)
-QTGUI_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) -I$(INCDIR)/libpng -I$(INCDIR)/zlib -I$(INCDIR)/qt \
-                      -I$(INCDIR)/qt/QtCore -I$(INCDIR)/qt/QtCore/private \
-                      -I$(INCDIR)/qt/QtGui -I$(INCDIR)/qt/QtGui/private -I$(INCDIR)/qt/QtGui/qpa
+QTGUI_INCLUDES      = -I$(INCDIR) \
+                      -I$(SRCDIR) \
+                      -I$(INCDIR)/libpng \
+                      -I$(INCDIR)/libjpeg \
+                      -I$(INCDIR)/zlib \
+                      -I$(INCDIR)/qt \
+                      -I$(INCDIR)/qt/QtCore \
+                      -I$(INCDIR)/qt/QtCore/private \
+                      -I$(INCDIR)/qt/QtGui \
+                      -I$(INCDIR)/qt/QtGui/imageformats \
+                      -I$(INCDIR)/qt/QtGui/private \
+                      -I$(INCDIR)/qt/QtGui/qpa
 QTGUI_INCLUDES_X86  = $(QTGUI_INCLUDES) -I$(QTGUI_MOCDIR_X86) \
                       -I$(QTGUI_UICDIR_X86) $(QTGUI_INCLUDES_X86_PLAT)
 QTGUI_INCLUDES_X64  = $(QTGUI_INCLUDES) -I$(QTGUI_MOCDIR_X64) \
@@ -2109,7 +2119,10 @@ QTGUI_MOCH_ALL      = qabstracttextdocumentlayout.cpp \
                       qtexttable.cpp \
                       qtouchdevice.cpp \
                       qvalidator.cpp \
-                      qwindow.cpp
+                      qwindow.cpp \
+                      imageformats/qgifplugin.cpp \
+                      imageformats/qicoplugin.cpp \
+                      imageformats/qjpegplugin.cpp
 QTGUI_MOC_C_X86     = $(MOC_X86) $(QTGUI_DEFINES_X86) $(QTGUI_INCLUDES_X86) \
                       $(@:$(QTGUI_MOCDIR_X86)/%.moc=$(QTGUI_SRCDIR)/%.cpp) \
                       -o $(@:$(QTGUI_MOCDIR_X86)/%.moc=$(QTGUI_MOCDIR_X86)/$(@F))
@@ -2174,6 +2187,12 @@ QTGUI_OBJS_ALL      = accessible/qaccessible.o \
                       image/qppmhandler.o \
                       image/qxbmhandler.o \
                       image/qxpmhandler.o \
+                      imageformats/gif/qgifhandler.o \
+                      imageformats/gif/qgifplugin.o \
+                      imageformats/ico/qicohandler.o \
+                      imageformats/ico/qicoplugin.o \
+                      imageformats/jpeg/qjpeghandler.o \
+                      imageformats/jpeg/qjpegplugin.o \
                       itemmodels/qstandarditemmodel.o \
                       kernel/qclipboard.o \
                       kernel/qcursor.o \
@@ -2377,6 +2396,9 @@ QTGUI_OBJS_MOC_ALL  = qaccessible.omoc \
                       qfont.omoc \
                       qfontdatabase.omoc \
                       qgenericplugin.omoc \
+                      qgifplugin.omoc \
+                      qicoplugin.omoc \
+                      qjpegplugin.omoc \
                       qiconengineplugin.omoc \
                       qimage.omoc \
                       qimageiohandler.omoc \
@@ -3344,6 +3366,12 @@ $(QTNETWORK_OBJDIR_X64)/%.orcc:
 # QT-OPENGL
 ###################################################################################################################
 QTOPENGL_SRCDIR       = $(SRCDIR)/qt-opengl
+QTOPENGL_MOCDIR_X86   = $(QTOPENGL_SRCDIR)/.moc/x86
+QTOPENGL_MOCDIR_X64   = $(QTOPENGL_SRCDIR)/.moc/x64
+QTOPENGL_UICDIR_X86   = $(QTOPENGL_SRCDIR)/.uic/x86
+QTOPENGL_UICDIR_X64   = $(QTOPENGL_SRCDIR)/.uic/x64
+QTOPENGL_RCCDIR_X86   = $(QTOPENGL_SRCDIR)/.rcc/x86
+QTOPENGL_RCCDIR_X64   = $(QTOPENGL_SRCDIR)/.rcc/x64
 QTOPENGL_OBJDIR_X86   = $(OBJDIR_X86)/qt-opengl
 QTOPENGL_OBJDIR_X64   = $(OBJDIR_X64)/qt-opengl
 QTOPENGL_DEFINES      = -DQT_STATIC \
@@ -3358,6 +3386,16 @@ QTOPENGL_INCLUDES     = -I$(INCDIR)/qt -I$(INCDIR)/qt/QtCore -I$(INCDIR)/qt/QtOp
                         -I$(INCDIR)/qt/QtGui -I$(INCDIR)/qt/QtWidgets
 QTOPENGL_INCLUDES_X86 = $(QTOPENGL_INCLUDES) $(QTOPENGL_INCLUDES_X86_PLAT)
 QTOPENGL_INCLUDES_X64 = $(QTOPENGL_INCLUDES) $(QTOPENGL_INCLUDES_X64_PLAT)
+QTOPENGL_MOC_H_X86    = $(MOC_X86) $(QTOPENGL_DEFINES_X86) $(QTOPENGL_INCLUDES_X86) \
+                        $(@:$(QTOPENGL_MOCDIR_X86)/%.cpp=$(INCDIR)/qt/QtOpenGL/%.h) \
+                        -o $(@:$(QTOPENGL_MOCDIR_X86)/%.cpp=$(QTOPENGL_MOCDIR_X86)/moc_$(@F))
+QTOPENGL_MOC_H_X64    = $(MOC_X64) $(QTOPENGL_DEFINES_X64) $(QTOPENGL_INCLUDES_X64) \
+                        $(@:$(QTOPENGL_MOCDIR_X64)/%.cpp=$(INCDIR)/qt/QtOpenGL/%.h) \
+                        -o $(@:$(QTOPENGL_MOCDIR_X64)/%.cpp=$(QTOPENGL_MOCDIR_X64)/moc_$(@F))
+QTOPENGL_MOCH_ALL     = qgl.cpp \
+                        qglshaderprogram.cpp \
+                        private/qgl_p.cpp \
+                        private/qglengineshadermanager_p.cpp                 
 QTOPENGL_BUILD_X86    = $(CXX_X86) $(CXXFLAGS_X86) $(QTOPENGL_DEFINES_X86) $(QTOPENGL_INCLUDES_X86) \
                         -c $(@:$(QTOPENGL_OBJDIR_X86)%.o=$(QTOPENGL_SRCDIR)%.cpp) -o $@
 QTOPENGL_BUILD_X64    = $(CXX_X64) $(CXXFLAGS_X64) $(QTOPENGL_DEFINES_X64) $(QTOPENGL_INCLUDES_X64) \
@@ -3377,12 +3415,32 @@ QTOPENGL_OBJS_ALL     = gl2paintengineex/qgl2pexvertexarray.o \
                         qglpixelbuffer.o \
                         qglshaderprogram.o \
                         qgraphicsshadereffect.o
+QTOPENGL_BUILD_MOC_X86 = $(CXX_X86) $(CXXFLAGS_X86) $(QTOPENGL_DEFINES_X86) $(QTOPENGL_INCLUDES_X86) \
+                         -c $(@:$(QTOPENGL_OBJDIR_X86)/%.omoc=$(QTOPENGL_MOCDIR_X86)/moc_%.cpp) -o $@
+QTOPENGL_BUILD_MOC_X64 = $(CXX_X64) $(CXXFLAGS_X64) $(QTOPENGL_DEFINES_X64) $(QTOPENGL_INCLUDES_X64) \
+                         -c $(@:$(QTOPENGL_OBJDIR_X64)/%.omoc=$(QTOPENGL_MOCDIR_X64)/moc_%.cpp) -o $@
+QTOPENGL_OBJS_MOC_ALL  = qgl.omoc \
+                         qgl_p.omoc \
+                         qglshaderprogram.omoc \
+                         qglengineshadermanager_p.omoc  
 
+$(QTOPENGL_MOCDIR_X86)/%.cpp:
+	$(QTOPENGL_MOC_H_X86)
+
+$(QTOPENGL_MOCDIR_X64)/%.cpp:
+	$(QTOPENGL_MOC_H_X64)
+	
 $(QTOPENGL_OBJDIR_X86)/%.o:
 	$(QTOPENGL_BUILD_X86)
 
 $(QTOPENGL_OBJDIR_X64)/%.o:
 	$(QTOPENGL_BUILD_X64)
+	
+$(QTOPENGL_OBJDIR_X86)/%.omoc:
+	$(QTOPENGL_BUILD_MOC_X86)
+
+$(QTOPENGL_OBJDIR_X64)/%.omoc:
+	$(QTOPENGL_BUILD_MOC_X64)
 ###################################################################################################################
 # QT-PLATFORM-WINDOWS
 ###################################################################################################################

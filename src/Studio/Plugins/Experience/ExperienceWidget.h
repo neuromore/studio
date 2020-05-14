@@ -38,10 +38,8 @@
 #include <QHBoxLayout>
 #include <Audio/MediaContent.h>
 
-// OpenCV
-#ifdef OPENCV_SUPPORT
-#include "../../OpenCV/OpenCVVideoPlayer.h"
-#endif
+// VideoPlayer
+#include "../../VideoPlayer.h"
 
 // for system master volume control
 #ifdef NEUROMORE_PLATFORM_WINDOWS
@@ -146,10 +144,8 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		QHBoxLayout*				mButtonLayout;
 
 		// .mp4 etc. movie
-#ifdef OPENCV_SUPPORT
 		QPixmap						mMoviePixmap;
 		OpenCVVideoPlayer*			mVideoPlayer;
-#endif
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 

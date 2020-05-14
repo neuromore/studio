@@ -102,7 +102,7 @@
 #define HAVE_D3D9
 
 /* DirectShow Video Capture library */
-#define HAVE_DSHOW
+//#define HAVE_DSHOW
 
 /* Microsoft Media Foundation Capture library */
 #define HAVE_MSMF

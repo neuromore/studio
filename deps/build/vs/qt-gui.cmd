@@ -20,6 +20,11 @@ CALL :moch qmovie
 CALL :moch qpictureformatplugin
 CALL :mocc qpixmapcache image
 
+echo MOC for 'imageformats'
+CALL :mocs qgifplugin imageformats
+CALL :mocs qicoplugin imageformats
+CALL :mocs qjpegplugin imageformats
+
 echo MOC for 'itemmodels'
 CALL :moch qstandarditemmodel
 

@@ -43,6 +43,18 @@
     <Filter Include=".rcc">
       <UniqueIdentifier>{fdc41453-cd17-4b5c-95e2-7128142a54c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imageformats">
+      <UniqueIdentifier>{1657b873-46a3-4272-b00c-df301b7f2670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imageformats\gif">
+      <UniqueIdentifier>{dcb8e134-0fc1-487e-a3ed-683852186afb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imageformats\jpeg">
+      <UniqueIdentifier>{8d2f84ac-6f66-4bb6-9187-8cf69dd3806a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imageformats\ico">
+      <UniqueIdentifier>{bc62a0f9-9118-44d0-8829-e2d1f4494515}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\qt-gui\accessible\qaccessible.cpp">
@@ -1046,6 +1058,33 @@
     </ClCompile>
     <ClCompile Include="..\..\src\qt-gui\painting\qgrayraster.c">
       <Filter>painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\imageformats\gif\qgifhandler.cpp">
+      <Filter>imageformats\gif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\imageformats\gif\qgifplugin.cpp">
+      <Filter>imageformats\gif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qgifplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\imageformats\jpeg\qjpeghandler.cpp">
+      <Filter>imageformats\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\imageformats\jpeg\qjpegplugin.cpp">
+      <Filter>imageformats\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\imageformats\ico\qicohandler.cpp">
+      <Filter>imageformats\ico</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\imageformats\ico\qicoplugin.cpp">
+      <Filter>imageformats\ico</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qicoplugin.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qjpegplugin.cpp">
+      <Filter>.moc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -41,8 +41,8 @@
    Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 
    // STATIC QT MEDIASERVICE PLUGIN
-   Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow
-   //Q_IMPORT_PLUGIN(WMFServicePlugin); // Windows Media Foundation
+   //Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow
+   Q_IMPORT_PLUGIN(WMFServicePlugin); // Windows Media Foundation
 
    // WINAPI
    #pragma comment(lib, "Version.lib")          // winapi: version
@@ -217,6 +217,11 @@
    Q_IMPORT_PLUGIN(AVFServicePlugin);
    Q_IMPORT_PLUGIN(AVFMediaPlayerServicePlugin);
 #endif
+
+// STATIC QT PLUGINS FOR ALL PLATFORMS
+Q_IMPORT_PLUGIN(QGifPlugin);
+Q_IMPORT_PLUGIN(QICOPlugin);
+Q_IMPORT_PLUGIN(QJpegPlugin);
 
 using namespace Core;
 

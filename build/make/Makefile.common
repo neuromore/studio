@@ -614,7 +614,6 @@ STUDIO_MOCH_ALL      = Devices/Bluetooth/BluetoothDevice.cpp \
                        Devices/OpenBCI/OpenBCISerialHandler.cpp \
                        Devices/Versus/VersusDriver.cpp \
                        Devices/Versus/VersusSerialHandler.cpp \
-                       OpenCV/OpenCVVideoPlayer.cpp \
                        Plugins/ABM/ABMPlugin.cpp \
                        Plugins/ABM/ABMProgressWidget.cpp \
                        Plugins/BackendFileSystem/BackendFileSystemPlugin.cpp \
@@ -711,6 +710,7 @@ STUDIO_MOCH_ALL      = Devices/Bluetooth/BluetoothDevice.cpp \
                        AppManager.cpp \
                        AuthenticationCenter.cpp \
                        MainWindow.cpp \
+                       VideoPlayer.cpp \
                        VisualizationManager.cpp
 STUDIO_MOC_C_X86     = $(MOC_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
                        $(@:$(STUDIO_MOCDIR_X86)/%.moc=$(STUDIO_SRCDIR)/%.cpp) \
@@ -758,7 +758,6 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/Versus/VersusSerialHandler.o \
                        Devices/DeviceHelpers.o \
                        Devices/DriverInventory.o \
-                       OpenCV/OpenCVVideoPlayer.o \
                        Plugins/ABM/ABMPlugin.o \
                        Plugins/ABM/ABMProgressWidget.o \
                        Plugins/BackendFileSystem/BackendFileSystemPlugin.o \
@@ -862,6 +861,7 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        DocumentationExporter.o \
                        main.o \
                        MainWindow.o \
+                       VideoPlayer.o \
                        Visualization.o \
                        VisualizationManager.o
 STUDIO_BUILD_MOC_X86 = $(CXX_X86) $(CXXFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
