@@ -210,7 +210,7 @@ LIBJPEG_OBJDIR_X64 = $(OBJDIR_X64)/libjpeg
 LIBJPEG_INCLUDES   = -I$(LIBJPEG_INCDIR)
 LIBJPEG_BUILD_X86  = $(CC_X86) $(CFLAGS_X86) $(LIBJPEG_INCLUDES) -c $(@:$(LIBJPEG_OBJDIR_X86)%.o=$(LIBJPEG_SRCDIR)%.c) -o $@
 LIBJPEG_BUILD_X64  = $(CC_X64) $(CFLAGS_X64) $(LIBJPEG_INCLUDES) -c $(@:$(LIBJPEG_OBJDIR_X64)%.o=$(LIBJPEG_SRCDIR)%.c) -o $@
-LIBJPEG_OBJS_ALL   = jaricom.o jcapimin.o jcarith.o jccoefct.o jccolor.o jcdctmgr.o jchuff.o jcinit.o jcmainct.o \
+LIBJPEG_OBJS_ALL   = jaricom.o jcapimin.o jcapistd.o jcarith.o jccoefct.o jccolor.o jcdctmgr.o jchuff.o jcinit.o jcmainct.o \
                      jcmarker.o jcmaster.o jcomapi.o jcparam.o jcprepct.o jcsample.o jctrans.o jdapimin.o jdapistd.o \
                      jdarith.o jdatadst.o jdatasrc.o jdcoefct.o jdcolor.o jddctmgr.o jdhuff.o jdinput.o jdmainct.o \
                      jdmarker.o jdmaster.o jdmerge.o jdpostct.o jdsample.o jdtrans.o jerror.o jfdctflt.o jfdctfst.o \
