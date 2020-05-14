@@ -2033,6 +2033,7 @@ QTGUI_DEFINES_X64   = $(QTGUI_DEFINES) $(QTGUI_DEFINES_X64_PLAT)
 QTGUI_INCLUDES      = -I$(INCDIR) \
                       -I$(SRCDIR) \
                       -I$(INCDIR)/libpng \
+                      -I$(INCDIR)/libjpeg \
                       -I$(INCDIR)/zlib \
                       -I$(INCDIR)/qt \
                       -I$(INCDIR)/qt/QtCore \
@@ -2119,7 +2120,9 @@ QTGUI_MOCH_ALL      = qabstracttextdocumentlayout.cpp \
                       qtouchdevice.cpp \
                       qvalidator.cpp \
                       qwindow.cpp \
-                      imageformats/qgifplugin.cpp
+                      imageformats/qgifplugin.cpp \
+                      imageformats/qicoplugin.cpp \
+                      imageformats/qjpegplugin.cpp
 QTGUI_MOC_C_X86     = $(MOC_X86) $(QTGUI_DEFINES_X86) $(QTGUI_INCLUDES_X86) \
                       $(@:$(QTGUI_MOCDIR_X86)/%.moc=$(QTGUI_SRCDIR)/%.cpp) \
                       -o $(@:$(QTGUI_MOCDIR_X86)/%.moc=$(QTGUI_MOCDIR_X86)/$(@F))
@@ -2186,6 +2189,10 @@ QTGUI_OBJS_ALL      = accessible/qaccessible.o \
                       image/qxpmhandler.o \
                       imageformats/gif/qgifhandler.o \
                       imageformats/gif/qgifplugin.o \
+                      imageformats/ico/qicohandler.o \
+                      imageformats/ico/qicoplugin.o \
+                      imageformats/jpeg/qjpeghandler.o \
+                      imageformats/jpeg/qjpegplugin.o \
                       itemmodels/qstandarditemmodel.o \
                       kernel/qclipboard.o \
                       kernel/qcursor.o \
@@ -2390,6 +2397,8 @@ QTGUI_OBJS_MOC_ALL  = qaccessible.omoc \
                       qfontdatabase.omoc \
                       qgenericplugin.omoc \
                       qgifplugin.omoc \
+                      qicoplugin.omoc \
+                      qjpegplugin.omoc \
                       qiconengineplugin.omoc \
                       qimage.omoc \
                       qimageiohandler.omoc \

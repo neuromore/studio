@@ -45,6 +45,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qiconengineplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qicoplugin.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qimage.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qimageiohandler.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qinputcontrol_p.cpp" />
@@ -56,6 +57,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qinternalmimedata_p.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qjpegplugin.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qkeymapper_p.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qkeysequence.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qmovie.cpp">
@@ -159,6 +161,10 @@
     <ClCompile Include="..\..\src\qt-gui\animation\qguivariantanimation.cpp" />
     <ClCompile Include="..\..\src\qt-gui\imageformats\gif\qgifhandler.cpp" />
     <ClCompile Include="..\..\src\qt-gui\imageformats\gif\qgifplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\ico\qicohandler.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\ico\qicoplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\jpeg\qjpeghandler.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\jpeg\qjpegplugin.cpp" />
     <ClCompile Include="..\..\src\qt-gui\image\qbitmap.cpp" />
     <ClCompile Include="..\..\src\qt-gui\image\qbmphandler.cpp" />
     <ClCompile Include="..\..\src\qt-gui\image\qicon.cpp" />
@@ -831,7 +837,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\libjpeg;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -873,7 +879,7 @@ qt-gui.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\libjpeg;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -916,7 +922,7 @@ qt-gui.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\libjpeg;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -967,7 +973,7 @@ qt-gui.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\libjpeg;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
