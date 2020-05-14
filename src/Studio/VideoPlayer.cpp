@@ -78,12 +78,12 @@ bool OpenCVVideoPlayer::Clear()
    return true;
 }
 
-void OpenCVVideoPlayer::Play(int numPlayCount)
+void OpenCVVideoPlayer::Play(int numLoops)
 {
    mIsPlaying = true;
    mIsPaused = false;
    mCurrentPlayCount = 0;
-   mNumPlayCount = numPlayCount;
+   mNumPlayCount = numLoops;
    mPlayer.setVolume(100);
    mPlayer.play();
 }
