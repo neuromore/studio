@@ -7,7 +7,7 @@ TARGET_X86 = i686-pc-windows-msvc
 TARGET_X64 = x86_64-pc-windows-msvc
 
 # flags shared between all
-FLAGS = -O2 \
+FLAGS = -O3 \
         -D_CRT_SECURE_NO_WARNINGS \
         -D_CRT_NONSTDC_NO_DEPRECATE \
         -D_WINSOCK_DEPRECATED_NO_WARNINGS \
@@ -20,14 +20,20 @@ ARCHFLAGS_X86 = -msse -msse2
 ARCHFLAGS_X64 = -msse -msse2
 
 # C Compiler
-CC           = clang-cl
+CC_X86       = clang-cl
+CC_X64       = clang-cl
 CFLAGS_X86   = -MT -TC -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CFLAGS_X64   = -MT -TC -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX          = clang++
+CXX_X86      = clang++
+CXX_X64      = clang++
 CXXFLAGS_X86 = -MT -TP -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 CXXFLAGS_X64 = -MT -TP -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+
+# JAVA JDK
+JAR   = "$(JAVA_HOME)/bin/jar.exe"
+JAVAC = "$(JAVA_HOME)/bin/javac.exe"
 
 # File Operations
 define deletefilepattern
@@ -35,20 +41,24 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-ENGINE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86
-ENGINE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86
-QTBASE_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
-QTBASE_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
-STUDIO_DEFINES_X86_PLAT = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86 -DUSE_WINTHREAD -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
-STUDIO_DEFINES_X64_PLAT = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86 -DUSE_WINTHREAD -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
+ENGINE_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86
+ENGINE_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86
+ENGINEJNI_DEFINES_X86_PLAT = -DWIN32 -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86
+ENGINEJNI_DEFINES_X64_PLAT = -DWIN32 -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86
+QTBASE_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
+QTBASE_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
+STUDIO_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86 -DUSE_WINTHREAD -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
+STUDIO_DEFINES_X64_PLAT    = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86 -DUSE_WINTHREAD -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
 
 # Platform Specific additional includes
-ENGINE_INCLUDES_X86_PLAT =
-ENGINE_INCLUDES_X64_PLAT =
-QTBASE_INCLUDES_X86_PLAT =
-QTBASE_INCLUDES_X64_PLAT =
-STUDIO_INCLUDES_X86_PLAT =
-STUDIO_INCLUDES_X64_PLAT =
+ENGINE_INCLUDES_X86_PLAT    =
+ENGINE_INCLUDES_X64_PLAT    =
+ENGINEJNI_INCLUDES_X86_PLAT = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/win32"
+ENGINEJNI_INCLUDES_X64_PLAT = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/win32"
+QTBASE_INCLUDES_X86_PLAT    =
+QTBASE_INCLUDES_X64_PLAT    =
+STUDIO_INCLUDES_X86_PLAT    =
+STUDIO_INCLUDES_X64_PLAT    =
 
 #####################################################################################
 # Qt MOC+RCC+UIC
@@ -85,23 +95,27 @@ endif
 include Makefile.common
 
 # LIB Tool
-LIB          = llvm-lib
+LIB_X86      = llvm-lib
+LIB_X64      = llvm-lib
 LIBFLAGS_X86 = /NOLOGO /MACHINE:X86 /LIBPATH:$(LIBDIR_X86)
 LIBFLAGS_X64 = /NOLOGO /MACHINE:X64 /LIBPATH:$(LIBDIR_X64)
 
 # LIB Functions
 define createlib32
-	$(LIB) $(LIBFLAGS_X86) /OUT:"$(LIBDIR_X86)\$(1).lib" $(2)
+	$(LIB_X86) $(LIBFLAGS_X86) /OUT:"$(LIBDIR_X86)\$(1).lib" $(2)
 endef
 define createlib64
-	$(LIB) $(LIBFLAGS_X64) /OUT:"$(LIBDIR_X64)\$(1).lib" $(2)
+	$(LIB_X64) $(LIBFLAGS_X64) /OUT:"$(LIBDIR_X64)\$(1).lib" $(2)
 endef
 
 #####################################################################################
 # Linker
-LINK          = lld-link
-LINKFLAGS_X86 = -machine:x86 -subsystem:console
-LINKFLAGS_X64 = -machine:x64 -subsystem:console
+LINK_X86         = lld-link
+LINK_X64         = lld-link
+LINKFLAGS_X86    = -machine:x86 -subsystem:console
+LINKFLAGS_X64    = -machine:x64 -subsystem:console
+LINKFLAGSDYN_X86 = -DLL
+LINKFLAGSDYN_X64 = -DLL
 
 # Visual Studio and Windows SDK Folders
 DIRVCTOOLS := $(subst \,/,$(VCToolsInstallDir))
@@ -131,12 +145,20 @@ LINKLIBS_ALL = libucrt.lib libvcruntime.lib libcmt.lib libcpmt.lib \
 LINKLIBS_X86 = $(LINKLIBS_ALL)
 LINKLIBS_X64 = $(LINKLIBS_ALL)
 
-# Linker Functions
+# Linker Functions for Executable
 define createbin32
-	$(LINK) $(2) -out:$(BINDIR_X86)/$(1).exe $(LINKFLAGS_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
+	$(LINK_X86) $(2) -out:$(BINDIR_X86)/$(1).exe $(LINKFLAGS_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
 endef
 define createbin64
-	$(LINK) $(2) -out:$(BINDIR_X64)/$(1).exe $(LINKFLAGS_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
+	$(LINK_X64) $(2) -out:$(BINDIR_X64)/$(1).exe $(LINKFLAGS_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
+endef
+
+# Linker Functions for Shared Library
+define createshared32
+	$(LINK_X86) $(2) -out:$(LIBDIR_X86)/$(1).dll $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
+endef
+define createshared64
+	$(LINK_X64) $(2) -out:$(LIBDIR_X64)/$(1).dll $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
 endef
 
 #####################################################################################
@@ -151,6 +173,19 @@ MRCFLAGS_X64 = /D \"WIN32\" /l 0x0409 /nologo
 #####################################################################################
 
 ENGINE_OBJS     = $(ENGINE_OBJS_ALL)
+
+ENGINEJNI_OBJS     = $(ENGINEJNI_OBJS_ALL)
+ENGINEJNI_JOBJS    = $(ENGINEJNI_JOBJS_ALL)
+ENGINEJNI_LIBS_X86 = $(LIBDIR_X86)/Engine.lib \
+                     $(DEPSLIBDIR_X86)/edflib.lib \
+                     $(DEPSLIBDIR_X86)/oscpack.lib \
+                     $(DEPSLIBDIR_X86)/kissfft.lib \
+                     $(DEPSLIBDIR_X86)/zlib.lib
+ENGINEJNI_LIBS_X64 = $(LIBDIR_X64)/Engine.lib \
+                     $(DEPSLIBDIR_X64)/edflib.lib \
+                     $(DEPSLIBDIR_X64)/oscpack.lib \
+                     $(DEPSLIBDIR_X64)/kissfft.lib \
+                     $(DEPSLIBDIR_X64)/zlib.lib
 
 QTBASE_MOCH     = $(QTBASE_MOCH_ALL)
 QTBASE_MOCC     = $(QTBASE_MOCC_ALL)
@@ -174,3 +209,11 @@ STUDIO_RES      = $(STUDIO_RES_ALL) \
 # Include Targets
 
 include Makefile.targets
+
+all-x86: all-common-x86 \
+         Studio-x86
+
+all-x64: all-common-x64 \
+         Studio-x64
+
+all: all-x86 all-x64

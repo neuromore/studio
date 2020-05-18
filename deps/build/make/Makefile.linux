@@ -7,7 +7,10 @@ TARGET_X86 = i686-linux-gnu
 TARGET_X64 = x86_64-linux-gnu
 
 # flags shared between all
-FLAGS = -O2 -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
+FLAGS = -O2 \
+        -fpic \
+        -static \
+        -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
         -Wno-deprecated-declarations \
         -Wno-incompatible-pointer-types \
         -Wno-implicit-function-declaration \
@@ -19,12 +22,14 @@ ARCHFLAGS_X86 = -msse -msse2
 ARCHFLAGS_X64 = -msse -msse2
 
 # C Compiler
-CC           = clang
+CC_X86       = clang
+CC_X64       = clang
 CFLAGS_X86   = -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
 CFLAGS_X64   = -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
-CXX            = clang++
+CXX_X86        = clang++
+CXX_X64        = clang++
 CXXFLAGS_ALL   = -Xclang -flto-visibility-public-std $(FLAGS)
 CXXFLAGS_A_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) $(CXXFLAGS_ALL)
 CXXFLAGS_A_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) $(CXXFLAGS_ALL)
@@ -39,10 +44,10 @@ define deletefilepattern
 endef
 
 # Platform Specific additional defines
-LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBSSL_DEFINES_X86_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
-LIBSSL_DEFINES_X64_PLAT             = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X86_PLAT          = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBCRYPTO_DEFINES_X64_PLAT          = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X86_PLAT             = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
+LIBSSL_DEFINES_X64_PLAT             = -DOPENSSL_IA32_SSE2 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\" 
 FONTCONFIG_DEFINES_X86_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 FONTCONFIG_DEFINES_X64_PLAT         = -DFONTCONFIG_PATH=\"/etc/fonts\" -DFC_CACHEDIR=\"~/.cache/fontconfig\" -DFC_TEMPLATEDIR=\"/usr/share/fontconfig/conf.avail\"
 OPENCVCORE_DEFINES_X86_PLAT         =
@@ -53,52 +58,54 @@ OPENCVIMGPROC_DEFINES_X86_PLAT      =
 OPENCVIMGPROC_DEFINES_X64_PLAT      =
 OPENCVVIDEOIO_DEFINES_X86_PLAT      =
 OPENCVVIDEOIO_DEFINES_X64_PLAT      =
-QTBOOTSTRAP_DEFINES_X86_PLAT        =
-QTBOOTSTRAP_DEFINES_X64_PLAT        =
-QTMOC_DEFINES_X86_PLAT              =
-QTMOC_DEFINES_X64_PLAT              =
-QTRCC_DEFINES_X86_PLAT              =
-QTRCC_DEFINES_X64_PLAT              =
-QTUIC_DEFINES_X86_PLAT              =
-QTUIC_DEFINES_X64_PLAT              =
-QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
-QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
-QTCONCURRENT_DEFINES_X86_PLAT       =
-QTCONCURRENT_DEFINES_X64_PLAT       =
-QTCORE_DEFINES_X86_PLAT             = -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
-QTCORE_DEFINES_X64_PLAT             = -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
-QTDBUS_DEFINES_X86_PLAT             = -DQT_FEATURE_dbus=1
-QTDBUS_DEFINES_X64_PLAT             = -DQT_FEATURE_dbus=1
-QTEVENTDISPATCHERS_DEFINES_X86_PLAT =
-QTEVENTDISPATCHERS_DEFINES_X64_PLAT =
-QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_FEATURE_fontconfig=1
-QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_FEATURE_fontconfig=1
-QTGAMEPAD_DEFINES_X86_PLAT          =
-QTGAMEPAD_DEFINES_X64_PLAT          =
-QTGUI_DEFINES_X86_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
-QTGUI_DEFINES_X64_PLAT              = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
-QTMULTIMEDIA_DEFINES_X86_PLAT       =
-QTMULTIMEDIA_DEFINES_X64_PLAT       =
-QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT=
-QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT=
-QTNETWORK_DEFINES_X86_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
-QTNETWORK_DEFINES_X64_PLAT          = -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
-QTOPENGL_DEFINES_X86_PLAT           =
-QTOPENGL_DEFINES_X64_PLAT           =
+QTBOOTSTRAP_DEFINES_X86_PLAT        = -DQT_LARGEFILE_SUPPORT=64
+QTBOOTSTRAP_DEFINES_X64_PLAT        = -DQT_LARGEFILE_SUPPORT=64
+QTMOC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTMOC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTRCC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTRCC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTUIC_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTUIC_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTBLUETOOTH_DEFINES_X86_PLAT        = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
+QTBLUETOOTH_DEFINES_X64_PLAT        = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_bluez=1 -DQT_FEATURE_dbus=1
+QTCONCURRENT_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTCONCURRENT_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTCORE_DEFINES_X86_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
+QTCORE_DEFINES_X64_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_UNIX_SEMAPHORE -DQT_FEATURE_dbus=1
+QTDBUS_DEFINES_X86_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_dbus=1
+QTDBUS_DEFINES_X64_PLAT             = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_dbus=1
+QTEVENTDISPATCHERS_DEFINES_X86_PLAT = -DQT_LARGEFILE_SUPPORT=64
+QTEVENTDISPATCHERS_DEFINES_X64_PLAT = -DQT_LARGEFILE_SUPPORT=64
+QTFONTDATABASES_DEFINES_X86_PLAT    = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_fontconfig=1
+QTFONTDATABASES_DEFINES_X64_PLAT    = -DQT_LARGEFILE_SUPPORT=64 -DQT_FEATURE_fontconfig=1
+QTGAMEPAD_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTGAMEPAD_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTGUI_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTGUI_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTMULTIMEDIA_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIA_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAPLUGINS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64 -DGST_USE_UNSTABLE_API
+QTMULTIMEDIAPLUGINS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64 -DGST_USE_UNSTABLE_API
+QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTNETWORK_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
+QTNETWORK_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
+QTOPENGL_DEFINES_X86_PLAT           = -DQT_LARGEFILE_SUPPORT=64
+QTOPENGL_DEFINES_X64_PLAT           = -DQT_LARGEFILE_SUPPORT=64
 QTPLATFORMWINDOWS_DEFINES_X86_PLAT  =
 QTPLATFORMWINDOWS_DEFINES_X64_PLAT  =
-QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
-QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
-QTPLATFORMCOCOA_DEFINES_X86_PLAT    =
-QTPLATFORMCOCOA_DEFINES_X64_PLAT    =
-QTPRINTSUPPORT_DEFINES_X86_PLAT     =
-QTPRINTSUPPORT_DEFINES_X64_PLAT     =
-QTSERIALPORT_DEFINES_X86_PLAT       =
-QTSERIALPORT_DEFINES_X64_PLAT       =
-QTWIDGETS_DEFINES_X86_PLAT          =
-QTWIDGETS_DEFINES_X64_PLAT          =
-QTXML_DEFINES_X86_PLAT              =
-QTXML_DEFINES_X64_PLAT              =
+QTPLATFORMXCB_DEFINES_X86_PLAT      = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTPLATFORMXCB_DEFINES_X64_PLAT      = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" -DQT_FEATURE_fontconfig=1 -DQT_FEATURE_dbus=1
+QTPLATFORMCOCOA_DEFINES_X86_PLAT    = -DQT_LARGEFILE_SUPPORT=64
+QTPLATFORMCOCOA_DEFINES_X64_PLAT    = -DQT_LARGEFILE_SUPPORT=64
+QTPRINTSUPPORT_DEFINES_X86_PLAT     = -DQT_LARGEFILE_SUPPORT=64
+QTPRINTSUPPORT_DEFINES_X64_PLAT     = -DQT_LARGEFILE_SUPPORT=64
+QTSERIALPORT_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTSERIALPORT_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTWIDGETS_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTWIDGETS_DEFINES_X64_PLAT          = -DQT_LARGEFILE_SUPPORT=64
+QTXML_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64
+QTXML_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64
 SINGLEAPPLICATION_DEFINES_X86_PLAT  =
 SINGLEAPPLICATION_DEFINES_X64_PLAT  =
 
@@ -109,8 +116,12 @@ OPENCVIMGCODECS_INCLUDES_X86_PLAT    =
 OPENCVIMGCODECS_INCLUDES_X64_PLAT    =
 OPENCVIMGPROC_INCLUDES_X86_PLAT      =
 OPENCVIMGPROC_INCLUDES_X64_PLAT      =
-OPENCVVIDEOIO_INCLUDES_X86_PLAT      =
-OPENCVVIDEOIO_INCLUDES_X64_PLAT      =
+OPENCVVIDEOIO_INCLUDES_X86_PLAT      = -I /usr/include/gstreamer-1.0 \
+                                       -I /usr/include/glib-2.0 \
+                                       -I /usr/lib/i386-linux-gnu/glib-2.0/include
+OPENCVVIDEOIO_INCLUDES_X64_PLAT      = -I /usr/include/gstreamer-1.0 \
+                                       -I /usr/include/glib-2.0 \
+                                       -I /usr/lib/x86_64-linux-gnu/glib-2.0/include
 QTBOOTSTRAP_INCLUDES_X86_PLAT        = -I../../include/qt/mkspecs/linux-clang
 QTBOOTSTRAP_INCLUDES_X64_PLAT        = -I../../include/qt/mkspecs/linux-clang
 QTMOC_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
@@ -135,8 +146,20 @@ QTGAMEPAD_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/linux-clang
 QTGAMEPAD_INCLUDES_X64_PLAT          = -I../../include/qt/mkspecs/linux-clang
 QTGUI_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/linux-clang
 QTGUI_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIA_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/linux-clang
-QTMULTIMEDIA_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/linux-clang
+QTMULTIMEDIA_INCLUDES_ALL_PLAT       = -I../../include/qt/mkspecs/linux-clang \
+                                       -I /usr/include/gstreamer-1.0 \
+                                       -I /usr/include/glib-2.0 
+QTMULTIMEDIA_INCLUDES_X86_PLAT       = $(QTMULTIMEDIA_INCLUDES_ALL_PLAT) \
+                                       -I /usr/lib/i386-linux-gnu/glib-2.0/include
+QTMULTIMEDIA_INCLUDES_X64_PLAT       = $(QTMULTIMEDIA_INCLUDES_ALL_PLAT) \
+                                       -I /usr/lib/x86_64-linux-gnu/glib-2.0/include
+QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT= -I../../include/qt/mkspecs/linux-clang \
+                                       -I /usr/include/gstreamer-1.0 \
+                                       -I /usr/include/glib-2.0 
+QTMULTIMEDIAPLUGINS_INCLUDES_X86_PLAT= $(QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT) \
+                                       -I /usr/lib/i386-linux-gnu/glib-2.0/include
+QTMULTIMEDIAPLUGINS_INCLUDES_X64_PLAT= $(QTMULTIMEDIAPLUGINS_INCLUDES_ALL_PLAT) \
+                                       -I /usr/lib/x86_64-linux-gnu/glib-2.0/include
 QTMULTIMEDIAWIDGETS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/linux-clang
 QTMULTIMEDIAWIDGETS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/linux-clang
 QTNETWORK_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/linux-clang
@@ -213,7 +236,8 @@ endef
 
 #####################################################################################
 # Linker
-LINK          = $(CXX)
+LINK_X86      = $(CXX_X86)
+LINK_X64      = $(CXX_X64)
 LINKFLAGS_X86 = $(CXXFLAGS_X86)
 LINKFLAGS_X64 = $(CXXFLAGS_X64)
 
@@ -230,10 +254,10 @@ LINKLIBS_X64 = $(LINKLIBS_ALL)
 
 # Linker Functions
 define createbin32
-	$(LINK) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(BINDIR_X86)/$(1) 
 endef
 define createbin64
-	$(LINK) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)  
 endef
 
 #####################################################################################
@@ -265,6 +289,9 @@ OPENCVCORE_OBJS      = $(OPENCVCORE_OBJS_ALL)
 OPENCVIMGCODECS_OBJS = $(OPENCVIMGCODECS_OBJS_ALL)
 OPENCVIMGPROC_OBJS   = $(OPENCVIMGPROC_OBJS_ALL)
 OPENCVVIDEOIO_OBJS   = $(OPENCVVIDEOIO_OBJS_ALL) \
+                       cap_gphoto2.o \
+                       cap_gstreamer.o \
+                       cap_libv4l.o \
                        cap_v4l.o
 OSCPACK_OBJS         = $(OSCPACK_OBJS_ALL)
 TINYAES_OBJS         = $(TINYAES_OBJS_ALL)
@@ -533,17 +560,239 @@ QTGUI_MOCH                  = $(QTGUI_MOCH_ALL)
 QTGUI_MOCC                  = $(QTGUI_MOCC_ALL)
 QTGUI_UICH                  = $(QTGUI_UICH_ALL)
 QTGUI_RCCH                  = $(QTGUI_RCCH_ALL)
-QTGUI_OBJS                  = $(QTGUI_OBJS_ALL)
+QTGUI_OBJS                  = $(QTGUI_OBJS_ALL) \
+                              opengl/qopenglfunctions_1_0.o \
+                              opengl/qopenglfunctions_1_1.o \
+                              opengl/qopenglfunctions_1_2.o \
+                              opengl/qopenglfunctions_1_3.o \
+                              opengl/qopenglfunctions_1_4.o \
+                              opengl/qopenglfunctions_1_5.o \
+                              opengl/qopenglfunctions_2_0.o \
+                              opengl/qopenglfunctions_2_1.o \
+                              opengl/qopenglfunctions_3_0.o \
+                              opengl/qopenglfunctions_3_1.o \
+                              opengl/qopenglfunctions_3_2_compatibility.o \
+                              opengl/qopenglfunctions_3_2_core.o \
+                              opengl/qopenglfunctions_3_3_compatibility.o \
+                              opengl/qopenglfunctions_3_3_core.o \
+                              opengl/qopenglfunctions_4_0_compatibility.o \
+                              opengl/qopenglfunctions_4_0_core.o \
+                              opengl/qopenglfunctions_4_1_compatibility.o \
+                              opengl/qopenglfunctions_4_1_core.o \
+                              opengl/qopenglfunctions_4_2_compatibility.o \
+                              opengl/qopenglfunctions_4_2_core.o \
+                              opengl/qopenglfunctions_4_3_compatibility.o \
+                              opengl/qopenglfunctions_4_3_core.o \
+                              opengl/qopenglfunctions_4_4_compatibility.o \
+                              opengl/qopenglfunctions_4_4_core.o \
+                              opengl/qopenglfunctions_4_5_compatibility.o \
+                              opengl/qopenglfunctions_4_5_core.o
 QTGUI_OBJS_C                = $(QTGUI_OBJS_C_ALL)
 QTGUI_OBJS_MOC              = $(QTGUI_OBJS_MOC_ALL)
 QTGUI_OBJS_RCC              = $(QTGUI_OBJS_RCC_ALL)
-QTMULTIMEDIA_MOCH           = $(QTMULTIMEDIA_MOCH_ALL)
-QTMULTIMEDIA_MOCC           = $(QTMULTIMEDIA_MOCC_ALL)
+QTMULTIMEDIA_MOCH           = $(QTMULTIMEDIA_MOCH_ALL) \
+                              private/qgstappsrc_p.cpp \
+                              private/qgstreameraudioinputselector_p.cpp \
+                              private/qgstreameraudioprobecontrol_p.cpp \
+                              private/qgstreamerbushelper_p.cpp \
+                              private/qgstreamermirtexturerenderer_p.cpp \
+                              private/qgstreamerplayercontrol_p.cpp \
+                              private/qgstreamerplayersession_p.cpp \
+                              private/qgstreamervideoinputdevicecontrol_p.cpp \
+                              private/qgstreamervideooverlay_p.cpp \
+                              private/qgstreamervideoprobecontrol_p.cpp \
+                              private/qgstreamervideorenderer_p.cpp \
+                              private/qgstreamervideowidget_p.cpp \
+                              private/qgstreamervideowindow_p.cpp \
+                              private/qgstvideorendererplugin_p.cpp \
+                              private/qgstvideorenderersink_p.cpp \
+                              private/qgstbufferpoolinterface_p.cpp \
+                              private/qgstvideorendererplugin_p.cpp
+QTMULTIMEDIA_MOCC           = $(QTMULTIMEDIA_MOCC_ALL) \
+                              gsttools/qgstreamerbushelper.moc
 QTMULTIMEDIA_UICH           = $(QTMULTIMEDIA_UICH_ALL)
 QTMULTIMEDIA_RCCH           = $(QTMULTIMEDIA_RCCH_ALL)
-QTMULTIMEDIA_OBJS           = $(QTMULTIMEDIA_OBJS_ALL)
-QTMULTIMEDIA_OBJS_MOC       = $(QTMULTIMEDIA_OBJS_MOC_ALL)
+QTMULTIMEDIA_OBJS           = $(QTMULTIMEDIA_OBJS_ALL) \
+                              gsttools/qgstappsrc.o \
+                              gsttools/qgstbufferpoolinterface.o \
+                              gsttools/qgstcodecsinfo.o \
+                              gsttools/qgstreameraudioinputselector.o \
+                              gsttools/qgstreameraudioprobecontrol.o \
+                              gsttools/qgstreamerbufferprobe.o \
+                              gsttools/qgstreamerbushelper.o \
+                              gsttools/qgstreamermessage.o \
+                              gsttools/qgstreamerplayercontrol.o \
+                              gsttools/qgstreamerplayersession.o \
+                              gsttools/qgstreamervideoinputdevicecontrol.o \
+                              gsttools/qgstreamervideooverlay.o \
+                              gsttools/qgstreamervideoprobecontrol.o \
+                              gsttools/qgstreamervideorenderer.o \
+                              gsttools/qgstreamervideorendererinterface.o \
+                              gsttools/qgstreamervideowidget.o \
+                              gsttools/qgstreamervideowindow.o \
+                              gsttools/qgstutils.o \
+                              gsttools/qgstvideobuffer.o \
+                              gsttools/qgstvideorendererplugin.o \
+                              gsttools/qgstvideorenderersink.o
+QTMULTIMEDIA_OBJS_MOC       = $(QTMULTIMEDIA_OBJS_MOC_ALL) \
+                              qgstappsrc_p.omoc \
+                              qgstreameraudioinputselector_p.omoc \
+                              qgstreameraudioprobecontrol_p.omoc \
+                              qgstreamerbushelper_p.omoc \
+                              qgstreamermirtexturerenderer_p.omoc \
+                              qgstreamerplayercontrol_p.omoc \
+                              qgstreamerplayersession_p.omoc \
+                              qgstreamervideoinputdevicecontrol_p.omoc \
+                              qgstreamervideooverlay_p.omoc \
+                              qgstreamervideoprobecontrol_p.omoc \
+                              qgstreamervideorenderer_p.omoc \
+                              qgstreamervideowidget_p.omoc \
+                              qgstreamervideowindow_p.omoc \
+                              qgstvideorendererplugin_p.omoc \
+                              qgstvideorenderersink_p.omoc
 QTMULTIMEDIA_OBJS_RCC       = $(QTMULTIMEDIA_OBJS_RCC_ALL)
+QTMULTIMEDIAPLUGINS_MOCH    = $(QTMULTIMEDIAPLUGINS_MOCH_ALL) \
+                              gstreamer/audiodecoder/qgstreameraudiodecodercontrol.cpp \
+                              gstreamer/audiodecoder/qgstreameraudiodecoderservice.cpp \
+                              gstreamer/audiodecoder/qgstreameraudiodecoderserviceplugin.cpp \
+                              gstreamer/audiodecoder/qgstreameraudiodecodersession.cpp \
+                              gstreamer/camerabin/camerabinaudioencoder.cpp \
+                              gstreamer/camerabin/camerabincapturebufferformat.cpp \
+                              gstreamer/camerabin/camerabincapturedestination.cpp \
+                              gstreamer/camerabin/camerabincontainer.cpp \
+                              gstreamer/camerabin/camerabincontrol.cpp \
+                              gstreamer/camerabin/camerabinexposure.cpp \
+                              gstreamer/camerabin/camerabinflash.cpp \
+                              gstreamer/camerabin/camerabinfocus.cpp \
+                              gstreamer/camerabin/camerabinimagecapture.cpp \
+                              gstreamer/camerabin/camerabinimageencoder.cpp \
+                              gstreamer/camerabin/camerabinimageprocessing.cpp \
+                              gstreamer/camerabin/camerabininfocontrol.cpp \
+                              gstreamer/camerabin/camerabinlocks.cpp \
+                              gstreamer/camerabin/camerabinmetadata.cpp \
+                              gstreamer/camerabin/camerabinrecorder.cpp \
+                              gstreamer/camerabin/camerabinresourcepolicy.cpp \
+                              gstreamer/camerabin/camerabinservice.cpp \
+                              gstreamer/camerabin/camerabinserviceplugin.cpp \
+                              gstreamer/camerabin/camerabinsession.cpp \
+                              gstreamer/camerabin/camerabinv4limageprocessing.cpp \
+                              gstreamer/camerabin/camerabinvideoencoder.cpp \
+                              gstreamer/camerabin/camerabinviewfindersettings.cpp \
+                              gstreamer/camerabin/camerabinviewfindersettings2.cpp \
+                              gstreamer/camerabin/camerabinzoom.cpp \
+                              gstreamer/mediacapture/qgstreameraudioencode.cpp \
+                              gstreamer/mediacapture/qgstreamercameracontrol.cpp \
+                              gstreamer/mediacapture/qgstreamercapturemetadatacontrol.cpp \
+                              gstreamer/mediacapture/qgstreamercaptureservice.cpp \
+                              gstreamer/mediacapture/qgstreamercaptureserviceplugin.cpp \
+                              gstreamer/mediacapture/qgstreamercapturesession.cpp \
+                              gstreamer/mediacapture/qgstreamerimagecapturecontrol.cpp \
+                              gstreamer/mediacapture/qgstreamerimageencode.cpp \
+                              gstreamer/mediacapture/qgstreamermediacontainercontrol.cpp \
+                              gstreamer/mediacapture/qgstreamerrecordercontrol.cpp \
+                              gstreamer/mediacapture/qgstreamerv4l2input.cpp \
+                              gstreamer/mediacapture/qgstreamervideoencode.cpp \
+                              gstreamer/mediaplayer/qgstreameravailabilitycontrol.cpp \
+                              gstreamer/mediaplayer/qgstreamermetadataprovider.cpp \
+                              gstreamer/mediaplayer/qgstreamerplayerservice.cpp \
+                              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.cpp \
+                              gstreamer/mediaplayer/qgstreamerstreamscontrol.cpp
+QTMULTIMEDIAPLUGINS_MOCC    = $(QTMULTIMEDIAPLUGINS_MOCC_ALL) 
+QTMULTIMEDIAPLUGINS_UICH    = $(QTMULTIMEDIAPLUGINS_UICH_ALL)
+QTMULTIMEDIAPLUGINS_RCCH    = $(QTMULTIMEDIAPLUGINS_RCCH_ALL)
+QTMULTIMEDIAPLUGINS_OBJS    = $(QTMULTIMEDIAPLUGINS_OBJS_ALL) \
+                              gstreamer/audiodecoder/qgstreameraudiodecodercontrol.o \
+                              gstreamer/audiodecoder/qgstreameraudiodecoderservice.o \
+                              gstreamer/audiodecoder/qgstreameraudiodecoderserviceplugin.o \
+                              gstreamer/audiodecoder/qgstreameraudiodecodersession.o \
+                              gstreamer/camerabin/camerabinaudioencoder.o \
+                              gstreamer/camerabin/camerabincapturebufferformat.o \
+                              gstreamer/camerabin/camerabincapturedestination.o \
+                              gstreamer/camerabin/camerabincontainer.o \
+                              gstreamer/camerabin/camerabincontrol.o \
+                              gstreamer/camerabin/camerabinexposure.o \
+                              gstreamer/camerabin/camerabinflash.o \
+                              gstreamer/camerabin/camerabinfocus.o \
+                              gstreamer/camerabin/camerabinimagecapture.o \
+                              gstreamer/camerabin/camerabinimageencoder.o \
+                              gstreamer/camerabin/camerabinimageprocessing.o \
+                              gstreamer/camerabin/camerabininfocontrol.o \
+                              gstreamer/camerabin/camerabinlocks.o \
+                              gstreamer/camerabin/camerabinmetadata.o \
+                              gstreamer/camerabin/camerabinrecorder.o \
+                              gstreamer/camerabin/camerabinresourcepolicy.o \
+                              gstreamer/camerabin/camerabinservice.o \
+                              gstreamer/camerabin/camerabinserviceplugin.o \
+                              gstreamer/camerabin/camerabinsession.o \
+                              gstreamer/camerabin/camerabinv4limageprocessing.o \
+                              gstreamer/camerabin/camerabinvideoencoder.o \
+                              gstreamer/camerabin/camerabinviewfindersettings.o \
+                              gstreamer/camerabin/camerabinviewfindersettings2.o \
+                              gstreamer/camerabin/camerabinzoom.o \
+                              gstreamer/mediacapture/qgstreameraudioencode.o \
+                              gstreamer/mediacapture/qgstreamercameracontrol.o \
+                              gstreamer/mediacapture/qgstreamercapturemetadatacontrol.o \
+                              gstreamer/mediacapture/qgstreamercaptureservice.o \
+                              gstreamer/mediacapture/qgstreamercaptureserviceplugin.o \
+                              gstreamer/mediacapture/qgstreamercapturesession.o \
+                              gstreamer/mediacapture/qgstreamerimagecapturecontrol.o \
+                              gstreamer/mediacapture/qgstreamerimageencode.o \
+                              gstreamer/mediacapture/qgstreamermediacontainercontrol.o \
+                              gstreamer/mediacapture/qgstreamerrecordercontrol.o \
+                              gstreamer/mediacapture/qgstreamerv4l2input.o \
+                              gstreamer/mediacapture/qgstreamervideoencode.o \
+                              gstreamer/mediaplayer/qgstreameravailabilitycontrol.o \
+                              gstreamer/mediaplayer/qgstreamermetadataprovider.o \
+                              gstreamer/mediaplayer/qgstreamerplayerservice.o \
+                              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.o \
+                              gstreamer/mediaplayer/qgstreamerstreamscontrol.o
+QTMULTIMEDIAPLUGINS_OBJS_MOC= $(QTMULTIMEDIAPLUGINS_OBJS_MOC_ALL) \
+                              qgstreameraudiodecodercontrol.omoc \
+                              qgstreameraudiodecoderservice.omoc \
+                              qgstreameraudiodecoderserviceplugin.omoc \
+                              qgstreameraudiodecodersession.omoc \
+                              camerabinaudioencoder.omoc \
+                              camerabincapturebufferformat.omoc \
+                              camerabincapturedestination.omoc \
+                              camerabincontainer.omoc \
+                              camerabincontrol.omoc \
+                              camerabinexposure.omoc \
+                              camerabinflash.omoc \
+                              camerabinfocus.omoc \
+                              camerabinimagecapture.omoc \
+                              camerabinimageencoder.omoc \
+                              camerabinimageprocessing.omoc \
+                              camerabininfocontrol.omoc \
+                              camerabinlocks.omoc \
+                              camerabinmetadata.omoc \
+                              camerabinrecorder.omoc \
+                              camerabinresourcepolicy.omoc \
+                              camerabinservice.omoc \
+                              camerabinserviceplugin.omoc \
+                              camerabinsession.omoc \
+                              camerabinv4limageprocessing.omoc \
+                              camerabinvideoencoder.omoc \
+                              camerabinviewfindersettings.omoc \
+                              camerabinviewfindersettings2.omoc \
+                              camerabinzoom.omoc \
+                              qgstreameraudioencode.omoc \
+                              qgstreamercameracontrol.omoc \
+                              qgstreamercapturemetadatacontrol.omoc \
+                              qgstreamercaptureservice.omoc \
+                              qgstreamercaptureserviceplugin.omoc \
+                              qgstreamercapturesession.omoc \
+                              qgstreamerimagecapturecontrol.omoc \
+                              qgstreamerimageencode.omoc \
+                              qgstreamermediacontainercontrol.omoc \
+                              qgstreamerrecordercontrol.omoc \
+                              qgstreamerv4l2input.omoc \
+                              qgstreamervideoencode.omoc \
+                              qgstreameravailabilitycontrol.omoc \
+                              qgstreamermetadataprovider.omoc \
+                              qgstreamerplayerservice.omoc \
+                              qgstreamerplayerserviceplugin.omoc \
+                              qgstreamerstreamscontrol.omoc
+QTMULTIMEDIAPLUGINS_OBJS_RCC= $(QTMULTIMEDIAPLUGINS_OBJS_RCC_ALL)
 QTMULTIMEDIAWIDGETS_MOCH    = $(QTMULTIMEDIAWIDGETS_MOCH_ALL) 
 QTMULTIMEDIAWIDGETS_MOCC    = $(QTMULTIMEDIAWIDGETS_MOCC_ALL) 
 QTMULTIMEDIAWIDGETS_UICH    = $(QTMULTIMEDIAWIDGETS_UICH_ALL)
@@ -565,7 +814,13 @@ QTNETWORK_OBJS              = $(QTNETWORK_OBJS_ALL) \
                               socket/qnativesocketengine_unix.o
 QTNETWORK_OBJS_MOC          = $(QTNETWORK_OBJS_MOC_ALL)
 QTNETWORK_OBJS_RCC          = $(QTNETWORK_OBJS_RCC_ALL)
+QTOPENGL_MOCH               = $(QTOPENGL_MOCH_ALL)
+QTOPENGL_MOCC               = $(QTOPENGL_MOCC_ALL)
+QTOPENGL_UICH               = $(QTOPENGL_UICH_ALL)
+QTOPENGL_RCCH               = $(QTOPENGL_RCCH_ALL)
 QTOPENGL_OBJS               = $(QTOPENGL_OBJS_ALL)
+QTOPENGL_OBJS_MOC           = $(QTOPENGL_OBJS_MOC_ALL)
+QTOPENGL_OBJS_RCC           = $(QTOPENGL_OBJS_RCC_ALL)
 QTPLATFORMWINDOWS_MOCH      = $(QTPLATFORMWINDOWS_MOCH_ALL)
 QTPLATFORMWINDOWS_MOCC      = $(QTPLATFORMWINDOWS_MOCC_ALL)
 QTPLATFORMWINDOWS_UICH      = $(QTPLATFORMWINDOWS_UICH_ALL)
@@ -708,17 +963,67 @@ SINGLEAPPLICATION_OBJS_MOC  = $(SINGLEAPPLICATION_OBJS_MOC_ALL)
 SINGLEAPPLICATION_OBJS_RCC  = $(SINGLEAPPLICATION_OBJS_RCC_ALL)
 
 #####################################################################################
+# Project Dependencies
+
+QTBLUETOOTH_DEPS_X86         = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTBLUETOOTH_DEPS_X64         = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTCORE_DEPS_X86              = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTCORE_DEPS_X64              = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTDBUS_DEPS_X86              = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTDBUS_DEPS_X64              = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTEVENTDISPATCHERS_DEPS_X86  = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTEVENTDISPATCHERS_DEPS_X64  = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTFONTDATABASES_DEPS_X86     = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTFONTDATABASES_DEPS_X64     = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTGAMEPAD_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTGAMEPAD_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTGUI_DEPS_X86               = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTGUI_DEPS_X64               = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIA_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIA_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIAPLUGINS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIAPLUGINS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIAWIDGETS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIAWIDGETS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTNETWORK_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTNETWORK_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTOPENGL_DEPS_X86            = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTOPENGL_DEPS_X64            = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMWINDOWS_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMWINDOWS_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMXCB_DEPS_X86       = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMXCB_DEPS_X64       = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPLATFORMCOCOA_DEPS_X86     = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPLATFORMCOCOA_DEPS_X64     = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTPRINTSUPPORT_DEPS_X86      = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTPRINTSUPPORT_DEPS_X64      = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTSERIALPORT_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTSERIALPORT_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTWIDGETS_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTWIDGETS_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+SINGLEAPPLICATION_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+SINGLEAPPLICATION_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+
+#####################################################################################
 # Include Targets
 
 include Makefile.targets
 
 all-x86: all-common-x86 \
          fontconfig-x86 \
+         qt-bootstrap-x86 \
+         qt-moc-x86 \
+         qt-rcc-x86 \
+         qt-uic-x86 \
          qt-dbus-x86 \
          qt-platform-xcb-x86
 
 all-x64: all-common-x64 \
          fontconfig-x64 \
+         qt-bootstrap-x64 \
+         qt-moc-x64 \
+         qt-rcc-x64 \
+         qt-uic-x64 \
          qt-dbus-x64 \
          qt-platform-xcb-x64
 

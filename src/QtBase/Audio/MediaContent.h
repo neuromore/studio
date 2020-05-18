@@ -12,51 +12,65 @@
 #include <Core/StandardHeaders.h>
 #include "../Backend/WebDataCache.h"
 #include <QMediaPlayer>
+#include <QAbstractVideoSurface>
 
-
-class QTBASE_API MediaContent : public QObject
+class QTBASE_API MediaContent : public QAbstractVideoSurface
 {
-	Q_OBJECT
+   Q_OBJECT
 
-	public:
-		// constructor & destructor
-		MediaContent(QObject* parent, WebDataCache* cache, const char* url);
-		virtual ~MediaContent();
+   public:
+      // constructor
+      MediaContent(QObject* parent, WebDataCache* cache, const char* url);
 
-		void Play(double normalizedVolume, int32 numLoops, bool resetNumCurrentLoops=true);
-		void Stop();
-		void Pause() const										{ if (mMediaPlayer != NULL) mMediaPlayer->pause(); }
-		void Continue() const									{ if (mMediaPlayer != NULL) mMediaPlayer->play(); }
-		void SetPosition(uint64 pos)							{ if (mMediaPlayer != NULL) mMediaPlayer->setPosition(pos); }
-		void SetVolume(float normalizedVolume)					{ if (mMediaPlayer != NULL) mMediaPlayer->setVolume(normalizedVolume*100.0); }
-		
-		uint64 GetPosition() const								{ if (mMediaPlayer != NULL) return mMediaPlayer->position(); return 0; }
-		uint64 GetDuration() const								{ if (mMediaPlayer != NULL) return mMediaPlayer->duration(); return 0; }
+      // destructor
+      ~MediaContent();
 
-		bool IsAudioAvailable() const							{ if (mMediaPlayer != NULL) return mMediaPlayer->isAudioAvailable(); return false; }
+      ///////////////////////////////////////////////////////////////////////////////////////////////
 
-		bool HasFinished() const								{ return mHasFinished; }
+      // from QAbstractVideoSurface, specify supported formats
+      inline QList<QVideoFrame::PixelFormat> supportedPixelFormats(
+         QAbstractVideoBuffer::HandleType handleType = QAbstractVideoBuffer::NoHandle) const override
+      {
+         return QList<QVideoFrame::PixelFormat>() << QVideoFrame::Format_RGB32;
+      }
 
-		const char* GetUrl() const								{ return mUrl.AsChar(); }
-		const Core::String& GetUrlString() const				{ return mUrl; }
+      // from QAbstractVideoSurface, do nothing with the frame (audio only)
+      inline bool present(const QVideoFrame& frame) override
+      {
+         return true;
+      }
 
-	signals:
-		void Looped(const Core::String& url);
+      ///////////////////////////////////////////////////////////////////////////////////////////////
 
-	private slots:
-		void OnMediaPositionChanged(qint64 position);
-		void OnMediaStatusChanged(QMediaPlayer::MediaStatus status);
+      void Play(double normalizedVolume, int32 numLoops, bool resetNumCurrentLoops=true);
+      void Stop();
+      void Pause()                           { mMediaPlayer.pause(); }
+      void Continue()                        { mMediaPlayer.play(); }
+      void SetPosition(uint64 pos)           { mMediaPlayer.setPosition(pos); }
+      void SetVolume(float normalizedVolume) { mMediaPlayer.setVolume(normalizedVolume*100.0); }
 
-	private:
-		void OnLooped(const Core::String& url);
+      uint64 GetPosition() const                { return mMediaPlayer.position(); }
+      uint64 GetDuration() const                { return mMediaPlayer.duration(); }
+      bool IsAudioAvailable() const             { return mMediaPlayer.isAudioAvailable(); }
+      bool HasFinished() const                  { return mHasFinished; }
+      const char* GetUrl() const                { return mUrl.AsChar(); }
+      const Core::String& GetUrlString() const  { return mUrl; }
 
-		QMediaPlayer*	mMediaPlayer;
-		Core::String	mUrl;
-		float			mVolume;
-		int32			mCurrentLoops;
-		int32			mMaxLoops;
-		bool			mHasFinished;
+   signals:
+      void Looped(const Core::String& url);
+
+   private slots:
+      void OnMediaStatusChanged(QMediaPlayer::MediaStatus status);
+
+   private:
+      void OnLooped(const Core::String& url);
+
+      QMediaPlayer   mMediaPlayer;
+      Core::String   mUrl;
+      float          mVolume;
+      int32          mCurrentLoops;
+      int32          mMaxLoops;
+      bool           mHasFinished;
 };
-
 
 #endif

@@ -154,6 +154,10 @@ ar
 
 ```
 sudo apt-get install \
+ libgstreamer1.0-dev \
+ libgstreamer-plugins-base1.0-dev \
+ libgstreamer-plugins-good1.0-dev \
+ libglib2.0-dev \
  libgl1-mesa-dev \
  libglu1-mesa-dev \
  libsm-dev \
@@ -258,3 +262,4 @@ ar
 ## Related Projects
 
 * [Run the muse-2 in neuromore](https://github.com/naxocaballero/muse2-neuromore) - https://github.com/naxocaballero/muse2-neuromore - thanks to [@naxocaballero](https://github.com/naxocaballero)
+* [There's also an LSL to OSC converter](https://github.com/ViacheslavBobrov/Muse_Neuromore) by @ViacheslavBobrov that works with the muse.

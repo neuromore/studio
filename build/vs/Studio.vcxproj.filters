@@ -4,9 +4,6 @@
     <Filter Include="Devices">
       <UniqueIdentifier>{92ff39bf-2d5e-4737-9b28-c59fb4a1c165}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OpenCV">
-      <UniqueIdentifier>{9f1d20a5-f9ab-41a3-b27c-636a31b8eaf3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Plugins">
       <UniqueIdentifier>{26976726-3da4-4249-97de-4c1c9c66ee04}</UniqueIdentifier>
     </Filter>
@@ -200,9 +197,6 @@
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
     <ClCompile Include="..\..\src\Studio\Visualization.cpp" />
     <ClCompile Include="..\..\src\Studio\VisualizationManager.cpp" />
-    <ClCompile Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.cpp">
-      <Filter>OpenCV</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.cpp">
       <Filter>Plugins</Filter>
     </ClCompile>
@@ -807,15 +801,14 @@
     <ClCompile Include="..\..\src\Studio\Resources\StudioResources.rcc.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.moc.cpp">
-      <Filter>OpenCV</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.moc.cpp">
       <Filter>Devices\Brainquiry</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.moc.cpp">
       <Filter>Devices\Brainquiry</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\VideoPlayer.cpp" />
+    <ClCompile Include="..\..\src\Studio\VideoPlayer.moc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
@@ -896,9 +889,6 @@
     <ClInclude Include="..\..\src\Studio\Version.h" />
     <ClInclude Include="..\..\src\Studio\Visualization.h" />
     <ClInclude Include="..\..\src\Studio\VisualizationManager.h" />
-    <ClInclude Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.h">
-      <Filter>OpenCV</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.h">
       <Filter>Plugins</Filter>
     </ClInclude>
@@ -1193,6 +1183,7 @@
     <ClInclude Include="..\..\src\Studio\Windows\VisualizationSelectWindow.h">
       <Filter>Windows</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Studio\VideoPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Studio\Resources\AppIcon.icns">

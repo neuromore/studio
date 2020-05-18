@@ -15,7 +15,6 @@
 #define QT_FEATURE_concurrent 1
 #define QT_FEATURE_pkg_config -1
 #define QT_FEATURE_force_asserts -1
-#define QT_LARGEFILE_SUPPORT 64
 #define QT_FEATURE_separate_debug_info -1
 #define QT_FEATURE_simulator_and_device -1
 #define QT_FEATURE_static 1
@@ -23,6 +22,9 @@
 #define QT_VERSION_MAJOR 5
 #define QT_VERSION_MINOR 12
 #define QT_VERSION_PATCH 4
+
+// defined by platforms that want it
+//#define QT_LARGEFILE_SUPPORT 64
 
 // TODO: Set optimized in build
 //#define QT_COMPILER_SUPPORTS_F16C        1

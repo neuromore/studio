@@ -9,6 +9,39 @@
     <ClCompile Include="..\..\src\opencv-videoio\cap_mjpeg_encoder.cpp" />
     <ClCompile Include="..\..\src\opencv-videoio\cap_vfw.cpp" />
     <ClCompile Include="..\..\src\opencv-videoio\precomp.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_aravis.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_cmu.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_dc1394.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_dc1394_v2.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_giganetix.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_gphoto2.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_gstreamer.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_intelperc.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_libv4l.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_mfx_common.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_mfx_reader.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_mfx_writer.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_msmf.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_openni.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_openni2.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_pvapi.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_qt.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_unicap.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_v4l.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_winrt_bridge.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_winrt_capture.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_winrt_video.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_ximea.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_xine.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\container_avi.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\videoio_c.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\videoio_registry.cpp" />
+    <ClCompile Include="..\..\src\opencv-videoio\cap_winrt\CaptureFrameGrabber.cpp">
+      <Filter>cap_winrt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\opencv-videoio\cap_winrt\MediaStreamSink.cpp">
+      <Filter>cap_winrt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\opencv2\cvconfig.h">
@@ -28,10 +61,40 @@
     <ClInclude Include="..\..\src\opencv-videoio\ffmpeg_codecs.hpp" />
     <ClInclude Include="..\..\src\opencv-videoio\precomp.hpp" />
     <ClInclude Include="..\..\src\opencv-videoio\wrl.h" />
+    <ClInclude Include="..\..\include\opencv2\core\cv_cpu_config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-videoio\cap_mfx_common.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_mfx_reader.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_mfx_writer.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\videoio_registry.hpp" />
+    <ClInclude Include="..\..\src\opencv-videoio\cap_winrt\CaptureFrameGrabber.hpp">
+      <Filter>cap_winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-videoio\cap_winrt\MediaSink.hpp">
+      <Filter>cap_winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-videoio\cap_winrt\MediaStreamSink.hpp">
+      <Filter>cap_winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-videoio\cap_winrt\MFIncludes.hpp">
+      <Filter>cap_winrt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">
       <UniqueIdentifier>{215bb73e-71f1-40cb-a50e-cb56839c55fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cap_winrt">
+      <UniqueIdentifier>{b9c37e54-e5a3-41ca-898c-ce7102d0aef5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\opencv-videoio\cap_avfoundation.mm" />
+    <None Include="..\..\src\opencv-videoio\cap_avfoundation_mac.mm" />
+    <None Include="..\..\src\opencv-videoio\cap_ios_abstract_camera.mm" />
+    <None Include="..\..\src\opencv-videoio\cap_ios_photo_camera.mm" />
+    <None Include="..\..\src\opencv-videoio\cap_ios_video_camera.mm" />
+    <None Include="..\..\src\opencv-videoio\cap_qtkit.mm" />
   </ItemGroup>
 </Project>

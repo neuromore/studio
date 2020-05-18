@@ -53,11 +53,8 @@
     //    #define USE_QTDATAVISUALIZATION
     //#endif
 
-	// OpenCV support
-    #ifdef NEUROMORE_PLATFORM_WINDOWS
-        #define OPENCV_SUPPORT
-    #endif
-
+   // OpenCV support
+   #define OPENCV_SUPPORT
 
 	// crash reporting system
 	#ifdef NEUROMORE_PLATFORM_WINDOWS
@@ -82,11 +79,8 @@
     //    #define USE_QTDATAVISUALIZATION
     //#endif
 
-	// OpenCV support
-    #ifdef NEUROMORE_PLATFORM_WINDOWS
-        #define OPENCV_SUPPORT
-    #endif
-
+   // OpenCV support
+   #define OPENCV_SUPPORT
 
 	// updates
 	//#define USE_AUTOUPDATE

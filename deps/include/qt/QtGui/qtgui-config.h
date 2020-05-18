@@ -43,3 +43,19 @@
 #define QT_FEATURE_vulkan -1
 #define QT_FEATURE_whatsthis 1
 #define QT_FEATURE_wheelevent 1
+
+// Use OpenGL ES for Android (ES 3.1 = API 21 = 5.0)
+#ifdef ANDROID
+#ifndef QT_OPENGL_ES
+  #define QT_OPENGL_ES
+#endif
+#ifndef QT_OPENGL_ES_2
+  #define QT_OPENGL_ES_2
+#endif
+#ifndef QT_OPENGL_ES_3
+  #define QT_OPENGL_ES_3
+#endif
+#ifndef QT_OPENGL_ES_3_1
+  #define QT_OPENGL_ES_3_1
+#endif
+#endif

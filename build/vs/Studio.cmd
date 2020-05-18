@@ -11,6 +11,7 @@ set VAR=-DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG_H -D_UNICO
 %MOC% %INC% %VAR% %DIR%/AuthenticationCenter.h -o %DIR%/AuthenticationCenter.moc.cpp
 %MOC% %INC% %VAR% %DIR%/MainWindow.h -o %DIR%/MainWindow.moc.cpp
 %MOC% %INC% %VAR% %DIR%/VisualizationManager.h -o %DIR%/VisualizationManager.moc.cpp
+%MOC% %INC% %VAR% %DIR%/VideoPlayer.h -o %DIR%/VideoPlayer.moc.cpp
 
 %MOC% %INC% %VAR% %DIR%/Devices/Bluetooth/BluetoothDevice.h -o %DIR%/Devices/Bluetooth/BluetoothDevice.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Bluetooth/BluetoothDriver.h -o %DIR%/Devices/Bluetooth/BluetoothDriver.moc.cpp
@@ -23,8 +24,6 @@ set VAR=-DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG_H -D_UNICO
 %MOC% %INC% %VAR% %DIR%/Devices/OpenBCI/OpenBCISerialHandler.h -o %DIR%/Devices/OpenBCI/OpenBCISerialHandler.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Versus/VersusDriver.h -o %DIR%/Devices/Versus/VersusDriver.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Versus/VersusSerialHandler.h -o %DIR%/Devices/Versus/VersusSerialHandler.moc.cpp
-
-%MOC% %INC% %VAR% %DIR%/OpenCV/OpenCVVideoPlayer.h -o %DIR%/OpenCV/OpenCVVideoPlayer.moc.cpp
 
 %MOC% %INC% %VAR% %DIR%/Plugins/ABM/ABMPlugin.h -o %DIR%/Plugins/ABM/ABMPlugin.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/ABM/ABMProgressWidget.h -o %DIR%/Plugins/ABM/ABMProgressWidget.moc.cpp
