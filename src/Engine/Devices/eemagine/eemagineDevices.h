@@ -40,11 +40,19 @@ public:
 
    // overloaded
    double GetExpectedJitter() const override { return 0.2; }
+   double GetSampleRate() const override { return 500; }
    bool IsWireless() const override { return false; }
-   bool HasTestMode() const override { return false; }
+   bool HasTestMode() const override { return true; }
    static const char* GetRuleName() { return "DEVICE_eemagine"; }
-   bool HasEegContactQualityIndicator() override { return false; }
    void CreateSensors() override;
+
+   void StartTest() override { mDeviceDriver->StartTest(this); }
+   void StopTest() override { mDeviceDriver->StopTest(this); }
+   bool IsTestRunning() override { return mDeviceDriver->IsTestRunning(this); }
+
+   // impedance test provides contact quality
+   bool HasEegContactQualityIndicator() override { return IsTestRunning(); }
+   double GetImpedance(uint32 neuroSensorIndex) override;
 
 protected:
    bool CreateDefaultElectrodes(const uint32_t count);
@@ -66,7 +74,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "ac5bef84-7160-4ac6-88b6-7e96d0cbd11d"; }
    const char* GetTypeName() const override { return "eegoEE211"; }
    const char* GetHardwareName() const override { return "eego EE-211"; }
@@ -93,7 +100,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "c2559b7e-a7f3-4cbf-a19f-ae413fcbf24d"; }
    const char* GetTypeName() const override { return "eegoEE212"; }
    const char* GetHardwareName() const override { return "eego EE-212"; }
@@ -120,7 +126,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "a33b82a0-86ff-4990-a594-26dacbf15e71"; }
    const char* GetTypeName() const override { return "eegoEE213"; }
    const char* GetHardwareName() const override { return "eego EE-213"; }
@@ -147,7 +152,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "e0f71c80-40cc-42fb-959f-a9a7842613ff"; }
    const char* GetTypeName() const override { return "eegoEE214"; }
    const char* GetHardwareName() const override { return "eego EE-214"; }
@@ -174,7 +178,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "d4100456-42cb-4b33-ba38-5c26952beebc"; }
    const char* GetTypeName() const override { return "eegoEE215"; }
    const char* GetHardwareName() const override { return "eego EE-215"; }
@@ -201,7 +204,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "b2b765cd-2dca-4762-9764-ca43c5983b75"; }
    const char* GetTypeName() const override { return "eegoEE221"; }
    const char* GetHardwareName() const override { return "eego EE-221"; }
@@ -228,7 +230,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "8e3643d9-1d64-408e-b990-fd0bc2684a85"; }
    const char* GetTypeName() const override { return "eegoEE222"; }
    const char* GetHardwareName() const override { return "eego EE-222"; }
@@ -255,7 +256,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "bbdc6b4e-02d7-42d5-8ead-d5f2832d470f"; }
    const char* GetTypeName() const override { return "eegoEE223"; }
    const char* GetHardwareName() const override { return "eego EE-223"; }
@@ -282,7 +282,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "bbdc6b4e-02d7-42d5-8ead-d5f2832d470f"; }
    const char* GetTypeName() const override { return "eegoEE224"; }
    const char* GetHardwareName() const override { return "eego EE-224"; }
@@ -309,7 +308,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "a7b22c0b-bcb1-47ab-863c-5693ac13110a"; }
    const char* GetTypeName() const override { return "eegoEE225"; }
    const char* GetHardwareName() const override { return "eego EE-225"; }
@@ -336,7 +334,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "0f21e1c2-3efa-435b-8b24-f2e9dfc090f8"; }
    const char* GetTypeName() const override { return "eegoEE410"; }
    const char* GetHardwareName() const override { return "eego EE-410"; }
@@ -363,7 +360,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "bfbffef7-7d7b-4043-95f3-4262ddde3687"; }
    const char* GetTypeName() const override { return "eegoEE411"; }
    const char* GetHardwareName() const override { return "eego EE-411"; }
@@ -390,7 +386,6 @@ public:
 
    // overloaded
    uint32 GetType() const override { return TYPE_ID; }
-   double GetSampleRate() const override { return 500; }
    const char* GetUuid() const override { return "cc36eab0-848f-4504-a527-718e091dbd89"; }
    const char* GetTypeName() const override { return "eegoEE430"; }
    const char* GetHardwareName() const override { return "eego EE-430"; }

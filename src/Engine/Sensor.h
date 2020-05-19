@@ -141,8 +141,12 @@ class ENGINE_API Sensor
 		uint32 GetNumDriftSamplesRemoved() const								{ return mNumDriftSamplesRemoved; }
 
 		// attach custom hardware channel (no internal use, default: -1)
-		void SetHardwareChannel(int32 channel)									{ mHardwareChannel = channel; }
-		int32 GetHardwareChannel() const										{ return mHardwareChannel; }
+		inline void SetHardwareChannel(int32 channel)									{ mHardwareChannel = channel; }
+		inline int32 GetHardwareChannel() const										{ return mHardwareChannel; }
+
+		// attach custom hardware channel (no internal use, default: 0.0)
+		inline void SetImpedance(double impedance)									{ mImpedance = impedance; }
+		inline double GetImpedance() const										{ return mImpedance; }
 
 	protected:
 		Channel<double>			mInputChannel;		// the raw sensor data (before drift correction and upsampling)
@@ -160,6 +164,7 @@ class ENGINE_API Sensor
 
 		bool					mIsEnabled;			// enable/disable sensor (device definitions are static, but we can skip sensors if we want to, using the device config files)
 		int32					mHardwareChannel;	// attach an underlaying hardware channel index (optional)
+		double					mImpedance;
 
 	private:
 

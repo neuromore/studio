@@ -54,6 +54,7 @@ Sensor::Sensor(const char* name, double sampleRateOut, double sampleRateIn)
 	mID				 = CORE_COUNTER.Next();
 	mIsEnabled		 = true;
 	mHardwareChannel = -1;
+	mImpedance		 = 0.0;
 	mLatency		 = 0;
 	mExpectedJitter  = 0;
 	mRealSampleRate  = 0;

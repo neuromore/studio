@@ -43,6 +43,13 @@ class eemagineDriver : public DeviceDriver, Core::EventHandler
 public:
    enum { TYPE_ID = DeviceTypeIDs::DRIVER_TYPEID_EEMAGINE };
 
+   enum EMode
+   {
+      MODE_IDLE,        // init/default mode
+      MODE_STREAM,      // normal EEG data stream
+      MODE_IMPEDANCE    // impedance test 
+   };
+
    // constructor & destructor
    eemagineDriver();
    virtual ~eemagineDriver();
@@ -58,9 +65,18 @@ public:
    void OnRemoveDevice(Device* device) override;
    void OnDeviceAdded(Device* device) override;
 
+   // impedance test
+   void StartTest(Device* device) override;
+   void StopTest(Device* device) override;
+   bool IsTestRunning(Device* device) override;
+
+   void StartStreaming();
+   void StopStreaming();
+
 private:
    void Cleanup();
 
+   EMode                     mMode;
    eemagineDevice*           mDevice;
    eemagine::sdk::buffer     mBuffer;
    eemagine::sdk::factory    mFactory;
