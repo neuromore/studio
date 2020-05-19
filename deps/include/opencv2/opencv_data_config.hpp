@@ -1,0 +1,11 @@
+
+#define OPENCV_INSTALL_PREFIX "./"
+
+#define OPENCV_DATA_INSTALL_PATH "./"
+
+#define OPENCV_BUILD_DIR "./"
+
+#define OPENCV_DATA_BUILD_DIR_SEARCH_PATHS \
+    "./"
+
+#define OPENCV_INSTALL_DATA_DIR_RELATIVE "./"

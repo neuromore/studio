@@ -1766,7 +1766,7 @@ cvSeqInsertSlice( CvSeq* seq, int index, const CvArr* from_arr )
             CV_Error( CV_StsBadArg, "Source is not a sequence nor matrix" );
 
         if( !CV_IS_MAT_CONT(mat->type) || (mat->rows != 1 && mat->cols != 1) )
-            CV_Error( CV_StsBadArg, "The source array must be 1d coninuous vector" );
+            CV_Error( CV_StsBadArg, "The source array must be 1d continuous vector" );
 
         from = cvMakeSeqHeaderForArray( CV_SEQ_KIND_GENERIC, sizeof(from_header),
                                                  CV_ELEM_SIZE(mat->type),
@@ -2547,6 +2547,7 @@ cvSetAdd( CvSet* set, CvSetElem* element, CvSetElem** inserted_element )
 CV_IMPL void
 cvSetRemove( CvSet* set, int index )
 {
+    CV_Assert(set != NULL);
     CvSetElem* elem = cvGetSetElem( set, index );
     if( elem )
         cvSetRemoveByPtr( set, elem );
@@ -2778,7 +2779,7 @@ cvGraphAddEdgeByPtr( CvGraph* graph,
 
     if( start_vtx == end_vtx )
         CV_Error( start_vtx ? CV_StsBadArg : CV_StsNullPtr,
-        "vertex pointers coinside (or set to NULL)" );
+        "vertex pointers coincide (or set to NULL)" );
 
     edge = (CvGraphEdge*)cvSetNew( (CvSet*)(graph->edges) );
     assert( edge->flags >= 0 );
@@ -2881,7 +2882,7 @@ cvGraphRemoveEdgeByPtr( CvGraph* graph, CvGraphVtx* start_vtx, CvGraphVtx* end_v
             break;
     }
 
-    assert( edge != 0 );
+    CV_Assert( edge != 0 );
 
     next_edge = edge->next[ofs];
     if( prev_edge )
@@ -3367,7 +3368,7 @@ cvTreeToNodeSeq( const void* first, int header_size, CvMemStorage* storage )
 
 typedef struct CvTreeNode
 {
-    int       flags;         /* micsellaneous flags */
+    int       flags;         /* miscellaneous flags */
     int       header_size;   /* size of sequence header */
     struct    CvTreeNode* h_prev; /* previous sequence */
     struct    CvTreeNode* h_next; /* next sequence */

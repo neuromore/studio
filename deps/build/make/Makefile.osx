@@ -85,6 +85,8 @@ QTGUI_DEFINES_X86_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT
 QTGUI_DEFINES_X64_PLAT              = -DQT_LARGEFILE_SUPPORT=64 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" -DQT_FEATURE_dbus=-1
 QTMULTIMEDIA_DEFINES_X86_PLAT       = -DQT_LARGEFILE_SUPPORT=64
 QTMULTIMEDIA_DEFINES_X64_PLAT       = -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAPLUGINS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
+QTMULTIMEDIAPLUGINS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
 QTMULTIMEDIAWIDGETS_DEFINES_X86_PLAT= -DQT_LARGEFILE_SUPPORT=64
 QTMULTIMEDIAWIDGETS_DEFINES_X64_PLAT= -DQT_LARGEFILE_SUPPORT=64
 QTNETWORK_DEFINES_X86_PLAT          = -DQT_LARGEFILE_SUPPORT=64 -DOPENSSLDIR=\"/etc/ssl\" -DENGINESDIR=\".\"
@@ -143,6 +145,8 @@ QTGUI_INCLUDES_X86_PLAT              = -I../../include/qt/mkspecs/macx-clang
 QTGUI_INCLUDES_X64_PLAT              = -I../../include/qt/mkspecs/macx-clang
 QTMULTIMEDIA_INCLUDES_X86_PLAT       = -I../../include/qt/mkspecs/macx-clang
 QTMULTIMEDIA_INCLUDES_X64_PLAT       = -I../../include/qt/mkspecs/macx-clang
+QTMULTIMEDIAPLUGINS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/macx-clang
+QTMULTIMEDIAPLUGINS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/macx-clang
 QTMULTIMEDIAWIDGETS_INCLUDES_X86_PLAT= -I../../include/qt/mkspecs/macx-clang
 QTMULTIMEDIAWIDGETS_INCLUDES_X64_PLAT= -I../../include/qt/mkspecs/macx-clang
 QTNETWORK_INCLUDES_X86_PLAT          = -I../../include/qt/mkspecs/macx-clang
@@ -267,7 +271,7 @@ OPENCVCORE_OBJS      = $(OPENCVCORE_OBJS_ALL)
 OPENCVIMGCODECS_OBJS = $(OPENCVIMGCODECS_OBJS_ALL)
 OPENCVIMGPROC_OBJS   = $(OPENCVIMGPROC_OBJS_ALL)
 OPENCVVIDEOIO_OBJS   = $(OPENCVVIDEOIO_OBJS_ALL) \
-                       cap_v4l.o
+                       cap_avfoundation_mac.omm
 OSCPACK_OBJS         = $(OSCPACK_OBJS_ALL)
 TINYAES_OBJS         = $(TINYAES_OBJS_ALL)
 TINYOBJLOADER_OBJS   = $(TINYOBJLOADER_OBJS_ALL)
@@ -470,6 +474,85 @@ QTMULTIMEDIA_RCCH           = $(QTMULTIMEDIA_RCCH_ALL)
 QTMULTIMEDIA_OBJS           = $(QTMULTIMEDIA_OBJS_ALL)
 QTMULTIMEDIA_OBJS_MOC       = $(QTMULTIMEDIA_OBJS_MOC_ALL)
 QTMULTIMEDIA_OBJS_RCC       = $(QTMULTIMEDIA_OBJS_RCC_ALL)
+QTMULTIMEDIAPLUGINS_MOCH    = $(QTMULTIMEDIAPLUGINS_MOCH_ALL) \
+                              avfoundation/camera/avfaudioinputselectorcontrol.cpp \
+                              avfoundation/camera/avfcameracontrol.cpp \
+                              avfoundation/camera/avfcameradevicecontrol.cpp \
+                              avfoundation/camera/avfcameraexposurecontrol.cpp \
+                              avfoundation/camera/avfcameraflashcontrol.mm \
+                              avfoundation/camera/avfcamerafocuscontrol.cpp \
+                              avfoundation/camera/avfcamerainfocontrol.mm \
+                              avfoundation/camera/avfcamerametadatacontrol.cpp \
+                              avfoundation/camera/avfcamerarenderercontrol.cpp \
+                              avfoundation/camera/avfcameraservice.cpp \
+                              avfoundation/camera/avfcameraserviceplugin.mm \
+                              avfoundation/camera/avfcamerasession.cpp \
+                              avfoundation/camera/avfcameraviewfindersettingscontrol.cpp \
+                              avfoundation/camera/avfcamerazoomcontrol.mm \
+                              avfoundation/camera/avfimagecapturecontrol.cpp \
+                              avfoundation/camera/avfimageencodercontrol.cpp \
+                              avfoundation/camera/avfmediarecordercontrol.cpp \
+                              avfoundation/camera/avfmediavideoprobecontrol.mm \
+                              avfoundation/camera/avfvideoencodersettingscontrol.cpp \
+                              avfoundation/mediaplayer/avfdisplaylink.mm \
+                              avfoundation/mediaplayer/avfmediaplayercontrol.mm \
+                              avfoundation/mediaplayer/avfmediaplayermetadatacontrol.mm \
+                              avfoundation/mediaplayer/avfmediaplayerserviceplugin.mm \
+                              avfoundation/mediaplayer/avfmediaplayersession.mm \
+                              avfoundation/mediaplayer/avfvideorenderercontrol.mm \
+                              avfoundation/mediaplayer/avfvideowidgetcontrol.cpp \
+                              avfoundation/mediaplayer/avfvideowindowcontrol.cpp
+QTMULTIMEDIAPLUGINS_MOCC    = $(QTMULTIMEDIAPLUGINS_MOCC_ALL) 
+QTMULTIMEDIAPLUGINS_UICH    = $(QTMULTIMEDIAPLUGINS_UICH_ALL)
+QTMULTIMEDIAPLUGINS_RCCH    = $(QTMULTIMEDIAPLUGINS_RCCH_ALL)
+QTMULTIMEDIAPLUGINS_OBJS    = $(QTMULTIMEDIAPLUGINS_OBJS_ALL) \
+                              avfoundation/camera/avfaudioencodersettingscontrol.omm \
+                              avfoundation/camera/avfaudioinputselectorcontrol.omm \
+                              avfoundation/camera/avfcameracontrol.omm \
+                              avfoundation/camera/avfcameradevicecontrol.omm \
+                              avfoundation/camera/avfcameraexposurecontrol.omm \
+                              avfoundation/camera/avfcameraflashcontrol.omm \
+                              avfoundation/camera/avfcamerafocuscontrol.omm \
+                              avfoundation/camera/avfcamerainfocontrol.omm \
+                              avfoundation/camera/avfcamerametadatacontrol.omm \
+                              avfoundation/camera/avfcamerarenderercontrol.omm \
+                              avfoundation/camera/avfcameraservice.omm \
+                              avfoundation/camera/avfcameraserviceplugin.omm \
+                              avfoundation/camera/avfcamerasession.omm \
+                              avfoundation/camera/avfcamerautility.omm \
+                              avfoundation/camera/avfcameraviewfindersettingscontrol.omm \
+                              avfoundation/camera/avfimagecapturecontrol.omm \
+                              avfoundation/camera/avfimageencodercontrol.omm \
+                              avfoundation/camera/avfmediacontainercontrol.omm \
+                              avfoundation/camera/avfmediarecordercontrol.omm \
+                              avfoundation/camera/avfmediavideoprobecontrol.omm \
+                              avfoundation/camera/avfstoragelocation.omm \
+                              avfoundation/camera/avfvideoencodersettingscontrol.omm \
+                              avfoundation/mediaplayer/avfdisplaylink.omm \
+                              avfoundation/mediaplayer/avfmediaplayercontrol.omm \
+                              avfoundation/mediaplayer/avfmediaplayermetadatacontrol.omm \
+                              avfoundation/mediaplayer/avfmediaplayerservice.omm \
+                              avfoundation/mediaplayer/avfmediaplayerserviceplugin.omm \
+                              avfoundation/mediaplayer/avfmediaplayersession.omm \
+                              avfoundation/mediaplayer/avfvideoframerenderer.omm \
+                              avfoundation/mediaplayer/avfvideooutput.omm \
+                              avfoundation/mediaplayer/avfvideorenderercontrol.omm \
+                              avfoundation/mediaplayer/avfvideowidget.omm \
+                              avfoundation/mediaplayer/avfvideowidgetcontrol.omm \
+                              avfoundation/mediaplayer/avfvideowindowcontrol.omm
+QTMULTIMEDIAPLUGINS_OBJS_MOC= $(QTMULTIMEDIAPLUGINS_OBJS_MOC_ALL)
+QTMULTIMEDIAPLUGINS_OBJS_MOCMM = $(QTMULTIMEDIAPLUGINS_OBJS_MOCMM_ALL) \
+                              avfcameraflashcontrol.omocmm \
+                              avfcamerainfocontrol.omocmm \
+                              avfcameraserviceplugin.omocmm \
+                              avfmediavideoprobecontrol.omocmm \
+                              avfdisplaylink.omocmm \
+                              avfmediaplayercontrol.omocmm \
+                              avfmediaplayermetadatacontrol.omocmm \
+                              avfmediaplayerserviceplugin.omocmm \
+                              avfmediaplayersession.omocmm \
+                              avfvideorenderercontrol.omocmm
+QTMULTIMEDIAPLUGINS_OBJS_RCC= $(QTMULTIMEDIAPLUGINS_OBJS_RCC_ALL)
 QTMULTIMEDIAWIDGETS_MOCH    = $(QTMULTIMEDIAWIDGETS_MOCH_ALL) 
 QTMULTIMEDIAWIDGETS_MOCC    = $(QTMULTIMEDIAWIDGETS_MOCC_ALL) 
 QTMULTIMEDIAWIDGETS_UICH    = $(QTMULTIMEDIAWIDGETS_UICH_ALL)
@@ -492,7 +575,13 @@ QTNETWORK_OBJS              = $(QTNETWORK_OBJS_ALL) \
                               ssl/qsslsocket_mac_shared.o
 QTNETWORK_OBJS_MOC          = $(QTNETWORK_OBJS_MOC_ALL)
 QTNETWORK_OBJS_RCC          = $(QTNETWORK_OBJS_RCC_ALL)
+QTOPENGL_MOCH               = $(QTOPENGL_MOCH_ALL)
+QTOPENGL_MOCC               = $(QTOPENGL_MOCC_ALL)
+QTOPENGL_UICH               = $(QTOPENGL_UICH_ALL)
+QTOPENGL_RCCH               = $(QTOPENGL_RCCH_ALL)
 QTOPENGL_OBJS               = $(QTOPENGL_OBJS_ALL)
+QTOPENGL_OBJS_MOC           = $(QTOPENGL_OBJS_MOC_ALL)
+QTOPENGL_OBJS_RCC           = $(QTOPENGL_OBJS_RCC_ALL)
 QTPLATFORMWINDOWS_MOCH      = $(QTPLATFORMWINDOWS_MOCH_ALL)
 QTPLATFORMWINDOWS_MOCC      = $(QTPLATFORMWINDOWS_MOCC_ALL)
 QTPLATFORMWINDOWS_UICH      = $(QTPLATFORMWINDOWS_UICH_ALL)
@@ -635,10 +724,14 @@ QTGUI_DEPS_X86               = qt-moc-x86 qt-rcc-x86 qt-uic-x86
 QTGUI_DEPS_X64               = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 QTMULTIMEDIA_DEPS_X86        = qt-moc-x86 qt-rcc-x86 qt-uic-x86
 QTMULTIMEDIA_DEPS_X64        = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTMULTIMEDIAPLUGINS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTMULTIMEDIAPLUGINS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 QTMULTIMEDIAWIDGETS_DEPS_X86 = qt-moc-x86 qt-rcc-x86 qt-uic-x86
 QTMULTIMEDIAWIDGETS_DEPS_X64 = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 QTNETWORK_DEPS_X86           = qt-moc-x86 qt-rcc-x86 qt-uic-x86
 QTNETWORK_DEPS_X64           = qt-moc-x64 qt-rcc-x64 qt-uic-x64
+QTOPENGL_DEPS_X86            = qt-moc-x86 qt-rcc-x86 qt-uic-x86
+QTOPENGL_DEPS_X64            = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 QTPLATFORMWINDOWS_DEPS_X86   = qt-moc-x86 qt-rcc-x86 qt-uic-x86
 QTPLATFORMWINDOWS_DEPS_X64   = qt-moc-x64 qt-rcc-x64 qt-uic-x64
 QTPLATFORMXCB_DEPS_X86       = qt-moc-x86 qt-rcc-x86 qt-uic-x86

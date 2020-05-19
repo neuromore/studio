@@ -154,6 +154,10 @@ ar
 
 ```
 sudo apt-get install \
+ libgstreamer1.0-dev \
+ libgstreamer-plugins-base1.0-dev \
+ libgstreamer-plugins-good1.0-dev \
+ libglib2.0-dev \
  libgl1-mesa-dev \
  libglu1-mesa-dev \
  libsm-dev \

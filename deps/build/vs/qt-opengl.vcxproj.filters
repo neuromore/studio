@@ -4,6 +4,9 @@
     <Filter Include="gl2paintengineex">
       <UniqueIdentifier>{431f1584-e97e-4f43-bd43-e71b09b0be5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{4ab9c096-683e-4a42-afd1-ae48a5aaca7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\qt-opengl\gl2paintengineex\qgl2pexvertexarray.cpp">
@@ -33,5 +36,17 @@
     <ClCompile Include="..\..\src\qt-opengl\qglpixelbuffer.cpp" />
     <ClCompile Include="..\..\src\qt-opengl\qglshaderprogram.cpp" />
     <ClCompile Include="..\..\src\qt-opengl\qgraphicsshadereffect.cpp" />
+    <ClCompile Include="..\..\src\qt-opengl\.moc\moc_qgl.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\.moc\moc_qglshaderprogram.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\.moc\moc_qgl_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-opengl\.moc\moc_qglengineshadermanager_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

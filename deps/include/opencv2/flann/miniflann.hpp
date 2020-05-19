@@ -40,8 +40,10 @@
 //
 //M*/
 
-#ifndef _OPENCV_MINIFLANN_HPP_
-#define _OPENCV_MINIFLANN_HPP_
+#ifndef OPENCV_MINIFLANN_HPP
+#define OPENCV_MINIFLANN_HPP
+
+//! @cond IGNORED
 
 #include "opencv2/core.hpp"
 #include "opencv2/flann/defines.h"
@@ -74,6 +76,10 @@ struct CV_EXPORTS IndexParams
                 std::vector<double>& numValues) const;
 
     void* params;
+
+private:
+    IndexParams(const IndexParams &); // copy disabled
+    IndexParams& operator=(const IndexParams &); // assign disabled
 };
 
 struct CV_EXPORTS KDTreeIndexParams : public IndexParams
@@ -154,5 +160,7 @@ protected:
 };
 
 } } // namespace cv::flann
+
+//! @endcond
 
 #endif

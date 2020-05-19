@@ -77,8 +77,6 @@
     <ClCompile Include="..\..\src\Studio\main.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.moc.cpp" />
-    <ClCompile Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.cpp" />
-    <ClCompile Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.cpp" />
@@ -214,6 +212,8 @@
     <ClCompile Include="..\..\src\Studio\Rendering\TextureManager.cpp" />
     <ClCompile Include="..\..\src\Studio\Resources\StudioResources.rcc.cpp" />
     <ClCompile Include="..\..\src\Studio\UnitTests\StudioTestFacility.cpp" />
+    <ClCompile Include="..\..\src\Studio\VideoPlayer.cpp" />
+    <ClCompile Include="..\..\src\Studio\VideoPlayer.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Visualization.cpp" />
     <ClCompile Include="..\..\src\Studio\VisualizationManager.cpp" />
     <ClCompile Include="..\..\src\Studio\VisualizationManager.moc.cpp" />
@@ -305,7 +305,6 @@
     <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.h" />
     <ClInclude Include="..\..\src\Studio\DocumentationExporter.h" />
     <ClInclude Include="..\..\src\Studio\MainWindow.h" />
-    <ClInclude Include="..\..\src\Studio\OpenCV\OpenCVVideoPlayer.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemPlugin.h" />
@@ -377,6 +376,7 @@
     <ClInclude Include="..\..\src\Studio\Rendering\TextureManager.h" />
     <ClInclude Include="..\..\src\Studio\UnitTests\StudioTestFacility.h" />
     <ClInclude Include="..\..\src\Studio\Version.h" />
+    <ClInclude Include="..\..\src\Studio\VideoPlayer.h" />
     <ClInclude Include="..\..\src\Studio\Visualization.h" />
     <ClInclude Include="..\..\src\Studio\VisualizationManager.h" />
     <ClInclude Include="..\..\src\Studio\Widgets\BatteryStatusWidget.h" />

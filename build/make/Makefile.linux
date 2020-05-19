@@ -178,6 +178,20 @@ STUDIO_OBJS_RCC = $(STUDIO_OBJS_RCC_ALL)
 STUDIO_RES      = $(STUDIO_RES_ALL)
 STUDIO_LIBS_ALL = -lpthread \
                   -ldl \
+                  -lgstallocators-1.0 \
+                  -lgstapp-1.0 \
+                  -lgstaudio-1.0 \
+                  -lgstbase-1.0 \
+                  -lgstbasecamerabinsrc-1.0 \
+                  -lgstcheck-1.0 \
+                  -lgstcontroller-1.0 \
+                  -lgstgl-1.0 \
+                  -lgstpbutils-1.0 \
+                  -lgstphotography-1.0 \
+                  -lgstreamer-1.0 \
+                  -lgstvideo-1.0 \
+                  -lgobject-2.0 \
+                  -lglib-2.0 \
                   -lGL \
                   -lexpat \
                   -lX11 \
@@ -201,11 +215,11 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(LIBDIR_X86)/Engine.a \
                   $(DEPSLIBDIR_X86)/singleapplication.a \
                   $(DEPSLIBDIR_X86)/qt-bluetooth.a \
-                  $(DEPSLIBDIR_X86)/qt-concurrent.a \
                   $(DEPSLIBDIR_X86)/qt-eventdispatchers.a \
                   $(DEPSLIBDIR_X86)/qt-gamepad.a \
-                  $(DEPSLIBDIR_X86)/qt-multimedia.a \
+                  $(DEPSLIBDIR_X86)/qt-multimediaplugins.a \
                   $(DEPSLIBDIR_X86)/qt-multimediawidgets.a \
+                  $(DEPSLIBDIR_X86)/qt-multimedia.a \
                   $(DEPSLIBDIR_X86)/qt-network.a \
                   $(DEPSLIBDIR_X86)/qt-opengl.a \
                   $(DEPSLIBDIR_X86)/qt-platform-xcb.a \
@@ -216,6 +230,7 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/qt-gui.a \
                   $(DEPSLIBDIR_X86)/qt-xml.a \
                   $(DEPSLIBDIR_X86)/qt-dbus.a \
+                  $(DEPSLIBDIR_X86)/qt-concurrent.a \
                   $(DEPSLIBDIR_X86)/qt-core.a \
                   $(DEPSLIBDIR_X86)/double-conversion.a \
                   $(DEPSLIBDIR_X86)/edflib.a \
@@ -244,11 +259,11 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(LIBDIR_X64)/Engine.a \
                   $(DEPSLIBDIR_X64)/singleapplication.a \
                   $(DEPSLIBDIR_X64)/qt-bluetooth.a \
-                  $(DEPSLIBDIR_X64)/qt-concurrent.a \
                   $(DEPSLIBDIR_X64)/qt-eventdispatchers.a \
                   $(DEPSLIBDIR_X64)/qt-gamepad.a \
-                  $(DEPSLIBDIR_X64)/qt-multimedia.a \
+                  $(DEPSLIBDIR_X64)/qt-multimediaplugins.a \
                   $(DEPSLIBDIR_X64)/qt-multimediawidgets.a \
+                  $(DEPSLIBDIR_X64)/qt-multimedia.a \
                   $(DEPSLIBDIR_X64)/qt-network.a \
                   $(DEPSLIBDIR_X64)/qt-opengl.a \
                   $(DEPSLIBDIR_X64)/qt-platform-xcb.a \
@@ -259,6 +274,7 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/qt-gui.a \
                   $(DEPSLIBDIR_X64)/qt-xml.a \
                   $(DEPSLIBDIR_X64)/qt-dbus.a \
+                  $(DEPSLIBDIR_X64)/qt-concurrent.a \
                   $(DEPSLIBDIR_X64)/qt-core.a \
                   $(DEPSLIBDIR_X64)/double-conversion.a \
                   $(DEPSLIBDIR_X64)/edflib.a \

@@ -9,11 +9,18 @@
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_pxm.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_sunras.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_tiff.cpp" />
-    <ClCompile Include="..\..\src\opencv-imgcodecs\jpeg_exif.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\loadsave.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\precomp.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\rgbe.cpp" />
     <ClCompile Include="..\..\src\opencv-imgcodecs\utils.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\exif.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_exr.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_gdal.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_gdcm.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_jpeg.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_jpeg2000.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_pam.cpp" />
+    <ClCompile Include="..\..\src\opencv-imgcodecs\grfmt_webp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\opencv-imgcodecs\bitstrm.hpp" />
@@ -30,7 +37,6 @@
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_sunras.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_tiff.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_webp.hpp" />
-    <ClInclude Include="..\..\src\opencv-imgcodecs\jpeg_exif.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\precomp.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\rgbe.hpp" />
     <ClInclude Include="..\..\src\opencv-imgcodecs\utils.hpp" />
@@ -40,10 +46,19 @@
     <ClInclude Include="..\..\include\opencv2\opencv_modules.hpp">
       <Filter>Config</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\opencv2\core\cv_cpu_config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opencv-imgcodecs\exif.hpp" />
+    <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_gdcm.hpp" />
+    <ClInclude Include="..\..\src\opencv-imgcodecs\grfmt_pam.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">
       <UniqueIdentifier>{b1b60edd-9232-4c05-a3f0-179f526c10a1}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\opencv-imgcodecs\ios_conversions.mm" />
   </ItemGroup>
 </Project>

@@ -37,6 +37,7 @@
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qfont.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qfontdatabase.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qgenericplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qgifplugin.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qguiapplication.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -44,6 +45,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qiconengineplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qicoplugin.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qimage.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qimageiohandler.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qinputcontrol_p.cpp" />
@@ -55,6 +57,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qinternalmimedata_p.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\.moc\moc_qjpegplugin.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qkeymapper_p.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qkeysequence.cpp" />
     <ClCompile Include="..\..\src\qt-gui\.moc\moc_qmovie.cpp">
@@ -156,6 +159,12 @@
     <ClCompile Include="..\..\src\qt-gui\accessible\qaccessibleplugin.cpp" />
     <ClCompile Include="..\..\src\qt-gui\accessible\qplatformaccessibility.cpp" />
     <ClCompile Include="..\..\src\qt-gui\animation\qguivariantanimation.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\gif\qgifhandler.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\gif\qgifplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\ico\qicohandler.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\ico\qicoplugin.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\jpeg\qjpeghandler.cpp" />
+    <ClCompile Include="..\..\src\qt-gui\imageformats\jpeg\qjpegplugin.cpp" />
     <ClCompile Include="..\..\src\qt-gui\image\qbitmap.cpp" />
     <ClCompile Include="..\..\src\qt-gui\image\qbmphandler.cpp" />
     <ClCompile Include="..\..\src\qt-gui\image\qicon.cpp" />
@@ -828,7 +837,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\libjpeg;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -838,7 +847,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -870,7 +879,7 @@ qt-gui.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\libjpeg;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -880,7 +889,7 @@ qt-gui.cmd
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -913,7 +922,7 @@ qt-gui.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\libjpeg;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -922,7 +931,7 @@ qt-gui.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -964,7 +973,7 @@ qt-gui.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\zlib;..\..\include\libpng;..\..\include\libjpeg;..\..\include\qt;..\..\include\qt\QtCore;..\..\include\qt\QtGui;..\..\include\qt\QtGui\imageformats;..\..\include\qt\QtGui\private;..\..\include\qt\QtGui\qpa;..\..\include\qt\mkspecs\win32-msvc;..\..\src\qt-gui\.moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -973,7 +982,7 @@ qt-gui.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
