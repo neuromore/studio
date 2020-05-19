@@ -139,27 +139,10 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
                // add as sample or impedance
                if      (mMode == EMode::MODE_STREAM)    sensor->AddQueuedSample(v);
                else if (mMode == EMode::MODE_IMPEDANCE) sensor->SetImpedance(v * 0.001); // Ohm -> kOhm
-
-
-               /*if (idx == 0 && mMode == EMode::MODE_IMPEDANCE)
-               {
-                  printf("%f \n", v * 0.001);
-               }*/
             }
          }
       }
    }
-
-   if (mMode == EMode::MODE_IMPEDANCE)
-   {
-      // get value
-      const double& v1 = mBuffer.getSample(0, 0);
-      const double& v2 = mBuffer.getSample(32, 0);
-      const double& v3 = mBuffer.getSample(33, 0);
-
-      printf("%f %f %f \n", v1 * 0.001, v2 * 0.001, v3 * 0.001);
-   }
-
 }
 
 Device* eemagineDriver::CreateDevice(uint32 deviceTypeID)
@@ -237,16 +220,18 @@ void eemagineDriver::DetectDevices()
             GetDeviceManager()->AddDeviceAsync(mDevice);
          }
          else
-            LogDetailedInfo("eemagine: error requested sampling rate is not supported by device.");
+            LogInfo("eemagine: error requested sampling rate is not supported by device.");
       }
+      else
+         LogWarning("eemagine: error amplifier of type %s is not supported", type.c_str());
    }
    catch (const eemagine::sdk::exceptions::notFound&)
    {
-      LogDetailedInfo("eemagine: device scan finished without results...");
+      LogInfo("eemagine: device scan finished without results...");
    }
    catch (const std::exception&)
    {
-      LogDetailedInfo("eemagine: unexpected error");
+      LogWarning("eemagine: unexpected error");
    }
 }
 
