@@ -64,7 +64,7 @@ class ENGINE_API DeviceDriver
 
 		// enable/disable device driver
 		bool IsEnabled() const													{ return mIsEnabled; }
-		void SetEnabled(bool enabled = true);
+		virtual void SetEnabled(bool enabled = true);
 
 		// autodetection of local devices
 		virtual bool HasAutoDetectionSupport() const = 0;

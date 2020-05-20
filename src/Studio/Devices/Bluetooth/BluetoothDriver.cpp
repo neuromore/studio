@@ -30,7 +30,7 @@
 using namespace Core;
 
 // constructor
-BluetoothDriver::BluetoothDriver() : DeviceDriver(), EventHandler()
+BluetoothDriver::BluetoothDriver() : DeviceDriver(false), EventHandler()
 {
 	LogInfo("Constructing Bluetooth device driver ...");
 
@@ -276,7 +276,7 @@ void BluetoothDriver::SetAutoDetectionEnabled(bool enable)
 	mDetectOnce = false;
 
 	// if true and device has autodetection support: start thread
-	if (enable == true)
+	if (enable == true && mIsEnabled)
 	{
 		LogDetailedInfo("Starting Bluetooth LE device auto detection ...");
 		mAutodetectTimer->start(5000);

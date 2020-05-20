@@ -34,7 +34,7 @@ using namespace Core;
 
 
 // constructor
-AudioDriver::AudioDriver() : DeviceDriver(), EventHandler()
+AudioDriver::AudioDriver() : DeviceDriver(false), EventHandler()
 {
 	LogInfo("Constructing Audio device driver ...");
 

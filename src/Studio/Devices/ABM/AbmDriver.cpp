@@ -32,7 +32,7 @@
 using namespace Core;
 
 // constructor
-AbmDriver::AbmDriver() : DeviceDriver()
+AbmDriver::AbmDriver() : DeviceDriver(false)
 {
 	LogDetailedInfo("Constructing Advanced Brain Monitoring driver ...");
 
@@ -102,7 +102,7 @@ void AbmDriver::SetAutoDetectionEnabled(bool enable)
 {
 	DeviceDriver::SetAutoDetectionEnabled(enable);
 
-	if (enable == true)
+	if (enable == true && mIsEnabled)
 	{
 		LogDetailedInfo("Starting ABM auto detection ...");
 		mThread->Start();
