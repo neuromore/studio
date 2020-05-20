@@ -68,7 +68,7 @@ class ENGINE_API DeviceDriver
 
 		// autodetection of local devices
 		virtual bool HasAutoDetectionSupport() const = 0;
-		virtual void SetAutoDetectionEnabled(bool enable = true)				{ mUseAutoDetection = enable; }
+		virtual void SetAutoDetectionEnabled(bool enable = true);
 		virtual bool IsAutoDetectionEnabled() const								{ return mUseAutoDetection; }
 		virtual void DetectDevices()											{}
 		virtual bool IsDetectionRunning() const									{ return false; }
@@ -83,6 +83,10 @@ class ENGINE_API DeviceDriver
 	protected:
 		bool mIsEnabled;
 		bool mUseAutoDetection;
+
+      virtual void StartStopAutoDetection();
+      virtual void StartAutoDetection() { } // implement with auto detection start code
+      virtual void StopAutoDetection()  { } // implement with auto detection stop code
 
 		void AddSupportedDevice(uint32 deviceTypeID)							{ mSupportedDeviceTypes.Add(deviceTypeID); }
 		Core::Array<uint32> mSupportedDeviceTypes;

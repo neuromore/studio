@@ -43,6 +43,33 @@ DeviceDriver::~DeviceDriver()
 
 void DeviceDriver::SetEnabled(bool enabled)
 {
-	mIsEnabled = enabled; 
+   if (mIsEnabled == enabled)
+      return;
+
+   mIsEnabled = enabled;
+   StartStopAutoDetection();
 }
 
+void DeviceDriver::SetAutoDetectionEnabled(bool enable)
+{
+   if (mUseAutoDetection == enable)
+      return;
+
+   mUseAutoDetection = enable;
+   StartStopAutoDetection();
+}
+
+void DeviceDriver::StartStopAutoDetection()
+{
+   // device must have auto detect support
+   if (HasAutoDetectionSupport())
+   {
+      // start
+      if (mUseAutoDetection && mIsEnabled && !IsDetectionRunning())
+         StartAutoDetection();
+
+      // stop
+      else if (!mIsEnabled || !mUseAutoDetection)
+         StopAutoDetection();
+   }
+}

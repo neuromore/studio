@@ -70,6 +70,10 @@ class MitsarDriver : public DeviceDriver, Core::EventHandler
 		void StopTest(Device* device) override;
 		bool IsTestRunning(Device* device) override;
 
+   protected:
+      virtual void StartAutoDetection() override;
+      virtual void StopAutoDetection() override;
+
 	private:
 		
 		Device*							mDevice;

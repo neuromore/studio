@@ -78,6 +78,10 @@ class NeuroSkyDriver : public QObject, public DeviceDriver, public Core::EventHa
 		// event handler (removes serial threads)
 		void OnRemoveDevice(Device* device) override;
 
+   protected:
+      virtual void StartAutoDetection() override;
+      virtual void StopAutoDetection() override;
+
 	private:
 
 		// for autodetection
