@@ -30,10 +30,8 @@
 using namespace Core;
 
 // constructor
-DeviceDriver::DeviceDriver()
+DeviceDriver::DeviceDriver(const bool enabled, const bool autodetect) : mIsEnabled(enabled), mUseAutoDetection(autodetect)
 {
-	mIsEnabled = true;
-	mUseAutoDetection = false;
 }
 
 

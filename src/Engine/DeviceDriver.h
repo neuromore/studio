@@ -41,7 +41,7 @@ class ENGINE_API DeviceDriver
 {
 	public:
 		// constructor & destructor
-		DeviceDriver();
+		DeviceDriver(const bool enabled = true, const bool autodetect = false);
 		virtual ~DeviceDriver();
 
 		// type
