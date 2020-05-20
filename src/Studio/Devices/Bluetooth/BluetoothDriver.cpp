@@ -30,7 +30,7 @@
 using namespace Core;
 
 // constructor
-BluetoothDriver::BluetoothDriver() : DeviceDriver(), EventHandler()
+BluetoothDriver::BluetoothDriver() : DeviceDriver(false), EventHandler()
 {
 	LogInfo("Constructing Bluetooth device driver ...");
 
@@ -270,26 +270,26 @@ bool BluetoothDriver::IsDeviceConnecting() const
 // start stop auto detection thread
 void BluetoothDriver::SetAutoDetectionEnabled(bool enable)
 {
-	// baseclass (sets flags)
-	DeviceDriver::SetAutoDetectionEnabled(enable);
-	
-	mDetectOnce = false;
+   mDetectOnce = false;
 
-	// if true and device has autodetection support: start thread
-	if (enable == true)
-	{
-		LogDetailedInfo("Starting Bluetooth LE device auto detection ...");
-		mAutodetectTimer->start(5000);
-	}
-	else
-	{
-		LogDetailedInfo("Stopping Bluetooth LE device auto detection ...");
-		mAutodetectTimer->stop();
+   // baseclass (sets flags, may call start/stop autodetection)
+   DeviceDriver::SetAutoDetectionEnabled(enable);
+}
 
-        // clear discovered devices and stop searching for new ones
-        mDiscoveredDeviceInfos.Clear();
-        mBluetoothDeviceDiscoveryAgent->stop();
-	}
+void BluetoothDriver::StartAutoDetection()
+{
+   LogDetailedInfo("Starting Bluetooth LE device auto detection ...");
+   mAutodetectTimer->start(5000);
+}
+
+void BluetoothDriver::StopAutoDetection()
+{
+   LogDetailedInfo("Stopping Bluetooth LE device auto detection ...");
+   mAutodetectTimer->stop();
+
+   // clear discovered devices and stop searching for new ones
+   mDiscoveredDeviceInfos.Clear();
+   mBluetoothDeviceDiscoveryAgent->stop();
 }
 
 

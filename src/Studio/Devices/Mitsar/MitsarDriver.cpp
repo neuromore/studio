@@ -34,7 +34,7 @@
 using namespace Core;
 
 // constructor
-MitsarDriver::MitsarDriver() : DeviceDriver()
+MitsarDriver::MitsarDriver() : DeviceDriver(false)
 {
 	LogDetailedInfo("Constructing Mitsar Driver ...");
 
@@ -88,16 +88,19 @@ void MitsarDriver::Update(const Time& elapsed, const Time& delta)
 
 void MitsarDriver::SetAutoDetectionEnabled(bool enable)
 {
-	DeviceDriver::SetAutoDetectionEnabled(enable);
-	mThreadHandler->SetAutoDetectEnabled(enable);
-
-	// start thread if not already running
-	if (enable == true)
-		mThread->Start();
-	else
-		mThread->Stop();
+   mThreadHandler->SetAutoDetectEnabled(enable);
+   DeviceDriver::SetAutoDetectionEnabled(enable);
 }
 
+void MitsarDriver::StartAutoDetection()
+{
+   mThread->Start();
+}
+
+void MitsarDriver::StopAutoDetection()
+{
+   mThread->Stop();
+}
 
 bool MitsarDriver::IsDetectionRunning() const
 {

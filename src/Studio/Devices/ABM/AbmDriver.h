@@ -75,6 +75,10 @@ class AbmDriver : public DeviceDriver, Core::EventHandler
 
 		static Core::String GetAbmErrorAsString(int errorcode);
 
+   protected:
+      virtual void StartAutoDetection() override;
+      virtual void StopAutoDetection() override;
+
 	private:
 		void LogDeviceInfo(_DEVICE_INFO* deviceInfo);
 

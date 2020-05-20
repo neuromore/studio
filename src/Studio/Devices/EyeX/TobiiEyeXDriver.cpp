@@ -32,7 +32,7 @@ TX_HANDLE mGlobalStaticHandle;
 Core::Array<double> mEyeTrackerValues;
 
 // constructor
-TobiiEyeXDriver::TobiiEyeXDriver() : DeviceDriver()
+TobiiEyeXDriver::TobiiEyeXDriver() : DeviceDriver(false)
 {
 	LogDetailedInfo("Constructing Tobii EyeX driver ...");
 	mTobiiEyeXDevice = new TobiiEyeXDevice(this);

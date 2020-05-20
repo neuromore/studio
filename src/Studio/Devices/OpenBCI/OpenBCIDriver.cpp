@@ -35,7 +35,7 @@
 using namespace Core;
 
 // constructor
-OpenBCIDriver::OpenBCIDriver() : DeviceDriver(), EventHandler()
+OpenBCIDriver::OpenBCIDriver() : DeviceDriver(false), EventHandler()
 {
 	LogInfo("Constructing OpenBCI device driver ...");
 
