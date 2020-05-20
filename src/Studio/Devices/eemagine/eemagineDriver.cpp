@@ -32,7 +32,7 @@
 using namespace Core;
 
 // constructor
-eemagineDriver::eemagineDriver() : DeviceDriver(), mMode(EMode::MODE_IDLE), mDevice(NULL), mAmplifier(NULL), mStream(NULL)
+eemagineDriver::eemagineDriver() : DeviceDriver(false), mMode(EMode::MODE_IDLE), mDevice(NULL), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
 {
    LogDetailedInfo("Constructing eemagine driver ...");
 
@@ -81,8 +81,16 @@ bool eemagineDriver::Init()
 
 void eemagineDriver::Update(const Time& elapsed, const Time& delta)
 {
-   // not enabled or no data stream
-   if (!mIsEnabled || !mAmplifier || !mStream || !mDevice)
+   // driver not enabled
+   if (!mIsEnabled)
+      return;
+
+   // try find amplifier regularly if got none and autodetect is enabled (takes < 1ms, no need to offload)
+   if (!mAmplifier && IsAutoDetectionEnabled() && (Core::Time::Now() - mLastDetect) > Core::Time(3.0))
+      DetectDevices();
+
+   // no device available/found
+   if (!mAmplifier || !mStream || !mDevice)
       return;
 
    try
@@ -173,6 +181,9 @@ Device* eemagineDriver::CreateDevice(uint32 deviceTypeID)
 
 void eemagineDriver::DetectDevices()
 {
+   // remember when last detection was
+   mLastDetect = Core::Time::Now();
+
    // not enabled or already got one
    if (!mIsEnabled || mAmplifier)
       return;
@@ -374,5 +385,9 @@ bool eemagineDriver::IsTestRunning(Device* device)
    return mMode == EMode::MODE_IMPEDANCE;
 }
 
+void eemagineDriver::SetAutoDetectionEnabled(bool enable)
+{
+   DeviceDriver::SetAutoDetectionEnabled(enable);
 
+}
 #endif

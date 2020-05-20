@@ -59,7 +59,6 @@ public:
 
    bool Init() override;
    void Update(const Core::Time& elapsed, const Core::Time& delta) override;
-   bool HasAutoDetectionSupport() const override final { return false; }
    void DetectDevices() override;
    Device* CreateDevice(uint32 deviceTypeID) override;
    void OnRemoveDevice(Device* device) override;
@@ -73,6 +72,10 @@ public:
    void StartStreaming();
    void StopStreaming();
 
+   // autodetection of local devices
+   bool HasAutoDetectionSupport() const override final { return true; }
+   void SetAutoDetectionEnabled(bool enable = true) override;
+
 private:
    void Cleanup();
 
@@ -82,6 +85,7 @@ private:
    eemagine::sdk::factory    mFactory;
    eemagine::sdk::amplifier* mAmplifier;
    eemagine::sdk::stream*    mStream;
+   Core::Time                mLastDetect;
 };
 
 #endif
