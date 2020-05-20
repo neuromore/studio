@@ -85,6 +85,10 @@ class BluetoothDriver : public QObject, public DeviceDriver, public Core::EventH
         //void OnConnectNextDevice();
 void Connect(const QBluetoothDeviceInfo& deviceInfo);
 
+   protected:
+      virtual void StartAutoDetection() override;
+      virtual void StopAutoDetection() override;
+
 	private:
 		// device discovery
 		QTimer*								mAutodetectTimer;

@@ -32,7 +32,7 @@
 using namespace Core;
 
 // constructor
-AbmDriver::AbmDriver() : DeviceDriver()
+AbmDriver::AbmDriver() : DeviceDriver(false)
 {
 	LogDetailedInfo("Constructing Advanced Brain Monitoring driver ...");
 
@@ -100,18 +100,19 @@ Device* AbmDriver::CreateDevice(uint32 deviceTypeID)
 // start stop auto detection
 void AbmDriver::SetAutoDetectionEnabled(bool enable)
 {
-	DeviceDriver::SetAutoDetectionEnabled(enable);
+   DeviceDriver::SetAutoDetectionEnabled(enable);
+}
 
-	if (enable == true)
-	{
-		LogDetailedInfo("Starting ABM auto detection ...");
-		mThread->Start();
-	}
-	else
-	{
-		LogDetailedInfo("Stopping ABM auto detection ...");
-		// NOTE: thread handler loop uses engine autodetection setting and stops searching for device
-	}
+void AbmDriver::StartAutoDetection()
+{
+   LogDetailedInfo("Starting ABM auto detection ...");
+   mThread->Start();
+}
+
+void AbmDriver::StopAutoDetection()
+{
+   LogDetailedInfo("Stopping ABM auto detection ...");
+   // NOTE: thread handler loop uses engine autodetection setting and stops searching for device
 }
 
 
