@@ -80,6 +80,11 @@ eemagineDriver::~eemagineDriver()
 
    // cleanup
    Cleanup();
+
+   if (mFactory) 
+      delete mFactory;
+
+   mFactory = NULL;
 }
 
 
@@ -285,12 +290,10 @@ void eemagineDriver::Cleanup()
    // delete sdk instances
    if (mStream)    delete mStream;
    if (mAmplifier) delete mAmplifier;
-   if (mFactory)   delete mFactory;
 
    // reset pointers
    mStream    = NULL;
    mAmplifier = NULL;
-   mFactory   = NULL;
    mDevice    = NULL;
    mMode      = EMode::MODE_IDLE;
 }
