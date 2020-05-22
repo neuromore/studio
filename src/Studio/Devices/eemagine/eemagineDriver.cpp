@@ -32,9 +32,25 @@
 using namespace Core;
 
 // constructor
-eemagineDriver::eemagineDriver() : DeviceDriver(false), mMode(EMode::MODE_IDLE), mDevice(NULL), mFactory(EEGO_LIB_FILENAME), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
+eemagineDriver::eemagineDriver() : DeviceDriver(false), mMode(EMode::MODE_IDLE), mDevice(NULL), mFactory(NULL), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
 {
    LogDetailedInfo("Constructing eemagine driver ...");
+
+   try
+   {
+      // load sdk lib at runtime here
+      mFactory = new eemagine::sdk::factory(EEGO_LIB_FILENAME);
+   }
+   catch (const eemagine::sdk::exceptions::incorrectValue& e)
+   {
+      // usually if library can not be found/loaded
+      LogWarning("Failed to construct eemagine driver: %s", e.what());
+   }
+   catch (const std::exception&)
+   {
+      // unknown exception
+      LogWarning("Failed to construct eemagine driver: unknown reason");
+   }
 
    // add devices of this driver
    AddSupportedDevice(eemagineEE211Device::TYPE_ID);
@@ -184,14 +200,14 @@ void eemagineDriver::DetectDevices()
    // remember when last detection was
    mLastDetect = Core::Time::Now();
 
-   // not enabled or already got one
-   if (!mIsEnabled || mAmplifier)
+   // not enabled, no factory, or already got one
+   if (!mIsEnabled || !mFactory || mAmplifier)
       return;
 
    try
    {
       // get first amplifier or raise exception
-      mAmplifier = mFactory.getAmplifier();
+      mAmplifier = mFactory->getAmplifier();
 
       // get type
       const std::string& type = mAmplifier->getType();
@@ -268,10 +284,12 @@ void eemagineDriver::Cleanup()
    // delete sdk instances
    if (mStream)    delete mStream;
    if (mAmplifier) delete mAmplifier;
+   if (mFactory)   delete mFactory;
 
    // reset pointers
    mStream    = NULL;
    mAmplifier = NULL;
+   mFactory   = NULL;
    mDevice    = NULL;
    mMode      = EMode::MODE_IDLE;
 }

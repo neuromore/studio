@@ -88,7 +88,7 @@ private:
    EMode                     mMode;
    eemagineDevice*           mDevice;
    eemagine::sdk::buffer     mBuffer;
-   eemagine::sdk::factory    mFactory;
+   eemagine::sdk::factory*   mFactory;
    eemagine::sdk::amplifier* mAmplifier;
    eemagine::sdk::stream*    mStream;
    Core::Time                mLastDetect;
