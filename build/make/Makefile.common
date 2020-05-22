@@ -749,6 +749,7 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/BrainProducts/ActiChampDriver.o \
                        Devices/Brainquiry/BrainquiryDriver.o \
                        Devices/Brainquiry/BrainquirySerialHandler.o \
+                       Devices/eemagine/eemagineDriver.o \
                        Devices/Emotiv/EmotivDriver.o \
                        Devices/EyeX/TobiiEyeXDriver.o \
                        Devices/Mitsar/MitsarDriver.o \

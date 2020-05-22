@@ -53,6 +53,10 @@
 	//#define INCLUDE_DEVICE_ACTICHAMP
 #endif
 
+   #ifdef NEUROMORE_PLATFORM_LINUX
+      #define INCLUDE_DEVICE_EEMAGINE
+   #endif
+
 	// generic devices
 	#define	INCLUDE_DEVICE_GENERIC_HEARTRATE
 	#define	INCLUDE_DEVICE_GENERIC_ACCELEROMETER
@@ -91,6 +95,10 @@
 	//#define INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
 	//#define INCLUDE_DEVICE_BRAINQUIRY
 #endif
+#endif
+
+#ifdef NEUROMORE_PLATFORM_LINUX
+   #define INCLUDE_DEVICE_EEMAGINE
 #endif
 
 	// generic devices

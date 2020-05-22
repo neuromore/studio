@@ -22,6 +22,7 @@
 ****************************************************************************/
 
 // include required files
+#include <algorithm>
 #include "eemagineDriver.h"
 #include <Core/LogManager.h>
 
