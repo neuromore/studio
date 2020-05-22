@@ -32,7 +32,7 @@
 using namespace Core;
 
 // constructor
-eemagineDriver::eemagineDriver() : DeviceDriver(false), mMode(EMode::MODE_IDLE), mDevice(NULL), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
+eemagineDriver::eemagineDriver() : DeviceDriver(false), mMode(EMode::MODE_IDLE), mDevice(NULL), mFactory(EEGO_LIB_FILENAME), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
 {
    LogDetailedInfo("Constructing eemagine driver ...");
 

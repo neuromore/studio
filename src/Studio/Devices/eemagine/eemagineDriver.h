@@ -33,7 +33,13 @@
 
 // Select between linking their dynamic lib at compile time (EEGO_SDK_BIND_STATIC)
 // and loading their dynamic lib at runtime (EEGO_SDK_BIND_DYNAMIC).
-#define EEGO_SDK_BIND_STATIC
+#define EEGO_SDK_BIND_DYNAMIC
+
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
+#define EEGO_LIB_FILENAME "eego-SDK.dll"
+#elif defined(NEUROMORE_PLATFORM_LINUX)
+#define EEGO_LIB_FILENAME "libeego-SDK.so"
+#endif
 
 #include <eemagine/sdk/factory.h>
 
