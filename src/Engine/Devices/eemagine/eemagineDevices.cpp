@@ -374,352 +374,101 @@ double eemagineDevice::GetImpedance(uint32 neuroSensorIndex)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-211
+// eego with 8 channels
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-eemagineEE211Device::eemagineEE211Device(DeviceDriver* driver) : eemagineDevice(driver)
+eemagine8Device::eemagine8Device(DeviceDriver* driver) : eemagineDevice(driver)
 {
-   LogDetailedInfo("Constructing eemagine EE-211 ...");
-
-   // create all sensors
+   LogDetailedInfo("Constructing eemagine with 8 channels ...");
    CreateSensors();
 }
 
-eemagineEE211Device::~eemagineEE211Device()
+eemagine8Device::~eemagine8Device()
 {
-   LogDetailedInfo("Destructing eemagine EE-211 ...");
+   LogDetailedInfo("Destructing eemagine with 8 channels ...");
 }
 
-void eemagineEE211Device::CreateElectrodes()
+void eemagine8Device::CreateElectrodes()
 {
-   CreateDefaultElectrodes(64);
+   CreateDefaultElectrodes(8);
 }
 
-void eemagineEE211Device::CreateSensors()
+void eemagine8Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-212
+// eego with 16 channels
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-eemagineEE212Device::eemagineEE212Device(DeviceDriver* driver) : eemagineDevice(driver)
+eemagine16Device::eemagine16Device(DeviceDriver* driver) : eemagineDevice(driver)
 {
-   LogDetailedInfo("Constructing eemagine EE-212 ...");
-
-   // create all sensors
+   LogDetailedInfo("Constructing eemagine with 16 channels ...");
    CreateSensors();
 }
 
-eemagineEE212Device::~eemagineEE212Device()
+eemagine16Device::~eemagine16Device()
 {
-   LogDetailedInfo("Destructing eemagine EE-212 ...");
+   LogDetailedInfo("Destructing eemagine with 16 channels ...");
 }
 
-void eemagineEE212Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(32);
-}
-
-void eemagineEE212Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-213
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE213Device::eemagineEE213Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-213 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE213Device::~eemagineEE213Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-213 ...");
-}
-
-void eemagineEE213Device::CreateElectrodes()
+void eemagine16Device::CreateElectrodes()
 {
    CreateDefaultElectrodes(16);
 }
 
-void eemagineEE213Device::CreateSensors()
+void eemagine16Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-214
+// eego with 32 channels
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-eemagineEE214Device::eemagineEE214Device(DeviceDriver* driver) : eemagineDevice(driver)
+eemagine32Device::eemagine32Device(DeviceDriver* driver) : eemagineDevice(driver)
 {
-   LogDetailedInfo("Constructing eemagine EE-214 ...");
-
-   // create all sensors
+   LogDetailedInfo("Constructing eemagine with 32 channels ...");
    CreateSensors();
 }
 
-eemagineEE214Device::~eemagineEE214Device()
+eemagine32Device::~eemagine32Device()
 {
-   LogDetailedInfo("Destructing eemagine EE-214 ...");
+   LogDetailedInfo("Destructing eemagine with 32 channels ...");
 }
 
-void eemagineEE214Device::CreateElectrodes()
+void eemagine32Device::CreateElectrodes()
 {
    CreateDefaultElectrodes(32);
 }
 
-void eemagineEE214Device::CreateSensors()
+void eemagine32Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-215
+// eego with 64 channels
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-eemagineEE215Device::eemagineEE215Device(DeviceDriver* driver) : eemagineDevice(driver)
+eemagine64Device::eemagine64Device(DeviceDriver* driver) : eemagineDevice(driver)
 {
-   LogDetailedInfo("Constructing eemagine EE-215 ...");
-
-   // create all sensors
+   LogDetailedInfo("Constructing eemagine with 64 channels ...");
    CreateSensors();
 }
 
-eemagineEE215Device::~eemagineEE215Device()
+eemagine64Device::~eemagine64Device()
 {
-   LogDetailedInfo("Destructing eemagine EE-215 ...");
+   LogDetailedInfo("Destructing eemagine with 64 channels ...");
 }
 
-void eemagineEE215Device::CreateElectrodes()
+void eemagine64Device::CreateElectrodes()
 {
    CreateDefaultElectrodes(64);
 }
 
-void eemagineEE215Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-221
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE221Device::eemagineEE221Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-221 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE221Device::~eemagineEE221Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-221 ...");
-}
-
-void eemagineEE221Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(16);
-}
-
-void eemagineEE221Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-222
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE222Device::eemagineEE222Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-222 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE222Device::~eemagineEE222Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-222 ...");
-}
-
-void eemagineEE222Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(32);
-}
-
-void eemagineEE222Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-223
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE223Device::eemagineEE223Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-223 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE223Device::~eemagineEE223Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-223 ...");
-}
-
-void eemagineEE223Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(32);
-}
-
-void eemagineEE223Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-224
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE224Device::eemagineEE224Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-224 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE224Device::~eemagineEE224Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-224 ...");
-}
-
-void eemagineEE224Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(64);
-}
-
-void eemagineEE224Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-225
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE225Device::eemagineEE225Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-225 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE225Device::~eemagineEE225Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-225 ...");
-}
-
-void eemagineEE225Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(64);
-}
-
-void eemagineEE225Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-410
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE410Device::eemagineEE410Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-410 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE410Device::~eemagineEE410Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-410 ...");
-}
-
-void eemagineEE410Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(8);
-}
-
-void eemagineEE410Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-411
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE411Device::eemagineEE411Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-411 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE411Device::~eemagineEE411Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-411 ...");
-}
-
-void eemagineEE411Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(8);
-}
-
-void eemagineEE411Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// EE-430
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagineEE430Device::eemagineEE430Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine EE-430 ...");
-
-   // create all sensors
-   CreateSensors();
-}
-
-eemagineEE430Device::~eemagineEE430Device()
-{
-   LogDetailedInfo("Destructing eemagine EE-430 ...");
-}
-
-void eemagineEE430Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(8);
-}
-
-void eemagineEE430Device::CreateSensors()
+void eemagine64Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
 }
