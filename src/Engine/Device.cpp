@@ -200,6 +200,7 @@ void Device::Update(const Time& elapsed, const Time& delta)
 
 	// update all sensors
 	bool receivedData = false;
+	bool isActive = false;
 	const uint32 numSensors = mSensors.Size();
 	for (uint32 i = 0; i < numSensors; ++i)
 	{
@@ -227,8 +228,9 @@ void Device::Update(const Time& elapsed, const Time& delta)
 			sensor->SetLatency(totalLatency);
 		}
 
-		// set flag so we know if any data was received
+		// set flag so we know if any data was received and if the sensor is active
 		receivedData |= (sensor->GetInput()->GetNumNewSamples() > 0);
+		isActive |= (sensor->GetInput()->IsActive());
 
 		// apply device jitter value for all sensors
 		sensor->SetExpectedJitter(GetExpectedJitter());
@@ -241,7 +243,7 @@ void Device::Update(const Time& elapsed, const Time& delta)
 
 
 	// reset inactivity timer
-	if (receivedData == true)
+	if (isActive == true)
 		mInactivityDuration = 0;
 
 	// state change
