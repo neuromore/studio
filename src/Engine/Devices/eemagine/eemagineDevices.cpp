@@ -187,140 +187,6 @@ void eemagineDevice::CreateSensors()
    }
 }
 
-bool eemagineDevice::CreateDefaultElectrodes(const uint32_t count)
-{
-   // only 8, 16, 32 and 64er default electrode sets supported
-   if (count != 8 && count != 16 && count != 32 && count != 64)
-      return false;
-
-   mElectrodes.Clear();
-   mElectrodes.Reserve(count);
-
-   // default cap with 8 electrodes
-   // taken from cap: CA-411
-   if (count == 8)
-   {
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 01
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 02
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 03
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 04
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 05
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 06
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 07
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 08
-   }
-
-   // cap with 32 electrodes
-   // taken from: CAP-32CU
-   else if (count == 32)
-   {
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));  // 01
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 02
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));  // 03
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));   // 04
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 05
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 06
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 07
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));   // 08
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC5"));  // 09
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC1"));  // 10
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC2"));  // 11
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC6"));  // 12
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1"));   // 13 (= M1 ?)
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));   // 14
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 15
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 16
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 17
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));   // 18
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));   // 19 (= M2 ?)
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));  // 20
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP1"));  // 21
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP2"));  // 22
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));  // 23
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));   // 24
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 25
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 26
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 27
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));   // 28
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("POz"));  // 29
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 30
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 31
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 32
-   }
-
-   // cap with 64 electrodes
-   // taken from: CA-208.s1
-   else if (count == 64)
-   {
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));  // 01
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 02
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));  // 03
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));   // 04
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 05
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 06
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 07
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));   // 08
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC5"));  // 09
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC1"));  // 10
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC2"));  // 11
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC6"));  // 12
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1"));   // 13 (= M1 ?)
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));   // 14
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 15
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 16
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 17
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));   // 18
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));   // 19 (= M2 ?)
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));  // 20
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP1"));  // 21
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP2"));  // 22
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));  // 23
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));   // 24
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 25
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 26
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 27
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));   // 28
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("POz"));  // 29
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 30
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 31 (different than in 32er)
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("EOG"));  // 32 (different than in 32er)
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF7"));  // 33
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF3"));  // 34
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF4"));  // 35
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF8"));  // 36
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));   // 37
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F1"));   // 38
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F2"));   // 39
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));   // 40
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC3"));  // 41
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FCz"));  // 42
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC4"));  // 43
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C5"));   // 44
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C1"));   // 45
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C2"));   // 46
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C6"));   // 47
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3"));  // 48
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4"));  // 49
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P5"));   // 50
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P1"));   // 51
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P2"));   // 52
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P6"));   // 53
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO5"));  // 54
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO3"));  // 55
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO4"));  // 56
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO6"));  // 57
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FT7"));  // 58
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FT8"));  // 59
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("TP7"));  // 60
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("TP8"));  // 61 
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO7"));  // 62
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO8"));  // 63
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 64
-   }
-
-   return true;
-}
-
 double eemagineDevice::GetImpedance(uint32 neuroSensorIndex)
 {
    if (neuroSensorIndex < GetNumNeuroSensors())
@@ -346,7 +212,19 @@ eemagine8Device::~eemagine8Device()
 
 void eemagine8Device::CreateElectrodes()
 {
-   CreateDefaultElectrodes(8);
+   mElectrodes.Clear();
+   mElectrodes.Reserve(8);
+
+   // default cap with 8 electrodes
+   // taken from cap: CA-411
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 01
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 02
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 03
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 04
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 05
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 06
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 07
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 08
 }
 
 void eemagine8Device::CreateSensors()
@@ -371,7 +249,43 @@ eemagine32Device::~eemagine32Device()
 
 void eemagine32Device::CreateElectrodes()
 {
-   CreateDefaultElectrodes(32);
+   mElectrodes.Clear();
+   mElectrodes.Reserve(32);
+
+   // cap with 32 electrodes
+   // taken from: CAP-32CU
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));  // 01
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 02
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));  // 03
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));   // 04
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 05
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 06
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 07
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));   // 08
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC5"));  // 09
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC1"));  // 10
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC2"));  // 11
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC6"));  // 12
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1"));   // 13 (= M1 ?)
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));   // 14
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 15
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 16
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 17
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));   // 18
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));   // 19 (= M2 ?)
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));  // 20
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP1"));  // 21
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP2"));  // 22
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));  // 23
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));   // 24
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 25
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 26
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 27
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));   // 28
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("POz"));  // 29
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 30
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 31
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 32
 }
 
 void eemagine32Device::CreateSensors()
@@ -396,7 +310,75 @@ eemagine64Device::~eemagine64Device()
 
 void eemagine64Device::CreateElectrodes()
 {
-   CreateDefaultElectrodes(64);
+   mElectrodes.Clear();
+   mElectrodes.Reserve(64);
+
+   // cap with 64 electrodes
+   // taken from: CA-208.s1
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));  // 01
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 02
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));  // 03
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));   // 04
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 05
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 06
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 07
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));   // 08
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC5"));  // 09
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC1"));  // 10
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC2"));  // 11
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC6"));  // 12
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1"));   // 13 (= M1 ?)
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));   // 14
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 15
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 16
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 17
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));   // 18
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));   // 19 (= M2 ?)
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));  // 20
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP1"));  // 21
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP2"));  // 22
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));  // 23
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));   // 24
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 25
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 26
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 27
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));   // 28
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("POz"));  // 29
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 30
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 31 (different than in 32er)
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("EOG"));  // 32 (different than in 32er)
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF7"));  // 33
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF3"));  // 34
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF4"));  // 35
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AF8"));  // 36
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));   // 37
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F1"));   // 38
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F2"));   // 39
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));   // 40
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC3"));  // 41
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FCz"));  // 42
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FC4"));  // 43
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C5"));   // 44
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C1"));   // 45
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C2"));   // 46
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C6"));   // 47
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3"));  // 48
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4"));  // 49
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P5"));   // 50
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P1"));   // 51
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P2"));   // 52
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P6"));   // 53
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO5"));  // 54
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO3"));  // 55
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO4"));  // 56
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO6"));  // 57
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FT7"));  // 58
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("FT8"));  // 59
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("TP7"));  // 60
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("TP8"));  // 61 
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO7"));  // 62
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO8"));  // 63
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 64
 }
 
 void eemagine64Device::CreateSensors()

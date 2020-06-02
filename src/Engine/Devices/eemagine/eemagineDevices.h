@@ -53,9 +53,6 @@ public:
    // impedance test provides contact quality
    bool HasEegContactQualityIndicator() override { return IsTestRunning(); }
    double GetImpedance(uint32 neuroSensorIndex) override;
-
-protected:
-   bool CreateDefaultElectrodes(const uint32_t count);
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////

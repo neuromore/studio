@@ -302,12 +302,25 @@ void eemagineDriver::StartTest(Device* device)
    // build channel info for log
    LogInfo("eemagine: Found %i Impedance Channels:", channels.size());
 
-   // log channel details
-   for (auto channel : channels)
+   // iterate channels
+   for (const eemagine::sdk::channel& channel : channels)
    {
+      // log channel details
       std::stringstream s;
       s << channel; // implemented in sdk
       LogInfo(s.str().c_str());
+
+      // remember index of impedance_reference channel
+      if (channel.getType() == eemagine::sdk::channel::impedance_reference)
+      {
+
+      }
+
+      // remember index of imepdance_ground channel
+      else if (channel.getType() == eemagine::sdk::channel::impedance_ground)
+      {
+
+      }
    }
 }
 
