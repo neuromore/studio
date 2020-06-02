@@ -200,9 +200,6 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
       GetDeviceManager()->RegisterDeviceType(new eemagine8Device());
       GetGraphObjectFactory()->RegisterObjectType(new eemagine8Node(NULL));
 
-      GetDeviceManager()->RegisterDeviceType(new eemagine16Device());
-      GetGraphObjectFactory()->RegisterObjectType(new eemagine16Node(NULL));
-
       GetDeviceManager()->RegisterDeviceType(new eemagine32Device());
       GetGraphObjectFactory()->RegisterObjectType(new eemagine32Node(NULL));
 

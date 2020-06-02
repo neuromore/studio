@@ -82,28 +82,6 @@ public:
    void CreateSensors() override;
 };
 
-// eego with 16 channels
-class ENGINE_API eemagine16Device : public eemagineDevice
-{
-public:
-   enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_EEMAGINE_16CH };
-
-   // constructor & destructor
-   eemagine16Device(DeviceDriver* driver = NULL);
-   ~eemagine16Device();
-
-   Device* Clone() override { return new eemagine16Device(); }
-
-   // overloaded
-   uint32 GetType() const override { return TYPE_ID; }
-   const char* GetUuid() const override { return "e9529451-03b0-49ce-9744-9f0cead722d0"; }
-   const char* GetTypeName() const override { return "eego16ch"; }
-   const char* GetHardwareName() const override { return "eego 16ch"; }
-
-   void CreateElectrodes() override;
-   void CreateSensors() override;
-};
-
 // eego with 32 channels
 class ENGINE_API eemagine32Device : public eemagineDevice
 {

@@ -71,28 +71,6 @@ void eemagineDevice::CreateSensors()
             else if (String::SafeCompare(sensor->GetName(), "C4") == 0)  sensor->SetHardwareChannel(7);
          }
 
-         // cap with 16 electrodes
-         // taken from: CA-204
-         else if (numSensors == 16)
-         {
-            if      (String::SafeCompare(sensor->GetName(), "Fp1") == 0)   sensor->SetHardwareChannel(0);
-            else if (String::SafeCompare(sensor->GetName(), "Fp2") == 0)   sensor->SetHardwareChannel(2);
-            else if (String::SafeCompare(sensor->GetName(), "F3") == 0)    sensor->SetHardwareChannel(4);
-            else if (String::SafeCompare(sensor->GetName(), "Fz") == 0)    sensor->SetHardwareChannel(5);
-            else if (String::SafeCompare(sensor->GetName(), "F4") == 0)    sensor->SetHardwareChannel(6);
-            else if (String::SafeCompare(sensor->GetName(), "T7") == 0)    sensor->SetHardwareChannel(13);
-            else if (String::SafeCompare(sensor->GetName(), "C3") == 0)    sensor->SetHardwareChannel(14);
-            else if (String::SafeCompare(sensor->GetName(), "Cz") == 0)    sensor->SetHardwareChannel(15);
-            else if (String::SafeCompare(sensor->GetName(), "C4") == 0)    sensor->SetHardwareChannel(16);
-            else if (String::SafeCompare(sensor->GetName(), "T8") == 0)    sensor->SetHardwareChannel(17);
-            else if (String::SafeCompare(sensor->GetName(), "P3") == 0)    sensor->SetHardwareChannel(24);
-            else if (String::SafeCompare(sensor->GetName(), "Pz") == 0)    sensor->SetHardwareChannel(25);
-            else if (String::SafeCompare(sensor->GetName(), "P4") == 0)    sensor->SetHardwareChannel(26);
-            else if (String::SafeCompare(sensor->GetName(), "O1") == 0)    sensor->SetHardwareChannel(29);
-            else if (String::SafeCompare(sensor->GetName(), "Oz") == 0)    sensor->SetHardwareChannel(30);
-            else if (String::SafeCompare(sensor->GetName(), "O2") == 0)    sensor->SetHardwareChannel(31);
-         }
-
          // cap with 32 electrodes
          // taken from: CAP-32CU
          else if (numSensors == 32)
@@ -230,28 +208,6 @@ bool eemagineDevice::CreateDefaultElectrodes(const uint32_t count)
       mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 06
       mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 07
       mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 08
-   }
-
-   // cap with 16 electrodes
-   // taken from: CA-204
-   else if (count == 16)
-   {
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));  // 01
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));  // 02
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 03
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 04
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 05
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T7"));   // 06
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 07
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 08
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 09
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T8"));   // 10
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 11
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 12
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 13
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 14
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 15
-      mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 16
    }
 
    // cap with 32 electrodes
@@ -394,31 +350,6 @@ void eemagine8Device::CreateElectrodes()
 }
 
 void eemagine8Device::CreateSensors()
-{
-   eemagineDevice::CreateSensors();
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// eego with 16 channels
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-eemagine16Device::eemagine16Device(DeviceDriver* driver) : eemagineDevice(driver)
-{
-   LogDetailedInfo("Constructing eemagine with 16 channels ...");
-   CreateSensors();
-}
-
-eemagine16Device::~eemagine16Device()
-{
-   LogDetailedInfo("Destructing eemagine with 16 channels ...");
-}
-
-void eemagine16Device::CreateElectrodes()
-{
-   CreateDefaultElectrodes(16);
-}
-
-void eemagine16Device::CreateSensors()
 {
    eemagineDevice::CreateSensors();
 }

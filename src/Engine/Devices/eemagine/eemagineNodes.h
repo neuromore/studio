@@ -49,24 +49,6 @@ public:
    GraphObject* Clone(Graph* parentObject) override { eemagine8Node* clone = new eemagine8Node(parentObject); return clone; }
 };
 
-class ENGINE_API eemagine16Node : public DeviceInputNode
-{
-public:
-   enum { TYPE_ID = 0xD00000 | eemagine16Device::TYPE_ID };
-   static const char* Uuid() { return "deac9236-467c-4aae-884f-f449df7ff87f"; }
-
-   // constructor & destructor
-   eemagine16Node(Graph* parentGraph) : DeviceInputNode(parentGraph, eemagine16Device::TYPE_ID) {}
-   ~eemagine16Node() {}
-
-   Core::Color GetColor() const override { return Core::RGBA(255, 104, 1); }
-   uint32 GetType() const override { return TYPE_ID; }
-   const char* GetTypeUuid() const override final { return Uuid(); }
-   const char* GetReadableType() const override { return "eego 16ch"; }
-   const char* GetRuleName() const override final { return eemagine16Device::GetRuleName(); }
-   GraphObject* Clone(Graph* parentObject) override { eemagine16Node* clone = new eemagine16Node(parentObject); return clone; }
-};
-
 class ENGINE_API eemagine32Node : public DeviceInputNode
 {
 public:

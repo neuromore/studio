@@ -55,7 +55,6 @@ eemagineDriver::eemagineDriver() : DeviceDriver(false), mMode(EMode::MODE_IDLE),
 
    // add devices of this driver
    AddSupportedDevice(eemagine8Device::TYPE_ID);
-   AddSupportedDevice(eemagine16Device::TYPE_ID);
    AddSupportedDevice(eemagine32Device::TYPE_ID);
    AddSupportedDevice(eemagine64Device::TYPE_ID);
 }
@@ -176,7 +175,6 @@ Device* eemagineDriver::CreateDevice(uint32 deviceTypeID)
    switch (deviceTypeID)
    {
    case eemagine8Device::TYPE_ID:  return new eemagine8Device(this);
-   case eemagine16Device::TYPE_ID:  return new eemagine16Device(this);
    case eemagine32Device::TYPE_ID:  return new eemagine32Device(this);
    case eemagine64Device::TYPE_ID:  return new eemagine64Device(this);
    default: return NULL;
@@ -206,10 +204,10 @@ void eemagineDriver::DetectDevices()
       // create device for type if supported
       if      (type == "EE211") { mDevice = static_cast<eemagine64Device*>(CreateDevice(eemagine64Device::TYPE_ID)); }
       else if (type == "EE212") { mDevice = static_cast<eemagine32Device*>(CreateDevice(eemagine32Device::TYPE_ID)); }
-      else if (type == "EE213") { mDevice = static_cast<eemagine16Device*>(CreateDevice(eemagine16Device::TYPE_ID)); }
+      else if (type == "EE213") { mDevice = NULL; } // EOL device. not supported
       else if (type == "EE214") { mDevice = static_cast<eemagine32Device*>(CreateDevice(eemagine32Device::TYPE_ID)); }
       else if (type == "EE215") { mDevice = static_cast<eemagine64Device*>(CreateDevice(eemagine64Device::TYPE_ID)); }
-      else if (type == "EE221") { mDevice = static_cast<eemagine16Device*>(CreateDevice(eemagine16Device::TYPE_ID)); }
+      else if (type == "EE221") { mDevice = NULL;  } // EOL device. not supported.
       else if (type == "EE222") { mDevice = static_cast<eemagine32Device*>(CreateDevice(eemagine32Device::TYPE_ID)); }
       else if (type == "EE223") { mDevice = static_cast<eemagine32Device*>(CreateDevice(eemagine32Device::TYPE_ID)); }
       else if (type == "EE224") { mDevice = static_cast<eemagine64Device*>(CreateDevice(eemagine64Device::TYPE_ID)); }
