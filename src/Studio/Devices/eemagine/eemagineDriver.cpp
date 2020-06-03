@@ -131,17 +131,24 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
       return;
    }
 
-   // how many samples and sensors
-   const uint32_t numSamples = mBuffer.getSampleCount();
-   const uint32_t numSensors = mDevice->GetNumNeuroSensors();
+   const uint32 numSensors  = mDevice->GetNumNeuroSensors();
+   const int numChannels = mBuffer.getChannelCount();
 
-   // must keep the device alive in impedance mode (no samples)
+   // IMPEDANCE_MODE
    if (mMode == EMode::MODE_IMPEDANCE)
-      mDevice->KeepAlive();
-
-   // loop samples
-   for (uint32_t s = 0; s < numSamples; s++)
    {
+      const double sampleRate   = mDevice->GetSampleRate();
+
+      // device (its sensors) expects sample counts based on the sample rate
+      // but in impedance mode, the sdk will always have exactly 1 sample available
+      // to avoid drift-correction, this sample must be added multiple times
+      const double expectedsamples = (sampleRate * delta.InSeconds()) + mDevice->GetSampleRemainder();
+      const int    numsamples      = (int)expectedsamples;
+      const double remainder       = expectedsamples - (double)numsamples;
+
+      // store remainder for next run to exactly match the specified samplerate and not cause drift
+      mDevice->SetSampleRemainder(remainder);
+
       // loop electrodes (neuro sensors)
       for (uint32_t e = 0; e < numSensors; e++)
       {
@@ -150,15 +157,51 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
             // get hw channel index for sensor from hardcoded mapping
             const int32 idx = sensor->GetHardwareChannel();
 
-            // add sample for sensor
-            if (idx >= 0 && idx < (int)mBuffer.getChannelCount())
+            // add sample for sensor with SDK valid channel mapped
+            if (idx >= 0 && idx < numChannels)
             {
-               // get value
-               const double& v = mBuffer.getSample((uint32)idx, s);
+               const double& v = mBuffer.getSample((uint32)idx, 0);
+               for (int ns = 0; ns < numsamples; ns++)
+                  sensor->AddQueuedSample(v * 0.001); // Ohm -> kOhm
+            }
 
-               // add as sample or impedance
-               if      (mMode == EMode::MODE_STREAM)    sensor->AddQueuedSample(v);
-               else if (mMode == EMode::MODE_IMPEDANCE) sensor->SetImpedance(v * 0.001); // Ohm -> kOhm
+            // add 0.0 for sensors that have no SDK channel mapped
+            else
+            {
+               for (int ns = 0; ns < numsamples; ns++)
+                  sensor->AddQueuedSample(0.0);
+            }
+         }
+      }
+   }
+
+   // STREAMING_MODE
+   else if (mMode == EMode::MODE_STREAM)
+   {
+      // how many samples and sensors
+      uint32_t numSamples = mBuffer.getSampleCount();
+      
+      // loop samples
+      for (uint32_t s = 0; s < numSamples; s++)
+      {
+         // loop electrodes (neuro sensors)
+         for (uint32_t e = 0; e < numSensors; e++)
+         {
+            if (Sensor* sensor = mDevice->GetNeuroSensor(e))
+            {
+               // get hw channel index for sensor from hardcoded mapping
+               const int32 idx = sensor->GetHardwareChannel();
+
+               // add sample for sensor with valid SDK channel mapped
+               if (idx >= 0 && idx < numChannels)
+               {
+                  const double& v = mBuffer.getSample((uint32)idx, s);
+                  sensor->AddQueuedSample(v);
+               }
+
+               // add 0.0 for sensors that have no SDK channel mapped
+               else
+                  sensor->AddQueuedSample(0.0);
             }
          }
       }
@@ -280,7 +323,7 @@ void eemagineDriver::Cleanup()
 
 void eemagineDriver::StartTest(Device* device)
 {
-   if (device != mDevice || mMode == EMode::MODE_IMPEDANCE || !mAmplifier)
+   if (device != mDevice || !mDevice || mMode == EMode::MODE_IMPEDANCE || !mAmplifier)
       return;
 
    // log
@@ -296,37 +339,52 @@ void eemagineDriver::StartTest(Device* device)
    // open imepdance stream
    mStream = mAmplifier->OpenImpedanceStream();
 
-   // get channels
+   // get channels and size
    const auto channels = mStream->getChannelList();
+   const size_t size   = channels.size();
+
+   // get neuro sensor count
+   const uint32 numNeuroSensors = mDevice->GetNumNeuroSensors();
+   
+   // try find the REF and GND sensors
+   Sensor* sref = mDevice->FindNeuroSensorByName("REF");
+   Sensor* sgnd = mDevice->FindNeuroSensorByName("GND");
+
+   // reset GND and REF mappings
+   if (sref) sref->SetHardwareChannel(-1);
+   if (sgnd) sgnd->SetHardwareChannel(-1);
 
    // build channel info for log
-   LogInfo("eemagine: Found %i Impedance Channels:", channels.size());
+   LogInfo("eemagine: Found %i Impedance Channels:", size);
 
    // iterate channels
-   for (const eemagine::sdk::channel& channel : channels)
+   for (size_t i = 0; i < size; i++)
    {
       // log channel details
       std::stringstream s;
-      s << channel; // implemented in sdk
+      s << channels[i]; // implemented in sdk
       LogInfo(s.str().c_str());
 
+      // check expected reference channels exist
+      if (i < numNeuroSensors-2 && channels[i].getType() != eemagine::sdk::channel::reference)
+         LogWarning("eemagine: Expected reference channel at idx %i but found %s instead", i, s.str().c_str());
+
       // remember index of impedance_reference channel
-      if (channel.getType() == eemagine::sdk::channel::impedance_reference)
-      {
+      if (sref && channels[i].getType() == eemagine::sdk::channel::impedance_reference)
+         sref->SetHardwareChannel((int)i);
 
-      }
-
-      // remember index of imepdance_ground channel
-      else if (channel.getType() == eemagine::sdk::channel::impedance_ground)
-      {
-
-      }
+      // remember index of impedance_ground channel
+      else if (sgnd && channels[i].getType() == eemagine::sdk::channel::impedance_ground)
+         sgnd->SetHardwareChannel((int)i);
    }
+
+   // reset the device
+   mDevice->Reset();
 }
 
 void eemagineDriver::StartStreaming()
 {
-   if (mMode == EMode::MODE_STREAM || !mAmplifier)
+   if (!mDevice || mMode == EMode::MODE_STREAM || !mAmplifier)
       return;
 
    // log
@@ -344,17 +402,29 @@ void eemagineDriver::StartStreaming()
 
    // get channels
    const auto channels = mStream->getChannelList();
+   const size_t size = channels.size();
 
    // build channel info for log
    LogInfo("eemagine: Found %i Streaming Channels:", channels.size());
 
-   // log channel details
-   for (auto channel : channels)
+   // get neuro sensor count
+   const uint32 numNeuroSensors = mDevice->GetNumNeuroSensors();
+
+   // iterate channels
+   for (size_t i = 0; i < size; i++)
    {
       std::stringstream s;
-      s << channel; // implemented in sdk
+      s << channels[i]; // implemented in sdk
       LogInfo(s.str().c_str());
+
+      // check expected reference channels exist
+      if (i < numNeuroSensors-2 && channels[i].getType() != eemagine::sdk::channel::reference)
+         LogWarning("eemagine: Expected reference channel at idx %i but found %s instead", i, s.str().c_str());
    }
+
+
+   // reset the device
+   mDevice->Reset();
 }
 
 void eemagineDriver::StopTest(Device* device)
@@ -371,6 +441,14 @@ void eemagineDriver::StopTest(Device* device)
 
    // reset ref
    mStream = NULL;
+
+   // reset hw channel index of REF
+   if (Sensor* s = mDevice->FindNeuroSensorByName("REF"))
+      s->SetHardwareChannel(-1);
+
+   // reset hw channel index of GND
+   if (Sensor* s = mDevice->FindNeuroSensorByName("GND"))
+      s->SetHardwareChannel(-1);
 
    // directly switch to streaming mode at the end of tests
    StartStreaming();

@@ -53,6 +53,14 @@ public:
    // impedance test provides contact quality
    bool HasEegContactQualityIndicator() override { return IsTestRunning(); }
    double GetImpedance(uint32 neuroSensorIndex) override;
+
+   inline double GetSampleRemainder() { return mSampleRemainder; }
+   inline void SetSampleRemainder(double v) { mSampleRemainder = v; }
+
+   void Reset() override;
+
+protected:
+   double  mSampleRemainder;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////

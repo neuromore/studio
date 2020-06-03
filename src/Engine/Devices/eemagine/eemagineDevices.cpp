@@ -34,7 +34,7 @@ using namespace Core;
 // base class
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-eemagineDevice::eemagineDevice(DeviceDriver* driver) : BciDevice(driver)
+eemagineDevice::eemagineDevice(DeviceDriver* driver) : BciDevice(driver), mSampleRemainder(0.0)
 {
    // start in connected state
    mState = STATE_IDLE;
@@ -57,9 +57,9 @@ void eemagineDevice::CreateSensors()
       {
          // assign hw channel index to sensor
 
-         // cap with 8 electrodes
+         // cap with 8 electrodes and ref+gnd
          // taken from cap: CA-411
-         if (numSensors == 8)
+         if (numSensors == 8+2)
          {
             if      (String::SafeCompare(sensor->GetName(), "Fz") == 0)  sensor->SetHardwareChannel(0);
             else if (String::SafeCompare(sensor->GetName(), "Cz") == 0)  sensor->SetHardwareChannel(1);
@@ -69,11 +69,13 @@ void eemagineDevice::CreateSensors()
             else if (String::SafeCompare(sensor->GetName(), "Fpz") == 0) sensor->SetHardwareChannel(5);
             else if (String::SafeCompare(sensor->GetName(), "C3") == 0)  sensor->SetHardwareChannel(6);
             else if (String::SafeCompare(sensor->GetName(), "C4") == 0)  sensor->SetHardwareChannel(7);
+            else if (String::SafeCompare(sensor->GetName(), "GND") == 0) sensor->SetHardwareChannel(-1); // later read from amplifier channel list
+            else if (String::SafeCompare(sensor->GetName(), "REF") == 0) sensor->SetHardwareChannel(-1); // later read from amplifier channel list
          }
 
-         // cap with 32 electrodes
+         // cap with 32 electrodes and ref+gnd
          // taken from: CAP-32CU
-         else if (numSensors == 32)
+         else if (numSensors == 32+2)
          {
             if      (String::SafeCompare(sensor->GetName(), "Fp1") == 0)    sensor->SetHardwareChannel(0);
             else if (String::SafeCompare(sensor->GetName(), "Fpz") == 0)    sensor->SetHardwareChannel(1);
@@ -107,11 +109,13 @@ void eemagineDevice::CreateSensors()
             else if (String::SafeCompare(sensor->GetName(), "O1") == 0)     sensor->SetHardwareChannel(29);
             else if (String::SafeCompare(sensor->GetName(), "Oz") == 0)     sensor->SetHardwareChannel(30);
             else if (String::SafeCompare(sensor->GetName(), "O2") == 0)     sensor->SetHardwareChannel(31);
+            else if (String::SafeCompare(sensor->GetName(), "GND") == 0)    sensor->SetHardwareChannel(-1); // later read from amplifier channel list
+            else if (String::SafeCompare(sensor->GetName(), "REF") == 0)    sensor->SetHardwareChannel(-1); // later read from amplifier channel list
          }
 
-         // cap with 64 electrodes
+         // cap with 64 electrodes and ref+gnd
          // taken from: CA-208.s1
-         else if (numSensors == 64)
+         else if (numSensors == 64+2)
          {
             if      (String::SafeCompare(sensor->GetName(), "Fp1") == 0)    sensor->SetHardwareChannel(0);
             else if (String::SafeCompare(sensor->GetName(), "Fpz") == 0)    sensor->SetHardwareChannel(1);
@@ -177,6 +181,8 @@ void eemagineDevice::CreateSensors()
             else if (String::SafeCompare(sensor->GetName(), "PO7") == 0)    sensor->SetHardwareChannel(61);
             else if (String::SafeCompare(sensor->GetName(), "PO8") == 0)    sensor->SetHardwareChannel(62);
             else if (String::SafeCompare(sensor->GetName(), "Oz") == 0)     sensor->SetHardwareChannel(63);
+            else if (String::SafeCompare(sensor->GetName(), "GND") == 0)    sensor->SetHardwareChannel(-1); // later read from amplifier channel list
+            else if (String::SafeCompare(sensor->GetName(), "REF") == 0)    sensor->SetHardwareChannel(-1); // later read from amplifier channel list
          }
 
          // TODO: Implement this more generic as new
@@ -190,9 +196,15 @@ void eemagineDevice::CreateSensors()
 double eemagineDevice::GetImpedance(uint32 neuroSensorIndex)
 {
    if (neuroSensorIndex < GetNumNeuroSensors())
-      return GetNeuroSensor(neuroSensorIndex)->GetImpedance();
+      return GetNeuroSensor(neuroSensorIndex)->GetChannel()->GetLastSample();
 
    return 0.0;
+}
+
+void eemagineDevice::Reset()
+{
+   mSampleRemainder = 0.0;
+   BciDevice::Reset();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,7 +225,7 @@ eemagine8Device::~eemagine8Device()
 void eemagine8Device::CreateElectrodes()
 {
    mElectrodes.Clear();
-   mElectrodes.Reserve(8);
+   mElectrodes.Reserve(8+2);
 
    // default cap with 8 electrodes
    // taken from cap: CA-411
@@ -225,6 +237,8 @@ void eemagine8Device::CreateElectrodes()
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 06
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 07
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 08
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("GND"));  //
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("REF"));  //
 }
 
 void eemagine8Device::CreateSensors()
@@ -250,7 +264,7 @@ eemagine32Device::~eemagine32Device()
 void eemagine32Device::CreateElectrodes()
 {
    mElectrodes.Clear();
-   mElectrodes.Reserve(32);
+   mElectrodes.Reserve(32+2);
 
    // cap with 32 electrodes
    // taken from: CAP-32CU
@@ -286,6 +300,8 @@ void eemagine32Device::CreateElectrodes()
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));   // 30
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 31
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));   // 32
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("GND"));  //
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("REF"));  //
 }
 
 void eemagine32Device::CreateSensors()
@@ -311,7 +327,7 @@ eemagine64Device::~eemagine64Device()
 void eemagine64Device::CreateElectrodes()
 {
    mElectrodes.Clear();
-   mElectrodes.Reserve(64);
+   mElectrodes.Reserve(64+2);
 
    // cap with 64 electrodes
    // taken from: CA-208.s1
@@ -379,6 +395,8 @@ void eemagine64Device::CreateElectrodes()
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO7"));  // 62
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO8"));  // 63
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));   // 64
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("GND"));  //
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("REF"));  //
 }
 
 void eemagine64Device::CreateSensors()
