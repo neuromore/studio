@@ -131,8 +131,8 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
       return;
    }
 
-   const uint32 numSensors  = mDevice->GetNumNeuroSensors();
-   const int numChannels = mBuffer.getChannelCount();
+   const uint32 numSensors  = mDevice->GetNumNeuroSensors(); // num eeg electrodes
+   const int    numChannels = mBuffer.getChannelCount();     // num sdk channels
 
    // IMPEDANCE_MODE
    if (mMode == EMode::MODE_IMPEDANCE)
@@ -173,14 +173,19 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
             }
          }
       }
+
+      // extra sensors
+      if (Sensor* sensor = mDevice->GetSensorMode())
+         for (int ns = 0; ns < numsamples; ns++)
+            sensor->AddQueuedSample(1.0);
    }
 
    // STREAMING_MODE
    else if (mMode == EMode::MODE_STREAM)
    {
-      // how many samples and sensors
-      uint32_t numSamples = mBuffer.getSampleCount();
-      
+      // how many samples on SDK buffer
+      const uint32_t numSamples = mBuffer.getSampleCount();
+
       // loop samples
       for (uint32_t s = 0; s < numSamples; s++)
       {
@@ -204,6 +209,10 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
                   sensor->AddQueuedSample(0.0);
             }
          }
+
+         // extra sensors
+         if (Sensor* sensor = mDevice->GetSensorMode())
+            sensor->AddQueuedSample(0.0);
       }
    }
 }

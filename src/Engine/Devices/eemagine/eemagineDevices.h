@@ -57,10 +57,13 @@ public:
    inline double GetSampleRemainder() { return mSampleRemainder; }
    inline void SetSampleRemainder(double v) { mSampleRemainder = v; }
 
+   inline Sensor* GetSensorMode() { return mSensorMode; }
+
    void Reset() override;
 
 protected:
    double  mSampleRemainder;
+   Sensor* mSensorMode;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////

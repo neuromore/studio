@@ -34,7 +34,7 @@ using namespace Core;
 // base class
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-eemagineDevice::eemagineDevice(DeviceDriver* driver) : BciDevice(driver), mSampleRemainder(0.0)
+eemagineDevice::eemagineDevice(DeviceDriver* driver) : BciDevice(driver), mSampleRemainder(0.0), mSensorMode(0)
 {
    // start in connected state
    mState = STATE_IDLE;
@@ -46,8 +46,11 @@ eemagineDevice::~eemagineDevice()
 
 void eemagineDevice::CreateSensors()
 {
-   // create EEG sensors first
+   // create EEG electrode sensors first
    BciDevice::CreateSensors();
+
+   // create additional sensors
+   mSensorMode = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "Mode");
 
    // iterate neuro sensors (electrodes)
    const uint32_t numSensors = GetNumNeuroSensors();
