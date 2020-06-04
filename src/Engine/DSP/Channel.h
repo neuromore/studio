@@ -56,6 +56,7 @@ class Channel : public ChannelBase
 
 		// configure channel
 		virtual void SetBufferSize(uint32 numSamples) override;
+		inline void SetBufferSizeInSeconds(double seconds) { SetBufferSize((uint32)::ceil(mSampleRate * seconds)); }
 
         uint32 CalcChunkSize() const                                    { return Core::Max<uint32>(mSampleRate * 5.0, 100); }
 

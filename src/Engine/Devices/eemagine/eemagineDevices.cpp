@@ -28,6 +28,8 @@
 
 #ifdef INCLUDE_DEVICE_EEMAGINE
 
+#define BUFFERSIZE_IN_SECONDS 60.0
+
 using namespace Core;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -188,10 +190,9 @@ void eemagineDevice::CreateSensors()
             else if (String::SafeCompare(sensor->GetName(), "REF") == 0)    sensor->SetHardwareChannel(-1); // later read from amplifier channel list
          }
 
-         // TODO: Implement this more generic as new
-         // SetBufferSizeInSeconds() in class Channel
-         sensor->GetInput()->SetBufferSize((uint32_t)(GetSampleRate() * 10.0));
-         sensor->GetOutput()->SetBufferSize((uint32_t)(GetSampleRate() * 10.0));
+         // extend buffers so they can hold up to 60s of samples
+         sensor->GetInput()->SetBufferSizeInSeconds(BUFFERSIZE_IN_SECONDS);
+         sensor->GetOutput()->SetBufferSizeInSeconds(BUFFERSIZE_IN_SECONDS);
       }
    }
 }
