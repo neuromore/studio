@@ -103,6 +103,11 @@
       #pragma comment(lib, "edk.lib")
    #endif
 
+   // PROPRIETARY (EEMAGINE)
+   #ifdef INCLUDE_DEVICE_EEMAGINE
+      #pragma comment(lib, "eego-SDK.lib")
+   #endif
+
    // PROPRIETARY (EMOTIV)
    #ifdef INCLUDE_DEVICE_BRAINQUIRY
       #pragma comment(lib, "BQPetDLL.lib")

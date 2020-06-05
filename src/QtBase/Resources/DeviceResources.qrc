@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
+        <file>Images/Devices/eego 8ch.png</file>
+        <file>Images/Devices/eego 32ch.png</file>
+        <file>Images/Devices/eego 64ch.png</file>
         <file>Images/Devices/Test Device.png</file>
         <file>Images/Devices/Emotiv EPOC.png</file>
         <file>Images/Devices/Emotiv Insight.png</file>

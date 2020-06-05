@@ -74,6 +74,7 @@ ENGINE_OBJS_ALL     = Core/AABB.o \
                       Devices/Emotiv/EmotivEPOCDevice.o \
                       Devices/Emotiv/EmotivInsightDevice.o \
                       Devices/eSense/eSenseSkinResponseDevice.o \
+                      Devices/eemagine/eemagineDevices.o \
                       Devices/EyeX/TobiiEyeXDevice.o \
                       Devices/EyeX/TobiiEyeXNode.o \
                       Devices/Gamepad/GamepadDevice.o \
@@ -608,6 +609,7 @@ STUDIO_MOCH_ALL      = Devices/Bluetooth/BluetoothDevice.cpp \
                        Devices/Bluetooth/BluetoothService.cpp \
                        Devices/Brainquiry/BrainquiryDriver.cpp \
                        Devices/Brainquiry/BrainquirySerialHandler.cpp \
+                       Devices/eemagine/eemagineDriver.cpp \
                        Devices/NeuroSky/NeuroSkyDriver.cpp \
                        Devices/NeuroSky/NeuroSkySerialHandler.cpp \
                        Devices/OpenBCI/OpenBCIDriver.cpp \
@@ -747,6 +749,7 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/BrainProducts/ActiChampDriver.o \
                        Devices/Brainquiry/BrainquiryDriver.o \
                        Devices/Brainquiry/BrainquirySerialHandler.o \
+                       Devices/eemagine/eemagineDriver.o \
                        Devices/Emotiv/EmotivDriver.o \
                        Devices/EyeX/TobiiEyeXDriver.o \
                        Devices/Mitsar/MitsarDriver.o \
