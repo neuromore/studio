@@ -8,6 +8,7 @@ Open-Source Third Party Software included in this repository.
 
 | Name                | Version  | Link                                                  | Remarks                                 |
 |---------------------|----------|-------------------------------------------------------|-----------------------------------------|
+| brainflow           | 3.0.3    | https://github.com/brainflow-dev/brainflow            | Brainflow                               |
 | crashrpt            | 1.4.3    | http://crashrpt.sourceforge.net/                      | Crash Reporter (Windows only)           |
 | double-conversion   | 3.1.5    | https://github.com/google/double-conversion           | Binary-Decimal Conversion               |
 | easing              | ?.?.?    | http://robertpenner.com/easing/                       | Easing Functions                        |
@@ -18,6 +19,8 @@ Open-Source Third Party Software included in this repository.
 | freetype            | 2.10.1   | https://www.freetype.org/                             | Font Rendering                          |
 | harfbuzz            | < 0.6.0  | https://www.freedesktop.org/wiki/Software/HarfBuzz/   | Text Shaping Engine (old)               |
 | harfbuzz-ng         | 1.7.4    | https://www.freedesktop.org/wiki/Software/HarfBuzz/   | Text Shaping Engine (new)               |
+| http                | ?.?.?    |                                                       | Basic HTTP protocol implementation      |
+| json                | 3.7.3    | https://github.com/nlohmann/json                      | JSON for Modern C++                     |
 | KHR                 | ?.?.?    | https://www.khronos.org/registry/                     | Khronos Platform Header                 |
 | kissfft             | 131      | https://github.com/mborgerding/kissfft                | Fast Fourier Transform (FFT)            |
 | libjpeg             | 9c       | https://www.ijg.org/                                  | JPEG Support                            |
@@ -37,6 +40,7 @@ Open-Source Third Party Software included in this repository.
 | sha1                | ?.?.?    |                                                       | SHA1                                    |
 | sha3                | ?.?.?    |                                                       | SHA3                                    |
 | singleapplication   | ?.?.?    | https://github.com/itay-grudev/SingleApplication      | Qt Single Application Extension         |
+| spdlog              | 0.17.0   | https://github.com/gabime/spdlog                      | C++ Logging Library                     |
 | stb                 | 2.24     | https://github.com/nothings/stb                       | Single File Header Libraries            |
 | tinyaes             | 1.0.0    | https://github.com/kokke/tiny-AES-c                   | AES Support                             |
 | tinycbor            | 0.6.0    | https://github.com/intel/tinycbor                     | Concise Binary Object Representation    |
