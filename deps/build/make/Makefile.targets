@@ -330,6 +330,29 @@ minizip-x64-clean:
 
 minizip-clean: minizip-x86-clean minizip-x64-clean
 ###################################################################################################################
+# BRAINFLOW
+###################################################################################################################
+BRAINFLOW_OBJS_X86 := $(patsubst %,$(BRAINFLOW_OBJDIR_X86)/%,$(BRAINFLOW_OBJS))
+BRAINFLOW_OBJS_X64 := $(patsubst %,$(BRAINFLOW_OBJDIR_X64)/%,$(BRAINFLOW_OBJS))
+
+brainflow-x86: $(BRAINFLOW_OBJS_X86)
+	$(call createlib32,brainflow,$(BRAINFLOW_OBJS_X86))
+
+brainflow-x64: $(BRAINFLOW_OBJS_X64)
+	$(call createlib64,brainflow,$(BRAINFLOW_OBJS_X64))
+
+brainflow: brainflow-x86 brainflow-x64
+
+brainflow-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),brainflow.*)
+	$(call deletefilepattern,$(BRAINFLOW_OBJDIR_X86),*.o)
+
+brainflow-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),brainflow.*)
+	$(call deletefilepattern,$(BRAINFLOW_OBJDIR_X64),*.o)
+
+brainflow-clean: brainflow-x86-clean brainflow-x64-clean
+###################################################################################################################
 # OPENCV-CORE
 ###################################################################################################################
 OPENCVCORE_OBJS_X86 := $(patsubst %,$(OPENCVCORE_OBJDIR_X86)/%,$(OPENCVCORE_OBJS))
@@ -1640,6 +1663,7 @@ all-common-x86: zlib-x86 \
          harfbuzz-ng-x86 \
          kissfft-x86 \
          minizip-x86 \
+         brainflow-x86 \
          opencv-core-x86 \
          opencv-imgcodecs-x86 \
          opencv-imgproc-x86 \
@@ -1679,6 +1703,7 @@ all-common-x64: zlib-x64 \
          harfbuzz-ng-x64 \
          kissfft-x64 \
          minizip-x64 \
+         brainflow-x64 \
          opencv-core-x64 \
          opencv-imgcodecs-x64 \
          opencv-imgproc-x64 \
@@ -1719,6 +1744,7 @@ clean-x86: zlib-x86-clean \
            harfbuzz-ng-x86-clean \
            kissfft-x86-clean \
            minizip-x86-clean \
+           brainflow-x86-clean \
            opencv-core-x86-clean \
            opencv-imgcodecs-x86-clean \
            opencv-imgproc-x86-clean \
@@ -1767,6 +1793,7 @@ clean-x64: zlib-x64-clean \
            harfbuzz-ng-x64-clean \
            kissfft-x64-clean \
            minizip-x64-clean \
+           brainflow-x64-clean \
            opencv-core-x64-clean \
            opencv-imgcodecs-x64-clean \
            opencv-imgproc-x64-clean \
