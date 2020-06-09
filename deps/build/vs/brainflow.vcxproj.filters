@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="board_controller">
+      <UniqueIdentifier>{913617a5-8c2e-4dd6-8d12-a2a21b8d9c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board_controller\openbci">
+      <UniqueIdentifier>{18f12cbd-d76a-4333-96bd-d250bcac5570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board_controller\openbci\ganglion_bglib">
+      <UniqueIdentifier>{e38bdcf8-d1f9-4bdc-b70f-e1a11b4630b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board_controller\gtec">
+      <UniqueIdentifier>{8823cd3c-d6f5-40cb-82c8-5b12083cebf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board_controller\neuromd">
+      <UniqueIdentifier>{3c541e38-f58e-442e-8f8d-7e658843d224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{c3222d16-ba4a-442a-9b19-3cce78a4abf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data_handler">
+      <UniqueIdentifier>{5b7577bf-15cb-4d73-b29a-c86025091b86}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\brainflow\board_controller\board.cpp">
+      <Filter>board_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\board_controller.cpp">
+      <Filter>board_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\board_info_getter.cpp">
+      <Filter>board_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\file_streamer.cpp">
+      <Filter>board_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\multicast_streamer.cpp">
+      <Filter>board_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\streaming_board.cpp">
+      <Filter>board_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\synthetic_board.cpp">
+      <Filter>board_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\cyton.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\cyton_daisy.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\cyton_daisy_wifi.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\cyton_wifi.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_wifi.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\novaxr.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\openbci_serial_board.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\openbci_wifi_shield_board.cpp">
+      <Filter>board_controller\openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\callbacks.cpp">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\cmd_def.cpp">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\helpers.cpp">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\main.cpp">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\stubs.cpp">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\uart.cpp">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\gtec\unicorn_board.cpp">
+      <Filter>board_controller\gtec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\brainbit.cpp">
+      <Filter>board_controller\neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\callibri.cpp">
+      <Filter>board_controller\neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\callibri_ecg.cpp">
+      <Filter>board_controller\neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\callibri_eeg.cpp">
+      <Filter>board_controller\neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\callibri_emg.cpp">
+      <Filter>board_controller\neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\neuromd_board.cpp">
+      <Filter>board_controller\neuromd</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\apitypes.h">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\cmd_def.h">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\ganglion_interface.h">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\helpers.h">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\uart.h">
+      <Filter>board_controller\openbci\ganglion_bglib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_daisy.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_daisy_wifi.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_wifi.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_wifi.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\novaxr.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_helpers.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_serial_board.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_wifi_shield_board.h">
+      <Filter>board_controller\openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\board.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\board_controller.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\board_info_getter.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\brainflow_constants.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\brainflow_input_params.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\file_streamer.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\multicast_streamer.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\streamer.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\streaming_board.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\stub_streamer.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\synthetic_board.h">
+      <Filter>board_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\gtec\unicorn_board.h">
+      <Filter>board_controller\gtec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\brainbit.h">
+      <Filter>board_controller\neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri.h">
+      <Filter>board_controller\neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_ecg.h">
+      <Filter>board_controller\neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_eeg.h">
+      <Filter>board_controller\neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_emg.h">
+      <Filter>board_controller\neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\neuromd_board.h">
+      <Filter>board_controller\neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\custom_cast.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\data_buffer.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\get_dll_dir.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\multicast_client.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\multicast_server.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\runtime_dll_loader.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\serial.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\shared_export.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\shared_export_matlab.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\socket_client.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\socket_server.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\spinlock.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\timestamp.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\data_handler\data_handler.h">
+      <Filter>data_handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\data_handler\downsample_operators.h">
+      <Filter>data_handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\data_handler\rolling_filter.h">
+      <Filter>data_handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\data_handler\wavelet_helpers.h">
+      <Filter>data_handler</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
