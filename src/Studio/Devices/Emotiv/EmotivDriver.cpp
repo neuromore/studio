@@ -37,7 +37,7 @@
 using namespace Core;
 
 // constructor
-EmotivDriver::EmotivDriver() : DeviceDriver()
+EmotivDriver::EmotivDriver() : DeviceDriver(false)
 {
 	LogDetailedInfo("Constructing Emotiv driver ...");
 

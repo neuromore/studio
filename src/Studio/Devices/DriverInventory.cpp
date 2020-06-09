@@ -34,6 +34,10 @@
 	#include "Emotiv/EmotivDriver.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_EEMAGINE
+	#include "eemagine/eemagineDriver.h"
+#endif
+
 #ifdef INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
 	#include "ABM/ABMDriver.h"
 #endif
@@ -128,6 +132,15 @@ void DriverInventory::RegisterDrivers()
 	}
 #endif
 
+#ifdef INCLUDE_DEVICE_EEMAGINE
+	if (user->ReadAllowed(eemagineDevice::GetRuleName()) == true)
+	{
+		// create and add the eemagine system
+		eemagineDriver* _eemagineDriver = new eemagineDriver();
+		_eemagineDriver->Init();
+		deviceManager->AddDeviceDriver(_eemagineDriver);
+	}
+#endif
 
 #ifdef INCLUDE_DEVICE_OPENBCI
 	if (user->ReadAllowed(OpenBCIDevice::GetRuleName()) == true || user->ReadAllowed(OpenBCIDaisyDevice::GetRuleName()) == true)

@@ -37,7 +37,7 @@
 using namespace Core;
 
 // constructor
-VersusDriver::VersusDriver() : DeviceDriver(), EventHandler()
+VersusDriver::VersusDriver() : DeviceDriver(false), EventHandler()
 {
 	LogInfo("Constructing Versus device driver ...");
 
@@ -122,7 +122,7 @@ void VersusDriver::SetAutoDetectionEnabled(bool enable)
 {
 	DeviceDriver::SetAutoDetectionEnabled(enable);
 
-	if (enable == true)
+	if (enable == true && mIsEnabled)
 	{
 		LogDetailedInfo("Starting Versus auto detection ...");
 		mAutoDetectionThread->start();

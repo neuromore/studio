@@ -33,7 +33,7 @@
 using namespace Core;
 
 // constructor
-ActiChampDriver::ActiChampDriver() : DeviceDriver()
+ActiChampDriver::ActiChampDriver() : DeviceDriver(false)
 {
 	LogDetailedInfo("Constructing Mitsar Driver ...");
 

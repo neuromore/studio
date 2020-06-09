@@ -42,6 +42,7 @@
 	// windows-only closed-source devices
 	//#define INCLUDE_DEVICE_EMOTIV
 	#define INCLUDE_DEVICE_MITSAR
+	#define INCLUDE_DEVICE_EEMAGINE
 	//#define INCLUDE_DEVICE_NEUROSKY_MINDWAVE
 	//#define INCLUDE_DEVICE_TOBIIEYEX
 	// x86 only devices
@@ -51,6 +52,10 @@
 #endif
 	//#define INCLUDE_DEVICE_ACTICHAMP
 #endif
+
+   #ifdef NEUROMORE_PLATFORM_LINUX
+      #define INCLUDE_DEVICE_EEMAGINE
+   #endif
 
 	// generic devices
 	#define	INCLUDE_DEVICE_GENERIC_HEARTRATE
@@ -82,6 +87,7 @@
 	// windows-only devices
 	//#define INCLUDE_DEVICE_EMOTIV
 	#define INCLUDE_DEVICE_MITSAR
+	#define INCLUDE_DEVICE_EEMAGINE
 	//#define INCLUDE_DEVICE_NEUROSKY_MINDWAVE
 	//#define INCLUDE_DEVICE_TOBIIEYEX
 	// x86 only devices
@@ -89,6 +95,10 @@
 	//#define INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
 	//#define INCLUDE_DEVICE_BRAINQUIRY
 #endif
+#endif
+
+#ifdef NEUROMORE_PLATFORM_LINUX
+   #define INCLUDE_DEVICE_EEMAGINE
 #endif
 
 	// generic devices

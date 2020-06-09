@@ -57,6 +57,7 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\DriverInventory.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\eemagine\eemagineDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Emotiv\EmotivDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.h" />
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h" />
     <ClInclude Include="..\..\src\Studio\Devices\DriverInventory.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\eemagine\eemagineDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Emotiv\EmotivDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.h" />

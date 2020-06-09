@@ -36,7 +36,7 @@
 using namespace Core;
 
 // constructor
-NeuroSkyDriver::NeuroSkyDriver() : DeviceDriver(), EventHandler()
+NeuroSkyDriver::NeuroSkyDriver() : DeviceDriver(false), EventHandler()
 {
 	LogInfo("Constructing NeuroSky device driver ...");
 
@@ -123,21 +123,21 @@ void NeuroSkyDriver::Update(const Time& elapsed, const Time& delta)
 // start stop auto detection
 void NeuroSkyDriver::SetAutoDetectionEnabled(bool enable)
 {
-	DeviceDriver::SetAutoDetectionEnabled(enable);
-
-	if (enable == true)
-	{
-		LogDetailedInfo("Starting NeuroSky auto detection ...");
-		mAutoDetectionThread->start();
-		mAutoDetection->Start();
-	}
-	else
-	{
-		LogDetailedInfo("Stopping NeuroSky auto detection ...");
-		mAutoDetection->Stop();
-	}
+   DeviceDriver::SetAutoDetectionEnabled(enable);
 }
 
+void NeuroSkyDriver::StartAutoDetection()
+{
+   LogDetailedInfo("Starting NeuroSky auto detection ...");
+   mAutoDetectionThread->start();
+   mAutoDetection->Start();
+}
+
+void NeuroSkyDriver::StopAutoDetection()
+{
+   LogDetailedInfo("Stopping NeuroSky auto detection ...");
+   mAutoDetection->Stop();
+}
 
 bool NeuroSkyDriver::IsDetectionRunning() const
 {
