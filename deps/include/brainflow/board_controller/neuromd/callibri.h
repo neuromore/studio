@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef BRAINFLOW_NO_NEUROMD
+
 #include <thread>
 
 #include "neuromd_board.h"
@@ -39,3 +41,4 @@ public:
 
     static constexpr int package_size = 2;
 };
+#endif

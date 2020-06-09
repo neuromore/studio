@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef BRAINFLOW_NO_NEUROMD
+
 #include "callibri.h"
 
 class CallibriEMG : public Callibri
@@ -19,3 +21,4 @@ public:
     {
     }
 };
+#endif

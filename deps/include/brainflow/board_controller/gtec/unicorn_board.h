@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef BRAINFLOW_NO_UNICORN
+
 #include <thread>
 
 #include "board.h"
@@ -46,3 +48,4 @@ public:
 
     static constexpr int package_size = 17; // from unicorn.h
 };
+#endif

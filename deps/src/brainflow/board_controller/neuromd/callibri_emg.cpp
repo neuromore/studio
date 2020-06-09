@@ -1,3 +1,5 @@
+#ifndef BRAINFLOW_NO_NEUROMD
+
 #include "callibri_emg.h"
 
 #if defined _WIN32 || defined __APPLE__
@@ -77,4 +79,5 @@ int CallibriEMG::apply_initial_settings ()
     return STATUS_OK;
 }
 
+#endif
 #endif

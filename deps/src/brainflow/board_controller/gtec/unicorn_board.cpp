@@ -1,3 +1,5 @@
+#ifndef BRAINFLOW_NO_UNICORN
+
 #include "unicorn_board.h"
 
 // implementation for linux
@@ -386,4 +388,5 @@ int UnicornBoard::start_stream (int buffer_size, char *streamer_params)
     safe_logger (spdlog::level::err, "UnicornBoard supports only Linux.");
     return UNSUPPORTED_BOARD_ERROR;
 }
+#endif
 #endif

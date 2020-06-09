@@ -1,3 +1,5 @@
+#ifndef BRAINFLOW_NO_NEUROMD
+
 #include <stdint.h>
 #include <string.h>
 
@@ -569,4 +571,5 @@ int BrainBit::start_stream (int buffer_size, char *streamer_params)
     return UNSUPPORTED_BOARD_ERROR;
 }
 
+#endif
 #endif

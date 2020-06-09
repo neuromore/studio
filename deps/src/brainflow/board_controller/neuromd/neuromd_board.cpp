@@ -1,3 +1,5 @@
+#ifndef BRAINFLOW_NO_NEUROMD
+
 #include <stdint.h>
 #include <string.h>
 
@@ -251,4 +253,5 @@ int NeuromdBoard::connect_device ()
     return STATUS_OK;
 }
 
+#endif
 #endif

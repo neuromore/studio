@@ -95,12 +95,17 @@ int prepare_session (int board_id, char *json_brainflow_input_params)
         case CYTON_DAISY_WIFI_BOARD:
             board = std::shared_ptr<Board> (new CytonDaisyWifi (params));
             break;
+#ifndef BRAINFLOW_NO_NEUROMD
         case BRAINBIT_BOARD:
             board = std::shared_ptr<Board> (new BrainBit (params));
             break;
+#endif
+#ifndef BRAINFLOW_NO_UNICORN
         case UNICORN_BOARD:
             board = std::shared_ptr<Board> (new UnicornBoard (params));
             break;
+#endif
+#ifndef BRAINFLOW_NO_NEUROMD
         case CALLIBRI_EEG_BOARD:
             board = std::shared_ptr<Board> (new CallibriEEG (params));
             break;
@@ -110,6 +115,7 @@ int prepare_session (int board_id, char *json_brainflow_input_params)
         case CALLIBRI_ECG_BOARD:
             board = std::shared_ptr<Board> (new CallibriECG (params));
             break;
+#endif
         default:
             return UNSUPPORTED_BOARD_ERROR;
     }

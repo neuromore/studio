@@ -1,3 +1,5 @@
+#ifndef BRAINFLOW_NO_NEUROMD
+
 #include <stdint.h>
 #include <string.h>
 
@@ -319,4 +321,5 @@ int Callibri::start_stream (int buffer_size, char *streamer_params)
     return UNSUPPORTED_BOARD_ERROR;
 }
 
+#endif
 #endif

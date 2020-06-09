@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef BRAINFLOW_NO_NEUROMD
+
 #include <thread>
 
 #include "board.h"
@@ -33,3 +35,4 @@ public:
     NeuromdBoard (int board_id, struct BrainFlowInputParams params);
     virtual ~NeuromdBoard ();
 };
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef BRAINFLOW_NO_NEUROMD
+
 #include <thread>
 
 #include "neuromd_board.h"
@@ -60,3 +62,4 @@ public:
 
 #endif
 };
+#endif
