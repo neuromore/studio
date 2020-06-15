@@ -292,8 +292,8 @@ String AppManager::GetAppName() const
 		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
 		else if (user->FindRule("ROLE_Professional") != NULL)			name = "neuromore Studio Professional";
 		else if (user->FindRule("ROLE_Community") != NULL)				name = "neuromore Studio Community";
-		else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = "neuromore Pro (NTEsuite)";
-		else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = "neuromore Pro (NTEsuite)" ;
+		else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = "neuromore Studio";
+		else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = "neuromore Studio";
 		else															name = "neuromore Studio";
 	}
 
