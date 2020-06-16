@@ -227,7 +227,7 @@ void CreateUserWindow::OnCreateButtonClicked()
 	parentIds.Add( GetUser()->GetId() );
 
 	// 1. construct invite request
-	UsersCreateRequest request( GetUser()->GetToken(), email, firstName, lastName, parentIds );
+	UsersCreateRequest request( GetUser()->GetToken(), email, firstName, lastName, "", parentIds );
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
