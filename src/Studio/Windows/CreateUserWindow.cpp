@@ -33,11 +33,12 @@
 #include <Backend/UsersInviteResponse.h>
 #include <QMessageBox>
 
-
 using namespace Core;
 
 // constructor
-CreateUserWindow::CreateUserWindow(QWidget* parent, const Core::String& email) : QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint)
+CreateUserWindow::CreateUserWindow(QWidget* parent, const Core::String& email) : 
+   QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint),
+   mValidatorBirthday(QRegExp("[0-9]{4}-[0-9]{2}-[0-9]{2}"))
 {
 	// set the window title
 	setWindowTitle( "Create User" );
@@ -103,9 +104,24 @@ CreateUserWindow::CreateUserWindow(QWidget* parent, const Core::String& email) :
 	connect( mEmailEdit, &QLineEdit::textEdited, this, &CreateUserWindow::OnEmailEdited );
 
 	// add email validator to line edit
-	mValidator = new EmailValidator( true, mEmailEdit );
+	mValidatorEmail = new EmailValidator( true, mEmailEdit );
 	//mLineEdit->setValidator(mValidator);
 
+	// birthday layout
+	QGridLayout* birthdayLayout = new QGridLayout();
+	birthdayLayout->setVerticalSpacing(0);
+	mainLayout->addLayout(birthdayLayout);
+
+	// birthday
+	QLabel* birthdayLabel = new QLabel("Birthday (optional, YYYY-MM-DD)", this);
+	birthdayLayout->addWidget(birthdayLabel, 0, 0);
+
+	mBirthdayEdit = new QLineEdit(this);
+	birthdayLayout->addWidget(mBirthdayEdit, 1, 0);
+	connect(mBirthdayEdit, &QLineEdit::textEdited, this, &CreateUserWindow::OnBirthdayEdited);
+
+	// add birthday validator to line edit
+	mBirthdayEdit->setValidator(&mValidatorBirthday);
 
 	// spacing widget
 	mainLayout->addWidget( new QLabel("", this) );
@@ -160,7 +176,7 @@ void CreateUserWindow::UpdateInterface()
 	if (emailString.isEmpty() == false)
 	{
 		int pos;
-		QValidator::State state = mValidator->validate(emailString, pos);
+		QValidator::State state = mValidatorEmail->validate(emailString, pos);
 
 		if (state == QValidator::Acceptable)
 		{
@@ -195,6 +211,17 @@ void CreateUserWindow::UpdateInterface()
 		buttonText = "First name is empty";
 	}
 
+	// birthday
+	if (!mBirthdayEdit->text().isEmpty())
+	{
+		QDate tmpDate = QDate::fromString(mBirthdayEdit->text(), "yyyy-MM-dd");
+		if (!tmpDate.isValid())
+		{
+			createButtonEnabled = false;
+			buttonText = "Birthday is invalid";
+ 		}
+	}
+
 	mCreateButton->setEnabled( createButtonEnabled );
 
 	if (createButtonEnabled == true)
@@ -222,12 +249,13 @@ void CreateUserWindow::OnCreateButtonClicked()
 	String firstName	= mFirstNameEdit->text().toUtf8().data();
 	String lastName		= mLastNameEdit->text().toUtf8().data();
 	String email		= mEmailEdit->text().toUtf8().data();
+	String birthday		= mBirthdayEdit->text().toUtf8().data();
 
 	Array<String> parentIds;
 	parentIds.Add( GetUser()->GetId() );
 
 	// 1. construct invite request
-	UsersCreateRequest request( GetUser()->GetToken(), email, firstName, lastName, parentIds );
+	UsersCreateRequest request( GetUser()->GetToken(), email, firstName, lastName, birthday, parentIds );
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );

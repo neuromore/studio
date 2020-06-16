@@ -11,7 +11,7 @@
 using namespace Core;
 
 // constructor
-UsersCreateRequest::UsersCreateRequest(const char* token, Core::String email, Core::String firstName, Core::String lastName, const Array<String>& parentIds) : Request()
+UsersCreateRequest::UsersCreateRequest(const char* token, Core::String email, Core::String firstName, Core::String lastName, Core::String birthday, const Array<String>& parentIds) : Request()
 {
 	// display text
 	SetDisplayText("Creating user ...");
@@ -40,6 +40,13 @@ UsersCreateRequest::UsersCreateRequest(const char* token, Core::String email, Co
 	{
 		email.Trim();
 		rootItem.AddString( "email", email.AsChar() );
+	}
+
+	// birthday
+	if (birthday.IsEmpty() == false)
+	{
+		birthday.Trim();
+		rootItem.AddString( "birthday", birthday.AsChar() );
 	}
 
 	// parent ids

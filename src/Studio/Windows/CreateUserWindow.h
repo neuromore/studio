@@ -49,6 +49,7 @@ class CreateUserWindow : public QDialog
 		void OnFirstNameEdited()					{ UpdateInterface(); }
 		void OnLastNameEdited()						{ UpdateInterface(); }
 		void OnEmailEdited()						{ UpdateInterface(); }
+		void OnBirthdayEdited()						{ UpdateInterface(); }
 
 		void OnCreateButtonClicked();
 		void OnCancelButtonClicked();
@@ -61,7 +62,9 @@ class CreateUserWindow : public QDialog
 		QLineEdit*		mLastNameEdit;
 
 		QLineEdit*		mEmailEdit;
-		EmailValidator* mValidator;
+		QLineEdit*		mBirthdayEdit;
+		EmailValidator* mValidatorEmail;
+		QRegExpValidator mValidatorBirthday;
 
 		QPushButton*	mCreateButton;
 };

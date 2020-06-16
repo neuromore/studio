@@ -81,6 +81,9 @@ class ENGINE_API User
 		const char* GetEmail() const										{ return mEmail.AsChar(); }
 		const Core::String& GetEmailString() const							{ return mEmail; }
 
+		void SetBirthday(const char* birthday)								{ mBirthday = birthday; }
+		const char* GetBirthday() const										{ return mBirthday.AsChar(); }
+
 		Core::String CreateDisplayableName() const;
 		Core::String CreateFullName() const;
 
@@ -121,6 +124,7 @@ class ENGINE_API User
 		Core::String				mMiddleName;
 		Core::String				mLastName;
 		Core::String				mEmail;
+		Core::String				mBirthday;
 		Core::Array<Rule>			mRules;
 		Core::Array<Core::String>	mParentCompanyIds;
 		Core::String				mDisplayName;

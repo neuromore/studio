@@ -103,7 +103,7 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	headerItem->setTextAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	mTableWidget->setHorizontalHeaderItem( 1, headerItem );
 
-	headerItem = new QTableWidgetItem("Email");
+	headerItem = new QTableWidgetItem("Birthday");
 	headerItem->setTextAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	mTableWidget->setHorizontalHeaderItem( 2, headerItem );
 
@@ -422,10 +422,10 @@ void SelectUserWindow::AddUser(const User& user)
 	//firstItem->setToolTip(mTempString.AsChar());
 	//secondItem->setToolTip(mTempString.AsChar());
 
-	//  Col 3: last name
-	QTableWidgetItem* emailItem = new QTableWidgetItem(user.GetEmail());
-	emailItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
-	mTableWidget->setItem( row, 2, emailItem );
+	//  Col 3: birthday name
+	QTableWidgetItem* birthdayItem = new QTableWidgetItem(user.GetBirthday());
+	birthdayItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
+	mTableWidget->setItem( row, 2, birthdayItem);
 
 	// add user to user array
 	mListedUsers.Add(user);
