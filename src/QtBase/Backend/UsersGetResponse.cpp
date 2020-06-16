@@ -64,6 +64,12 @@ UsersGetResponse::UsersGetResponse(QNetworkReply* reply) : Response(reply)
 		if (emailItem.IsString() == true)
 			user.SetEmail( emailItem.GetString() );
 
+		// birthday
+		Json::Item birthdayItem = userItem.Find("birthday");
+		if (birthdayItem.IsString() == true) {
+			user.SetBirthday( birthdayItem.GetString() );
+		}
+
 		//LogInfo( "User: Id=%s, Name=%s %s %s", user.GetId(), user.GetFirstName(), user.GetMiddleName(), user.GetLastName() );
 
 		mUsers.Add(user);
