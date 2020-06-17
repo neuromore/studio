@@ -86,6 +86,11 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	spacerWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	topHLayout->addWidget(spacerWidget);
 
+	// search edit box
+	mSearchEdit = new QLineEdit(this);
+	mSearchEdit->setPlaceholderText("Search name ...");
+	connect(mSearchEdit, &QLineEdit::textEdited, this, &SelectUserWindow::OnRefresh);
+	topHLayout->addWidget(mSearchEdit);
 
 	// add table widget
 	mTableWidget = new QTableWidget();
@@ -354,7 +359,7 @@ void SelectUserWindow::RequestPage(uint32 pageIndex, bool force)
 	mTableWidget->setEnabled(false);
 
 	// construct /users/get request
-	UsersGetRequest request( mUser.GetToken(), pageIndex);
+	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->text().toUtf8().data());
 
 	// process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );

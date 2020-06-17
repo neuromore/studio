@@ -79,7 +79,7 @@ class SelectUserWindow : public QDialog
 		QTimer*				mRefreshTimer;
 		Core::Timer			mLastRefreshTimer;
 		QLabel*				mRefreshLabel;
-
+		QLineEdit*			mSearchEdit;
 		QTableWidget*		mTableWidget;
 		QPushButton*		mSelectUserButton;
 		QPushButton*		mCreateUserButton;
