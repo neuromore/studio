@@ -87,9 +87,9 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	topHLayout->addWidget(spacerWidget);
 
 	// search edit box
-	mSearchEdit = new QLineEdit(this);
-	mSearchEdit->setPlaceholderText("Search name ...");
-	connect(mSearchEdit, &QLineEdit::textEdited, this, &SelectUserWindow::OnSearchEdited);
+	mSearchEdit = new SearchBoxWidget(this);
+	connect(mSearchEdit, SIGNAL(TextChanged(const QString&)), this, SLOT(OnSearchEdited(const QString&)));
+	connect(mSearchEdit, SIGNAL(TextCleared()), this, SLOT(OnSearchCleared()));
 	topHLayout->addWidget(mSearchEdit);
 
 	// search timer
@@ -367,7 +367,7 @@ void SelectUserWindow::RequestPage(uint32 pageIndex, bool force)
 	mTableWidget->setEnabled(false);
 
 	// construct /users/get request
-	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->text().toUtf8().data());
+	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data());
 
 	// process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
@@ -489,7 +489,13 @@ void SelectUserWindow::OnRefreshTimer()
 }
 
 // called when search text changes
-void SelectUserWindow::OnSearchEdited()
+void SelectUserWindow::OnSearchEdited(const QString& text)
+{
+   mSearchTimer->stop();
+   mSearchTimer->start();
+}
+
+void SelectUserWindow::OnSearchCleared()
 {
    mSearchTimer->stop();
    mSearchTimer->start();

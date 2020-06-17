@@ -38,6 +38,7 @@
 #include <QTableWidget>
 #include <QCheckBox>
 #include <User.h>
+#include <Widgets/SearchBoxWidget.h>
 
 
 // window to select one of the users' child users
@@ -61,7 +62,8 @@ class SelectUserWindow : public QDialog
 		void OnCancelButtonClicked();
 
 		void OnRefreshTimer();
-		void OnSearchEdited();
+		void OnSearchEdited(const QString& text);
+		void OnSearchCleared();
 
 		void OnScrolled();
 
@@ -82,7 +84,7 @@ class SelectUserWindow : public QDialog
 
 		Core::Timer			mLastRefreshTimer;
 		QLabel*				mRefreshLabel;
-		QLineEdit*			mSearchEdit;
+		SearchBoxWidget*	mSearchEdit;
 		QTableWidget*		mTableWidget;
 		QPushButton*		mSelectUserButton;
 		QPushButton*		mCreateUserButton;
