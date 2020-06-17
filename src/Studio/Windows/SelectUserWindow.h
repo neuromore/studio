@@ -61,6 +61,7 @@ class SelectUserWindow : public QDialog
 		void OnCancelButtonClicked();
 
 		void OnRefreshTimer();
+		void OnSearchEdited();
 
 		void OnScrolled();
 
@@ -77,6 +78,8 @@ class SelectUserWindow : public QDialog
 
 		ImageButton*		mRefreshButton;
 		QTimer*				mRefreshTimer;
+		QTimer*				mSearchTimer;
+
 		Core::Timer			mLastRefreshTimer;
 		QLabel*				mRefreshLabel;
 		QLineEdit*			mSearchEdit;
