@@ -11,7 +11,7 @@
 using namespace Core;
 
 // constructor
-UsersGetRequest::UsersGetRequest(const char* token, uint32 page, uint32 pageSize) : Request()
+UsersGetRequest::UsersGetRequest(const char* token, uint32 page, uint32 pageSize, Core::String nameFilter) : Request()
 {
 	// display text
 	SetDisplayText("Getting users ...");
@@ -26,4 +26,8 @@ UsersGetRequest::UsersGetRequest(const char* token, uint32 page, uint32 pageSize
 	AddUrlParameter( "token", token );
 	AddUrlParameter( "page", page );
 	AddUrlParameter( "size", pageSize);
+
+   nameFilter.Trim();
+   if (!nameFilter.IsEmpty())
+      AddUrlParameter("nameFilter", nameFilter.AsChar());
 }
