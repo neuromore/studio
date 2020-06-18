@@ -86,6 +86,16 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	spacerWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	topHLayout->addWidget(spacerWidget);
 
+	// search edit box
+	mSearchEdit = new SearchBoxWidget(this);
+	connect(mSearchEdit, SIGNAL(TextChanged(const QString&)), this, SLOT(OnSearchEdited(const QString&)));
+	connect(mSearchEdit, SIGNAL(TextCleared()), this, SLOT(OnSearchCleared()));
+	topHLayout->addWidget(mSearchEdit);
+
+	// search timer
+	mSearchTimer = new QTimer(this);
+	connect(mSearchTimer, &QTimer::timeout, this, &SelectUserWindow::OnRefresh );
+	mSearchTimer->setInterval(750);
 
 	// add table widget
 	mTableWidget = new QTableWidget();
@@ -347,6 +357,9 @@ void SelectUserWindow::RequestNextPage(bool force)
 // request the next page of users
 void SelectUserWindow::RequestPage(uint32 pageIndex, bool force)
 {
+	// stop timer
+	mSearchTimer->stop();
+
 	// avoid double calls
 	if (mTableWidget->isEnabled() == false && force == false)
 		return;
@@ -354,7 +367,7 @@ void SelectUserWindow::RequestPage(uint32 pageIndex, bool force)
 	mTableWidget->setEnabled(false);
 
 	// construct /users/get request
-	UsersGetRequest request( mUser.GetToken(), pageIndex);
+	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data());
 
 	// process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
@@ -473,4 +486,17 @@ void SelectUserWindow::OnRefreshTimer()
 	}
 
 	mRefreshLabel->setText( mTempString.AsChar() );
+}
+
+// called when search text changes
+void SelectUserWindow::OnSearchEdited(const QString& text)
+{
+   mSearchTimer->stop();
+   mSearchTimer->start();
+}
+
+void SelectUserWindow::OnSearchCleared()
+{
+   mSearchTimer->stop();
+   mSearchTimer->start();
 }
