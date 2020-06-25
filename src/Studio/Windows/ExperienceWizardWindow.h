@@ -48,11 +48,9 @@ class ExperienceWizardWindow : public QDialog
       ExperienceWizardWindow(const User& user, QWidget* parent);
       virtual ~ExperienceWizardWindow();
 
-	//signals:
-	//	void OnUserSelected(const User& user);
-
    private slots:
       void OnClassifierSelectIndexChanged(int index);
+      void OnCreateClicked();
 
    private:
       const User&      mUser;

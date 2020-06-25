@@ -31,7 +31,6 @@
 #include <Backend/BackendHelpers.h>
 #include <QHeaderView>
 #include <QVBoxLayout>
-//#include <QScrollBar>
 
 using namespace Core;
 
@@ -127,6 +126,8 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mCreateButton.setToolTip("Create this protocol for selected user.");
    mMainLayout.addWidget(&mCreateButton);
 
+   connect(&mCreateButton, &QPushButton::clicked, this, &ExperienceWizardWindow::OnCreateClicked);
+
    /////////////////////////////////////////////////
    // finish
 
@@ -141,6 +142,11 @@ ExperienceWizardWindow::~ExperienceWizardWindow()
 }
 
 void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
+{
+   //TODO
+}
+
+void ExperienceWizardWindow::OnCreateClicked()
 {
    //TODO
 }
