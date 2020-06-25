@@ -134,6 +134,13 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	connect( mTableWidget, &QTableWidget::itemSelectionChanged, this, &SelectUserWindow::OnSelectionChanged );
 
 
+	// create protocol
+	mCreateProtocolButton = new QPushButton("Create Protocol");
+	mCreateProtocolButton->setToolTip( "Create a protocol for the selected user." );
+	mCreateProtocolButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Plus.png") );
+	mCreateProtocolButton->setEnabled(false);
+	mainLayout->addWidget(mCreateProtocolButton);
+	connect(mCreateProtocolButton, &QPushButton::clicked, this, &SelectUserWindow::OnCreateProtocolButtonClicked);
 
 	// select user button
 	mSelectUserButton = new QPushButton("Select User");
@@ -208,6 +215,7 @@ void SelectUserWindow::OnSelectionChanged()
 	if (selectedItems.isEmpty() == true)
 	{
 		mSelectUserButton->setEnabled(false);
+		mCreateProtocolButton->setEnabled(false);
 		return;
 	}
 
@@ -218,6 +226,7 @@ void SelectUserWindow::OnSelectionChanged()
 
 	// enable selectuser button
 	mSelectUserButton->setEnabled(true);
+	mCreateProtocolButton->setEnabled(true);
 }
 
 
@@ -239,6 +248,11 @@ void SelectUserWindow::OnSelectUserButtonClicked()
 	close();
 }
 
+// TODO
+void SelectUserWindow::OnCreateProtocolButtonClicked()
+{
+
+}
 
 // invite user
 void SelectUserWindow::InviteUser(const String& email)

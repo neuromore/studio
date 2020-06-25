@@ -56,6 +56,7 @@ class SelectUserWindow : public QDialog
 		void OnSelectionChanged();
 		void OnCellDoubleClicked(int row, int column);
 
+		void OnCreateProtocolButtonClicked();
 		void OnSelectUserButtonClicked();
 		void OnCreateButtonClicked()								{ CreateUser(""); }
 		void OnInviteButtonClicked()								{ InviteUser(""); }
@@ -86,6 +87,7 @@ class SelectUserWindow : public QDialog
 		QLabel*				mRefreshLabel;
 		SearchBoxWidget*	mSearchEdit;
 		QTableWidget*		mTableWidget;
+		QPushButton*		mCreateProtocolButton;
 		QPushButton*		mSelectUserButton;
 		QPushButton*		mCreateUserButton;
 		QPushButton*		mInviteUserButton;
