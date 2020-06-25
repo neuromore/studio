@@ -51,6 +51,7 @@ class SelectUserWindow : public QDialog
 
 	signals:
 		void OnUserSelected(const User& user);
+		void OnCreateProtocol(const User& user);
 
 	private slots:
 		void OnSelectionChanged();

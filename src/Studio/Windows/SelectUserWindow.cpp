@@ -248,10 +248,22 @@ void SelectUserWindow::OnSelectUserButtonClicked()
 	close();
 }
 
-// TODO
+// emit OnCreateProtocol with user
 void SelectUserWindow::OnCreateProtocolButtonClicked()
 {
+   QModelIndexList selectedRows = mTableWidget->selectionModel()->selectedRows();
+   if (selectedRows.count() != 1)
+      return;
 
+   // get the array index from the mime data of the first item in the row
+   const uint32 selectedRow = selectedRows.at(0).row();
+   const User& user = mListedUsers[selectedRow];
+
+   // emit signal
+   emit(OnCreateProtocol(user));
+
+   // close window
+   close();
 }
 
 // invite user

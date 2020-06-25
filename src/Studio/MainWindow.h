@@ -50,6 +50,7 @@
 #include <Networking/OscServer.h>
 #include "Windows/LoginWindow.h"
 #include "Windows/SelectUserWindow.h"
+#include "Windows/ExperienceWizardWindow.h"
 #include "AuthenticationCenter.h"
 
 // forward declarations
@@ -101,6 +102,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 
 		// session user selection window
 		SelectUserWindow*			mSessionUserSelectionWindow;
+		ExperienceWizardWindow*	mExperienceWizardWindow;
 
 		//
 		// Settings
@@ -227,6 +229,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 
 		void OnBciSelectionChanged(const QString& text);
 		void OnSessionUserSelected(const User& user);
+		void OnCreateProtocolForUser(const User& user);
 		void OnSessionUserSelectionCanceled();
 
 		// FILE menu

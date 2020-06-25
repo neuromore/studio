@@ -112,6 +112,7 @@ set VAR=-DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG_H -D_UNICO
 %MOC% %INC% %VAR% %DIR%/Windows/AboutWindow.h -o %DIR%/Windows/AboutWindow.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Windows/CreateUserWindow.h -o %DIR%/Windows/CreateUserWindow.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Windows/EmailValidator.h -o %DIR%/Windows/EmailValidator.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Windows/ExperienceWizardWindow.h -o %DIR%/Windows/ExperienceWizardWindow.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Windows/InviteUserWindow.h -o %DIR%/Windows/InviteUserWindow.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Windows/LicenseAgreement.h -o %DIR%/Windows/LicenseAgreement.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Windows/LicenseAgreementWindow.h -o %DIR%/Windows/LicenseAgreementWindow.moc.cpp
