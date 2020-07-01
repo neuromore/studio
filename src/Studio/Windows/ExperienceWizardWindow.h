@@ -28,6 +28,7 @@
 #include <Core/StandardHeaders.h>
 #include <Core/String.h>
 #include <Core/Timer.h>
+#include <Core/Json.h>
 #include "../Config.h"
 #include <ImageButton.h>
 #include <QLayout>
@@ -40,6 +41,7 @@
 #include <QTableWidget>
 #include <QListWidget>
 #include <User.h>
+
 
 // window to select and quick configure a classifier into an experience for a user
 class ExperienceWizardWindow : public QDialog
@@ -56,6 +58,9 @@ class ExperienceWizardWindow : public QDialog
    private:
       void CreateRowChannelSelector(const char* name);
       void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
+
+      void RequestClassifiers();
+      void ProcessFolder(const Core::Json::Item& folder);
 
    private:
       const User&      mUser;

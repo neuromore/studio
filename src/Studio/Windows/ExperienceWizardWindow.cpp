@@ -26,14 +26,13 @@
 
 #include <Core/LogManager.h>
 #include <QtBaseManager.h>
-#include <Backend/UsersGetRequest.h>
-#include <Backend/UsersGetResponse.h>
 #include <Backend/BackendHelpers.h>
 #include <QHeaderView>
 #include <QVBoxLayout>
-
 #include <QIcon>
-#include <Engine/Graph/ChannelSelectorNode.h>
+#include <Graph/ChannelSelectorNode.h>
+#include <Backend/FileHierarchyGetRequest.h>
+#include <Backend/FileHierarchyGetResponse.h>
 
 using namespace Core;
 
@@ -81,9 +80,6 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
 
    mClassifierSelectDesc.setMinimumWidth(100);
    mClassifierSelect.setMinimumWidth(200);
-   mClassifierSelect.addItem("Classifier1"); // TODO
-   mClassifierSelect.addItem("Classifier2"); // TODO
-   mClassifierSelect.addItem("Classifier3"); // TODO
    mClassifierLayout.setSpacing(6);
    mClassifierLayout.setAlignment(Qt::AlignCenter);
    mClassifierLayout.addWidget(&mClassifierSelectDesc);
@@ -145,6 +141,11 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    connect(&mCreateButton, &QPushButton::clicked, this, &ExperienceWizardWindow::OnCreateClicked);
 
    /////////////////////////////////////////////////
+   // request backend data
+
+   RequestClassifiers();
+
+   /////////////////////////////////////////////////
    // finish
 
    GetQtBaseManager()->CenterToScreen(this);
@@ -159,12 +160,99 @@ ExperienceWizardWindow::~ExperienceWizardWindow()
 
 void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
 {
-   //TODO
+   QString text(mClassifierSelect.itemText(index));
+   QString id(mClassifierSelect.itemData(index).toString());
+
+   // DEBUG
+   printf("selected: %s %s \n", text.toLocal8Bit().data(), id.toLocal8Bit().data());
+
+   // TODO: load from backend
 }
 
 void ExperienceWizardWindow::OnCreateClicked()
 {
    //TODO
+}
+
+void ExperienceWizardWindow::RequestClassifiers()
+{
+   mClassifierSelect.setEnabled(false);
+   mClassifierSelect.clear();
+   mClassifierSelect.blockSignals(true);
+
+   FileHierarchyGetRequest request(GetUser()->GetToken(), GetUser()->GetIdString());
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
+   connect(reply, &QNetworkReply::finished, this, [reply, this]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+
+      FileHierarchyGetResponse response(networkReply);
+      if (response.HasError() == true)
+         return;
+
+      const Core::Json& json = response.GetJson();
+
+      Json::Item rootItem = json.GetRootItem();
+      if (rootItem.IsNull() == false)
+      {
+         Json::Item dataItem = rootItem.Find("data");
+         if (dataItem.IsNull() == false)
+         {
+            Json::Item rootFoldersItem = dataItem.Find("rootFolders");
+            if (rootFoldersItem.IsArray() == true)
+            {
+               const uint32 numRootFolders = rootFoldersItem.Size();
+               for (uint32 i = 0; i < numRootFolders; ++i)
+                  ProcessFolder(rootFoldersItem[i]);
+            }
+         }
+      }
+
+      mClassifierSelect.model()->sort(0);
+      mClassifierSelect.setEnabled(true);
+      mClassifierSelect.blockSignals(false);
+      mClassifierSelect.setCurrentIndex(0);
+   });
+}
+
+void ExperienceWizardWindow::ProcessFolder(const Json::Item& folder)
+{
+   const Json::Item nameItem = folder.Find("name");
+   const Json::Item folderIdItem = folder.Find("folderId");
+   const Json::Item attributesItem = folder.Find("attributes");
+
+   // iterate files in this folder
+   Json::Item filesItem = folder.Find("files");
+   if (filesItem.IsArray() == true)
+   {
+      const uint32 numFiles = filesItem.Size();
+      for (uint32 i = 0; i < numFiles; ++i)
+      {
+         // find attributes
+         Json::Item nameItem = filesItem[i].Find("name");
+         Json::Item typeItem = filesItem[i].Find("type");
+         Json::Item fileIdItem = filesItem[i].Find("fileId");
+         Json::Item revisionItem = filesItem[i].Find("revision");
+
+         // convert to QtStrings
+         QString name(nameItem.GetString());
+         QString type(typeItem.GetString());
+         QString id(fileIdItem.GetString());
+
+         // add classifiers to combobox
+         if (type == "CLASSIFIER")
+            mClassifierSelect.addItem(name, id);
+      }
+   }
+
+   // recursively add subfolders
+   Json::Item foldersItem = folder.Find("folders");
+   if (foldersItem.IsArray() == true)
+   {
+      const uint32 numFolders = foldersItem.Size();
+      for (uint32 i = 0; i < numFolders; ++i)
+         ProcessFolder(foldersItem[i]);
+   }
 }
 
 void ExperienceWizardWindow::CreateRowChannelSelector(const char* name)
