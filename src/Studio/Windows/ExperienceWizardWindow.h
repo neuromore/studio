@@ -38,6 +38,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTableWidget>
+#include <QListWidget>
 #include <User.h>
 
 // window to select and quick configure a classifier into an experience for a user
@@ -51,6 +52,10 @@ class ExperienceWizardWindow : public QDialog
    private slots:
       void OnClassifierSelectIndexChanged(int index);
       void OnCreateClicked();
+
+   private:
+      void CreateRowChannelSelector(const char* name);
+      void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
    private:
       const User&      mUser;

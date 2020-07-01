@@ -32,6 +32,9 @@
 #include <QHeaderView>
 #include <QVBoxLayout>
 
+#include <QIcon>
+#include <Engine/Graph/ChannelSelectorNode.h>
+
 using namespace Core;
 
 // constructor
@@ -93,31 +96,44 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    // table
 
    mMainLayout.addWidget(&mTableWidget);
-   mTableWidget.setEnabled(false);
+   mTableWidget.setEnabled(true);
 
    // columns
    mTableWidget.setColumnCount(3);
+   mTableWidget.setColumnWidth(0, 80);
+   mTableWidget.setColumnWidth(1, 120);
 
    // header
-   mHeaderType.setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-   mHeaderName.setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-   mHeaderEdit.setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+   mHeaderType.setTextAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+   mHeaderName.setTextAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+   mHeaderEdit.setTextAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
    mTableWidget.setHorizontalHeaderItem(0, &mHeaderType);
    mTableWidget.setHorizontalHeaderItem(1, &mHeaderName);
    mTableWidget.setHorizontalHeaderItem(2, &mHeaderEdit);
 
    // tweaks
-   mTableWidget.horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+   //mTableWidget.horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
+   mTableWidget.horizontalHeader()->setStretchLastSection(true);
    mTableWidget.horizontalHeader()->show();
 
    // don't show the vertical header
+   mTableWidget.verticalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Fixed);
+   mTableWidget.verticalHeader()->setDefaultSectionSize(128);
+
    mTableWidget.verticalHeader()->hide();
 
    // complete row selection
    mTableWidget.setSelectionBehavior(QAbstractItemView::SelectRows);
-   mTableWidget.setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
-   mTableWidget.setFocusPolicy(Qt::NoFocus);	 // get rid of rectangular selection box around single cells
-   mTableWidget.setAlternatingRowColors(true);
+   mTableWidget.setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
+   mTableWidget.setFocusPolicy(Qt::NoFocus);
+   mTableWidget.setAlternatingRowColors(false);
+   mTableWidget.setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+
+   /////////////////////////////////////////////////
+   // TABLE ROWS DUMMY PART
+
+   CreateRowChannelSelector("Inhibit");
+   CreateRowChannelSelector("Augment");
 
    /////////////////////////////////////////////////
    // create button
@@ -149,4 +165,121 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
 void ExperienceWizardWindow::OnCreateClicked()
 {
    //TODO
+}
+
+void ExperienceWizardWindow::CreateRowChannelSelector(const char* name)
+{
+   const uint32 row = mTableWidget.rowCount();
+   mTableWidget.insertRow(row);
+
+   //////////////////////////////////////////////////////////////////////////////////
+   // 1: TYPE/ICON
+
+   QLabel* lblIcon = new QLabel();
+   lblIcon->setPixmap(QPixmap(":/Images/Graph/" + QString(ChannelSelectorNode::Uuid()) + ".png"));
+   lblIcon->setFixedSize(64, 64);
+   lblIcon->setScaledContents(true);
+   
+   QHBoxLayout* lblLayout = new QHBoxLayout();
+   lblLayout->setAlignment(Qt::AlignCenter);
+   lblLayout->addWidget(lblIcon);
+   
+   QWidget* lblWidget = new QWidget();
+   lblWidget->setLayout(lblLayout);
+   
+   //////////////////////////////////////////////////////////////////////////////////
+   // 2: NAME
+
+   QTableWidgetItem* secondItem = new QTableWidgetItem(name);
+   secondItem->setTextAlignment(Qt::AlignCenter);
+   secondItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
+
+   //////////////////////////////////////////////////////////////////////////////////
+   // 3: EDIT
+
+   QWidget* container = new QWidget();
+   QVBoxLayout* vl = new QVBoxLayout(container);
+
+   QListWidget* list = new QListWidget();
+   list->setSpacing(0);
+   list->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+   list->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
+
+   CreateChannelSelectorListItem(*list, "Fpz", "Alpha");
+   CreateChannelSelectorListItem(*list, "F3", "Beta1");
+   CreateChannelSelectorListItem(*list, "F4", "Beta2");
+
+   QHBoxLayout* hlnew = new QHBoxLayout();
+   hlnew->setContentsMargins(0, 0, 0, 0);
+
+   QComboBox* qboxch = new QComboBox();
+   qboxch->addItem("Fpz");
+   qboxch->addItem("F3");
+   qboxch->addItem("Fz");
+   qboxch->addItem("F4");
+   qboxch->addItem("C3");
+   qboxch->addItem("Cz");
+   qboxch->addItem("C4");
+   qboxch->addItem("Pz");
+
+   QComboBox* qboxband = new QComboBox();
+   qboxband->addItem("Alpha");
+   qboxband->addItem("Alpha/Theta");
+   qboxband->addItem("Beta1");
+   qboxband->addItem("Beta2");
+   qboxband->addItem("Beta3");
+   qboxband->addItem("Delta");
+   qboxband->addItem("SMR");
+   qboxband->addItem("Theta");
+   qboxband->addItem("Theta/Beta");
+
+   QPushButton* qbtnadd = new QPushButton();
+   qbtnadd->setToolTip("Add this combination");
+   qbtnadd->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Plus.png"));
+
+   hlnew->addWidget(qboxch);
+   hlnew->addWidget(qboxband);
+   hlnew->addWidget(qbtnadd);
+
+   vl->addWidget(list);
+   vl->addLayout(hlnew);
+
+   //////////////////////////////////////////////////////////////////////////////////
+
+   mTableWidget.setCellWidget(row, 0, lblWidget);
+   mTableWidget.setItem(      row, 1, secondItem);
+   mTableWidget.setCellWidget(row, 2, container);
+}
+
+void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band)
+{
+   // create the list item and its internal widget/layout
+   QListWidgetItem* item   = new QListWidgetItem();
+   QWidget*         widget = new QWidget();
+   QHBoxLayout*     layout = new QHBoxLayout(widget);
+
+   // no margin
+   layout->setContentsMargins(0, 0, 0, 0);
+
+   // create the internal widgets
+   QLabel*      lblChannel = new QLabel(channel);
+   QLabel*      lblBand    = new QLabel(band);
+   QPushButton* btnDelete  = new QPushButton();
+
+   // configure delete button
+   btnDelete->setToolTip("Remove this combination");
+   btnDelete->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Minus.png"));
+
+   // add everything to layout
+   layout->addWidget(lblChannel);
+   layout->addWidget(lblBand);
+   layout->addWidget(btnDelete);
+   layout->setSizeConstraint(QLayout::SizeConstraint::SetMinimumSize);
+
+   // set item size from widget size
+   item->setSizeHint(widget->sizeHint());
+
+   // add it to the list
+   list.addItem(item);
+   list.setItemWidget(item, widget);
 }
