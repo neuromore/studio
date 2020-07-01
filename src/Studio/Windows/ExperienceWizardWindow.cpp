@@ -33,6 +33,8 @@
 #include <Graph/ChannelSelectorNode.h>
 #include <Backend/FileHierarchyGetRequest.h>
 #include <Backend/FileHierarchyGetResponse.h>
+#include <Backend/FilesGetRequest.h>
+#include <Backend/FilesGetResponse.h>
 
 using namespace Core;
 
@@ -160,13 +162,25 @@ ExperienceWizardWindow::~ExperienceWizardWindow()
 
 void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
 {
-   QString text(mClassifierSelect.itemText(index));
-   QString id(mClassifierSelect.itemData(index).toString());
+   if (index < 0 || index >= mClassifierSelect.count())
+      return;
 
    // DEBUG
-   printf("selected: %s %s \n", text.toLocal8Bit().data(), id.toLocal8Bit().data());
+   //printf("selected: %s %s \n", GetClassifierName().toLocal8Bit().data(), GetClassifierId().toLocal8Bit().data());
 
-   // TODO: load from backend
+   // Load this classifier from backend
+   FilesGetRequest request(GetUser()->GetToken(), GetClassifierId().toLocal8Bit().data());
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
+   connect(reply, &QNetworkReply::finished, this, [reply, this]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+
+      FilesGetResponse response(networkReply);
+      if (response.HasError() == true)
+         return;
+
+      //printf("%s, \n", response.GetJsonContent());
+   });
 }
 
 void ExperienceWizardWindow::OnCreateClicked()

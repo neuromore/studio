@@ -62,6 +62,18 @@ class ExperienceWizardWindow : public QDialog
       void RequestClassifiers();
       void ProcessFolder(const Core::Json::Item& folder);
 
+      inline QString GetClassifierName() 
+      {
+         const int IDX = mClassifierSelect.currentIndex();
+         return IDX >= 0 ? mClassifierSelect.itemText(IDX) : "";
+      }
+      
+      inline QString GetClassifierId() 
+      {
+         const int IDX = mClassifierSelect.currentIndex();
+         return IDX >= 0 ? mClassifierSelect.itemData(IDX).toString() : "";
+      }
+
    private:
       const User&      mUser;
       QVBoxLayout      mMainLayout;
