@@ -165,10 +165,7 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
    if (index < 0 || index >= mClassifierSelect.count())
       return;
 
-   // DEBUG
-   //printf("selected: %s %s \n", GetClassifierName().toLocal8Bit().data(), GetClassifierId().toLocal8Bit().data());
-
-   // Load this classifier from backend
+   // load classifier from backend
    FilesGetRequest request(GetUser()->GetToken(), GetClassifierId().toLocal8Bit().data());
    QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
    connect(reply, &QNetworkReply::finished, this, [reply, this]()
@@ -179,7 +176,39 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
       if (response.HasError() == true)
          return;
 
-      //printf("%s, \n", response.GetJsonContent());
+      // parse the json into classifier instance
+      mGraphImporter.LoadFromString(response.GetJsonContent(), &mClassifier);
+
+      // iterate nodes in this classifier
+      const uint32 numNodes = mClassifier.GetNumNodes();
+      for (uint32_t i = 0; i < numNodes; i++)
+      {
+         Node* n = mClassifier.GetNode(i);
+
+         // WIP: ChannelSelectorNode
+         if (n->GetType() == ChannelSelectorNode::TYPE_ID)
+         {
+            // iterate attributes
+            const uint32 numAtt = n->GetNumAttributes();
+            for (uint32_t j = 0; j < numAtt; j++)
+            {
+               Core::AttributeSettings* settings = n->GetAttributeSettings(j);
+               Core::Attribute*         attrib   = n->GetAttributeValue(j);
+
+               // look for the channels string array
+               if (settings->GetInternalNameString() == "channels" && 
+                   settings->GetInterfaceType() == ATTRIBUTE_INTERFACETYPE_STRINGARRAY)
+               {
+                  // DEBUG
+                  //Core::String val;
+                  //if (attrib->ConvertToString(val))
+                  //   printf("%s: %s \n", settings->GetName(), val.AsChar());
+               }
+            }
+         }
+
+         // IMPLEMENT OTHER QUICK CONFIGURABLE NODE TYPES HERE
+      }
    });
 }
 

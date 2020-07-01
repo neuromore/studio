@@ -29,6 +29,8 @@
 #include <Core/String.h>
 #include <Core/Timer.h>
 #include <Core/Json.h>
+#include <Graph/Classifier.h>
+#include <Graph/GraphImporter.h>
 #include "../Config.h"
 #include <ImageButton.h>
 #include <QLayout>
@@ -82,6 +84,8 @@ class ExperienceWizardWindow : public QDialog
       QLabel           mUserDesc;
       QLabel           mUserLabel;
       ////////////////////////////////////////
+      GraphImporter    mGraphImporter;
+      Classifier       mClassifier;
       QHBoxLayout      mClassifierLayout;
       QLabel           mClassifierSelectDesc;
       QComboBox        mClassifierSelect;
