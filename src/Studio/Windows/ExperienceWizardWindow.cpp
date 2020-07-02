@@ -393,6 +393,10 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(const char* name)
 
 void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band)
 {
+   // avoid duplicates
+   if (HasChannelSelectorListItem(list, channel, band))
+      return;
+
    // create the list item and its internal widget/layout
    QListWidgetItem* item   = new QListWidgetItem();
    QWidget*         widget = new QWidget();
@@ -405,6 +409,11 @@ void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, co
    QLabel*      lblChannel = new QLabel(channel);
    QLabel*      lblBand    = new QLabel(band);
    QPushButton* btnDelete  = new QPushButton();
+
+   // set names for lookup
+   lblChannel->setObjectName("Channel");
+   lblBand->setObjectName("Band");
+   btnDelete->setObjectName("Delete");
 
    // configure delete button
    btnDelete->setToolTip("Remove this combination");
@@ -428,6 +437,24 @@ void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, co
    list.setItemWidget(item, widget);
 }
 
+bool ExperienceWizardWindow::HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band)
+{
+   const uint32 numItems = list.count();
+   for (uint32 i = 0; i < numItems; i++)
+   {
+      // find widgets
+      QListWidgetItem* lwi = list.item(i);
+      QWidget*         w   = list.itemWidget(lwi);
+      QLabel*          c   = w->findChild<QLabel*>("Channel");
+      QLabel*          b   = w->findChild<QLabel*>("Band");
+
+      // match
+      if (c && b && c->text() == channel && b->text() == band)
+         return true;
+   }
+   return false;
+}
+
 void ExperienceWizardWindow::OnChannelSelectorListItemAdd()
 {
    if (!sender())
@@ -441,6 +468,8 @@ void ExperienceWizardWindow::OnChannelSelectorListItemAdd()
 
    // create entry in list
    CreateChannelSelectorListItem(*list, ch->currentText().toLocal8Bit().data(), band->currentText().toLocal8Bit().data());
+
+   // TODO: call some kind of refresh (=update node strings from ui)
 }
 
 void ExperienceWizardWindow::OnChannelSelectorListItemDelete()

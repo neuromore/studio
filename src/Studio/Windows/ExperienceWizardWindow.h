@@ -63,6 +63,7 @@ class ExperienceWizardWindow : public QDialog
    private:
       void CreateChannelSelectorRow(const char* name);
       void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
+      bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
       void RequestClassifiers();
       void ProcessFolder(const Core::Json::Item& folder);
