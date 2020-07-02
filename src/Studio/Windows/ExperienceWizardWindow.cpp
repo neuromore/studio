@@ -130,8 +130,8 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    /////////////////////////////////////////////////
    // TABLE ROWS DUMMY PART
 
-   CreateRowChannelSelector("Inhibit");
-   CreateRowChannelSelector("Augment");
+   CreateChannelSelectorRow("Inhibit");
+   CreateChannelSelectorRow("Augment");
 
    /////////////////////////////////////////////////
    // create button
@@ -200,9 +200,9 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
                    settings->GetInterfaceType() == ATTRIBUTE_INTERFACETYPE_STRINGARRAY)
                {
                   // DEBUG
-                  //Core::String val;
-                  //if (attrib->ConvertToString(val))
-                  //   printf("%s: %s \n", settings->GetName(), val.AsChar());
+                  Core::String val;
+                  if (attrib->ConvertToString(val))
+                     printf("%s: %s \n", settings->GetName(), val.AsChar());
                }
             }
          }
@@ -298,7 +298,11 @@ void ExperienceWizardWindow::ProcessFolder(const Json::Item& folder)
    }
 }
 
-void ExperienceWizardWindow::CreateRowChannelSelector(const char* name)
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CHANNEL SELECTOR
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ExperienceWizardWindow::CreateChannelSelectorRow(const char* name)
 {
    const uint32 row = mTableWidget.rowCount();
    mTableWidget.insertRow(row);
@@ -367,6 +371,11 @@ void ExperienceWizardWindow::CreateRowChannelSelector(const char* name)
    QPushButton* qbtnadd = new QPushButton();
    qbtnadd->setToolTip("Add this combination");
    qbtnadd->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Plus.png"));
+   qbtnadd->setProperty("List", QVariant::fromValue((void*)list));
+   qbtnadd->setProperty("Channel", QVariant::fromValue((void*)qboxch));
+   qbtnadd->setProperty("Band", QVariant::fromValue((void*)qboxband));
+
+   connect(qbtnadd, &QPushButton::clicked, this, &ExperienceWizardWindow::OnChannelSelectorListItemAdd);
 
    hlnew->addWidget(qboxch);
    hlnew->addWidget(qboxband);
@@ -400,6 +409,10 @@ void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, co
    // configure delete button
    btnDelete->setToolTip("Remove this combination");
    btnDelete->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Minus.png"));
+   btnDelete->setProperty("ListWidgetItem", QVariant::fromValue((void*)item));
+
+   // link delete button click event
+   connect(btnDelete, &QPushButton::clicked, this, &ExperienceWizardWindow::OnChannelSelectorListItemDelete);
 
    // add everything to layout
    layout->addWidget(lblChannel);
@@ -413,4 +426,34 @@ void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, co
    // add it to the list
    list.addItem(item);
    list.setItemWidget(item, widget);
+}
+
+void ExperienceWizardWindow::OnChannelSelectorListItemAdd()
+{
+   if (!sender())
+      return;
+
+   // get button, list and ch+band
+   QPushButton* btn  = qobject_cast<QPushButton*>(sender());
+   QListWidget* list = (QListWidget*)btn->property("List").value<void*>();
+   QComboBox*   ch   = (QComboBox*)btn->property("Channel").value<void*>();
+   QComboBox*   band = (QComboBox*)btn->property("Band").value<void*>();
+
+   // create entry in list
+   CreateChannelSelectorListItem(*list, ch->currentText().toLocal8Bit().data(), band->currentText().toLocal8Bit().data());
+}
+
+void ExperienceWizardWindow::OnChannelSelectorListItemDelete()
+{
+   if (!sender())
+      return;
+
+   // get button and listitem
+   QPushButton*     b = qobject_cast<QPushButton*>(sender());
+   QListWidgetItem* w = (QListWidgetItem*)b->property("ListWidgetItem").value<void*>();
+
+   // delete entry from list
+   delete w;
+
+   // TODO: call some kind of refresh (=update node strings from ui)
 }

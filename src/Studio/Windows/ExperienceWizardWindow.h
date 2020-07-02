@@ -57,8 +57,11 @@ class ExperienceWizardWindow : public QDialog
       void OnClassifierSelectIndexChanged(int index);
       void OnCreateClicked();
 
+      void OnChannelSelectorListItemAdd();
+      void OnChannelSelectorListItemDelete();
+
    private:
-      void CreateRowChannelSelector(const char* name);
+      void CreateChannelSelectorRow(const char* name);
       void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
       void RequestClassifiers();
