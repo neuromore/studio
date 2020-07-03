@@ -96,7 +96,7 @@ class ExperienceWizardWindow : public QDialog
       const User&        mUser;
       Core::Array<Node*> mQuickConfigNodes;
       GraphImporter      mGraphImporter;
-      Classifier         mClassifier;
+      Classifier*        mClassifier;
       //
       QVBoxLayout        mMainLayout;
       QHBoxLayout        mUserLayout;

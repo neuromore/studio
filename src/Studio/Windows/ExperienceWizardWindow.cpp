@@ -42,6 +42,7 @@ using namespace Core;
 ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent) :
    QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint),
    mUser(user),
+   mClassifier(0),
    mMainLayout(),
    mUserLayout(),
    mUserDesc("User:"),
@@ -169,6 +170,12 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
 ExperienceWizardWindow::~ExperienceWizardWindow()
 {
    mQuickConfigNodes.Clear();
+
+   if (mClassifier)
+   {
+      delete mClassifier;
+      mClassifier = 0;
+   }
 }
 
 void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
@@ -191,13 +198,17 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
       mQuickConfigNodes.Clear();
 
       // parse the json into classifier instance
-      mGraphImporter.LoadFromString(response.GetJsonContent(), &mClassifier);
+      if (mClassifier)
+         delete mClassifier;
+
+      mClassifier = new Classifier();
+      mGraphImporter.LoadFromString(response.GetJsonContent(), mClassifier);
 
       // iterate nodes in this classifier
-      const uint32 numNodes = mClassifier.GetNumNodes();
+      const uint32 numNodes = mClassifier->GetNumNodes();
       for (uint32_t i = 0; i < numNodes; i++)
       {
-         Node* n = mClassifier.GetNode(i);
+         Node* n = mClassifier->GetNode(i);
 
          // iterate attributes and look for the quick config setting
          const uint32 numAtt = n->GetNumAttributes();
