@@ -85,33 +85,34 @@ class ExperienceWizardWindow : public QDialog
          return IDX >= 0 ? mStateMachineSelect.itemData(IDX).toString() : "";
       }
 
-      void CreateChannelSelectorRow(const char* name);
+      void CreateChannelSelectorRow(Node* node);
       void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
       bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
+      void SyncNodes();
+      void SyncUi();
+
    private:
-      const User&      mUser;
-      QVBoxLayout      mMainLayout;
-      ////////////////////////////////////////
-      QHBoxLayout      mUserLayout;
-      QLabel           mUserDesc;
-      QLabel           mUserLabel;
-      ////////////////////////////////////////
-      GraphImporter    mGraphImporter;
-      Classifier       mClassifier;
-      QHBoxLayout      mClassifierLayout;
-      QLabel           mClassifierSelectDesc;
-      QComboBox        mClassifierSelect;
-      QHBoxLayout      mStateMachineLayout;
-      QLabel           mStateMachineSelectDesc;
-      QComboBox        mStateMachineSelect;
-      ////////////////////////////////////////
-      QTableWidget     mTableWidget;
-      QTableWidgetItem mHeaderType;
-      QTableWidgetItem mHeaderName;
-      QTableWidgetItem mHeaderEdit;
-      ////////////////////////////////////////
-      QPushButton      mCreateButton;
+      const User&        mUser;
+      Core::Array<Node*> mQuickConfigNodes;
+      GraphImporter      mGraphImporter;
+      Classifier         mClassifier;
+      //
+      QVBoxLayout        mMainLayout;
+      QHBoxLayout        mUserLayout;
+      QLabel             mUserDesc;
+      QLabel             mUserLabel;
+      QHBoxLayout        mClassifierLayout;
+      QLabel             mClassifierSelectDesc;
+      QComboBox          mClassifierSelect;
+      QHBoxLayout        mStateMachineLayout;
+      QLabel             mStateMachineSelectDesc;
+      QComboBox          mStateMachineSelect;
+      QTableWidget       mTableWidget;
+      QTableWidgetItem   mHeaderType;
+      QTableWidgetItem   mHeaderName;
+      QTableWidgetItem   mHeaderEdit;
+      QPushButton        mCreateButton;
 };
 
 #endif

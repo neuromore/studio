@@ -144,12 +144,6 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mTableWidget.setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
    /////////////////////////////////////////////////
-   // TABLE ROWS DUMMY PART
-
-   CreateChannelSelectorRow("Inhibit");
-   CreateChannelSelectorRow("Augment");
-
-   /////////////////////////////////////////////////
    // create button
 
    mCreateButton.setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Plus.png"));
@@ -174,6 +168,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
 // destructor
 ExperienceWizardWindow::~ExperienceWizardWindow()
 {
+   mQuickConfigNodes.Clear();
 }
 
 void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
@@ -192,6 +187,9 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
       if (response.HasError() == true)
          return;
 
+      // clear old node refs
+      mQuickConfigNodes.Clear();
+
       // parse the json into classifier instance
       mGraphImporter.LoadFromString(response.GetJsonContent(), &mClassifier);
 
@@ -201,30 +199,25 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
       {
          Node* n = mClassifier.GetNode(i);
 
-         // WIP: ChannelSelectorNode
-         if (n->GetType() == ChannelSelectorNode::TYPE_ID)
+         // iterate attributes and look for the quick config setting
+         const uint32 numAtt = n->GetNumAttributes();
+         for (uint32_t j = 0; j < numAtt; j++)
          {
-            // iterate attributes
-            const uint32 numAtt = n->GetNumAttributes();
-            for (uint32_t j = 0; j < numAtt; j++)
+            Core::AttributeSettings* settings = n->GetAttributeSettings(j);
+            Core::Attribute* attrib = n->GetAttributeValue(j);
+            Core::String attribv;
+            
+            if (settings->GetInternalNameString() == "quickconfig" &&
+                attrib->ConvertToString(attribv) && attribv == "1")
             {
-               Core::AttributeSettings* settings = n->GetAttributeSettings(j);
-               Core::Attribute*         attrib   = n->GetAttributeValue(j);
-
-               // look for the channels string array
-               if (settings->GetInternalNameString() == "channels" && 
-                   settings->GetInterfaceType() == ATTRIBUTE_INTERFACETYPE_STRINGARRAY)
-               {
-                  // DEBUG
-                  Core::String val;
-                  if (attrib->ConvertToString(val))
-                     printf("%s: %s \n", settings->GetName(), val.AsChar());
-               }
+               mQuickConfigNodes.Add(n);
+               break;
             }
          }
-
-         // IMPLEMENT OTHER QUICK CONFIGURABLE NODE TYPES HERE
       }
+
+      // set ui from nodes/data
+      SyncUi();
    });
 }
 
@@ -338,12 +331,66 @@ void ExperienceWizardWindow::ProcessFolder(const Json::Item& folder)
    }
 }
 
+void ExperienceWizardWindow::SyncNodes()
+{
+   // TODO
+}
+
+void ExperienceWizardWindow::SyncUi()
+{
+   // clear old ui table
+   mTableWidget.setRowCount(0);
+
+   // iterate found quick config nodes
+   const uint32 size = mQuickConfigNodes.Size();
+   for (uint32 i = 0; i < size; i++)
+   {
+      Node* n = mQuickConfigNodes.GetItem(i);
+
+      // call specific handler for node type
+      switch (n->GetType())
+      {
+      case ChannelSelectorNode::TYPE_ID: 
+         CreateChannelSelectorRow(n); 
+         break;
+      default: 
+         break;
+      }
+   }
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CHANNEL SELECTOR
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ExperienceWizardWindow::CreateChannelSelectorRow(const char* name)
+void ExperienceWizardWindow::CreateChannelSelectorRow(Node* node)
 {
+   //////////////////////////////////////////////////////////////////////////////////
+   // Find the 'channels' attribute and its value
+
+   bool found = false;
+   Core::String channels;
+   
+   // iterate attributes and look for the chananels value
+   const uint32 numAtt = node->GetNumAttributes();
+   for (uint32_t j = 0; j < numAtt; j++)
+   {
+      Core::AttributeSettings* settings = node->GetAttributeSettings(j);
+      Core::Attribute* attrib = node->GetAttributeValue(j);
+      if (settings->GetInternalNameString() == "channels")
+      {
+         const char* typstr = attrib->GetTypeString();
+         attrib->ConvertToString(channels);
+         found = true;
+         break;
+      }
+   }
+
+   if (!found)
+      return;
+
+   //////////////////////////////////////////////////////////////////////////////////
+
    const uint32 row = mTableWidget.rowCount();
    mTableWidget.insertRow(row);
 
@@ -365,7 +412,7 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(const char* name)
    //////////////////////////////////////////////////////////////////////////////////
    // 2: NAME
 
-   QTableWidgetItem* secondItem = new QTableWidgetItem(name);
+   QTableWidgetItem* secondItem = new QTableWidgetItem(node->GetName());
    secondItem->setTextAlignment(Qt::AlignCenter);
    secondItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
 
@@ -380,33 +427,34 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(const char* name)
    list->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
    list->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
 
-   CreateChannelSelectorListItem(*list, "Fpz", "Alpha");
-   CreateChannelSelectorListItem(*list, "F3", "Beta1");
-   CreateChannelSelectorListItem(*list, "F4", "Beta2");
-
    QHBoxLayout* hlnew = new QHBoxLayout();
    hlnew->setContentsMargins(0, 0, 0, 0);
 
    QComboBox* qboxch = new QComboBox();
-   qboxch->addItem("Fpz");
-   qboxch->addItem("F3");
-   qboxch->addItem("Fz");
-   qboxch->addItem("F4");
    qboxch->addItem("C3");
-   qboxch->addItem("Cz");
    qboxch->addItem("C4");
+   qboxch->addItem("Cz");
+   qboxch->addItem("F3");
+   qboxch->addItem("F4");
+   qboxch->addItem("Fz");
+   qboxch->addItem("Fpz");
    qboxch->addItem("Pz");
 
    QComboBox* qboxband = new QComboBox();
    qboxband->addItem("Alpha");
-   qboxband->addItem("Alpha/Theta");
    qboxband->addItem("Beta1");
-   qboxband->addItem("Beta2");
-   qboxband->addItem("Beta3");
+   qboxband->addItem("Beta Sum");
+   qboxband->addItem("CustomBand1");
+   qboxband->addItem("CustomBand2");
+   qboxband->addItem("CustomBand3");
    qboxband->addItem("Delta");
+   qboxband->addItem("DeltaThetaSum");
+   qboxband->addItem("Gamma");
+   qboxband->addItem("High Beta");
+   qboxband->addItem("Low Beta");
    qboxband->addItem("SMR");
    qboxband->addItem("Theta");
-   qboxband->addItem("Theta/Beta");
+   qboxband->addItem("ThetaAlphaSum");
 
    QPushButton* qbtnadd = new QPushButton();
    qbtnadd->setToolTip("Add this combination");
@@ -423,6 +471,45 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(const char* name)
 
    vl->addWidget(list);
    vl->addLayout(hlnew);
+
+   //////////////////////////////////////////////////////////////////////////////////
+
+   // split string array
+   auto chlist = channels.Split(StringCharacter::comma);
+
+   // iterate channels
+   const uint32 numCh = chlist.Size();
+   for (uint32_t i = 0; i < numCh; i++)
+   {
+      Core::String& s = chlist[i];
+
+      // remove some spaces before split by space
+      s.Trim();
+
+      // split channel words by whitespaces
+      auto words = s.Split(StringCharacter::space);
+
+      // read channel and band parts from it
+      if (words.Size() >= 2)
+      {
+         const uint32_t last = words.Size() - 1;
+
+         // last word is channel
+         Core::String ch = words[last]; 
+
+         // others belong to band
+         Core::String band;
+         for (uint32_t j = 0; j < last; j++)
+         {
+            band += words[j];
+            if (j < last - 1)
+               band += ' ';
+         }
+
+         // create the item
+         CreateChannelSelectorListItem(*list, ch, band);
+      }
+   }
 
    //////////////////////////////////////////////////////////////////////////////////
 
@@ -509,7 +596,8 @@ void ExperienceWizardWindow::OnChannelSelectorListItemAdd()
    // create entry in list
    CreateChannelSelectorListItem(*list, ch->currentText().toLocal8Bit().data(), band->currentText().toLocal8Bit().data());
 
-   // TODO: call some kind of refresh (=update node strings from ui)
+   // update nodes from ui
+   SyncNodes();
 }
 
 void ExperienceWizardWindow::OnChannelSelectorListItemDelete()
@@ -524,5 +612,6 @@ void ExperienceWizardWindow::OnChannelSelectorListItemDelete()
    // delete entry from list
    delete w;
 
-   // TODO: call some kind of refresh (=update node strings from ui)
+   // update nodes from ui
+   SyncNodes();
 }
