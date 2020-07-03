@@ -55,30 +55,39 @@ class ExperienceWizardWindow : public QDialog
 
    private slots:
       void OnClassifierSelectIndexChanged(int index);
+      void OnStateMachineSelectIndexChanged(int index);
       void OnCreateClicked();
-
       void OnChannelSelectorListItemAdd();
       void OnChannelSelectorListItemDelete();
 
    private:
-      void CreateChannelSelectorRow(const char* name);
-      void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
-      bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
-
-      void RequestClassifiers();
+      void RequestFileHierarchy();
       void ProcessFolder(const Core::Json::Item& folder);
 
-      inline QString GetClassifierName() 
+      inline QString GetClassifierName()
       {
          const int IDX = mClassifierSelect.currentIndex();
          return IDX >= 0 ? mClassifierSelect.itemText(IDX) : "";
       }
-      
-      inline QString GetClassifierId() 
+      inline QString GetClassifierId()
       {
          const int IDX = mClassifierSelect.currentIndex();
          return IDX >= 0 ? mClassifierSelect.itemData(IDX).toString() : "";
       }
+      inline QString GetStateMachineName()
+      {
+         const int IDX = mStateMachineSelect.currentIndex();
+         return IDX >= 0 ? mStateMachineSelect.itemText(IDX) : "";
+      }
+      inline QString GetStateMachineId()
+      {
+         const int IDX = mStateMachineSelect.currentIndex();
+         return IDX >= 0 ? mStateMachineSelect.itemData(IDX).toString() : "";
+      }
+
+      void CreateChannelSelectorRow(const char* name);
+      void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
+      bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
    private:
       const User&      mUser;
@@ -93,6 +102,9 @@ class ExperienceWizardWindow : public QDialog
       QHBoxLayout      mClassifierLayout;
       QLabel           mClassifierSelectDesc;
       QComboBox        mClassifierSelect;
+      QHBoxLayout      mStateMachineLayout;
+      QLabel           mStateMachineSelectDesc;
+      QComboBox        mStateMachineSelect;
       ////////////////////////////////////////
       QTableWidget     mTableWidget;
       QTableWidgetItem mHeaderType;
@@ -101,6 +113,5 @@ class ExperienceWizardWindow : public QDialog
       ////////////////////////////////////////
       QPushButton      mCreateButton;
 };
-
 
 #endif

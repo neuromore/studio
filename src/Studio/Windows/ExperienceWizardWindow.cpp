@@ -49,6 +49,9 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mClassifierLayout(),
    mClassifierSelectDesc("Classifier:"),
    mClassifierSelect(),
+   mStateMachineLayout(),
+   mStateMachineSelectDesc("State Machine:"),
+   mStateMachineSelect(),
    mTableWidget(),
    mHeaderType("Type"),
    mHeaderName("Name"),
@@ -89,6 +92,19 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mMainLayout.addLayout(&mClassifierLayout);
 
    connect(&mClassifierSelect, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ExperienceWizardWindow::OnClassifierSelectIndexChanged);
+
+   /////////////////////////////////////////////////
+   // state machine
+
+   mStateMachineSelectDesc.setMinimumWidth(100);
+   mStateMachineSelect.setMinimumWidth(200);
+   mStateMachineLayout.setSpacing(6);
+   mStateMachineLayout.setAlignment(Qt::AlignCenter);
+   mStateMachineLayout.addWidget(&mStateMachineSelectDesc);
+   mStateMachineLayout.addWidget(&mStateMachineSelect);
+   mMainLayout.addLayout(&mStateMachineLayout);
+
+   connect(&mStateMachineSelect, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ExperienceWizardWindow::OnStateMachineSelectIndexChanged);
 
    /////////////////////////////////////////////////
    // table
@@ -143,9 +159,9 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    connect(&mCreateButton, &QPushButton::clicked, this, &ExperienceWizardWindow::OnCreateClicked);
 
    /////////////////////////////////////////////////
-   // request backend data
+   // request backend file hierarchy
 
-   RequestClassifiers();
+   RequestFileHierarchy();
 
    /////////////////////////////////////////////////
    // finish
@@ -212,16 +228,28 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
    });
 }
 
+void ExperienceWizardWindow::OnStateMachineSelectIndexChanged(int index)
+{
+   if (index < 0 || index >= mStateMachineSelect.count())
+      return;
+}
+
 void ExperienceWizardWindow::OnCreateClicked()
 {
    //TODO
 }
 
-void ExperienceWizardWindow::RequestClassifiers()
+void ExperienceWizardWindow::RequestFileHierarchy()
 {
+   // clear and disable classifier combobox
    mClassifierSelect.setEnabled(false);
    mClassifierSelect.clear();
    mClassifierSelect.blockSignals(true);
+
+   // clear and disable state machine combobox
+   mStateMachineSelect.setEnabled(false);
+   mStateMachineSelect.clear();
+   mStateMachineSelect.blockSignals(true);
 
    FileHierarchyGetRequest request(GetUser()->GetToken(), GetUser()->GetIdString());
    QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
@@ -235,6 +263,7 @@ void ExperienceWizardWindow::RequestClassifiers()
 
       const Core::Json& json = response.GetJson();
 
+      // walk file hierarchy
       Json::Item rootItem = json.GetRootItem();
       if (rootItem.IsNull() == false)
       {
@@ -251,10 +280,17 @@ void ExperienceWizardWindow::RequestClassifiers()
          }
       }
 
+      // sort and enable classifier combobox
       mClassifierSelect.model()->sort(0);
       mClassifierSelect.setEnabled(true);
       mClassifierSelect.blockSignals(false);
       mClassifierSelect.setCurrentIndex(0);
+
+      // sort and enable statemachine combobox
+      mStateMachineSelect.model()->sort(0);
+      mStateMachineSelect.setEnabled(true);
+      mStateMachineSelect.blockSignals(false);
+      mStateMachineSelect.setCurrentIndex(0);
    });
 }
 
@@ -285,6 +321,10 @@ void ExperienceWizardWindow::ProcessFolder(const Json::Item& folder)
          // add classifiers to combobox
          if (type == "CLASSIFIER")
             mClassifierSelect.addItem(name, id);
+
+         // add statemachines to combobox
+         else if (type == "STATEMACHINE")
+            mStateMachineSelect.addItem(name, id);
       }
    }
 
