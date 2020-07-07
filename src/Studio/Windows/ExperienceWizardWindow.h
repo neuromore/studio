@@ -57,6 +57,7 @@ class ExperienceWizardWindow : public QDialog
    private slots:
       void OnClassifierSelectIndexChanged(int index);
       void OnStateMachineSelectIndexChanged(int index);
+      void OnExperienceTextChanged(const QString& text);
       void OnCreateClicked();
       void OnChannelSelectorListItemAdd();
       void OnChannelSelectorListItemDelete();
@@ -66,6 +67,7 @@ class ExperienceWizardWindow : public QDialog
       void ProcessFolder(const Core::Json::Item& folder);
       void SyncNodes();
       void SyncUi();
+      void SyncCreateButton();
 
       inline QString GetClassifierName()
       {
@@ -109,6 +111,9 @@ class ExperienceWizardWindow : public QDialog
       QHBoxLayout        mStateMachineLayout;
       QLabel             mStateMachineSelectDesc;
       QComboBox          mStateMachineSelect;
+      QHBoxLayout        mExperienceLayout;
+      QLabel             mExperienceDesc;
+      QLineEdit          mExperienceEdit;
       QTableWidget       mTableWidget;
       QTableWidgetItem   mHeaderType;
       QTableWidgetItem   mHeaderName;

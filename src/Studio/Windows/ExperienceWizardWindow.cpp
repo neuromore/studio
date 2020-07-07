@@ -60,6 +60,9 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mStateMachineLayout(),
    mStateMachineSelectDesc("State Machine:"),
    mStateMachineSelect(),
+   mExperienceLayout(),
+   mExperienceDesc("Experience:"),
+   mExperienceEdit(),
    mTableWidget(),
    mHeaderType("Type"),
    mHeaderName("Name"),
@@ -115,6 +118,21 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    connect(&mStateMachineSelect, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ExperienceWizardWindow::OnStateMachineSelectIndexChanged);
 
    /////////////////////////////////////////////////
+   // experience
+
+   mExperienceDesc.setMinimumWidth(100);
+   mExperienceDesc.setMaximumWidth(100);
+   mExperienceEdit.setMinimumWidth(200);
+   mExperienceEdit.setMaximumWidth(200);
+   mExperienceLayout.setSpacing(6);
+   mExperienceLayout.setAlignment(Qt::AlignCenter);
+   mExperienceLayout.addWidget(&mExperienceDesc);
+   mExperienceLayout.addWidget(&mExperienceEdit);
+   mMainLayout.addLayout(&mExperienceLayout);
+
+   connect(&mExperienceEdit, &QLineEdit::textChanged, this, &ExperienceWizardWindow::OnExperienceTextChanged);
+
+   /////////////////////////////////////////////////
    // table
 
    mMainLayout.addWidget(&mTableWidget);
@@ -160,11 +178,13 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
 
    connect(&mCreateButton, &QPushButton::clicked, this, &ExperienceWizardWindow::OnCreateClicked);
 
+   SyncCreateButton();
+
    /////////////////////////////////////////////////
    // request backend file hierarchy
 
    RequestFileHierarchy();
-
+   
    /////////////////////////////////////////////////
    // finish
 
@@ -236,6 +256,7 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
 
       // set ui from nodes/data
       SyncUi();
+      SyncCreateButton();
    });
 }
 
@@ -243,6 +264,13 @@ void ExperienceWizardWindow::OnStateMachineSelectIndexChanged(int index)
 {
    if (index < 0 || index >= mStateMachineSelect.count())
       return;
+
+   SyncCreateButton();
+}
+
+void ExperienceWizardWindow::OnExperienceTextChanged(const QString& text)
+{
+   SyncCreateButton();
 }
 
 void ExperienceWizardWindow::OnCreateClicked()
@@ -253,10 +281,8 @@ void ExperienceWizardWindow::OnCreateClicked()
    // experience to create
    Experience exp;
 
-   // TODO: Add editbox
-   Core::String expname = "TEST";
-
-   // set classifier and state machine
+   // set name, classifier and state machine
+   exp.SetName(mExperienceEdit.text().toLocal8Bit().data());
    exp.SetClassifierUuid(this->GetClassifierId().toLocal8Bit().data());
    exp.SetStateMachineUuid(this->GetStateMachineId().toLocal8Bit().data());
 
@@ -273,7 +299,7 @@ void ExperienceWizardWindow::OnCreateClicked()
 
    ////////////
 
-   FilesCreateRequest request(GetUser()->GetToken(), expname.AsChar(), mFolderId.AsChar(), "EXPERIENCE", jsons);
+   FilesCreateRequest request(GetUser()->GetToken(), exp.GetName(), mFolderId.AsChar(), "EXPERIENCE", jsons);
    QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
    connect(reply, &QNetworkReply::finished, this, [reply, this]()
    {
@@ -281,7 +307,14 @@ void ExperienceWizardWindow::OnCreateClicked()
 
       FilesCreateResponse response(networkReply);
       if (response.HasError() == true)
+      {
+         QMessageBox::warning(NULL, "Error", "Failed to create experience.", QMessageBox::Ok);
          return;
+      }
+
+      //TODO: where to go from here?
+      else
+         this->close();
    });
 }
 
@@ -467,6 +500,30 @@ void ExperienceWizardWindow::SyncUi()
       mTableWidget.setCellWidget(row, COLUMN_IDX_TYPE, lblWidget);
       mTableWidget.setItem(row, COLUMN_IDX_NAME, secondItem);
       mTableWidget.setCellWidget(row, COLUMN_IDX_EDIT, container);
+   }
+}
+
+void ExperienceWizardWindow::SyncCreateButton()
+{
+   if (mExperienceEdit.text() == "")
+   {
+      mCreateButton.setText("Set name of experience");
+      mCreateButton.setEnabled(false);
+   }
+   else if (this->GetClassifierId() == "")
+   {
+      mCreateButton.setText("Select a classifier");
+      mCreateButton.setEnabled(false);
+   }
+   else if (this->GetStateMachineId() == "")
+   {
+      mCreateButton.setText("Select a state machine");
+      mCreateButton.setEnabled(false);
+   }
+   else
+   {
+      mCreateButton.setText("Create");
+      mCreateButton.setEnabled(true);
    }
 }
 
