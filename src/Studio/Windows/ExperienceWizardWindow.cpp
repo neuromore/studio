@@ -23,18 +23,20 @@
 
 // include the required headers
 #include "ExperienceWizardWindow.h"
-
 #include <Core/LogManager.h>
 #include <QtBaseManager.h>
 #include <Backend/BackendHelpers.h>
-#include <QHeaderView>
-#include <QVBoxLayout>
-#include <QIcon>
-#include <Graph/ChannelSelectorNode.h>
 #include <Backend/FileHierarchyGetRequest.h>
 #include <Backend/FileHierarchyGetResponse.h>
 #include <Backend/FilesGetRequest.h>
 #include <Backend/FilesGetResponse.h>
+#include <Backend/FilesCreateRequest.h>
+#include <Backend/FilesCreateResponse.h>
+#include <Graph/ChannelSelectorNode.h>
+#include <QHeaderView>
+#include <QVBoxLayout>
+#include <QIcon>
+#include <QMessageBox>
 
 #define COLUMN_IDX_TYPE 0
 #define COLUMN_IDX_NAME 1
@@ -46,6 +48,7 @@ using namespace Core;
 ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent) :
    QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint),
    mUser(user),
+   mFolderId(),
    mClassifier(0),
    mMainLayout(),
    mUserLayout(),
@@ -244,7 +247,42 @@ void ExperienceWizardWindow::OnStateMachineSelectIndexChanged(int index)
 
 void ExperienceWizardWindow::OnCreateClicked()
 {
-   //TODO
+   if (!mClassifier)
+      return;
+
+   // experience to create
+   Experience exp;
+
+   // TODO: Add editbox
+   Core::String expname = "TEST";
+
+   // set classifier and state machine
+   exp.SetClassifierUuid(this->GetClassifierId().toLocal8Bit().data());
+   exp.SetStateMachineUuid(this->GetStateMachineId().toLocal8Bit().data());
+
+   // TODO: add classifierSettings attributes
+
+   ////////////
+
+   Core::Json   json;  // exp as json
+   Core::String jsons; // exp as json string
+
+   exp.Save(json, json.GetRootItem());
+   json.WriteToString(jsons);
+   //json.WriteToFile("f:/test.json"); //DEBUG
+
+   ////////////
+
+   FilesCreateRequest request(GetUser()->GetToken(), expname.AsChar(), mFolderId.AsChar(), "EXPERIENCE", jsons);
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
+   connect(reply, &QNetworkReply::finished, this, [reply, this]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+
+      FilesCreateResponse response(networkReply);
+      if (response.HasError() == true)
+         return;
+   });
 }
 
 void ExperienceWizardWindow::RequestFileHierarchy()
@@ -259,7 +297,7 @@ void ExperienceWizardWindow::RequestFileHierarchy()
    mStateMachineSelect.clear();
    mStateMachineSelect.blockSignals(true);
 
-   FileHierarchyGetRequest request(GetUser()->GetToken(), GetUser()->GetIdString());
+   FileHierarchyGetRequest request(GetUser()->GetToken(), mUser.GetIdString());
    QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
    connect(reply, &QNetworkReply::finished, this, [reply, this]()
    {
@@ -288,6 +326,10 @@ void ExperienceWizardWindow::RequestFileHierarchy()
          }
       }
 
+      // show warning about not found user/home folder
+      if (mFolderId == "")
+         QMessageBox::warning(NULL, "Warning", "No homefolder was found for this user.", QMessageBox::Ok);
+
       // sort and enable classifier combobox
       mClassifierSelect.model()->sort(0);
       mClassifierSelect.setEnabled(true);
@@ -307,6 +349,10 @@ void ExperienceWizardWindow::ProcessFolder(const Json::Item& folder)
    const Json::Item nameItem = folder.Find("name");
    const Json::Item folderIdItem = folder.Find("folderId");
    const Json::Item attributesItem = folder.Find("attributes");
+
+   // look for private/home folder of user
+   if (mUser.GetIdString() == nameItem.GetString())
+      mFolderId = folderIdItem.GetString();
 
    // iterate files in this folder
    Json::Item filesItem = folder.Find("files");

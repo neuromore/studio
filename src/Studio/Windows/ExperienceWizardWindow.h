@@ -31,6 +31,7 @@
 #include <Core/Json.h>
 #include <Graph/Classifier.h>
 #include <Graph/GraphImporter.h>
+#include <Experience.h>
 #include "../Config.h"
 #include <ImageButton.h>
 #include <QLayout>
@@ -93,7 +94,8 @@ class ExperienceWizardWindow : public QDialog
       bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
    private:
-      const User&        mUser;
+      const User         mUser;
+      Core::String       mFolderId;
       Core::Array<Node*> mQuickConfigNodes;
       GraphImporter      mGraphImporter;
       Classifier*        mClassifier;
