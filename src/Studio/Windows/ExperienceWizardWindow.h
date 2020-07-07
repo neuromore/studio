@@ -85,6 +85,7 @@ class ExperienceWizardWindow : public QDialog
          return IDX >= 0 ? mStateMachineSelect.itemData(IDX).toString() : "";
       }
 
+      void ReadChannelSelectorRow(int idx);
       void CreateChannelSelectorRow(Node* node);
       void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
       bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);

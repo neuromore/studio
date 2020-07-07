@@ -36,6 +36,10 @@
 #include <Backend/FilesGetRequest.h>
 #include <Backend/FilesGetResponse.h>
 
+#define COLUMN_IDX_TYPE 0
+#define COLUMN_IDX_NAME 1
+#define COLUMN_IDX_EDIT 2
+
 using namespace Core;
 
 // constructor
@@ -344,7 +348,32 @@ void ExperienceWizardWindow::ProcessFolder(const Json::Item& folder)
 
 void ExperienceWizardWindow::SyncNodes()
 {
-   // TODO
+   // get count of rows and nodes
+   const int numRows  = mTableWidget.rowCount();
+   const int numNodes = (int)mQuickConfigNodes.Size();
+
+   // something wrong here (add logging..)
+   if (numRows != numNodes)
+      return;
+
+   // iterate and sync ui to quick config nodes
+   for (int i = 0; i < numRows; i++)
+   {
+      Node* n = mQuickConfigNodes.GetItem((uint32_t)i);
+
+      // call specific handler for node type
+      switch (n->GetType())
+      {
+      case ChannelSelectorNode::TYPE_ID:
+         ReadChannelSelectorRow(i);
+         break;
+      default:
+         break;
+      }
+   }
+
+   //TEST
+   //SyncUi();
 }
 
 void ExperienceWizardWindow::SyncUi()
@@ -374,14 +403,51 @@ void ExperienceWizardWindow::SyncUi()
 // CHANNEL SELECTOR
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
+{
+   Node*        n = mQuickConfigNodes.GetItem((uint32_t)idx);
+   QWidget*     w = mTableWidget.cellWidget(idx, COLUMN_IDX_EDIT);
+   QListWidget* l = w->findChild<QListWidget*>("List");
+   uint32_t     a = n->FindAttributeIndexByInternalName("channels");
+   
+   Core::String s;
+   
+   // build channels attribute string from ui elements
+   const uint32 numItems = l->count();
+   for (uint32 j = 0; j < numItems; j++)
+   {
+      // find widgets
+      QListWidgetItem* lwi = l->item(j);
+      QWidget* w = l->itemWidget(lwi);
+      QLabel* c = w->findChild<QLabel*>("Channel");
+      QLabel* b = w->findChild<QLabel*>("Band");
+
+      // build string
+      s += b->text().toLocal8Bit().data();
+      s += ' ';
+      s += c->text().toLocal8Bit().data();
+      if (j < numItems - 1)
+         s += ',';
+   }
+
+   // set node channels attribute value
+   if (!n->GetAttributeValue(a)->InitFromString(s))
+   {
+      // TODO: something failed
+      //printf("%s \n", s.AsChar());
+   }
+}
+
 void ExperienceWizardWindow::CreateChannelSelectorRow(Node* node)
 {
+   // TODO: Make some parts more generic (column 1+2)
+
    //////////////////////////////////////////////////////////////////////////////////
    // Find the 'channels' attribute and its value
 
    bool found = false;
    Core::String channels;
-   
+
    // iterate attributes and look for the chananels value
    const uint32 numAtt = node->GetNumAttributes();
    for (uint32_t j = 0; j < numAtt; j++)
@@ -434,6 +500,7 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(Node* node)
    QVBoxLayout* vl = new QVBoxLayout(container);
 
    QListWidget* list = new QListWidget();
+   list->setObjectName("List");
    list->setSpacing(0);
    list->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
    list->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
@@ -524,9 +591,9 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(Node* node)
 
    //////////////////////////////////////////////////////////////////////////////////
 
-   mTableWidget.setCellWidget(row, 0, lblWidget);
-   mTableWidget.setItem(      row, 1, secondItem);
-   mTableWidget.setCellWidget(row, 2, container);
+   mTableWidget.setCellWidget(row, COLUMN_IDX_TYPE, lblWidget);
+   mTableWidget.setItem(      row, COLUMN_IDX_NAME, secondItem);
+   mTableWidget.setCellWidget(row, COLUMN_IDX_EDIT, container);
 }
 
 void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band)
