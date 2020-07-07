@@ -387,15 +387,40 @@ void ExperienceWizardWindow::SyncUi()
    {
       Node* n = mQuickConfigNodes.GetItem(i);
 
-      // call specific handler for node type
+      // create table row
+      const uint32 row = mTableWidget.rowCount();
+      mTableWidget.insertRow(row);
+
+      // column: TYPE/ICON
+      QLabel* lblIcon = new QLabel();
+      QHBoxLayout* lblLayout = new QHBoxLayout();
+      QWidget* lblWidget = new QWidget();
+
+      lblIcon->setFixedSize(64, 64);
+      lblIcon->setScaledContents(true);
+      lblLayout->setAlignment(Qt::AlignCenter);
+      lblLayout->addWidget(lblIcon);
+      lblWidget->setLayout(lblLayout);
+
+      // column: NAME
+      QTableWidgetItem* secondItem = new QTableWidgetItem(n->GetName());
+      secondItem->setTextAlignment(Qt::AlignCenter);
+      secondItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
+
+      // column: EDIT
+      QWidget* container = new QWidget();
       switch (n->GetType())
       {
-      case ChannelSelectorNode::TYPE_ID: 
-         CreateChannelSelectorRow(n); 
-         break;
-      default: 
+      case ChannelSelectorNode::TYPE_ID:
+         lblIcon->setPixmap(QPixmap(":/Images/Graph/" + QString(ChannelSelectorNode::Uuid()) + ".png"));
+         CreateChannelSelectorEditColumn(n, container);
          break;
       }
+
+      // add them
+      mTableWidget.setCellWidget(row, COLUMN_IDX_TYPE, lblWidget);
+      mTableWidget.setItem(row, COLUMN_IDX_NAME, secondItem);
+      mTableWidget.setCellWidget(row, COLUMN_IDX_EDIT, container);
    }
 }
 
@@ -438,12 +463,68 @@ void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
    }
 }
 
-void ExperienceWizardWindow::CreateChannelSelectorRow(Node* node)
+void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget* container)
 {
-   // TODO: Make some parts more generic (column 1+2)
+   QVBoxLayout* vl = new QVBoxLayout(container);
+   QListWidget* list = new QListWidget();
+   QHBoxLayout* hlnew = new QHBoxLayout();
+   QComboBox*   qboxch = new QComboBox();
+   QComboBox*   qboxband = new QComboBox();
+   QPushButton* qbtnadd = new QPushButton();
+
+   // setup list
+   list->setObjectName("List");
+   list->setSpacing(0);
+   list->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+   list->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
+
+   // no margin
+   hlnew->setContentsMargins(0, 0, 0, 0);
+
+   // configure combobox channel
+   qboxch->addItem("C3");
+   qboxch->addItem("C4");
+   qboxch->addItem("Cz");
+   qboxch->addItem("F3");
+   qboxch->addItem("F4");
+   qboxch->addItem("Fz");
+   qboxch->addItem("Fpz");
+   qboxch->addItem("Pz");
+
+   // configure combobox band
+   qboxband->addItem("Alpha");
+   qboxband->addItem("Beta1");
+   qboxband->addItem("Beta Sum");
+   qboxband->addItem("CustomBand1");
+   qboxband->addItem("CustomBand2");
+   qboxband->addItem("CustomBand3");
+   qboxband->addItem("Delta");
+   qboxband->addItem("DeltaThetaSum");
+   qboxband->addItem("Gamma");
+   qboxband->addItem("High Beta");
+   qboxband->addItem("Low Beta");
+   qboxband->addItem("SMR");
+   qboxband->addItem("Theta");
+   qboxband->addItem("ThetaAlphaSum");
+
+   // configure add button
+   qbtnadd->setToolTip("Add this combination");
+   qbtnadd->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Plus.png"));
+   qbtnadd->setProperty("List", QVariant::fromValue((void*)list));
+   qbtnadd->setProperty("Channel", QVariant::fromValue((void*)qboxch));
+   qbtnadd->setProperty("Band", QVariant::fromValue((void*)qboxband));
+
+   // handler for add button
+   connect(qbtnadd, &QPushButton::clicked, this, &ExperienceWizardWindow::OnChannelSelectorListItemAdd);
+
+   // widgets setup
+   hlnew->addWidget(qboxch);
+   hlnew->addWidget(qboxband);
+   hlnew->addWidget(qbtnadd);
+   vl->addWidget(list);
+   vl->addLayout(hlnew);
 
    //////////////////////////////////////////////////////////////////////////////////
-   // Find the 'channels' attribute and its value
 
    bool found = false;
    Core::String channels;
@@ -466,92 +547,6 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(Node* node)
    if (!found)
       return;
 
-   //////////////////////////////////////////////////////////////////////////////////
-
-   const uint32 row = mTableWidget.rowCount();
-   mTableWidget.insertRow(row);
-
-   //////////////////////////////////////////////////////////////////////////////////
-   // 1: TYPE/ICON
-
-   QLabel* lblIcon = new QLabel();
-   lblIcon->setPixmap(QPixmap(":/Images/Graph/" + QString(ChannelSelectorNode::Uuid()) + ".png"));
-   lblIcon->setFixedSize(64, 64);
-   lblIcon->setScaledContents(true);
-   
-   QHBoxLayout* lblLayout = new QHBoxLayout();
-   lblLayout->setAlignment(Qt::AlignCenter);
-   lblLayout->addWidget(lblIcon);
-   
-   QWidget* lblWidget = new QWidget();
-   lblWidget->setLayout(lblLayout);
-   
-   //////////////////////////////////////////////////////////////////////////////////
-   // 2: NAME
-
-   QTableWidgetItem* secondItem = new QTableWidgetItem(node->GetName());
-   secondItem->setTextAlignment(Qt::AlignCenter);
-   secondItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
-
-   //////////////////////////////////////////////////////////////////////////////////
-   // 3: EDIT
-
-   QWidget* container = new QWidget();
-   QVBoxLayout* vl = new QVBoxLayout(container);
-
-   QListWidget* list = new QListWidget();
-   list->setObjectName("List");
-   list->setSpacing(0);
-   list->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-   list->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
-
-   QHBoxLayout* hlnew = new QHBoxLayout();
-   hlnew->setContentsMargins(0, 0, 0, 0);
-
-   QComboBox* qboxch = new QComboBox();
-   qboxch->addItem("C3");
-   qboxch->addItem("C4");
-   qboxch->addItem("Cz");
-   qboxch->addItem("F3");
-   qboxch->addItem("F4");
-   qboxch->addItem("Fz");
-   qboxch->addItem("Fpz");
-   qboxch->addItem("Pz");
-
-   QComboBox* qboxband = new QComboBox();
-   qboxband->addItem("Alpha");
-   qboxband->addItem("Beta1");
-   qboxband->addItem("Beta Sum");
-   qboxband->addItem("CustomBand1");
-   qboxband->addItem("CustomBand2");
-   qboxband->addItem("CustomBand3");
-   qboxband->addItem("Delta");
-   qboxband->addItem("DeltaThetaSum");
-   qboxband->addItem("Gamma");
-   qboxband->addItem("High Beta");
-   qboxband->addItem("Low Beta");
-   qboxband->addItem("SMR");
-   qboxband->addItem("Theta");
-   qboxband->addItem("ThetaAlphaSum");
-
-   QPushButton* qbtnadd = new QPushButton();
-   qbtnadd->setToolTip("Add this combination");
-   qbtnadd->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Plus.png"));
-   qbtnadd->setProperty("List", QVariant::fromValue((void*)list));
-   qbtnadd->setProperty("Channel", QVariant::fromValue((void*)qboxch));
-   qbtnadd->setProperty("Band", QVariant::fromValue((void*)qboxband));
-
-   connect(qbtnadd, &QPushButton::clicked, this, &ExperienceWizardWindow::OnChannelSelectorListItemAdd);
-
-   hlnew->addWidget(qboxch);
-   hlnew->addWidget(qboxband);
-   hlnew->addWidget(qbtnadd);
-
-   vl->addWidget(list);
-   vl->addLayout(hlnew);
-
-   //////////////////////////////////////////////////////////////////////////////////
-
    // split string array
    auto chlist = channels.Split(StringCharacter::comma);
 
@@ -573,7 +568,7 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(Node* node)
          const uint32_t last = words.Size() - 1;
 
          // last word is channel
-         Core::String ch = words[last]; 
+         Core::String ch = words[last];
 
          // others belong to band
          Core::String band;
@@ -588,12 +583,6 @@ void ExperienceWizardWindow::CreateChannelSelectorRow(Node* node)
          CreateChannelSelectorListItem(*list, ch, band);
       }
    }
-
-   //////////////////////////////////////////////////////////////////////////////////
-
-   mTableWidget.setCellWidget(row, COLUMN_IDX_TYPE, lblWidget);
-   mTableWidget.setItem(      row, COLUMN_IDX_NAME, secondItem);
-   mTableWidget.setCellWidget(row, COLUMN_IDX_EDIT, container);
 }
 
 void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band)

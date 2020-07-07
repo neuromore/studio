@@ -63,6 +63,8 @@ class ExperienceWizardWindow : public QDialog
    private:
       void RequestFileHierarchy();
       void ProcessFolder(const Core::Json::Item& folder);
+      void SyncNodes();
+      void SyncUi();
 
       inline QString GetClassifierName()
       {
@@ -86,19 +88,15 @@ class ExperienceWizardWindow : public QDialog
       }
 
       void ReadChannelSelectorRow(int idx);
-      void CreateChannelSelectorRow(Node* node);
+      void CreateChannelSelectorEditColumn(Node* node, QWidget* container);
       void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
       bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
-
-      void SyncNodes();
-      void SyncUi();
 
    private:
       const User&        mUser;
       Core::Array<Node*> mQuickConfigNodes;
       GraphImporter      mGraphImporter;
       Classifier*        mClassifier;
-      //
       QVBoxLayout        mMainLayout;
       QHBoxLayout        mUserLayout;
       QLabel             mUserDesc;
