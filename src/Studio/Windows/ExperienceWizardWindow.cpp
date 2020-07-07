@@ -465,6 +465,9 @@ void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
 
 void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget* container)
 {
+   //////////////////////////////////////////////////////////////////////////////////
+   // create ui elements
+
    QVBoxLayout* vl = new QVBoxLayout(container);
    QListWidget* list = new QListWidget();
    QHBoxLayout* hlnew = new QHBoxLayout();
@@ -525,36 +528,32 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
    vl->addLayout(hlnew);
 
    //////////////////////////////////////////////////////////////////////////////////
+   // add internal list items
 
-   bool found = false;
-   Core::String channels;
+   const uint32_t attidx = node->FindAttributeIndexByInternalName("channels");
 
-   // iterate attributes and look for the chananels value
-   const uint32 numAtt = node->GetNumAttributes();
-   for (uint32_t j = 0; j < numAtt; j++)
+   // channels attribute not found
+   if (attidx == CORE_INVALIDINDEX32)
    {
-      Core::AttributeSettings* settings = node->GetAttributeSettings(j);
-      Core::Attribute* attrib = node->GetAttributeValue(j);
-      if (settings->GetInternalNameString() == "channels")
-      {
-         const char* typstr = attrib->GetTypeString();
-         attrib->ConvertToString(channels);
-         found = true;
-         break;
-      }
+      //TODO log
+      return;
    }
 
-   if (!found)
+   // not expected type
+   if (node->GetAttributeValue(attidx)->GetType() != AttributeStringArray::TYPE_ID)
+   {
+      //TODO log
       return;
+   }
 
-   // split string array
-   auto chlist = channels.Split(StringCharacter::comma);
+   // cast to expected type
+   AttributeStringArray* channels = (AttributeStringArray*)node->GetAttributeValue(attidx);
 
    // iterate channels
-   const uint32 numCh = chlist.Size();
+   const uint32_t numCh = channels->GetNumStrings();
    for (uint32_t i = 0; i < numCh; i++)
    {
-      Core::String& s = chlist[i];
+      Core::String& s = channels->GetString(i);
 
       // remove some spaces before split by space
       s.Trim();
