@@ -278,26 +278,28 @@ void ExperienceWizardWindow::OnCreateClicked()
    if (!mClassifier)
       return;
 
-   // experience to create
-   Experience exp;
+   // Experience Generation
+
+   Experience    exp; // experience to create
+   GraphSettings set; // classifier settings to use
 
    // set name, classifier and state machine
    exp.SetName(mExperienceEdit.text().toLocal8Bit().data());
    exp.SetClassifierUuid(this->GetClassifierId().toLocal8Bit().data());
    exp.SetStateMachineUuid(this->GetStateMachineId().toLocal8Bit().data());
 
-   // TODO: add classifierSettings attributes
+   mClassifier->CreateSettings(set, true); // create settings from (modified) classifier
+   exp.SetClassifierSettings(set);         // and set them on experience
 
-   ////////////
+   // Serialization
 
    Core::Json   json;  // exp as json
    Core::String jsons; // exp as json string
 
    exp.Save(json, json.GetRootItem());
    json.WriteToString(jsons);
-   //json.WriteToFile("f:/test.json"); //DEBUG
 
-   ////////////
+   // Store on Backend
 
    FilesCreateRequest request(GetUser()->GetToken(), exp.GetName(), mFolderId.AsChar(), "EXPERIENCE", jsons);
    QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
@@ -451,8 +453,7 @@ void ExperienceWizardWindow::SyncNodes()
       }
    }
 
-   //TEST
-   //SyncUi();
+   SyncUi(); // needed
 }
 
 void ExperienceWizardWindow::SyncUi()
@@ -562,7 +563,6 @@ void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
    if (!n->GetAttributeValue(a)->InitFromString(s))
    {
       // TODO: something failed
-      //printf("%s \n", s.AsChar());
    }
 }
 
@@ -642,15 +642,21 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
       return;
    }
 
+   // get the attribute
+   Core::Attribute* att = node->GetAttributeValue(attidx);
+
    // not expected type
-   if (node->GetAttributeValue(attidx)->GetType() != AttributeStringArray::TYPE_ID)
+   if (att->GetType() != AttributeStringArray::TYPE_ID)
    {
       //TODO log
       return;
    }
 
+   // always mark it as changed (to get into exp json)
+   node->OnAttributeChanged(att);
+
    // cast to expected type
-   AttributeStringArray* channels = (AttributeStringArray*)node->GetAttributeValue(attidx);
+   AttributeStringArray* channels = (AttributeStringArray*)att;
 
    // iterate channels
    const uint32_t numCh = channels->GetNumStrings();
