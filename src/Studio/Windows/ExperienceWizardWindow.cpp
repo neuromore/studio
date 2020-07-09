@@ -306,17 +306,19 @@ void ExperienceWizardWindow::OnCreateClicked()
    connect(reply, &QNetworkReply::finished, this, [reply, this]()
    {
       QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
-
       FilesCreateResponse response(networkReply);
+
+      // something went wrong
       if (response.HasError() == true)
       {
          QMessageBox::warning(NULL, "Error", "Failed to create experience.", QMessageBox::Ok);
          return;
       }
 
-      //TODO: where to go from here?
+      // done, signal and close
       else
-         this->close();
+         emit(OnExperienceCreated(mUser));
+         close();
    });
 }
 

@@ -230,6 +230,8 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		void OnBciSelectionChanged(const QString& text);
 		void OnSessionUserSelected(const User& user);
 		void OnCreateProtocolForUser(const User& user);
+		void OnCreatedProtocolForUser(const User& user);
+
 		void OnSessionUserSelectionCanceled();
 
 		// FILE menu

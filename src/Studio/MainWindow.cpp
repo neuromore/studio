@@ -856,10 +856,18 @@ void MainWindow::OnCreateProtocolForUser(const User& user)
 
    // create experience wizard with this user
    mExperienceWizardWindow = new ExperienceWizardWindow(user, this);
-   //connect(mExperienceWizardWindow, &ExperienceWizardWindow::OnUserSelected, this, &MainWindow::OnSessionUserSelected);
-   //connect(mExperienceWizardWindow, &ExperienceWizardWindow::close, this, &MainWindow::OnSessionUserSelectionCanceled);
-
+   connect(mExperienceWizardWindow, &ExperienceWizardWindow::OnExperienceCreated, this, &MainWindow::OnCreatedProtocolForUser);
+   
    mExperienceWizardWindow->show();
+}
+
+void MainWindow::OnCreatedProtocolForUser(const User& user)
+{
+   mExperienceWizardWindow->close();
+   mExperienceWizardWindow->deleteLater();
+   mExperienceWizardWindow = NULL;
+
+   SelectSessionUser();
 }
 
 // reload the style sheet
