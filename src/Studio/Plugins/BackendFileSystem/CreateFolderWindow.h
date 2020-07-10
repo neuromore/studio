@@ -41,7 +41,7 @@ class CreateFolderWindow : public QDialog
 {
 	Q_OBJECT
 	public:
-		CreateFolderWindow(const char* windowTitle, const char* defaultLabelText, Core::String parentFolderId, User* user, QWidget* parent=NULL);
+		CreateFolderWindow(const char* windowTitle, const char* defaultLabelText, Core::String parentFolderId, QWidget* parent=NULL);
 		virtual ~CreateFolderWindow();
 
 		Core::String GetLabelText() const						{ return mLineEdit->text().toUtf8().data(); }

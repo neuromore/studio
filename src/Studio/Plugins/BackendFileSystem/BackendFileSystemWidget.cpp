@@ -322,7 +322,7 @@ void BackendFileSystemWidget::Refresh()
 	setEnabled(false);
 
 	// 1. construct invite request
-	FileHierarchyGetRequest request( GetUser()->GetToken(), GetUser()->GetIdString() );
+	FileHierarchyGetRequest request( GetUser()->GetToken(), GetSessionUser()->GetIdString() );
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
@@ -911,7 +911,7 @@ void BackendFileSystemWidget::OnCreateFolder()
 		parentFolderId = selectionItem.GetParentUuid();
 
 	// open the dialog and return directly if the user canceled the process
-	CreateFolderWindow createFolderWindow( "Name Folder", "New Folder", selectionItem.GetName(), GetUser(), this );
+	CreateFolderWindow createFolderWindow( "Name Folder", "New Folder", selectionItem.GetName(), this );
 	if (createFolderWindow.exec() == QDialog::Rejected)
 		return;
 
