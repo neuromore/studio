@@ -393,7 +393,7 @@ void SelectUserWindow::RequestPage(uint32 pageIndex, bool force)
 	mTableWidget->setEnabled(false);
 
 	// construct /users/get request
-	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data());
+	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data(), "ROLE_ClinicPatient");
 
 	// process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
