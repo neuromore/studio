@@ -372,7 +372,7 @@ void ExperienceSelectionWidget::AsyncLoadFromBackend(const char* itemId)
 	//LogInfo( "ExperienceSelectionWidget::AsyncLoadFromBackend: parentId=%s, itemId=%s", mCurrentItem.GetParentId(), mCurrentItem.GetItemId() );
 
 	// 1. construct /filesystem/get request
-	FileSystemGetRequest request( GetUser()->GetToken(), GetUser()->GetIdString(), page, size, "store", itemId, "[experience,folder]");
+	FileSystemGetRequest request( GetUser()->GetToken(), GetSessionUser()->GetIdString(), page, size, "store", itemId, "[experience,folder]");
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
