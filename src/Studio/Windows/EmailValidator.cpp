@@ -29,7 +29,7 @@ using namespace Core;
 
 // constructor
 EmailValidator::EmailValidator(bool allowCommaSeparatedMultipleEmails, QObject* parent) : QValidator(parent),
-      mValidMailRegExp("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"),
+      mValidMailRegExp("^([a-zA-Z0-9_\\+\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"),
       mIntermediateMailRegExp("[a-z0-9._%+-]*@?[a-z0-9.-]*\\.?[a-z]*")
 {
 	mAllowCommaSeparatedMultipleEmails = allowCommaSeparatedMultipleEmails;
