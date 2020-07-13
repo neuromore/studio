@@ -252,7 +252,9 @@ void CreateUserWindow::OnCreateButtonClicked()
 	String birthday		= mBirthdayEdit->text().toUtf8().data();
 
 	Array<String> parentIds;
-	parentIds.Add( GetUser()->GetId() );
+	const uint32 numCompanies = GetUser()->GetNumParentCompanyIds();
+	for (uint32 i = 0; i < numCompanies; i++)
+		parentIds.Add( GetUser()->GetParentCompanyId(i) );
 
 	// 1. construct invite request
 	UsersCreateRequest request( GetUser()->GetToken(), email, firstName, lastName, birthday, parentIds );
