@@ -16,7 +16,7 @@
 class QTBASE_API UsersCreateRequest : public Request
 {
 	public:
-		UsersCreateRequest(const char* token, Core::String email, Core::String firstName, Core::String lastName, Core::String birthday, const Core::Array<Core::String>& parentIds);
+		UsersCreateRequest(const char* token, Core::String email, Core::String firstName, Core::String lastName, Core::String birthday, const Core::Array<Core::String>& parentIds, int role = 0);
 };
 
 

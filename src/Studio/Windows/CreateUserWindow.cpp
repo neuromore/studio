@@ -257,7 +257,7 @@ void CreateUserWindow::OnCreateButtonClicked()
 		parentIds.Add( GetUser()->GetParentCompanyId(i) );
 
 	// 1. construct invite request
-	UsersCreateRequest request( GetUser()->GetToken(), email, firstName, lastName, birthday, parentIds );
+	UsersCreateRequest request( GetUser()->GetToken(), email, firstName, lastName, birthday, parentIds, 3004 );
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
@@ -276,6 +276,7 @@ void CreateUserWindow::OnCreateButtonClicked()
 		// 5. error handling
 		else if	(response.HasErrorOfType("CREATE_USER_FAILED") == true)
 		{
+         // TODO: This is hacky, not every respone is a fail due to an existing user
 			String msg;
 			msg.Format( "The user with the given email already has a neuromore account. Do you want to invite '%s'?", email.AsChar() );
 			if (QMessageBox::information(this, "User Already Exists", msg.AsChar(), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
