@@ -138,7 +138,7 @@ void User::ReadRules(Json::Item item)
 }
 
 
-User::Rule* User::FindRule(const char* ruleName)
+const User::Rule* User::FindRule(const char* ruleName) const
 {
 	// get the number of rules and iterate through them
 	const uint32 numRules = mRules.Size();

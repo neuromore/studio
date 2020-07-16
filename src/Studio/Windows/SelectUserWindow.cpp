@@ -38,7 +38,10 @@
 using namespace Core;
 
 // constructor
-SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showSelf) : mUser(user), QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint)
+SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showSelf) : 
+   mUser(user), 
+   mFullAccess(user.FindRule("ROLE_ClinicAdmin") || user.FindRule("ROLE_ClinicClinician")),
+   QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint)
 {
 	mShowSelf = showSelf;
 	mNumTotalPages	= 0;
@@ -158,6 +161,7 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	mCreateUserButton = new QPushButton("Create User");
 	mCreateUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Plus.png") );
 	mCreateUserButton->setToolTip( "Create a new user." );
+	mCreateUserButton->setEnabled(mFullAccess);
 	hLayout->addWidget(mCreateUserButton);
 	connect( mCreateUserButton, &QPushButton::clicked, this, &SelectUserWindow::OnCreateButtonClicked);
 
@@ -165,6 +169,7 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	mInviteUserButton = new QPushButton("Invite Existing User");
 	mInviteUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/SendFeedback.png") );
 	mInviteUserButton->setToolTip( "Invite users that already have a neuromore account." );
+	mInviteUserButton->setEnabled(mFullAccess);
 	hLayout->addWidget(mInviteUserButton);
 	connect( mInviteUserButton, &QPushButton::clicked, this, &SelectUserWindow::OnInviteButtonClicked);
 
@@ -226,7 +231,7 @@ void SelectUserWindow::OnSelectionChanged()
 
 	// enable selectuser button
 	mSelectUserButton->setEnabled(true);
-	mCreateProtocolButton->setEnabled(true);
+	mCreateProtocolButton->setEnabled(mFullAccess);
 }
 
 
@@ -393,7 +398,7 @@ void SelectUserWindow::RequestPage(uint32 pageIndex, bool force)
 	mTableWidget->setEnabled(false);
 
 	// construct /users/get request
-	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data());
+	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data(), "ROLE_ClinicPatient");
 
 	// process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );

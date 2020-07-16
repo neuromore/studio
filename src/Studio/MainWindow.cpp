@@ -843,6 +843,14 @@ void MainWindow::OnSessionUserSelected(const User& user)
 	mSessionUserSelectionWindow->close();
 	mSessionUserSelectionWindow->deleteLater();
 	mSessionUserSelectionWindow = NULL;
+
+	// refresh the experience plugin using the selected user
+	if (ExperienceSelectionPlugin* p = (ExperienceSelectionPlugin*)GetPluginManager()->FindFirstActivePluginByType(ExperienceSelectionPlugin::GetStaticTypeUuid()))
+		p->OnPostAuthenticationInit();
+
+	// refresh the filesystem plugin using the selected user
+	if (BackendFileSystemPlugin* p = (BackendFileSystemPlugin*)GetPluginManager()->FindFirstActivePluginByType(BackendFileSystemPlugin::GetStaticTypeUuid()))
+		p->OnPostAuthenticationInit();
 }
 
 void MainWindow::OnCreateProtocolForUser(const User& user)

@@ -94,6 +94,7 @@ class SelectUserWindow : public QDialog
 		QPushButton*		mInviteUserButton;
 
 		bool				mShowSelf;
+		const bool			mFullAccess;
 		const User&			mUser;
 		Core::Array<User>	mListedUsers;
 
