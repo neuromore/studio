@@ -296,7 +296,9 @@ void ExperienceWizardWindow::OnCreateClicked()
    Core::Json   json;  // exp as json
    Core::String jsons; // exp as json string
 
-   exp.Save(json, json.GetRootItem());
+   Core::Json::Item rootItem = json.GetRootItem();
+
+   exp.Save(json, rootItem);
    json.WriteToString(jsons);
 
    // Store on Backend
