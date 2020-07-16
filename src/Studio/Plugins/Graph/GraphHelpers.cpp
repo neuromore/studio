@@ -631,7 +631,7 @@ Creud GraphHelpers::GetCreud(Node* node)
 	return Creud( true, true, true, true, true );
 
 	// find the rule for the given node
-	User::Rule* rule = GetUser()->FindRule( node->GetRuleName() );
+	const User::Rule* rule = GetUser()->FindRule( node->GetRuleName() );
 	if (rule == NULL)
 		return Creud();
 
