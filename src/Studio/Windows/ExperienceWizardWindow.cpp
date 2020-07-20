@@ -373,13 +373,22 @@ void ExperienceWizardWindow::RequestFileHierarchy()
       mClassifierSelect.model()->sort(0);
       mClassifierSelect.setEnabled(true);
       mClassifierSelect.blockSignals(false);
-      mClassifierSelect.setCurrentIndex(0);
+
+      // set index or trigger manually
+      if (mClassifierSelect.currentIndex() == 0) 
+         OnClassifierSelectIndexChanged(0);
+      else 
+         mClassifierSelect.setCurrentIndex(0);
 
       // sort and enable statemachine combobox
       mStateMachineSelect.model()->sort(0);
       mStateMachineSelect.setEnabled(true);
       mStateMachineSelect.blockSignals(false);
-      mStateMachineSelect.setCurrentIndex(0);
+
+      if (mStateMachineSelect.currentIndex() == 0)
+         OnStateMachineSelectIndexChanged(0);
+      else
+         mStateMachineSelect.setCurrentIndex(0);
    });
 }
 
