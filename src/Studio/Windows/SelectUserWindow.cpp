@@ -397,8 +397,12 @@ void SelectUserWindow::RequestPage(uint32 pageIndex, bool force)
 
 	mTableWidget->setEnabled(false);
 
+	// pick a user rule filter (just patients by default, everyone for admin)
+	// backend checks for "%RULE%", so "ROLE_Clinic" matches all roles with that prefix
+	const char* RULE = GetUser()->FindRule("ROLE_ClinicAdmin") ? "ROLE_Clinic" : "ROLE_ClinicPatient";
+
 	// construct /users/get request
-	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data(), "ROLE_ClinicPatient");
+	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data(), RULE);
 
 	// process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
