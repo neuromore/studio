@@ -22,6 +22,9 @@
     <Filter Include="data_handler">
       <UniqueIdentifier>{5b7577bf-15cb-4d73-b29a-c86025091b86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cpp-package">
+      <UniqueIdentifier>{8d59590c-d40f-4635-b4f5-fd21eec661c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\brainflow\board_controller\board.cpp">
@@ -110,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\neuromd_board.cpp">
       <Filter>board_controller\neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\cpp-package\board_shim.cpp">
+      <Filter>cpp-package</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\cpp-package\data_filter.cpp">
+      <Filter>cpp-package</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +271,15 @@
     </ClInclude>
     <ClInclude Include="..\..\include\brainflow\data_handler\wavelet_helpers.h">
       <Filter>data_handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\cpp-package\board_shim.h">
+      <Filter>cpp-package</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\cpp-package\brainflow_exception.h">
+      <Filter>cpp-package</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\cpp-package\data_filter.h">
+      <Filter>cpp-package</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

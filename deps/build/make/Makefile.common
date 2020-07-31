@@ -420,6 +420,7 @@ BRAINFLOW_INCLUDES   = -I$(INCDIR) \
                        -I$(BRAINFLOW_INCDIR)/board_controller/gtec \
                        -I$(BRAINFLOW_INCDIR)/board_controller/neuromd \
                        -I$(BRAINFLOW_INCDIR)/board_controller/openbci \
+                       -I$(BRAINFLOW_INCDIR)/cpp-package \
                        -I$(BRAINFLOW_INCDIR)/data_handler \
                        -I$(BRAINFLOW_INCDIR)/utils
 BRAINFLOW_INCLUDES_X86 = $(BRAINFLOW_INCLUDES) $(BRAINFLOW_INCLUDES_X86_PLAT)
@@ -443,7 +444,9 @@ BRAINFLOW_OBJS_ALL   = board_controller/gtec/unicorn_board.o \
                        board_controller/file_streamer.o \
                        board_controller/multicast_streamer.o \
                        board_controller/streaming_board.o \
-                       board_controller/synthetic_board.o
+                       board_controller/synthetic_board.o \
+                       cpp-package/board_shim.o \
+                       cpp-package/data_filter.o
 
 $(BRAINFLOW_OBJDIR_X86)/%.o:
 	$(BRAINFLOW_BUILD_X86)

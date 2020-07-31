@@ -120,6 +120,8 @@
     <ClCompile Include="..\..\src\brainflow\board_controller\openbci\openbci_wifi_shield_board.cpp" />
     <ClCompile Include="..\..\src\brainflow\board_controller\streaming_board.cpp" />
     <ClCompile Include="..\..\src\brainflow\board_controller\synthetic_board.cpp" />
+    <ClCompile Include="..\..\src\brainflow\cpp-package\board_shim.cpp" />
+    <ClCompile Include="..\..\src\brainflow\cpp-package\data_filter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\brainflow\board_controller\board.h" />
@@ -155,6 +157,9 @@
     <ClInclude Include="..\..\include\brainflow\board_controller\streaming_board.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\stub_streamer.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\synthetic_board.h" />
+    <ClInclude Include="..\..\include\brainflow\cpp-package\board_shim.h" />
+    <ClInclude Include="..\..\include\brainflow\cpp-package\brainflow_exception.h" />
+    <ClInclude Include="..\..\include\brainflow\cpp-package\data_filter.h" />
     <ClInclude Include="..\..\include\brainflow\data_handler\data_handler.h" />
     <ClInclude Include="..\..\include\brainflow\data_handler\downsample_operators.h" />
     <ClInclude Include="..\..\include\brainflow\data_handler\rolling_filter.h" />
@@ -243,7 +248,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -278,7 +283,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -313,7 +318,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -357,7 +362,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
