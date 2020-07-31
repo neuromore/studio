@@ -118,6 +118,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags) : MainWindowBase(
 	mActiveBciCombo				= NULL;
 	mSettingsWindow				= NULL;
 	mSessionUserSelectionWindow = NULL;
+	mExperienceWizardWindow    = NULL;
 	mVisualizationMenu			= NULL;
 
 	LogDetailedInfo("Adding main window event handler ...");
@@ -818,6 +819,7 @@ void MainWindow::SelectSessionUser()
 {
 	mSessionUserSelectionWindow = new SelectUserWindow(*GetUser(), this, true);
 	connect (mSessionUserSelectionWindow, &SelectUserWindow::OnUserSelected, this, &MainWindow::OnSessionUserSelected);
+	connect (mSessionUserSelectionWindow, &SelectUserWindow::OnCreateProtocol, this, &MainWindow::OnCreateProtocolForUser);
 	connect (mSessionUserSelectionWindow, &SelectUserWindow::close, this, &MainWindow::OnSessionUserSelectionCanceled);
 
 	mSessionUserSelectionWindow->show();
@@ -841,6 +843,39 @@ void MainWindow::OnSessionUserSelected(const User& user)
 	mSessionUserSelectionWindow->close();
 	mSessionUserSelectionWindow->deleteLater();
 	mSessionUserSelectionWindow = NULL;
+
+	// refresh the experience plugin using the selected user
+	if (ExperienceSelectionPlugin* p = (ExperienceSelectionPlugin*)GetPluginManager()->FindFirstActivePluginByType(ExperienceSelectionPlugin::GetStaticTypeUuid()))
+		p->OnPostAuthenticationInit();
+
+	// refresh the filesystem plugin using the selected user
+	if (BackendFileSystemPlugin* p = (BackendFileSystemPlugin*)GetPluginManager()->FindFirstActivePluginByType(BackendFileSystemPlugin::GetStaticTypeUuid()))
+		p->OnPostAuthenticationInit();
+}
+
+void MainWindow::OnCreateProtocolForUser(const User& user)
+{
+   GetEngine()->SetSessionUser(user);
+
+   // dealloc window
+   mSessionUserSelectionWindow->close();
+   mSessionUserSelectionWindow->deleteLater();
+   mSessionUserSelectionWindow = NULL;
+
+   // create experience wizard with this user
+   mExperienceWizardWindow = new ExperienceWizardWindow(user, this);
+   connect(mExperienceWizardWindow, &ExperienceWizardWindow::OnExperienceCreated, this, &MainWindow::OnCreatedProtocolForUser);
+   
+   mExperienceWizardWindow->show();
+}
+
+void MainWindow::OnCreatedProtocolForUser(const User& user)
+{
+   mExperienceWizardWindow->close();
+   mExperienceWizardWindow->deleteLater();
+   mExperienceWizardWindow = NULL;
+
+   SelectSessionUser();
 }
 
 // reload the style sheet
@@ -850,7 +885,6 @@ void MainWindow::OnReloadStyleSheet()
 	if (QtBaseManager::LoadStyleSheet(GetQtBaseManager()->GetAppDir() + "Styles\\Default.style", this) == false)
 		LogError("Failed to load default style sheet");
 }
-
 
 
 // exit application

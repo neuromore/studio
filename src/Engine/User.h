@@ -81,6 +81,9 @@ class ENGINE_API User
 		const char* GetEmail() const										{ return mEmail.AsChar(); }
 		const Core::String& GetEmailString() const							{ return mEmail; }
 
+		void SetBirthday(const char* birthday)								{ mBirthday = birthday; }
+		const char* GetBirthday() const										{ return mBirthday.AsChar(); }
+
 		Core::String CreateDisplayableName() const;
 		Core::String CreateFullName() const;
 
@@ -101,12 +104,12 @@ class ENGINE_API User
 		void LogRules();
 
 		// rule permissions
-		Rule* FindRule(const char* ruleName);
-		bool CreateAllowed(const char* ruleName)							{ Rule* rule=FindRule(ruleName); if (rule == NULL) return false; return rule->GetCreud().Create(); }
-		bool ReadAllowed(const char* ruleName)								{ Rule* rule=FindRule(ruleName); if (rule == NULL) return false; return rule->GetCreud().Read(); }
-		bool ExecuteAllowed(const char* ruleName)							{ Rule* rule=FindRule(ruleName); if (rule == NULL) return false; return rule->GetCreud().Execute(); }
-		bool UpdateAllowed(const char* ruleName)							{ Rule* rule=FindRule(ruleName); if (rule == NULL) return false; return rule->GetCreud().Update(); }
-		bool DeleteAllowed(const char* ruleName)							{ Rule* rule=FindRule(ruleName); if (rule == NULL) return false; return rule->GetCreud().Delete(); }
+		const Rule* FindRule(const char* ruleName) const;
+		bool CreateAllowed(const char* ruleName)  const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Create(); else return false; }
+		bool ReadAllowed(const char* ruleName)    const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Read(); else return false; }
+		bool ExecuteAllowed(const char* ruleName) const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Execute(); else return false; }
+		bool UpdateAllowed(const char* ruleName)  const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Update(); else return false; }
+		bool DeleteAllowed(const char* ruleName)  const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Delete(); else return false; }
 
 		// parent company ids
 		void AddParentCompanyId(const char* userId)							{ mParentCompanyIds.Add(userId); }
@@ -121,6 +124,7 @@ class ENGINE_API User
 		Core::String				mMiddleName;
 		Core::String				mLastName;
 		Core::String				mEmail;
+		Core::String				mBirthday;
 		Core::Array<Rule>			mRules;
 		Core::Array<Core::String>	mParentCompanyIds;
 		Core::String				mDisplayName;

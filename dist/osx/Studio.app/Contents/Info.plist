@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleVersion</key>
-	<string>Version 1.4.6</string>
+	<string>Version 1.4.7</string>
 	<key>CFBundleExecutable</key>
 	<string>Studio</string>
 	<key>CFBundleGetInfoString</key>
@@ -27,6 +27,6 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>10.12.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.6</string>
+	<string>1.4.7</string>
 </dict>
 </plist>
