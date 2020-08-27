@@ -29,6 +29,7 @@
 #include <Core/String.h>
 #include <Core/Timer.h>
 #include <Core/Json.h>
+#include <Graph/EegDeviceNode.h>
 #include <Graph/Classifier.h>
 #include <Graph/GraphImporter.h>
 #include <Experience.h>
@@ -99,29 +100,31 @@ class ExperienceWizardWindow : public QDialog
       bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
    private:
-      const User         mUser;
-      Core::String       mFolderId;
-      Core::Array<Node*> mQuickConfigNodes;
-      GraphImporter      mGraphImporter;
-      Classifier*        mClassifier;
-      QVBoxLayout        mMainLayout;
-      QHBoxLayout        mUserLayout;
-      QLabel             mUserDesc;
-      QLabel             mUserLabel;
-      QHBoxLayout        mClassifierLayout;
-      QLabel             mClassifierSelectDesc;
-      QComboBox          mClassifierSelect;
-      QHBoxLayout        mStateMachineLayout;
-      QLabel             mStateMachineSelectDesc;
-      QComboBox          mStateMachineSelect;
-      QHBoxLayout        mExperienceLayout;
-      QLabel             mExperienceDesc;
-      QLineEdit          mExperienceEdit;
-      QTableWidget       mTableWidget;
-      QTableWidgetItem   mHeaderType;
-      QTableWidgetItem   mHeaderName;
-      QTableWidgetItem   mHeaderEdit;
-      QPushButton        mCreateButton;
+      const User              mUser;
+      Core::String            mFolderId;
+      Core::Array<Node*>      mQuickConfigNodes;
+      DeviceInputNode*        mEegNode;
+      Core::Array<const BciDevice*> mEegDevices;
+      GraphImporter           mGraphImporter;
+      Classifier*             mClassifier;
+      QVBoxLayout             mMainLayout;
+      QHBoxLayout             mUserLayout;
+      QLabel                  mUserDesc;
+      QLabel                  mUserLabel;
+      QHBoxLayout             mClassifierLayout;
+      QLabel                  mClassifierSelectDesc;
+      QComboBox               mClassifierSelect;
+      QHBoxLayout             mStateMachineLayout;
+      QLabel                  mStateMachineSelectDesc;
+      QComboBox               mStateMachineSelect;
+      QHBoxLayout             mExperienceLayout;
+      QLabel                  mExperienceDesc;
+      QLineEdit               mExperienceEdit;
+      QTableWidget            mTableWidget;
+      QTableWidgetItem        mHeaderType;
+      QTableWidgetItem        mHeaderName;
+      QTableWidgetItem        mHeaderEdit;
+      QPushButton             mCreateButton;
 };
 
 #endif

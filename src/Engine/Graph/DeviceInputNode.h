@@ -83,6 +83,8 @@ class ENGINE_API DeviceInputNode : public InputNode
 		Sensor* GetSensor(uint32 index) override;
 		virtual bool IsSensorUsed(uint32 index);
 
+		uint32 GetDeviceType() const { return mDeviceType; }
+
 	protected:
 		uint32	mDeviceType;
 		Device* mCurrentDevice;

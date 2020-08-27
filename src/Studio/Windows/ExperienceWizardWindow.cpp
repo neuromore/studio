@@ -33,6 +33,7 @@
 #include <Backend/FilesCreateRequest.h>
 #include <Backend/FilesCreateResponse.h>
 #include <Graph/ChannelSelectorNode.h>
+#include <Engine/Devices/eemagine/eemagineNodes.h>
 #include <QHeaderView>
 #include <QVBoxLayout>
 #include <QIcon>
@@ -49,6 +50,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint),
    mUser(user),
    mFolderId(),
+   mEegNode(0),
    mClassifier(0),
    mMainLayout(),
    mUserLayout(),
@@ -197,6 +199,8 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
 ExperienceWizardWindow::~ExperienceWizardWindow()
 {
    mQuickConfigNodes.Clear();
+   mEegDevices.Clear();
+   mEegNode = 0;
 
    if (mClassifier)
    {
@@ -223,6 +227,8 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
 
       // clear old node refs
       mQuickConfigNodes.Clear();
+      mEegDevices.Clear();
+      mEegNode = 0;
 
       // parse the json into classifier instance
       if (mClassifier)
@@ -231,11 +237,21 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
       mClassifier = new Classifier();
       mGraphImporter.LoadFromString(response.GetJsonContent(), mClassifier);
 
-      // iterate nodes in this classifier
       const uint32 numNodes = mClassifier->GetNumNodes();
       for (uint32_t i = 0; i < numNodes; i++)
       {
          Node* n = mClassifier->GetNode(i);
+
+         //TODO: Check directly for DeviceInputNode
+         switch (n->GetType())
+         {
+         case EegDeviceNode::TYPE_ID:
+         case eemagine8Node::TYPE_ID:
+         case eemagine32Node::TYPE_ID:
+         case eemagine64Node::TYPE_ID:
+            mEegNode = (DeviceInputNode*)n;
+            break;
+         }
 
          // iterate attributes and look for the quick config setting
          const uint32 numAtt = n->GetNumAttributes();
@@ -251,6 +267,26 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
                mQuickConfigNodes.Add(n);
                break;
             }
+         }
+      }
+
+      // if found an eeg node above
+      if (mEegNode)
+      {
+         // try get prototype device for found bci node device type
+         // this works for explicit eeg device nodes only
+         if (BciDevice* eeg = (BciDevice*)GetDeviceManager()->GetRegisteredDeviceType(mEegNode->GetDeviceType()))
+            mEegDevices.Add(eeg);
+         
+         // handle the generic EegNode
+         else if (mEegNode->GetType() == EegDeviceNode::TYPE_ID)
+         {
+            Core::Array<Core::String> devstr;
+            devstr = mEegNode->GetStringArrayAttributeByName("allowedDevices", devstr);
+
+            const uint32_t numDevStr = devstr.Size();
+            for (uint32 i = 0; i < numDevStr; i++)
+               GetDeviceManager()->GetRegisteredDeviceTypeByHardwareNamePrefix<BciDevice>(devstr[i], mEegDevices);
          }
       }
 
@@ -600,15 +636,31 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
    // no margin
    hlnew->setContentsMargins(0, 0, 0, 0);
 
-   // configure combobox channel
-   qboxch->addItem("C3");
-   qboxch->addItem("C4");
-   qboxch->addItem("Cz");
-   qboxch->addItem("F3");
-   qboxch->addItem("F4");
-   qboxch->addItem("Fz");
-   qboxch->addItem("Fpz");
-   qboxch->addItem("Pz");
+   // build selectable electrodes
+   Core::Array<Core::String> qboxchitems;
+   const uint32 numDevices = mEegDevices.Size();
+   if (numDevices > 0)
+   {
+      for (uint32 j = 0; j < numDevices; j++)
+      {
+         const uint32_t numElectrodes = mEegDevices[j]->GetNumNeuroSensors();
+         for (uint32_t i = 0; i < numElectrodes; i++)
+            if (!qboxchitems.Contains(mEegDevices[j]->GetNeuroSensor(i)->GetName()))
+               qboxchitems.Add(mEegDevices[j]->GetNeuroSensor(i)->GetName());
+      }
+      for (uint32 i = 0; i < qboxchitems.Size(); i++)
+         qboxch->addItem(qboxchitems[i].AsChar());
+   }
+   else
+   {
+      // list all known electrodes if no bci device
+      const uint32_t numElectrodes = GetEEGElectrodes()->GetNumElectrodes();
+      for (uint32_t i = 0; i < numElectrodes; i++)
+         qboxch->addItem(GetEEGElectrodes()->GetElectrode(i).GetName());
+   }
+
+   // sort alphabetically
+   qboxch->model()->sort(0);
 
    // configure combobox band
    qboxband->addItem("Alpha");
