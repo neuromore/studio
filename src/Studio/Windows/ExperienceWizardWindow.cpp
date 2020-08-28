@@ -53,6 +53,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mEegNode(0),
    mClassifier(0),
    mMainLayout(),
+   mHeaderLayout(),
    mUserLayout(),
    mUserDesc("User:"),
    mUserLabel(user.CreateFullName().AsChar()),
@@ -65,6 +66,8 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mExperienceLayout(),
    mExperienceDesc("Experience:"),
    mExperienceEdit(),
+   mSupportedDevicesDesc("Supported EEG:"),
+   mSupportedDevicesList(),
    mTableWidget(),
    mHeaderType("Type"),
    mHeaderName("Name"),
@@ -82,6 +85,19 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    // add the main vertical layout
    setLayout(&mMainLayout);
 
+   // setup the header layout
+   mHeaderLayout.setSpacing(6);
+   mHeaderLayout.setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
+   mHeaderLayout.setAlignment(Qt::AlignLeft);
+   mHeaderLayout.addLayout(&mHeaderLeftLayout);
+   mHeaderLayout.addLayout(&mHeaderRightLayout);
+
+   mHeaderLeftLayout.setAlignment(Qt::AlignLeft);
+   mHeaderRightLayout.setAlignment(Qt::AlignLeft);
+
+   // add header to main layout
+   mMainLayout.addLayout(&mHeaderLayout);
+
    /////////////////////////////////////////////////
    // user
 
@@ -91,7 +107,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mUserLayout.setAlignment(Qt::AlignCenter);
    mUserLayout.addWidget(&mUserDesc);
    mUserLayout.addWidget(&mUserLabel);
-   mMainLayout.addLayout(&mUserLayout);
+   mHeaderLeftLayout.addLayout(&mUserLayout);
 
    /////////////////////////////////////////////////
    // classifier
@@ -102,7 +118,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mClassifierLayout.setAlignment(Qt::AlignCenter);
    mClassifierLayout.addWidget(&mClassifierSelectDesc);
    mClassifierLayout.addWidget(&mClassifierSelect);
-   mMainLayout.addLayout(&mClassifierLayout);
+   mHeaderLeftLayout.addLayout(&mClassifierLayout);
 
    connect(&mClassifierSelect, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ExperienceWizardWindow::OnClassifierSelectIndexChanged);
 
@@ -115,7 +131,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mStateMachineLayout.setAlignment(Qt::AlignCenter);
    mStateMachineLayout.addWidget(&mStateMachineSelectDesc);
    mStateMachineLayout.addWidget(&mStateMachineSelect);
-   mMainLayout.addLayout(&mStateMachineLayout);
+   mHeaderLeftLayout.addLayout(&mStateMachineLayout);
 
    connect(&mStateMachineSelect, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ExperienceWizardWindow::OnStateMachineSelectIndexChanged);
 
@@ -130,9 +146,22 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mExperienceLayout.setAlignment(Qt::AlignCenter);
    mExperienceLayout.addWidget(&mExperienceDesc);
    mExperienceLayout.addWidget(&mExperienceEdit);
-   mMainLayout.addLayout(&mExperienceLayout);
+   mHeaderLeftLayout.addLayout(&mExperienceLayout);
 
    connect(&mExperienceEdit, &QLineEdit::textChanged, this, &ExperienceWizardWindow::OnExperienceTextChanged);
+
+   /////////////////////////////////////////////////
+   // supported devices
+
+   mSupportedDevicesDesc.setFixedHeight(20);
+   mSupportedDevicesDesc.setMinimumWidth(50);
+   mSupportedDevicesDesc.setAlignment(Qt::AlignLeft);
+   mSupportedDevicesList.setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
+   mSupportedDevicesList.setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+   mSupportedDevicesList.setFixedHeight(75);
+
+   mHeaderRightLayout.addWidget(&mSupportedDevicesDesc);
+   mHeaderRightLayout.addWidget(&mSupportedDevicesList);
 
    /////////////////////////////////////////////////
    // table
@@ -507,6 +536,12 @@ void ExperienceWizardWindow::SyncNodes()
 
 void ExperienceWizardWindow::SyncUi()
 {
+   // set supported devices list
+   mSupportedDevicesList.clear();
+   const uint32 numDevices = mEegDevices.Size();
+   for (uint32 i = 0; i < numDevices; i++)
+      mSupportedDevicesList.addItem(mEegDevices[i]->GetHardwareName());
+
    // clear old ui table
    mTableWidget.setRowCount(0);
 

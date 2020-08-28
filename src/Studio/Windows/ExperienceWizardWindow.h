@@ -108,6 +108,9 @@ class ExperienceWizardWindow : public QDialog
       GraphImporter           mGraphImporter;
       Classifier*             mClassifier;
       QVBoxLayout             mMainLayout;
+      QHBoxLayout             mHeaderLayout;
+      QVBoxLayout             mHeaderLeftLayout;
+      QVBoxLayout             mHeaderRightLayout;
       QHBoxLayout             mUserLayout;
       QLabel                  mUserDesc;
       QLabel                  mUserLabel;
@@ -120,6 +123,8 @@ class ExperienceWizardWindow : public QDialog
       QHBoxLayout             mExperienceLayout;
       QLabel                  mExperienceDesc;
       QLineEdit               mExperienceEdit;
+      QLabel                  mSupportedDevicesDesc;
+      QListWidget             mSupportedDevicesList;
       QTableWidget            mTableWidget;
       QTableWidgetItem        mHeaderType;
       QTableWidgetItem        mHeaderName;
