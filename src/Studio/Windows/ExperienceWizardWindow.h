@@ -105,6 +105,8 @@ class ExperienceWizardWindow : public QDialog
       Core::Array<Node*>      mQuickConfigNodes;
       DeviceInputNode*        mEegNode;
       Core::Array<const BciDevice*> mEegDevices;
+      Core::Array<const BciDevice*> mEegDevicesRemoved;
+      Core::Array<Core::String> mChannelsUsed;
       GraphImporter           mGraphImporter;
       Classifier*             mClassifier;
       QVBoxLayout             mMainLayout;

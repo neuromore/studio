@@ -229,6 +229,7 @@ ExperienceWizardWindow::~ExperienceWizardWindow()
 {
    mQuickConfigNodes.Clear();
    mEegDevices.Clear();
+   mEegDevicesRemoved.Clear();
    mEegNode = 0;
 
    if (mClassifier)
@@ -257,6 +258,7 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
       // clear old node refs
       mQuickConfigNodes.Clear();
       mEegDevices.Clear();
+      mEegDevicesRemoved.Clear();
       mEegNode = 0;
 
       // parse the json into classifier instance
@@ -511,6 +513,9 @@ void ExperienceWizardWindow::SyncNodes()
    const int numRows  = mTableWidget.rowCount();
    const int numNodes = (int)mQuickConfigNodes.Size();
 
+   // clear used channels (re-populated in ReadChannelSelectorRow)
+   mChannelsUsed.Clear();
+
    // something wrong here (add logging..)
    if (numRows != numNodes)
       return;
@@ -528,6 +533,47 @@ void ExperienceWizardWindow::SyncNodes()
          break;
       default:
          break;
+      }
+   }
+
+   // add all removed devices and clear them before check
+   mEegDevices.Add(mEegDevicesRemoved);
+   mEegDevicesRemoved.Clear();
+
+   // remove devices that do not supported selected channels
+   const uint32 numDevs = mEegDevices.Size();
+   if (numDevs > 0)
+   {
+      // iterade devices backwards due to remove
+      for (uint32 i = numDevs - 1; i != UINT32_MAX; i--)
+      {
+         const auto& electrodes = mEegDevices[i]->GetElectrodes();
+         const uint32 numElectrodes = electrodes.Size();
+         const uint32 numChannels = mChannelsUsed.Size();
+
+         // check each used channel with this device
+         for (uint32 k = 0; k < numChannels; k++)
+         {
+            bool found = false;
+
+            // check if an electrode matches the channel
+            for (uint32 j = 0; j < numElectrodes; j++)
+            {
+               if (electrodes[j].GetNameString() == mChannelsUsed[k])
+               {
+                  found = true;
+                  break;
+               }
+            }
+
+            // device doesn't have that channel, remove it
+            if (!found)
+            {
+               mEegDevicesRemoved.Add(mEegDevices[i]);
+               mEegDevices.Remove(i);
+               break;
+            }
+         }
       }
    }
 
@@ -605,6 +651,11 @@ void ExperienceWizardWindow::SyncCreateButton()
       mCreateButton.setText("Select a state machine");
       mCreateButton.setEnabled(false);
    }
+   else if (mEegDevices.Size() == 0)
+   {
+      mCreateButton.setText("No supported EEG device");
+      mCreateButton.setEnabled(false);
+   }
    else
    {
       mCreateButton.setText("Create");
@@ -641,6 +692,10 @@ void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
       s += c->text().toLocal8Bit().data();
       if (j < numItems - 1)
          s += ',';
+
+      // add this channel to list of all used channels if not listed yet
+      if (!mChannelsUsed.Contains(c->text().toLocal8Bit().data()))
+         mChannelsUsed.Add(c->text().toLocal8Bit().data());
    }
 
    // set node channels attribute value
