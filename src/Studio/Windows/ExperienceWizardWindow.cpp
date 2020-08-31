@@ -714,6 +714,9 @@ void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
       if (j < numItems - 1)
          s += ',';
 
+      // trim possible whitespaces from non-existing band
+      s.Trim();
+
       // add this channel to list of all used channels if not listed yet
       if (!mChannelsUsed.Contains(c->text().toLocal8Bit().data()))
          mChannelsUsed.Add(c->text().toLocal8Bit().data());
@@ -737,6 +740,25 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
    QComboBox*   qboxch = new QComboBox();
    QComboBox*   qboxband = new QComboBox();
    QPushButton* qbtnadd = new QPushButton();
+
+   // check if the channel selector is directly connected to a generic EegNode
+   bool isEegSelector = false;
+   const uint32 numPorts = node->GetNumInputPorts();
+   for (uint32 i = 0; i < numPorts; i++)
+   {
+      const uint32 numConnections = node->GetInputPort(i).GetNumConnection();
+      for (uint32 j = 0; j < numConnections; j++)
+      {
+         if (Node* srcNode = node->GetInputPort(i).GetConnection(j)->GetSourceNode())
+         {
+            if (srcNode->GetType() == EegDeviceNode::TYPE_ID)
+            {
+               isEegSelector = true;
+               break;
+            }
+         }
+      }
+   }
 
    // setup list
    list->setObjectName("List");
@@ -771,23 +793,30 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
    }
 
    // sort alphabetically
+   qboxch->addItem("*");
    qboxch->model()->sort(0);
 
-   // configure combobox band
-   qboxband->addItem("Alpha");
-   qboxband->addItem("Beta1");
-   qboxband->addItem("Beta Sum");
-   qboxband->addItem("CustomBand1");
-   qboxband->addItem("CustomBand2");
-   qboxband->addItem("CustomBand3");
-   qboxband->addItem("Delta");
-   qboxband->addItem("DeltaThetaSum");
-   qboxband->addItem("Gamma");
-   qboxband->addItem("High Beta");
-   qboxband->addItem("Low Beta");
-   qboxband->addItem("SMR");
-   qboxband->addItem("Theta");
-   qboxband->addItem("ThetaAlphaSum");
+   // configure combobox band only for non directly connected selector nodes
+   if (isEegSelector)
+      qboxband->setDisabled(true);
+
+   else
+   {
+      qboxband->addItem("Alpha");
+      qboxband->addItem("Beta1");
+      qboxband->addItem("Beta Sum");
+      qboxband->addItem("CustomBand1");
+      qboxband->addItem("CustomBand2");
+      qboxband->addItem("CustomBand3");
+      qboxband->addItem("Delta");
+      qboxband->addItem("DeltaThetaSum");
+      qboxband->addItem("Gamma");
+      qboxband->addItem("High Beta");
+      qboxband->addItem("Low Beta");
+      qboxband->addItem("SMR");
+      qboxband->addItem("Theta");
+      qboxband->addItem("ThetaAlphaSum");
+   }
 
    // configure add button
    qbtnadd->setToolTip("Add this combination");
@@ -847,11 +876,11 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
       auto words = s.Split(StringCharacter::space);
 
       // read channel and band parts from it
-      if (words.Size() >= 2)
+      if (words.Size() >= 1)
       {
          const uint32_t last = words.Size() - 1;
 
-         // last word is channel
+         // last or only word is channel
          Core::String ch = words[last];
 
          // others belong to band
