@@ -321,6 +321,27 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
          }
       }
 
+      // update 'allowed devices' attribute on a possible generic EegDeviceNode
+      if (mEegNode && mEegNode->GetType() == EegDeviceNode::TYPE_ID)
+      {
+         const uint32 idx = mEegNode->FindAttributeIndexByInternalName("allowedDevices");
+         if (idx != CORE_INVALIDINDEX32)
+         {
+            // build array
+            Core::Array<Core::String> arr;
+            for (uint32 i = 0; i < mEegDevices.Size(); i++)
+               arr.Add(mEegDevices[i]->GetHardwareName());
+
+            // set and flag node as updated to get change into experience
+            if (mEegNode->SetStringArrayAttributeByIndex(idx, arr))
+               mEegNode->OnAttributeChanged(mEegNode->GetAttributeValue(idx));
+
+            // failed to write updated 'Allowed Devices'
+            else
+               LogWarning("ExperienceWizard: Failed to update 'Allowed Devices' of EegDeviceNode.");
+         }
+      }
+
       // set ui from nodes/data
       SyncUi();
       SyncCreateButton();
