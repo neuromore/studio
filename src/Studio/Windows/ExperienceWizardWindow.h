@@ -30,6 +30,9 @@
 #include <Core/Timer.h>
 #include <Core/Json.h>
 #include <Graph/EegDeviceNode.h>
+#include <Graph/FrequencyBandNode.h>
+#include <Graph/DeviceInputNode.h>
+#include <Graph/ChannelSelectorNode.h>
 #include <Graph/Classifier.h>
 #include <Graph/GraphImporter.h>
 #include <Experience.h>
@@ -100,13 +103,15 @@ class ExperienceWizardWindow : public QDialog
       bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
    private:
-      const User              mUser;
-      Core::String            mFolderId;
-      Core::Array<Node*>      mQuickConfigNodes;
-      DeviceInputNode*        mEegNode;
-      Core::Array<const BciDevice*> mEegDevices;
-      Core::Array<const BciDevice*> mEegDevicesRemoved;
-      Core::Array<Core::String> mChannelsUsed;
+      const User                      mUser;
+      Core::String                    mFolderId;
+      Core::Array<Node*>              mQuickConfigNodes;
+      Core::Array<FrequencyBandNode*> mFrequencyBandNodes;
+      DeviceInputNode*                mEegNode;
+      ChannelSelectorNode*            mEegChannelSelector;
+      Core::Array<const BciDevice*>   mEegDevices;
+      Core::Array<const BciDevice*>   mEegDevicesRemoved;
+      Core::Array<Core::String>       mChannelsUsed;
       GraphImporter           mGraphImporter;
       Classifier*             mClassifier;
       QVBoxLayout             mMainLayout;
