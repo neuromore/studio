@@ -306,8 +306,11 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
                // save quick-config enabled channel selector node right after eeg dedicated
                if (n->GetType() == ChannelSelectorNode::TYPE_ID && n->GetNumInputPorts() > 0)
                   if (Node* srcNode = n->GetSourceNode(0))
-                     if (srcNode->GetType() == EegDeviceNode::TYPE_ID)
-                        mEegChannelSelector = (ChannelSelectorNode*)n;
+                     if (srcNode->GetType() == EegDeviceNode::TYPE_ID || 
+                         srcNode->GetType() == eemagine8Node::TYPE_ID || 
+                         srcNode->GetType() == eemagine32Node::TYPE_ID ||
+                         srcNode->GetType() == eemagine64Node::TYPE_ID)
+                         mEegChannelSelector = (ChannelSelectorNode*)n;
             }
 
             // check wizardselectable attribute
