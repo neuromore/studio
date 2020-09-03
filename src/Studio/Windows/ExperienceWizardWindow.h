@@ -98,9 +98,12 @@ class ExperienceWizardWindow : public QDialog
       }
 
       void ReadChannelSelectorRow(int idx);
+      void GetNodeChannels(Node* n, Core::Array<Core::String>& out);
+      void GetNodeChannels(Node* n, Core::Array<std::tuple<Core::String, Core::String>>& out);
+      void GetDevicesElectrodes(Core::Array<Core::String>& out);
       void CreateChannelSelectorEditColumn(Node* node, QWidget* container);
       void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
-      bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
+      uint32 HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
    private:
       const User                      mUser;
