@@ -282,9 +282,11 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
          {
          // DeviceInputNode (EEG Device)
          case EegDeviceNode::TYPE_ID:
+#if defined(INCLUDE_DEVICE_EEMAGINE)
          case eemagine8Node::TYPE_ID:
          case eemagine32Node::TYPE_ID:
          case eemagine64Node::TYPE_ID:
+#endif
             mEegNode = (DeviceInputNode*)n;
             break;
          }
@@ -307,10 +309,12 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
                if (n->GetType() == ChannelSelectorNode::TYPE_ID && n->GetNumInputPorts() > 0)
                   if (Node* srcNode = n->GetSourceNode(0))
                      if (srcNode->GetType() == EegDeviceNode::TYPE_ID || 
+#if defined(INCLUDE_DEVICE_EEMAGINE)
                          srcNode->GetType() == eemagine8Node::TYPE_ID || 
                          srcNode->GetType() == eemagine32Node::TYPE_ID ||
                          srcNode->GetType() == eemagine64Node::TYPE_ID)
-                         mEegChannelSelector = (ChannelSelectorNode*)n;
+#endif
+                        mEegChannelSelector = (ChannelSelectorNode*)n;
             }
 
             // check wizardselectable attribute
