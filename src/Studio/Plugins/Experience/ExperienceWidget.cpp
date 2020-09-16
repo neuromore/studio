@@ -511,18 +511,21 @@ MediaContent* ExperienceWidget::FindMediaContent(const char* filename)
 }
 
 
-// set the volume of a given media content
+// set the volume of a given audio or video content
 void ExperienceWidget::SetVolume(float normalizedVolume, const char* filename)
 {
 	MediaContent* mediaContent = FindMediaContent(filename);
 	if (mediaContent != NULL)
 		mediaContent->SetVolume(normalizedVolume);
+	else if (mVideoPlayer->GetUrl() == filename)
+		mVideoPlayer->SetVolumeNormalized(normalizedVolume);
 }
 
 
-// set the global volume (adjust all media contents)
+// set the global volume (adjust all audio contents + video)
 void ExperienceWidget::SetGlobalVolume(float normalizedVolume)
 {
+	mVideoPlayer->SetVolumeNormalized(normalizedVolume);
 	const uint32 numMediaItems = mMediaContents.Size();
 	for (uint32 i=0; i<numMediaItems; ++i)
 		mMediaContents[i]->SetVolume(normalizedVolume);

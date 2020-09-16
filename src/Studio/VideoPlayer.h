@@ -34,7 +34,7 @@
 #include <QMediaPlayer>
 #include <Backend/WebDataCache.h>
 #include <time.h>
-
+#include <Math.h>
 // internal qt function
 QImage qt_imageFromVideoFrame(const QVideoFrame& f);
 
@@ -79,9 +79,16 @@ class OpenCVVideoPlayer : public QAbstractVideoSurface
       void Play(int numLoops = -1);
       void Stop();
 
+      inline const Core::String& GetUrl() const { return mUrl; }
+
       inline void Pause()           { mIsPaused = true;  mPlayer.pause(); }
       inline void Continue()        { mIsPaused = false; mPlayer.play(); }
       inline bool IsPlaying() const { return mIsPlaying; }
+      inline void SetVolume(int v)  { mPlayer.setVolume(Core::Clamp(v, 0, 100)); }
+      inline void SetVolumeNormalized(double normalizedVolume)
+      {
+         SetVolume((int)(Core::Clamp(normalizedVolume, 0.0, 1.0) * 100.0));
+      }
 
       // in milliseconds
       inline qint64 GetPosition() const { return mPlayer.position(); }
