@@ -96,6 +96,21 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 
 		void SetPosition(float position, const char* filename);
 
+		inline void SetBlendColor(const QColor& color) 
+		{ 
+			mBlendColor = color;
+			mPixmapBlend.fill(color);
+			update();
+		}
+		inline void SetBlendOpacity(const float opacity) 
+		{
+			if (mBlendOpacity != opacity)
+			{
+				mBlendOpacity = opacity;
+				update();
+			}
+		}
+
 		MediaContent* FindMediaContent(const char* filename);
 
 		void Clear();
@@ -134,6 +149,10 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		QMovie*						mGifMovie;
 		
 		QPixmap						mPixmap;
+		QPixmap						mPixmapBlend;
+		QColor						mBlendColor;
+		float						mBlendOpacity;
+
 		QString						mText;
 		QColor						mTextColor;
 

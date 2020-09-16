@@ -49,7 +49,11 @@
 using namespace Core;
 
 // constructor
-ExperienceWidget::ExperienceWidget(QWidget* parent) : QWidget(parent)
+ExperienceWidget::ExperienceWidget(QWidget* parent) : 
+   QWidget(parent), 
+   mPixmapBlend(64, 64), 
+   mBlendColor(Qt::black), 
+   mBlendOpacity(0.0f)
 {
 	mGifMovie = NULL;
 
@@ -93,6 +97,8 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) : QWidget(parent)
 	for (uint32 i = 0; i < 4; ++i)
 		mAVEZoneColors[i] = mBackgroundColor;
 
+	// init blend image
+	SetBlendColor(mBlendColor);
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 
@@ -220,6 +226,14 @@ void ExperienceWidget::OnRefreshTimer()
 				SetGlobalVolume( feedbackNode->GetCurrentValue() );
 		}
 
+		// find screen brightness node
+		node = classifier->FindNodeByName("ScreenBrightness", CustomFeedbackNode::TYPE_ID);
+		if (node != NULL)
+		{
+			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
+			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
+				SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
+		}
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 		// find master volume node
@@ -232,12 +246,14 @@ void ExperienceWidget::OnRefreshTimer()
 		}
 
 		// find screen brightness node
-		node = classifier->FindNodeByName("ScreenBrightness", CustomFeedbackNode::TYPE_ID);
+		/*node = classifier->FindNodeByName("ScreenBrightness", CustomFeedbackNode::TYPE_ID);
 		if (node != NULL)
 		{
+         
 			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-				SetScreenBrightness( feedbackNode->GetCurrentValue() );
+         if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
+            SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
+//				SetScreenBrightness( feedbackNode->GetCurrentValue() );
 		}
 		else
 		{
@@ -249,7 +265,7 @@ void ExperienceWidget::OnRefreshTimer()
 				if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
 					SetScreenLSD( feedbackNode->GetCurrentValue() );
 			}
-		}
+		}*/
 #endif
 		
 	}
@@ -430,7 +446,11 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
     QPainter painter;
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
+    painter.setCompositionMode(QPainter::CompositionMode_Source);
+    painter.setOpacity(1.0f);
 
+    if (mPixmapBlend.size() != size())
+       mPixmapBlend = mPixmapBlend.scaled(size());
 
 	int widgetWidth = width();
 	int widgetHeight = height();
@@ -504,6 +524,10 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 			//LogInfo("2: Target: (%.0f, %.0f, %.0f, %.0f), Source: (%.0f, %.0f, %.0f, %.0f)", target.x(), target.y(), target.width(), target.height(), source.x(), source.y(), source.width(), source.height());
 		}
 	}
+
+   painter.setOpacity(mBlendOpacity);
+   painter.drawPixmap(0, 0, mPixmapBlend);
+   painter.setOpacity(1.0);
 
 	// set painter pend and brush to text color
 	painter.setPen( mTextColor );
