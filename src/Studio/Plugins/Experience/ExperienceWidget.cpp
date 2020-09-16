@@ -116,45 +116,7 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) :
 	mEndpointVolume = NULL;
 	hr = defaultDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC_SERVER, NULL, (LPVOID *)&mEndpointVolume);
 	defaultDevice->Release();
-	defaultDevice = NULL; 
-
-
-	// display gamma control
-	mGDI32 = ::LoadLibrary(L"gdi32.dll");
-	if (mGDI32 != NULL)
-	{
-		//Get the addresses of GetDeviceGammaRamp and SetDeviceGammaRamp API functions.
-		mGetDeviceGammaRamp = (Type_SetDeviceGammaRamp)GetProcAddress(mGDI32, "GetDeviceGammaRamp");
-		mSetDeviceGammaRamp = (Type_SetDeviceGammaRamp)GetProcAddress(mGDI32, "SetDeviceGammaRamp");
-
-		const bool haveOriginalGamma = (mGetDeviceGammaRamp != NULL && mGetDeviceGammaRamp(GetDC(NULL), mOriginalGammaArray));
-		if (mGetDeviceGammaRamp == NULL || mSetDeviceGammaRamp == NULL || haveOriginalGamma == false)
-		{
-			::FreeLibrary(mGDI32);
-			mGDI32 = NULL;
-			mGetDeviceGammaRamp = NULL;
-			mSetDeviceGammaRamp = NULL;
-		}
-
-		// get gamma-range registry entry and check if it was changed yet
-		QSettings gammaSettings("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\ICM", QSettings::NativeFormat);
-		
-		const int currentValue = gammaSettings.value("GdiIcmGammaRange", QVariant::Int).toInt();
-		if (currentValue != 0x100)
-		{
-			//QMessageBox::warning(this, "Display Gamma Range", "Display Gamma range is limited.", QMessageBox::Ok);
-			LogInfo("GdiIcmGammaRange: %i", currentValue);
-		}
-
-		// try to change it (never worked for me even with admin privileges)
-		if (gammaSettings.isWritable() == true)
-			gammaSettings.setValue("GdiIcmGammaRange", 256);
-
-	}
-
-	// set to invalid value
-	mLastScreenBrightness = -1;
-
+	defaultDevice = NULL;
 #endif
 }
 
@@ -175,15 +137,6 @@ ExperienceWidget::~ExperienceWidget()
 		mEndpointVolume->Release();
 		CoUninitialize();
 	}
-	
-	// reset gamma back to normal, if we changed it at least once 
-	if (mLastScreenBrightness != -1.0)
-		if (SetDeviceGammaRamp(GetDC(NULL), mOriginalGammaArray) == false)
-			LogError("Error reset the display gamma ramp back to original values.");
-
-	// unload screen gamma control
-	if (mGDI32 != NULL)
-		::FreeLibrary(mGDI32);
 #endif
 
 }
@@ -244,28 +197,6 @@ void ExperienceWidget::OnRefreshTimer()
 			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
 				SetSystemMasterVolume( feedbackNode->GetCurrentValue() );
 		}
-
-		// find screen brightness node
-		/*node = classifier->FindNodeByName("ScreenBrightness", CustomFeedbackNode::TYPE_ID);
-		if (node != NULL)
-		{
-         
-			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-         if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-            SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
-//				SetScreenBrightness( feedbackNode->GetCurrentValue() );
-		}
-		else
-		{
-			// magic mode
-			node = classifier->FindNodeByName("LSD!", CustomFeedbackNode::TYPE_ID);
-			if (node != NULL)
-			{
-				CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-				if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-					SetScreenLSD( feedbackNode->GetCurrentValue() );
-			}
-		}*/
 #endif
 		
 	}
@@ -525,9 +456,10 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 		}
 	}
 
-   painter.setOpacity(mBlendOpacity);
-   painter.drawPixmap(0, 0, mPixmapBlend);
-   painter.setOpacity(1.0);
+	// D) BlendImage
+	painter.setOpacity(mBlendOpacity);
+	painter.drawPixmap(0, 0, mPixmapBlend);
+	painter.setOpacity(1.0);
 
 	// set painter pend and brush to text color
 	painter.setPen( mTextColor );
@@ -905,109 +837,3 @@ void ExperienceWidget::OnActiveStateMachineChanged(StateMachine* stateMachine)
 	// pre-load data
 	//PreloadAssets();
 }
-
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-
-void ExperienceWidget::SetScreenBrightness(double brightness)
-{
-	if (mGDI32 == NULL)
-		return;
-
-	// clamp brightness to 0.05 so we never blank out the screen by accident (its really annoying)
-	if (brightness < 0.05) brightness = 0.05;
-	if (brightness > 1.95) brightness = 1.95;
-
-	if (brightness == mLastScreenBrightness)
-		return;
-
-	HDC hGammaDC = GetDC(NULL); 
-	if (hGammaDC != NULL)
-	{
-		for (int i = 0; i < 256; i++)
-		{
-			// the final one: linear ramp with two modes, 1..0 fades to black and 1..2 fades to white
-			int value = (brightness <= 1.0 ? i * brightness * 256.0 : 65535 - (256-i) * (2.0 - brightness) * 256.0);
-
-			// linear ramp modification -> behaves like 'contrast'
-			//int value = i * brightness * 256.0;
-
-			// gamma ramp modification -> behaves like 'gamma' 
-			//int value = Math::PowD( i/256.0, brightness ) * 65535;
-
-			// offset modification
-			//int value = i * 256 + (brightness-1.0)*65535;
-
-			// inverse ramp
-			//int value = 65535 - i * brightness * 256.0;
-
-			// randomized ramp :))
-			//int value = i * 256.0 -  Random::RandD(-1,1) * brightness * 6000.0;
-
-			// LSD Mode: many small ramps instead of one :)))
-			//int rampsize = brightness * 256.0;
-			//int value = (i % rampsize) * (65535/rampsize);
-
-			// clamp
-			if (value > 65535)
-				value = 65535;
-			if (value < 0)
-				value = 0;
-
-			mCurrentGammaArray[0][i] = (WORD)value;
-			mCurrentGammaArray[1][i] = (WORD)value;
-			mCurrentGammaArray[2][i] = (WORD)value;
-		}
-
-		//Set the GammaArray values into the display device context.
-		if (mSetDeviceGammaRamp(hGammaDC, mCurrentGammaArray) == false)
-			LogWarning ("Error setting display gamma");
-
-		mLastScreenBrightness = brightness;
-	}
-
-	if (hGammaDC != NULL)
-		ReleaseDC(NULL, hGammaDC);
-}
-
-
-void ExperienceWidget::SetScreenLSD (double micrograms)
-{
-	if (mGDI32 == NULL)
-		return;
-
-	if (micrograms <= 0.1)
-		micrograms = 0.1;
-
-	HDC hGammaDC = GetDC(NULL); 
-	if (hGammaDC != NULL)
-	{
-		for (int i = 0; i < 256; i++)
-		{
-			const double rel = Math::FModD(micrograms/10.0,1.0);
-
-			// magic
-			const int rampsize = Math::FModD(Math::AbsD(42.0 / micrograms) + 23.0, 6553.0);
-			const int value = abs(i % (rampsize*2) - rampsize) * 65535 / rampsize;
-			const int r = abs (value % (65535*2) - 65535);
-			const int g = abs ((value + (int32)(65535.0*rel/3.0)) % (65535*2) - 65535);
-			const int b = abs ((value + (int32)(65535.0*rel/3.0*2.0)) % (65535*2) - 65535);
-			 
-			mCurrentGammaArray[0][i] = (WORD)r;
-			mCurrentGammaArray[1][i] = (WORD)g;
-			mCurrentGammaArray[2][i] = (WORD)b;
-		}
-
-		//Set the GammaArray values into the display device context.
-		if (mSetDeviceGammaRamp(hGammaDC, mCurrentGammaArray) == false)
-			LogWarning ("Error setting display gamma");
-
-		// so everything resets...
-		mLastScreenBrightness = 1;
-	}
-
-	if (hGammaDC != NULL)
-		ReleaseDC(NULL, hGammaDC);
-}
-
-#endif
-

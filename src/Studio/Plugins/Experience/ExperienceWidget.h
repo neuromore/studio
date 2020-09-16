@@ -167,25 +167,9 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		OpenCVVideoPlayer*			mVideoPlayer;
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
-
 		// windows master volume control
 		void SetSystemMasterVolume(float normalizedVolume);
 		IAudioEndpointVolume*		mEndpointVolume;
-
-		// windows screen brightness controll via gamma ramp
-		void SetScreenBrightness(double brightness);
-		void SetScreenLSD (double micrograms);
-		double mLastScreenBrightness;
-
-		typedef BOOL (WINAPI *Type_SetDeviceGammaRamp)(HDC hDC, LPVOID lpRamp);
-		HMODULE mGDI32;
-
-		Type_SetDeviceGammaRamp mGetDeviceGammaRamp;
-		Type_SetDeviceGammaRamp mSetDeviceGammaRamp;
-		
-		WORD mCurrentGammaArray[3][256];
-		WORD mOriginalGammaArray[3][256];
-
 #endif
 };
 
