@@ -41,6 +41,10 @@
 #include <Backend/FileHierarchyGetResponse.h>
 #include <Backend/FilesCreateRequest.h>
 #include <Backend/FilesCreateResponse.h>
+#include <Backend/FilesGetRequest.h>
+#include <Backend/FilesGetResponse.h>
+#include <Backend/FilesUpdateRequest.h>
+#include <Backend/FilesUpdateResponse.h>
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -106,12 +110,14 @@ BackendFileSystemWidget::BackendFileSystemWidget(QWidget* parent, BackendFileSys
 	// add the tree widget
 	//
 	mTreeWidget = new BackendFileSystemTreeWidget(this);
-	mTreeWidget->setSelectionMode( QAbstractItemView::ExtendedSelection );
+	mTreeWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 	mTreeWidget->setSortingEnabled(false);
 	mTreeWidget->setAlternatingRowColors(true);
 	mTreeWidget->setAnimated(true);
 	mTreeWidget->setContextMenuPolicy( Qt::CustomContextMenu );
-	
+	//mTreeWidget->setDragEnabled(true);
+	mTreeWidget->setDragDropMode(QAbstractItemView::DragDropMode::InternalMove);
+
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 	mTreeWidget->setDragEnabled(true);
 	mTreeWidget->setAcceptDrops(true);
@@ -322,7 +328,7 @@ void BackendFileSystemWidget::Refresh()
 	setEnabled(false);
 
 	// 1. construct invite request
-	FileHierarchyGetRequest request( GetUser()->GetToken(), GetUser()->GetIdString() );
+	FileHierarchyGetRequest request( GetUser()->GetToken(), GetSessionUser()->GetIdString() );
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
@@ -911,7 +917,7 @@ void BackendFileSystemWidget::OnCreateFolder()
 		parentFolderId = selectionItem.GetParentUuid();
 
 	// open the dialog and return directly if the user canceled the process
-	CreateFolderWindow createFolderWindow( "Name Folder", "New Folder", selectionItem.GetName(), GetUser(), this );
+	CreateFolderWindow createFolderWindow( "Name Folder", "New Folder", selectionItem.GetName(), this );
 	if (createFolderWindow.exec() == QDialog::Rejected)
 		return;
 
@@ -1343,8 +1349,9 @@ void BackendFileSystemWidget::BackendFileSystemTreeWidget::dragEnterEvent(QDragE
 		return; 
 	}
 
-	// get the item at the current mouse position
-	QTreeWidgetItem* item = itemAt( event->pos() );
+	// get the current item (do NOT use itemAt(event->pos()) it's buggy)
+	QTreeWidgetItem* item = this->currentItem();
+
 	if (item == NULL)
 	{
 		event->ignore();
@@ -1387,17 +1394,17 @@ void BackendFileSystemWidget::BackendFileSystemTreeWidget::dragMoveEvent(QDragMo
 		return;
 	}
 
-	// only allow for folder items where we have update rights
+	// only allow for folder items where we have update rights or file of equal type
 	SelectionItem mouseOverSelectionItem = mParent->CreateSelectionItem(item);
 #ifndef BACKEND_FILESYSTEM_ALLOWALL
-	if (mouseOverSelectionItem.IsFolder() == false || mouseOverSelectionItem.GetCreud().Update() == false)
+	if (!mouseOverSelectionItem.GetCreud().Update() || (!mouseOverSelectionItem.IsFolder() && mouseOverSelectionItem.GetTypeString() != mDraggedItem.GetTypeString()))
 	{
 		event->ignore();
 		return;
 	}
 
 	// don't allow dropping to the same folder
-	if (mDraggedItem.GetPathString().IsEqual(mouseOverSelectionItem.GetPath()) == true)
+	if (mouseOverSelectionItem.IsFolder() && mDraggedItem.GetPathString().IsEqual(mouseOverSelectionItem.GetPath()) == true)
 	{
 		event->ignore();
 		return;
@@ -1461,35 +1468,84 @@ void BackendFileSystemWidget::BackendFileSystemTreeWidget::dropEvent(QDropEvent*
 	bool   isValidFile	= parts[1].ToBool();
 	String dragItemName	= parts[2];
 
-	CORE_ASSERT( dropSelectionItem.IsFolder() == true );
+   if (dropSelectionItem.IsFolder())
+   {
+      // get the parent folder id in case we selected a file, and in case we selected a folder just its own id
+      String newFolderId;
+      if (dropSelectionItem.IsFolder() == true)
+         newFolderId = dropSelectionItem.GetUuid();
+      else
+         newFolderId = dropSelectionItem.GetParentUuid();
 
-	// get the parent folder id in case we selected a file, and in case we selected a folder just its own id
-	String newFolderId;
-	if (dropSelectionItem.IsFolder() == true)
-		newFolderId = dropSelectionItem.GetUuid();
-	else
-		newFolderId = dropSelectionItem.GetParentUuid();
+      String warningTitle;
+      String warningText;
+      if (isValidFile == true)
+      {
+         warningTitle = "Move File";
+         warningText.Format("Moving this file will share it with everyone who can see the folder '%s'.", dropSelectionItem.GetName());
+      }
+      else
+      {
+         warningTitle = "Move Folder";
+         warningText.Format("Moving this folder will share it with everyone who can see the folder '%s'.", dropSelectionItem.GetName());
+      }
 
-	String warningTitle;
-	String warningText;
-	if (isValidFile == true)
-	{
-		warningTitle = "Move File";
-		warningText.Format( "Moving this file will share it with everyone who can see the folder '%s'.", dropSelectionItem.GetName() );
-	}
-	else
-	{
-		warningTitle = "Move Folder";
-		warningText.Format( "Moving this folder will share it with everyone who can see the folder '%s'.", dropSelectionItem.GetName() );
-	}
+      if (QMessageBox::warning(this, warningTitle.AsChar(), warningText.AsChar(), QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
+      {
+         if (isValidFile == true)
+            mParent->GetFileSystem()->UpdateFile(GetUser()->GetToken(), dragItemUuid.AsChar(), NULL, "", newFolderId.AsChar());
+         else
+            mParent->GetFileSystem()->UpdateFolder(GetUser()->GetToken(), dragItemUuid.AsChar(), newFolderId.AsChar(), "");
+      }
+   }
+   else
+   {
+      // source file values
+      const String srcUuid = mDraggedItem.GetUuid();
+      const String srcPath = mDraggedItem.GetPathString();
+      const String srcName = mDraggedItem.GetNameString();
 
-	if (QMessageBox::warning(this, warningTitle.AsChar(), warningText.AsChar(), QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
-	{
-		if (isValidFile == true)
-			mParent->GetFileSystem()->UpdateFile( GetUser()->GetToken(), dragItemUuid.AsChar(), NULL, "", newFolderId.AsChar() );
-		else
-			mParent->GetFileSystem()->UpdateFolder( GetUser()->GetToken(), dragItemUuid.AsChar(), newFolderId.AsChar(), "" );
-	}
+      // dest file values
+      const String dstUuid = dropSelectionItem.GetUuid();
+      const String dstPath = dropSelectionItem.GetPathString();
+      const String dstName = dropSelectionItem.GetNameString();
+
+      String warningText;
+      warningText.Format("You are about to replace '%s%s' with '%s%s'.",
+         dstPath.AsChar(), dstName.AsChar(),
+         srcPath.AsChar(), srcName.AsChar());
+
+      if (QMessageBox::warning(this, "Replacing File", warningText.AsChar(), QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
+      {
+         // 1. Load the contents of the dragged item
+         FilesGetRequest request(GetUser()->GetToken(), srcUuid);
+         QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+         connect(reply, &QNetworkReply::finished, this, [reply, this, dstUuid]()
+         {
+            QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+            FilesGetResponse response(networkReply);
+            if (response.HasError())
+            {
+               QMessageBox::warning(this, "Error", "Operation failed", QMessageBox::Ok);
+               return;
+            }
+
+            // 2. Update to the contents of the dropped item
+            FilesUpdateRequest request(GetUser()->GetToken(), dstUuid, response.GetJsonContent());
+            QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+            connect(reply, &QNetworkReply::finished, this, [reply, this]()
+            {
+               QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+               FilesUpdateResponse response(networkReply);
+               if (response.HasError())
+               {
+                  QMessageBox::warning(this, "Error", "Operation failed", QMessageBox::Ok);
+                  return;
+               }
+            });
+         });
+      }
+   }
 
 	return;
 }

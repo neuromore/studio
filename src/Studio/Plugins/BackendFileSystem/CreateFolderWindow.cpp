@@ -34,7 +34,7 @@
 using namespace Core;
 
 // constructor
-CreateFolderWindow::CreateFolderWindow(const char* windowTitle, const char* defaultLabelText, Core::String  parentFolderId, User* user, QWidget* parent) : QDialog(parent)
+CreateFolderWindow::CreateFolderWindow(const char* windowTitle, const char* defaultLabelText, Core::String  parentFolderId, QWidget* parent) : QDialog(parent)
 {
 	// update title of the about dialog
 	setWindowTitle( windowTitle );

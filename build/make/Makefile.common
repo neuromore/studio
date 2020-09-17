@@ -700,6 +700,7 @@ STUDIO_MOCH_ALL      = Devices/Bluetooth/BluetoothDevice.cpp \
                        Windows/AboutWindow.cpp \
                        Windows/CreateUserWindow.cpp \
                        Windows/EmailValidator.cpp \
+                       Windows/ExperienceWizardWindow.cpp \
                        Windows/InviteUserWindow.cpp \
                        Windows/LicenseAgreement.cpp \
                        Windows/LicenseAgreementWindow.cpp \
@@ -849,6 +850,7 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Windows/AboutWindow.o \
                        Windows/CreateUserWindow.o \
                        Windows/EmailValidator.o \
+                       Windows/ExperienceWizardWindow.o \
                        Windows/InviteUserWindow.o \
                        Windows/LicenseAgreement.o \
                        Windows/LicenseAgreementWindow.o \

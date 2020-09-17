@@ -255,6 +255,8 @@
     <ClCompile Include="..\..\src\Studio\Windows\CreateUserWindow.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Windows\EmailValidator.cpp" />
     <ClCompile Include="..\..\src\Studio\Windows\EmailValidator.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\ExperienceWizardWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\ExperienceWizardWindow.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Windows\InviteUserWindow.cpp" />
     <ClCompile Include="..\..\src\Studio\Windows\InviteUserWindow.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Windows\LicenseAgreement.cpp" />
@@ -398,6 +400,7 @@
     <ClInclude Include="..\..\src\Studio\Windows\AboutWindow.h" />
     <ClInclude Include="..\..\src\Studio\Windows\CreateUserWindow.h" />
     <ClInclude Include="..\..\src\Studio\Windows\EmailValidator.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\ExperienceWizardWindow.h" />
     <ClInclude Include="..\..\src\Studio\Windows\InviteUserWindow.h" />
     <ClInclude Include="..\..\src\Studio\Windows\LicenseAgreement.h" />
     <ClInclude Include="..\..\src\Studio\Windows\LicenseAgreementWindow.h" />

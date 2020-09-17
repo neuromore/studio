@@ -38,7 +38,10 @@
 using namespace Core;
 
 // constructor
-SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showSelf) : mUser(user), QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint)
+SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showSelf) : 
+   mUser(user), 
+   mFullAccess(user.FindRule("ROLE_ClinicAdmin") || user.FindRule("ROLE_ClinicClinician")),
+   QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint)
 {
 	mShowSelf = showSelf;
 	mNumTotalPages	= 0;
@@ -86,6 +89,16 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	spacerWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	topHLayout->addWidget(spacerWidget);
 
+	// search edit box
+	mSearchEdit = new SearchBoxWidget(this);
+	connect(mSearchEdit, SIGNAL(TextChanged(const QString&)), this, SLOT(OnSearchEdited(const QString&)));
+	connect(mSearchEdit, SIGNAL(TextCleared()), this, SLOT(OnSearchCleared()));
+	topHLayout->addWidget(mSearchEdit);
+
+	// search timer
+	mSearchTimer = new QTimer(this);
+	connect(mSearchTimer, &QTimer::timeout, this, &SelectUserWindow::OnRefresh );
+	mSearchTimer->setInterval(750);
 
 	// add table widget
 	mTableWidget = new QTableWidget();
@@ -103,7 +116,7 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	headerItem->setTextAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	mTableWidget->setHorizontalHeaderItem( 1, headerItem );
 
-	headerItem = new QTableWidgetItem("Email");
+	headerItem = new QTableWidgetItem("Birthday");
 	headerItem->setTextAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	mTableWidget->setHorizontalHeaderItem( 2, headerItem );
 
@@ -124,6 +137,13 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	connect( mTableWidget, &QTableWidget::itemSelectionChanged, this, &SelectUserWindow::OnSelectionChanged );
 
 
+	// create protocol
+	mCreateProtocolButton = new QPushButton("Create Protocol");
+	mCreateProtocolButton->setToolTip( "Create a protocol for the selected user." );
+	mCreateProtocolButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Plus.png") );
+	mCreateProtocolButton->setEnabled(false);
+	mainLayout->addWidget(mCreateProtocolButton);
+	connect(mCreateProtocolButton, &QPushButton::clicked, this, &SelectUserWindow::OnCreateProtocolButtonClicked);
 
 	// select user button
 	mSelectUserButton = new QPushButton("Select User");
@@ -141,6 +161,7 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	mCreateUserButton = new QPushButton("Create User");
 	mCreateUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Plus.png") );
 	mCreateUserButton->setToolTip( "Create a new user." );
+	mCreateUserButton->setEnabled(mFullAccess);
 	hLayout->addWidget(mCreateUserButton);
 	connect( mCreateUserButton, &QPushButton::clicked, this, &SelectUserWindow::OnCreateButtonClicked);
 
@@ -148,6 +169,7 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	mInviteUserButton = new QPushButton("Invite Existing User");
 	mInviteUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/SendFeedback.png") );
 	mInviteUserButton->setToolTip( "Invite users that already have a neuromore account." );
+	mInviteUserButton->setEnabled(mFullAccess);
 	hLayout->addWidget(mInviteUserButton);
 	connect( mInviteUserButton, &QPushButton::clicked, this, &SelectUserWindow::OnInviteButtonClicked);
 
@@ -198,6 +220,7 @@ void SelectUserWindow::OnSelectionChanged()
 	if (selectedItems.isEmpty() == true)
 	{
 		mSelectUserButton->setEnabled(false);
+		mCreateProtocolButton->setEnabled(false);
 		return;
 	}
 
@@ -208,6 +231,7 @@ void SelectUserWindow::OnSelectionChanged()
 
 	// enable selectuser button
 	mSelectUserButton->setEnabled(true);
+	mCreateProtocolButton->setEnabled(mFullAccess);
 }
 
 
@@ -229,6 +253,23 @@ void SelectUserWindow::OnSelectUserButtonClicked()
 	close();
 }
 
+// emit OnCreateProtocol with user
+void SelectUserWindow::OnCreateProtocolButtonClicked()
+{
+   QModelIndexList selectedRows = mTableWidget->selectionModel()->selectedRows();
+   if (selectedRows.count() != 1)
+      return;
+
+   // get the array index from the mime data of the first item in the row
+   const uint32 selectedRow = selectedRows.at(0).row();
+   const User& user = mListedUsers[selectedRow];
+
+   // emit signal
+   emit(OnCreateProtocol(user));
+
+   // close window
+   close();
+}
 
 // invite user
 void SelectUserWindow::InviteUser(const String& email)
@@ -347,14 +388,21 @@ void SelectUserWindow::RequestNextPage(bool force)
 // request the next page of users
 void SelectUserWindow::RequestPage(uint32 pageIndex, bool force)
 {
+	// stop timer
+	mSearchTimer->stop();
+
 	// avoid double calls
 	if (mTableWidget->isEnabled() == false && force == false)
 		return;
 
 	mTableWidget->setEnabled(false);
 
+	// pick a user rule filter (just patients by default, everyone for admin)
+	// backend checks for "%RULE%", so "ROLE_Clinic" matches all roles with that prefix
+	const char* RULE = GetUser()->FindRule("ROLE_ClinicAdmin") ? "ROLE_Clinic" : "ROLE_ClinicPatient";
+
 	// construct /users/get request
-	UsersGetRequest request( mUser.GetToken(), pageIndex);
+	UsersGetRequest request( mUser.GetToken(), pageIndex, 100, mSearchEdit->GetText().toUtf8().data(), RULE);
 
 	// process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
@@ -422,10 +470,10 @@ void SelectUserWindow::AddUser(const User& user)
 	//firstItem->setToolTip(mTempString.AsChar());
 	//secondItem->setToolTip(mTempString.AsChar());
 
-	//  Col 3: last name
-	QTableWidgetItem* emailItem = new QTableWidgetItem(user.GetEmail());
-	emailItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
-	mTableWidget->setItem( row, 2, emailItem );
+	//  Col 3: birthday name
+	QTableWidgetItem* birthdayItem = new QTableWidgetItem(user.GetBirthday());
+	birthdayItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
+	mTableWidget->setItem( row, 2, birthdayItem);
 
 	// add user to user array
 	mListedUsers.Add(user);
@@ -473,4 +521,17 @@ void SelectUserWindow::OnRefreshTimer()
 	}
 
 	mRefreshLabel->setText( mTempString.AsChar() );
+}
+
+// called when search text changes
+void SelectUserWindow::OnSearchEdited(const QString& text)
+{
+   mSearchTimer->stop();
+   mSearchTimer->start();
+}
+
+void SelectUserWindow::OnSearchCleared()
+{
+   mSearchTimer->stop();
+   mSearchTimer->start();
 }

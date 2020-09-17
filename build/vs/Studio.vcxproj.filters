@@ -815,6 +815,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\VideoPlayer.cpp" />
     <ClCompile Include="..\..\src\Studio\VideoPlayer.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Windows\ExperienceWizardWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Windows\ExperienceWizardWindow.moc.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
@@ -1193,6 +1199,9 @@
       <Filter>Devices\eemagine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Studio\VideoPlayer.h" />
+    <ClInclude Include="..\..\src\Studio\Windows\ExperienceWizardWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Studio\Resources\AppIcon.icns">

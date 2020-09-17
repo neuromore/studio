@@ -201,7 +201,7 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
                if (idx >= 0 && idx < numChannels)
                {
                   const double& v = mBuffer.getSample((uint32)idx, s);
-                  sensor->AddQueuedSample(v);
+                  sensor->AddQueuedSample(v * 1000000.0); // convert from V to uV
                }
 
                // add 0.0 for sensors that have no SDK channel mapped

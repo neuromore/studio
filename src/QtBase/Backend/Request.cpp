@@ -75,7 +75,7 @@ void Request::AddUrlParameter(const char* name, const char* value)
 	if (String::CalcLength(name) == 0)
 		LogWarning( "Request::AddUrlParameter(): Cannot add parameter to url '%s'. Parameter name is invalid.", mUrl.AsChar() );
 
-	mUrlParameters.addQueryItem( name, value );
+	mUrlParameters.addQueryItem( name, QUrl::toPercentEncoding(value));
 }
 
 

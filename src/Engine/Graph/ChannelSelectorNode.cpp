@@ -75,6 +75,10 @@ void ChannelSelectorNode::Init()
 	// single output attribute
 	Core::AttributeSettings* attribSingleOutput = RegisterAttribute("Single Output", "singleOutput", "", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);
 	attribSingleOutput->SetDefaultValue( Core::AttributeBool::Create(false) );
+
+	// quick configuration attribute
+	Core::AttributeSettings* attribQuickConfig = RegisterAttribute("Quick Config", "quickconfig", "Configurable in Experience Wizard", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);
+	attribQuickConfig->SetDefaultValue(Core::AttributeBool::Create(false));
 }
 
 

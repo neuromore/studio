@@ -38,6 +38,7 @@
 #include <QTableWidget>
 #include <QCheckBox>
 #include <User.h>
+#include <Widgets/SearchBoxWidget.h>
 
 
 // window to select one of the users' child users
@@ -50,17 +51,21 @@ class SelectUserWindow : public QDialog
 
 	signals:
 		void OnUserSelected(const User& user);
+		void OnCreateProtocol(const User& user);
 
 	private slots:
 		void OnSelectionChanged();
 		void OnCellDoubleClicked(int row, int column);
 
+		void OnCreateProtocolButtonClicked();
 		void OnSelectUserButtonClicked();
 		void OnCreateButtonClicked()								{ CreateUser(""); }
 		void OnInviteButtonClicked()								{ InviteUser(""); }
 		void OnCancelButtonClicked();
 
 		void OnRefreshTimer();
+		void OnSearchEdited(const QString& text);
+		void OnSearchCleared();
 
 		void OnScrolled();
 
@@ -77,15 +82,19 @@ class SelectUserWindow : public QDialog
 
 		ImageButton*		mRefreshButton;
 		QTimer*				mRefreshTimer;
+		QTimer*				mSearchTimer;
+
 		Core::Timer			mLastRefreshTimer;
 		QLabel*				mRefreshLabel;
-
+		SearchBoxWidget*	mSearchEdit;
 		QTableWidget*		mTableWidget;
+		QPushButton*		mCreateProtocolButton;
 		QPushButton*		mSelectUserButton;
 		QPushButton*		mCreateUserButton;
 		QPushButton*		mInviteUserButton;
 
 		bool				mShowSelf;
+		const bool			mFullAccess;
 		const User&			mUser;
 		Core::Array<User>	mListedUsers;
 
