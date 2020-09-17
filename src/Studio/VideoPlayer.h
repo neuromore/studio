@@ -34,7 +34,6 @@
 #include <QMediaPlayer>
 #include <Backend/WebDataCache.h>
 #include <time.h>
-#include <Math.h>
 // internal qt function
 QImage qt_imageFromVideoFrame(const QVideoFrame& f);
 
