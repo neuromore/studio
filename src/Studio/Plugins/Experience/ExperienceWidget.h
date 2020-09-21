@@ -96,6 +96,21 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 
 		void SetPosition(float position, const char* filename);
 
+		inline void SetBlendColor(const QColor& color) 
+		{ 
+			mBlendColor = color;
+			mPixmapBlend.fill(color);
+			update();
+		}
+		inline void SetBlendOpacity(const float opacity) 
+		{
+			if (mBlendOpacity != opacity)
+			{
+				mBlendOpacity = opacity;
+				update();
+			}
+		}
+
 		MediaContent* FindMediaContent(const char* filename);
 
 		void Clear();
@@ -134,6 +149,10 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		QMovie*						mGifMovie;
 		
 		QPixmap						mPixmap;
+		QPixmap						mPixmapBlend;
+		QColor						mBlendColor;
+		float						mBlendOpacity;
+
 		QString						mText;
 		QColor						mTextColor;
 
@@ -148,25 +167,9 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		OpenCVVideoPlayer*			mVideoPlayer;
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
-
 		// windows master volume control
 		void SetSystemMasterVolume(float normalizedVolume);
 		IAudioEndpointVolume*		mEndpointVolume;
-
-		// windows screen brightness controll via gamma ramp
-		void SetScreenBrightness(double brightness);
-		void SetScreenLSD (double micrograms);
-		double mLastScreenBrightness;
-
-		typedef BOOL (WINAPI *Type_SetDeviceGammaRamp)(HDC hDC, LPVOID lpRamp);
-		HMODULE mGDI32;
-
-		Type_SetDeviceGammaRamp mGetDeviceGammaRamp;
-		Type_SetDeviceGammaRamp mSetDeviceGammaRamp;
-		
-		WORD mCurrentGammaArray[3][256];
-		WORD mOriginalGammaArray[3][256];
-
 #endif
 };
 
