@@ -107,6 +107,11 @@
 	#include "EyeX/TobiiEyeXNode.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
+	#include "Neurosity/NotionDevices.h"
+	#include "Neurosity/NotionNode.h"
+#endif
+
 
 
 #include "../EngineManager.h"
@@ -258,6 +263,20 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	}
 #endif
 
+
+#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
+	if (disablePermissionCheck || user->ReadAllowed(Notion1Device::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new Notion1Device());
+		GetGraphObjectFactory()->RegisterObjectType(new Notion1Node(NULL));
+	}
+
+	if (disablePermissionCheck || user->ReadAllowed(Notion2Device::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new Notion2Device());
+		GetGraphObjectFactory()->RegisterObjectType(new Notion2Node(NULL));
+	}
+#endif 
 
 	/////////////////////////
 	// Generic Devices

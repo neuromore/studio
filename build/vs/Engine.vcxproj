@@ -568,6 +568,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\Muse\MuseDevice.cpp" />
     <ClInclude Include="..\..\src\Engine\Devices\Muse\MuseDevice.h" />
     <ClInclude Include="..\..\src\Engine\Devices\Muse\MuseNode.h" />
+	  <ClCompile Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.cpp" />
+	  <ClInclude Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.h" />
+	  <ClInclude Include="..\..\src\Engine\Devices\Neurosity\NotionNode.h" />
     <ClCompile Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyDevice.cpp" />
     <ClInclude Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyDevice.h" />
     <ClInclude Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyNode.h" />

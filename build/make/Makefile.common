@@ -80,6 +80,7 @@ ENGINE_OBJS_ALL     = Core/AABB.o \
                       Devices/Gamepad/GamepadDevice.o \
                       Devices/Mitsar/MitsarDevices.o \
                       Devices/Muse/MuseDevice.o \
+                      Devices/Neurosity/NotionDevices.o \
                       Devices/NeuroSky/NeuroSkyDevice.o \
                       Devices/OpenBCI/OpenBCIDevices.o \
                       Devices/Test/TestDevice.o \
