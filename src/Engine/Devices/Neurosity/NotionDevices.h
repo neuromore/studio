@@ -63,6 +63,7 @@ class ENGINE_API Notion1Device : public BciDevice
         //static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion2"; }
 
         void CreateElectrodes() override;
+        void CreateSensors() override;
 
         void ProcessMessage(OscMessageParser* message) override;
 };
@@ -97,7 +98,8 @@ class ENGINE_API Notion2Device : public BciDevice
         static const char* GetRuleName() { return "DEVICE_InteraxonMuse"; }
         //static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion2"; }
 
-        void CreateElectrodes() override; // No additional sensors; only need to create electrodes
+        void CreateElectrodes() override; 
+        void CreateSensors() override;
 
         void ProcessMessage(OscMessageParser* message) override;
 };

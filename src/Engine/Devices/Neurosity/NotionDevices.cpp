@@ -62,6 +62,12 @@ void Notion1Device::CreateElectrodes()
     mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));
 }
 
+void Notion1Device::CreateSensors()
+{
+    // create EEG sensors first
+    BciDevice::CreateSensors();
+}
+
 // notion1 OSC streaming format
 void Notion1Device::ProcessMessage(OscMessageParser* message)
 {
@@ -120,7 +126,13 @@ void Notion2Device::CreateElectrodes()
     mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4"));
 }
 
-// notion1 OSC streaming format
+void Notion2Device::CreateSensors()
+{
+    // create EEG sensors first
+    BciDevice::CreateSensors();
+}
+
+// notion2 OSC streaming format
 void Notion2Device::ProcessMessage(OscMessageParser* message)
 {
     // do nothing is device was disabled
