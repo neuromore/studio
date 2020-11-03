@@ -49,6 +49,7 @@
 #include "Devices/DriverInventory.h"
 #include <Devices/Test/TestDeviceDriver.h>
 #include <Devices/Muse/MuseDevice.h>
+#include <Devices/Neurosity/NotionDevices.h>
 #include "Devices/Audio/AudioDriver.h"
 
 #include <System/SerialPort.h>
@@ -676,6 +677,8 @@ void MainWindow::OnPostAuthenticationInit()
 			license.Save( GetAuthenticationCenter()->GetLicenseFilename().AsChar() );
 		}
 	}
+
+	GetDeviceManager()->AddDeviceAsync(new Notion2Device());
 
 #ifndef PRODUCTION_BUILD
 	// production backend while dev version message box (EDIT: This is OK since Open-Source)

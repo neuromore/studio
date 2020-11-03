@@ -38,6 +38,8 @@ using namespace Core;
 Notion1Device::Notion1Device(DeviceDriver* driver) : BciDevice(driver)
 {
 	LogDetailedInfo("Constructing Notion 1 headset...");
+
+    CreateSensors();
 }
 
 // destructor
@@ -102,6 +104,8 @@ void Notion1Device::ProcessMessage(OscMessageParser* message)
 Notion2Device::Notion2Device(DeviceDriver* driver) : BciDevice(driver)
 {
 	LogDetailedInfo("Constructing Notion 2 headset...");
+
+    CreateSensors();
 }
 
 // destructor
