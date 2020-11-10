@@ -298,7 +298,7 @@ QUrl NetworkAccessManager::ConstructUrl(const Request& request)
 }
 
 
-QNetworkReply* NetworkAccessManager::ProcessRequest(const Request& request, Request::UiMode uiMode, bool disableLogging)
+QNetworkReply* NetworkAccessManager::ProcessRequest(const Request& request, Request::UiMode uiMode, bool disableLogging, const QVariant& cacheMode)
 {
 	mTimer.GetTimeDelta();
 	QNetworkReply* reply = NULL;
@@ -344,7 +344,7 @@ QNetworkReply* NetworkAccessManager::ProcessRequest(const Request& request, Requ
 			QNetworkRequest networkRequest(url);
 
 			// cache control
-			networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
+			networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute, cacheMode);
 
 			// configure ssl
 			networkRequest.setSslConfiguration( mSslConfig );

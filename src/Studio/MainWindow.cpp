@@ -876,6 +876,14 @@ void MainWindow::OnCreatedProtocolForUser(const User& user)
    mExperienceWizardWindow = NULL;
 
    SelectSessionUser();
+
+   // refresh the experience plugin using the selected user
+   if (ExperienceSelectionPlugin* p = (ExperienceSelectionPlugin*)GetPluginManager()->FindFirstActivePluginByType(ExperienceSelectionPlugin::GetStaticTypeUuid()))
+      p->OnPostAuthenticationInit();
+
+   // refresh the filesystem plugin using the selected user
+   if (BackendFileSystemPlugin* p = (BackendFileSystemPlugin*)GetPluginManager()->FindFirstActivePluginByType(BackendFileSystemPlugin::GetStaticTypeUuid()))
+      p->OnPostAuthenticationInit();
 }
 
 // reload the style sheet
