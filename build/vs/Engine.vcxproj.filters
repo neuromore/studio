@@ -537,6 +537,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.cpp">
       <Filter>Devices\eemagine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1217,6 +1220,12 @@
     <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineNodes.h">
       <Filter>Devices\eemagine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -1284,6 +1293,9 @@
     </Filter>
     <Filter Include="Devices\eemagine">
       <UniqueIdentifier>{f18b4d83-b4af-478d-a8b4-28881aa60ff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainFlow">
+      <UniqueIdentifier>{7b0a6336-3d9f-44b0-b75e-d5980d565600}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

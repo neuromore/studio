@@ -247,6 +247,7 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>..\..\deps\prebuilt\win\x64\BrainFlow.lib;..\..\deps\prebuilt\win\x64\BoardController.lib;..\..\deps\prebuilt\win\x64\DataHandler.lib;..\..\deps\prebuilt\win\x64\MLModule.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
@@ -468,8 +469,11 @@
     <ClInclude Include="..\..\src\Engine\Core\Version.h" />
     <ClCompile Include="..\..\src\Engine\Creud.cpp" />
     <ClInclude Include="..\..\src\Engine\Creud.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\DSP\AttributeChannels.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h" />
     <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.h" />
     <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineNodes.h" />
     <ClInclude Include="..\..\src\Engine\DSP\AttributeChannels.h" />
