@@ -136,7 +136,6 @@ void Notion2Device::CreateSensors()
     BciDevice::CreateSensors();
 }
 
-// notion2 OSC streaming format
 void Notion2Device::ProcessMessage(OscMessageParser* message)
 {
     // do nothing is device was disabled
@@ -144,7 +143,7 @@ void Notion2Device::ProcessMessage(OscMessageParser* message)
         return;
 
     // raw 8 channel eeg
-    if (message->MatchAddress("/neurosity/notion/*/raw") == true)
+    if (message->MatchAddress("/notion2/*/raw") == true)
     {
         if (message->GetNumArguments() != 8)
             return;
@@ -152,13 +151,14 @@ void Notion2Device::ProcessMessage(OscMessageParser* message)
         // sensor order is: CP5, F5, C3, CP3, CP6, F6, C4, CP4
         for (uint32 i = 0; i < 8; ++i)
         {
-            // float compressedValue; (*message) >> compressedValue;
             float rawValue; (*message) >> rawValue;
 
             // add sample to each channel
             GetSensor(i)->AddQueuedSample(rawValue);
         }
     }
-}
+} 
+
+
 
 #endif
