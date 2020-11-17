@@ -1,6 +1,10 @@
 
 #include "winres.h"
 
+#define CONCAT(a,b) a##b
+#define STRINGIZE_(x) #x
+#define STRINGIZE(x) STRINGIZE_(x)
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -24,12 +28,12 @@ BEGIN
 BLOCK "040004b0"
 BEGIN
 VALUE "CompanyName", "neuromore co"
-VALUE "FileDescription", "neuromore Studio"
+VALUE "FileDescription", STRINGIZE(APPNAME)
 VALUE "FileVersion", "1.4.7.0"
 VALUE "InternalName", "neuromore.studio"
 VALUE "LegalCopyright", "Copyright (C) 2020"
 VALUE "OriginalFilename", ""
-VALUE "ProductName", "neuromore Studio"
+VALUE "ProductName", STRINGIZE(APPNAME)
 VALUE "ProductVersion", "1.4.7.0"
 END
 END
@@ -39,5 +43,5 @@ VALUE "Translation", 0x400, 1200
 END
 END
 
-IDI_ICON1		ICON		DISCARDABLE	"AppIcon.ico"
+IDI_ICON1		ICON		DISCARDABLE	STRINGIZE(APPICON)
 

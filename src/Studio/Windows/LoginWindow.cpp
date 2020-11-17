@@ -33,6 +33,7 @@
 #include <QGridLayout>
 #include <QDesktopServices>
 
+#define LOGINIMAGE ":/Images/Login-" NEUROMORE_BRANDING ".png"
 
 using namespace Core;
 
@@ -55,7 +56,7 @@ LoginWindow::LoginWindow(QWidget* parent, const char* title, const char* firstLi
 
 
 	// load the about dialog image and add it to the dialog
-	QPixmap aboutImage( ":/Images/Login.png" );
+	QPixmap aboutImage(LOGINIMAGE);
 	const uint32 imageWidth = aboutImage.width();
 	QLabel* aboutImageLabel = new QLabel(this);
 	aboutImageLabel->setPixmap(aboutImage);

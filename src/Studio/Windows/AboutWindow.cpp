@@ -32,6 +32,7 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
+#define ABOUTIMAGE ":/Images/About-" NEUROMORE_BRANDING ".png"
 
 using namespace Core;
 
@@ -53,7 +54,7 @@ AboutWindow::AboutWindow(QWidget* parent) : QDialog(parent, Qt::WindowSystemMenu
 	layout->setSpacing(3);
 
 	// load the about dialog image and add it to the dialog
-	QPixmap aboutImage( ":/Images/About.png" );
+	QPixmap aboutImage(ABOUTIMAGE);
 	QLabel* aboutImageLabel = new QLabel(this);
 	aboutImageLabel->setPixmap(aboutImage);
 	layout->addWidget(aboutImageLabel);
