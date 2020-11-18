@@ -14,10 +14,11 @@
 
 #### Configuration/Cache Folders:
 
-| Platform | Folder                            |
-|----------|-----------------------------------|
-| WIN      | %LOCALAPPDATA%\neuromore\NMStudio |
-| LINUX    | ~/.local/share/neuromore/NMStudio |
+| Platform | Folder                                           |
+|----------|--------------------------------------------------|
+| WIN      | %LOCALAPPDATA%\neuromore\NMStudio                |
+| LINUX    | ~/.local/share/neuromore/NMStudio                |
+| OSX      | ~/Library/Application Support/neuromore/NMStudio |
 
 ### Dependencies
 
