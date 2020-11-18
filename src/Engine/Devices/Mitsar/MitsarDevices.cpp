@@ -243,6 +243,7 @@ Mitsar201Device::Mitsar201Device(DeviceDriver* driver) : MitsarDevice(driver)
 	
 	// init with error hardware name so the device status widget will display the mitsar error image instead of the hardware image - this notifies the user that a mitsar connector is still running (e.g. because the studio crashed). This works because the real hardware name is only transmitted and set when mitsar connector is started.
 	mHardwareName = "Mitsar (Error)";
+	mOscPathPattern = "/" + Core::String(this->GetTypeName()) + "/*/*";
 
 	// create all sensors
 	CreateSensors();

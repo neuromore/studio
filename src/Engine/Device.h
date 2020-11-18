@@ -220,6 +220,12 @@ class ENGINE_API Device : public OscReceiver, public Core::EventSource
 		virtual void StopTest() 												{ }
 		virtual bool IsTestRunning() 											{ return false; }
 
+		//
+		// OscPathPattern (e.g. /muse/*/*)
+		//
+		inline const Core::String& GetOscPathPattern() const { return mOscPathPattern; }
+		inline void SetOscPathPattern(const Core::String& s) { mOscPathPattern = s; }
+		virtual int32 GetOscPathDeviceId(const Core::String& address) const;
 
 		//
 		// Device Statistics
@@ -247,6 +253,7 @@ class ENGINE_API Device : public OscReceiver, public Core::EventSource
 		uint32						mDeviceID;						// device id for multi device support
 		DeviceConfig				mConfig;						// the device configuration (may be empty)
 		Core::String				mName;							// device instance name
+		Core::String				mOscPathPattern;				// devicec osc path pattern if any (e.g. /muse/*/*)
 		
 		void*						mLockOwner;						// exclusive access to device (for output devices)
 
