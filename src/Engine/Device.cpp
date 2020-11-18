@@ -39,6 +39,7 @@ Device::Device(DeviceDriver* deviceDriver) : OscReceiver()
 	mDeviceDriver					= deviceDriver;
 	mDeviceID						= CORE_INVALIDINDEX32;
 	mName							= "";
+	mOscPathPattern					= "";
 	mState							= STATE_DISCONNECTED;
 	mLockOwner						= NULL;
 	mInactivityDuration				= 0;
@@ -493,4 +494,25 @@ Sensor* Device::AddSensor(ESensorDirection direction, const char* name, double s
 	AddSensor(sensor, direction);
 
 	return sensor;
+}
+
+int32 Device::GetOscPathDeviceId(const Core::String& address) const
+{
+	int32 deviceId = -1;
+
+	// get the number between the second pair of slashes
+	// e.g. if the address has the form "/muse/13/foobar" the result should be 13 as a decimal number
+
+	// no performance required here, so we just use strings and split them by '/'
+	Array<String> elements = address.Split(StringCharacter::forwardSlash);
+
+	// try to convert the second element of the address into a decimal number
+	if (elements.Size() > 2)
+	{
+		int32 id = elements[2].ToInt();
+		if (id >= 0 && elements[2].IsValidInt())
+			deviceId = id;
+	}
+
+	return deviceId;
 }

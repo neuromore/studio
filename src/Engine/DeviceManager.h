@@ -179,9 +179,6 @@ class ENGINE_API DeviceManager : public Core::EventSource, OscReceiver
 		// misc
 		Core::String					mTempOscAddressPattern;
 		Core::FpsCounter				mFpsCounter;
-
-		// helpers
-		int32 GetDeviceIDFromAddress(const char* address) const;
 };
 
 #endif
