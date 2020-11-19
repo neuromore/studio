@@ -105,6 +105,9 @@ Notion2Device::Notion2Device(DeviceDriver* driver) : BciDevice(driver)
 {
 	LogDetailedInfo("Constructing Notion 2 headset...");
 
+    // create default OSC address
+    mOscPathPattern = "/neurosity/notion/*/raw";
+
     CreateSensors();
 }
 
@@ -145,8 +148,10 @@ void Notion2Device::ProcessMessage(OscMessageParser* message)
     // raw 8 channel eeg
     if (message->MatchAddress("/notion2/*/raw") == true)
     {
-        if (message->GetNumArguments() != 8)
+        auto num_args = message->GetNumArguments();
+        if (message->GetNumArguments() != 13)
             return;
+        
 
         // sensor order is: CP5, F5, C3, CP3, CP6, F6, C4, CP4
         for (uint32 i = 0; i < 8; ++i)
@@ -158,6 +163,25 @@ void Notion2Device::ProcessMessage(OscMessageParser* message)
         }
     }
 } 
+
+int32 Notion2Device::GetOscPathDeviceId(const Core::String& address) const
+{
+    int32 deviceId = 0;
+    Array<String> elements = address.Split(StringCharacter::forwardSlash);
+
+    if (elements.Size() > 3)
+    {
+        // pull elements[3] from the message and store it to a variable (likely string)
+        
+        // convert string to integer
+
+        // store integer to deviceId
+        deviceId = 1;
+
+    }
+    
+    return deviceId;
+}
 
 
 

@@ -98,6 +98,8 @@ class ENGINE_API Notion2Device : public BciDevice
         static const char* GetRuleName() { return "DEVICE_InteraxonMuse"; }
         //static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion2"; }
 
+        int32 GetOscPathDeviceId(const Core::String& address) const override;
+
         void CreateElectrodes() override; 
         void CreateSensors() override;
 
