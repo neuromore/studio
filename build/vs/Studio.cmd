@@ -16,6 +16,7 @@ set VAR=-DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG_H -D_UNICO
 %MOC% %INC% %VAR% %DIR%/Devices/Bluetooth/BluetoothDevice.h -o %DIR%/Devices/Bluetooth/BluetoothDevice.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Bluetooth/BluetoothDriver.h -o %DIR%/Devices/Bluetooth/BluetoothDriver.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Bluetooth/BluetoothService.h -o %DIR%/Devices/Bluetooth/BluetoothService.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Devices/BrainFlow/BrainFlowDriver.h -o %DIR%/Devices/BrainFlow/BrainFlowDriver.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Brainquiry/BrainquiryDriver.h -o %DIR%/Devices/Brainquiry/BrainquiryDriver.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Brainquiry/BrainquirySerialHandler.h -o %DIR%/Devices/Brainquiry/BrainquirySerialHandler.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/NeuroSky/NeuroSkyDriver.h -o %DIR%/Devices/NeuroSky/NeuroSkyDriver.moc.cpp

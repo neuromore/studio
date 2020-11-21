@@ -247,7 +247,7 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>..\..\deps\prebuilt\win\x64\BrainFlow.lib;..\..\deps\prebuilt\win\x64\BoardController.lib;..\..\deps\prebuilt\win\x64\DataHandler.lib;..\..\deps\prebuilt\win\x64\MLModule.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\..\deps\prebuilt\win\x64\Release\BrainFlow.lib;..\..\deps\prebuilt\win\x64\Release\BoardController.lib;..\..\deps\prebuilt\win\x64\Release\DataHandler.lib;..\..\deps\prebuilt\win\x64\Release\MLModule.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
@@ -374,6 +374,7 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>..\..\deps\prebuilt\win\x64\Debug\BrainFlow.lib;..\..\deps\prebuilt\win\x64\Debug\BoardController.lib;..\..\deps\prebuilt\win\x64\Debug\DataHandler.lib;..\..\deps\prebuilt\win\x64\Debug\MLModule.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
