@@ -72,18 +72,20 @@ class BrainFlowDriverBase : public QObject, public DeviceDriver, public Core::Ev
 class BrainFlowDriverCyton : public BrainFlowDriverBase
 {
 	Q_OBJECT
+
 	public:
 		enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW_CYTON };
 
 		// constructor & destructor
-		BrainFlowDriverCyton() : BrainFlowDriverBase()							{}
+		BrainFlowDriverCyton();
 
-		virtual BrainFlowInputParams GetParams()
-		{
-			BrainFlowInputParams params;
-			params.serial_port = "COM3"; // temp hardcode, get it from user input or via autodiscovery
-			return params;
-		}
+		Device* CreateDevice(uint32 deviceTypeID) override;
+		bool Init() override;
+		void Update(const Core::Time& delta, const Core::Time& elapsed) override;
+		BrainFlowInputParams GetParams() override;
+
+	private:
+		double		mTimeSinceDeviceCheck;
 };
 
 #endif

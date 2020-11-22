@@ -40,12 +40,12 @@ class ENGINE_API BrainFlowDeviceBase : public BciDevice
 
 	public:
 		// constructors & destructor
-		BrainFlowDeviceBase(int boardId, DeviceDriver* driver)				{ mState = STATE_IDLE; mBoardId = boardId; mBoardShim = NULL; }
-		virtual ~BrainFlowDeviceBase()										{}
+		BrainFlowDeviceBase(int boardId, DeviceDriver* driver);
+		virtual ~BrainFlowDeviceBase() = default;
 		
 		// set/get board shim brainflow object
-		void CreateBoardShim(BrainFlowInputParams params)					{ CORE_ASSERT(mBoardShim == NULL); mBoardShim = new BoardShim(mBoardId, params); }
-		BoardShim* GetBoardShim()											{ return mBoardShim; }
+		void CreateBoardShim(BrainFlowInputParams params);
+		BoardShim* GetBoardShim();
 		void ReleaseBoardShim();
 		
 		// information
@@ -60,24 +60,27 @@ class ENGINE_API BrainFlowDeviceBase : public BciDevice
 class ENGINE_API BrainFlowDeviceCyton : public BrainFlowDeviceBase
 {
 public:
-	enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW_CYTON };
+	enum {
+		TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW_CYTON 
+	};
 
 	// constructors & destructor
-	BrainFlowDeviceCyton (DeviceDriver* driver = NULL) : BrainFlowDeviceBase ((int)BoardIds::CYTON_BOARD, driver)	{}
-	virtual ~BrainFlowDeviceCyton ()																				{}
+	BrainFlowDeviceCyton(DeviceDriver* driver = NULL);
 
 	Device* Clone() override										{ return new BrainFlowDeviceCyton(); }
 
 	// information
 	uint32 GetType() const override									{ return TYPE_ID; }
-	const char* GetTypeName() const override						{ return "openbci"; }
-	const char* GetHardwareName() const override					{ return "OpenBCI"; }
-	const char* GetUuid() const override							{ return "5108993a-fe1b-11e4-a322-1697f925ec7c"; }
-	static const char* GetRuleName()								{ return "DEVICE_BrainFlowCyton"; }
+	const char* GetTypeName() const override						{ return "BrainFlowDeviceCyton_type"; }
+	const char* GetHardwareName() const override					{ return "BrainFlowDeviceCyton_hardware"; }
+	const char* GetUuid() const override							{ return "5108993a-fe1b-11e4-a322-1697f925e999"; }
+	static const char* GetRuleName()								{ return "DEVICE_BrainFlowCyton_rule"; }
 	double GetLatency () const override								{ return 0.1; }
 	double GetExpectedJitter () const override						{ return 0.1; }
 	bool IsWireless () const override								{ return true; }
 	double GetTimeoutLimit() const override							{ return 60; } // Long timeout limit because channel config takes so long
+
+	void Update(const Core::Time& elapsed, const Core::Time& delta) override;
 };
 
 

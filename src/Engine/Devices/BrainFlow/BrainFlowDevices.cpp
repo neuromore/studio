@@ -26,11 +26,26 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#include "brainflow/board_shim.h"
-
 #ifdef INCLUDE_DEVICE_BRAINFLOW
 
 using namespace Core;
+
+BrainFlowDeviceBase::BrainFlowDeviceBase(int boardId, DeviceDriver* driver)
+	: mBoardId(boardId), mBoardShim(nullptr)
+{
+	mState = STATE_IDLE;
+	CreateSensors();
+}
+
+void BrainFlowDeviceBase::CreateBoardShim(BrainFlowInputParams params)
+{
+	CORE_ASSERT(mBoardShim == NULL);
+	mBoardShim = new BoardShim(mBoardId, params); 
+}
+
+BoardShim* BrainFlowDeviceBase::GetBoardShim() { 
+	return mBoardShim; 
+}
 
 double BrainFlowDeviceBase::GetSampleRate() const
 {
@@ -89,5 +104,22 @@ void BrainFlowDeviceBase::CreateElectrodes()
 	}
 }
 
+BrainFlowDeviceCyton::BrainFlowDeviceCyton(DeviceDriver* driver)
+	: BrainFlowDeviceBase((int)BoardIds::CYTON_BOARD, driver) {}
 
+void BrainFlowDeviceCyton::Update(const Core::Time& elapsed, const Core::Time& delta)
+{
+	const double a = 100; // amplitude +-300uv
+	for (uint32 i = 0; i < mSensors.Size(); ++i)
+	{
+		auto* sensor = mSensors[i];
+		auto offsetSampleTime = elapsed.InSeconds();
+		auto value = 100 * sin(2.0 * Math::pi * 1 * offsetSampleTime);
+		// ac noise
+		value += 0.3 * a * ((double)rand() / RAND_MAX - 0.5) * 2.0;
+		sensor->AddQueuedSample(value);
+	}
+	// update the neuro headset
+	BciDevice::Update(elapsed, delta);
+}
 #endif
