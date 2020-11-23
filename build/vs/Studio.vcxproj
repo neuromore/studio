@@ -831,7 +831,7 @@ Studio.cmd
       <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>APPNAME=ANT Studio;APPICON=AppIcon-ANT.ico;NEUROMORE_BRANDING=neuromore;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>APPNAME=eego perform studio;APPICON=AppIcon-ANT.ico;NEUROMORE_BRANDING=neuromore;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>
       <OutputDirectory>$(IntDir)</OutputDirectory>
@@ -1039,7 +1039,7 @@ Studio.cmd
       </DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>APPNAME=ANT Studio;APPICON=AppIcon-ANT.ico;NEUROMORE_BRANDING=neuromore;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>APPNAME=eego perform studio;APPICON=AppIcon-ANT.ico;NEUROMORE_BRANDING=neuromore;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>
       <OutputDirectory>$(IntDir)</OutputDirectory>
