@@ -289,13 +289,21 @@ String AppManager::GetAppName() const
 	User* user = GetUser();
 	if (user != NULL)
 	{
-		if		(user->FindRule("ROLE_Admin") != NULL)					name = NEUROMORE_BRANDING " Studio Administrator";
-		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = NEUROMORE_BRANDING " Studio Ultimate";
-		else if (user->FindRule("ROLE_Professional") != NULL)			name = NEUROMORE_BRANDING " Studio Professional";
-		else if (user->FindRule("ROLE_Community") != NULL)				name = NEUROMORE_BRANDING " Studio Community";
-		else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = NEUROMORE_BRANDING " Studio";
-		else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = NEUROMORE_BRANDING " Studio";
-		else															name = NEUROMORE_BRANDING " Studio";
+		// ANT 
+		if (0 == ::std::strcmp(NEUROMORE_BRANDING, "ANT"))
+		{
+			name = "eego perform studio";
+		}
+		else // DEFAULT / NEUROMORE
+		{
+			if (user->FindRule("ROLE_Admin") != NULL)					name = NEUROMORE_BRANDING " Studio Administrator";
+			else if (user->FindRule("ROLE_Ultimate") != NULL)				name = NEUROMORE_BRANDING " Studio Ultimate";
+			else if (user->FindRule("ROLE_Professional") != NULL)			name = NEUROMORE_BRANDING " Studio Professional";
+			else if (user->FindRule("ROLE_Community") != NULL)				name = NEUROMORE_BRANDING " Studio Community";
+			else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = NEUROMORE_BRANDING " Studio";
+			else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = NEUROMORE_BRANDING " Studio";
+			else															name = NEUROMORE_BRANDING " Studio";
+		}
 	}
 
 	return name;
