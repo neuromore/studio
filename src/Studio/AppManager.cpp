@@ -292,7 +292,12 @@ String AppManager::GetAppName() const
 		// ANT 
 		if (0 == ::std::strcmp(NEUROMORE_BRANDING, "ANT"))
 		{
-			name = "eego perform studio";
+			if (user->FindRule("ROLE_ResellerAdmin") != NULL) name = "eego perform studio - Reseller Admin";
+			else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "eego perform studio - Clinic Admin";
+			else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "eego perform studio - Clinician";
+			else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
+			else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
+			else name = "eego perform studio";
 		}
 		else // DEFAULT / NEUROMORE
 		{

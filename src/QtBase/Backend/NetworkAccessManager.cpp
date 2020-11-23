@@ -23,25 +23,14 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 	mRequestCounter = 0;
 	mLoggingEnabled	= true;
 
-	// server presets (TODO: Add real ANT endpoint)
-	if (0 == ::strcmp(NEUROMORE_BRANDING, "ANT"))
-	{
-		mPresets.Add(new ServerPreset("Production (AWS)", "backend.neuromore.com", "https://backend.neuromore.com/api/", 443, "https://account.neuromore.com"));
-	#ifndef PRODUCTION_BUILD
-		mPresets.Add(new ServerPreset("Swap (AWS)", "swap-prod-server.neuromore.com", "https://swap-deployment.neuromore.com/api/", 443, "https://account.neuromore.com"));
-		mPresets.Add(new ServerPreset("Test (AWS)", "backend-test.neuromore.com", "https://backend-test.neuromore.com/api/", 443, "https://account-test.neuromore.com"));
-		mPresets.Add(new ServerPreset("localhost", "localhost", "http://localhost/neuromore-server/api/", 8080, "http://localhost"));
-	#endif
-	}
-	else // neuromore/default
-	{
-		mPresets.Add( new ServerPreset("Production (AWS)",			"backend.neuromore.com",			"https://backend.neuromore.com/api/",			443,	"https://account.neuromore.com") );
+	mPresets.Add(new ServerPreset("Production (AWS)", "backend." NEUROMORE_BRANDING_DOMAIN, "https://backend." NEUROMORE_BRANDING_DOMAIN "/api/", 443, "https://account." NEUROMORE_BRANDING_DOMAIN));
+
+	// non-prod server presets (always neuromore)
 	#ifndef PRODUCTION_BUILD
 		mPresets.Add( new ServerPreset("Swap (AWS)",				"swap-prod-server.neuromore.com",	"https://swap-deployment.neuromore.com/api/",	443,	"https://account.neuromore.com") );
 		mPresets.Add( new ServerPreset("Test (AWS)",				"backend-test.neuromore.com",		"https://backend-test.neuromore.com/api/",		443,	"https://account-test.neuromore.com") );
 		mPresets.Add( new ServerPreset("localhost",					"localhost",						"http://localhost/neuromore-server/api/",		8080,	"http://localhost") );
 	#endif
-	}
 
 	mActivePresetIndex = 0;
 
