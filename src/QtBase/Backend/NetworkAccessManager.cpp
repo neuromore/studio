@@ -17,13 +17,17 @@
 
 using namespace Core;
 
+#define NEUROMORE_BRANDING_URL_BACKEND  "backend." NEUROMORE_BRANDING_DOMAIN
+#define NEUROMORE_BRANDING_URL_API      "https://backend." NEUROMORE_BRANDING_DOMAIN "/api/"
+#define NEUROMORE_BRANDING_URL_FRONTEND "https://account." NEUROMORE_BRANDING_DOMAIN
+
 // constructor
 NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 {
 	mRequestCounter = 0;
 	mLoggingEnabled	= true;
 
-	mPresets.Add(new ServerPreset("Production (AWS)", "backend." NEUROMORE_BRANDING_DOMAIN, "https://backend." NEUROMORE_BRANDING_DOMAIN "/api/", 443, "https://account." NEUROMORE_BRANDING_DOMAIN));
+	mPresets.Add(new ServerPreset("Production (AWS)", NEUROMORE_BRANDING_URL_BACKEND, NEUROMORE_BRANDING_URL_API, 443, NEUROMORE_BRANDING_URL_FRONTEND));
 
 	// non-prod server presets (always neuromore)
 	#ifndef PRODUCTION_BUILD
