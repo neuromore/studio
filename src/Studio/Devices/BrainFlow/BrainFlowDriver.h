@@ -37,55 +37,26 @@
 
 #ifdef INCLUDE_DEVICE_BRAINFLOW
 
-
-class BrainFlowDriverBase : public QObject, public DeviceDriver, public Core::EventHandler
+class BrainFlowDriver : public QObject, public DeviceDriver, public Core::EventHandler
 {
-	Q_OBJECT
-	public:
-		enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW_BASE};
+public:
+	BrainFlowDriver();
+	virtual ~BrainFlowDriver() = default;
 
-		// constructor & destructor
-		BrainFlowDriverBase() : DeviceDriver(false), EventHandler()			{}
-		virtual ~BrainFlowDriverBase();
+	void DetectDevices() override;
 
-		const char* GetName() const override								{ return "BrainFlow Devices"; }
+	const char* GetName() const;
+	uint32 GetType() const;
+	bool HasAutoDetectionSupport() const override { return false; }
+	bool Init() override;
+	void Update(const Core::Time& delta, const Core::Time& elapsed) override {};
 
-		uint32 GetType() const override										{ return TYPE_ID; }
+	void OnDeviceAdded(Device* device) override;
+	void OnRemoveDevice(Device* device) override;
 
-		bool HasAutoDetectionSupport() const override						{ return false; }
-
-		// add device
-		void AddDevice(BrainFlowDeviceBase* device);
-
-		// event handler (removes serial threads)
-		void OnRemoveDevice(Device* device) override;
-
-		// must be implemented in subclasses
-		virtual BrainFlowInputParams GetParams() = 0;
-
-	private:
-		// list to keep track of connected devices (index-matched with theh serial thread array below)
-		Core::Array<BrainFlowDeviceBase*> mDevices;
-
-};
-
-class BrainFlowDriverCyton : public BrainFlowDriverBase
-{
-	Q_OBJECT
-
-	public:
-		enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW_CYTON };
-
-		// constructor & destructor
-		BrainFlowDriverCyton();
-
-		Device* CreateDevice(uint32 deviceTypeID) override;
-		bool Init() override;
-		void Update(const Core::Time& delta, const Core::Time& elapsed) override;
-		BrainFlowInputParams GetParams() override;
-
-	private:
-		double		mTimeSinceDeviceCheck;
+	Device* CreateDevice(BoardIds boardId, BrainFlowInputParams params);
+private:
+	Device* CreateDevice(uint32 deviceTypeID) override { return nullptr; };
 };
 
 #endif

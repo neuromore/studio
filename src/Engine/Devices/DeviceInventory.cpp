@@ -266,7 +266,7 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 #ifdef INCLUDE_DEVICE_BRAINFLOW
 	//if (disablePermissionCheck || user->ReadAllowed(BrainFlowDeviceCyton::GetRuleName()))
 	{
-		GetDeviceManager()->RegisterDeviceType(new BrainFlowDeviceCyton());
+		GetDeviceManager()->RegisterDeviceType(new BrainFlowDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new BrainFlowCytonNode(NULL));
 	}
 #endif

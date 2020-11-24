@@ -32,55 +32,38 @@
 
 #ifdef INCLUDE_DEVICE_BRAINFLOW
 
-// the base class for all BrainFlow Devices
-class ENGINE_API BrainFlowDeviceBase : public BciDevice
-{
-	int mBoardId;
-	BoardShim* mBoardShim;
 
-	public:
-		// constructors & destructor
-		BrainFlowDeviceBase(int boardId, DeviceDriver* driver);
-		virtual ~BrainFlowDeviceBase() = default;
-		
-		// set/get board shim brainflow object
-		void CreateBoardShim(BrainFlowInputParams params);
-		BoardShim* GetBoardShim();
-		void ReleaseBoardShim();
-		
-		// information
-		double GetSampleRate() const override;
-
-		void CreateElectrodes () override;
-};
-
-
-
-// the default OpenBCI device class
-class ENGINE_API BrainFlowDeviceCyton : public BrainFlowDeviceBase
+class BrainFlowDevice : public BciDevice
 {
 public:
-	enum {
-		TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW_CYTON 
-	};
+	enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW };
 
-	// constructors & destructor
-	BrainFlowDeviceCyton(DeviceDriver* driver = NULL);
+	BrainFlowDevice(DeviceDriver* deviceDriver = nullptr);
+	BrainFlowDevice(BoardIds boardId, BrainFlowInputParams params, DeviceDriver* deviceDriver = nullptr);
 
-	Device* Clone() override										{ return new BrainFlowDeviceCyton(); }
+	bool Connect() override;
+	bool Disconnect() override;
+	
+	uint32 GetType() const override { return TYPE_ID; }
+	const char* GetTypeName() const override { return "BrainFlowDevice_type"; }
+	const char* GetHardwareName() const override { return "BrainFlowDevice_hardware"; }
+	const char* GetUuid() const override { return "5108993a-fe1b-11e4-a322-1697f925e000"; }
+	static const char* GetRuleName() { return "BrainFlowDevice_rule"; }
+	void Update(const Core::Time& elapsed, const Core::Time& delta) override;
+
+private:
+	int getBoardId() const;
+	void CreateElectrodes();
+	Device* Clone() override { return new BrainFlowDevice(); }
 
 	// information
-	uint32 GetType() const override									{ return TYPE_ID; }
-	const char* GetTypeName() const override						{ return "BrainFlowDeviceCyton_type"; }
-	const char* GetHardwareName() const override					{ return "BrainFlowDeviceCyton_hardware"; }
-	const char* GetUuid() const override							{ return "5108993a-fe1b-11e4-a322-1697f925e999"; }
-	static const char* GetRuleName()								{ return "DEVICE_BrainFlowCyton_rule"; }
-	double GetLatency () const override								{ return 0.1; }
-	double GetExpectedJitter () const override						{ return 0.1; }
-	bool IsWireless () const override								{ return true; }
-	double GetTimeoutLimit() const override							{ return 60; } // Long timeout limit because channel config takes so long
+	double GetSampleRate() const override;
 
-	void Update(const Core::Time& elapsed, const Core::Time& delta) override;
+
+private:
+	const BoardIds mBoardId;
+	const BrainFlowInputParams mParams;
+	std::unique_ptr<BoardShim> mBoard = nullptr;
 };
 
 

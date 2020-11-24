@@ -36,7 +36,7 @@
 class ENGINE_API BrainFlowCytonNode : public DeviceInputNode
 {
 	public:
-		enum { TYPE_ID = 0xD00000 | BrainFlowDeviceCyton::TYPE_ID };
+		enum { TYPE_ID = 0xD00000 | BrainFlowDevice::TYPE_ID };
 		static const char* Uuid()												{ return "283fc2da-fe1b-11e4-a322-1697f925ec7c"; }
 
 		BrainFlowCytonNode(Graph* parentGraph) : DeviceInputNode(parentGraph, BrainFlowCytonNode::TYPE_ID)		{}
@@ -45,8 +45,8 @@ class ENGINE_API BrainFlowCytonNode : public DeviceInputNode
 		Core::Color GetColor() const override									{ return Core::RGBA(60,120,210); }
 		uint32 GetType() const override											{ return TYPE_ID; }
 		const char* GetTypeUuid() const override final							{ return Uuid(); }
-		const char* GetReadableType() const override							{ return "BrainFlowCyton"; }
-		const char* GetRuleName() const override final							{ return BrainFlowDeviceCyton::GetRuleName(); }
+		const char* GetReadableType() const override							{ return "BrainFlowDevice"; }
+		const char* GetRuleName() const override final							{ return BrainFlowDevice::GetRuleName(); }
 		GraphObject* Clone(Graph* parentGraph) override							{ BrainFlowCytonNode* clone = new BrainFlowCytonNode (parentGraph); return clone; }
 };
 

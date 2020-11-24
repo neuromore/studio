@@ -48,7 +48,6 @@
 #include <Devices/DeviceInventory.h>
 #include "Devices/DriverInventory.h"
 #include <Devices/Test/TestDeviceDriver.h>
-#include "Devices/BrainFlow/BrainFlowDriver.h"
 #include <Devices/Muse/MuseDevice.h>
 #include "Devices/Audio/AudioDriver.h"
 
@@ -530,10 +529,6 @@ void MainWindow::OnPostAuthenticationInit()
 	if (GetUser()->ReadAllowed(TestDevice::GetRuleName()))
 		GetDeviceManager()->AddDeviceDriver(new TestDeviceDriver());
 	#endif
-	#ifdef INCLUDE_DEVICE_BRAINFLOW
-	GetDeviceManager()->AddDeviceDriver(new BrainFlowDriverCyton());
-	#endif
-
 	// load device configs (requires all devices to be present)
 	GetManager()->SetSplashScreenMessage("Loading device definitions...");
 	LoadDeviceConfigs();

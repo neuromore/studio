@@ -30,67 +30,66 @@
 
 using namespace Core;
 
-BrainFlowDeviceBase::BrainFlowDeviceBase(int boardId, DeviceDriver* driver)
-	: mBoardId(boardId), mBoardShim(nullptr)
+BrainFlowDevice::BrainFlowDevice(DeviceDriver* deviceDriver)
+	: BciDevice(deviceDriver), mBoardId(BoardIds::SYNTHETIC_BOARD), mParams() 
 {
-	mState = STATE_IDLE;
 	CreateSensors();
 }
 
-void BrainFlowDeviceBase::CreateBoardShim(BrainFlowInputParams params)
+BrainFlowDevice::BrainFlowDevice(BoardIds boardId, BrainFlowInputParams params, DeviceDriver* deviceDriver)
+	: BciDevice(deviceDriver), mBoardId(boardId), mParams(std::move(params))
 {
-	CORE_ASSERT(mBoardShim == NULL);
-	mBoardShim = new BoardShim(mBoardId, params); 
+	CreateSensors();
 }
 
-BoardShim* BrainFlowDeviceBase::GetBoardShim() { 
-	return mBoardShim; 
-}
-
-double BrainFlowDeviceBase::GetSampleRate() const
+bool BrainFlowDevice::Connect()
 {
+	mBoard = std::make_unique<BoardShim>(getBoardId(), mParams);
 	try
 	{
-		double samplingRate = BoardShim::get_sampling_rate(mBoardId);
-		return samplingRate;
+		mBoard->prepare_session();
+		mBoard->start_stream();
 	}
 	catch (const BrainFlowException& err)
 	{
+		mBoard.reset();
 		LogError(err.what());
-		return 250;
+		return false;
 	}
+	return Device::Connect();
 }
 
-void BrainFlowDeviceBase::ReleaseBoardShim()
+bool BrainFlowDevice::Disconnect()
 {
-	if (mBoardShim != NULL)
+	if (mBoard && mBoard->is_prepared())
 	{
-		// boardshim destructor doesnt call release_session, it should be called manually before
 		try
 		{
-			if (mBoardShim->is_prepared())
-			{
-				LogError("Removing BoardShim object with prepared session!");
-			}
+			mBoard->stop_stream();
+			mBoard->release_session();
 		}
 		catch (const BrainFlowException& err)
 		{
-			// do nothing
+			LogError(err.what());
 		}
-		delete mBoardShim;
-		mBoardShim = NULL;
 	}
+	mBoard.reset();
+	return Device::Disconnect();
+}
+
+int BrainFlowDevice::getBoardId() const
+{
+	return static_cast<int>(mBoardId);
 }
 
 // get the available electrodes of the neuro headset
-void BrainFlowDeviceBase::CreateElectrodes()
+void BrainFlowDevice::CreateElectrodes()
 {
 	mElectrodes.Clear();
-
 	try
 	{
 		int len = 0;
-		std::string* eegNames = BoardShim::get_eeg_names(mBoardId, &len);
+		std::string* eegNames = BoardShim::get_eeg_names(getBoardId(), &len);
 		mElectrodes.Reserve(len);
 		// todo check that BrainFlow IDs match studio IDs
 		for (int i = 0; i < len; i++)
@@ -104,22 +103,48 @@ void BrainFlowDeviceBase::CreateElectrodes()
 	}
 }
 
-BrainFlowDeviceCyton::BrainFlowDeviceCyton(DeviceDriver* driver)
-	: BrainFlowDeviceBase((int)BoardIds::CYTON_BOARD, driver) {}
 
-void BrainFlowDeviceCyton::Update(const Core::Time& elapsed, const Core::Time& delta)
+void BrainFlowDevice::Update(const Core::Time& elapsed, const Core::Time& delta)
 {
-	const double a = 100; // amplitude +-300uv
-	for (uint32 i = 0; i < mSensors.Size(); ++i)
+	if (!mBoard || !mBoard->is_prepared())
+		return;
+	try
 	{
-		auto* sensor = mSensors[i];
-		auto offsetSampleTime = elapsed.InSeconds();
-		auto value = 100 * sin(2.0 * Math::pi * 1 * offsetSampleTime);
-		// ac noise
-		value += 0.3 * a * ((double)rand() / RAND_MAX - 0.5) * 2.0;
-		sensor->AddQueuedSample(value);
+		int data_count;
+		double** board_data;
+		board_data = mBoard->get_board_data(&data_count);
+		int channels_count;
+		int* channels_numbers = BoardShim::get_eeg_channels(getBoardId(), &channels_count);
+		for (uint32 i = 0; i < mSensors.Size(); ++i)
+		{
+			auto* sensor = mSensors[i];
+			int channel_number = channels_numbers[i];
+			double* channel_data = board_data[channel_number];;
+			for (int j = 0; j < data_count; ++j)
+			{
+				double value = channel_data[j];
+				sensor->AddQueuedSample(value);
+			}
+		}
+		// update the neuro headset
+		Device::Update(elapsed, delta);
 	}
-	// update the neuro headset
-	BciDevice::Update(elapsed, delta);
+	catch (const BrainFlowException& err)
+	{
+		LogError(err.what());
+		return;
+	}
 }
+
+double BrainFlowDevice::GetSampleRate() const {
+	try
+	{
+		return BoardShim::get_sampling_rate(getBoardId());
+	}
+	catch (const BrainFlowException& err)
+	{
+		LogError(err.what());
+	}
+};
+
 #endif

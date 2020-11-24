@@ -29,129 +29,63 @@
 #include <System/SerialPort.h>
 #include <QApplication>
 
+#include <memory>
+
 #ifdef INCLUDE_DEVICE_BRAINFLOW
 
 using namespace Core;
 
-
-// destructor
-BrainFlowDriverBase::~BrainFlowDriverBase ()
+BrainFlowDriver::BrainFlowDriver() : DeviceDriver(true) 
 {
-	LogInfo("Destructing BrainFlow device driver ...");
-	// remove event handler
-	CORE_EVENTMANAGER.RemoveEventHandler(this);
+	CORE_EVENTMANAGER.AddEventHandler(this);
+	AddSupportedDevice(BrainFlowDevice::TYPE_ID);
 }
 
-
-void BrainFlowDriverBase::AddDevice(BrainFlowDeviceBase* device)
-{
-	mDevices.Add(device);
-	BrainFlowInputParams params = GetParams();
-	device->CreateBoardShim(params);
-	BoardShim* boardShim = device->GetBoardShim();
-	if (boardShim != NULL)
+void BrainFlowDriver::DetectDevices() {
+	SetEnabled();
+	if (auto* device = GetDeviceManager()->FindDeviceByType(BrainFlowDevice::TYPE_ID, 0))
 	{
-		try
-		{
-			boardShim->prepare_session();
-			// boardShim->start_stream();
-			boardShim->start_stream(450000, "file://brainflow_raw_data.csv:w");
-		}
-		catch (const BrainFlowException& err)
-		{
-			LogError(err.what());
-		}
+		GetDeviceManager()->RemoveDeviceAsync(device);
+	}
+	else
+	{
+		device = CreateDevice(BoardIds::SYNTHETIC_BOARD, BrainFlowInputParams());
+		GetDeviceManager()->AddDeviceAsync(device);
 	}
 }
 
-
-void BrainFlowDriverBase::OnRemoveDevice(Device* device)
+const char* BrainFlowDriver::GetName() const 
 {
-	BrainFlowDeviceBase* brainFlowDevice = static_cast<BrainFlowDeviceBase*>(device);
-
-	// find index 
-	uint32 index = mDevices.Find(brainFlowDevice);
-
-	// device does not belong to driver (should not happen)
-	if (index == CORE_INVALIDINDEX32)
-		return;
-	
-	// release brainflow session
-	BoardShim* boardShim = brainFlowDevice->GetBoardShim();
-	if (boardShim != NULL)
-	{
-		try
-		{
-			boardShim->release_session();
-		}
-		catch (const BrainFlowException& err)
-		{
-			LogError (err.what ());
-		}
-		brainFlowDevice->ReleaseBoardShim();
-	}
-
-	// remove device from device listr
-	mDevices.RemoveByValue(brainFlowDevice);
+	return "BrainFlow Driver"; 
 }
 
-BrainFlowDriverCyton::BrainFlowDriverCyton() : BrainFlowDriverBase(), mTimeSinceDeviceCheck(0)
-{}
-
-Device* BrainFlowDriverCyton::CreateDevice(uint32 deviceTypeID)
+uint32 BrainFlowDriver::GetType() const 
 {
-	// check if its the correct device
-	CORE_ASSERT(IsDeviceSupported(deviceTypeID));
-
-	switch (deviceTypeID)
-	{
-	case BrainFlowDeviceCyton::TYPE_ID: 	return new BrainFlowDeviceCyton(this);
-	default:  /* does not happen*/	return NULL;
-	}
+	return DeviceTypeIDs::DRIVER_TYPEID_BRAINFLOW;
 }
 
-bool BrainFlowDriverCyton::Init()
+bool BrainFlowDriver::Init() 
 {
 	return true; 
 }
 
-void BrainFlowDriverCyton::Update(const Core::Time& delta, const Core::Time& elapsed)
+void BrainFlowDriver::OnDeviceAdded(Device* device)
 {
-	if (IsEnabled() == false)
-		return;
-
-	mTimeSinceDeviceCheck += delta.InSeconds();
-	if (mTimeSinceDeviceCheck > 1.0)
+	if (IsDeviceSupported(device->GetType()))
 	{
-		// add one test headset in case no other device is connected
-		const uint32 numTestHeadsets = GetDeviceManager()->FindNumDevicesByType(BrainFlowDeviceCyton::TYPE_ID);
-		if (numTestHeadsets == 0)
-		{
-			if (GetDeviceManager()->GetNumDevices() == 0)
-			{
-				Device* testHeadset = new BrainFlowDeviceCyton(this);
-				GetDeviceManager()->AddDeviceAsync(testHeadset);
-			}
-		}
-		else
-		{
-			// remove the test headset as soon as a real device gets connected
-			if (GetDeviceManager()->GetNumDevices() > numTestHeadsets)
-			{
-				Device* testHeadset = GetDeviceManager()->FindDeviceByType(BrainFlowDeviceCyton::TYPE_ID, 0);
-				GetDeviceManager()->RemoveDeviceAsync(testHeadset);
-			}
-		}
-
-		mTimeSinceDeviceCheck = 0.0;
+		if (!device->Connect())
+			GetDeviceManager()->RemoveDeviceAsync(device);
 	}
 }
 
-BrainFlowInputParams BrainFlowDriverCyton::GetParams()
+void BrainFlowDriver::OnRemoveDevice(Device* device)
 {
-	BrainFlowInputParams params;
-	params.serial_port = "COM3"; // temp hardcode, get it from user input or via autodiscovery
-	return params;
+	if (IsDeviceSupported(device->GetType()))
+		device->Disconnect();
 }
 
+Device* BrainFlowDriver::CreateDevice(BoardIds boardId, BrainFlowInputParams params)
+{
+	return new BrainFlowDevice(boardId, std::move(params), this);
+}
 #endif
