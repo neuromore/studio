@@ -33,62 +33,26 @@
 class NotionSystem;
 
 
-// the Neurosity Notion1 Headset class
-class ENGINE_API Notion1Device : public BciDevice
-{
-    public:
-        enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_NEUROSITY_NOTION1 };
-
-        enum {
-            SENSOR_CONCENTRATION = 8,
-        };
-
-        // constructor & destructor
-        Notion1Device(DeviceDriver* driver = NULL);
-        ~Notion1Device();
-
-        Device* Clone() override                            { return new Notion1Device(); }
-
-        // overloaded
-        uint32 GetType() const override                     { return TYPE_ID; }
-        double GetSampleRate() const override               { return 250; }
-        const char* GetHardwareName() const override        { return "Neurosity Notion 1"; }
-        const char* GetUuid() const override                { return "23d427d8-11d5-417d-80e0-52636ec49339"; }
-        const char* GetTypeName() const override            { return "notion1"; }
-        double GetLatency() const override                  { return 0.1; }
-        double GetExpectedJitter() const override           { return 0.2; }
-        bool IsWireless() const override                    { return false; /* we do not know the connection quality of the notion; this removes the connection quality icon in the device manager */ }
-        bool HasEegContactQualityIndicator() override       { return true; }
-        static const char* GetRuleName() { return "DEVICE_InteraxonMuse"; }
-        //static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion2"; }
-
-        void CreateElectrodes() override;
-        void CreateSensors() override;
-
-        void ProcessMessage(OscMessageParser* message) override;
-};
-
-
 // the Neurosity Notion2 headset class
-class ENGINE_API Notion2Device : public BciDevice
+class ENGINE_API NotionDevice : public BciDevice
 {
     public:
-        enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_NEUROSITY_NOTION2 };
+        enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_NEUROSITY_NOTION };
 
         enum {
             SENSOR_CONCENTRATION = 8,
         };
 
         // CONSTRUCTOR AND DESTRUCTOR
-        Notion2Device(DeviceDriver* driver = NULL);
-        ~Notion2Device();
+        NotionDevice(DeviceDriver* driver = NULL);
+        ~NotionDevice();
 
-        Device* Clone() override                            { return new Notion2Device(); }
+        Device* Clone() override                            { return new NotionDevice(); }
 
         // overloaded
         uint32 GetType() const override                     { return TYPE_ID; }
         double GetSampleRate() const override               { return 250; }
-        const char* GetHardwareName() const override        { return "Neurosity Notion 2"; }
+        const char* GetHardwareName() const override        { return "Neurosity Notion"; }
         const char* GetUuid() const override                { return "1cd1e229-b6ac-4d70-92c6-9e987f49e9cf"; }
         const char* GetTypeName() const override            { return "notion2"; }
         double GetLatency() const override                  { return 0.1; }
@@ -103,6 +67,7 @@ class ENGINE_API Notion2Device : public BciDevice
         void CreateElectrodes() override; 
         void CreateSensors() override;
 
+        void SetDeviceId(uint32 deviceId);
         void ProcessMessage(OscMessageParser* message) override;
 };
 

@@ -30,48 +30,47 @@
 
 using namespace Core;
 
-//
-// Neurosity Notion 1
-//
-
 //constructor
-Notion1Device::Notion1Device(DeviceDriver* driver) : BciDevice(driver)
+NotionDevice::NotionDevice(DeviceDriver* driver) : BciDevice(driver)
 {
-	LogDetailedInfo("Constructing Notion 1 headset...");
+	LogDetailedInfo("Constructing Notion 2 headset...");
+
+    // create default OSC address
+    mOscPathPattern = "/neurosity/notion/*/raw";
+    // mOscPathPattern = "/notion2/*/raw";
 
     CreateSensors();
 }
 
 // destructor
-Notion1Device::~Notion1Device()
+NotionDevice::~NotionDevice()
 {
-	LogDetailedInfo("Destructing Notion 1 headset ...");
+	LogDetailedInfo("Destructing Notion 2 headset ...");
 }
 
 // get the available electrodes of the headset
-void Notion1Device::CreateElectrodes()
+void NotionDevice::CreateElectrodes()
 {
     mElectrodes.Clear();
     mElectrodes.Reserve(8);
 
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3"));
     mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));
     mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));
     mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));
     mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));
 }
 
-void Notion1Device::CreateSensors()
+void NotionDevice::CreateSensors()
 {
     // create EEG sensors first
     BciDevice::CreateSensors();
 }
 
-// notion1 OSC streaming format
-void Notion1Device::ProcessMessage(OscMessageParser* message)
+void NotionDevice::ProcessMessage(OscMessageParser* message)
 {
     // do nothing is device was disabled
     if (IsEnabled() == false)
@@ -79,74 +78,6 @@ void Notion1Device::ProcessMessage(OscMessageParser* message)
 
     // raw 8 channel eeg
     if (message->MatchAddress("/neurosity/notion/*/raw") == true)
-    {
-        if (message->GetNumArguments() != 8)
-            return;
-
-        // sensor order is: CP6, F6, C4, CP4, CP3, F5, C3, CP5
-        for (uint32 i = 0; i < 8; ++i)
-        {
-            // float compressedValue; (*message) >> compressedValue;
-            float rawValue; (*message) >> rawValue;
-
-            // add sample to each channel
-            GetSensor(i)->AddQueuedSample(rawValue);
-        }
-    }
-}
-
-
-//
-// Neurosity Notion 2
-//
-
-//constructor
-Notion2Device::Notion2Device(DeviceDriver* driver) : BciDevice(driver)
-{
-	LogDetailedInfo("Constructing Notion 2 headset...");
-
-    // create default OSC address
-    mOscPathPattern = "/neurosity/notion/*/raw";
-
-    CreateSensors();
-}
-
-// destructor
-Notion2Device::~Notion2Device()
-{
-	LogDetailedInfo("Destructing Notion 2 headset ...");
-}
-
-// get the available electrodes of the headset
-void Notion2Device::CreateElectrodes()
-{
-    mElectrodes.Clear();
-    mElectrodes.Reserve(8);
-
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4"));
-}
-
-void Notion2Device::CreateSensors()
-{
-    // create EEG sensors first
-    BciDevice::CreateSensors();
-}
-
-void Notion2Device::ProcessMessage(OscMessageParser* message)
-{
-    // do nothing is device was disabled
-    if (IsEnabled() == false)
-        return;
-
-    // raw 8 channel eeg
-    if (message->MatchAddress("/notion2/*/raw") == true)
     {
         auto num_args = message->GetNumArguments();
         if (message->GetNumArguments() != 13)
@@ -164,7 +95,17 @@ void Notion2Device::ProcessMessage(OscMessageParser* message)
     }
 } 
 
-int32 Notion2Device::GetOscPathDeviceId(const Core::String& address) const
+/*
+void NotionDevice::SetDeviceId(uint32 deviceId)
+{
+    mDeviceId = deviceId;
+
+    // update osc address
+    mOscAddress.Format("/neurosity/notion/%i/raw");
+}
+*/
+
+int32 NotionDevice::GetOscPathDeviceId(const Core::String& address) const
 {
     int32 deviceId = 0;
     Array<String> elements = address.Split(StringCharacter::forwardSlash);

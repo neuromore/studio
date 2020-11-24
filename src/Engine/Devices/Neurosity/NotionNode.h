@@ -31,43 +31,23 @@
 #ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
 
 
-// Notion1 device node
-class ENGINE_API Notion1Node : public DeviceInputNode
+// Notion device node
+class ENGINE_API NotionNode : public DeviceInputNode
 {
     public:
-        enum { TYPE_ID = 0xD00000 | Notion1Device::TYPE_ID };
-        static const char* Uuid() { return "23d427d8-11d5-417d-80e0-52636ec49339"; }        // Add UUID
-
-        //constructor and destructor
-        Notion1Node(Graph* parentGraph) : DeviceInputNode(parentGraph, Notion1Device::TYPE_ID) {}
-        ~Notion1Node() {}
-
-        Core::Color GetColor() const override                   { return Core::RGBA(30, 180, 158); }
-        uint32 GetType() const override                         { return TYPE_ID; }
-        const char* GetTypeUuid() const override final          { return Uuid(); }
-        const char* GetReadableType() const override            { return "Notion1"; }
-        const char* GetRuleName() const override final          { return Notion1Device::GetRuleName(); }
-        GraphObject* Clone(Graph* parentObject) override        { Notion1Node* clone = new Notion1Node(parentObject); return clone; }
-};
-
-
-// Notion2 device node
-class ENGINE_API Notion2Node : public DeviceInputNode
-{
-    public:
-        enum { TYPE_ID = 0xD00000 | Notion2Device::TYPE_ID };
+        enum { TYPE_ID = 0xD00000 | NotionDevice::TYPE_ID };
         static const char* Uuid() { return "1cd1e229-b6ac-4d70-92c6-9e987f49e9cf"; }        // Add UUID
 
         // constructor & destructor
-        Notion2Node(Graph* parentGraph) : DeviceInputNode(parentGraph, Notion2Device::TYPE_ID) {}
-        ~Notion2Node() {}
+        NotionNode(Graph* parentGraph) : DeviceInputNode(parentGraph, NotionDevice::TYPE_ID) {}
+        ~NotionNode() {}
 
         Core::Color GetColor() const override                   { return Core::RGBA(30, 180, 158); }    // need to change color at some point to neurosity colors
         uint32 GetType() const override                         { return TYPE_ID; }
         const char* GetTypeUuid() const override final          { return Uuid(); }
-        const char* GetReadableType() const override            { return "Notion2"; }
-        const char* GetRuleName() const override final          { return Notion2Device::GetRuleName(); }
-        GraphObject* Clone(Graph* parentObject) override        { Notion2Node* clone = new Notion2Node(parentObject); return clone; }
+        const char* GetReadableType() const override            { return "Notion"; }
+        const char* GetRuleName() const override final          { return NotionDevice::GetRuleName(); }
+        GraphObject* Clone(Graph* parentObject) override        { NotionNode* clone = new NotionNode(parentObject); return clone; }
 };
 
 #endif

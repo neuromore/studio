@@ -265,16 +265,10 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 
 
 #ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
-	if (disablePermissionCheck || user->ReadAllowed(Notion1Device::GetRuleName()))
+	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
 	{
-		GetDeviceManager()->RegisterDeviceType(new Notion1Device());
-		GetGraphObjectFactory()->RegisterObjectType(new Notion1Node(NULL));
-	}
-
-	if (disablePermissionCheck || user->ReadAllowed(Notion2Device::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new Notion2Device());
-		GetGraphObjectFactory()->RegisterObjectType(new Notion2Node(NULL));
+		GetDeviceManager()->RegisterDeviceType(new NotionDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new NotionNode(NULL));
 	}
 #endif 
 
