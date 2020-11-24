@@ -50,8 +50,12 @@
 #include <windows.h>
 #include <winuser.h>
 #endif
- 
-#define SPLASHIMAGE  ":/Images/SplashScreen-" NEUROMORE_BRANDING ".png" 
+
+#ifdef NEUROMORE_BRANDING_ANT
+#define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
+#else
+#define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
+#endif
 
 using namespace Core;
 
@@ -289,26 +293,22 @@ String AppManager::GetAppName() const
 	User* user = GetUser();
 	if (user != NULL)
 	{
-		// ANT 
-		if (0 == ::std::strcmp(NEUROMORE_BRANDING, "ANT"))
-		{
-			if (user->FindRule("ROLE_ResellerAdmin") != NULL) name = "eego perform studio - Reseller Admin";
-			else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "eego perform studio - Clinic Admin";
-			else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "eego perform studio - Clinician";
-			else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
-			else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
-			else name = "eego perform studio";
-		}
-		else // DEFAULT / NEUROMORE
-		{
-			if (user->FindRule("ROLE_Admin") != NULL)					name = NEUROMORE_BRANDING " Studio Administrator";
-			else if (user->FindRule("ROLE_Ultimate") != NULL)				name = NEUROMORE_BRANDING " Studio Ultimate";
-			else if (user->FindRule("ROLE_Professional") != NULL)			name = NEUROMORE_BRANDING " Studio Professional";
-			else if (user->FindRule("ROLE_Community") != NULL)				name = NEUROMORE_BRANDING " Studio Community";
-			else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = NEUROMORE_BRANDING " Studio";
-			else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = NEUROMORE_BRANDING " Studio";
-			else															name = NEUROMORE_BRANDING " Studio";
-		}
+#ifdef NEUROMORE_BRANDING_ANT
+		if (user->FindRule("ROLE_ResellerAdmin") != NULL) name = "eego perform studio - Reseller Admin";
+		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "eego perform studio - Clinic Admin";
+		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "eego perform studio - Clinician";
+		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
+		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
+		else name = "eego perform studio";
+#else
+		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
+		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
+		else if (user->FindRule("ROLE_Professional") != NULL)			name = "neuromore Studio Professional";
+		else if (user->FindRule("ROLE_Community") != NULL)				name = "neuromore Studio Community";
+		else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = "neuromore Studio";
+		else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = "neuromore Studio";
+		else															name = "neuromore Studio";
+#endif
 	}
 
 	return name;

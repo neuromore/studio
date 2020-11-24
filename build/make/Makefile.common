@@ -289,9 +289,7 @@ QTBASE_RCCDIR_X86    = $(QTBASE_SRCDIR)/.rcc/x86
 QTBASE_RCCDIR_X64    = $(QTBASE_SRCDIR)/.rcc/x64
 QTBASE_OBJDIR_X86    = $(OBJDIR_X86)/QtBase
 QTBASE_OBJDIR_X64    = $(OBJDIR_X64)/QtBase
-QTBASE_DEFINES       = -DNEUROMORE_BRANDING="neuromore" \
-                       -DNEUROMORE_BRANDING_DOMAIN="neuromore.com" \
-                       -DQT_STATIC \
+QTBASE_DEFINES       = -DQT_STATIC \
                        -DQT_NO_DEBUG \
                        -DUNICODE \
                        -D_UNICODE \
@@ -574,8 +572,8 @@ STUDIO_RCCDIR_X86    = $(STUDIO_SRCDIR)/.rcc/x86
 STUDIO_RCCDIR_X64    = $(STUDIO_SRCDIR)/.rcc/x64
 STUDIO_OBJDIR_X86    = $(OBJDIR_X86)/Studio
 STUDIO_OBJDIR_X64    = $(OBJDIR_X64)/Studio
-STUDIO_DEFINES       = -DNEUROMORE_BRANDING="neuromore" \
-                       -DNEUROMORE_BRANDING_DOMAIN="neuromore.com" \
+STUDIO_DEFINES       = -DAPPNAME="neuromore Studio" \
+                       -DAPPICON="AppIcon-neuromore.ico" \
                        -DQT_STATIC \
                        -DQT_NO_DEBUG \
                        -DQT_NO_DBUS \

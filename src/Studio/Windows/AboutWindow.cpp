@@ -32,7 +32,11 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
-#define ABOUTIMAGE ":/Images/About-" NEUROMORE_BRANDING ".png"
+#ifdef NEUROMORE_BRANDING_ANT
+#define ABOUTIMAGE ":/Images/About-ANT.png"
+#else
+#define ABOUTIMAGE ":/Images/About-neuromore.png"
+#endif
 
 using namespace Core;
 

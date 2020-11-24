@@ -76,17 +76,31 @@ class AppManager : public QObject
 		Core::Version GetVersion() const								{ return mVersion; }
 		
 		// information
+#ifdef NEUROMORE_BRANDING_ANT
 		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
-		const char* GetWebsite() const									{ return "http://www." NEUROMORE_BRANDING_DOMAIN; }
-		const char* GetDocumentationUrl() const							{ return "https://doc." NEUROMORE_BRANDING_DOMAIN; }
-		const char* GetAccountUrl() const								{ return "https://account." NEUROMORE_BRANDING_DOMAIN; }
-		const char* GetSupportUrl() const								{ return "http://forum." NEUROMORE_BRANDING_DOMAIN "/board/"; }
-		const char* GetStoreUrl() const									{ return "http://www." NEUROMORE_BRANDING_DOMAIN "/neuromore-studio/"; }
-		const char* GetForgotPasswordUrl() const						{ return "https://account." NEUROMORE_BRANDING_DOMAIN "/#/resetrequest"; }
-		const char* GetSupportEMail() const								{ return "support@" NEUROMORE_BRANDING_DOMAIN; }
-		Core::String GetAppName() const;
+		const char* GetWebsite() const									{ return "http://www.neuromore.com"; }
+		const char* GetDocumentationUrl() const							{ return "https://doc.neuromore.com"; }
+		const char* GetAccountUrl() const								{ return "https://account.neuromore.com"; }
+		const char* GetSupportUrl() const								{ return "http://forum.neuromore.com/board/"; }
+		const char* GetStoreUrl() const									{ return "http://www.neuromore.com/neuromore-studio/"; }
+		const char* GetForgotPasswordUrl() const						{ return "https://account.neuromore.com/#/resetrequest"; }
+		const char* GetSupportEMail() const								{ return "support@neuromore.com"; }
 		const char* GetAppShortName() const								{ return "NMStudio"; }
+#else
+		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
+		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
+		const char* GetWebsite() const									{ return "http://www.neuromore.com"; }
+		const char* GetDocumentationUrl() const							{ return "https://doc.neuromore.com"; }
+		const char* GetAccountUrl() const								{ return "https://account.neuromore.com"; }
+		const char* GetSupportUrl() const								{ return "http://forum.neuromore.com/board/"; }
+		const char* GetStoreUrl() const									{ return "http://www.neuromore.com/neuromore-studio/"; }
+		const char* GetForgotPasswordUrl() const						{ return "https://account.neuromore.com/#/resetrequest"; }
+		const char* GetSupportEMail() const								{ return "support@neuromore.com"; }
+		const char* GetAppShortName() const								{ return "NMStudio"; }
+#endif
+
+		Core::String GetAppName() const;
 		const char* GetBackendSystemName() const;
 
 		// authenticate and start the app in case of success

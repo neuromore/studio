@@ -33,7 +33,11 @@
 #include <QGridLayout>
 #include <QDesktopServices>
 
-#define LOGINIMAGE ":/Images/Login-" NEUROMORE_BRANDING ".png"
+#ifdef NEUROMORE_BRANDING_ANT
+#define LOGINIMAGE ":/Images/Login-ANT.png"
+#else
+#define LOGINIMAGE ":/Images/Login-neuromore.png"
+#endif
 
 using namespace Core;
 
