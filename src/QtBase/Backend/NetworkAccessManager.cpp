@@ -15,7 +15,6 @@
 #include <QNetworkReply>
 #include <QNetworkDiskCache>
 
-
 using namespace Core;
 
 // constructor
@@ -24,13 +23,15 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 	mRequestCounter = 0;
 	mLoggingEnabled	= true;
 
-	// server presets
-	mPresets.Add( new ServerPreset("Production (AWS)",			"backend.neuromore.com",			"https://backend.neuromore.com/api/",			443,	"https://account.neuromore.com") );
-#ifndef PRODUCTION_BUILD
-	mPresets.Add( new ServerPreset("Swap (AWS)",				"swap-prod-server.neuromore.com",	"https://swap-deployment.neuromore.com/api/",	443,	"https://account.neuromore.com") );
-	mPresets.Add( new ServerPreset("Test (AWS)",				"backend-test.neuromore.com",		"https://backend-test.neuromore.com/api/",		443,	"https://account-test.neuromore.com") );
-	mPresets.Add( new ServerPreset("localhost",					"localhost",						"http://localhost/neuromore-server/api/",		8080,	"http://localhost") );
-#endif
+	mPresets.Add(new ServerPreset("Production (AWS)", "backend.neuromore.com", "https://backend.neuromore.com/api/", 443, "https://account.neuromore.com"));
+
+	// non-prod server presets (always neuromore)
+	#ifndef PRODUCTION_BUILD
+		mPresets.Add( new ServerPreset("Swap (AWS)",				"swap-prod-server.neuromore.com",	"https://swap-deployment.neuromore.com/api/",	443,	"https://account.neuromore.com") );
+		mPresets.Add( new ServerPreset("Test (AWS)",				"backend-test.neuromore.com",		"https://backend-test.neuromore.com/api/",		443,	"https://account-test.neuromore.com") );
+		mPresets.Add( new ServerPreset("localhost",					"localhost",						"http://localhost/neuromore-server/api/",		8080,	"http://localhost") );
+	#endif
+
 	mActivePresetIndex = 0;
 
 	// create the network access manager

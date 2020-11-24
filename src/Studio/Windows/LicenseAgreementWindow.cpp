@@ -37,6 +37,11 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
+#ifdef NEUROMORE_BRANDING_ANT
+#define ABOUTIMAGE ":/Images/About-ANT.png"
+#else
+#define ABOUTIMAGE ":/Images/About-neuromore.png"
+#endif
 
 using namespace Core;
 
@@ -51,7 +56,7 @@ LicenseAgreementWindow::LicenseAgreementWindow(bool showAgreeAndCancelButtons, Q
 	setLayout(mainLayout);
 
 	// load the about dialog image and add it to the dialog
-	QPixmap aboutImage( ":/Images/About.png" );
+	QPixmap aboutImage(ABOUTIMAGE);
 	const uint32 imageWidth = aboutImage.width();
 	QLabel* aboutImageLabel = new QLabel(this);
 	aboutImageLabel->setPixmap(aboutImage);
