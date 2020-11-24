@@ -375,7 +375,7 @@ void ExperienceSelectionWidget::AsyncLoadFromBackend(const char* itemId)
 	FileSystemGetRequest request( GetUser()->GetToken(), GetSessionUser()->GetIdString(), page, size, "store", itemId, "[experience,folder]");
 
 	// 2. process request and connect to the reply
-	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
+	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT, false, QNetworkRequest::AlwaysNetwork );
 	connect(reply, &QNetworkReply::finished, this, [reply, this]()
 	{
 		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
