@@ -23,7 +23,8 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 	mRequestCounter = 0;
 	mLoggingEnabled	= true;
 
-	mPresets.Add(new ServerPreset("Production (AWS)", "backend.neuromore.com", "https://backend.neuromore.com/api/", 443, "https://account.neuromore.com"));
+	mPresets.Add(new ServerPreset("neuromore (AWS)", "backend.neuromore.com", "https://backend.neuromore.com/api/", 443, "https://account.neuromore.com"));
+	mPresets.Add(new ServerPreset("eego-perform (AWS)", "backend.eego-perform.com", "https://backend.eego-perform.com/api/", 443, "https://account.eego-perform.com"));
 
 	// non-prod server presets (always neuromore)
 	#ifndef PRODUCTION_BUILD
@@ -32,7 +33,12 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 		mPresets.Add( new ServerPreset("localhost",					"localhost",						"http://localhost/neuromore-server/api/",		8080,	"http://localhost") );
 	#endif
 
-	mActivePresetIndex = 0;
+	// set default one
+	#ifdef NEUROMORE_BRANDING_ANT
+		mActivePresetIndex = 1;
+	#else
+		mActivePresetIndex = 0;
+	#endif
 
 	// create the network access manager
 	mNetworkAccessManager = new QNetworkAccessManager(parent);

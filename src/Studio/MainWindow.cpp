@@ -1592,16 +1592,12 @@ void MainWindow::OnLoadSettings()
 	}
 #endif
 
-	// neuromore Cloud category
-#ifdef PRODUCTION_BUILD
-	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(0);
-#else
+	// used backend
 	int32 cloudServerPreset = settings.value("cloudServerPreset", GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex()).toInt();
 	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(cloudServerPreset);
 
 	bool backendLoggingEnabled = settings.value( "cloudLoggingEnabled", false ).toBool();
 	GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled(backendLoggingEnabled);
-#endif
 
 #ifdef FORCE_DEBUGLOGGING
 	GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled(true);
