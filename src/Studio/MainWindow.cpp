@@ -1552,7 +1552,12 @@ void MainWindow::OnLoadSettings()
 	SetRealtimeUIUpdateRate(realtimeInterfaceUpdateRate);
 
 	// device detection
-	const bool enableAutoDetection = settings.value("deviceAutoDetectionEnabled", GetEngine()->GetAutoDetectionSetting()).toBool();
+#ifdef NEUROMORE_BRANDING_ANT
+	const bool default_autodetection = true;
+#else
+	const bool default_autodetection = GetEngine()->GetAutoDetectionSetting();
+#endif
+	const bool enableAutoDetection = settings.value("deviceAutoDetectionEnabled", default_autodetection).toBool();
 	GetEngine()->SetAutoDetectionSetting(enableAutoDetection);
 
 	// power line frequency
@@ -1571,7 +1576,6 @@ void MainWindow::OnLoadSettings()
 	for (uint32 i = 0; i < numDevices; ++i)
 	{
 		DeviceDriver* driver = GetDeviceManager()->GetDeviceDriver(i);
-
 		// construct settings name using device driver name
 		mTempString.Format("deviceDriver%sAutoDetectionEnabled", driver->GetName());
 		mTempString.RemoveChars(" ");	// remove spacings from device driver name
@@ -1592,16 +1596,17 @@ void MainWindow::OnLoadSettings()
 	}
 #endif
 
-	// neuromore Cloud category
-#ifdef PRODUCTION_BUILD
-	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(0);
+	// used backend
+#ifdef NEUROMORE_BRANDING_ANT
+	const int defaultPresetIndex = 1;
 #else
-	int32 cloudServerPreset = settings.value("cloudServerPreset", GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex()).toInt();
+	const int defaultPresetIndex = 0;
+#endif
+	int32 cloudServerPreset = settings.value("cloudServerPreset", defaultPresetIndex).toInt();
 	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(cloudServerPreset);
 
 	bool backendLoggingEnabled = settings.value( "cloudLoggingEnabled", false ).toBool();
 	GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled(backendLoggingEnabled);
-#endif
 
 #ifdef FORCE_DEBUGLOGGING
 	GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled(true);
