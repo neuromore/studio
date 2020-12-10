@@ -972,20 +972,12 @@ void MainWindow::OnVisitSupport()
 {
 	User* user = GetUser();
 	
-	if (user != NULL && user->FindRule("STUDIO_SETTING_SupportEmail") != NULL)
-	{
-		// construct link
-		String link;
-		link.Format("mailto:%s?subject=Support Request: %s (%s)&body=Please let us know how we can help you.", GetManager()->GetSupportEMail(), GetManager()->GetAppName().AsChar(), user->GetId() );
+	// construct link
+	String link;
+	link.Format("mailto:%s?subject=Support Request: %s (%s)&body=Please let us know how we can help you.", GetManager()->GetSupportEMail(), GetManager()->GetAppName().AsChar(), user->GetId() );
 
-		QUrl url( link.AsChar() );
-		QDesktopServices::openUrl(url);
-	}
-	else
-	{
-		QUrl url( GetManager()->GetSupportUrl() );
-		QDesktopServices::openUrl(url);
-	}
+	QUrl url( link.AsChar() );
+	QDesktopServices::openUrl(url);
 }
 
 
