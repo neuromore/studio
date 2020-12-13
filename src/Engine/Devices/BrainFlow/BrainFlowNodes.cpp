@@ -14,7 +14,7 @@ namespace
 	constexpr int MaxIPPortValue = 65535;
 	constexpr int DefaultIPPortValue = 50000;
 
-	constexpr auto DefaultIPAddressValue = "127.0.0.1";
+	constexpr auto DefaultIPAddressValue = "192.168.4.1";
 
 
 	unsigned boardIDToBoardIndex(int boardID)
@@ -35,7 +35,7 @@ namespace
 		}
 		catch (...)
 		{
-			return "";
+			return "Unknown";
 		}
 	}
 }
@@ -44,7 +44,6 @@ void BrainFlowNode::Init()
 {
 	DeviceInputNode::Init();
 	{
-
 		Core::AttributeSettings* attribute = RegisterAttribute("Board ID", "boardID", "Identificator of the board", Core::ATTRIBUTE_INTERFACETYPE_COMBOBOX);
 		attribute->ResizeComboValues(BoardIDSize);
 		for (int boardID = MinBoardID; boardID <= MaxBoardID; ++boardID)

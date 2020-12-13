@@ -68,6 +68,7 @@ class ENGINE_API BrainFlowNode : public DeviceInputNode
 	private:
 		void SynchronizeParams();
 		void CreateNewDevice();
+
 };
 
 
