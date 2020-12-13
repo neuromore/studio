@@ -575,7 +575,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\prebuilt\win\x86\Debug\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -633,7 +634,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\prebuilt\win\x64\Debug\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -702,7 +704,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\prebuilt\win\x86\Release\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -771,7 +774,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\prebuilt\win\x86\Release\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -841,7 +845,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\prebuilt\win\x64\Release\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -911,8 +916,9 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\prebuilt\win\x64\Release\*.dll bin\x64\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

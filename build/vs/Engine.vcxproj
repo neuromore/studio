@@ -471,6 +471,7 @@
     <ClCompile Include="..\..\src\Engine\Creud.cpp" />
     <ClInclude Include="..\..\src\Engine\Creud.h" />
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\DSP\AttributeChannels.cpp" />
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h" />

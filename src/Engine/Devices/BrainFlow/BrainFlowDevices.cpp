@@ -30,6 +30,16 @@
 
 using namespace Core;
 
+namespace
+{
+	std::unique_ptr<BoardShim> connectToBoard(std::unique_ptr<BoardShim>&& board)
+	{
+		board->prepare_session();
+		board->start_stream();
+		return std::move(board);
+	}
+}
+
 BrainFlowDevice::BrainFlowDevice(DeviceDriver* deviceDriver)
 	: BciDevice(deviceDriver), mBoardId(BoardIds::SYNTHETIC_BOARD), mParams() 
 {
@@ -44,18 +54,10 @@ BrainFlowDevice::BrainFlowDevice(BoardIds boardId, BrainFlowInputParams params, 
 
 bool BrainFlowDevice::Connect()
 {
-	mBoard = std::make_unique<BoardShim>(getBoardId(), mParams);
-	try
-	{
-		mBoard->prepare_session();
-		mBoard->start_stream();
-	}
-	catch (const BrainFlowException& err)
-	{
-		mBoard.reset();
-		LogError(err.what());
-		return false;
-	}
+	mBoard = std::make_unique<BoardShim>(GetBoardId(), mParams);
+	BoardShim::enable_dev_board_logger();
+	BoardShim::set_log_file("brainflow.log");
+	mFuture = std::async(&connectToBoard, std::move(mBoard));
 	return Device::Connect();
 }
 
@@ -65,7 +67,6 @@ bool BrainFlowDevice::Disconnect()
 	{
 		try
 		{
-			mBoard->stop_stream();
 			mBoard->release_session();
 		}
 		catch (const BrainFlowException& err)
@@ -77,7 +78,7 @@ bool BrainFlowDevice::Disconnect()
 	return Device::Disconnect();
 }
 
-int BrainFlowDevice::getBoardId() const
+int BrainFlowDevice::GetBoardId() const
 {
 	return static_cast<int>(mBoardId);
 }
@@ -85,28 +86,55 @@ int BrainFlowDevice::getBoardId() const
 // get the available electrodes of the neuro headset
 void BrainFlowDevice::CreateElectrodes()
 {
+	// clear existed sensors/electrodes
 	mElectrodes.Clear();
-	try
+	mDefaultElectrodes.Clear();
+	mNeuroSensors.Clear();
+	mInputSensors.Clear();
+	mOutputSensors.Clear();
+	for (unsigned i = 0; i < mSensors.Size(); ++i)
+		delete mSensors[i];
+	mSensors.Clear();
+
+	int len = 0;
+	std::string* eegNames;
+	
+	if (mBoard && mBoard->is_prepared())
 	{
-		int len = 0;
-		std::string* eegNames = BoardShim::get_eeg_names(getBoardId(), &len);
-		mElectrodes.Reserve(len);
-		// todo check that BrainFlow IDs match studio IDs
-		for (int i = 0; i < len; i++)
+		try
 		{
-			mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(eegNames[i].c_str()));
+			eegNames = BoardShim::get_eeg_names(GetBoardId(), &len);
+		}
+		catch (const BrainFlowException& err)
+		{
+			LogError(err.what());
+			BoardShim::get_eeg_channels(GetBoardId(), &len);
+			eegNames = new std::string[len];
+			for (int i = 0; i < len; ++i)
+				eegNames[i] = "";
 		}
 	}
-	catch (const BrainFlowException& err)
+	else
 	{
-		LogError(err.what());
+		// create dummy electrode
+		len = 1;
+		eegNames = new std::string[len];
+		eegNames[len - 1] = "";
 	}
+	mElectrodes.Reserve(len);
+	// todo check that BrainFlow IDs match studio IDs
+	for (int i = 0; i < len; i++)
+	{
+		mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(eegNames[i].c_str()));
+	}
+	delete[] eegNames;
 }
+	
 
 
 void BrainFlowDevice::Update(const Core::Time& elapsed, const Core::Time& delta)
 {
-	if (!mBoard || !mBoard->is_prepared())
+	if (!InitAfterConnected())
 		return;
 	try
 	{
@@ -114,7 +142,7 @@ void BrainFlowDevice::Update(const Core::Time& elapsed, const Core::Time& delta)
 		double** board_data;
 		board_data = mBoard->get_board_data(&data_count);
 		int channels_count;
-		int* channels_numbers = BoardShim::get_eeg_channels(getBoardId(), &channels_count);
+		int* channels_numbers = BoardShim::get_eeg_channels(GetBoardId(), &channels_count);
 		for (uint32 i = 0; i < mSensors.Size(); ++i)
 		{
 			auto* sensor = mSensors[i];
@@ -126,24 +154,72 @@ void BrainFlowDevice::Update(const Core::Time& elapsed, const Core::Time& delta)
 				sensor->AddQueuedSample(value);
 			}
 		}
-		// update the neuro headset
-		Device::Update(elapsed, delta);
 	}
 	catch (const BrainFlowException& err)
 	{
 		LogError(err.what());
 		return;
 	}
+	// update the neuro headset
+	Device::Update(elapsed, delta);
+}
+
+bool BrainFlowDevice::DoesConnectingFinished() const
+{
+	return mFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
+}
+
+bool BrainFlowDevice::InitAfterConnected()
+{
+	if (mBoard && mFuture.valid())
+	{
+		return DoesConnectingFinished();
+	}
+	else if (mBoard && !mFuture.valid())
+	{
+		// had already been connected and initialized
+		return true;
+	}
+	else if (!mBoard && !mFuture.valid())
+	{
+		// no device and no trying to connect
+		return false;
+	}
+	else if (!mBoard && mFuture.valid() && !DoesConnectingFinished())
+	{
+		// connecting has not been not finished yet
+		return false;
+	}
+
+	// initialize device after connecting finished
+	try
+	{
+		mBoard = std::move(mFuture.get());
+		// device is connected successfully
+		CreateSensors();
+		GetEngine()->SetActiveBci(this);
+		return true;
+	}
+	catch (const BrainFlowException& err)
+	{
+		// device is failed to connect
+		Disconnect();
+		GetDeviceManager()->RemoveDeviceAsync(this);
+		mBoard.reset();
+		LogError(err.what());
+		return false;
+	}
 }
 
 double BrainFlowDevice::GetSampleRate() const {
 	try
 	{
-		return BoardShim::get_sampling_rate(getBoardId());
+		return BoardShim::get_sampling_rate(GetBoardId());
 	}
 	catch (const BrainFlowException& err)
 	{
 		LogError(err.what());
+		return 200;
 	}
 };
 

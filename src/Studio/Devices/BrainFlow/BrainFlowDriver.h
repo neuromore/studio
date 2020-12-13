@@ -54,6 +54,8 @@ public:
 	void OnDeviceAdded(Device* device) override;
 	void OnRemoveDevice(Device* device) override;
 
+	void OnRemoveNode(Graph* graph, Node* node) override;
+
 	Device* CreateDevice(BoardIds boardId, BrainFlowInputParams params);
 private:
 	Device* CreateDevice(uint32 deviceTypeID) override { return nullptr; };

@@ -540,6 +540,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
