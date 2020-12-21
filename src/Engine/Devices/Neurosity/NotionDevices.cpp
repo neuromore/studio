@@ -33,19 +33,15 @@ using namespace Core;
 //constructor
 NotionDevice::NotionDevice(DeviceDriver* driver) : BciDevice(driver)
 {
-	LogDetailedInfo("Constructing Notion 2 headset...");
-
-    // create default OSC address
+    LogDetailedInfo("Constructing Notion 2 headset...");
     mOscPathPattern = "/neurosity/notion/*/raw";
-    // mOscPathPattern = "/notion2/*/raw";
-
     CreateSensors();
 }
 
 // destructor
 NotionDevice::~NotionDevice()
 {
-	LogDetailedInfo("Destructing Notion 2 headset ...");
+    LogDetailedInfo("Destructing Notion 2 headset ...");
 }
 
 // get the available electrodes of the headset
@@ -79,10 +75,8 @@ void NotionDevice::ProcessMessage(OscMessageParser* message)
     // raw 8 channel eeg
     if (message->MatchAddress("/neurosity/notion/*/raw") == true)
     {
-        auto num_args = message->GetNumArguments();
-        if (message->GetNumArguments() != 13)
+        if (message->GetNumArguments() < 8)
             return;
-        
 
         // sensor order is: CP5, F5, C3, CP3, CP6, F6, C4, CP4
         for (uint32 i = 0; i < 8; ++i)
@@ -93,37 +87,54 @@ void NotionDevice::ProcessMessage(OscMessageParser* message)
             GetSensor(i)->AddQueuedSample(rawValue);
         }
     }
-} 
+}
 
-/*
 void NotionDevice::SetDeviceId(uint32 deviceId)
 {
-    mDeviceId = deviceId;
-
-    // update osc address
-    mOscAddress.Format("/neurosity/notion/%i/raw");
+    mDeviceID = deviceId;
 }
-*/
+
+void NotionDevice::SetDeviceString(const Core::String& deviceString)
+{
+    Device::SetDeviceString(deviceString);
+    mOscAddress = "/neurosity/notion/" + deviceString + "/raw";
+}
 
 int32 NotionDevice::GetOscPathDeviceId(const Core::String& address) const
 {
-    int32 deviceId = 0;
-    Array<String> elements = address.Split(StringCharacter::forwardSlash);
-
-    if (elements.Size() > 3)
+    const Array<String> elements = address.Split(StringCharacter::forwardSlash);
+    if (elements.Size() >= 4)
     {
-        // pull elements[3] from the message and store it to a variable (likely string)
-        
-        // convert string to integer
+        // should look like: 'local7cca794fb5f4675a69371e949b2'
+        ::std::string s = elements[3];
 
-        // store integer to deviceId
-        deviceId = 1;
+        // must have at least 4 symbols
+        if (s.length() >= 4)
+        {
+            // get last 4 hex symbols (16-bit)
+            s = s.substr(s.length() - 4, 4);
 
+            // try hex to bin
+            int32 x;
+            std::stringstream ss;
+            ss << std::hex << s;
+            ss >> x;
+
+            // x = 0 if non-hex symbol
+            return x != 0 ? x : -1;
+        }
     }
-    
-    return deviceId;
+
+    // fail
+    return -1;
 }
 
-
+Core::String NotionDevice::GetOscPathDeviceString(const Core::String& address) const
+{
+    // e.g. returns 'local7cca794fb5f4675a69371e949b2'
+    // for '/neurosity/notion/local7cca794fb5f4675a69371e949b2/raw'
+    const Array<String> elements = address.Split(StringCharacter::forwardSlash);
+    return (elements.Size() >= 4) ? elements[3] : "";
+}
 
 #endif

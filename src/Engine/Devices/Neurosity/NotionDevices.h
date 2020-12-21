@@ -63,11 +63,13 @@ class ENGINE_API NotionDevice : public BciDevice
         //static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion2"; }
 
         int32 GetOscPathDeviceId(const Core::String& address) const override;
+        Core::String GetOscPathDeviceString(const Core::String& address) const override;
 
         void CreateElectrodes() override; 
         void CreateSensors() override;
 
-        void SetDeviceId(uint32 deviceId);
+        void SetDeviceId(uint32 deviceId) override;
+        void SetDeviceString(const Core::String& deviceString) override;
         void ProcessMessage(OscMessageParser* message) override;
 };
 
