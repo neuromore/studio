@@ -678,8 +678,6 @@ void MainWindow::OnPostAuthenticationInit()
 		}
 	}
 
-	//GetDeviceManager()->AddDeviceAsync(new Notion2Device());
-
 #ifndef PRODUCTION_BUILD
 	// production backend while dev version message box (EDIT: This is OK since Open-Source)
 	//if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)

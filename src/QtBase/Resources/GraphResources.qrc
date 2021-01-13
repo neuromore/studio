@@ -83,7 +83,6 @@
         <file>Images/Graph/4d7c5af3-39bc-4f5d-8a27-bdefa6df404c.png</file>
         <file>Images/Graph/dca2c60e-35a7-45b0-a3fa-1f7244193f10.png</file>
         <file>Images/Graph/815cd8a2-6a43-49db-b1ca-6beca340c6d0.png</file>
-		<file>Images/Graph/1cd1e229-b6ac-4d70-92c6-9e987f49e9cf.png</file>
-		<file>Images/Graph/23d427d8-11d5-417d-80e0-52636ec49339.png</file>
-    </qresource>
+        <file>Images/Graph/1cd1e229-b6ac-4d70-92c6-9e987f49e9cf.png</file>
+   </qresource>
 </RCC>

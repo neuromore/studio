@@ -56,7 +56,7 @@ class ENGINE_API NotionDevice : public BciDevice
         double GetSampleRate() const override               { return 250; }
         const char* GetHardwareName() const override        { return "Neurosity Notion"; }
         const char* GetUuid() const override                { return "1cd1e229-b6ac-4d70-92c6-9e987f49e9cf"; }
-        const char* GetTypeName() const override            { return "notion2"; }
+        const char* GetTypeName() const override            { return "notion"; }
         double GetLatency() const override                  { return 0.1; }
         double GetExpectedJitter() const override           { return 0.2; }
         bool IsWireless() const override                    { return false; /* we do not know the connection quality of the muse; this removes the connection quality icon in the device manager */ }
