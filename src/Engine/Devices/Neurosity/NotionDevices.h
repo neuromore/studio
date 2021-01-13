@@ -33,14 +33,16 @@
 class NotionSystem;
 
 
-// the Neurosity Notion2 headset class
+// the Neurosity Notion 1 and 2 headset class
 class ENGINE_API NotionDevice : public BciDevice
 {
     public:
         enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_NEUROSITY_NOTION };
 
-        enum {
-            SENSOR_CONCENTRATION = 8,
+        // There are two revisions of the Notion
+        enum SubType {
+            NOTION1 = 1,
+            NOTION2 = 2
         };
 
         // CONSTRUCTOR AND DESTRUCTOR
@@ -70,6 +72,12 @@ class ENGINE_API NotionDevice : public BciDevice
         void SetDeviceId(uint32 deviceId) override;
         void SetDeviceString(const Core::String& deviceString) override;
         void ProcessMessage(OscMessageParser* message) override;
+
+        inline SubType getSubType() { return mSubType; }
+        inline void setSubType(const SubType type) { mSubType = type; }
+
+   protected:
+      SubType mSubType;
 };
 
 #endif

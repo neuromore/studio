@@ -31,9 +31,9 @@
 using namespace Core;
 
 //constructor
-NotionDevice::NotionDevice(DeviceDriver* driver) : BciDevice(driver)
+NotionDevice::NotionDevice(DeviceDriver* driver) : BciDevice(driver), mSubType(SubType::NOTION2)
 {
-    LogDetailedInfo("Constructing Notion 2 headset...");
+    LogDetailedInfo("Constructing Notion headset...");
     mOscPathPattern = "/neurosity/notion/*/raw";
     CreateSensors();
 }
@@ -41,7 +41,7 @@ NotionDevice::NotionDevice(DeviceDriver* driver) : BciDevice(driver)
 // destructor
 NotionDevice::~NotionDevice()
 {
-    LogDetailedInfo("Destructing Notion 2 headset ...");
+    LogDetailedInfo("Destructing Notion headset ...");
 }
 
 // get the available electrodes of the headset
@@ -49,15 +49,14 @@ void NotionDevice::CreateElectrodes()
 {
     mElectrodes.Clear();
     mElectrodes.Reserve(8);
-
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));
-    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4"));
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP5")); // 0
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));  // 1
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));  // 2
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3")); // 3
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP6")); // 4
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));  // 5
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));  // 6
+    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4")); // 7
 }
 
 void NotionDevice::CreateSensors()
@@ -68,8 +67,8 @@ void NotionDevice::CreateSensors()
 
 void NotionDevice::ProcessMessage(OscMessageParser* message)
 {
-    // do nothing is device was disabled
-    if (IsEnabled() == false)
+    // do nothing is device was disabled or not enough sensors for code
+    if (IsEnabled() == false || GetNumSensors() < 8)
         return;
 
     // raw 8 channel eeg
@@ -78,13 +77,37 @@ void NotionDevice::ProcessMessage(OscMessageParser* message)
         if (message->GetNumArguments() < 8)
             return;
 
-        // sensor order is: CP5, F5, C3, CP3, CP6, F6, C4, CP4
-        for (uint32 i = 0; i < 8; ++i)
-        {
-            float rawValue; (*message) >> rawValue;
+        // get the 8 osc values
+        float v0; (*message) >> v0;
+        float v1; (*message) >> v1;
+        float v2; (*message) >> v2;
+        float v3; (*message) >> v3;
+        float v4; (*message) >> v4;
+        float v5; (*message) >> v5;
+        float v6; (*message) >> v6;
+        float v7; (*message) >> v7;
 
-            // add sample to each channel
-            GetSensor(i)->AddQueuedSample(rawValue);
+        if (mSubType == NOTION2)
+        {
+           GetSensor(0)->AddQueuedSample(v0); // v0 = CP5
+           GetSensor(1)->AddQueuedSample(v1); // v1 = F5
+           GetSensor(2)->AddQueuedSample(v2); // v2 = C3
+           GetSensor(3)->AddQueuedSample(v3); // v3 = CP3
+           GetSensor(4)->AddQueuedSample(v4); // v4 = CP6
+           GetSensor(5)->AddQueuedSample(v5); // v5 = F6
+           GetSensor(6)->AddQueuedSample(v6); // v6 = C4
+           GetSensor(7)->AddQueuedSample(v7); // v7 = CP4
+        }
+        else if (mSubType == NOTION1)
+        {
+           GetSensor(4)->AddQueuedSample(v0); // v0 = CP6
+           GetSensor(5)->AddQueuedSample(v1); // v1 = F6
+           GetSensor(6)->AddQueuedSample(v2); // v2 = C4
+           GetSensor(7)->AddQueuedSample(v3); // v3 = CP4
+           GetSensor(3)->AddQueuedSample(v4); // v4 = CP3
+           GetSensor(1)->AddQueuedSample(v5); // v5 = F5
+           GetSensor(2)->AddQueuedSample(v6); // v6 = C3
+           GetSensor(0)->AddQueuedSample(v7); // v7 = CP5
         }
     }
 }
