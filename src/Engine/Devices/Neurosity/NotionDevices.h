@@ -59,8 +59,7 @@ class ENGINE_API NotionDevice : public BciDevice
         double GetExpectedJitter() const override           { return 0.2; }
         bool IsWireless() const override                    { return false; /* we do not know the connection quality of the muse; this removes the connection quality icon in the device manager */ }
         bool HasEegContactQualityIndicator() override       { return true; }
-        static const char* GetRuleName() { return "DEVICE_InteraxonMuse"; }
-        //static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion2"; }
+        static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion"; }
 
         int32 GetOscPathDeviceId(const Core::String& address) const override;
         Core::String GetOscPathDeviceString(const Core::String& address) const override;
