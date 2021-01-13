@@ -49,7 +49,6 @@
 #include "Devices/DriverInventory.h"
 #include <Devices/Test/TestDeviceDriver.h>
 #include <Devices/Muse/MuseDevice.h>
-#include <Devices/Neurosity/NotionDevices.h>
 #include "Devices/Audio/AudioDriver.h"
 
 #include <System/SerialPort.h>
