@@ -84,75 +84,75 @@ void NotionDevice::ProcessMessage(OscMessageParser* message)
     // raw 8 channel eeg
     if (message->MatchAddress("/neurosity/notion/*/raw") == true)
     {
-        if (message->GetNumArguments() < 13)
-            return;
+        // validate data layout
+        if (strcmp(message->GetTypeTags(), "[ffffffff]sis") != 0)
+           return;
 
-        // ignore the array start (TODO: This is wrong type)
-        char v0; (*message) >> v0;
+        // get iterator
+        auto it = message->GetOscMessage().ArgumentsBegin();
 
-        // parse the array values
-        float v1; (*message) >> v1;
-        float v2; (*message) >> v2;
-        float v3; (*message) >> v3;
-        float v4; (*message) >> v4;
-        float v5; (*message) >> v5;
-        float v6; (*message) >> v6;
-        float v7; (*message) >> v7;
-        float v8; (*message) >> v8;
-        
-        // ignore the array end (TODO: This is wrong type)
-        //char v9; (*message) >> v9;
+        // EEG
+        it++; // array start
+        const float v1 = it->AsFloat(); it++;
+        const float v2 = it->AsFloat(); it++;
+        const float v3 = it->AsFloat(); it++;
+        const float v4 = it->AsFloat(); it++;
+        const float v5 = it->AsFloat(); it++;
+        const float v6 = it->AsFloat(); it++;
+        const float v7 = it->AsFloat(); it++;
+        const float v8 = it->AsFloat(); it++;
+        it++; // array end
 
-        // we don't use these threre
-        //int v10; (*message) >> v10; //c-string
-        //int v11; (*message) >> v11; //int32
-        //int v12; (*message) >> v12; //c-string
+        // Misc/Unused
+        const char* a1 = it->AsString(); it++;
+        const int   a2 = it->AsInt32();  it++;
+        const char* a3 = it->AsString(); it++;
 
         if (mSubType == NOTION2)
         {
-           GetSensor(0)->AddQueuedSample(v1); // v1 = CP5
-           GetSensor(1)->AddQueuedSample(v2); // v2 = F5
-           GetSensor(2)->AddQueuedSample(v3); // v3 = C3
-           GetSensor(3)->AddQueuedSample(v4); // v4 = CP3
-           GetSensor(4)->AddQueuedSample(v5); // v5 = CP6
-           GetSensor(5)->AddQueuedSample(v6); // v6 = F6
-           GetSensor(6)->AddQueuedSample(v7); // v7 = C4
-           GetSensor(7)->AddQueuedSample(v8); // v8 = CP4
+            GetSensor(0)->AddQueuedSample(v1); // v1 = CP5
+            GetSensor(1)->AddQueuedSample(v2); // v2 = F5
+            GetSensor(2)->AddQueuedSample(v3); // v3 = C3
+            GetSensor(3)->AddQueuedSample(v4); // v4 = CP3
+            GetSensor(4)->AddQueuedSample(v5); // v5 = CP6
+            GetSensor(5)->AddQueuedSample(v6); // v6 = F6
+            GetSensor(6)->AddQueuedSample(v7); // v7 = C4
+            GetSensor(7)->AddQueuedSample(v8); // v8 = CP4
         }
         else if (mSubType == NOTION1)
         {
-           GetSensor(4)->AddQueuedSample(v1); // v1 = CP6
-           GetSensor(5)->AddQueuedSample(v2); // v2 = F6
-           GetSensor(6)->AddQueuedSample(v3); // v3 = C4
-           GetSensor(7)->AddQueuedSample(v4); // v4 = CP4
-           GetSensor(3)->AddQueuedSample(v5); // v5 = CP3
-           GetSensor(1)->AddQueuedSample(v6); // v6 = F5
-           GetSensor(2)->AddQueuedSample(v7); // v7 = C3
-           GetSensor(0)->AddQueuedSample(v8); // v8 = CP5
+            GetSensor(4)->AddQueuedSample(v1); // v1 = CP6
+            GetSensor(5)->AddQueuedSample(v2); // v2 = F6
+            GetSensor(6)->AddQueuedSample(v3); // v3 = C4
+            GetSensor(7)->AddQueuedSample(v4); // v4 = CP4
+            GetSensor(3)->AddQueuedSample(v5); // v5 = CP3
+            GetSensor(1)->AddQueuedSample(v6); // v6 = F5
+            GetSensor(2)->AddQueuedSample(v7); // v7 = C3
+            GetSensor(0)->AddQueuedSample(v8); // v8 = CP5
         }
     }
     else if (message->MatchAddress("/neurosity/notion/*/info") == true)
     {
-       // expecting 9 values
-       if (message->GetNumArguments() != 9)
-          return;
+        // validate data layout
+        if (strcmp(message->GetTypeTags(), "ssssssiis") != 0)
+            return;
 
-       // parse them
-       const char* deviceId       = 0; (*message) >> deviceId;
-       const char* deviceNickname = 0; (*message) >> deviceNickname;
-       const char* model          = 0; (*message) >> model;
-       const char* modelName      = 0; (*message) >> modelName;
-       const char* modelVersion   = 0; (*message) >> modelVersion;
-       const char* manufacturer   = 0; (*message) >> manufacturer;
-       int         samplingRate   = 0; (*message) >> samplingRate;
-       int         numChannels    = 0; (*message) >> numChannels;
-       const char* channelnames   = 0; (*message) >> channelnames;
+        // parse them
+        const char* deviceId       = 0; (*message) >> deviceId;
+        const char* deviceNickname = 0; (*message) >> deviceNickname;
+        const char* model          = 0; (*message) >> model;
+        const char* modelName      = 0; (*message) >> modelName;
+        const char* modelVersion   = 0; (*message) >> modelVersion;
+        const char* manufacturer   = 0; (*message) >> manufacturer;
+        int         samplingRate   = 0; (*message) >> samplingRate;
+        int         numChannels    = 0; (*message) >> numChannels;
+        const char* channelnames   = 0; (*message) >> channelnames;
 
-       // apply subtype
-       if (strcmp(model, "1") == 0) mSubType = NOTION1;
-       else                         mSubType = NOTION2;
+        // apply subtype
+        if (strcmp(model, "1") == 0) mSubType = NOTION1;
+        else                         mSubType = NOTION2;
 
-       // could use samplerate too?
+        // could use samplerate too?
     }
 }
 

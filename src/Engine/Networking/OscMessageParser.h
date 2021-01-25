@@ -46,6 +46,8 @@ class ENGINE_API OscMessageParser
 		uint32 GetNumArguments() const;
 		const char* GetTypeTags() const;
 		
+		inline osc::ReceivedMessage& GetOscMessage() { return mMessage; }
+
 		// match an address against an adress pattern (may contain wildcards)
 		static bool MatchAddress(const char* messageAddress, const char* addressPattern);
 		bool MatchAddress(const char* addressPattern)		{ return MatchAddress(GetAddress(), addressPattern); } 
