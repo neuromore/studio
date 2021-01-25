@@ -133,7 +133,26 @@ void NotionDevice::ProcessMessage(OscMessageParser* message)
     }
     else if (message->MatchAddress("/neurosity/notion/*/info") == true)
     {
-       // TODO: Read type (and may be otherrs, sample rate from it?)
+       // expecting 9 values
+       if (message->GetNumArguments() != 9)
+          return;
+
+       // parse them
+       const char* deviceId       = 0; (*message) >> deviceId;
+       const char* deviceNickname = 0; (*message) >> deviceNickname;
+       const char* model          = 0; (*message) >> model;
+       const char* modelName      = 0; (*message) >> modelName;
+       const char* modelVersion   = 0; (*message) >> modelVersion;
+       const char* manufacturer   = 0; (*message) >> manufacturer;
+       int         samplingRate   = 0; (*message) >> samplingRate;
+       int         numChannels    = 0; (*message) >> numChannels;
+       const char* channelnames   = 0; (*message) >> channelnames;
+
+       // apply subtype
+       if (strcmp(model, "1") == 0) mSubType = NOTION1;
+       else                         mSubType = NOTION2;
+
+       // could use samplerate too?
     }
 }
 
