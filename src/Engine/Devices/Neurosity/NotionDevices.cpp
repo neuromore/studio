@@ -173,7 +173,7 @@ int32 NotionDevice::GetOscPathDeviceId(const Core::String& address) const
     if (elements.Size() >= 4)
     {
         // should look like: 'local7cca794fb5f4675a69371e949b2'
-        ::std::string s = elements[3];
+        ::std::string s(elements[3].AsChar());
 
         // must have at least 4 symbols
         if (s.length() >= 4)
