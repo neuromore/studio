@@ -854,8 +854,9 @@ void DeviceManager::ProcessMessage(OscMessageParser* message)
 		// check if address matches the address pattern of the device
 		if (message->MatchAddress(prototype->GetOscPathPattern().AsChar()))
 		{
-			// try to extract device ID from the message address
+			// try to extract device ID (mandatory) and the device String (optional) from the message address
 			const int32 deviceId = prototype->GetOscPathDeviceId(message->GetAddress());
+			const Core::String deviceString = prototype->GetOscPathDeviceString(message->GetAddress());
 
 			// looks like we have a match! Create the device!
 			if (deviceId != -1)
@@ -871,8 +872,9 @@ void DeviceManager::ProcessMessage(OscMessageParser* message)
 				else
 					device = prototype->Clone();
 			
-				// configure the device id
+				// configure the device id and string
 				device->SetDeviceId(deviceId);
+				device->SetDeviceString(deviceString);
 			
 				// add device to engine asynchronously
 				// Note: this also registers the receiver immediately!
