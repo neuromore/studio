@@ -38,6 +38,7 @@ Device::Device(DeviceDriver* deviceDriver) : OscReceiver()
 
 	mDeviceDriver					= deviceDriver;
 	mDeviceID						= CORE_INVALIDINDEX32;
+	mDeviceString					= "";
 	mName							= "";
 	mOscPathPattern					= "";
 	mState							= STATE_DISCONNECTED;
@@ -515,4 +516,9 @@ int32 Device::GetOscPathDeviceId(const Core::String& address) const
 	}
 
 	return deviceId;
+}
+
+Core::String Device::GetOscPathDeviceString(const Core::String& address) const
+{
+	return Core::String();
 }
