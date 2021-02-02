@@ -73,7 +73,7 @@ void eemagineDevice::CreateSensors()
             else if (String::SafeCompare(sensor->GetName(), "P3") == 0)  sensor->SetHardwareChannel(4);
             else if (String::SafeCompare(sensor->GetName(), "Pz") == 0)  sensor->SetHardwareChannel(5);
             else if (String::SafeCompare(sensor->GetName(), "P4") == 0)  sensor->SetHardwareChannel(6);
-            else if (String::SafeCompare(sensor->GetName(), "M1") == 0)  sensor->SetHardwareChannel(7);
+            else if (String::SafeCompare(sensor->GetName(), "A1") == 0)  sensor->SetHardwareChannel(7);
             else if (String::SafeCompare(sensor->GetName(), "REF") == 0) sensor->SetHardwareChannel(-1); // later read from amplifier channel list
             else if (String::SafeCompare(sensor->GetName(), "GND") == 0) sensor->SetHardwareChannel(-1); // later read from amplifier channel list
          }
@@ -240,7 +240,7 @@ void eemagine8Device::CreateElectrodes()
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 05
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 06
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 07
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("M1"));   // 08
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1"));   // 08
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("REF"));  //
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("GND"));  //
 }
