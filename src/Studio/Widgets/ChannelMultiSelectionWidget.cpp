@@ -172,6 +172,16 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 			numBoxesToSelect = numCheckBoxes; break;
 	}
 	mChannelMultiCheckbox->CheckXCheckboxes(numBoxesToSelect);
+
+	// disable REF and GND by default
+	for (uint32 i = 0; i < names.Size(); i++)
+	{
+		if (i >= mChannelMultiCheckbox->GetNumCheckboxes())
+			return;
+
+		if (names[i] == "REF" || names[i] == "GND")
+			mChannelMultiCheckbox->GetCheckbox(i)->setChecked(false);
+	}
 }
 
 
