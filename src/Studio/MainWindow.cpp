@@ -1208,13 +1208,21 @@ void MainWindow::OnSettings()
 		mSettingsWindow = new SettingsWindow(this);
 		mSettingsWindow->Init();
 
+		// check if admin or clinic admin
+		const bool isAdmin = GetUser()->FindRule("ROLE_Admin") != NULL || GetUser()->FindRule("ROLE_ClinicAdmin");
+
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// General category
 
+#ifdef NEUROMORE_BRANDING_ANT
+		const bool generalReadOnly = !isAdmin;
+#else
+		const bool generalReadOnly = false;
+#endif
 		const char* categoryName = "General";
 		PropertyTreeWidget* generalPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (generalPropertyWidget == NULL)
-			generalPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Gear.png", false);
+			generalPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Gear.png", generalReadOnly);
 
 		connect( generalPropertyWidget->GetPropertyManager(), &PropertyManager::ValueChanged, this, &MainWindow::OnValueChanged );
 
@@ -1239,10 +1247,15 @@ void MainWindow::OnSettings()
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Devices category
 
+#ifdef NEUROMORE_BRANDING_ANT
+		const bool devicesReadOnly = !isAdmin;
+#else
+		const bool devicesReadOnly = false;
+#endif
 		categoryName = "Devices";
 		PropertyTreeWidget* devicePropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (devicePropertyWidget == NULL)
-			devicePropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Devices.png", false);
+			devicePropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Devices.png", devicesReadOnly);
 
 		connect(devicePropertyWidget->GetPropertyManager(), &PropertyManager::ValueChanged, this, &MainWindow::OnValueChanged);
 
@@ -1312,10 +1325,15 @@ void MainWindow::OnSettings()
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Network category
 
+#ifdef NEUROMORE_BRANDING_ANT
+		const bool networkReadOnly = !isAdmin;
+#else
+		const bool networkReadOnly = false;
+#endif
 		categoryName = "Network";
 		PropertyTreeWidget* networkPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (networkPropertyWidget == NULL)
-			networkPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Network.png", false);
+			networkPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Network.png", networkReadOnly);
 			
 		connect(networkPropertyWidget->GetPropertyManager(), &PropertyManager::ValueChanged, this, &MainWindow::OnValueChanged);
 	
