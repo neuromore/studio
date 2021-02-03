@@ -401,6 +401,8 @@ void EEGElectrodes::Init()
 	// Note: wrong position: electrodes can lie only on the sphere so we use the outer most electrode positions. 
 	mElectrodes.Add( Electrode("A1",  180.000,  -22.500) );		// left ear: drawn at same pos as T9
 	mElectrodes.Add( Electrode("A2",  0.000,  -22.500) );		// left ear: drawn at same pos as T10
+	mElectrodes.Add( Electrode("M1",  180.000,  -22.500) );		// masteroid, almost like A1
+	mElectrodes.Add( Electrode("M2",  0.000,  -22.500) );		// masteroid, almost like A2
 	mElectrodes.Add( Electrode("LPA",  180.000,  -22.500) );	// same as A1
 	mElectrodes.Add( Electrode("RPA",  0.000,  -22.500) );		// same as A2
 	mElectrodes.Add( Electrode("LM",  -162.000,  -22.500) );	// not sure what position this is
