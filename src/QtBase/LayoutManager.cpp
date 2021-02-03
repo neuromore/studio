@@ -170,6 +170,9 @@ void LayoutManager::ReInit()
 	RegisterLayout( new Layout(Layout::BUILTIN, "EEG",					":/Layouts/OSX_EEG.layout",						"LAYOUT_EEG",					"") );
 #endif
 
+#ifdef NEUROMORE_BRANDING_ANT
+	RegisterLayout(new Layout(Layout::BUILTIN, "Clinician", ":/Layouts/Clinician.layout", "LAYOUT_Clinician", ""));
+#endif
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// Local layouts
