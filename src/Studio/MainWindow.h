@@ -187,10 +187,10 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 
 		LayoutMenu*					mLayoutMenu;
 		PluginMenu*					mPluginMenu;
-		QMenu*						mEditMenu;
 		QMenu*						mDesignMenu;
 		QMenu*						mVisualizationMenu;
-		
+		QMenu*						mToolsMenu;
+
 		QAction*					mExitAction;
 		QAction*					mSaveAction;
 		QAction*					mCloseAction;
