@@ -645,12 +645,14 @@ void SessionControlPlugin::OnStop()
 				// save the physiological data
 				SessionExporter::Save( path.AsChar(), GetSessionUser()->GetId(), response.GetDataChunkId() );
 
+#ifndef NEUROMORE_BRANDING_ANT
 				if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
 				{
 					// show report window
 					ReportWindow reportWindow( mReportSessionId, GetMainWindow() );
 					reportWindow.exec();
 				}
+#endif
 			}
 		}
 	});
