@@ -486,8 +486,10 @@ void MainWindow::Init()
 	QAction* visitHelpCenterAction = helpMenu->addAction( tr("Account"), this, &MainWindow::OnVisitAccount );
 	visitHelpCenterAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Internet.png") );
 
+#ifndef NEUROMORE_BRANDING_ANT
 	QAction* visitDocsAction = helpMenu->addAction( tr("Documentation"), this, &MainWindow::OnVisitDocumentation );
 	visitDocsAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Internet.png") );
+#endif
 
 	QAction* feedbackAction = helpMenu->addAction( tr("Support"), this, &MainWindow::OnVisitSupport );
 	feedbackAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Support.png") );
