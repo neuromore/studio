@@ -35,11 +35,7 @@ using namespace Core;
 VisualizationSelectWindow::VisualizationSelectWindow(QWidget* parent) : QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint)
 {
 	// set the window title
-#if defined(NEUROMORE_BRANDING_ANT)
-	setWindowTitle( "Game Selection" );
-#else
 	setWindowTitle( "Select Visualization" );
-#endif
 
 	setModal(true);
 	setWindowModality( Qt::ApplicationModal );
