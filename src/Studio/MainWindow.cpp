@@ -610,25 +610,9 @@ void MainWindow::OnPostAuthenticationInit()
 	//GetLayoutManager()->ReInit(); // EnableCustomizing calls ReInit() internally
 
 	// Select start layout
-#ifdef NEUROMORE_BRANDING_ANT
-	const bool isClinicianOrOperator = 
-		user->FindRule("ROLE_ClinicClinician") != NULL || 
-		user->FindRule("ROLE_ClinicOperator")  != NULL;
-	if (isClinicianOrOperator)
-	{
-		LogDetailedInfo("Switching to Clinician layout ...");
-		GetLayoutManager()->SwitchToLayoutByName("Clinician");
-	}
-	else
-	{
-		LogDetailedInfo("Switching to first layout ...");
-		GetLayoutManager()->SwitchToLayoutByIndex(0);
-	}
-#else
 	// auto use the first layout when calling the first time
 	LogDetailedInfo("Switching to first layout ...");
 	GetLayoutManager()->SwitchToLayoutByIndex( 0 );
-#endif
 
 #ifdef NEUROMORE_BRANDING_ANT
 	const bool isAdminOrClinicAdmin = 
