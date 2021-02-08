@@ -44,6 +44,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QMessageBox>
+#include <QDesktopServices>
 
 
 using namespace Core;
@@ -715,6 +716,24 @@ void SessionControlPlugin::UpdateShowReportButton()
 	showReportButton->setVisible(isVisible);
 }
 
+
+void SessionControlPlugin::ShowReport()
+{
+	// this is a duplicate from ReportWindow
+
+	if (mReportSessionId.IsEmpty() == true)
+		return;
+
+	String finalUrl = GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPreset().mWebserverUrl;
+	finalUrl += "/#/report?dataChunkId=";
+	finalUrl += mReportSessionId;
+	finalUrl += "&token=";
+	finalUrl += GetUser()->GetToken();
+	finalUrl += "&clamping=false";
+
+	// start-up the online statistics in the default browser
+	QDesktopServices::openUrl(QUrl(finalUrl.AsChar()));
+}
 
 // called after switching layout
 void SessionControlPlugin::OnAfterLoadLayout()
