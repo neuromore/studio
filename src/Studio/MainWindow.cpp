@@ -686,6 +686,10 @@ void MainWindow::OnPostAuthenticationInit()
 		}
 	}
 
+	// show session user selection window if the rule is set
+	if (user->FindRule("STUDIO_SETTING_SelectUser") != NULL)
+		SelectSessionUser();
+
 #ifndef PRODUCTION_BUILD
 	// production backend while dev version message box (EDIT: This is OK since Open-Source)
 	//if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)
