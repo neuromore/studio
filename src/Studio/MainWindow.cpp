@@ -691,8 +691,8 @@ void MainWindow::OnPostAuthenticationInit()
 		}
 	}
 
-	// show session user selection window if the rule is set
-	if (user->FindRule("STUDIO_SETTING_SelectUser") != NULL)
+	// show session user selection window if the rule is set and role matches
+	if ((user->FindRule("ROLE_ClinicClinician") || user->FindRule("ROLE_ClinicOperator")) && user->FindRule("STUDIO_SETTING_SelectUser") != NULL)
 		SelectSessionUser();
 
 #ifndef PRODUCTION_BUILD
