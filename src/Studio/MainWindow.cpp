@@ -121,6 +121,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags) : MainWindowBase(
 	mExperienceWizardWindow    = NULL;
 	mVisualizationMenu			= NULL;
 	mToolsMenu					= NULL;
+	mSettingsAction				= NULL;
 
 	LogDetailedInfo("Adding main window event handler ...");
 	CORE_EVENTMANAGER.AddEventHandler(this);
@@ -299,8 +300,8 @@ void MainWindow::Init()
 	QAction* resetEngineAction = fileMenu->addAction(tr("Reset Engine"), this, &MainWindow::OnResetEngine);
 	resetEngineAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Reset.png"));
 
-	QAction* settingsAction = fileMenu->addAction(tr("&Settings"), this, &MainWindow::OnSettings);
-	settingsAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Gear.png"));
+	mSettingsAction = fileMenu->addAction(tr("&Settings"), this, &MainWindow::OnSettings);
+	mSettingsAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Gear.png"));
 
 	fileMenu->addSeparator();
 
@@ -622,6 +623,10 @@ void MainWindow::OnPostAuthenticationInit()
 	// hide the Tools menu for non-admins
 	if (mToolsMenu && !isAdminOrClinicAdmin)
 		mToolsMenu->menuAction()->setVisible(false);
+
+	// hide the Settings menu for non admins
+	if (mSettingsAction && !isAdminOrClinicAdmin)
+		mSettingsAction->setVisible(false);
 #endif
 
 	// select user button
@@ -1211,15 +1216,10 @@ void MainWindow::OnSettings()
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// General category
 
-#ifdef NEUROMORE_BRANDING_ANT
-		const bool generalReadOnly = !isAdmin;
-#else
-		const bool generalReadOnly = false;
-#endif
 		const char* categoryName = "General";
 		PropertyTreeWidget* generalPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (generalPropertyWidget == NULL)
-			generalPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Gear.png", generalReadOnly);
+			generalPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Gear.png", false);
 
 		connect( generalPropertyWidget->GetPropertyManager(), &PropertyManager::ValueChanged, this, &MainWindow::OnValueChanged );
 
@@ -1244,15 +1244,10 @@ void MainWindow::OnSettings()
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Devices category
 
-#ifdef NEUROMORE_BRANDING_ANT
-		const bool devicesReadOnly = !isAdmin;
-#else
-		const bool devicesReadOnly = false;
-#endif
 		categoryName = "Devices";
 		PropertyTreeWidget* devicePropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (devicePropertyWidget == NULL)
-			devicePropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Devices.png", devicesReadOnly);
+			devicePropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Devices.png", false);
 
 		connect(devicePropertyWidget->GetPropertyManager(), &PropertyManager::ValueChanged, this, &MainWindow::OnValueChanged);
 
@@ -1322,15 +1317,10 @@ void MainWindow::OnSettings()
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Network category
 
-#ifdef NEUROMORE_BRANDING_ANT
-		const bool networkReadOnly = !isAdmin;
-#else
-		const bool networkReadOnly = false;
-#endif
 		categoryName = "Network";
 		PropertyTreeWidget* networkPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (networkPropertyWidget == NULL)
-			networkPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Network.png", networkReadOnly);
+			networkPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Network.png", false);
 			
 		connect(networkPropertyWidget->GetPropertyManager(), &PropertyManager::ValueChanged, this, &MainWindow::OnValueChanged);
 	

@@ -194,6 +194,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		QAction*					mExitAction;
 		QAction*					mSaveAction;
 		QAction*					mCloseAction;
+		QAction*					mSettingsAction;
 
 		QAction*					mSaveDesignAction;
 		QAction*					mEnableDesignSettingsAction;
