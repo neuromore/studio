@@ -151,7 +151,11 @@ void LayoutManager::ReInit()
 	RegisterLayout( new Layout(Layout::BUILTIN, "State Machine Designer",":/Layouts/StateMachineDesigner.layout",		"LAYOUT_StateMachineDesigner",	"") );
 	RegisterLayout( new Layout(Layout::BUILTIN, "Experience Designer",	":/Layouts/ExperienceDesigner.layout",			"LAYOUT_ExperienceDesigner",	"") );
 	RegisterLayout( new Layout(Layout::BUILTIN, "Experience Selection",	":/Layouts/ExperienceSelection.layout",			"LAYOUT_ExperienceSelection",	"") );
+ #ifdef NEUROMORE_BRANDING_ANT
+	RegisterLayout( new Layout(Layout::BUILTIN, "Experience Player",	":/Layouts/ANT_ExperiencePlayer.layout",			"LAYOUT_ExperiencePlayer",		"") );
+ #else
 	RegisterLayout( new Layout(Layout::BUILTIN, "Experience Player",	":/Layouts/ExperiencePlayer.layout",			"LAYOUT_ExperiencePlayer",		"") );
+ #endif
 	RegisterLayout( new Layout(Layout::BUILTIN, "EEG",					":/Layouts/EEG.layout",							"LAYOUT_EEG",					"") );
 #endif
 
@@ -169,7 +173,6 @@ void LayoutManager::ReInit()
 	RegisterLayout( new Layout(Layout::BUILTIN, "Experience Player",	":/Layouts/OSX_ExperiencePlayer.layout",		"LAYOUT_ExperiencePlayer",		"") );
 	RegisterLayout( new Layout(Layout::BUILTIN, "EEG",					":/Layouts/OSX_EEG.layout",						"LAYOUT_EEG",					"") );
 #endif
-
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// Local layouts

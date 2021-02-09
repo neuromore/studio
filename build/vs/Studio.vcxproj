@@ -72,17 +72,35 @@
     <ClCompile Include="..\..\src\Studio\Devices\EyeX\TobiiEyeXDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\DocumentationExporter.cpp" />
     <ClCompile Include="..\..\src\Studio\main.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />

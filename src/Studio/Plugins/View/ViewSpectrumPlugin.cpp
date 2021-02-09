@@ -118,14 +118,20 @@ void ViewSpectrumPlugin::RegisterAttributes()
 	Plugin::RegisterAttributes();
 
 	AttributeSettings* attributeMinFrequency = RegisterAttribute("Min Frequency", "minFrequency", "The minimum frequency of the spectrum display.", ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
-	attributeMinFrequency->SetDefaultValue(AttributeFloat::Create(0.0f));
 	attributeMinFrequency->SetMinValue(AttributeFloat::Create(0.0f));
 	attributeMinFrequency->SetMaxValue(AttributeFloat::Create(FLT_MAX));
 
 	AttributeSettings* attributeMaxFrequency = RegisterAttribute("Max Frequency", "maxFrequency", "The minimum frequency of the spectrum display.", ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
-	attributeMaxFrequency->SetDefaultValue(AttributeFloat::Create(50.0f));
 	attributeMaxFrequency->SetMinValue(AttributeFloat::Create(0.0f));
 	attributeMaxFrequency->SetMaxValue(AttributeFloat::Create(FLT_MAX));
+
+#ifdef NEUROMORE_BRANDING_ANT
+	attributeMinFrequency->SetDefaultValue(AttributeFloat::Create(1.0f));
+	attributeMaxFrequency->SetDefaultValue(AttributeFloat::Create(45.0f));
+#else
+	attributeMinFrequency->SetDefaultValue(AttributeFloat::Create(0.0f));
+	attributeMaxFrequency->SetDefaultValue(AttributeFloat::Create(50.0f));
+#endif
 
 	// create default attribute values
 	CreateDefaultAttributeValues();

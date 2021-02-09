@@ -66,16 +66,16 @@ void eemagineDevice::CreateSensors()
          // taken from cap: CA-411
          if (numSensors == 8+2)
          {
-            if      (String::SafeCompare(sensor->GetName(), "Fz") == 0)  sensor->SetHardwareChannel(0);
-            else if (String::SafeCompare(sensor->GetName(), "Cz") == 0)  sensor->SetHardwareChannel(1);
-            else if (String::SafeCompare(sensor->GetName(), "Pz") == 0)  sensor->SetHardwareChannel(2);
-            else if (String::SafeCompare(sensor->GetName(), "F3") == 0)  sensor->SetHardwareChannel(3);
-            else if (String::SafeCompare(sensor->GetName(), "F4") == 0)  sensor->SetHardwareChannel(4);
-            else if (String::SafeCompare(sensor->GetName(), "Fpz") == 0) sensor->SetHardwareChannel(5);
-            else if (String::SafeCompare(sensor->GetName(), "C3") == 0)  sensor->SetHardwareChannel(6);
-            else if (String::SafeCompare(sensor->GetName(), "C4") == 0)  sensor->SetHardwareChannel(7);
-            else if (String::SafeCompare(sensor->GetName(), "GND") == 0) sensor->SetHardwareChannel(-1); // later read from amplifier channel list
+            if      (String::SafeCompare(sensor->GetName(), "F3") == 0)  sensor->SetHardwareChannel(0);
+            else if (String::SafeCompare(sensor->GetName(), "Fz") == 0)  sensor->SetHardwareChannel(1);
+            else if (String::SafeCompare(sensor->GetName(), "F4") == 0)  sensor->SetHardwareChannel(2);
+            else if (String::SafeCompare(sensor->GetName(), "Cz") == 0)  sensor->SetHardwareChannel(3);
+            else if (String::SafeCompare(sensor->GetName(), "P3") == 0)  sensor->SetHardwareChannel(4);
+            else if (String::SafeCompare(sensor->GetName(), "Pz") == 0)  sensor->SetHardwareChannel(5);
+            else if (String::SafeCompare(sensor->GetName(), "P4") == 0)  sensor->SetHardwareChannel(6);
+            else if (String::SafeCompare(sensor->GetName(), "M1") == 0)  sensor->SetHardwareChannel(7);
             else if (String::SafeCompare(sensor->GetName(), "REF") == 0) sensor->SetHardwareChannel(-1); // later read from amplifier channel list
+            else if (String::SafeCompare(sensor->GetName(), "GND") == 0) sensor->SetHardwareChannel(-1); // later read from amplifier channel list
          }
 
          // cap with 32 electrodes and ref+gnd
@@ -233,16 +233,16 @@ void eemagine8Device::CreateElectrodes()
 
    // default cap with 8 electrodes
    // taken from cap: CA-411
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 01
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 02
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 03
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 04
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 05
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));  // 06
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));   // 07
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));   // 08
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("GND"));  //
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));   // 01
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));   // 02
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));   // 03
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));   // 04
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));   // 05
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));   // 06
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));   // 07
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("M1"));   // 08
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("REF"));  //
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("GND"));  //
 }
 
 void eemagine8Device::CreateSensors()

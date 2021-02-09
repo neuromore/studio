@@ -76,8 +76,4 @@ bool ExperienceSelectionPlugin::Init()
 void ExperienceSelectionPlugin::OnAfterLoadLayout()
 {
 	mWidget->AsyncLoadFromBackend("");
-
-	// show session user selection window if the rule is set
-	if (GetUser()->FindRule("STUDIO_SETTING_SelectUser") != NULL)
-		GetMainWindow()->SelectSessionUser();
 }
