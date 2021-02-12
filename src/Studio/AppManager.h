@@ -86,6 +86,7 @@ class AppManager : public QObject
 		const char* GetForgotPasswordUrl() const						{ return "https://account.eego-perform.com/#/resetrequest"; }
 		const char* GetSupportEMail() const								{ return "support@eemagine.com"; }
 		const char* GetAppShortName() const								{ return "eego-perform-studio"; }
+		const char* GetMenuStudioName() const							{ return "EPStudio"; }
 #else
 		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
@@ -96,6 +97,7 @@ class AppManager : public QObject
 		const char* GetForgotPasswordUrl() const						{ return "https://account.neuromore.com/#/resetrequest"; }
 		const char* GetSupportEMail() const								{ return "support@neuromore.com"; }
 		const char* GetAppShortName() const								{ return "NMStudio"; }
+		const char* GetMenuStudioName() const							{ return "NMStudio"; }
 #endif
 
 		Core::String GetAppName() const;

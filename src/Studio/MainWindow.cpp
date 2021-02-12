@@ -276,7 +276,7 @@ void MainWindow::Init()
 	//
 	// file menu
 	//
-	QMenu* fileMenu = mMenuBar->addMenu( tr("&Studio") );
+	QMenu* fileMenu = mMenuBar->addMenu( tr(GetManager()->GetMenuStudioName()) );
 
 	// open file
 	//QAction* openAction = fileMenu->addAction( tr("&Open"), this, &MainWindow::OnOpenFile );
