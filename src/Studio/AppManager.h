@@ -87,6 +87,9 @@ class AppManager : public QObject
 		const char* GetSupportEMail() const								{ return "support@eemagine.com"; }
 		const char* GetAppShortName() const								{ return "eego-perform-studio"; }
 		const char* GetMenuStudioName() const							{ return "EPStudio"; }
+		const char* GetLicenseUrl() const								{ return "https://assets.eego-perform.com/license/license.txt"; }
+		const char* GetCloudTermsUrl() const							{ return "https://assets.eego-perform.com/license/terms-and-conditions.txt"; }
+		const char* GetPrivacyPolicyUrl() const							{ return "https://assets.eego-perform.com/license/privacy-policy.txt"; }
 #else
 		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
@@ -98,6 +101,9 @@ class AppManager : public QObject
 		const char* GetSupportEMail() const								{ return "support@neuromore.com"; }
 		const char* GetAppShortName() const								{ return "NMStudio"; }
 		const char* GetMenuStudioName() const							{ return "NMStudio"; }
+		const char* GetLicenseUrl() const								{ return "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md"; }
+		const char* GetCloudTermsUrl() const							{ return "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md"; }
+		const char* GetPrivacyPolicyUrl() const							{ return "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md"; }
 #endif
 
 		Core::String GetAppName() const;

@@ -113,9 +113,9 @@ LicenseAgreementWindow::LicenseAgreementWindow(bool showAgreeAndCancelButtons, Q
 	setSizeGripEnabled(false);
 	setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
 
-	AddLicense( "Licensing", "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md" );
-	AddLicense( "neuromore Cloud Terms", "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md" );
-	AddLicense( "neuromore Cloud Privacy Policy", "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md" );
+	AddLicense( "Licensing", GetManager()->GetLicenseUrl() );
+	AddLicense( "Terms and Conditions", GetManager()->GetCloudTermsUrl() );
+	AddLicense( "Privacy Policy", GetManager()->GetPrivacyPolicyUrl() );
 
 	// position window in the screen center
 	GetQtBaseManager()->CenterToScreen(this);
