@@ -43,7 +43,6 @@ DeviceWidget::DeviceWidget(Device* device, QWidget* parent) : QWidget(parent)
 	CORE_ASSERT(device != NULL);
 
 	mShowInfoWidget = false;
-	mShowTestWidget = false;
 
 	mDeviceInfoTree = NULL;
 	mDeviceInfoSensors = NULL;
@@ -123,6 +122,7 @@ void DeviceWidget::Init()
 		mDeviceTestButton->setFixedSize(buttonSize);
 		connect(mDeviceTestButton, SIGNAL(clicked()), this, SLOT(OnDeviceTestButtonPressed()));
 		buttonLayout->addWidget(mDeviceTestButton);
+		InitDeviceTestWidget();
 	}
 	else
 	{
@@ -196,13 +196,6 @@ void DeviceWidget::UpdateInterface()
 	if (mDeviceInfoTree->isHidden() == false && mDeviceInfoSensors != NULL)
 		UpdateSensorItems(mDeviceInfoSensors);
 
-	// close impedance widget if device test has stopped
-	if (mShowTestWidget == true && mDevice->IsTestRunning() == false)
-	{
-		// end test the same way the UI does
-		OnDeviceTestButtonPressed();
-	}
-
 	// disable impedance test while session is running
 	if (mDeviceTestButton != NULL)
 		mDeviceTestButton->setEnabled(!GetSession()->IsRunning());
@@ -239,6 +232,17 @@ void DeviceWidget::InitDeviceTestWidget()
 
 	mDeviceTestWidget = CreateDeviceTestWidget();
 	mLayout->addWidget(mDeviceTestWidget, 4, 0, 1, 2);
+
+	if (mDevice->IsTestRunning())
+	{
+		mDeviceTestWidget->setVisible(true);
+		mDeviceTestButton->setText("Close");
+	}
+	else
+	{
+		mDeviceTestWidget->setVisible(false);
+		mDeviceTestButton->setText("Test");
+	}
 }
 
 
@@ -468,28 +472,11 @@ void DeviceWidget::OnDeviceTestButtonPressed()
 	if (mDeviceTestWidget == NULL)
 		InitDeviceTestWidget();
 
-	// Hack: hide this widget while hiding its children to prevent flicker
-	setVisible(false);
-	
-	// toggle widget visibility
-	mShowTestWidget = !mShowTestWidget;
-	mDeviceTestWidget->setVisible(mShowTestWidget);
-
-	// update Button text
-	if (mShowTestWidget == true)
-		mDeviceTestButton->setText("Close");
-	else
-		mDeviceTestButton->setText("Test");
-
-	//// hide other widgets
-	//mShowInfoWidget = false;
-	//mDeviceInfoTree->hide();
-
-	setVisible(true);
-
-	// on show, start test immediately 
-	if (mShowTestWidget == true)
+	// start test 
+	if (!mDevice->IsTestRunning())
 		mDevice->StartTest();
+
+	// stop test
 	else
 	{
 		mDevice->StopTest();
@@ -500,4 +487,20 @@ void DeviceWidget::OnDeviceTestButtonPressed()
 			mDevice->GetSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NOT_AVAILABLE);
 		
 	}
+
+	// Hack: hide this widget while hiding its children to prevent flicker
+	setVisible(false);
+	
+	if (mDevice->IsTestRunning())
+	{
+		mDeviceTestWidget->setVisible(true);
+		mDeviceTestButton->setText("Close");
+	}
+	else
+	{
+		mDeviceTestWidget->setVisible(false);
+		mDeviceTestButton->setText("Test");
+	}
+
+	setVisible(true);
 }
