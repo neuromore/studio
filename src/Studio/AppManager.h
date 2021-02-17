@@ -79,10 +79,10 @@ class AppManager : public QObject
 #ifdef NEUROMORE_BRANDING_ANT
 		const char* GetCompanyName() const								{ return "eemagine"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
-		const char* GetWebsite() const									{ return "https://www.eego-perform.com"; }
+		const char* GetWebsite() const									{ return "https://eego-perform.com"; }
 		const char* GetDocumentationUrl() const							{ return "https://doc.neuromore.com"; }
 		const char* GetAccountUrl() const								{ return "https://account.eego-perform.com"; }
-		const char* GetStoreUrl() const									{ return "https://www.eego-perform.com"; }
+		const char* GetStoreUrl() const									{ return "https://eego-perform.com"; }
 		const char* GetForgotPasswordUrl() const						{ return "https://account.eego-perform.com/#/resetrequest"; }
 		const char* GetSupportEMail() const								{ return "support@eemagine.com"; }
 		const char* GetAppShortName() const								{ return "eego-perform-studio"; }
