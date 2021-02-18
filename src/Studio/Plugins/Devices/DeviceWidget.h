@@ -83,7 +83,6 @@ class DeviceWidget : public QWidget
 		
 		// UI State
 		bool					mShowInfoWidget;
-		bool					mShowTestWidget;
 
 		// general device widgets
 		BatteryStatusWidget*	mBatteryStatusWidget;			// battery status info widget

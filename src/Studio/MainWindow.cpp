@@ -276,7 +276,7 @@ void MainWindow::Init()
 	//
 	// file menu
 	//
-	QMenu* fileMenu = mMenuBar->addMenu( tr("&Studio") );
+	QMenu* fileMenu = mMenuBar->addMenu( tr(GetManager()->GetMenuStudioName()) );
 
 	// open file
 	//QAction* openAction = fileMenu->addAction( tr("&Open"), this, &MainWindow::OnOpenFile );
@@ -1179,13 +1179,26 @@ void MainWindow::OnActiveExperienceChanged(Experience* experience)
 {
 	const bool hasExperience = (experience != NULL);
 	const bool hasWriteableExperience = hasExperience && experience->GetCreud().Update();
+	const bool isAdminOrClinicAdmin =
+		GetUser() && (GetUser()->FindRule("ROLE_Admin") != NULL || GetUser()->FindRule("ROLE_ClinicAdmin") != NULL);
 
+#ifdef NEUROMORE_BRANDING_ANT
+	// show these only for admins/clinc-admins, even if the user has update rights
+	const bool isVisibleClose = hasExperience && isAdminOrClinicAdmin;
+	const bool isVisibleSave = hasWriteableExperience && isAdminOrClinicAdmin;
+	const bool isVisibleDesign = hasWriteableExperience && isAdminOrClinicAdmin;
+#else
+	const bool isVisibleClose = hasExperience;
+	const bool isVisibleSave = hasWriteableExperience;
+	const bool isVisibleDesign = hasWriteableExperience;
+#endif
+	
 	// actions that are only shown if a design is loaded (and writeable in some cases)
-	mCloseAction->setVisible(hasExperience);
-	mSaveAction->setVisible(hasWriteableExperience);
+	mCloseAction->setVisible(isVisibleClose);
+	mSaveAction->setVisible(isVisibleSave);
 
 	// show design menu only if its writeable
-	mDesignMenu->menuAction()->setVisible(hasWriteableExperience);
+	mDesignMenu->menuAction()->setVisible(isVisibleDesign);
 
 	// reuse the enable-settings code
 	if (hasExperience == true)
