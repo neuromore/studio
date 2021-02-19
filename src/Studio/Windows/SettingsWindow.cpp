@@ -155,7 +155,8 @@ PropertyTreeWidget* SettingsWindow::AddCategory(const char* categoryName, const 
 	// create the new property widget
 	PropertyTreeWidget* propertyWidget = new PropertyTreeWidget(this);
 	propertyWidget->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
-	
+	propertyWidget->setEnabled(!readOnly);
+
 	// add the button to the categories list and the property widget to the stacked widget on the right
 	mCategoriesWidget->addItem( categoryButton );
 	mStackedWidget->addWidget( propertyWidget );

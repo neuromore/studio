@@ -50,7 +50,7 @@ class QTBASE_API NetworkAccessManager : public QObject
 
 		QNetworkReply* post_Deprecated(QNetworkRequest& request, QHttpMultiPart* multiPart, const char* progressText);
 
-		QNetworkReply* ProcessRequest(const Request& request, Request::UiMode uiMode, bool disableLogging=false);
+		QNetworkReply* ProcessRequest(const Request& request, Request::UiMode uiMode, bool disableLogging=false, const QVariant& cacheMode = QNetworkRequest::PreferCache);
 		QNetworkReply* ProcessRequest(const Request& request)						{ return ProcessRequest(request, Request::UIMODE_BLOCKING); }
 		QNetworkReply* ProcessRequestAsync(const Request& request)					{ return ProcessRequest(request, Request::UIMODE_ASYNC); }
 

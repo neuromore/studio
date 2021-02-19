@@ -15,7 +15,6 @@
 #include <QNetworkReply>
 #include <QNetworkDiskCache>
 
-
 using namespace Core;
 
 // constructor
@@ -24,14 +23,22 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 	mRequestCounter = 0;
 	mLoggingEnabled	= true;
 
-	// server presets
-	mPresets.Add( new ServerPreset("Production (AWS)",			"backend.neuromore.com",			"https://backend.neuromore.com/api/",			443,	"https://account.neuromore.com") );
-#ifndef PRODUCTION_BUILD
-	mPresets.Add( new ServerPreset("Swap (AWS)",				"swap-prod-server.neuromore.com",	"https://swap-deployment.neuromore.com/api/",	443,	"https://account.neuromore.com") );
-	mPresets.Add( new ServerPreset("Test (AWS)",				"backend-test.neuromore.com",		"https://backend-test.neuromore.com/api/",		443,	"https://account-test.neuromore.com") );
-	mPresets.Add( new ServerPreset("localhost",					"localhost",						"http://localhost/neuromore-server/api/",		8080,	"http://localhost") );
-#endif
-	mActivePresetIndex = 0;
+	mPresets.Add(new ServerPreset("neuromore (AWS)", "backend.neuromore.com", "https://backend.neuromore.com/api/", 443, "https://account.neuromore.com"));
+	mPresets.Add(new ServerPreset("eego-perform (AWS)", "backend.eego-perform.com", "https://backend.eego-perform.com/api/", 443, "https://account.eego-perform.com"));
+
+	// non-prod server presets (always neuromore)
+	#ifndef PRODUCTION_BUILD
+		mPresets.Add( new ServerPreset("Swap (AWS)",				"swap-prod-server.neuromore.com",	"https://swap-deployment.neuromore.com/api/",	443,	"https://account.neuromore.com") );
+		mPresets.Add( new ServerPreset("Test (AWS)",				"backend-test.neuromore.com",		"https://backend-test.neuromore.com/api/",		443,	"https://account-test.neuromore.com") );
+		mPresets.Add( new ServerPreset("localhost",					"localhost",						"http://localhost/neuromore-server/api/",		8080,	"http://localhost") );
+	#endif
+
+	// set default one
+	#ifdef NEUROMORE_BRANDING_ANT
+		mActivePresetIndex = 1;
+	#else
+		mActivePresetIndex = 0;
+	#endif
 
 	// create the network access manager
 	mNetworkAccessManager = new QNetworkAccessManager(parent);
@@ -298,7 +305,7 @@ QUrl NetworkAccessManager::ConstructUrl(const Request& request)
 }
 
 
-QNetworkReply* NetworkAccessManager::ProcessRequest(const Request& request, Request::UiMode uiMode, bool disableLogging)
+QNetworkReply* NetworkAccessManager::ProcessRequest(const Request& request, Request::UiMode uiMode, bool disableLogging, const QVariant& cacheMode)
 {
 	mTimer.GetTimeDelta();
 	QNetworkReply* reply = NULL;
@@ -344,7 +351,7 @@ QNetworkReply* NetworkAccessManager::ProcessRequest(const Request& request, Requ
 			QNetworkRequest networkRequest(url);
 
 			// cache control
-			networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
+			networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute, cacheMode);
 
 			// configure ssl
 			networkRequest.setSslConfiguration( mSslConfig );

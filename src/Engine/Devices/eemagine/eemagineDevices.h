@@ -40,7 +40,7 @@ public:
 
    // overloaded
    double GetExpectedJitter() const override { return 0.2; }
-   double GetSampleRate() const override { return 500; }
+   double GetSampleRate() const override { return 512; }
    bool IsWireless() const override { return false; }
    bool HasTestMode() const override { return true; }
    static const char* GetRuleName() { return "DEVICE_eemagine"; }

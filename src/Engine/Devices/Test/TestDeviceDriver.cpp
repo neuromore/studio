@@ -28,10 +28,16 @@
 
 #ifdef INCLUDE_DEVICE_TEST
 
+#ifdef NEUROMORE_BRANDING_ANT
+#define DEFAULT_DRIVER_ENABLED false
+#else
+#define DEFAULT_DRIVER_ENABLED true
+#endif
+
 using namespace Core;
 
 // constructor
-TestDeviceDriver::TestDeviceDriver() : DeviceDriver()
+TestDeviceDriver::TestDeviceDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED)
 {
 	AddSupportedDevice(TestDevice::TYPE_ID);
 
