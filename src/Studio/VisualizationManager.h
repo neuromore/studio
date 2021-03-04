@@ -46,7 +46,8 @@ class VisualizationManager : public QObject
 	
 	private:
 		void Clear();
-
+		
+		Core::Array<Core::String>   mVisualizationFolders;
 		Core::Array<Visualization*> mVisualizations;
 };
 
