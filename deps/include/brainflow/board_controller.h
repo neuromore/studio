@@ -3,7 +3,6 @@
 #include "board_info_getter.h" // include it here for matlab
 #include "shared_export.h"
 
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -30,11 +29,17 @@ extern "C"
         int *response_len, int board_id, char *json_brainflow_input_params);
     SHARED_EXPORT int CALLING_CONVENTION is_prepared (
         int *prepared, int board_id, char *json_brainflow_input_params);
+    SHARED_EXPORT int CALLING_CONVENTION insert_marker (
+        double marker_value, int board_id, char *json_brainflow_input_params);
 
     // logging methods
     SHARED_EXPORT int CALLING_CONVENTION set_log_level (int log_level);
     SHARED_EXPORT int CALLING_CONVENTION set_log_file (char *log_file);
     SHARED_EXPORT int CALLING_CONVENTION log_message (int log_level, char *message);
+
+    // platform types and methods
+    typedef const struct JNINativeInterface *JNIEnv; // A handle to use Java's JNI
+    SHARED_EXPORT int CALLING_CONVENTION java_set_jnienv (JNIEnv *java_jnienv);
 
 #ifdef __cplusplus
 }

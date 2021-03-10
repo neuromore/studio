@@ -96,40 +96,35 @@ void BrainFlowDevice::CreateElectrodes()
 		delete mSensors[i];
 	mSensors.Clear();
 
-	int len = 0;
-	std::string* eegNames;
+	std::vector<std::string> eegNames;
 	
 	if (mBoard && mBoard->is_prepared())
 	{
 		try
 		{
-			eegNames = BoardShim::get_eeg_names(GetBoardId(), &len);
+			eegNames = BoardShim::get_eeg_names(GetBoardId());
 		}
 		catch (const BrainFlowException& err)
 		{
+            // for almost all devices eegNames field exists, this try catch is more like sanity check
 			LogError(err.what());
-			BoardShim::get_eeg_channels(GetBoardId(), &len);
-			eegNames = new std::string[len];
-			for (int i = 0; i < len; ++i)
-				eegNames[i] = "";
+			std::vector<int> eegChannels = BoardShim::get_eeg_channels(GetBoardId());
+            for (int i = 0; i < (int)eegChannels.size (); ++i)
+                eegNames.push_back("");
 		}
 	}
 	else
 	{
 		// create dummy electrode
-		len = 1;
-		eegNames = new std::string[len];
-		eegNames[len - 1] = "";
+        eegNames.push_back("");
 	}
-	mElectrodes.Reserve(len);
+	mElectrodes.Reserve(eegNames.size());
 	// todo check that BrainFlow IDs match studio IDs
-	for (int i = 0; i < len; i++)
+	for (int i = 0; i < eegNames.size(); i++)
 	{
 		mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(eegNames[i].c_str()));
 	}
-	delete[] eegNames;
 }
-	
 
 
 void BrainFlowDevice::Update(const Core::Time& elapsed, const Core::Time& delta)
@@ -138,17 +133,14 @@ void BrainFlowDevice::Update(const Core::Time& elapsed, const Core::Time& delta)
 		return;
 	try
 	{
-		int data_count;
-		double** board_data;
-		board_data = mBoard->get_board_data(&data_count);
-		int channels_count;
-		int* channels_numbers = BoardShim::get_eeg_channels(GetBoardId(), &channels_count);
+		BrainFlowArray<double, 2> board_data = mBoard->get_board_data();
+		std::vector<int> channels_numbers = BoardShim::get_eeg_channels(GetBoardId());
 		for (uint32 i = 0; i < mSensors.Size(); ++i)
 		{
 			auto* sensor = mSensors[i];
 			int channel_number = channels_numbers[i];
-			double* channel_data = board_data[channel_number];;
-			for (int j = 0; j < data_count; ++j)
+            double* channel_data = board_data.get_address(channel_number);
+			for (int j = 0; j < board_data.get_size(1); ++j)
 			{
 				double value = channel_data[j];
 				sensor->AddQueuedSample(value);
@@ -219,7 +211,7 @@ double BrainFlowDevice::GetSampleRate() const {
 	catch (const BrainFlowException& err)
 	{
 		LogError(err.what());
-		return 200;
+		return 250.0;
 	}
 };
 
