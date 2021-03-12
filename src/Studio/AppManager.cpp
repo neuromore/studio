@@ -50,7 +50,12 @@
 #include <windows.h>
 #include <winuser.h>
 #endif
- 
+
+#ifdef NEUROMORE_BRANDING_ANT
+#define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
+#else
+#define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
+#endif
 
 using namespace Core;
 
@@ -113,7 +118,7 @@ AppManager::AppManager(int argc, char* argv[])
 
 	// show splash screen
 	LogDetailedInfo("Initializing splash screen ...");
-	QPixmap pixmap( ":/Images/SplashScreen.png" );
+	QPixmap pixmap(SPLASHIMAGE);
 	mSplashScreen = new QSplashScreen(pixmap);
 
 	// force taskbar entry for splashscreen on windows (otherwise it can get stuck in a state where the user cannot reach it anymore.. happened multiple times)
@@ -288,13 +293,22 @@ String AppManager::GetAppName() const
 	User* user = GetUser();
 	if (user != NULL)
 	{
-		if		(user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
+#ifdef NEUROMORE_BRANDING_ANT
+		if (user->FindRule("ROLE_ResellerAdmin") != NULL) name = "eego perform studio - Reseller Admin";
+		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "eego perform studio - Clinic Admin";
+		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "eego perform studio - Clinician";
+		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
+		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
+		else name = "eego perform studio";
+#else
+		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
 		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
 		else if (user->FindRule("ROLE_Professional") != NULL)			name = "neuromore Studio Professional";
 		else if (user->FindRule("ROLE_Community") != NULL)				name = "neuromore Studio Community";
 		else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = "neuromore Studio";
 		else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = "neuromore Studio";
 		else															name = "neuromore Studio";
+#endif
 	}
 
 	return name;

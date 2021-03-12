@@ -109,7 +109,11 @@ class ENGINE_API Device : public OscReceiver, public Core::EventSource
 			
 		// device id (continous index within devices of the same type)
 		uint32 GetDeviceID() const												{ return mDeviceID; }
-		void SetDeviceId(uint32 deviceId);
+		virtual void SetDeviceId(uint32 deviceId);
+
+		// device string (anyshaped string id, optional)
+		inline const Core::String& GetDeviceString() const                    { return mDeviceString; }
+		inline virtual void SetDeviceString(const Core::String& deviceString) { mDeviceString = deviceString; }
 
 		// device name
 		const Core::String& GetName() const										{ return mName; }
@@ -220,6 +224,13 @@ class ENGINE_API Device : public OscReceiver, public Core::EventSource
 		virtual void StopTest() 												{ }
 		virtual bool IsTestRunning() 											{ return false; }
 
+		//
+		// OscPathPattern (e.g. /muse/*/*)
+		//
+		inline const Core::String& GetOscPathPattern() const { return mOscPathPattern; }
+		inline void SetOscPathPattern(const Core::String& s) { mOscPathPattern = s; }
+		virtual int32 GetOscPathDeviceId(const Core::String& address) const;
+		virtual Core::String GetOscPathDeviceString(const Core::String& address) const;
 
 		//
 		// Device Statistics
@@ -245,8 +256,10 @@ class ENGINE_API Device : public OscReceiver, public Core::EventSource
 
 		DeviceDriver*				mDeviceDriver;					// pointer to the driver responsible for this device / may be NULL, i.e. osc-only devices like Muse 
 		uint32						mDeviceID;						// device id for multi device support
+		Core::String				mDeviceString;					// for those that don't really support integer ids
 		DeviceConfig				mConfig;						// the device configuration (may be empty)
 		Core::String				mName;							// device instance name
+		Core::String				mOscPathPattern;				// devicec osc path pattern if any (e.g. /muse/*/*)
 		
 		void*						mLockOwner;						// exclusive access to device (for output devices)
 

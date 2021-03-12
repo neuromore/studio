@@ -29,6 +29,10 @@
 #include <Core/String.h>
 #include <Core/Timer.h>
 #include <Core/Json.h>
+#include <Graph/EegDeviceNode.h>
+#include <Graph/FrequencyBandNode.h>
+#include <Graph/DeviceInputNode.h>
+#include <Graph/ChannelSelectorNode.h>
 #include <Graph/Classifier.h>
 #include <Graph/GraphImporter.h>
 #include <Experience.h>
@@ -94,34 +98,48 @@ class ExperienceWizardWindow : public QDialog
       }
 
       void ReadChannelSelectorRow(int idx);
+      void GetNodeChannels(Node* n, Core::Array<Core::String>& out);
+      void GetNodeChannels(Node* n, Core::Array<std::tuple<Core::String, Core::String>>& out);
+      void GetDevicesElectrodes(Core::Array<Core::String>& out);
       void CreateChannelSelectorEditColumn(Node* node, QWidget* container);
       void CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
-      bool HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
+      uint32 HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band);
 
    private:
-      const User         mUser;
-      Core::String       mFolderId;
-      Core::Array<Node*> mQuickConfigNodes;
-      GraphImporter      mGraphImporter;
-      Classifier*        mClassifier;
-      QVBoxLayout        mMainLayout;
-      QHBoxLayout        mUserLayout;
-      QLabel             mUserDesc;
-      QLabel             mUserLabel;
-      QHBoxLayout        mClassifierLayout;
-      QLabel             mClassifierSelectDesc;
-      QComboBox          mClassifierSelect;
-      QHBoxLayout        mStateMachineLayout;
-      QLabel             mStateMachineSelectDesc;
-      QComboBox          mStateMachineSelect;
-      QHBoxLayout        mExperienceLayout;
-      QLabel             mExperienceDesc;
-      QLineEdit          mExperienceEdit;
-      QTableWidget       mTableWidget;
-      QTableWidgetItem   mHeaderType;
-      QTableWidgetItem   mHeaderName;
-      QTableWidgetItem   mHeaderEdit;
-      QPushButton        mCreateButton;
+      const User                      mUser;
+      Core::String                    mFolderId;
+      Core::Array<Node*>              mQuickConfigNodes;
+      Core::Array<FrequencyBandNode*> mFrequencyBandNodes;
+      DeviceInputNode*                mEegNode;
+      ChannelSelectorNode*            mEegChannelSelector;
+      Core::Array<const BciDevice*>   mEegDevices;
+      Core::Array<const BciDevice*>   mEegDevicesRemoved;
+      Core::Array<Core::String>       mChannelsUsed;
+      GraphImporter           mGraphImporter;
+      Classifier*             mClassifier;
+      QVBoxLayout             mMainLayout;
+      QHBoxLayout             mHeaderLayout;
+      QVBoxLayout             mHeaderLeftLayout;
+      QVBoxLayout             mHeaderRightLayout;
+      QHBoxLayout             mUserLayout;
+      QLabel                  mUserDesc;
+      QLabel                  mUserLabel;
+      QHBoxLayout             mClassifierLayout;
+      QLabel                  mClassifierSelectDesc;
+      QComboBox               mClassifierSelect;
+      QHBoxLayout             mStateMachineLayout;
+      QLabel                  mStateMachineSelectDesc;
+      QComboBox               mStateMachineSelect;
+      QHBoxLayout             mExperienceLayout;
+      QLabel                  mExperienceDesc;
+      QLineEdit               mExperienceEdit;
+      QLabel                  mSupportedDevicesDesc;
+      QListWidget             mSupportedDevicesList;
+      QTableWidget            mTableWidget;
+      QTableWidgetItem        mHeaderType;
+      QTableWidgetItem        mHeaderName;
+      QTableWidgetItem        mHeaderEdit;
+      QPushButton             mCreateButton;
 };
 
 #endif

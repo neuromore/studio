@@ -39,6 +39,7 @@ MuseDevice::MuseDevice(DeviceDriver* driver) : BciDevice(driver)
 	mState = STATE_IDLE;
 	mPowerSupplyType = POWERSUPPLY_BATTERY;
 	mIsTouchingForehead = 0;
+	mOscPathPattern = "/" + Core::String(this->GetTypeName()) + "/*/*";
 
 	// create all sensors
 	CreateSensors();

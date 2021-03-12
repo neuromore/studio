@@ -54,6 +54,7 @@ class ENGINE_API DeviceTypeIDs
 			DEVICE_TYPEID_EEMAGINE_16CH				= 0x0922,
 			DEVICE_TYPEID_EEMAGINE_32CH				= 0x0923,
 			DEVICE_TYPEID_EEMAGINE_64CH				= 0x0924,
+			DEVICE_TYPEID_NEUROSITY_NOTION			= 0x0931,	// 093X = neurosity
 
 			// A0XX = Generic Vital Sensor (Sub)Devices
 			DEVICE_TYPEID_GENERIC_HEARTRATE			= 0xA001,	// Heartrate sensors (Pulse + RR)

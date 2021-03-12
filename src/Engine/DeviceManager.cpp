@@ -851,19 +851,12 @@ void DeviceManager::ProcessMessage(OscMessageParser* message)
 		Device* prototype = mRegisteredDeviceTypes[i];
 		const uint32 deviceType = prototype->GetType();
 
-		// construct osc address using the osc prefix and a wildcard for device ID
-		//mTempOscAddressPattern.Format("/%s/*/*", prototype->GetTypeName());
-		// performance optimized version
-		mTempOscAddressPattern.Clear();
-		mTempOscAddressPattern += "/";
-		mTempOscAddressPattern += prototype->GetTypeName();
-		mTempOscAddressPattern += "/*/*";
-		
-		// check if address matches the address pattern
-		if (message->MatchAddress(mTempOscAddressPattern.AsChar()))
+		// check if address matches the address pattern of the device
+		if (message->MatchAddress(prototype->GetOscPathPattern().AsChar()))
 		{
-			// try to extract device ID from the message address
-			const int32 deviceId = GetDeviceIDFromAddress(message->GetAddress());
+			// try to extract device ID (mandatory) and the device String (optional) from the message address
+			const int32 deviceId = prototype->GetOscPathDeviceId(message->GetAddress());
+			const Core::String deviceString = prototype->GetOscPathDeviceString(message->GetAddress());
 
 			// looks like we have a match! Create the device!
 			if (deviceId != -1)
@@ -879,8 +872,9 @@ void DeviceManager::ProcessMessage(OscMessageParser* message)
 				else
 					device = prototype->Clone();
 			
-				// configure the device id
+				// configure the device id and string
 				device->SetDeviceId(deviceId);
+				device->SetDeviceString(deviceString);
 			
 				// add device to engine asynchronously
 				// Note: this also registers the receiver immediately!
@@ -900,29 +894,6 @@ void DeviceManager::ProcessMessage(OscMessageParser* message)
 		// mark message as processed
 		message->mIsReady = true;
 	}
-}
-
-
-int32 DeviceManager::GetDeviceIDFromAddress(const char* address) const
-{
-	int32 deviceId = -1;
-
-	// get the number between the second pair of slashes
-	// e.g. if the address has the form "/muse/13/foobar" the result should be 13 as a decimal number
-
-	// no performance required here, so we just use strings and split them by '/'
-	String addressString = address;
-	Array<String> elements = addressString.Split(StringCharacter::forwardSlash);
-
-	// try to convert the second element of the address into a decimal number
-	if (elements.Size() > 2)
-	{
-		int32 id = elements[2].ToInt();
-		if (id >= 0  && elements[2].IsValidInt())
-			deviceId = id;
-	}
-		
-	return deviceId;
 }
 
 

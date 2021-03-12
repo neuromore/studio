@@ -30,10 +30,16 @@
 
 #include <eemagine/sdk/wrapper.cc>
 
+#ifdef NEUROMORE_BRANDING_ANT
+#define DEFAULT_DRIVER_ENABLED true
+#else
+#define DEFAULT_DRIVER_ENABLED false
+#endif
+
 using namespace Core;
 
 // constructor
-eemagineDriver::eemagineDriver() : DeviceDriver(false), mMode(EMode::MODE_IDLE), mDevice(NULL), mFactory(NULL), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
+eemagineDriver::eemagineDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mMode(EMode::MODE_IDLE), mDevice(NULL), mFactory(NULL), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
 {
    LogDetailedInfo("Constructing eemagine driver ...");
 
@@ -201,7 +207,7 @@ void eemagineDriver::Update(const Time& elapsed, const Time& delta)
                if (idx >= 0 && idx < numChannels)
                {
                   const double& v = mBuffer.getSample((uint32)idx, s);
-                  sensor->AddQueuedSample(v);
+                  sensor->AddQueuedSample(v * 1000000.0); // convert from V to uV
                }
 
                // add 0.0 for sensors that have no SDK channel mapped

@@ -120,6 +120,8 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags) : MainWindowBase(
 	mSessionUserSelectionWindow = NULL;
 	mExperienceWizardWindow    = NULL;
 	mVisualizationMenu			= NULL;
+	mToolsMenu					= NULL;
+	mSettingsAction				= NULL;
 
 	LogDetailedInfo("Adding main window event handler ...");
 	CORE_EVENTMANAGER.AddEventHandler(this);
@@ -274,8 +276,8 @@ void MainWindow::Init()
 	//
 	// file menu
 	//
-	QMenu* fileMenu = mMenuBar->addMenu( tr("&File") );
-	
+	QMenu* fileMenu = mMenuBar->addMenu( tr(GetManager()->GetMenuStudioName()) );
+
 	// open file
 	//QAction* openAction = fileMenu->addAction( tr("&Open"), this, &MainWindow::OnOpenFile );
 	//openAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Open.png") );
@@ -291,26 +293,25 @@ void MainWindow::Init()
 	mCloseAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Clear.png") );
 	mCloseAction->setVisible(false);
 
-	mExitAction = fileMenu->addSeparator();
+	fileMenu->addSeparator();
+
+
+	// reset engine 
+	QAction* resetEngineAction = fileMenu->addAction(tr("Reset Engine"), this, &MainWindow::OnResetEngine);
+	resetEngineAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Reset.png"));
+
+	mSettingsAction = fileMenu->addAction(tr("&Settings"), this, &MainWindow::OnSettings);
+	mSettingsAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Gear.png"));
+
+	fileMenu->addSeparator();
+
+	// sign out
+	QAction* userLogoutAction = fileMenu->addAction(tr("&Log out"), this, &MainWindow::OnLogOut);
+	userLogoutAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Exit.png"));
 
 	// exit application action
-	mExitAction = fileMenu->addAction( tr("E&xit"), this, &MainWindow::OnExit );
+	mExitAction = fileMenu->addAction( tr("&Exit"), this, &MainWindow::OnExit );
 	mExitAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Exit.png") );
-
-	//
-	// EDIT menu
-	//
-
-	mEditMenu = mMenuBar->addMenu( tr("&Edit") );
-	
-	// reset engine 
-	QAction* resetEngineAction = mEditMenu->addAction(tr("Reset Engine"), this, &MainWindow::OnResetEngine);
-	resetEngineAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Reset.png") );
-
-	mEditMenu->addSeparator();
-	
-	QAction* settingsAction = mEditMenu->addAction( tr("&Settings"), this, &MainWindow::OnSettings );
-	settingsAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Gear.png") );
 
 	//
 	// VIEW menu
@@ -320,7 +321,7 @@ void MainWindow::Init()
 	mPluginMenu = GetPluginManager()->ConstructMenu();
 		
 	// combined view menu
-	QMenu* viewMenu = mMenuBar->addMenu( tr("&View") );
+	QMenu* viewMenu = mMenuBar->addMenu( tr("&Windows") );
 	viewMenu->addMenu(mPluginMenu->GetCreateMenu());			// Add Item from layout
 	viewMenu->addMenu(mPluginMenu->GetRemoveMenu());			// Remove Item from layout
 	viewMenu->addMenu(mLayoutMenu);								// list of layouts
@@ -403,7 +404,7 @@ void MainWindow::Init()
 	// TOOLS menu
 	//
 
-	QMenu* toolsMenu = mMenuBar->addMenu( tr("&Tools") );
+	mToolsMenu = mMenuBar->addMenu( tr("&Tools") );
 	
 #ifdef INCLUDE_DEVICE_INTERAXON_MUSE
 	
@@ -416,7 +417,7 @@ void MainWindow::Init()
 	if (showMuseMenue == true)
 	{
 		// start muse io
-		QAction* startMuseIOAction = toolsMenu->addAction( tr("Start MuseIO"), this, &MainWindow::OnStartMuseIO );
+		QAction* startMuseIOAction = mToolsMenu->addAction( tr("Start MuseIO"), this, &MainWindow::OnStartMuseIO );
 		startMuseIOAction->setIcon( GetQtBaseManager()->FindIcon("Images/Devices/InteraXon Muse.png") );
 	}
 
@@ -424,7 +425,7 @@ void MainWindow::Init()
 
 	// tools/information menu
 
-	QMenu* infoMenu = toolsMenu->addMenu(tr("&Information"));
+	QMenu* infoMenu = mToolsMenu->addMenu(tr("&Information"));
 	infoMenu->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Info.png"));
 	
 	// serial port info
@@ -438,7 +439,7 @@ void MainWindow::Init()
 
 #ifndef PRODUCTION_BUILD
 	// tool/dev menu
-	QMenu* devMenu = toolsMenu->addMenu(tr("&Dev"));
+	QMenu* devMenu = mToolsMenu->addMenu(tr("&Dev"));
 	devMenu->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Gear.png"));
 
 	// empty menu action for doing stuff while developing
@@ -477,9 +478,6 @@ void MainWindow::Init()
 	updateAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Refresh.png") );
 #endif
 
-	// sign out
-	QAction* userLogoutAction = helpMenu->addAction( tr("&Log out"), this, &MainWindow::OnLogOut );
-	userLogoutAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Exit.png") );
 
 	helpMenu->addSeparator();
 
@@ -489,8 +487,10 @@ void MainWindow::Init()
 	QAction* visitHelpCenterAction = helpMenu->addAction( tr("Account"), this, &MainWindow::OnVisitAccount );
 	visitHelpCenterAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Internet.png") );
 
+#ifndef NEUROMORE_BRANDING_ANT
 	QAction* visitDocsAction = helpMenu->addAction( tr("Documentation"), this, &MainWindow::OnVisitDocumentation );
 	visitDocsAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Internet.png") );
+#endif
 
 	QAction* feedbackAction = helpMenu->addAction( tr("Support"), this, &MainWindow::OnVisitSupport );
 	feedbackAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Support.png") );
@@ -610,10 +610,24 @@ void MainWindow::OnPostAuthenticationInit()
 
 	//GetLayoutManager()->ReInit(); // EnableCustomizing calls ReInit() internally
 
+	// Select start layout
 	// auto use the first layout when calling the first time
 	LogDetailedInfo("Switching to first layout ...");
 	GetLayoutManager()->SwitchToLayoutByIndex( 0 );
 
+#ifdef NEUROMORE_BRANDING_ANT
+	const bool isAdminOrClinicAdmin = 
+		user->FindRule("ROLE_Admin") != NULL || 
+		user->FindRule("ROLE_ClinicAdmin")  != NULL;
+
+	// hide the Tools menu for non-admins
+	if (mToolsMenu && !isAdminOrClinicAdmin)
+		mToolsMenu->menuAction()->setVisible(false);
+
+	// hide the Settings menu for non admins
+	if (mSettingsAction && !isAdminOrClinicAdmin)
+		mSettingsAction->setVisible(false);
+#endif
 
 	// select user button
 	const bool allowSelectUser = (user->FindRule("STUDIO_SETTING_SelectUser") != NULL);
@@ -676,6 +690,10 @@ void MainWindow::OnPostAuthenticationInit()
 			license.Save( GetAuthenticationCenter()->GetLicenseFilename().AsChar() );
 		}
 	}
+
+	// show session user selection window if the rule is set and role matches
+	if ((user->FindRule("ROLE_ClinicClinician") || user->FindRule("ROLE_ClinicOperator")) && user->FindRule("STUDIO_SETTING_SelectUser") != NULL)
+		SelectSessionUser();
 
 #ifndef PRODUCTION_BUILD
 	// production backend while dev version message box (EDIT: This is OK since Open-Source)
@@ -876,6 +894,14 @@ void MainWindow::OnCreatedProtocolForUser(const User& user)
    mExperienceWizardWindow = NULL;
 
    SelectSessionUser();
+
+   // refresh the experience plugin using the selected user
+   if (ExperienceSelectionPlugin* p = (ExperienceSelectionPlugin*)GetPluginManager()->FindFirstActivePluginByType(ExperienceSelectionPlugin::GetStaticTypeUuid()))
+      p->OnPostAuthenticationInit();
+
+   // refresh the filesystem plugin using the selected user
+   if (BackendFileSystemPlugin* p = (BackendFileSystemPlugin*)GetPluginManager()->FindFirstActivePluginByType(BackendFileSystemPlugin::GetStaticTypeUuid()))
+      p->OnPostAuthenticationInit();
 }
 
 // reload the style sheet
@@ -964,20 +990,12 @@ void MainWindow::OnVisitSupport()
 {
 	User* user = GetUser();
 	
-	if (user != NULL && user->FindRule("STUDIO_SETTING_SupportEmail") != NULL)
-	{
-		// construct link
-		String link;
-		link.Format("mailto:%s?subject=Support Request: %s (%s)&body=Please let us know how we can help you.", GetManager()->GetSupportEMail(), GetManager()->GetAppName().AsChar(), user->GetId() );
+	// construct link
+	String link;
+	link.Format("mailto:%s?subject=Support Request: %s (%s)&body=Please let us know how we can help you.", GetManager()->GetSupportEMail(), GetManager()->GetAppName().AsChar(), user->GetId() );
 
-		QUrl url( link.AsChar() );
-		QDesktopServices::openUrl(url);
-	}
-	else
-	{
-		QUrl url( GetManager()->GetSupportUrl() );
-		QDesktopServices::openUrl(url);
-	}
+	QUrl url( link.AsChar() );
+	QDesktopServices::openUrl(url);
 }
 
 
@@ -1161,13 +1179,26 @@ void MainWindow::OnActiveExperienceChanged(Experience* experience)
 {
 	const bool hasExperience = (experience != NULL);
 	const bool hasWriteableExperience = hasExperience && experience->GetCreud().Update();
+	const bool isAdminOrClinicAdmin =
+		GetUser() && (GetUser()->FindRule("ROLE_Admin") != NULL || GetUser()->FindRule("ROLE_ClinicAdmin") != NULL);
 
+#ifdef NEUROMORE_BRANDING_ANT
+	// show these only for admins/clinc-admins, even if the user has update rights
+	const bool isVisibleClose = hasExperience && isAdminOrClinicAdmin;
+	const bool isVisibleSave = hasWriteableExperience && isAdminOrClinicAdmin;
+	const bool isVisibleDesign = hasWriteableExperience && isAdminOrClinicAdmin;
+#else
+	const bool isVisibleClose = hasExperience;
+	const bool isVisibleSave = hasWriteableExperience;
+	const bool isVisibleDesign = hasWriteableExperience;
+#endif
+	
 	// actions that are only shown if a design is loaded (and writeable in some cases)
-	mCloseAction->setVisible(hasExperience);
-	mSaveAction->setVisible(hasWriteableExperience);
+	mCloseAction->setVisible(isVisibleClose);
+	mSaveAction->setVisible(isVisibleSave);
 
 	// show design menu only if its writeable
-	mDesignMenu->menuAction()->setVisible(hasWriteableExperience);
+	mDesignMenu->menuAction()->setVisible(isVisibleDesign);
 
 	// reuse the enable-settings code
 	if (hasExperience == true)
@@ -1191,6 +1222,9 @@ void MainWindow::OnSettings()
 	{
 		mSettingsWindow = new SettingsWindow(this);
 		mSettingsWindow->Init();
+
+		// check if admin or clinic admin
+		const bool isAdmin = GetUser()->FindRule("ROLE_Admin") != NULL || GetUser()->FindRule("ROLE_ClinicAdmin");
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// General category
@@ -1544,7 +1578,12 @@ void MainWindow::OnLoadSettings()
 	SetRealtimeUIUpdateRate(realtimeInterfaceUpdateRate);
 
 	// device detection
-	const bool enableAutoDetection = settings.value("deviceAutoDetectionEnabled", GetEngine()->GetAutoDetectionSetting()).toBool();
+#ifdef NEUROMORE_BRANDING_ANT
+	const bool default_autodetection = true;
+#else
+	const bool default_autodetection = GetEngine()->GetAutoDetectionSetting();
+#endif
+	const bool enableAutoDetection = settings.value("deviceAutoDetectionEnabled", default_autodetection).toBool();
 	GetEngine()->SetAutoDetectionSetting(enableAutoDetection);
 
 	// power line frequency
@@ -1563,7 +1602,6 @@ void MainWindow::OnLoadSettings()
 	for (uint32 i = 0; i < numDevices; ++i)
 	{
 		DeviceDriver* driver = GetDeviceManager()->GetDeviceDriver(i);
-
 		// construct settings name using device driver name
 		mTempString.Format("deviceDriver%sAutoDetectionEnabled", driver->GetName());
 		mTempString.RemoveChars(" ");	// remove spacings from device driver name
@@ -1584,16 +1622,17 @@ void MainWindow::OnLoadSettings()
 	}
 #endif
 
-	// neuromore Cloud category
-#ifdef PRODUCTION_BUILD
-	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(0);
+	// used backend
+#ifdef NEUROMORE_BRANDING_ANT
+	const int defaultPresetIndex = 1;
 #else
-	int32 cloudServerPreset = settings.value("cloudServerPreset", GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex()).toInt();
+	const int defaultPresetIndex = 0;
+#endif
+	int32 cloudServerPreset = settings.value("cloudServerPreset", defaultPresetIndex).toInt();
 	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(cloudServerPreset);
 
 	bool backendLoggingEnabled = settings.value( "cloudLoggingEnabled", false ).toBool();
 	GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled(backendLoggingEnabled);
-#endif
 
 #ifdef FORCE_DEBUGLOGGING
 	GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled(true);

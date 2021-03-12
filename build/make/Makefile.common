@@ -80,6 +80,7 @@ ENGINE_OBJS_ALL     = Core/AABB.o \
                       Devices/Gamepad/GamepadDevice.o \
                       Devices/Mitsar/MitsarDevices.o \
                       Devices/Muse/MuseDevice.o \
+                      Devices/Neurosity/NotionDevices.o \
                       Devices/NeuroSky/NeuroSkyDevice.o \
                       Devices/OpenBCI/OpenBCIDevices.o \
                       Devices/Test/TestDevice.o \
@@ -572,7 +573,9 @@ STUDIO_RCCDIR_X86    = $(STUDIO_SRCDIR)/.rcc/x86
 STUDIO_RCCDIR_X64    = $(STUDIO_SRCDIR)/.rcc/x64
 STUDIO_OBJDIR_X86    = $(OBJDIR_X86)/Studio
 STUDIO_OBJDIR_X64    = $(OBJDIR_X64)/Studio
-STUDIO_DEFINES       = -DQT_STATIC \
+STUDIO_DEFINES       = -DAPPNAME="neuromore Studio" \
+                       -DAPPICON="AppIcon-neuromore.ico" \
+                       -DQT_STATIC \
                        -DQT_NO_DEBUG \
                        -DQT_NO_DBUS \
                        -DQT_LINKED_OPENSSL \

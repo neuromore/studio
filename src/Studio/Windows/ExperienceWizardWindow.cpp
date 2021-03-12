@@ -32,7 +32,7 @@
 #include <Backend/FilesGetResponse.h>
 #include <Backend/FilesCreateRequest.h>
 #include <Backend/FilesCreateResponse.h>
-#include <Graph/ChannelSelectorNode.h>
+#include <Engine/Devices/eemagine/eemagineNodes.h>
 #include <QHeaderView>
 #include <QVBoxLayout>
 #include <QIcon>
@@ -49,8 +49,11 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint),
    mUser(user),
    mFolderId(),
+   mEegNode(0),
+   mEegChannelSelector(0),
    mClassifier(0),
    mMainLayout(),
+   mHeaderLayout(),
    mUserLayout(),
    mUserDesc("User:"),
    mUserLabel(user.CreateFullName().AsChar()),
@@ -63,6 +66,8 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mExperienceLayout(),
    mExperienceDesc("Experience:"),
    mExperienceEdit(),
+   mSupportedDevicesDesc("Supported EEG:"),
+   mSupportedDevicesList(),
    mTableWidget(),
    mHeaderType("Type"),
    mHeaderName("Name"),
@@ -73,12 +78,25 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    setWindowTitle("Experience Wizard");
    setWindowIcon(GetQtBaseManager()->FindIcon("Images/Icons/Users.png"));
    setMinimumWidth(600);
-   setMinimumHeight(400);
+   setMinimumHeight(550);
    setModal(true);
    setWindowModality(Qt::ApplicationModal);
 
    // add the main vertical layout
    setLayout(&mMainLayout);
+
+   // setup the header layout
+   mHeaderLayout.setSpacing(6);
+   mHeaderLayout.setSizeConstraint(QLayout::SizeConstraint::SetFixedSize);
+   mHeaderLayout.setAlignment(Qt::AlignLeft);
+   mHeaderLayout.addLayout(&mHeaderLeftLayout);
+   mHeaderLayout.addLayout(&mHeaderRightLayout);
+
+   mHeaderLeftLayout.setAlignment(Qt::AlignLeft);
+   mHeaderRightLayout.setAlignment(Qt::AlignLeft);
+
+   // add header to main layout
+   mMainLayout.addLayout(&mHeaderLayout);
 
    /////////////////////////////////////////////////
    // user
@@ -89,7 +107,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mUserLayout.setAlignment(Qt::AlignCenter);
    mUserLayout.addWidget(&mUserDesc);
    mUserLayout.addWidget(&mUserLabel);
-   mMainLayout.addLayout(&mUserLayout);
+   mHeaderLeftLayout.addLayout(&mUserLayout);
 
    /////////////////////////////////////////////////
    // classifier
@@ -100,7 +118,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mClassifierLayout.setAlignment(Qt::AlignCenter);
    mClassifierLayout.addWidget(&mClassifierSelectDesc);
    mClassifierLayout.addWidget(&mClassifierSelect);
-   mMainLayout.addLayout(&mClassifierLayout);
+   mHeaderLeftLayout.addLayout(&mClassifierLayout);
 
    connect(&mClassifierSelect, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ExperienceWizardWindow::OnClassifierSelectIndexChanged);
 
@@ -113,7 +131,7 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mStateMachineLayout.setAlignment(Qt::AlignCenter);
    mStateMachineLayout.addWidget(&mStateMachineSelectDesc);
    mStateMachineLayout.addWidget(&mStateMachineSelect);
-   mMainLayout.addLayout(&mStateMachineLayout);
+   mHeaderLeftLayout.addLayout(&mStateMachineLayout);
 
    connect(&mStateMachineSelect, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ExperienceWizardWindow::OnStateMachineSelectIndexChanged);
 
@@ -128,9 +146,22 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
    mExperienceLayout.setAlignment(Qt::AlignCenter);
    mExperienceLayout.addWidget(&mExperienceDesc);
    mExperienceLayout.addWidget(&mExperienceEdit);
-   mMainLayout.addLayout(&mExperienceLayout);
+   mHeaderLeftLayout.addLayout(&mExperienceLayout);
 
    connect(&mExperienceEdit, &QLineEdit::textChanged, this, &ExperienceWizardWindow::OnExperienceTextChanged);
+
+   /////////////////////////////////////////////////
+   // supported devices
+
+   mSupportedDevicesDesc.setFixedHeight(20);
+   mSupportedDevicesDesc.setMinimumWidth(50);
+   mSupportedDevicesDesc.setAlignment(Qt::AlignLeft);
+   mSupportedDevicesList.setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
+   mSupportedDevicesList.setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+   mSupportedDevicesList.setFixedHeight(75);
+
+   mHeaderRightLayout.addWidget(&mSupportedDevicesDesc);
+   mHeaderRightLayout.addWidget(&mSupportedDevicesList);
 
    /////////////////////////////////////////////////
    // table
@@ -197,6 +228,11 @@ ExperienceWizardWindow::ExperienceWizardWindow(const User& user, QWidget* parent
 ExperienceWizardWindow::~ExperienceWizardWindow()
 {
    mQuickConfigNodes.Clear();
+   mFrequencyBandNodes.Clear();
+   mEegDevices.Clear();
+   mEegDevicesRemoved.Clear();
+   mEegNode = 0;
+   mEegChannelSelector = 0;
 
    if (mClassifier)
    {
@@ -223,6 +259,11 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
 
       // clear old node refs
       mQuickConfigNodes.Clear();
+      mFrequencyBandNodes.Clear();
+      mEegDevices.Clear();
+      mEegDevicesRemoved.Clear();
+      mEegNode = 0;
+      mEegChannelSelector = 0;
 
       // parse the json into classifier instance
       if (mClassifier)
@@ -231,13 +272,26 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
       mClassifier = new Classifier();
       mGraphImporter.LoadFromString(response.GetJsonContent(), mClassifier);
 
-      // iterate nodes in this classifier
+      // iterate nodes in classifier and analyse them
       const uint32 numNodes = mClassifier->GetNumNodes();
       for (uint32_t i = 0; i < numNodes; i++)
       {
          Node* n = mClassifier->GetNode(i);
 
-         // iterate attributes and look for the quick config setting
+         switch (n->GetType())
+         {
+         // DeviceInputNode (EEG Device)
+         case EegDeviceNode::TYPE_ID:
+#if defined(INCLUDE_DEVICE_EEMAGINE)
+         case eemagine8Node::TYPE_ID:
+         case eemagine32Node::TYPE_ID:
+         case eemagine64Node::TYPE_ID:
+#endif
+            mEegNode = (DeviceInputNode*)n;
+            break;
+         }
+
+         // iterate attributes
          const uint32 numAtt = n->GetNumAttributes();
          for (uint32_t j = 0; j < numAtt; j++)
          {
@@ -245,13 +299,62 @@ void ExperienceWizardWindow::OnClassifierSelectIndexChanged(int index)
             Core::Attribute* attrib = n->GetAttributeValue(j);
             Core::String attribv;
             
+            // check quickconfig attribute
             if (settings->GetInternalNameString() == "quickconfig" &&
                 attrib->ConvertToString(attribv) && attribv == "1")
             {
                mQuickConfigNodes.Add(n);
-               break;
+
+               // save quick-config enabled channel selector node right after eeg dedicated
+               if (n->GetType() == ChannelSelectorNode::TYPE_ID && n->GetNumInputPorts() > 0)
+                  if (Node* srcNode = n->GetSourceNode(0))
+                     if (srcNode->GetType() == EegDeviceNode::TYPE_ID
+#if defined(INCLUDE_DEVICE_EEMAGINE)
+                         ||
+                         srcNode->GetType() == eemagine8Node::TYPE_ID ||
+                         srcNode->GetType() == eemagine32Node::TYPE_ID ||
+                         srcNode->GetType() == eemagine64Node::TYPE_ID
+#endif
+                        )
+                        mEegChannelSelector = (ChannelSelectorNode*)n;
+            }
+
+            // check wizardselectable attribute
+            if (settings->GetInternalNameString() == "wizardselectable" &&
+               attrib->ConvertToString(attribv) && attribv == "1")
+            {
+               if (n->GetType() == FrequencyBandNode::TYPE_ID)
+                  mFrequencyBandNodes.Add((FrequencyBandNode*)n);
             }
          }
+      }
+
+      // if found an eeg node above
+      if (mEegNode)
+      {
+         // try get prototype device for found bci node device type
+         // this works for explicit eeg device nodes only
+         if (BciDevice* eeg = (BciDevice*)GetDeviceManager()->GetRegisteredDeviceType(mEegNode->GetDeviceType()))
+            mEegDevices.Add(eeg);
+         
+         // handle the generic EegNode
+         else if (mEegNode->GetType() == EegDeviceNode::TYPE_ID)
+         {
+            Core::Array<Core::String> devstr;
+            devstr = mEegNode->GetStringArrayAttributeByName("allowedDevices", devstr);
+
+            const uint32_t numDevStr = devstr.Size();
+            for (uint32 i = 0; i < numDevStr; i++)
+               GetDeviceManager()->GetRegisteredDeviceTypeByHardwareNamePrefix<BciDevice>(devstr[i], mEegDevices);
+         }
+      }
+
+      // if found an eeg main channel selector
+      if (mEegChannelSelector)
+      {
+         // make sure it's the first in the quick config nodes
+         if (mQuickConfigNodes.RemoveByValue(mEegChannelSelector))
+            mQuickConfigNodes.Insert(0, mEegChannelSelector);
       }
 
       // set ui from nodes/data
@@ -277,6 +380,9 @@ void ExperienceWizardWindow::OnCreateClicked()
 {
    if (!mClassifier)
       return;
+   
+   // make sure data is consistent with ui
+   SyncNodes();
 
    // Experience Generation
 
@@ -446,6 +552,9 @@ void ExperienceWizardWindow::SyncNodes()
    const int numRows  = mTableWidget.rowCount();
    const int numNodes = (int)mQuickConfigNodes.Size();
 
+   // clear used channels (re-populated in ReadChannelSelectorRow)
+   mChannelsUsed.Clear();
+
    // something wrong here (add logging..)
    if (numRows != numNodes)
       return;
@@ -466,11 +575,85 @@ void ExperienceWizardWindow::SyncNodes()
       }
    }
 
+   // add all removed devices and clear them before check
+   mEegDevices.Add(mEegDevicesRemoved);
+   mEegDevicesRemoved.Clear();
+
+   // remove devices that do not supported selected channels
+   const uint32 numDevs = mEegDevices.Size();
+   if (numDevs > 0)
+   {
+      // iterade devices backwards due to remove
+      for (uint32 i = numDevs - 1; i != UINT32_MAX; i--)
+      {
+         const auto& electrodes = mEegDevices[i]->GetElectrodes();
+         const uint32 numElectrodes = electrodes.Size();
+         const uint32 numChannels = mChannelsUsed.Size();
+
+         // check each used channel with this device
+         for (uint32 k = 0; k < numChannels; k++)
+         {
+            // asterisk channel no real channel, supported by all devices
+            if (mChannelsUsed[k] == "*")
+               continue;
+
+            bool found = false;
+
+            // check if an electrode matches the channel
+            for (uint32 j = 0; j < numElectrodes; j++)
+            {
+               if (electrodes[j].GetNameString() == mChannelsUsed[k])
+               {
+                  found = true;
+                  break;
+               }
+            }
+
+            // device doesn't have that channel, remove it
+            if (!found)
+            {
+               mEegDevicesRemoved.Add(mEegDevices[i]);
+               mEegDevices.Remove(i);
+               break;
+            }
+         }
+      }
+   }
+
+   // update 'allowed devices' attribute on a possible generic EegDeviceNode
+   if (mEegNode && mEegNode->GetType() == EegDeviceNode::TYPE_ID)
+   {
+      const uint32 idx = mEegNode->FindAttributeIndexByInternalName("allowedDevices");
+      if (idx != CORE_INVALIDINDEX32)
+      {
+         // build array
+         Core::Array<Core::String> arr;
+         for (uint32 i = 0; i < mEegDevices.Size(); i++)
+            arr.Add(mEegDevices[i]->GetHardwareName());
+
+         // set and flag node as updated to get change into experience
+         if (mEegNode->SetStringArrayAttributeByIndex(idx, arr))
+            mEegNode->OnAttributeChanged(mEegNode->GetAttributeValue(idx));
+
+         // failed to write updated 'Allowed Devices'
+         else
+            LogWarning("ExperienceWizard: Failed to update 'Allowed Devices' of EegDeviceNode.");
+      }
+   }
+
    SyncUi(); // needed
 }
 
 void ExperienceWizardWindow::SyncUi()
 {
+   // set supported devices list
+   mSupportedDevicesList.clear();
+   const uint32 numDevices = mEegDevices.Size();
+   for (uint32 i = 0; i < numDevices; i++)
+      mSupportedDevicesList.addItem(mEegDevices[i]->GetHardwareName());
+
+   mSupportedDevicesList.model()->sort(0);
+
    // clear old ui table
    mTableWidget.setRowCount(0);
 
@@ -499,6 +682,10 @@ void ExperienceWizardWindow::SyncUi()
       QTableWidgetItem* secondItem = new QTableWidgetItem(n->GetName());
       secondItem->setTextAlignment(Qt::AlignCenter);
       secondItem->setFlags(secondItem->flags() ^ Qt::ItemIsEditable);
+
+      // highlight the eeg channel selector node
+      if (n == mEegChannelSelector)
+         secondItem->setTextColor(Qt::GlobalColor::green);
 
       // column: EDIT
       QWidget* container = new QWidget();
@@ -534,6 +721,11 @@ void ExperienceWizardWindow::SyncCreateButton()
       mCreateButton.setText("Select a state machine");
       mCreateButton.setEnabled(false);
    }
+   else if (mEegDevices.Size() == 0)
+   {
+      mCreateButton.setText("No supported EEG device");
+      mCreateButton.setEnabled(false);
+   }
    else
    {
       mCreateButton.setText("Create");
@@ -544,6 +736,71 @@ void ExperienceWizardWindow::SyncCreateButton()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CHANNEL SELECTOR
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ExperienceWizardWindow::GetNodeChannels(Node* n, Core::Array<Core::String>& out)
+{
+   Array<String> channels = n->GetStringArrayAttributeByName("channels", channels);
+   const uint32 numChannels = channels.Size();
+   for (uint32_t i = 0; i < numChannels; i++)
+   {
+      Core::String& s = channels[i];
+      s.Trim();
+      auto words = s.Split(StringCharacter::space);
+      if (words.Size() >= 1)
+         out.Add(words[words.Size() - 1]);
+   }
+}
+
+void ExperienceWizardWindow::GetNodeChannels(Node* n, Core::Array<std::tuple<Core::String, Core::String>>& out)
+{
+   Array<String> channels = n->GetStringArrayAttributeByName("channels", channels);
+   const uint32 numChannels = channels.Size();
+   for (uint32_t i = 0; i < numChannels; i++)
+   {
+      Core::String& s = channels[i];
+      s.Trim();
+      auto words = s.Split(StringCharacter::space);
+      if (words.Size() >= 1)
+      {
+         const uint32_t last = words.Size() - 1;
+         Core::String ch = words[last];
+         Core::String band;
+         for (uint32_t j = 0; j < last; j++)
+         {
+            band += words[j];
+            if (j < last - 1)
+               band += ' ';
+         }
+         out.Add(std::tuple<Core::String, Core::String>(ch, band));
+      }
+   }
+}
+
+void ExperienceWizardWindow::GetDevicesElectrodes(Core::Array<Core::String>& out)
+{
+   const uint32 numDevices = mEegDevices.Size();
+
+   // use electrodes of devices
+   if (numDevices > 0)
+   {
+      for (uint32 j = 0; j < numDevices; j++)
+      {
+         const uint32_t numElectrodes = mEegDevices[j]->GetNumNeuroSensors();
+         for (uint32_t i = 0; i < numElectrodes; i++)
+            if (!out.Contains(mEegDevices[j]->GetNeuroSensor(i)->GetName()))
+               out.Add(mEegDevices[j]->GetNeuroSensor(i)->GetName());
+      }
+   }
+
+   // use all known electrodes
+   else
+   {
+      const uint32_t numElectrodes = GetEEGElectrodes()->GetNumElectrodes();
+      for (uint32_t i = 0; i < numElectrodes; i++)
+         out.Add(GetEEGElectrodes()->GetElectrode(i).GetName());
+   }
+}
+
 
 void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
 {
@@ -570,6 +827,13 @@ void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
       s += c->text().toLocal8Bit().data();
       if (j < numItems - 1)
          s += ',';
+
+      // trim possible whitespaces from non-existing band
+      s.Trim();
+
+      // add this channel to list of all used channels if not listed yet
+      if (!mChannelsUsed.Contains(c->text().toLocal8Bit().data()))
+         mChannelsUsed.Add(c->text().toLocal8Bit().data());
    }
 
    // set node channels attribute value
@@ -581,6 +845,9 @@ void ExperienceWizardWindow::ReadChannelSelectorRow(int idx)
 
 void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget* container)
 {
+   if (!node || !container)
+      return;
+
    //////////////////////////////////////////////////////////////////////////////////
    // create ui elements
 
@@ -600,31 +867,50 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
    // no margin
    hlnew->setContentsMargins(0, 0, 0, 0);
 
-   // configure combobox channel
-   qboxch->addItem("C3");
-   qboxch->addItem("C4");
-   qboxch->addItem("Cz");
-   qboxch->addItem("F3");
-   qboxch->addItem("F4");
-   qboxch->addItem("Fz");
-   qboxch->addItem("Fpz");
-   qboxch->addItem("Pz");
+   // build selectable electrodes
+   Core::Array<Core::String> qboxchitems;
 
-   // configure combobox band
-   qboxband->addItem("Alpha");
-   qboxband->addItem("Beta1");
-   qboxband->addItem("Beta Sum");
-   qboxband->addItem("CustomBand1");
-   qboxband->addItem("CustomBand2");
-   qboxband->addItem("CustomBand3");
-   qboxband->addItem("Delta");
-   qboxband->addItem("DeltaThetaSum");
-   qboxband->addItem("Gamma");
-   qboxband->addItem("High Beta");
-   qboxband->addItem("Low Beta");
-   qboxband->addItem("SMR");
-   qboxband->addItem("Theta");
-   qboxband->addItem("ThetaAlphaSum");
+   // for the main selector behind eeg or for any if there isn't a main
+   if (node == mEegChannelSelector || !mEegChannelSelector)
+      GetDevicesElectrodes(qboxchitems);
+
+   // for other channel selector from main selector
+   else if (mEegChannelSelector)
+   {
+      GetNodeChannels(mEegChannelSelector, qboxchitems);
+      if (qboxchitems.Contains("*"))
+         GetDevicesElectrodes(qboxchitems);
+   }
+
+   // always add wildcard selector if not already included
+   if (!qboxchitems.Contains("*"))
+      qboxchitems.Add("*");
+
+   // add entries to box
+   for (uint32 i = 0; i < qboxchitems.Size(); i++)
+      qboxch->addItem(qboxchitems[i].AsChar());
+
+   // sort alphabetically
+   qboxch->model()->sort(0);
+   qboxch->setCurrentIndex(0);
+
+   // configure combobox band only for non directly connected selector nodes
+   if (node == mEegChannelSelector)
+      qboxband->setDisabled(true);
+
+   else
+   {
+      // add "wizardselectable" frequencybandnodes which are also inputs of node
+      const uint32 numBands = mFrequencyBandNodes.Size();
+      for (uint32 i = 0; i < numBands; i++)
+         if (node->FindNodeOnInputs(mFrequencyBandNodes[i]))
+            qboxband->addItem(mFrequencyBandNodes[i]->GetName());
+      
+      // sort alphabetically
+      qboxband->addItem("*");
+      qboxband->model()->sort(0);
+      qboxband->setCurrentIndex(0);
+   }
 
    // configure add button
    qbtnadd->setToolTip("Add this combination");
@@ -632,6 +918,7 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
    qbtnadd->setProperty("List", QVariant::fromValue((void*)list));
    qbtnadd->setProperty("Channel", QVariant::fromValue((void*)qboxch));
    qbtnadd->setProperty("Band", QVariant::fromValue((void*)qboxband));
+   qbtnadd->setProperty("IsEegChannelSelector", QVariant::fromValue(node == mEegChannelSelector));
 
    // handler for add button
    connect(qbtnadd, &QPushButton::clicked, this, &ExperienceWizardWindow::OnChannelSelectorListItemAdd);
@@ -647,69 +934,36 @@ void ExperienceWizardWindow::CreateChannelSelectorEditColumn(Node* node, QWidget
    // add internal list items
 
    const uint32_t attidx = node->FindAttributeIndexByInternalName("channels");
-
+   
    // channels attribute not found
    if (attidx == CORE_INVALIDINDEX32)
-   {
-      //TODO log
       return;
-   }
 
    // get the attribute
-   Core::Attribute* att = node->GetAttributeValue(attidx);
-
-   // not expected type
-   if (att->GetType() != AttributeStringArray::TYPE_ID)
+   if (Core::Attribute* att = node->GetAttributeValue(attidx))
    {
-      //TODO log
-      return;
+      // not expected type
+      if (att->GetType() != AttributeStringArray::TYPE_ID)
+         return;
+
+      // always mark it as changed (to get into exp json)
+      node->OnAttributeChanged(att);
    }
 
-   // always mark it as changed (to get into exp json)
-   node->OnAttributeChanged(att);
+   // get channel+band combinations of this node
+   Core::Array<std::tuple<Core::String, Core::String>> chbands;
+   GetNodeChannels(node, chbands);
 
-   // cast to expected type
-   AttributeStringArray* channels = (AttributeStringArray*)att;
-
-   // iterate channels
-   const uint32_t numCh = channels->GetNumStrings();
+   // create list entries
+   const uint32_t numCh = chbands.Size();
    for (uint32_t i = 0; i < numCh; i++)
-   {
-      Core::String& s = channels->GetString(i);
-
-      // remove some spaces before split by space
-      s.Trim();
-
-      // split channel words by whitespaces
-      auto words = s.Split(StringCharacter::space);
-
-      // read channel and band parts from it
-      if (words.Size() >= 2)
-      {
-         const uint32_t last = words.Size() - 1;
-
-         // last word is channel
-         Core::String ch = words[last];
-
-         // others belong to band
-         Core::String band;
-         for (uint32_t j = 0; j < last; j++)
-         {
-            band += words[j];
-            if (j < last - 1)
-               band += ' ';
-         }
-
-         // create the item
-         CreateChannelSelectorListItem(*list, ch, band);
-      }
-   }
+      CreateChannelSelectorListItem(*list, std::get<0>(chbands[i]), std::get<1>(chbands[i]));
 }
 
 void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, const char* channel, const char* band)
 {
    // avoid duplicates
-   if (HasChannelSelectorListItem(list, channel, band))
+   if (HasChannelSelectorListItem(list, channel, band) != CORE_INVALIDINDEX32)
       return;
 
    // create the list item and its internal widget/layout
@@ -734,6 +988,7 @@ void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, co
    btnDelete->setToolTip("Remove this combination");
    btnDelete->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Minus.png"));
    btnDelete->setProperty("ListWidgetItem", QVariant::fromValue((void*)item));
+   btnDelete->setProperty("List", QVariant::fromValue((void*)&list));
 
    // link delete button click event
    connect(btnDelete, &QPushButton::clicked, this, &ExperienceWizardWindow::OnChannelSelectorListItemDelete);
@@ -752,7 +1007,7 @@ void ExperienceWizardWindow::CreateChannelSelectorListItem(QListWidget& list, co
    list.setItemWidget(item, widget);
 }
 
-bool ExperienceWizardWindow::HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band)
+uint32 ExperienceWizardWindow::HasChannelSelectorListItem(QListWidget& list, const char* channel, const char* band)
 {
    const uint32 numItems = list.count();
    for (uint32 i = 0; i < numItems; i++)
@@ -764,10 +1019,10 @@ bool ExperienceWizardWindow::HasChannelSelectorListItem(QListWidget& list, const
       QLabel*          b   = w->findChild<QLabel*>("Band");
 
       // match
-      if (c && b && c->text() == channel && b->text() == band)
-         return true;
+      if (c && b && (c->text() == "*" || c->text() == channel) && (b->text() == "*" || b->text() == band))
+         return i;
    }
-   return false;
+   return CORE_INVALIDINDEX32;
 }
 
 void ExperienceWizardWindow::OnChannelSelectorListItemAdd()
@@ -780,6 +1035,41 @@ void ExperienceWizardWindow::OnChannelSelectorListItemAdd()
    QListWidget* list = (QListWidget*)btn->property("List").value<void*>();
    QComboBox*   ch   = (QComboBox*)btn->property("Channel").value<void*>();
    QComboBox*   band = (QComboBox*)btn->property("Band").value<void*>();
+
+   // get if this is the main channel selector
+   const bool iseegselector = (QComboBox*)btn->property("IsEegChannelSelector").value<bool>();
+
+   // clear list if adding wildcard
+   if ((ch->currentText() == "*" && band->currentText() == "*") ||
+       (ch->currentText() == "*" && band->currentText() == ""))
+   {
+      list->clear();
+   }
+   else
+   {
+      // check if there is a wildcard in list and delete
+      const uint32 idx = HasChannelSelectorListItem(*list, "*", "");
+      if (idx != CORE_INVALIDINDEX32)
+      {
+         delete list->item(idx);
+
+         // if wildcard was removed from the main channel selector, it affects all the others
+         if (iseegselector)
+         {
+            const int numRows = mTableWidget.rowCount();
+            for (int i = 0; i < numRows; i++)
+            {
+               QWidget* w = mTableWidget.cellWidget(i, COLUMN_IDX_EDIT);
+               QListWidget* l = w->findChild<QListWidget*>("List");
+               if (l != list)
+               {
+                  l->clear();
+                  CreateChannelSelectorListItem(*l, "*", "*");
+               }
+            }
+         }
+      }
+   }
 
    // create entry in list
    CreateChannelSelectorListItem(*list, ch->currentText().toLocal8Bit().data(), band->currentText().toLocal8Bit().data());
@@ -796,6 +1086,7 @@ void ExperienceWizardWindow::OnChannelSelectorListItemDelete()
    // get button and listitem
    QPushButton*     b = qobject_cast<QPushButton*>(sender());
    QListWidgetItem* w = (QListWidgetItem*)b->property("ListWidgetItem").value<void*>();
+   QListWidget*     l = (QListWidget*)b->property("List").value<void*>();
 
    // delete entry from list
    delete w;

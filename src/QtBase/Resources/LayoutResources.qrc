@@ -13,6 +13,7 @@
     <file>Layouts/OSX_ExperienceDesigner.layout</file>
     <file>Layouts/OSX_ExperiencePlayer.layout</file>
     <file>Layouts/OSX_EEG.layout</file>
+    <file>Layouts/ANT_ExperiencePlayer.layout</file>
     
     <file>Layouts/Neurofeedback.layout</file>
     <file>Layouts/NovaTech.layout</file>

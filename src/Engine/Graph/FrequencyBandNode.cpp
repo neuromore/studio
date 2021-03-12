@@ -87,6 +87,10 @@ void FrequencyBandNode::Init()
 	minFreqAttr->SetMinValue(Core::AttributeFloat::Create(0));
 	minFreqAttr->SetMaxValue(Core::AttributeFloat::Create(200));
 	minFreqAttr->SetDefaultValue(Core::AttributeFloat::Create(mSettings.mBand.GetMinFrequency()));
+
+	// wizard selectable attribute
+	Core::AttributeSettings* attribQuickConfig = RegisterAttribute("Wizard Selectable", "wizardselectable", "Selectable in Experience Wizard", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);
+	attribQuickConfig->SetDefaultValue(Core::AttributeBool::Create(false));
 }
 
 

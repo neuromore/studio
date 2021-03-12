@@ -81,6 +81,7 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		void OnRemoveDevice(Device* device) override final;
 
 	public slots:
+		void ShowReport();
 		void UpdateShowReportButton();
 
 		void OnStart();

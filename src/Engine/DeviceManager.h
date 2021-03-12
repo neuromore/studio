@@ -62,6 +62,18 @@ class ENGINE_API DeviceManager : public Core::EventSource, OscReceiver
 		void UnregisterDeviceType(uint32 deviceTypeID);
 		const Device* GetRegisteredDeviceType(uint32 deviceTypeID);
 
+		template<typename TDEVICE>
+		inline void GetRegisteredDeviceTypeByHardwareNamePrefix(Core::String& prefix, Core::Array<const TDEVICE*>& out)
+		{
+			const uint32 numDevice = mRegisteredDeviceTypes.Size();
+			for (uint32 i = 0; i < numDevice; ++i)
+			{
+				const TDEVICE* d = (const TDEVICE*)mRegisteredDeviceTypes[i];
+				if (d->GetBaseType() == TDEVICE::BASE_TYPE_ID && Core::String(d->GetHardwareName()).Find(prefix) == 0)
+					out.Add(d);
+			}
+		}
+
 		Device* CreateDeviceObjectByType(uint32 deviceTypeID);
 
 		// synchronous add/remove device
@@ -167,9 +179,6 @@ class ENGINE_API DeviceManager : public Core::EventSource, OscReceiver
 		// misc
 		Core::String					mTempOscAddressPattern;
 		Core::FpsCounter				mFpsCounter;
-
-		// helpers
-		int32 GetDeviceIDFromAddress(const char* address) const;
 };
 
 #endif

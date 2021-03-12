@@ -76,17 +76,37 @@ class AppManager : public QObject
 		Core::Version GetVersion() const								{ return mVersion; }
 		
 		// information
+#ifdef NEUROMORE_BRANDING_ANT
+		const char* GetCompanyName() const								{ return "eemagine"; } // do not put Inc. behind this as this is also used as folder name
+		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
+		const char* GetWebsite() const									{ return "https://eego-perform.com"; }
+		const char* GetDocumentationUrl() const							{ return "https://doc.neuromore.com"; }
+		const char* GetAccountUrl() const								{ return "https://account.eego-perform.com"; }
+		const char* GetStoreUrl() const									{ return "https://eego-perform.com"; }
+		const char* GetForgotPasswordUrl() const						{ return "https://account.eego-perform.com/#/resetrequest"; }
+		const char* GetSupportEMail() const								{ return "support@eemagine.com"; }
+		const char* GetAppShortName() const								{ return "eego-perform-studio"; }
+		const char* GetMenuStudioName() const							{ return "EPStudio"; }
+		const char* GetLicenseUrl() const								{ return "https://assets.eego-perform.com/license/license.txt"; }
+		const char* GetCloudTermsUrl() const							{ return "https://assets.eego-perform.com/license/terms-and-conditions.txt"; }
+		const char* GetPrivacyPolicyUrl() const							{ return "https://assets.eego-perform.com/license/privacy-policy.txt"; }
+#else
 		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
-		const char* GetWebsite() const									{ return "http://www.neuromore.com"; }
-		const char* GetDocumentationUrl() const							{ return "https://doc.neuromore.com/"; }
+		const char* GetWebsite() const									{ return "https://www.neuromore.com"; }
+		const char* GetDocumentationUrl() const							{ return "https://doc.neuromore.com"; }
 		const char* GetAccountUrl() const								{ return "https://account.neuromore.com"; }
-		const char* GetSupportUrl() const								{ return "http://forum.neuromore.com/board/"; }
-		const char* GetStoreUrl() const									{ return "http://www.neuromore.com/neuromore-studio/"; }
+		const char* GetStoreUrl() const									{ return "https://www.neuromore.com"; }
 		const char* GetForgotPasswordUrl() const						{ return "https://account.neuromore.com/#/resetrequest"; }
 		const char* GetSupportEMail() const								{ return "support@neuromore.com"; }
-		Core::String GetAppName() const;
 		const char* GetAppShortName() const								{ return "NMStudio"; }
+		const char* GetMenuStudioName() const							{ return "NMStudio"; }
+		const char* GetLicenseUrl() const								{ return "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md"; }
+		const char* GetCloudTermsUrl() const							{ return "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md"; }
+		const char* GetPrivacyPolicyUrl() const							{ return "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md"; }
+#endif
+
+		Core::String GetAppName() const;
 		const char* GetBackendSystemName() const;
 
 		// authenticate and start the app in case of success
