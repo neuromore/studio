@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="internal">
+      <UniqueIdentifier>{c780a340-ef42-4eab-9eb5-79c487c64eb2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\wavelib\conv.cpp" />
+    <ClCompile Include="..\..\src\wavelib\cwt.cpp" />
+    <ClCompile Include="..\..\src\wavelib\cwtmath.cpp" />
+    <ClCompile Include="..\..\src\wavelib\denoise.cpp" />
+    <ClCompile Include="..\..\src\wavelib\hsfft.cpp" />
+    <ClCompile Include="..\..\src\wavelib\real.cpp" />
+    <ClCompile Include="..\..\src\wavelib\waux.cpp" />
+    <ClCompile Include="..\..\src\wavelib\wavefilt.cpp" />
+    <ClCompile Include="..\..\src\wavelib\wavefunc.cpp" />
+    <ClCompile Include="..\..\src\wavelib\wavelib.cpp" />
+    <ClCompile Include="..\..\src\wavelib\wtmath.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\wavelib\internal\conv.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\internal\cwt.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\internal\cwtmath.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\internal\hsfft.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\internal\real.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\internal\waux.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\internal\wavefilt.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\internal\wavefunc.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\internal\wtmath.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
