@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef BRAINFLOW_NO_NEUROMD
-
 #include <thread>
 
 #include "neuromd_board.h"
@@ -49,7 +47,7 @@ public:
     int start_stream (int buffer_size, char *streamer_params);
     int stop_stream ();
     int release_session ();
-    int config_board (char *config);
+    int config_board (std::string config, std::string &response);
 
 #if defined _WIN32 || defined __APPLE__
     // callbacks must be public since they are called from plain C callbacks
@@ -58,8 +56,5 @@ public:
     void on_resistance_received (
         Device *device, ChannelInfo channel_info, DoubleDataArray data_array);
 
-    static constexpr int package_size = 10;
-
 #endif
 };
-#endif

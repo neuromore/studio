@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="generated">
+      <UniqueIdentifier>{1f73bc06-7ca0-40cf-a39e-4ab7c2e31e65}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\brainflow-ml\generated\focus_dataset.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-ml\generated\lda_model.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-ml\generated\regression_model.cpp">
+      <Filter>generated</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\brainflow\ml\base_classifier.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\brainflow_model_params.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\concentration_knn_classifier.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\concentration_lda_classifier.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\concentration_regression_classifier.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\concentration_svm_classifier.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\focus_dataset.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\focus_point.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\lda_model.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\ml_module.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\regression_model.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\relaxation_knn_classifier.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\relaxation_lda_classifier.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\relaxation_regression_classifier.h" />
+    <ClInclude Include="..\..\include\brainflow\ml\relaxation_svm_classifier.h" />
+  </ItemGroup>
+</Project>

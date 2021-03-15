@@ -1,11 +1,11 @@
 #pragma once
 
+#include <string>
 #include <thread>
 
 #include "board.h"
 #include "board_controller.h"
-#include "socket_client.h"
-#include "socket_server.h"
+#include "socket_server_tcp.h"
 
 
 struct http_t; // forward declaration cause include "http.h" here leads to strange errors
@@ -21,21 +21,22 @@ protected:
     bool initialized;
     std::thread streaming_thread;
 
-    SocketServer *server_socket;
-    int num_channels;
+    SocketServerTCP *server_socket;
+
+    std::string find_wifi_shield ();
 
     virtual void read_thread () = 0;
-    virtual int send_config (char *config);
+    virtual int send_config (const char *config);
 
 public:
-    OpenBCIWifiShieldBoard (int num_channels, struct BrainFlowInputParams params, int board_id);
+    OpenBCIWifiShieldBoard (struct BrainFlowInputParams params, int board_id);
     virtual ~OpenBCIWifiShieldBoard ();
 
     virtual int prepare_session ();
     virtual int start_stream (int buffer_size, char *streamer_params);
     virtual int stop_stream ();
     virtual int release_session ();
-    virtual int config_board (char *config);
+    virtual int config_board (std::string config, std::string &response);
 
     static constexpr int package_size = 33;
 };

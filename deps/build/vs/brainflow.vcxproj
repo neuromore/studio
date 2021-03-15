@@ -19,163 +19,48 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\brainflow\board_controller\board.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\board_controller.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\src\brainflow\board_controller\board_info_getter.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\src\brainflow\board_controller\file_streamer.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\gtec\unicorn_board.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\multicast_streamer.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\brainbit.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\callibri.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\callibri_ecg.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\callibri_eeg.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\callibri_emg.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\src\brainflow\board_controller\neuromd\neuromd_board.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\cyton.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\cyton_daisy.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\cyton_daisy_wifi.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\cyton_wifi.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\callbacks.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\cmd_def.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\helpers.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\main.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\stubs.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_bglib\uart.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\ganglion_wifi.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\novaxr.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\openbci_serial_board.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\openbci\openbci_wifi_shield_board.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\streaming_board.cpp" />
-    <ClCompile Include="..\..\src\brainflow\board_controller\synthetic_board.cpp" />
     <ClCompile Include="..\..\src\brainflow\cpp-package\board_shim.cpp" />
     <ClCompile Include="..\..\src\brainflow\cpp-package\data_filter.cpp" />
+    <ClCompile Include="..\..\src\brainflow\cpp-package\ml_model.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\broadcast_client.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\data_buffer.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\libftdi_serial.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\multicast_client.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\multicast_server.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\os_serial.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\os_serial_ioctl.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\serial.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\socket_client_tcp.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\socket_client_udp.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\socket_server_tcp.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\socket_server_udp.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\brainflow\board_controller\board.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\board_controller.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\board_info_getter.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\brainflow_constants.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\brainflow_input_params.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\file_streamer.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\gtec\unicorn_board.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\multicast_streamer.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\brainbit.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_ecg.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_eeg.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_emg.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\neuromd_board.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_daisy.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_daisy_wifi.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_wifi.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\apitypes.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\cmd_def.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\ganglion_interface.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\helpers.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_bglib\uart.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_wifi.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\novaxr.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_helpers.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_serial_board.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_wifi_shield_board.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\streamer.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\streaming_board.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\stub_streamer.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\synthetic_board.h" />
     <ClInclude Include="..\..\include\brainflow\cpp-package\board_shim.h" />
+    <ClInclude Include="..\..\include\brainflow\cpp-package\brainflow_array.h" />
     <ClInclude Include="..\..\include\brainflow\cpp-package\brainflow_exception.h" />
     <ClInclude Include="..\..\include\brainflow\cpp-package\data_filter.h" />
-    <ClInclude Include="..\..\include\brainflow\data_handler\data_handler.h" />
-    <ClInclude Include="..\..\include\brainflow\data_handler\downsample_operators.h" />
-    <ClInclude Include="..\..\include\brainflow\data_handler\rolling_filter.h" />
-    <ClInclude Include="..\..\include\brainflow\data_handler\wavelet_helpers.h" />
+    <ClInclude Include="..\..\include\brainflow\cpp-package\ml_model.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\brainflow_constants.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\broadcast_client.h" />
     <ClInclude Include="..\..\include\brainflow\utils\custom_cast.h" />
     <ClInclude Include="..\..\include\brainflow\utils\data_buffer.h" />
     <ClInclude Include="..\..\include\brainflow\utils\get_dll_dir.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\libftdi_serial.h" />
     <ClInclude Include="..\..\include\brainflow\utils\multicast_client.h" />
     <ClInclude Include="..\..\include\brainflow\utils\multicast_server.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\os_serial.h" />
     <ClInclude Include="..\..\include\brainflow\utils\runtime_dll_loader.h" />
     <ClInclude Include="..\..\include\brainflow\utils\serial.h" />
     <ClInclude Include="..\..\include\brainflow\utils\shared_export.h" />
     <ClInclude Include="..\..\include\brainflow\utils\shared_export_matlab.h" />
-    <ClInclude Include="..\..\include\brainflow\utils\socket_client.h" />
-    <ClInclude Include="..\..\include\brainflow\utils\socket_server.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\socket_client_tcp.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\socket_client_udp.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\socket_server_tcp.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\socket_server_udp.h" />
     <ClInclude Include="..\..\include\brainflow\utils\spinlock.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\ticket_lock.h" />
     <ClInclude Include="..\..\include\brainflow\utils\timestamp.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -248,7 +133,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\ml;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -258,12 +143,13 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;BRAINFLOW_NO_UNICORN;BRAINFLOW_NO_NEUROMD;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4005;4018;4101;4146;4200;4244;4267;6386;6387;26451;26495</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -283,7 +169,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\ml;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -293,12 +179,13 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;BRAINFLOW_NO_UNICORN;BRAINFLOW_NO_NEUROMD;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4005;4018;4101;4146;4200;4244;4267;6386;6387;26451;26495</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -318,7 +205,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\ml;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -327,7 +214,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;BRAINFLOW_NO_UNICORN;BRAINFLOW_NO_NEUROMD;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -342,6 +229,7 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <DisableSpecificWarnings>4005;4018;4101;4146;4200;4244;4267;6386;6387;26451;26495</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -362,7 +250,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\openbci\ganglion_bglib;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\utils;..\..\include\http;..\..\include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\cpp-package;..\..\include\brainflow\data_handler;..\..\include\brainflow\ml;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -371,7 +259,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;BRAINFLOW_NO_UNICORN;BRAINFLOW_NO_NEUROMD;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -386,6 +274,7 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <DisableSpecificWarnings>4005;4018;4101;4146;4200;4244;4267;6386;6387;26451;26495</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>

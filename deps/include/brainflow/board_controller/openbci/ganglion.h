@@ -8,6 +8,7 @@
 #include "board.h"
 #include "board_controller.h"
 #include "data_buffer.h"
+#include "runtime_dll_loader.h"
 
 
 class Ganglion : public Board
@@ -18,8 +19,8 @@ private:
 
     bool is_valid;
 
-    float const accel_scale = 0.016f;
-    float const eeg_scale = (1.2f * 1000000) / (8388607.0f * 1.5f * 51.0f);
+    double const accel_scale = 0.016f;
+    double const eeg_scale = (1.2f * 1000000) / (8388607.0f * 1.5f * 51.0f);
 
     std::string start_command;
     std::string stop_command;
@@ -48,6 +49,8 @@ private:
     void read_thread ();
     int start_streaming_prepared ();
 
+    DLLLoader *dll_loader;
+
 public:
     Ganglion (struct BrainFlowInputParams params);
     ~Ganglion ();
@@ -56,5 +59,5 @@ public:
     int start_stream (int buffer_size, char *streamer_params);
     int stop_stream ();
     int release_session ();
-    int config_board (char *config);
+    int config_board (std::string config, std::string &response);
 };

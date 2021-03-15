@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef BRAINFLOW_NO_NEUROMD
-
 #include "callibri.h"
 
 class CallibriEMG : public Callibri
@@ -14,11 +12,11 @@ protected:
 #endif
 
 public:
-    CallibriEMG (struct BrainFlowInputParams params) : Callibri ((int)CALLIBRI_EMG_BOARD, params)
+    CallibriEMG (struct BrainFlowInputParams params)
+        : Callibri ((int)BoardIds::CALLIBRI_EMG_BOARD, params)
     {
     }
     ~CallibriEMG ()
     {
     }
 };
-#endif

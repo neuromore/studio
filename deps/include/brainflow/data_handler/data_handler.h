@@ -1,25 +1,6 @@
 #pragma once
 
-#include "brainflow_constants.h"
 #include "shared_export.h"
-
-#define MAX_FILTER_ORDER 8 // define it here to show in the docs
-
-
-typedef enum
-{
-    BUTTERWORTH = 0,
-    CHEBYSHEV_TYPE_1 = 1,
-    BESSEL = 2
-} FilterTypes;
-
-typedef enum
-{
-    MEAN = 0,
-    MEDIAN = 1,
-    EACH = 2
-} AggOperations;
-
 
 #ifdef __cplusplus
 extern "C"
@@ -51,12 +32,30 @@ extern "C"
         double *output_data);
     SHARED_EXPORT int CALLING_CONVENTION perform_wavelet_denoising (
         double *data, int data_len, char *wavelet, int decomposition_level);
+    SHARED_EXPORT int CALLING_CONVENTION get_csp (double *data, double *labels, int n_epochs,
+        int n_channels, int n_times, double *output_w, double *output_d);
+    SHARED_EXPORT int CALLING_CONVENTION get_window (
+        int window_function, int window_len, double *output_window);
     SHARED_EXPORT int CALLING_CONVENTION perform_fft (
-        double *data, int data_len, double *output_re, double *output_im);
+        double *data, int data_len, int window_function, double *output_re, double *output_im);
     SHARED_EXPORT int CALLING_CONVENTION perform_ifft (
         double *input_re, double *input_im, int data_len, double *restored_data);
+    SHARED_EXPORT int CALLING_CONVENTION get_nearest_power_of_two (int value, int *output);
+    SHARED_EXPORT int CALLING_CONVENTION get_psd (double *data, int data_len, int sampling_rate,
+        int window_function, double *output_ampl, double *output_freq);
+    SHARED_EXPORT int CALLING_CONVENTION detrend (
+        double *data, int data_len, int detrend_operation);
+    SHARED_EXPORT int CALLING_CONVENTION get_psd_welch (double *data, int data_len, int nfft,
+        int overlap, int sampling_rate, int window_function, double *output_ampl,
+        double *output_freq);
+    SHARED_EXPORT int CALLING_CONVENTION get_band_power (double *ampl, double *freq, int data_len,
+        double freq_start, double freq_end, double *band_power);
 
-
+    SHARED_EXPORT int CALLING_CONVENTION get_avg_band_powers (double *raw_data, int rows, int cols,
+        int sampling_rate, int apply_filters, double *avg_band_powers, double *stddev_band_powers);
+    // logging methods
+    SHARED_EXPORT int CALLING_CONVENTION set_log_level (int log_level);
+    SHARED_EXPORT int CALLING_CONVENTION set_log_file (char *log_file);
     // file operations
     SHARED_EXPORT int CALLING_CONVENTION write_file (
         double *data, int num_rows, int num_cols, char *file_name, char *file_mode);

@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef BRAINFLOW_NO_UNICORN
-
 #include <thread>
 
 #include "board.h"
@@ -14,7 +12,7 @@ class UnicornBoard : public Board
 {
 
 private:
-#ifdef __linux__
+#if defined __linux__ || defined _WIN32
     UNICORN_HANDLE device_handle;
 
     volatile bool keep_alive;
@@ -44,8 +42,7 @@ public:
     int start_stream (int buffer_size, char *streamer_params);
     int stop_stream ();
     int release_session ();
-    int config_board (char *config);
+    int config_board (std::string config, std::string &response);
 
     static constexpr int package_size = 17; // from unicorn.h
 };
-#endif

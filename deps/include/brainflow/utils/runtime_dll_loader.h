@@ -8,6 +8,12 @@
 #endif
 
 
+// for macos and maybe ancient versions of glibc
+#ifndef RTLD_DEEPBIND
+#define RTLD_DEEPBIND 0
+#endif
+
+
 class DLLLoader
 {
 public:
@@ -28,7 +34,7 @@ public:
     {
         if (this->lib_instance == NULL)
         {
-            this->lib_instance = LoadLibrary (this->dll_path);
+            this->lib_instance = LoadLibraryA (this->dll_path);
             if (this->lib_instance == NULL)
             {
                 return false;
@@ -60,13 +66,15 @@ public:
     {
         if (this->lib_instance == NULL)
         {
-            lib_instance = dlopen (this->dll_path, RTLD_LAZY);
+            // RTLD_DEEPBIND will search for symbols in loaded lib first and after that in global
+            // scope
+            lib_instance = dlopen (this->dll_path, RTLD_LAZY | RTLD_DEEPBIND);
             if (!lib_instance)
             {
                 return false;
             }
-            return true;
         }
+        return true;
     }
 
     void *get_address (const char *function_name)

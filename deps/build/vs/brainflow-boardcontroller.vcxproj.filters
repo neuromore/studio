@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="freeeeg32">
+      <UniqueIdentifier>{04f43093-1254-44cf-a5b3-e6484ee4fe8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gtec">
+      <UniqueIdentifier>{accddc5a-c8de-4bc6-a54d-cfed9181d062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ironbci">
+      <UniqueIdentifier>{2f4e8155-129a-47c0-80c6-823194b8a622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mit">
+      <UniqueIdentifier>{1d66d189-a3e3-46bb-957a-a89a37cf3f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neuromd">
+      <UniqueIdentifier>{84f7e771-a538-4681-b59b-0dd1c596e391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neurosity">
+      <UniqueIdentifier>{08984a52-4c81-4083-a6e9-8d8244507f45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="openbci">
+      <UniqueIdentifier>{e8e9c15b-a3ee-41cf-9d4d-ace2ee01a867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="oymotion">
+      <UniqueIdentifier>{12bef2bf-3f24-4ac8-8a47-680e88ca4c09}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\freeeeg32\freeeeg32.cpp">
+      <Filter>freeeeg32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\gtec\unicorn_board.cpp">
+      <Filter>gtec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\ironbci\ironbci.cpp">
+      <Filter>ironbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\mit\fascia.cpp">
+      <Filter>mit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit.cpp">
+      <Filter>neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\callibri.cpp">
+      <Filter>neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\callibri_ecg.cpp">
+      <Filter>neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\callibri_eeg.cpp">
+      <Filter>neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\callibri_emg.cpp">
+      <Filter>neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\neuromd_board.cpp">
+      <Filter>neuromd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neurosity\notion_osc.cpp">
+      <Filter>neurosity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\oymotion\gforce_pro.cpp">
+      <Filter>oymotion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\cyton.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\cyton_daisy.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\cyton_daisy_wifi.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\cyton_wifi.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\galea.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\ganglion.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\ganglion_wifi.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\openbci_serial_board.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\openbci_wifi_shield_board.cpp">
+      <Filter>openbci</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\brainflow\board_controller\board.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\board_controller.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\board_info_getter.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\brainflow_boards.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\brainflow_input_params.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\file_streamer.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\multicast_streamer.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\playback_file_board.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\streamer.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\streaming_board.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\stub_streamer.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\synthetic_board.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\freeeeg32\freeeeg32.h">
+      <Filter>freeeeg32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\gtec\unicorn_board.h">
+      <Filter>gtec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\ironbci\ironbci.h">
+      <Filter>ironbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\mit\fascia.h">
+      <Filter>mit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\brainbit.h">
+      <Filter>neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri.h">
+      <Filter>neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_ecg.h">
+      <Filter>neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_eeg.h">
+      <Filter>neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_emg.h">
+      <Filter>neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\neuromd_board.h">
+      <Filter>neuromd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\neurosity\notion_osc.h">
+      <Filter>neurosity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\oymotion\gforce_pro.h">
+      <Filter>oymotion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_daisy.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_daisy_wifi.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_wifi.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\galea.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_wifi.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_serial_board.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_wifi_shield_board.h">
+      <Filter>openbci</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

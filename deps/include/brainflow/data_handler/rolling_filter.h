@@ -3,7 +3,8 @@
 #include <deque>
 #include <set>
 
-template <typename T> class RollingFilter
+template <typename T>
+class RollingFilter
 {
 
 protected:
@@ -23,7 +24,8 @@ public:
     virtual T get_value () = 0;
 };
 
-template <typename T> class RollingMedian : public RollingFilter<T>
+template <typename T>
+class RollingMedian : public RollingFilter<T>
 {
 
 private:
@@ -44,7 +46,7 @@ public:
     // https://leetcode.com/problems/sliding-window-median/
     T get_value ()
     {
-        if (this->dataset.size () < this->period)
+        if ((int)this->dataset.size () < this->period)
         {
             // to simplify algorithm if there are less data just return the last value
             return this->deque.back ();
@@ -62,7 +64,8 @@ public:
     }
 };
 
-template <typename T> class RollingAverage : public RollingFilter<T>
+template <typename T>
+class RollingAverage : public RollingFilter<T>
 {
 
 private:
@@ -79,7 +82,7 @@ public:
     {
         this->sum += num;
         this->dataset.push_back (num);
-        if (this->dataset.size () > this->period)
+        if ((int)this->dataset.size () > this->period)
         {
             this->sum -= this->dataset.front ();
             this->dataset.pop_front ();
@@ -88,7 +91,7 @@ public:
 
     T get_value ()
     {
-        if (this->dataset.size () < this->period)
+        if ((int)this->dataset.size () < this->period)
         {
             return this->sum / this->dataset.size ();
         }

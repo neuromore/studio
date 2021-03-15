@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef BRAINFLOW_NO_NEUROMD
-
 #include <thread>
 
 #include "neuromd_board.h"
@@ -37,8 +35,5 @@ public:
     int start_stream (int buffer_size, char *streamer_params);
     int stop_stream ();
     int release_session ();
-    int config_board (char *config);
-
-    static constexpr int package_size = 2;
+    int config_board (std::string config, std::string &response);
 };
-#endif
