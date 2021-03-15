@@ -8,11 +8,14 @@ Open-Source Third Party Software included in this repository.
 
 | Name                | Version  | Link                                                  | Remarks                                 |
 |---------------------|----------|-------------------------------------------------------|-----------------------------------------|
-| brainflow           | 3.0.3    | https://github.com/brainflow-dev/brainflow            | Brainflow                               |
+| brainflow           | 4.0.1    | https://github.com/brainflow-dev/brainflow            | Brainflow                               |
 | crashrpt            | 1.4.3    | http://crashrpt.sourceforge.net/                      | Crash Reporter (Windows only)           |
 | double-conversion   | 3.1.5    | https://github.com/google/double-conversion           | Binary-Decimal Conversion               |
+| dspfilters          | ?.?.?    |                                                       |                                         |
 | easing              | ?.?.?    | http://robertpenner.com/easing/                       | Easing Functions                        |
 | edflib              | 1.16     | https://www.teuniz.net/edflib/                        | EDF+/BDF+ File Support                  |
+| eigen               | ?.?.?    |                                                       |                                         |
+| fft                 | 2.11     |                                                       |                                         |
 | fontconfig          | 2.13.92  | https://www.freedesktop.org/wiki/Software/fontconfig/ | Font Config                             |
 | fontstash           | ?.?.?    | https://github.com/memononen/fontstash                | Font Texture Atlas Builder              |
 | forkfd              | ?.?.?    | https://doc.qt.io/qt-5/qtcore-attribution-forkfd.html | From QT, Linux only                     |
@@ -21,11 +24,13 @@ Open-Source Third Party Software included in this repository.
 | harfbuzz-ng         | 1.7.4    | https://www.freedesktop.org/wiki/Software/HarfBuzz/   | Text Shaping Engine (new)               |
 | http                | ?.?.?    |                                                       | Basic HTTP protocol implementation      |
 | json                | 3.7.3    | https://github.com/nlohmann/json                      | JSON for Modern C++                     |
+| kdtree              | ?.?.?    |                                                       |                                         |
 | KHR                 | ?.?.?    | https://www.khronos.org/registry/                     | Khronos Platform Header                 |
 | kissfft             | 131      | https://github.com/mborgerding/kissfft                | Fast Fourier Transform (FFT)            |
 | libjpeg             | 9c       | https://www.ijg.org/                                  | JPEG Support                            |
 | libogg              | 1.3.4    | https://www.xiph.org/ogg/                             | OGG Support                             |
 | libpng              | 1.6.37   | http://www.libpng.org/pub/png/libpng.html             | PNG Support                             |
+| libsvm              | ?.?.?    |                                                       | Support Vector Machine AI               |
 | libtheora           | 1.1.1    | https://www.theora.org/                               |                                         |
 | md4                 | ?.?.?    |                                                       | MD4 Hash Implementation                 |
 | md5                 | ?.?.?    |                                                       | MD5 Hash Implementation                 |
@@ -33,6 +38,7 @@ Open-Source Third Party Software included in this repository.
 | opencv              | 3.4.10   | https://opencv.org/                                   | OpenCV Framework (only partial)         |
 | openssl             | 1.1.0l   | https://www.openssl.org/                              | SSL+TLS and various crypt-algorithms    |
 | oscpack             | 1.1.0    | http://www.rossbencina.com/code/oscpack               | OSC protocol                            |
+| oscpp               | ?.?.?    |                                                       |                                         |
 | pcre2               | 10.33    | https://www.pcre.org/                                 | Perl Compatible Regular Expressions     |
 | qt                  | 5.12.4   | https://www.qt.io/                                    | Qt Framework (only partial)             |
 | rapidjson           | 1.1.0    | https://rapidjson.org/                                | JSON Support                            |
@@ -46,14 +52,18 @@ Open-Source Third Party Software included in this repository.
 | tinycbor            | 0.6.0    | https://github.com/intel/tinycbor                     | Concise Binary Object Representation    |
 | tinyobjectloader    | < 0.9    | https://github.com/syoyo/tinyobjloader                | WaveFront OBJ Format Support            |
 | tinyxml             | 2.6.2    | https://sourceforge.net/projects/tinyxml/             | XML Support                             |
+| wavelib             | ?.?.?    |                                                       |                                         |
 | wtl                 | 9.1      | http://wtl.sourceforge.net/                           | Windows Template Library (Windows only) |
 | zlib                | 1.2.11   | https://zlib.net/                                     | ZIP Compression                         |
 
 ## Proprietary
 
-| Name                | Version  | Link                                                  | Remarks                                 |
-|---------------------|----------|-------------------------------------------------------|-----------------------------------------|
-| eemagine            | 1.3.19   | https://www.ant-neuro.com/                            | eego amplifier / antneuro eeg           |
+| Name                | Version  | Link                                                     | Remarks                                 |
+|---------------------|----------|----------------------------------------------------------|-----------------------------------------|
+| eemagine            | 1.3.19   | https://www.ant-neuro.com/                               | eego amplifier / antneuro eeg           |
+| gforcesdkcxx        | ?.?.?    | https://github.com/oymotion/gForceSDKCXX                 | Oymotion gforce pro                     |
+| neurosdk            | ?.?.?    | https://sdk.brainbit.com/                                | Callibri & BrainBit - EEG               |
+| unicorn             | ?.?.?    | https://github.com/unicorn-bi/Unicorn-Suite-Hybrid-Black | Unicorn Suite Hybrid Black              |
 
 ## Resources
 
