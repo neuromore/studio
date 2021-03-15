@@ -1820,6 +1820,8 @@ clean-x86: zlib-x86-clean \
            harfbuzz-ng-x86-clean \
            kissfft-x86-clean \
            minizip-x86-clean \
+           wavelib-x86-clean \
+           dspfilters-x86-clean \
            brainflow-x86-clean \
            opencv-core-x86-clean \
            opencv-imgcodecs-x86-clean \
@@ -1870,6 +1872,8 @@ clean-x64: zlib-x64-clean \
            harfbuzz-ng-x64-clean \
            kissfft-x64-clean \
            minizip-x64-clean \
+           wavelib-x64-clean \
+           dspfilters-x64-clean \
            brainflow-x64-clean \
            opencv-core-x64-clean \
            opencv-imgcodecs-x64-clean \
