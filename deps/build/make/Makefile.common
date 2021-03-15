@@ -222,6 +222,23 @@ $(LIBJPEG_OBJDIR_X86)/%.o:
 $(LIBJPEG_OBJDIR_X64)/%.o:
 	$(LIBJPEG_BUILD_X64)
 ###################################################################################################################
+# LIBSVM
+###################################################################################################################
+LIBSVM_INCDIR     = $(INCDIR)/libsvm
+LIBSVM_SRCDIR     = $(SRCDIR)/libsvm
+LIBSVM_OBJDIR_X86 = $(OBJDIR_X86)/libsvm
+LIBSVM_OBJDIR_X64 = $(OBJDIR_X64)/libsvm
+LIBSVM_INCLUDES   = -I$(LIBSVM_INCDIR)
+LIBSVM_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(LIBSVM_INCLUDES) -c $(@:$(LIBSVM_OBJDIR_X86)%.o=$(LIBSVM_SRCDIR)%.cpp) -o $@
+LIBSVM_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(LIBSVM_INCLUDES) -c $(@:$(LIBSVM_OBJDIR_X64)%.o=$(LIBSVM_SRCDIR)%.cpp) -o $@
+LIBSVM_OBJS_ALL   = svm.o
+
+$(LIBSVM_OBJDIR_X86)/%.o:
+	$(LIBSVM_BUILD_X86)
+
+$(LIBSVM_OBJDIR_X64)/%.o:
+	$(LIBSVM_BUILD_X64)
+###################################################################################################################
 # PCRE2
 ###################################################################################################################
 PCRE2_INCDIR     = $(INCDIR)/pcre2
@@ -406,6 +423,56 @@ $(MINIZIP_OBJDIR_X86)/%.o:
 
 $(MINIZIP_OBJDIR_X64)/%.o:
 	$(MINIZIP_BUILD_X64)
+###################################################################################################################
+# WAVELIB
+###################################################################################################################
+WAVELIB_INCDIR     = $(INCDIR)/wavelib
+WAVELIB_SRCDIR     = $(SRCDIR)/wavelib
+WAVELIB_OBJDIR_X86 = $(OBJDIR_X86)/wavelib
+WAVELIB_OBJDIR_X64 = $(OBJDIR_X64)/wavelib
+WAVELIB_INCLUDES   = -I$(WAVELIB_INCDIR) -I$(WAVELIB_INCDIR)/internal
+WAVELIB_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(WAVELIB_INCLUDES) -c $(@:$(WAVELIB_OBJDIR_X86)%.o=$(WAVELIB_SRCDIR)%.cpp) -o $@
+WAVELIB_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(WAVELIB_INCLUDES) -c $(@:$(WAVELIB_OBJDIR_X64)%.o=$(WAVELIB_SRCDIR)%.cpp) -o $@
+WAVELIB_OBJS_ALL   = conv.o cwt.o cwtmath.o denoise.o hsfft.o real.o waux.o wavefilt.o wavefunc.o wavelib.o wtmath.o
+
+$(WAVELIB_OBJDIR_X86)/%.o:
+	$(WAVELIB_BUILD_X86)
+
+$(WAVELIB_OBJDIR_X64)/%.o:
+	$(WAVELIB_BUILD_X64)
+###################################################################################################################
+# DSPFILTERS
+###################################################################################################################
+DSPFILTERS_INCDIR     = $(INCDIR)/DspFilters
+DSPFILTERS_SRCDIR     = $(SRCDIR)/dspfilters
+DSPFILTERS_OBJDIR_X86 = $(OBJDIR_X86)/dspfilters
+DSPFILTERS_OBJDIR_X64 = $(OBJDIR_X64)/dspfilters
+DSPFILTERS_INCLUDES   = -I$(INCDIR) -I$(DSPFILTERS_INCDIR)
+DSPFILTERS_BUILD_X86  = $(CXX_X86) $(CXX14FLAGS_X86) $(DSPFILTERS_INCLUDES) -c $(@:$(DSPFILTERS_OBJDIR_X86)%.o=$(DSPFILTERS_SRCDIR)%.cpp) -o $@
+DSPFILTERS_BUILD_X64  = $(CXX_X64) $(CXX14FLAGS_X64) $(DSPFILTERS_INCLUDES) -c $(@:$(DSPFILTERS_OBJDIR_X64)%.o=$(DSPFILTERS_SRCDIR)%.cpp) -o $@
+DSPFILTERS_OBJS_ALL   = Bessel.o \
+                        Biquad.o \
+                        Butterworth.o \
+                        Cascade.o \
+                        ChebyshevI.o \
+                        ChebyshevII.o \
+                        Custom.o \
+                        Design.o \
+                        Documentation.o \
+                        Elliptic.o \
+                        Filter.o \
+                        Legendre.o \
+                        Param.o \
+                        PoleFilter.o \
+                        RBJ.o \
+                        RootFinder.o \
+                        State.o
+
+$(DSPFILTERS_OBJDIR_X86)/%.o:
+	$(DSPFILTERS_BUILD_X86)
+
+$(DSPFILTERS_OBJDIR_X64)/%.o:
+	$(DSPFILTERS_BUILD_X64)
 ###################################################################################################################
 # BRAINFLOW
 ###################################################################################################################
