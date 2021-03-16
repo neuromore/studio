@@ -1854,7 +1854,6 @@ all-common-x86: zlib-x86 \
          brainflow-boardcontroller-x86 \
          brainflow-datahandler-x86 \
          brainflow-ganglion-bglib-x86 \
-         brainflow-gforcesdkcxx-wrapper-x86 \
          brainflow-ml-x86 \
          opencv-core-x86 \
          opencv-imgcodecs-x86 \
@@ -1902,7 +1901,6 @@ all-common-x64: zlib-x64 \
          brainflow-boardcontroller-x64 \
          brainflow-datahandler-x64 \
          brainflow-ganglion-bglib-x64 \
-         brainflow-gforcesdkcxx-wrapper-x64 \
          brainflow-ml-x64 \
          opencv-core-x64 \
          opencv-imgcodecs-x64 \
