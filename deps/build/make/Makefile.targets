@@ -2007,9 +2007,9 @@ clean-x64: zlib-x64-clean \
            brainflow-x64-clean \
            brainflow-boardcontroller-x64-clean \
            brainflow-datahandler-x64-clean \
-           brainflow-ganglion-bglib-clean-x64-clean \
-           brainflow-gforcesdkcxx-wrapper-clean-x64-clean \
-           brainflow-ml-clean-x64-clean \
+           brainflow-ganglion-bglib-x64-clean \
+           brainflow-gforcesdkcxx-wrapper-x64-clean \
+           brainflow-ml-x64-clean \
            opencv-core-x64-clean \
            opencv-imgcodecs-x64-clean \
            opencv-imgproc-x64-clean \
