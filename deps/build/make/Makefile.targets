@@ -422,6 +422,121 @@ brainflow-x64-clean:
 
 brainflow-clean: brainflow-x86-clean brainflow-x64-clean
 ###################################################################################################################
+# BRAINFLOWBOARDCONTROLLER
+###################################################################################################################
+BRAINFLOWBOARDCONTROLLER_OBJS_X86 := $(patsubst %,$(BRAINFLOWBOARDCONTROLLER_OBJDIR_X86)/%,$(BRAINFLOWBOARDCONTROLLER_OBJS))
+BRAINFLOWBOARDCONTROLLER_OBJS_X64 := $(patsubst %,$(BRAINFLOWBOARDCONTROLLER_OBJDIR_X64)/%,$(BRAINFLOWBOARDCONTROLLER_OBJS))
+
+brainflow-boardcontroller-x86: $(BRAINFLOWBOARDCONTROLLER_OBJS_X86)
+	$(call createlib32,brainflow-boardcontroller,$(BRAINFLOWBOARDCONTROLLER_OBJS_X86))
+
+brainflow-boardcontroller-x64: $(BRAINFLOWBOARDCONTROLLER_OBJS_X64)
+	$(call createlib64,brainflow-boardcontroller,$(BRAINFLOWBOARDCONTROLLER_OBJS_X64))
+
+brainflow-boardcontroller: brainflow-boardcontroller-x86 brainflow-boardcontroller-x64
+
+brainflow-boardcontroller-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),brainflow-boardcontroller.*)
+	$(call deletefilepattern,$(BRAINFLOWBOARDCONTROLLER_OBJDIR_X86),*.o)
+
+brainflow-boardcontroller-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),brainflow-boardcontroller.*)
+	$(call deletefilepattern,$(BRAINFLOWBOARDCONTROLLER_OBJDIR_X64),*.o)
+
+brainflow-boardcontroller-clean: brainflow-boardcontroller-x86-clean brainflow-boardcontroller-x64-clean
+###################################################################################################################
+# BRAINFLOWDATAHANDLER
+###################################################################################################################
+BRAINFLOWDATAHANDLER_OBJS_X86 := $(patsubst %,$(BRAINFLOWDATAHANDLER_OBJDIR_X86)/%,$(BRAINFLOWDATAHANDLER_OBJS))
+BRAINFLOWDATAHANDLER_OBJS_X64 := $(patsubst %,$(BRAINFLOWDATAHANDLER_OBJDIR_X64)/%,$(BRAINFLOWDATAHANDLER_OBJS))
+
+brainflow-datahandler-x86: $(BRAINFLOWDATAHANDLER_OBJS_X86)
+	$(call createlib32,brainflow-datahandler,$(BRAINFLOWDATAHANDLER_OBJS_X86))
+
+brainflow-datahandler-x64: $(BRAINFLOWDATAHANDLER_OBJS_X64)
+	$(call createlib64,brainflow-datahandler,$(BRAINFLOWDATAHANDLER_OBJS_X64))
+
+brainflow-datahandler: brainflow-datahandler-x86 brainflow-datahandler-x64
+
+brainflow-datahandler-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),brainflow-datahandler.*)
+	$(call deletefilepattern,$(BRAINFLOWDATAHANDLER_OBJDIR_X86),*.o)
+
+brainflow-datahandler-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),brainflow-datahandler.*)
+	$(call deletefilepattern,$(BRAINFLOWDATAHANDLER_OBJDIR_X64),*.o)
+
+brainflow-datahandler-clean: brainflow-datahandler-x86-clean brainflow-datahandler-x64-clean
+###################################################################################################################
+# BRAINFLOWGANGLIONBGLIB
+###################################################################################################################
+BRAINFLOWGANGLIONBGLIB_OBJS_X86 := $(patsubst %,$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X86)/%,$(BRAINFLOWGANGLIONBGLIB_OBJS))
+BRAINFLOWGANGLIONBGLIB_OBJS_X64 := $(patsubst %,$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X64)/%,$(BRAINFLOWGANGLIONBGLIB_OBJS))
+
+brainflow-ganglion-bglib-x86: $(BRAINFLOWGANGLIONBGLIB_OBJS_X86)
+	$(call createlib32,brainflow-ganglion-bglib,$(BRAINFLOWGANGLIONBGLIB_OBJS_X86))
+
+brainflow-ganglion-bglib-x64: $(BRAINFLOWGANGLIONBGLIB_OBJS_X64)
+	$(call createlib64,brainflow-ganglion-bglib,$(BRAINFLOWGANGLIONBGLIB_OBJS_X64))
+
+brainflow-ganglion-bglib: brainflow-ganglion-bglib-x86 brainflow-ganglion-bglib-x64
+
+brainflow-ganglion-bglib-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),brainflow-ganglion-bglib.*)
+	$(call deletefilepattern,$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X86),*.o)
+
+brainflow-ganglion-bglib-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),brainflow-ganglion-bglib.*)
+	$(call deletefilepattern,$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X64),*.o)
+
+brainflow-ganglion-bglib-clean: brainflow-ganglion-bglib-x86-clean brainflow-ganglion-bglib-x64-clean
+###################################################################################################################
+# BRAINFLOWGFORCESDKCXXWRAPPER
+###################################################################################################################
+BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_X86 := $(patsubst %,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X86)/%,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS))
+BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_X64 := $(patsubst %,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X64)/%,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS))
+
+brainflow-gforcesdkcxx-wrapper-x86: $(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_X86)
+	$(call createlib32,brainflow-gforcesdkcxx-wrapper,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_X86))
+
+brainflow-gforcesdkcxx-wrapper-x64: $(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_X64)
+	$(call createlib64,brainflow-gforcesdkcxx-wrapper,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_X64))
+
+brainflow-gforcesdkcxx-wrapper: brainflow-gforcesdkcxx-wrapper-x86 brainflow-gforcesdkcxx-wrapper-x64
+
+brainflow-gforcesdkcxx-wrapper-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),brainflow-gforcesdkcxx-wrapper.*)
+	$(call deletefilepattern,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X86),*.o)
+
+brainflow-gforcesdkcxx-wrapper-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),brainflow-gforcesdkcxx-wrapper.*)
+	$(call deletefilepattern,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X64),*.o)
+
+brainflow-gforcesdkcxx-wrapper-clean: brainflow-gforcesdkcxx-wrapper-x86-clean brainflow-gforcesdkcxx-wrapper-x64-clean
+###################################################################################################################
+# BRAINFLOWML
+###################################################################################################################
+BRAINFLOWML_OBJS_X86 := $(patsubst %,$(BRAINFLOWML_OBJDIR_X86)/%,$(BRAINFLOWML_OBJS))
+BRAINFLOWML_OBJS_X64 := $(patsubst %,$(BRAINFLOWML_OBJDIR_X64)/%,$(BRAINFLOWML_OBJS))
+
+brainflow-ml-x86: $(BRAINFLOWML_OBJS_X86)
+	$(call createlib32,brainflow-ml,$(BRAINFLOWML_OBJS_X86))
+
+brainflow-ml-x64: $(BRAINFLOWML_OBJS_X64)
+	$(call createlib64,brainflow-ml,$(BRAINFLOWML_OBJS_X64))
+
+brainflow-ml: brainflow-ml-x86 brainflow-ml-x64
+
+brainflow-ml-x86-clean:
+	$(call deletefilepattern,$(LIBDIR_X86),brainflow-ml.*)
+	$(call deletefilepattern,$(BRAINFLOWML_OBJDIR_X86),*.o)
+
+brainflow-ml-x64-clean:
+	$(call deletefilepattern,$(LIBDIR_X64),brainflow-ml.*)
+	$(call deletefilepattern,$(BRAINFLOWML_OBJDIR_X64),*.o)
+
+brainflow-ml-clean: brainflow-ml-x86-clean brainflow-ml-x64-clean
+###################################################################################################################
 # OPENCV-CORE
 ###################################################################################################################
 OPENCVCORE_OBJS_X86 := $(patsubst %,$(OPENCVCORE_OBJDIR_X86)/%,$(OPENCVCORE_OBJS))
@@ -1736,6 +1851,11 @@ all-common-x86: zlib-x86 \
          wavelib-x86 \
          dspfilters-x86 \
          brainflow-x86 \
+         brainflow-boardcontroller-x86 \
+         brainflow-datahandler-x86 \
+         brainflow-ganglion-bglib-x86 \
+         brainflow-gforcesdkcxx-wrapper-x86 \
+         brainflow-ml-x86 \
          opencv-core-x86 \
          opencv-imgcodecs-x86 \
          opencv-imgproc-x86 \
@@ -1779,6 +1899,11 @@ all-common-x64: zlib-x64 \
          wavelib-x64 \
          dspfilters-x64 \
          brainflow-x64 \
+         brainflow-boardcontroller-x64 \
+         brainflow-datahandler-x64 \
+         brainflow-ganglion-bglib-x64 \
+         brainflow-gforcesdkcxx-wrapper-x64 \
+         brainflow-ml-x64 \
          opencv-core-x64 \
          opencv-imgcodecs-x64 \
          opencv-imgproc-x64 \
@@ -1823,6 +1948,11 @@ clean-x86: zlib-x86-clean \
            wavelib-x86-clean \
            dspfilters-x86-clean \
            brainflow-x86-clean \
+           brainflow-boardcontroller-x86-clean \
+           brainflow-datahandler-x86-clean \
+           brainflow-ganglion-bglib-x86-clean \
+           brainflow-gforcesdkcxx-wrapper-x86-clean \
+           brainflow-ml-x86-clean \
            opencv-core-x86-clean \
            opencv-imgcodecs-x86-clean \
            opencv-imgproc-x86-clean \
@@ -1875,6 +2005,11 @@ clean-x64: zlib-x64-clean \
            wavelib-x64-clean \
            dspfilters-x64-clean \
            brainflow-x64-clean \
+           brainflow-boardcontroller-x64-clean \
+           brainflow-datahandler-x64-clean \
+           brainflow-ganglion-bglib-clean-x64-clean \
+           brainflow-gforcesdkcxx-wrapper-clean-x64-clean \
+           brainflow-ml-clean-x64-clean \
            opencv-core-x64-clean \
            opencv-imgcodecs-x64-clean \
            opencv-imgproc-x64-clean \
