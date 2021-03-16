@@ -246,6 +246,8 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/opencv-imgproc.a \
                   $(DEPSLIBDIR_X86)/opencv-videoio.a \
                   $(DEPSLIBDIR_X86)/minizip.a \
+                  $(DEPSLIBDIR_X86)/dspfilters.a \
+                  $(DEPSLIBDIR_X86)/wavelib.a \
                   $(DEPSLIBDIR_X86)/oscpack.a \
                   $(DEPSLIBDIR_X86)/pcre2.a \
                   $(DEPSLIBDIR_X86)/tinyaes.a \
@@ -253,6 +255,7 @@ STUDIO_LIBS_X86 = $(LIBDIR_X86)/QtBase.a \
                   $(DEPSLIBDIR_X86)/tinyxml.a \
                   $(DEPSLIBDIR_X86)/libjpeg.a \
                   $(DEPSLIBDIR_X86)/libpng.a \
+                  $(DEPSLIBDIR_X86)/libsvm.a \
                   $(DEPSLIBDIR_X86)/zlib.a \
                   $(STUDIO_LIBS_ALL)
 STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
@@ -290,6 +293,8 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/opencv-imgproc.a \
                   $(DEPSLIBDIR_X64)/opencv-videoio.a \
                   $(DEPSLIBDIR_X64)/minizip.a \
+                  $(DEPSLIBDIR_X64)/dspfilters.a \
+                  $(DEPSLIBDIR_X64)/wavelib.a \
                   $(DEPSLIBDIR_X64)/oscpack.a \
                   $(DEPSLIBDIR_X64)/pcre2.a \
                   $(DEPSLIBDIR_X64)/tinyaes.a \
@@ -297,6 +302,7 @@ STUDIO_LIBS_X64 = $(LIBDIR_X64)/QtBase.a \
                   $(DEPSLIBDIR_X64)/tinyxml.a \
                   $(DEPSLIBDIR_X64)/libjpeg.a \
                   $(DEPSLIBDIR_X64)/libpng.a \
+                  $(DEPSLIBDIR_X64)/libsvm.a \
                   $(DEPSLIBDIR_X64)/zlib.a \
                   $(STUDIO_LIBS_ALL)
 
