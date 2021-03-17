@@ -112,23 +112,6 @@
       #pragma comment(lib, "BQPetDLL.lib")
    #endif
 
-   // PROPRIETARY (BRAINBIT, USED BY BRAINFLOW)
-   #ifdef INCLUDE_DEVICE_BRAINFLOW
-      #if _M_X64
-         #if _DEBUG
-            #pragma comment(lib, "neurosdk-x64d.lib")
-         #else
-            #pragma comment(lib, "neurosdk-x64.lib")
-         #endif
-      #else
-         #if _DEBUG
-            #pragma comment(lib, "neurosdk-x86d.lib")
-         #else
-            #pragma comment(lib, "neurosdk-x86.lib")
-         #endif
-      #endif
-   #endif
-
    // OPENSOURCE / NEUROMORE
    #if _DEBUG
       #pragma comment(lib, "DbgHelp.lib")                // winapi: debug
