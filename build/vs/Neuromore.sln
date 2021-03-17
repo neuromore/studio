@@ -310,6 +310,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "brainflow-ml", "..\..\deps\build\vs\brainflow-ml.vcxproj", "{C3C13FB5-5688-410B-A99C-FF62ADC05ABE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "brainflow-ganglion-bglib", "..\..\deps\build\vs\brainflow-ganglion-bglib.vcxproj", "{BE323FB5-5688-410B-A99C-FF62ADC05ABE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F9C29AB5-5688-410B-A99C-FF62ADC05ABE} = {F9C29AB5-5688-410B-A99C-FF62ADC05ABE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
