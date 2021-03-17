@@ -236,9 +236,11 @@ endef
 
 #####################################################################################
 # Linker
-LINK          = lld-link
-LINKFLAGS_X86 = -machine:x86 -subsystem:console
-LINKFLAGS_X64 = -machine:x64 -subsystem:console
+LINK             = lld-link
+LINKFLAGS_X86    = -machine:x86 -subsystem:console
+LINKFLAGS_X64    = -machine:x64 -subsystem:console
+LINKFLAGSDYN_X86 = -DLL
+LINKFLAGSDYN_X64 = -DLL
 
 # Visual Studio and Windows SDK Folders
 DIRVCTOOLS := $(subst \,/,$(VCToolsInstallDir))
@@ -272,6 +274,14 @@ define createbin64
 	$(LINK) $(2) -out:$(BINDIR_X64)/$(1).exe $(LINKFLAGS_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
 endef
 
+# Linker Functions for Shared Library
+define createshared32
+	$(LINK) $(2) -out:$(LIBDIR_X86)/$(1).dll $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(LINKLIBS_X86) $(3)
+endef
+define createshared64
+	$(LINK) $(2) -out:$(LIBDIR_X64)/$(1).dll $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(LINKLIBS_X64) $(3)
+endef
+
 #####################################################################################
 # Platform Specific additional objects and libraries
 #####################################################################################
@@ -296,13 +306,22 @@ KISSFFT_OBJS         = $(KISSFFT_OBJS_ALL)
 MINIZIP_OBJS         = $(MINIZIP_OBJS_ALL)
 WAVELIB_OBJS         = $(WAVELIB_OBJS_ALL)
 DSPFILTERS_OBJS      = $(DSPFILTERS_OBJS_ALL)
-BRAINFLOW_OBJS       = $(BRAINFLOW_OBJS_ALL)
-BRAINFLOWBOARDCONTROLLER_OBJS = $(BRAINFLOWBOARDCONTROLLER_OBJS_ALL)
-BRAINFLOWDATAHANDLER_OBJS     = $(BRAINFLOWDATAHANDLER_OBJS_ALL)
-BRAINFLOWGANGLIONBGLIB_OBJS   = $(BRAINFLOWGANGLIONBGLIB_OBJS_ALL)
+BRAINFLOW_OBJS                    = $(BRAINFLOW_OBJS_ALL)
+BRAINFLOWBOARDCONTROLLER_OBJS     = $(BRAINFLOWBOARDCONTROLLER_OBJS_ALL)
+BRAINFLOWDATAHANDLER_OBJS         = $(BRAINFLOWDATAHANDLER_OBJS_ALL)
+
+
+BRAINFLOWGANGLIONBGLIB_LIBNAME_X86= GanglionLib32
+BRAINFLOWGANGLIONBGLIB_LIBNAME_X64= GanglionLib
+BRAINFLOWGANGLIONBGLIB_OBJS       = $(BRAINFLOWGANGLIONBGLIB_OBJS_ALL)
+BRAINFLOWGANGLIONBGLIB_LIBS_ALL   = 
+BRAINFLOWGANGLIONBGLIB_LIBS_X86   = $(LIBDIR_X86)/brainflow.lib \
+                                    $(BRAINFLOWGANGLIONBGLIB_LIBS_ALL)
+BRAINFLOWGANGLIONBGLIB_LIBS_X64   = $(LIBDIR_X64)/brainflow.lib \
+                                    $(BRAINFLOWGANGLIONBGLIB_LIBS_ALL)
 BRAINFLOWGFORCESDKCXXWRAPPER_OBJS = $(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_ALL) \
                                     wrapper.o
-BRAINFLOWML_OBJS     = $(BRAINFLOWML_OBJS_ALL)
+BRAINFLOWML_OBJS                  = $(BRAINFLOWML_OBJS_ALL)
 OPENCVCORE_OBJS      = $(OPENCVCORE_OBJS_ALL) \
                        directx.o
 OPENCVIMGCODECS_OBJS = $(OPENCVIMGCODECS_OBJS_ALL)

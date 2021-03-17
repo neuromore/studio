@@ -87,10 +87,12 @@ define createlib64
 endef
 
 # Linker
-LINK_X86      = $(CXX_X86)
-LINK_X64      = $(CXX_X64)
-LINKFLAGS_X86 = --sysroot=$(SYSROOT_X86) $(CXXFLAGS_X86)
-LINKFLAGS_X64 = --sysroot=$(SYSROOT_X64) $(CXXFLAGS_X64)
+LINK_X86         = $(CXX_X86)
+LINK_X64         = $(CXX_X64)
+LINKFLAGS_X86    = --sysroot=$(SYSROOT_X86) $(CXXFLAGS_X86)
+LINKFLAGS_X64    = --sysroot=$(SYSROOT_X64) $(CXXFLAGS_X64)
+LINKFLAGSDYN_X86 = -shared -static-libstdc++
+LINKFLAGSDYN_X64 = -shared -static-libstdc++
 
 # Linker Library Path
 LINKPATH_X86 = \
@@ -118,6 +120,14 @@ define createbin32
 endef
 define createbin64
 	$(LINK_X64) $(LINKFLAGS_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(BINDIR_X64)/$(1)
+endef
+
+# Linker Functions for Shared Library
+define createshared32
+	$(LINK_X86) $(LINKFLAGS_X86) $(LINKFLAGSDYN_X86) $(LINKPATH_X86) $(2) $(3) $(LINKLIBS_X86) -o $(LIBDIR_X86)/$(1).so
+endef
+define createshared64
+	$(LINK_X64) $(LINKFLAGS_X64) $(LINKFLAGSDYN_X64) $(LINKPATH_X64) $(2) $(3) $(LINKLIBS_X64) -o $(LIBDIR_X64)/$(1).so
 endef
 
 # Qt MOC+RCC+UIC
