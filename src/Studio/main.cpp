@@ -129,23 +129,6 @@
       #endif
    #endif
 
-   // PROPRIETARY (GFORCE, USED BY BRAINFLOW)
-   #ifdef INCLUDE_DEVICE_BRAINFLOW
-      #if _M_X64
-         #if _DEBUG
-            #pragma comment(lib, "gforce64d.lib")
-         #else
-            #pragma comment(lib, "gforce64.lib")
-         #endif
-      #else
-         #if _DEBUG
-            #pragma comment(lib, "gforce32d.lib")
-         #else
-            #pragma comment(lib, "gforce32.lib")
-         #endif
-      #endif
-   #endif
-
    // OPENSOURCE / NEUROMORE
    #if _DEBUG
       #pragma comment(lib, "DbgHelp.lib")                // winapi: debug
