@@ -2,6 +2,10 @@
 # WINDOWS CLANG MAKEFILE
 #
 
+# prebuilt binary folder
+PREBUILTDIR_X86 = ../../prebuilt/win/x86
+PREBUILTDIR_X64 = ../../prebuilt/win/x64
+
 # target platforms
 TARGET_X86 = i686-pc-windows-msvc
 TARGET_X64 = x86_64-pc-windows-msvc
@@ -251,10 +255,12 @@ WINSDKVER  := $(subst \,/,$(WindowsSDKVersion))
 LINKPATH_X86 = -libpath:"$(DIRVCTOOLS)lib/x86" \
                -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)ucrt/x86" \
                -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)um/x86" \
+               -libpath:"$(PREBUILTDIR_X86)" \
                -libpath:"lib/x86"
 LINKPATH_X64 = -libpath:"$(DIRVCTOOLS)lib/x64" \
                -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)ucrt/x64" \
                -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)um/x64" \
+               -libpath:"$(PREBUILTDIR_X64)" \
                -libpath:"lib/x64"
 
 # Libraries for X86 and X64
@@ -306,22 +312,27 @@ KISSFFT_OBJS         = $(KISSFFT_OBJS_ALL)
 MINIZIP_OBJS         = $(MINIZIP_OBJS_ALL)
 WAVELIB_OBJS         = $(WAVELIB_OBJS_ALL)
 DSPFILTERS_OBJS      = $(DSPFILTERS_OBJS_ALL)
-BRAINFLOW_OBJS                    = $(BRAINFLOW_OBJS_ALL)
-BRAINFLOWBOARDCONTROLLER_OBJS     = $(BRAINFLOWBOARDCONTROLLER_OBJS_ALL)
-BRAINFLOWDATAHANDLER_OBJS         = $(BRAINFLOWDATAHANDLER_OBJS_ALL)
-
-
-BRAINFLOWGANGLIONBGLIB_LIBNAME_X86= GanglionLib32
-BRAINFLOWGANGLIONBGLIB_LIBNAME_X64= GanglionLib
-BRAINFLOWGANGLIONBGLIB_OBJS       = $(BRAINFLOWGANGLIONBGLIB_OBJS_ALL)
-BRAINFLOWGANGLIONBGLIB_LIBS_ALL   = 
-BRAINFLOWGANGLIONBGLIB_LIBS_X86   = $(LIBDIR_X86)/brainflow.lib \
-                                    $(BRAINFLOWGANGLIONBGLIB_LIBS_ALL)
-BRAINFLOWGANGLIONBGLIB_LIBS_X64   = $(LIBDIR_X64)/brainflow.lib \
-                                    $(BRAINFLOWGANGLIONBGLIB_LIBS_ALL)
-BRAINFLOWGFORCESDKCXXWRAPPER_OBJS = $(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_ALL) \
-                                    wrapper.o
-BRAINFLOWML_OBJS                  = $(BRAINFLOWML_OBJS_ALL)
+BRAINFLOW_OBJS                       = $(BRAINFLOW_OBJS_ALL)
+BRAINFLOWBOARDCONTROLLER_OBJS        = $(BRAINFLOWBOARDCONTROLLER_OBJS_ALL)
+BRAINFLOWDATAHANDLER_OBJS            = $(BRAINFLOWDATAHANDLER_OBJS_ALL)
+BRAINFLOWGANGLIONBGLIB_LIBNAME_X86   = GanglionLib32
+BRAINFLOWGANGLIONBGLIB_LIBNAME_X64   = GanglionLib
+BRAINFLOWGANGLIONBGLIB_OBJS          = $(BRAINFLOWGANGLIONBGLIB_OBJS_ALL)
+BRAINFLOWGANGLIONBGLIB_LIBS_ALL      = 
+BRAINFLOWGANGLIONBGLIB_LIBS_X86      = $(LIBDIR_X86)/brainflow.lib \
+                                       $(BRAINFLOWGANGLIONBGLIB_LIBS_ALL)
+BRAINFLOWGANGLIONBGLIB_LIBS_X64      = $(LIBDIR_X64)/brainflow.lib \
+                                       $(BRAINFLOWGANGLIONBGLIB_LIBS_ALL)
+BRAINFLOWGFORCESDKCXXWRAPPER_OBJS    = $(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_ALL) \
+                                       wrapper.o
+BRAINFLOWGFORCESDKCXXWRAPPER_LIBS_ALL= 
+BRAINFLOWGFORCESDKCXXWRAPPER_LIBS_X86= $(PREBUILTDIR_X86)/gforce32.lib \
+                                       $(LIBDIR_X86)/brainflow.lib \
+                                       $(BRAINFLOWGFORCESDKCXXWRAPPER_LIBS_ALL)
+BRAINFLOWGFORCESDKCXXWRAPPER_LIBS_X64= $(PREBUILTDIR_X64)/gforce64.lib \
+                                       $(LIBDIR_X64)/brainflow.lib \
+                                       $(BRAINFLOWGFORCESDKCXXWRAPPER_LIBS_ALL)
+BRAINFLOWML_OBJS                     = $(BRAINFLOWML_OBJS_ALL)
 OPENCVCORE_OBJS      = $(OPENCVCORE_OBJS_ALL) \
                        directx.o
 OPENCVIMGCODECS_OBJS = $(OPENCVIMGCODECS_OBJS_ALL)
