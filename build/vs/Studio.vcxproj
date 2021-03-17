@@ -625,7 +625,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -682,7 +683,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -750,7 +752,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -818,7 +821,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -886,7 +890,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -955,7 +960,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -1024,7 +1030,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -1093,7 +1100,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>

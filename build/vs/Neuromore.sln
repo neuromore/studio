@@ -299,6 +299,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsvm", "..\..\deps\build\vs\libsvm.vcxproj", "{C7A146F9-F840-4C21-9CA9-E1DD9649AB7A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "brainflow-gforcesdkcxx-wrapper", "..\..\deps\build\vs\brainflow-gforcesdkcxx-wrapper.vcxproj", "{E9A39AB7-5688-410B-A99C-FF62ADC05ABE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F9C29AB5-5688-410B-A99C-FF62ADC05ABE} = {F9C29AB5-5688-410B-A99C-FF62ADC05ABE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "brainflow-boardcontroller", "..\..\deps\build\vs\brainflow-boardcontroller.vcxproj", "{E9A23FB5-5688-410B-A99C-FF62ADC05ABE}"
 EndProject
