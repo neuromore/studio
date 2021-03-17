@@ -89,6 +89,11 @@
 	#include "BrainProducts/ActiChampNode.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+#include "BrainFlow/BrainFlowDevices.h"
+#include "BrainFlow/BrainFlowNodes.h"
+#endif
+
 #include "Generic/GenericDevices.h"
 #include "Generic/GenericDeviceNodes.h"
 
@@ -271,6 +276,14 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 		GetGraphObjectFactory()->RegisterObjectType(new NotionNode(NULL));
 	}
 #endif 
+
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+	//if (disablePermissionCheck || user->ReadAllowed(BrainFlowDeviceCyton::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new BrainFlowDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new BrainFlowNode(NULL));
+	}
+#endif
 
 	/////////////////////////
 	// Generic Devices

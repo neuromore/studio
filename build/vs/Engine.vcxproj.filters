@@ -540,6 +540,12 @@
     <ClCompile Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.cpp">
       <Filter>Devices\Neurosity</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1226,6 +1232,12 @@
     <ClInclude Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.h">
       <Filter>Devices\Neurosity</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -1296,6 +1308,9 @@
     </Filter>
     <Filter Include="Devices\Neurosity">
       <UniqueIdentifier>{cd35ff26-5a26-4821-81b8-7cda41d973f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainFlow">
+      <UniqueIdentifier>{897190e5-b568-494b-b0b2-f6c9120d6f10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
