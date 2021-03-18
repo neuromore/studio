@@ -5,7 +5,7 @@
 # prebuilt binary folder and library extension pattern
 PREBUILTDIR_X86 = ../../deps/prebuilt/osx/x86
 PREBUILTDIR_X64 = ../../deps/prebuilt/osx/x64
-SHAREDLIBEXT    = .dynlib
+SHAREDLIBEXT    = .dylib
 
 # target platforms
 TARGET_X86 = i686-apple-darwin19.2.0
