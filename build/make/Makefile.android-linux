@@ -37,6 +37,11 @@ endif
 
 #########################################################################################
 
+# prebuilt binary folder
+PREBUILTDIR_X86 = ../../deps/prebuilt/android/x86
+PREBUILTDIR_X64 = ../../deps/prebuilt/android/x64
+SHAREDLIBEXT    = .so
+
 # flags shared between all
 FLAGS = -O3 \
         -fpic \
@@ -64,6 +69,9 @@ JAVAC = "$(JAVA_HOME)/bin/javac"
 # File Operations
 define deletefilepattern
 	find $(1) -type f -name '$(2)' -delete
+endef
+define copyfilepattern
+	cp $(1) $(2)
 endef
 
 # AR

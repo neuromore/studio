@@ -136,14 +136,21 @@ $(STUDIO_OBLS_X64) : $(STUDIO_PRES_X64)
 
 Studio-x86: Engine-x86 QtBase-x86 $(STUDIO_PRES_X86) $(STUDIO_OBLS_X86)
 	$(call createbin32,Studio,$(STUDIO_OBLS_X86),$(STUDIO_LIBS_X86))
+	$(call copyfilepattern,$(PREBUILTDIR_X86)/*$(SHAREDLIBEXT),$(BINDIR_X86)/)
+	$(call copyfilepattern,$(DEPSLIBDIR_X86)/*$(SHAREDLIBEXT),$(BINDIR_X86)/)
 
 Studio-x64: Engine-x64 QtBase-x64 $(STUDIO_PRES_X64) $(STUDIO_OBLS_X64)
 	$(call createbin64,Studio,$(STUDIO_OBLS_X64),$(STUDIO_LIBS_X64))
+	$(call copyfilepattern,$(PREBUILTDIR_X64)/*$(SHAREDLIBEXT),$(BINDIR_X64)/)
+	$(call copyfilepattern,$(DEPSLIBDIR_X64)/*$(SHAREDLIBEXT),$(BINDIR_X64)/)
 
 Studio: Studio-x86 Studio-x64
 
 Studio-x86-clean:
 	$(call deletefilepattern,$(BINDIR_X86),Studio*)
+	$(call deletefilepattern,$(BINDIR_X86),*.dll)
+	$(call deletefilepattern,$(BINDIR_X86),*.so)
+	$(call deletefilepattern,$(BINDIR_X86),*.dynlib)
 	$(call deletefilepattern,$(STUDIO_OBJDIR_X86),*.o)
 	$(call deletefilepattern,$(STUDIO_OBJDIR_X86),*.omoc)
 	$(call deletefilepattern,$(STUDIO_OBJDIR_X86),*.orcc)
@@ -153,6 +160,9 @@ Studio-x86-clean:
 
 Studio-x64-clean:
 	$(call deletefilepattern,$(BINDIR_X64),Studio*)
+	$(call deletefilepattern,$(BINDIR_X64),*.dll)
+	$(call deletefilepattern,$(BINDIR_X64),*.so)
+	$(call deletefilepattern,$(BINDIR_X64),*.dynlib)
 	$(call deletefilepattern,$(STUDIO_OBJDIR_X64),*.o)
 	$(call deletefilepattern,$(STUDIO_OBJDIR_X64),*.omoc)
 	$(call deletefilepattern,$(STUDIO_OBJDIR_X64),*.orcc)
