@@ -40,7 +40,6 @@ endif
 # flags shared between all
 FLAGS = -O3 \
         -fpic \
-        -static \
         -DANDROID \
         -D__ANDROID_API__=$(API) \
         -D_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING \
@@ -53,8 +52,8 @@ FLAGS = -O3 \
 # C Compiler
 CC_X86       = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang
 CC_X64       = $(TOOLCHAIN)/bin/$(TARGET_X64)$(API)-clang
-CFLAGS_X86   = -m32 --target=$(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CFLAGS_X64   = -m64 --target=$(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CFLAGS_X86   = -static -m32 --target=$(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CFLAGS_X64   = -static -m64 --target=$(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
 CXX_X86        = $(TOOLCHAIN)/bin/$(TARGET_X86)$(API)-clang++
@@ -89,8 +88,8 @@ endef
 # Linker
 LINK_X86         = $(CXX_X86)
 LINK_X64         = $(CXX_X64)
-LINKFLAGS_X86    = --sysroot=$(SYSROOT_X86) $(CXXFLAGS_X86)
-LINKFLAGS_X64    = --sysroot=$(SYSROOT_X64) $(CXXFLAGS_X64)
+LINKFLAGS_X86    = --sysroot=$(SYSROOT_X86) -target $(TARGET_X86) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X86) $(ARCHFLAGS_X86) $(FLAGS)
+LINKFLAGS_X64    = --sysroot=$(SYSROOT_X64) -target $(TARGET_X64) -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET_AR_X64) $(ARCHFLAGS_X64) $(FLAGS)
 LINKFLAGSDYN_X86 = -shared -static-libstdc++
 LINKFLAGSDYN_X64 = -shared -static-libstdc++
 
