@@ -482,11 +482,11 @@ brainflow-ganglion-bglib-x64: brainflow-x64 $(BRAINFLOWGANGLIONBGLIB_OBJS_X64)
 brainflow-ganglion-bglib: brainflow-ganglion-bglib-x86 brainflow-ganglion-bglib-x64
 
 brainflow-ganglion-bglib-x86-clean:
-	$(call deletefilepattern,$(LIBDIR_X86),brainflow-ganglion-bglib.*)
+	$(call deletefilepattern,$(LIBDIR_X86),$(BRAINFLOWGANGLIONBGLIB_LIBNAME_X86).*)
 	$(call deletefilepattern,$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X86),*.o)
 
 brainflow-ganglion-bglib-x64-clean:
-	$(call deletefilepattern,$(LIBDIR_X64),brainflow-ganglion-bglib.*)
+	$(call deletefilepattern,$(LIBDIR_X64),$(BRAINFLOWGANGLIONBGLIB_LIBNAME_X64).*)
 	$(call deletefilepattern,$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X64),*.o)
 
 brainflow-ganglion-bglib-clean: brainflow-ganglion-bglib-x86-clean brainflow-ganglion-bglib-x64-clean
@@ -505,11 +505,11 @@ brainflow-gforcesdkcxx-wrapper-x64: $(BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_X64)
 brainflow-gforcesdkcxx-wrapper: brainflow-gforcesdkcxx-wrapper-x86 brainflow-gforcesdkcxx-wrapper-x64
 
 brainflow-gforcesdkcxx-wrapper-x86-clean:
-	$(call deletefilepattern,$(LIBDIR_X86),brainflow-gforcesdkcxx-wrapper.*)
+	$(call deletefilepattern,$(LIBDIR_X86),gForceSDKWrapper32.*)
 	$(call deletefilepattern,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X86),*.o)
 
 brainflow-gforcesdkcxx-wrapper-x64-clean:
-	$(call deletefilepattern,$(LIBDIR_X64),brainflow-gforcesdkcxx-wrapper.*)
+	$(call deletefilepattern,$(LIBDIR_X64),gForceSDKWrapper.*)
 	$(call deletefilepattern,$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X64),*.o)
 
 brainflow-gforcesdkcxx-wrapper-clean: brainflow-gforcesdkcxx-wrapper-x86-clean brainflow-gforcesdkcxx-wrapper-x64-clean
