@@ -132,6 +132,7 @@
       <AdditionalLibraryDirectories>..\..\prebuilt\win\x86;..\..\build\vs\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>gforce32d.lib;brainflow_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -172,6 +173,7 @@
       <AdditionalLibraryDirectories>..\..\prebuilt\win\x64;..\..\build\vs\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>gforce64d.lib;brainflow_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -223,6 +225,7 @@
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -274,6 +277,7 @@
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
