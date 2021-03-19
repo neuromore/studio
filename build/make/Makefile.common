@@ -589,7 +589,14 @@ STUDIO_DEFINES       = -DAPPNAME="neuromore Studio" \
 STUDIO_DEFINES_X86   = $(STUDIO_DEFINES) $(STUDIO_DEFINES_X86_PLAT)
 STUDIO_DEFINES_X64   = $(STUDIO_DEFINES) $(STUDIO_DEFINES_X64_PLAT)
 STUDIO_INCLUDES      = -I$(INCDIR) -I$(SRCDIR) -I$(ENGINE_SRCDIR) -I$(ENGINE_INCDIR) \
-                       -I$(DEPSINCDIR) -I$(DEPSINCDIR)/qt \
+                       -I$(DEPSINCDIR) \
+                       -I$(DEPSINCDIR)/brainflow/board_controller \
+                       -I$(DEPSINCDIR)/brainflow/data_handler \
+                       -I$(DEPSINCDIR)/brainflow/utils \
+                       -I$(DEPSINCDIR)/json \
+                       -I$(DEPSINCDIR)/neurosdk \
+                       -I$(DEPSINCDIR)/unicorn \
+                       -I$(DEPSINCDIR)/qt \
                        -I$(DEPSINCDIR)/qt/QtBluetooth \
                        -I$(DEPSINCDIR)/qt/QtCore \
                        -I$(DEPSINCDIR)/qt/QtGui \

@@ -2,6 +2,11 @@
 # WINDOWS CLANG MAKEFILE
 #
 
+# prebuilt binary folder
+PREBUILTDIR_X86 = ../../deps/prebuilt/win/x86
+PREBUILTDIR_X64 = ../../deps/prebuilt/win/x64
+SHAREDLIBEXT    = .dll
+
 # target platforms
 TARGET_X86 = i686-pc-windows-msvc
 TARGET_X64 = x86_64-pc-windows-msvc
@@ -22,14 +27,14 @@ ARCHFLAGS_X64 = -msse -msse2
 # C Compiler
 CC_X86       = clang-cl
 CC_X64       = clang-cl
-CFLAGS_X86   = -MT -TC -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
-CFLAGS_X64   = -MT -TC -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
+CFLAGS_X86   = -TC -m32 --target=$(TARGET_X86) $(ARCHFLAGS_X86) $(FLAGS)
+CFLAGS_X64   = -TC -m64 --target=$(TARGET_X64) $(ARCHFLAGS_X64) $(FLAGS)
 
 # C++ Compiler
 CXX_X86      = clang++
 CXX_X64      = clang++
-CXXFLAGS_X86 = -MT -TP -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
-CXXFLAGS_X64 = -MT -TP -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+CXXFLAGS_X86 = -m32 -target $(TARGET_X86) $(ARCHFLAGS_X86) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
+CXXFLAGS_X64 = -m64 -target $(TARGET_X64) $(ARCHFLAGS_X64) -Xclang -flto-visibility-public-std -std=c++17 $(FLAGS)
 
 # JAVA JDK
 JAR   = "$(JAVA_HOME)/bin/jar.exe"
@@ -39,6 +44,10 @@ JAVAC = "$(JAVA_HOME)/bin/javac.exe"
 define deletefilepattern
 	del /s /q $(subst /,\,$(1))\$(2)
 endef
+define copyfilepattern
+	copy $(subst /,\,$(1)) $(subst /,\,$(2))
+endef
+
 
 # Platform Specific additional defines
 ENGINE_DEFINES_X86_PLAT    = -DNEUROMORE_PLATFORM_WINDOWS -DNEUROMORE_ARCHITECTURE_X86
@@ -124,12 +133,14 @@ WINSDKVER  := $(subst \,/,$(WindowsSDKVersion))
 
 # Linker Library Path
 LINKPATH_X86 = -libpath:"$(DIRVCTOOLS)lib/x86" \
+               -libpath:"$(DIRVCTOOLS)atlmfc/lib/x86" \
                -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)ucrt/x86" \
                -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)um/x86" \
                -libpath:"../../deps/build/make/lib/x86" \
                -libpath:"../../deps/prebuilt/win/x86" \
                -libpath:"lib/x86"
 LINKPATH_X64 = -libpath:"$(DIRVCTOOLS)lib/x64" \
+               -libpath:"$(DIRVCTOOLS)atlmfc/lib/x64" \
                -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)ucrt/x64" \
                -libpath:"$(DIRWINSDK)Lib/$(WINSDKVER)um/x64" \
                -libpath:"../../deps/build/make/lib/x64" \

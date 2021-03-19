@@ -222,6 +222,23 @@ $(LIBJPEG_OBJDIR_X86)/%.o:
 $(LIBJPEG_OBJDIR_X64)/%.o:
 	$(LIBJPEG_BUILD_X64)
 ###################################################################################################################
+# LIBSVM
+###################################################################################################################
+LIBSVM_INCDIR     = $(INCDIR)/libsvm
+LIBSVM_SRCDIR     = $(SRCDIR)/libsvm
+LIBSVM_OBJDIR_X86 = $(OBJDIR_X86)/libsvm
+LIBSVM_OBJDIR_X64 = $(OBJDIR_X64)/libsvm
+LIBSVM_INCLUDES   = -I$(LIBSVM_INCDIR)
+LIBSVM_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(LIBSVM_INCLUDES) -c $(@:$(LIBSVM_OBJDIR_X86)%.o=$(LIBSVM_SRCDIR)%.cpp) -o $@
+LIBSVM_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(LIBSVM_INCLUDES) -c $(@:$(LIBSVM_OBJDIR_X64)%.o=$(LIBSVM_SRCDIR)%.cpp) -o $@
+LIBSVM_OBJS_ALL   = svm.o
+
+$(LIBSVM_OBJDIR_X86)/%.o:
+	$(LIBSVM_BUILD_X86)
+
+$(LIBSVM_OBJDIR_X64)/%.o:
+	$(LIBSVM_BUILD_X64)
+###################################################################################################################
 # PCRE2
 ###################################################################################################################
 PCRE2_INCDIR     = $(INCDIR)/pcre2
@@ -406,6 +423,279 @@ $(MINIZIP_OBJDIR_X86)/%.o:
 
 $(MINIZIP_OBJDIR_X64)/%.o:
 	$(MINIZIP_BUILD_X64)
+###################################################################################################################
+# WAVELIB
+###################################################################################################################
+WAVELIB_INCDIR     = $(INCDIR)/wavelib
+WAVELIB_SRCDIR     = $(SRCDIR)/wavelib
+WAVELIB_OBJDIR_X86 = $(OBJDIR_X86)/wavelib
+WAVELIB_OBJDIR_X64 = $(OBJDIR_X64)/wavelib
+WAVELIB_INCLUDES   = -I$(WAVELIB_INCDIR) -I$(WAVELIB_INCDIR)/internal
+WAVELIB_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(WAVELIB_INCLUDES) -c $(@:$(WAVELIB_OBJDIR_X86)%.o=$(WAVELIB_SRCDIR)%.cpp) -o $@
+WAVELIB_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(WAVELIB_INCLUDES) -c $(@:$(WAVELIB_OBJDIR_X64)%.o=$(WAVELIB_SRCDIR)%.cpp) -o $@
+WAVELIB_OBJS_ALL   = conv.o cwt.o cwtmath.o denoise.o hsfft.o real.o waux.o wavefilt.o wavefunc.o wavelib.o wtmath.o
+
+$(WAVELIB_OBJDIR_X86)/%.o:
+	$(WAVELIB_BUILD_X86)
+
+$(WAVELIB_OBJDIR_X64)/%.o:
+	$(WAVELIB_BUILD_X64)
+###################################################################################################################
+# DSPFILTERS
+###################################################################################################################
+DSPFILTERS_INCDIR     = $(INCDIR)/DspFilters
+DSPFILTERS_SRCDIR     = $(SRCDIR)/dspfilters
+DSPFILTERS_OBJDIR_X86 = $(OBJDIR_X86)/dspfilters
+DSPFILTERS_OBJDIR_X64 = $(OBJDIR_X64)/dspfilters
+DSPFILTERS_INCLUDES   = -I$(INCDIR) -I$(DSPFILTERS_INCDIR)
+DSPFILTERS_BUILD_X86  = $(CXX_X86) $(CXX14FLAGS_X86) $(DSPFILTERS_INCLUDES) -c $(@:$(DSPFILTERS_OBJDIR_X86)%.o=$(DSPFILTERS_SRCDIR)%.cpp) -o $@
+DSPFILTERS_BUILD_X64  = $(CXX_X64) $(CXX14FLAGS_X64) $(DSPFILTERS_INCLUDES) -c $(@:$(DSPFILTERS_OBJDIR_X64)%.o=$(DSPFILTERS_SRCDIR)%.cpp) -o $@
+DSPFILTERS_OBJS_ALL   = Bessel.o \
+                        Biquad.o \
+                        Butterworth.o \
+                        Cascade.o \
+                        ChebyshevI.o \
+                        ChebyshevII.o \
+                        Custom.o \
+                        Design.o \
+                        Documentation.o \
+                        Elliptic.o \
+                        Filter.o \
+                        Legendre.o \
+                        Param.o \
+                        PoleFilter.o \
+                        RBJ.o \
+                        RootFinder.o \
+                        State.o
+
+$(DSPFILTERS_OBJDIR_X86)/%.o:
+	$(DSPFILTERS_BUILD_X86)
+
+$(DSPFILTERS_OBJDIR_X64)/%.o:
+	$(DSPFILTERS_BUILD_X64)
+###################################################################################################################
+# BRAINFLOW
+###################################################################################################################
+BRAINFLOW_INCDIR     = $(INCDIR)/brainflow
+BRAINFLOW_SRCDIR     = $(SRCDIR)/brainflow
+BRAINFLOW_OBJDIR_X86 = $(OBJDIR_X86)/brainflow
+BRAINFLOW_OBJDIR_X64 = $(OBJDIR_X64)/brainflow
+BRAINFLOW_INCLUDES   = -I$(INCDIR) \
+                       -I$(INCDIR)/http \
+                       -I$(INCDIR)/json \
+                       -I$(BRAINFLOW_INCDIR)/board_controller \
+                       -I$(BRAINFLOW_INCDIR)/cpp-package \
+                       -I$(BRAINFLOW_INCDIR)/data_handler \
+                       -I$(BRAINFLOW_INCDIR)/ml \
+                       -I$(BRAINFLOW_INCDIR)/utils
+BRAINFLOW_INCLUDES_X86 = $(BRAINFLOW_INCLUDES) $(BRAINFLOW_INCLUDES_X86_PLAT)
+BRAINFLOW_INCLUDES_X64 = $(BRAINFLOW_INCLUDES) $(BRAINFLOW_INCLUDES_X64_PLAT)
+BRAINFLOW_DEFINES    = 
+BRAINFLOW_DEFINES_X86= $(BRAINFLOW_DEFINES) $(BRAINFLOW_DEFINES_X86_PLAT)
+BRAINFLOW_DEFINES_X64= $(BRAINFLOW_DEFINES) $(BRAINFLOW_DEFINES_X64_PLAT)
+BRAINFLOW_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(BRAINFLOW_DEFINES_X86) $(BRAINFLOW_INCLUDES_X86) -c $(@:$(BRAINFLOW_OBJDIR_X86)%.o=$(BRAINFLOW_SRCDIR)%.cpp) -o $@
+BRAINFLOW_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(BRAINFLOW_DEFINES_X64) $(BRAINFLOW_INCLUDES_X64) -c $(@:$(BRAINFLOW_OBJDIR_X64)%.o=$(BRAINFLOW_SRCDIR)%.cpp) -o $@
+BRAINFLOW_OBJS_ALL   = cpp-package/board_shim.o \
+                       cpp-package/data_filter.o \
+                       cpp-package/ml_model.o \
+                       utils/broadcast_client.o \
+                       utils/data_buffer.o \
+                       utils/libftdi_serial.o \
+                       utils/multicast_client.o \
+                       utils/multicast_server.o \
+                       utils/os_serial.o \
+                       utils/os_serial_ioctl.o \
+                       utils/serial.o \
+                       utils/socket_client_tcp.o \
+                       utils/socket_client_udp.o \
+                       utils/socket_server_tcp.o \
+                       utils/socket_server_udp.o \
+                       utils/timestamp.o
+
+$(BRAINFLOW_OBJDIR_X86)/%.o:
+	$(BRAINFLOW_BUILD_X86)
+
+$(BRAINFLOW_OBJDIR_X64)/%.o:
+	$(BRAINFLOW_BUILD_X64)
+###################################################################################################################
+# BRAINFLOWBOARDCONTROLLER
+###################################################################################################################
+BRAINFLOWBOARDCONTROLLER_INCDIR     = $(INCDIR)/brainflow
+BRAINFLOWBOARDCONTROLLER_SRCDIR     = $(SRCDIR)/brainflow-boardcontroller
+BRAINFLOWBOARDCONTROLLER_OBJDIR_X86 = $(OBJDIR_X86)/brainflow-boardcontroller
+BRAINFLOWBOARDCONTROLLER_OBJDIR_X64 = $(OBJDIR_X64)/brainflow-boardcontroller
+BRAINFLOWBOARDCONTROLLER_INCLUDES   = -I$(INCDIR) \
+                                      -I$(INCDIR)/neurosdk \
+                                      -I$(INCDIR)/http \
+                                      -I$(INCDIR)/json \
+                                      -I$(INCDIR)/unicorn \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller/freeeeg32 \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller/gtec \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller/ironbci \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller/mit \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller/neuromd \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller/neurosity \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller/openbci \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/board_controller/oymotion \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/ganglion-bglib \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/gforcesdkcxx-wrapper \
+                                      -I$(BRAINFLOWBOARDCONTROLLER_INCDIR)/utils
+
+BRAINFLOWBOARDCONTROLLER_INCLUDES_X86 = $(BRAINFLOWBOARDCONTROLLER_INCLUDES) $(BRAINFLOWBOARDCONTROLLER_INCLUDES_X86_PLAT)
+BRAINFLOWBOARDCONTROLLER_INCLUDES_X64 = $(BRAINFLOWBOARDCONTROLLER_INCLUDES) $(BRAINFLOWBOARDCONTROLLER_INCLUDES_X64_PLAT)
+BRAINFLOWBOARDCONTROLLER_DEFINES    = -DNOMINMAX
+BRAINFLOWBOARDCONTROLLER_DEFINES_X86= $(BRAINFLOWBOARDCONTROLLER_DEFINES) $(BRAINFLOWBOARDCONTROLLER_DEFINES_X86_PLAT)
+BRAINFLOWBOARDCONTROLLER_DEFINES_X64= $(BRAINFLOWBOARDCONTROLLER_DEFINES) $(BRAINFLOWBOARDCONTROLLER_DEFINES_X64_PLAT)
+BRAINFLOWBOARDCONTROLLER_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(BRAINFLOWBOARDCONTROLLER_DEFINES_X86) $(BRAINFLOWBOARDCONTROLLER_INCLUDES_X86) -c $(@:$(BRAINFLOWBOARDCONTROLLER_OBJDIR_X86)%.o=$(BRAINFLOWBOARDCONTROLLER_SRCDIR)%.cpp) -o $@
+BRAINFLOWBOARDCONTROLLER_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(BRAINFLOWBOARDCONTROLLER_DEFINES_X64) $(BRAINFLOWBOARDCONTROLLER_INCLUDES_X64) -c $(@:$(BRAINFLOWBOARDCONTROLLER_OBJDIR_X64)%.o=$(BRAINFLOWBOARDCONTROLLER_SRCDIR)%.cpp) -o $@
+BRAINFLOWBOARDCONTROLLER_OBJS_ALL   = freeeeg32/freeeeg32.o \
+                                      gtec/unicorn_board.o \
+                                      ironbci/ironbci.o \
+                                      mit/fascia.o \
+                                      neuromd/brainbit.o \
+                                      neuromd/callibri.o \
+                                      neuromd/callibri_ecg.o \
+                                      neuromd/callibri_eeg.o \
+                                      neuromd/callibri_emg.o \
+                                      neuromd/neuromd_board.o \
+                                      neurosity/notion_osc.o \
+                                      openbci/cyton.o \
+                                      openbci/cyton_daisy.o \
+                                      openbci/cyton_daisy_wifi.o \
+                                      openbci/cyton_wifi.o \
+                                      openbci/galea.o \
+                                      openbci/ganglion.o \
+                                      openbci/ganglion_wifi.o \
+                                      openbci/openbci_serial_board.o \
+                                      openbci/openbci_wifi_shield_board.o \
+                                      oymotion/gforce_pro.o \
+                                      board.o \
+                                      board_controller.o \
+                                      board_info_getter.o \
+                                      brainflow_boards.o \
+                                      file_streamer.o \
+                                      multicast_streamer.o \
+                                      playback_file_board.o \
+                                      streaming_board.o \
+                                      synthetic_board.o
+
+$(BRAINFLOWBOARDCONTROLLER_OBJDIR_X86)/%.o:
+	$(BRAINFLOWBOARDCONTROLLER_BUILD_X86)
+
+$(BRAINFLOWBOARDCONTROLLER_OBJDIR_X64)/%.o:
+	$(BRAINFLOWBOARDCONTROLLER_BUILD_X64)
+###################################################################################################################
+# BRAINFLOWDATAHANDLER
+###################################################################################################################
+BRAINFLOWDATAHANDLER_INCDIR     = $(INCDIR)/brainflow
+BRAINFLOWDATAHANDLER_SRCDIR     = $(SRCDIR)/brainflow-datahandler
+BRAINFLOWDATAHANDLER_OBJDIR_X86 = $(OBJDIR_X86)/brainflow-datahandler
+BRAINFLOWDATAHANDLER_OBJDIR_X64 = $(OBJDIR_X64)/brainflow-datahandler
+BRAINFLOWDATAHANDLER_INCLUDES   = -I$(INCDIR) \
+                                  -I$(INCDIR)/DspFilters \
+                                  -I$(INCDIR)/fft \
+                                  -I$(INCDIR)/wavelib \
+                                  -I$(BRAINFLOWDATAHANDLER_INCDIR)/data_handler \
+                                  -I$(BRAINFLOWDATAHANDLER_INCDIR)/utils
+BRAINFLOWDATAHANDLER_INCLUDES_X86 = $(BRAINFLOWDATAHANDLER_INCLUDES) $(BRAINFLOWDATAHANDLER_INCLUDES_X86_PLAT)
+BRAINFLOWDATAHANDLER_INCLUDES_X64 = $(BRAINFLOWDATAHANDLER_INCLUDES) $(BRAINFLOWDATAHANDLER_INCLUDES_X64_PLAT)
+BRAINFLOWDATAHANDLER_DEFINES    = 
+BRAINFLOWDATAHANDLER_DEFINES_X86= $(BRAINFLOWDATAHANDLER_DEFINES) $(BRAINFLOWDATAHANDLER_DEFINES_X86_PLAT)
+BRAINFLOWDATAHANDLER_DEFINES_X64= $(BRAINFLOWDATAHANDLER_DEFINES) $(BRAINFLOWDATAHANDLER_DEFINES_X64_PLAT)
+BRAINFLOWDATAHANDLER_BUILD_X86  = $(CXX_X86) $(CXX14FLAGS_X86) $(BRAINFLOWDATAHANDLER_DEFINES_X86) $(BRAINFLOWDATAHANDLER_INCLUDES_X86) -c $(@:$(BRAINFLOWDATAHANDLER_OBJDIR_X86)%.o=$(BRAINFLOWDATAHANDLER_SRCDIR)%.cpp) -o $@
+BRAINFLOWDATAHANDLER_BUILD_X64  = $(CXX_X64) $(CXX14FLAGS_X64) $(BRAINFLOWDATAHANDLER_DEFINES_X64) $(BRAINFLOWDATAHANDLER_INCLUDES_X64) -c $(@:$(BRAINFLOWDATAHANDLER_OBJDIR_X64)%.o=$(BRAINFLOWDATAHANDLER_SRCDIR)%.cpp) -o $@
+BRAINFLOWDATAHANDLER_OBJS_ALL   = data_handler.o
+
+$(BRAINFLOWDATAHANDLER_OBJDIR_X86)/%.o:
+	$(BRAINFLOWDATAHANDLER_BUILD_X86)
+
+$(BRAINFLOWDATAHANDLER_OBJDIR_X64)/%.o:
+	$(BRAINFLOWDATAHANDLER_BUILD_X64)
+###################################################################################################################
+# BRAINFLOWGANGLIONBGLIB
+###################################################################################################################
+BRAINFLOWGANGLIONBGLIB_INCDIR     = $(INCDIR)/brainflow
+BRAINFLOWGANGLIONBGLIB_SRCDIR     = $(SRCDIR)/brainflow-ganglion-bglib
+BRAINFLOWGANGLIONBGLIB_OBJDIR_X86 = $(OBJDIR_X86)/brainflow-ganglion-bglib
+BRAINFLOWGANGLIONBGLIB_OBJDIR_X64 = $(OBJDIR_X64)/brainflow-ganglion-bglib
+BRAINFLOWGANGLIONBGLIB_INCLUDES   = -I$(INCDIR) \
+                                    -I$(BRAINFLOWGANGLIONBGLIB_INCDIR)/ganglion-bglib \
+                                    -I$(BRAINFLOWGANGLIONBGLIB_INCDIR)/utils
+BRAINFLOWGANGLIONBGLIB_INCLUDES_X86 = $(BRAINFLOWGANGLIONBGLIB_INCLUDES) $(BRAINFLOWGANGLIONBGLIB_INCLUDES_X86_PLAT)
+BRAINFLOWGANGLIONBGLIB_INCLUDES_X64 = $(BRAINFLOWGANGLIONBGLIB_INCLUDES) $(BRAINFLOWGANGLIONBGLIB_INCLUDES_X64_PLAT)
+BRAINFLOWGANGLIONBGLIB_DEFINES    =
+BRAINFLOWGANGLIONBGLIB_DEFINES_X86= $(BRAINFLOWGANGLIONBGLIB_DEFINES) $(BRAINFLOWGANGLIONBGLIB_DEFINES_X86_PLAT)
+BRAINFLOWGANGLIONBGLIB_DEFINES_X64= $(BRAINFLOWGANGLIONBGLIB_DEFINES) $(BRAINFLOWGANGLIONBGLIB_DEFINES_X64_PLAT)
+BRAINFLOWGANGLIONBGLIB_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(BRAINFLOWGANGLIONBGLIB_DEFINES_X86) $(BRAINFLOWGANGLIONBGLIB_INCLUDES_X86) -c $(@:$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X86)%.o=$(BRAINFLOWGANGLIONBGLIB_SRCDIR)%.cpp) -o $@
+BRAINFLOWGANGLIONBGLIB_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(BRAINFLOWGANGLIONBGLIB_DEFINES_X64) $(BRAINFLOWGANGLIONBGLIB_INCLUDES_X64) -c $(@:$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X64)%.o=$(BRAINFLOWGANGLIONBGLIB_SRCDIR)%.cpp) -o $@
+BRAINFLOWGANGLIONBGLIB_OBJS_ALL   = callbacks.o cmd_def.o helpers.o main.o stubs.o uart.o
+
+$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X86)/%.o:
+	$(BRAINFLOWGANGLIONBGLIB_BUILD_X86)
+
+$(BRAINFLOWGANGLIONBGLIB_OBJDIR_X64)/%.o:
+	$(BRAINFLOWGANGLIONBGLIB_BUILD_X64)
+###################################################################################################################
+# BRAINFLOWGFORCESDKCXXWRAPPER
+###################################################################################################################
+BRAINFLOWGFORCESDKCXXWRAPPER_INCDIR     = $(INCDIR)/brainflow
+BRAINFLOWGFORCESDKCXXWRAPPER_SRCDIR     = $(SRCDIR)/brainflow-gforcesdkcxx-wrapper
+BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X86 = $(OBJDIR_X86)/brainflow-gforcesdkcxx-wrapper
+BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X64 = $(OBJDIR_X64)/brainflow-gforcesdkcxx-wrapper
+BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES   = -I$(INCDIR) \
+                                          -I$(INCDIR)/gForceSDKCXX \
+                                          -I$(BRAINFLOWGFORCESDKCXXWRAPPER_INCDIR)/gforcesdkcxx-wrapper \
+                                          -I$(BRAINFLOWGFORCESDKCXXWRAPPER_INCDIR)/utils
+BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES_X86 = $(BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES) $(BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES_X86_PLAT)
+BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES_X64 = $(BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES) $(BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES_X64_PLAT)
+BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES    = -D_UNICODE
+BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES_X86= $(BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES) $(BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES_X86_PLAT)
+BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES_X64= $(BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES) $(BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES_X64_PLAT)
+BRAINFLOWGFORCESDKCXXWRAPPER_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES_X86) $(BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES_X86) -c $(@:$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X86)%.o=$(BRAINFLOWGFORCESDKCXXWRAPPER_SRCDIR)%.cpp) -o $@
+BRAINFLOWGFORCESDKCXXWRAPPER_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(BRAINFLOWGFORCESDKCXXWRAPPER_DEFINES_X64) $(BRAINFLOWGFORCESDKCXXWRAPPER_INCLUDES_X64) -c $(@:$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X64)%.o=$(BRAINFLOWGFORCESDKCXXWRAPPER_SRCDIR)%.cpp) -o $@
+BRAINFLOWGFORCESDKCXXWRAPPER_OBJS_ALL   =
+
+$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X86)/%.o:
+	$(BRAINFLOWGFORCESDKCXXWRAPPER_BUILD_X86)
+
+$(BRAINFLOWGFORCESDKCXXWRAPPER_OBJDIR_X64)/%.o:
+	$(BRAINFLOWGFORCESDKCXXWRAPPER_BUILD_X64)
+###################################################################################################################
+# BRAINFLOWML
+###################################################################################################################
+BRAINFLOWML_INCDIR     = $(INCDIR)/brainflow
+BRAINFLOWML_SRCDIR     = $(SRCDIR)/brainflow-ml
+BRAINFLOWML_OBJDIR_X86 = $(OBJDIR_X86)/brainflow-ml
+BRAINFLOWML_OBJDIR_X64 = $(OBJDIR_X64)/brainflow-ml
+BRAINFLOWML_INCLUDES   = -I$(INCDIR) \
+                         -I$(INCDIR)/kdtree \
+                         -I$(INCDIR)/libsvm \
+                         -I$(INCDIR)/json \
+                         -I$(BRAINFLOWML_INCDIR)/ml \
+                         -I$(BRAINFLOWML_INCDIR)/utils
+BRAINFLOWML_INCLUDES_X86 = $(BRAINFLOWML_INCLUDES) $(BRAINFLOWML_INCLUDES_X86_PLAT)
+BRAINFLOWML_INCLUDES_X64 = $(BRAINFLOWML_INCLUDES) $(BRAINFLOWML_INCLUDES_X64_PLAT)
+BRAINFLOWML_DEFINES    = 
+BRAINFLOWML_DEFINES_X86= $(BRAINFLOWML_DEFINES) $(BRAINFLOWML_DEFINES_X86_PLAT)
+BRAINFLOWML_DEFINES_X64= $(BRAINFLOWML_DEFINES) $(BRAINFLOWML_DEFINES_X64_PLAT)
+BRAINFLOWML_BUILD_X86  = $(CXX_X86) $(CXXFLAGS_X86) $(BRAINFLOWML_DEFINES_X86) $(BRAINFLOWML_INCLUDES_X86) -c $(@:$(BRAINFLOWML_OBJDIR_X86)%.o=$(BRAINFLOWML_SRCDIR)%.cpp) -o $@
+BRAINFLOWML_BUILD_X64  = $(CXX_X64) $(CXXFLAGS_X64) $(BRAINFLOWML_DEFINES_X64) $(BRAINFLOWML_INCLUDES_X64) -c $(@:$(BRAINFLOWML_OBJDIR_X64)%.o=$(BRAINFLOWML_SRCDIR)%.cpp) -o $@
+BRAINFLOWML_OBJS_ALL   = generated/focus_dataset.o \
+                         generated/lda_model.o \
+                         generated/regression_model.o \
+                         base_classifier.o \
+                         concentration_knn_classifier.o \
+                         concentration_lda_classifier.o \
+                         concentration_regression_classifier.o \
+                         concentration_svm_classifier.o \
+                         ml_module.o
+
+$(BRAINFLOWML_OBJDIR_X86)/%.o:
+	$(BRAINFLOWML_BUILD_X86)
+
+$(BRAINFLOWML_OBJDIR_X64)/%.o:
+	$(BRAINFLOWML_BUILD_X64)
 ###################################################################################################################
 # OPENCV-CORE
 ###################################################################################################################

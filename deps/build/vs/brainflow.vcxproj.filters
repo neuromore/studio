@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="utils">
+      <UniqueIdentifier>{c3222d16-ba4a-442a-9b19-3cce78a4abf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp-package">
+      <UniqueIdentifier>{8d59590c-d40f-4635-b4f5-fd21eec661c2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\brainflow\utils\broadcast_client.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\data_buffer.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\libftdi_serial.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\multicast_client.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\multicast_server.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\os_serial.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\os_serial_ioctl.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\serial.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\socket_client_tcp.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\socket_client_udp.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\socket_server_tcp.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\socket_server_udp.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\utils\timestamp.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\cpp-package\board_shim.cpp">
+      <Filter>cpp-package</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\cpp-package\data_filter.cpp">
+      <Filter>cpp-package</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\brainflow\cpp-package\ml_model.cpp">
+      <Filter>cpp-package</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\brainflow\utils\brainflow_constants.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\broadcast_client.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\custom_cast.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\data_buffer.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\get_dll_dir.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\libftdi_serial.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\multicast_client.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\multicast_server.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\os_serial.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\runtime_dll_loader.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\serial.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\shared_export.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\shared_export_matlab.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\socket_client_tcp.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\socket_client_udp.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\socket_server_tcp.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\socket_server_udp.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\spinlock.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\ticket_lock.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\utils\timestamp.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\cpp-package\board_shim.h">
+      <Filter>cpp-package</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\cpp-package\brainflow_array.h">
+      <Filter>cpp-package</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\cpp-package\brainflow_exception.h">
+      <Filter>cpp-package</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\cpp-package\data_filter.h">
+      <Filter>cpp-package</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\brainflow\cpp-package\ml_model.h">
+      <Filter>cpp-package</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -576,7 +576,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -625,13 +625,14 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -682,13 +683,14 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -750,13 +752,14 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -818,13 +821,14 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -886,13 +890,14 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
+copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -955,13 +960,14 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -1024,13 +1030,14 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -1093,7 +1100,8 @@ Studio.cmd
       <Message>QT RCC+MOC</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\</Command>
+      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
+copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
