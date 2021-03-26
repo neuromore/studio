@@ -224,6 +224,9 @@ void Spectrogram2DPlugin::ReInit()
 	SetAverageInterval( GetAverageInterval() );
 
 	SetMultiView( GetMultiView() );
+
+	// hide the used checkbox
+	mChannelSelectionWidget->SetShowUsedVisible(false);
 }
 
 
