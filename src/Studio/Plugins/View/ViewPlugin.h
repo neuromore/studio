@@ -47,8 +47,6 @@ class ViewPlugin : public Plugin, public Core::EventHandler
 		enum
 		{
 			ATTRIB_TIMERANGE = NUM_BASEATTRIBUTES,
-			ATTRIB_RANGEMIN,
-			ATTRIB_RANGEMAX,
 			ATTRIB_STYLE,
 			ATTRIB_SHOWLATENCY,
 		};
@@ -72,8 +70,6 @@ class ViewPlugin : public Plugin, public Core::EventHandler
 		double		 GetTimeRange()											{ return GetFloatAttribute(ATTRIB_TIMERANGE); }
 		uint32		 GetSampleStyle()										{ return GetInt32Attribute(ATTRIB_STYLE); }
 		bool	 	 GetShowLatencyMarker()									{ return GetBoolAttribute(ATTRIB_SHOWLATENCY); }
-		double		 GetCustomRangeMin()									{ return GetFloatAttribute(ATTRIB_RANGEMIN); }
-		double		 GetCustomRangeMax()									{ return GetFloatAttribute(ATTRIB_RANGEMAX); }
 
 		// access to the multi channels
 		uint32				GetNumMultiChannels();
