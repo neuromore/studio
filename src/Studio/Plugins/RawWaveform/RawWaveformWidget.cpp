@@ -31,7 +31,8 @@
 
 
 using namespace Core;
-
+extern uint mData_2[50];
+int j = 4;
 // constructor
 RawWaveformWidget::RawWaveformWidget(RawWaveformPlugin* plugin, QWidget* parent) : OpenGLWidget(parent)
 {
@@ -455,7 +456,10 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 		x = RemapRange(time, minTime, maxTime, xStart,  xEnd);
 
 		// clamp and remap value to y coordinate
-		value = channel->GetSample(i);
+
+		value = int(((mData_2[j++] << 16 | mData_2[j++] << 8 | mData_2[j++]) << 8) >> 8);/*channel->GetSample(i);*/
+		if (j > 27)
+			j = 0;
 		y = yCenter + valueScale * (value - mean);
 
 		// FIX due to antialiasing problems : round the coords to int and add the twiddle factor
