@@ -11,8 +11,8 @@
 //
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION    1,4,8,0
-PRODUCTVERSION 1,4,8,0
+FILEVERSION    1,4,9,0
+PRODUCTVERSION 1,4,9,0
 FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
 FILEFLAGS 0x1L
@@ -29,12 +29,12 @@ BLOCK "040004b0"
 BEGIN
 VALUE "CompanyName", "neuromore co"
 VALUE "FileDescription", STRINGIZE(APPNAME)
-VALUE "FileVersion", "1.4.8.0"
+VALUE "FileVersion", "1.4.9.0"
 VALUE "InternalName", "neuromore.studio"
 VALUE "LegalCopyright", "Copyright (C) 2021"
 VALUE "OriginalFilename", ""
 VALUE "ProductName", STRINGIZE(APPNAME)
-VALUE "ProductVersion", "1.4.8.0"
+VALUE "ProductVersion", "1.4.9.0"
 END
 END
 BLOCK "VarFileInfo"
