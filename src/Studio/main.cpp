@@ -73,7 +73,6 @@
    #pragma comment(lib, "strmiids.lib")         // winapi: 
    #pragma comment(lib, "opengl32.lib")         // opengl
    #pragma comment(lib, "glu32.lib")            // opengl
-   
 
    // PROPRIETARY (TOBIIEYEX)
    #ifdef INCLUDE_DEVICE_TOBIIEYEX
@@ -121,6 +120,11 @@
       #pragma comment(lib, "libpng_d.lib")               // 3rdparty: LibPNG
       #pragma comment(lib, "libjpeg_d.lib")              // 3rdparty: LibJPEG
       #pragma comment(lib, "oscpack_d.lib")              // 3rdparty: OSC
+      #pragma comment(lib, "libsvm_d.lib")               // 3rdparty: libsvm
+      #pragma comment(lib, "dspfilters_d.lib")           // 3rdparty: DspFilters
+      #pragma comment(lib, "wavelib_d.lib")              // 3rdparty: wavelib
+      #pragma comment(lib, "brainflow_d.lib")                 // 3rdparty: brainflow
+      #pragma comment(lib, "brainflow-boardcontroller_d.lib") // 3rdparty: brainflow
       #ifdef OPENCV_SUPPORT
          #pragma comment(lib, "opencv-core_d.lib")       // 3rdparty: OpenCV Core
          #pragma comment(lib, "opencv-imgcodecs_d.lib")  // 3rdparty: OpenCV Image Codecs
@@ -167,6 +171,11 @@
       #pragma comment(lib, "libpng.lib")
       #pragma comment(lib, "libjpeg.lib")
       #pragma comment(lib, "oscpack.lib")
+      #pragma comment(lib, "libsvm.lib")
+      #pragma comment(lib, "dspfilters.lib")
+      #pragma comment(lib, "wavelib.lib")
+      #pragma comment(lib, "brainflow.lib")
+      #pragma comment(lib, "brainflow-boardcontroller.lib")
       #ifdef OPENCV_SUPPORT
          #pragma comment(lib, "opencv-core.lib")
          #pragma comment(lib, "opencv-imgcodecs.lib")
