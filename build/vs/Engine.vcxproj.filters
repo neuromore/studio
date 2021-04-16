@@ -217,6 +217,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\OpenBCI\OpenBCIDevices.cpp">
       <Filter>Devices\OpenBCI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\build\vs\BrainaliveDevices.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Devices\Test\TestDevice.cpp">
       <Filter>Devices\Test</Filter>
     </ClCompile>
@@ -863,6 +866,12 @@
     <ClInclude Include="..\..\src\Engine\Devices\OpenBCI\OpenBCINodes.h">
       <Filter>Devices\OpenBCI</Filter>
     </ClInclude>
+   <ClInclude Include="..\..\build\vs\BrainaliveDevices.h">
+   <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+   <ClInclude Include="..\..\build\vs\BrainaliveNodes.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\Test\TestDevice.h">
       <Filter>Devices\Test</Filter>
     </ClInclude>
@@ -1269,6 +1278,9 @@
     </Filter>
     <Filter Include="Devices\OpenBCI">
       <UniqueIdentifier>{B70AE6B7-479C-3A27-A1EA-6A48960600E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainAlive">
+      <UniqueIdentifier>{B70AE6B8-479C-3A27-A1EA-6A48960600E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Devices\Test">
       <UniqueIdentifier>{8ADFF921-1B33-30F2-89AC-216FA0D98761}</UniqueIdentifier>

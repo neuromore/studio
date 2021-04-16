@@ -46,6 +46,10 @@
     #include "OpenBCI/OpenBCIDriver.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+#include "../../../../build/vs/BrainaliveDriver.h"
+#endif
+
 #ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
 	#include "Versus/VersusDriver.h"
 #endif
@@ -152,6 +156,16 @@ void DriverInventory::RegisterDrivers()
 	}
 #endif
 
+
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+	if (user->ReadAllowed(BrainAliveDevice::GetRuleName()) == true || user->ReadAllowed(BrainAliveDaisyDevice::GetRuleName()) == true)
+	{
+		// create and add the Brainalive system
+		BrainAliveDriver* brainAliveDriver = new BrainAliveDriver();
+		brainAliveDriver->Init();
+		deviceManager->AddDeviceDriver(brainAliveDriver);
+	}
+#endif
 
 #ifdef INCLUDE_DEVICE_MITSAR
 	if (user->ReadAllowed(MitsarDevice::GetRuleName()) == true)

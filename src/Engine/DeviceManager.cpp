@@ -144,7 +144,6 @@ void DeviceManager::RegisterDeviceType(Device* prototype)
 	if (GetRegisteredDeviceType(prototype->GetType()) == NULL)
 	{
 		mRegisteredDeviceTypes.Add(prototype);
-
 		LogInfo( "Device prototype '%s' registered", prototype->GetHardwareName() );
 	}
 	else

@@ -271,7 +271,18 @@ json brainflow_boards_json = {
             {"eeg_channels", {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32}},
             {"emg_channels", {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32}},
             {"ecg_channels", {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32}}
-        }}
+        }},
+       { "18",
+       {{"name", "BrainAlive"},
+       {"sampling_rate", 250},
+       {"timestamp_channel", 10},
+       {"marker_channel", 11},
+       {"package_num_channel", 0},
+       {"num_rows", 12},
+       {"eeg_channels", {1, 2, 3, 4, 5, 6, 7, 8}},
+       {"eeg_names", "Ch1,Ch2,Ch3,Ch4,Ch5,Ch6,Ch7,Ch8"},
+       {"other_channels", {9}}
+   } },
     }
 }};
 // clang-format on

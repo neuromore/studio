@@ -165,7 +165,6 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	hLayout->addWidget(mCreateUserButton);
 	connect( mCreateUserButton, &QPushButton::clicked, this, &SelectUserWindow::OnCreateButtonClicked);
 
-#ifndef NEUROMORE_BRANDING_ANT
 	// invite user button
 	mInviteUserButton = new QPushButton("Invite Existing User");
 	mInviteUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/SendFeedback.png") );
@@ -173,7 +172,7 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	mInviteUserButton->setEnabled(mFullAccess);
 	hLayout->addWidget(mInviteUserButton);
 	connect( mInviteUserButton, &QPushButton::clicked, this, &SelectUserWindow::OnInviteButtonClicked);
-#endif
+
 	// cancel button
 	QPushButton* cancelButton = new QPushButton("Cancel");
 	cancelButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Clear.png") );

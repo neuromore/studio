@@ -499,6 +499,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\BciDevice.cpp" />
     <ClInclude Include="..\..\src\Engine\BciDevice.h" />
+    <ClCompile Include="BrainaliveDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\CloudParameters.cpp" />
     <ClInclude Include="..\..\src\Engine\CloudParameters.h" />
     <ClCompile Include="..\..\src\Engine\ColorMapper.cpp" />
@@ -930,6 +931,8 @@
     <ClInclude Include="..\..\src\Engine\Version.h" />
     <ClCompile Include="..\..\src\Engine\neuromoreEngine.cpp" />
     <ClInclude Include="..\..\src\Engine\neuromoreEngine.h" />
+    <ClInclude Include="BrainaliveDevices.h" />
+    <ClInclude Include="BrainaliveNodes.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Engine\Proprietary\README.md" />

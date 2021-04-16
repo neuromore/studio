@@ -303,6 +303,10 @@
     <ClCompile Include="..\..\src\Studio\Windows\UpgradeWindow.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Windows\VisualizationSelectWindow.cpp" />
     <ClCompile Include="..\..\src\Studio\Windows\VisualizationSelectWindow.moc.cpp" />
+    <ClCompile Include="BrainaliveDriver.cpp" />
+    <ClCompile Include="BrainaliveDriver.moc.cpp" />
+    <ClCompile Include="BrainaliveSerialHandler.cpp" />
+    <ClCompile Include="BrainaliveSerialHandler.moc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\AppManager.h" />
@@ -438,6 +442,9 @@
     <ClInclude Include="..\..\src\Studio\Windows\SettingsWindow.h" />
     <ClInclude Include="..\..\src\Studio\Windows\UpgradeWindow.h" />
     <ClInclude Include="..\..\src\Studio\Windows\VisualizationSelectWindow.h" />
+    <ClInclude Include="BrainaliveCommands.h" />
+    <ClInclude Include="BrainaliveDriver.h" />
+    <ClInclude Include="BrainaliveSerialHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Studio\Proprietary\README.md" />

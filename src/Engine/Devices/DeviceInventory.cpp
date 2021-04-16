@@ -64,6 +64,11 @@
     #include "OpenBCI/OpenBCINodes.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+#include "../../../build/vs/BrainaliveDevices.h"
+#include "../../../build/vs/BrainaliveNodes.h"
+#endif
+
 #ifdef INCLUDE_DEVICE_MITSAR
 	#include "Mitsar/MitsarDevices.h"
 	#include "Mitsar/MitsarNodes.h"
@@ -224,6 +229,20 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	{
 		GetDeviceManager()->RegisterDeviceType(new OpenBCIDaisyDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new OpenBCIDaisyNode(NULL));
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+	if (disablePermissionCheck || user->ReadAllowed(BrainAliveDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new BrainAliveDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new BrainAliveNode(NULL));
+	}
+
+	if (disablePermissionCheck || user->ReadAllowed(BrainAliveDaisyDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new BrainAliveDaisyDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new BrainAliveDaisyNode(NULL));
 	}
 #endif
 

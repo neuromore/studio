@@ -55,6 +55,8 @@ class ENGINE_API DeviceTypeIDs
 			DEVICE_TYPEID_EEMAGINE_32CH				= 0x0923,
 			DEVICE_TYPEID_EEMAGINE_64CH				= 0x0924,
 			DEVICE_TYPEID_NEUROSITY_NOTION			= 0x0931,	// 093X = neurosity
+			DEVICE_TYPEID_BRAINALIVE				= 0x0941,
+			DEVICE_TYPEID_BRAINALIVE_DAISY			= 0x0942,
 
 			// A0XX = Generic Vital Sensor (Sub)Devices
 			DEVICE_TYPEID_GENERIC_HEARTRATE			= 0xA001,	// Heartrate sensors (Pulse + RR)
@@ -98,6 +100,7 @@ class ENGINE_API DeviceTypeIDs
 			DRIVER_TYPEID_AUDIO						= 0xC000,	// C000 = Audio Driver
 			DRIVER_TYPEID_CAMERA					= 0xD000,	// D000 = Camera Driver
 			DRIVER_TYPEID_BLUETOOTH					= 0xE000,	// E000 = Bluetooth Driver
+			DRIVER_TYPEID_BRAINALIVE				= 0xF000,
 		}; 
 };
 

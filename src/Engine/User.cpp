@@ -38,6 +38,7 @@ User::User()
 // destructor
 User::~User()
 {
+
 }
 
 
@@ -58,7 +59,8 @@ Core::String User::CreateDisplayableName() const
 
 
 Core::String User::CreateFullName() const
-{
+{     
+
 	String result;
 
 	if (mFirstName.IsEmpty() == false)
@@ -142,7 +144,7 @@ const User::Rule* User::FindRule(const char* ruleName) const
 {
 	// get the number of rules and iterate through them
 	const uint32 numRules = mRules.Size();
-	for (uint32 i=0; i<numRules; ++i)
+	for (uint32 i=0; i< numRules; ++i)
 	{
 		if (mRules[i].GetNameString().IsEqual(ruleName) == true)
 			return &mRules[i];

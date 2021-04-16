@@ -260,6 +260,7 @@ void DocumentationExporter::ExportNodeMarkdown()
 			replacement += "\r\n";
 			tmp.Format("![%s Node]", node->GetReadableType());
 			replacement += tmp.AsChar();
+			
 			tmp.Format("(../neuromoreStudio/Images/Nodes/%s Node.png)", node->GetReadableType());
 			tmp.Replace(" ", "%20");
 			replacement += tmp.AsChar();

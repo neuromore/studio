@@ -428,7 +428,7 @@ private:
     QListWidget* mListWidget;
     BLEInterface* m_bleInterface;
     void dataReceived(QByteArray data);
-
+   
 
 };
 

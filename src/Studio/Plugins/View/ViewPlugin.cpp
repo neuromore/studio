@@ -131,6 +131,16 @@ void ViewPlugin::RegisterAttributes()
 	// set default view duration
 	SetViewDuration(defaultViewRange);
 
+	AttributeSettings* attributeRangeMin = RegisterAttribute("Range Min", "rangeMin", "Lower value of the displayed value range.", ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
+	attributeRangeMin->SetDefaultValue(AttributeFloat::Create(0.0f));
+	attributeRangeMin->SetMinValue(AttributeFloat::Create(-FLT_MAX));
+	attributeRangeMin->SetMaxValue(AttributeFloat::Create(FLT_MAX));
+
+	AttributeSettings* attributeRangeMax = RegisterAttribute("Range Max", "rangeMax", "Upper value of the displayed value range.", ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
+	attributeRangeMax->SetDefaultValue(AttributeFloat::Create(1.0f));
+	attributeRangeMax->SetMinValue(AttributeFloat::Create(-FLT_MAX));
+	attributeRangeMax->SetMaxValue(AttributeFloat::Create(FLT_MAX));
+
 	// visual sample style
 	AttributeSettings* attributeStyle = RegisterAttribute("Style", "style", "The visual appearance of the chart.", ATTRIBUTE_INTERFACETYPE_COMBOBOX);
 	attributeStyle->AddComboValue("Boxes");

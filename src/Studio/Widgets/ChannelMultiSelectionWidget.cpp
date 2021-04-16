@@ -212,7 +212,7 @@ void BLEInterface::onDeviceConnected()
 	m_control->discoverServices();
 	setCurrentService(2);
 	device_connected = true;
-	
+
 }
 
 void BLEInterface::onDeviceDisconnected()
@@ -293,7 +293,7 @@ void BLEInterface::onCharacteristicChanged(const QLowEnergyCharacteristic& c,
 	i = 0;
 
 	qDebug() << value.toHex();
- //emit dataReceived(value);
+	//emit dataReceived(value);
 }
 void BLEInterface::onCharacteristicWrite(const QLowEnergyCharacteristic& c,
 	const QByteArray& value)
