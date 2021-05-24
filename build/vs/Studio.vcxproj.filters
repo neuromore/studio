@@ -824,16 +824,16 @@
     <ClCompile Include="..\..\src\Studio\Windows\ExperienceWizardWindow.moc.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
-    <ClCompile Include="BrainaliveDriver.cpp">
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
-    <ClCompile Include="BrainaliveDriver.moc.cpp">
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.moc.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
-    <ClCompile Include="BrainaliveSerialHandler.cpp">
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
-    <ClCompile Include="BrainaliveSerialHandler.moc.cpp">
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.moc.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1217,13 +1217,13 @@
     <ClInclude Include="..\..\src\Studio\Windows\ExperienceWizardWindow.h">
       <Filter>Windows</Filter>
     </ClInclude>
-    <ClInclude Include="BrainaliveCommands.h">
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveCommands.h">
       <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
-    <ClInclude Include="BrainaliveDriver.h">
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.h">
       <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
-    <ClInclude Include="BrainaliveSerialHandler.h">
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.h">
       <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
   </ItemGroup>

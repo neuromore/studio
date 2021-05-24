@@ -499,7 +499,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\BciDevice.cpp" />
     <ClInclude Include="..\..\src\Engine\BciDevice.h" />
-    <ClCompile Include="BrainaliveDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\CloudParameters.cpp" />
     <ClInclude Include="..\..\src\Engine\CloudParameters.h" />
     <ClCompile Include="..\..\src\Engine\ColorMapper.cpp" />
@@ -590,8 +589,11 @@
     <ClInclude Include="..\..\src\Engine\Core\Version.h" />
     <ClCompile Include="..\..\src\Engine\Creud.cpp" />
     <ClInclude Include="..\..\src\Engine\Creud.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\DSP\AttributeChannels.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveNodes.h" />
     <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.h" />
     <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineNodes.h" />
     <ClInclude Include="..\..\src\Engine\DSP\AttributeChannels.h" />
@@ -931,8 +933,6 @@
     <ClInclude Include="..\..\src\Engine\Version.h" />
     <ClCompile Include="..\..\src\Engine\neuromoreEngine.cpp" />
     <ClInclude Include="..\..\src\Engine\neuromoreEngine.h" />
-    <ClInclude Include="BrainaliveDevices.h" />
-    <ClInclude Include="BrainaliveNodes.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Engine\Proprietary\README.md" />

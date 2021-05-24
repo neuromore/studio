@@ -28,13 +28,36 @@
 #include <EngineManager.h>
 #include "../../AppManager.h"
 #include "../../MainWindow.h"
-
+#include <Engine/Core/AttributeSet.cpp>
+#include <array>
 
 using namespace Core;
+
+
+Core::Array<Core::String> ch_data = {};
+Core::Array<Core::String> ch_data_2 = {};
+Core::Array<Core::String> ch_data_3 = {};
+Core::Array<Core::String> ch_data_4 = {};
+Core::Array<Core::String> ch_data_5 = {};
+Core::Array<Core::String> ch_data_6 = {};
+Core::Array<Core::String> ch_data_7 = {};
+Core::Array<Core::String> ch_data_8 = {};
+String Val , Val_2, Val_3, Val_4, Val_5, Val_6,Val_7, Val_8;
+String data_1="F5", data_2="FC3", data_3 = "C5", data_4 = "CP5", data_5 = "Cz", data_6 = "C6", data_7 = "FC6", data_8 = "F6";
+
 
 // constructor
 GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(parent)
 {
+	ch_data.Add("F7"); ch_data.Add("F5"); ch_data.Add("F3");
+	ch_data_2.Add("FT7"); ch_data_2.Add("FC5"); ch_data_2.Add("FC3");
+	ch_data_3.Add("T7"); ch_data_3.Add("C5"); ch_data_3.Add("C3");
+	ch_data_4.Add("TP7"); ch_data_4.Add("CP5"); ch_data_4.Add("CP3");
+	ch_data_5.Add("Cz");
+	ch_data_6.Add("C4"); ch_data_6.Add("C6"); ch_data_6.Add("T8");
+	ch_data_7.Add("FC4"); ch_data_7.Add("FC6"); ch_data_7.Add("FT8");
+	ch_data_8.Add("F4"); ch_data_8.Add("F6"); ch_data_8.Add("F8");
+
 	LogDebug("Constructing attributes widget ...");
 	mGraphObject	= NULL;
 	mNameProperty	= NULL;
@@ -132,6 +155,7 @@ void GraphAttributesWidget::InitForGraph(Graph* graph, bool showName)
 	mGraphObject = graph;
 	mAttributeSet = NULL;
 
+
 	// if there is no node, leave
 	if (graph == NULL)
 		return;
@@ -188,9 +212,31 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 	const bool isAttributeReadOnly = sessionRunning || nodeLocked || ( !graphSettingsMode && graphNotEditable);
 	const bool isNameReadOnly = sessionRunning || nodeLocked || graphNotEditable;
 
+
+
 	// add the name as property first
+
 	if (showName == true)
-		mNameProperty = mPropertyTreeWidget->GetPropertyManager()->AddStringProperty( mParentGroupName.AsChar(), "Node Name", node->GetName(), 0, isNameReadOnly);
+	{
+		mNameProperty = mPropertyTreeWidget->GetPropertyManager()->AddStringProperty(mParentGroupName.AsChar(), "Node Name", node->GetName(), 0, isNameReadOnly);
+		if (node->GetNameString() == "BrainAlive")
+		{
+
+			mPropertyTreeWidget->GetPropertyManager()->AddReadOnlyStringProperty(mParentGroupName.AsChar(), "Channel Settings",NULL);
+
+			mNameProperty_1= mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(),  "Ch 1", ch_data, Val.ToInt(), false);
+			mNameProperty_2 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 2", ch_data_2, Val_2.ToInt(), false);
+			mNameProperty_3 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 3", ch_data_3, Val_3.ToInt(), false);
+			mNameProperty_4 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 4", ch_data_4, Val_4.ToInt(), false);
+			mNameProperty_5 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 5", ch_data_5, Val_5.ToInt(), false);
+			mNameProperty_6 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 6", ch_data_6, Val_6.ToInt(), false);
+			mNameProperty_7 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 7", ch_data_7, Val_7.ToInt(), false);
+			mNameProperty_8 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 8", ch_data_8, Val_8.ToInt(), false);
+			
+	
+		}
+		
+	}
 	else
 		mNameProperty = NULL;
 
@@ -211,12 +257,55 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 // called in case any of the properties gets changed
 void GraphAttributesWidget::OnValueChanged(Property* property)
 {
+	
 	// when changing the node name
+
 	if (property == mNameProperty)
 		mGraphObject->SetName( property->AsString().AsChar() );
-
-	UpdateInterface();
-}
+	else if (property == mNameProperty_1)
+	{
+		property->GetAttributeValue()->ConvertToString(Val);
+		data_1 = ch_data.GetItem(Val.ToInt());
+	}
+	else if (property == mNameProperty_2)
+	{
+		property->GetAttributeValue()->ConvertToString(Val_2);
+		data_2 = ch_data_2.GetItem(Val_2.ToInt());
+	}
+	else if (property == mNameProperty_3)
+	{
+		property->GetAttributeValue()->ConvertToString(Val_3);
+		data_3 = ch_data_3.GetItem(Val_3.ToInt());
+	
+	}
+	else if (property == mNameProperty_4)
+	{
+		property->GetAttributeValue()->ConvertToString(Val_4);
+		data_4 = ch_data_4.GetItem(Val_4.ToInt());
+	}
+	else if (property == mNameProperty_5)
+	{
+		property->GetAttributeValue()->ConvertToString(Val_5);
+		data_5= ch_data_5.GetItem(Val_5.ToInt());
+	}
+	else if (property == mNameProperty_6)
+	{
+		property->GetAttributeValue()->ConvertToString(Val_6);
+		data_6 = ch_data_6.GetItem(Val_6.ToInt());
+	}
+	else if (property == mNameProperty_7)
+	{
+		property->GetAttributeValue()->ConvertToString(Val_7);
+		data_7 = ch_data_7.GetItem(Val_7.ToInt());
+	}
+	else if (property == mNameProperty_8)
+	{
+		property->GetAttributeValue()->ConvertToString(Val_8);
+		data_8 = ch_data_8.GetItem(Val_8.ToInt());
+	}
+		
+	
+} 
 
 
 // update the states

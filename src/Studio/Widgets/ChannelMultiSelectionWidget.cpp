@@ -34,8 +34,12 @@
 using namespace Core;
 using namespace std;
 
-uint mData_2[50];
-bool device_connected = false;
+bool mDevice_connected = false;
+bool m_Save = false;
+extern uint mData_2[50];
+
+char ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8;
+
 //ofstream outdata;
 int i = 0;
 
@@ -115,9 +119,13 @@ void BLEInterface::waitForWrite() {
 void BLEInterface::write(const QByteArray& data)
 {
 	qDebug() << "BLEInterface::write: " << data;
+	
 	if (m_service && m_writeCharacteristic.isValid())
 	{
-		if (data.length() > CHUNK_SIZE)
+		m_service->writeCharacteristic(m_writeCharacteristic, data, m_writeMode);
+	}
+
+	/*	if (data.length() > CHUNK_SIZE)
 		{
 			int sentBytes = 0;
 			while (sentBytes < data.length())
@@ -137,7 +145,7 @@ void BLEInterface::write(const QByteArray& data)
 		}
 		else
 			m_service->QLowEnergyService::writeCharacteristic(m_writeCharacteristic, data, m_writeMode);
-	}
+	}*/
 }
 
 void BLEInterface::addDevice(const QBluetoothDeviceInfo& device)
@@ -211,7 +219,7 @@ void BLEInterface::onDeviceConnected()
 	emit servicesChanged(m_services);
 	m_control->discoverServices();
 	setCurrentService(2);
-	device_connected = true;
+	mDevice_connected = true;
 
 }
 
@@ -220,7 +228,7 @@ void BLEInterface::onDeviceDisconnected()
 	update_connected(false);
 	emit printf("Service disconnected");
 	qWarning() << "Remote device disconnected";
-	device_connected = false;
+	mDevice_connected = false;
 }
 
 void BLEInterface::onServiceDiscovered(const QBluetoothUuid& gatt)
@@ -292,7 +300,7 @@ void BLEInterface::onCharacteristicChanged(const QLowEnergyCharacteristic& c,
 	outdata << "\n";*/
 	i = 0;
 
-	qDebug() << value.toHex();
+	//qDebug() << value.toHex();
 	//emit dataReceived(value);
 }
 void BLEInterface::onCharacteristicWrite(const QLowEnergyCharacteristic& c,
@@ -346,7 +354,8 @@ void BLEInterface::onCharacteristicRead(const QLowEnergyCharacteristic& c,
 
 void BLEInterface::searchCharacteristic() {
 	/*const QString Device_UUID_EEG_Characteristic = "{0000fe41-8e22-4541-9d4c-21edae82ed19}";*/
-	if (m_service) {
+	if (m_service) 
+	{
 		foreach(QLowEnergyCharacteristic c, m_service->characteristics()) {
 			if (c.isValid())
 			{
@@ -377,6 +386,11 @@ void BLEInterface::searchCharacteristic() {
 					QBluetoothUuid::ClientCharacteristicConfiguration);
 				if (m_notificationDesc.isValid()) {
 					m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
+				}
+				if (m_service && m_writeCharacteristic.isValid())
+				{
+					m_service->writeCharacteristic(m_writeCharacteristic, QByteArray::fromHex("0a8100000d"), m_writeMode);
+					qDebug() << "BLEInterface::write: " << QByteArray::fromHex("0a8100000d");
 				}
 			}
 		}
@@ -457,26 +471,26 @@ void ChannelMultiSelectionWidget::On_Start()
 	QByteArray data;
 	m_bleInterface->setCurrentService(2);
 	data = QByteArray::fromHex("0a8000000d");
-	m_bleInterface->write("0a8000000d");
+	m_bleInterface->write(data);
 }
 
 void ChannelMultiSelectionWidget::Scan_BLE()
 {
-	QWidget* mwidget = new QWidget();
-	mwidget->setFixedHeight(400);
-	mwidget->setFixedWidth(300);
+	mwidget = new QWidget();
+	mwidget->setFixedHeight(200);
+	mwidget->setFixedWidth(200);
 	mwidget->setWindowModality(Qt::ApplicationModal);
 	mListWidget = new QListWidget();
-	QVBoxLayout* vLayout_2 = new QVBoxLayout();
+    vLayout_2 = new QVBoxLayout();
 	Connect = new QPushButton();
 
-	mListWidget->setFixedHeight(400);
-	mListWidget->setFixedWidth(300);
+	mListWidget->setFixedHeight(180);
+	mListWidget->setFixedWidth(180);
 
-	vLayout_2->setMargin(0);
-	vLayout_2->setSpacing(0);
+	vLayout_2->setMargin(10);
+	vLayout_2->setSpacing(10);
 	vLayout_2->addWidget(mListWidget, 1, Qt::AlignTop);
-	vLayout_2->addWidget(Connect);
+	vLayout_2->addWidget(Connect, 1, Qt::AlignBottom);
 	Connect->setText(" Connect ");
 	mwidget->setLayout(vLayout_2);
 	mwidget->setVisible(true);
@@ -490,19 +504,20 @@ void ChannelMultiSelectionWidget::Scan_BLE()
 void  ChannelMultiSelectionWidget::On_connect()
 {
 
-	m_bleInterface->set_currentDevice(0/*mListWidget->currentRow()*/);
+	m_bleInterface->set_currentDevice(mListWidget->currentRow());
 	m_bleInterface->connectCurrentDevice();
-	if (device_connected == true)
+	if (mDevice_connected == true)
 	{
-		Start->setVisible(true);
+		//Start->setVisible(true);
+		
 		Connect->setVisible(false);
+		mListWidget->close();
+		mwidget->close();
 	}
-	/*QByteArray data;
-	data = QByteArray::fromHex("0a8000000d");
-	m_bleInterface->write(data);*/
-	//Start->setVisible(true);
+	
 
 }
+
 void ChannelMultiSelectionWidget::dataReceived(QByteArray data)
 {
 	//mListWidget->clear();

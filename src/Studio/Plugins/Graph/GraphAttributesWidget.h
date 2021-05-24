@@ -121,10 +121,20 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
 		GraphObjectViewWidget*			mGraphObjectView;
 		PropertyTreeWidget*				mPropertyTreeWidget;
 		Property*						mNameProperty;
+		Property*						mNameProperty_1;
+		Property*						mNameProperty_2;
+		Property*						mNameProperty_3;
+		Property*						mNameProperty_4;
+		Property*						mNameProperty_5;
+		Property*						mNameProperty_6;
+		Property*						mNameProperty_7;
+		Property*						mNameProperty_8;
 		Core::Array<AttributeLink>		mAttributeLinks;
 		Core::AttributeSet*				mAttributeSet;
 		Core::String					mParentGroupName;
 		Core::String					mTempString;
+
+
 };
 
 

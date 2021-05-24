@@ -41,9 +41,11 @@
 
 //#include "../build/vs/qmlhelper.h"
 
-//#define READ_INTERVAL_MS 100
-#define CHUNK_SIZE 20
+
 #include "qobject.h"
+
+#define READ_INTERVAL_MS 100
+#define CHUNK_SIZE 20
 
 #define QML_WRITABLE_PROPERTY(type, name) \
     protected: \
@@ -396,20 +398,12 @@ private slots:
     void OnDeviceSelectionChanged(Device* device);
     void OnChannelSelectionChanged();
     void OnShowUsedCheckboxToggled(int state);
-    //void onDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error error);
-    //void addDevice(const QBluetoothDeviceInfo &device);
-    //void onServiceDiscovered(const QBluetoothUuid &gatt);
-    //void onScanFinished();
-    //void onServiceScanDone();
-    //void onControllerError(QLowEnergyController::Error);
-    //void onDeviceConnected();
-    //void onDeviceDisconnected();
+
 
 signals:
     void ChannelSelectionChanged();
     void ShowUsedCheckboxToggled(int state);
-    /*	void connectedChanged(bool connected);
-        void currentServiceChanged(int currentService);*/
+
 
 private:
     DeviceSelectionWidget* mDeviceSelectionWidget;
@@ -427,6 +421,18 @@ private:
     QPushButton* Connect;
     QListWidget* mListWidget;
     BLEInterface* m_bleInterface;
+    QWidget* mwidget;
+    QComboBox* ch_1;
+    QComboBox* ch_2;
+    QComboBox* ch_3;
+    QComboBox* ch_4;
+    QComboBox* ch_5;
+    QComboBox* ch_6;
+    QComboBox* ch_7;
+    QComboBox* ch_8;
+    QVBoxLayout* vLayout_2;
+    QPushButton* mSave;
+
     void dataReceived(QByteArray data);
    
 

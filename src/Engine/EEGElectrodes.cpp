@@ -29,6 +29,7 @@
 
 using namespace Core;
 
+
 // constructor
 EEGElectrodes::EEGElectrodes()
 {
@@ -76,14 +77,7 @@ void EEGElectrodes::Init()
     mElectrodes.Add( Electrode("O1",  -108.000,  0.000) );
     mElectrodes.Add( Electrode("O2",  -72.000,  0.000) );
     mElectrodes.Add( Electrode("Oz",  -90.000,  0.000) );
-	mElectrodes.Add(Electrode("Ch1", 90.000, 0.000));
-	mElectrodes.Add(Electrode("Ch2", 108.000, 0.000));
-	mElectrodes.Add(Electrode("Ch3", 72.000, 0.000));
-	mElectrodes.Add(Electrode("Ch4", 144.000, 0.000));
-	mElectrodes.Add(Electrode("Ch5", 36.000, 0.000));
-	mElectrodes.Add(Electrode("Ch6", 129.254, 29.833));
-	mElectrodes.Add(Electrode("Ch7", 50.746, 29.833));
-	mElectrodes.Add(Electrode("Ch8", 90.000, 45.000));
+
     // 10-10 System
     mElectrodes.Add( Electrode("F9",  144.000,  -22.500) );
     mElectrodes.Add( Electrode("FT9",  162.000,  -22.500) );

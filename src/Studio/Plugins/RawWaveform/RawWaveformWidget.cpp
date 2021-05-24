@@ -457,7 +457,7 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 
 		// clamp and remap value to y coordinate
 
-		value = int(((mData_2[j++] << 16 | mData_2[j++] << 8 | mData_2[j++]) << 8) >> 8);/*channel->GetSample(i);*/
+		value = /*int(((mData_2[j++] << 16 | mData_2[j++] << 8 | mData_2[j++]) << 8) >> 8);*/channel->GetSample(i);
 		if (j > 27)
 			j = 0;
 		y = yCenter + valueScale * (value - mean);

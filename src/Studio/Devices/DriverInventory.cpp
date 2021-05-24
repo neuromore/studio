@@ -47,7 +47,7 @@
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
-#include "../../../../build/vs/BrainaliveDriver.h"
+#include "BrainAlive/BrainaliveDriver.h"
 #endif
 
 #ifdef INCLUDE_DEVICE_SENSELABS_VERSUS

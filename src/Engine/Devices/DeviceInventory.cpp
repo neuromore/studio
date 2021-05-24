@@ -65,8 +65,8 @@
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
-#include "../../../build/vs/BrainaliveDevices.h"
-#include "../../../build/vs/BrainaliveNodes.h"
+#include "BrainAlive/BrainaliveDevices.h"
+#include "BrainAlive/BrainaliveNodes.h"
 #endif
 
 #ifdef INCLUDE_DEVICE_MITSAR

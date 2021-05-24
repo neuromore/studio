@@ -217,9 +217,6 @@
     <ClCompile Include="..\..\src\Engine\Devices\OpenBCI\OpenBCIDevices.cpp">
       <Filter>Devices\OpenBCI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\build\vs\BrainaliveDevices.cpp">
-      <Filter>Devices\BrainAlive</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Devices\Test\TestDevice.cpp">
       <Filter>Devices\Test</Filter>
     </ClCompile>
@@ -543,6 +540,10 @@
     <ClCompile Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.cpp">
       <Filter>Devices\Neurosity</Filter>
     </ClCompile>
+    <ClCompile Include="BrainaliveDevices.cpp" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -865,12 +866,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\OpenBCI\OpenBCINodes.h">
       <Filter>Devices\OpenBCI</Filter>
-    </ClInclude>
-   <ClInclude Include="..\..\build\vs\BrainaliveDevices.h">
-   <Filter>Devices\BrainAlive</Filter>
-    </ClInclude>
-   <ClInclude Include="..\..\build\vs\BrainaliveNodes.h">
-      <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\Test\TestDevice.h">
       <Filter>Devices\Test</Filter>
@@ -1234,6 +1229,14 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.h">
       <Filter>Devices\Neurosity</Filter>
+    </ClInclude>
+    <ClInclude Include="BrainaliveDevices.h" />
+    <ClInclude Include="BrainaliveNodes.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveNodes.h">
+      <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
