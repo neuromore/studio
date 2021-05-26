@@ -48,7 +48,7 @@ public:
 	
 	uint32 GetType() const override { return TYPE_ID; }
 	const char* GetTypeName() const override { return "BrainFlowDevice_type"; }
-	const char* GetHardwareName() const override { return "BrainFlowDevice_hardware"; }
+	const char* GetHardwareName() const override { return "BrainFlow"; }
 	const char* GetUuid() const override { return "5108993a-fe1b-11e4-a322-1697f925e000"; }
 	static const char* GetRuleName() { return "BrainFlowDevice_rule"; }
 	void Update(const Core::Time& elapsed, const Core::Time& delta) override;
