@@ -99,7 +99,7 @@ void BrainFlowNode::Init()
 		attribute->SetDefaultValue(Core::AttributeString::Create(""));
 	}
 	{
-		Core::AttributeSettings* attribute = RegisterAttribute("Apply", "apply", "Apply", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);
+		Core::AttributeSettings* attribute = RegisterAttribute("Apply", "apply", "Apply", Core::ATTRIBUTE_INTERFACETYPE_BUTTON);
 		attribute->SetDefaultValue(Core::AttributeBool::Create(false));
 	}
 

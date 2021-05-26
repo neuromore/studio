@@ -238,6 +238,8 @@ class QTBASE_API ButtonAttributeWidget : public AttributeWidget
 		ButtonAttributeWidget(const char* buttonText, const Core::Array<Core::Attribute*> attributes, Core::AttributeSettings* attributeSettings, void* customData, bool readOnly, bool creationMode=false);
 		void SetValue(Core::Attribute* attribute) override	{}
 		QPushButton* GetButton() const						{ return mButton; }
+	protected slots:
+		void OnReleased ();
 	private:
 		QPushButton*		mButton;
 };

@@ -48,7 +48,7 @@ class ENGINE_API BrainFlowNode : public DeviceInputNode
 		Core::Color GetColor() const override									{ return Core::RGBA(60,120,210); }
 		uint32 GetType() const override											{ return TYPE_ID; }
 		const char* GetTypeUuid() const override final							{ return Uuid(); }
-		const char* GetReadableType() const override							{ return "BrainFlowDevice"; }
+		const char* GetReadableType() const override							{ return "BrainFlow"; }
 		const char* GetRuleName() const override final							{ return BrainFlowDevice::GetRuleName(); }
 		GraphObject* Clone(Graph* parentGraph) override							{ BrainFlowNode* clone = new BrainFlowNode (parentGraph); return clone; }
 
