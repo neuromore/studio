@@ -700,8 +700,23 @@ ButtonAttributeWidget::ButtonAttributeWidget(const char* buttonText, const Core:
 {
 	mButton = new QPushButton();
 	CreateStandardLayout( mButton, buttonText );
+	mButton->setText(buttonText);
+
+	connect(mButton, SIGNAL(released()), this, SLOT(OnReleased()));
 }
 
+void ButtonAttributeWidget::OnReleased()
+{
+	const uint32 numAttributes = mAttributes.Size();
+	for (uint32 i = 0; i < numAttributes; ++i)
+	{
+		AttributeBool* attribute = static_cast<Core::AttributeBool*>(mAttributes[i]);
+		attribute->SetValue(!attribute->GetValue());
+		OnAttributeChanged(attribute);
+	}
+
+	FireValueChangedSignal();
+}
 
 //-----------------------------------------------------------------------------------------------------------------
 

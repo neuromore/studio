@@ -17,7 +17,7 @@ AttributeWidgetFactory::AttributeWidgetFactory()
 {
 	LogDetailedInfo("Constructing attribute widget factory ...");
 
-	mRegisteredCreators.Reserve( 12 );
+	mRegisteredCreators.Reserve( 13 );
 	RegisterCreator( new CheckboxAttributeWidgetCreator() );
 	RegisterCreator( new FloatSpinnerAttributeWidgetCreator() );
 	RegisterCreator( new IntSpinnerAttributeWidgetCreator() );
@@ -30,6 +30,7 @@ AttributeWidgetFactory::AttributeWidgetFactory()
 	RegisterCreator( new ColorAttributeWidgetCreator() );
 	RegisterCreator( new ColorMappingAttributeWidgetCreator() );
 	RegisterCreator( new WindowFunctionAttributeWidgetCreator() );
+	RegisterCreator( new ButtonAttributeWidgetCreator());
 }
 
 
