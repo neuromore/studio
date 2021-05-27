@@ -43,7 +43,7 @@ class HeartRateNode : public DeviceInputNode
 		Core::Color GetColor() const override						{ return Core::RGBA(102,45,145); }
 		uint32 GetType() const override								{ return TYPE_ID; }
 		const char* GetTypeUuid() const override final				{ return Uuid(); }
-		const char* GetReadableType() const override				{ return "HeartRate"; }
+		const char* GetReadableType() const override				{ return "Heartrate"; }
 		const char* GetRuleName() const override final				{ return HeartRateDevice::GetRuleName(); }
 		GraphObject* Clone(Graph* parentObject) override			{ HeartRateNode* clone = new HeartRateNode(parentObject); return clone; }
 };

@@ -60,7 +60,6 @@ Core::String User::CreateDisplayableName() const
 
 Core::String User::CreateFullName() const
 {     
-
 	String result;
 
 	if (mFirstName.IsEmpty() == false)

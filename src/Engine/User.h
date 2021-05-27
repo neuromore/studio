@@ -106,14 +106,7 @@ class ENGINE_API User
 		// rule permissions
 		const Rule* FindRule(const char* ruleName) const;
 		bool CreateAllowed(const char* ruleName)  const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Create(); else return false; }
-		bool ReadAllowed(const char* ruleName)    
-		const 
-		{ 
-			if (const Rule* r = FindRule(ruleName))           
-			return r->GetCreud().Read(); 
-		else 
-			return false; 
-		}
+		bool ReadAllowed(const char* ruleName)    const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Read(); else return false; }
 		bool ExecuteAllowed(const char* ruleName) const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Execute(); else return false; }
 		bool UpdateAllowed(const char* ruleName)  const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Update(); else return false; }
 		bool DeleteAllowed(const char* ruleName)  const { if (const Rule* r = FindRule(ruleName)) return r->GetCreud().Delete(); else return false; }

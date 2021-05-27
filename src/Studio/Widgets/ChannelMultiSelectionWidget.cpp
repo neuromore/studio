@@ -218,7 +218,7 @@ void BLEInterface::onDeviceConnected()
 
 	emit servicesChanged(m_services);
 	m_control->discoverServices();
-	setCurrentService(2);
+	setCurrentService(3);
 	mDevice_connected = true;
 
 }
@@ -353,7 +353,7 @@ void BLEInterface::onCharacteristicRead(const QLowEnergyCharacteristic& c,
 }
 
 void BLEInterface::searchCharacteristic() {
-	/*const QString Device_UUID_EEG_Characteristic = "{0000fe41-8e22-4541-9d4c-21edae82ed19}";*/
+	const QString Device_UUID_EEG_Characteristic = "{0000fe41-8e22-4541-9d4c-21edae82ed19}";
 	if (m_service) 
 	{
 		foreach(QLowEnergyCharacteristic c, m_service->characteristics()) {
@@ -362,7 +362,7 @@ void BLEInterface::searchCharacteristic() {
 				if (c.properties() & QLowEnergyCharacteristic::WriteNoResponse ||
 					c.properties() & QLowEnergyCharacteristic::Write)
 				{
-					m_writeCharacteristic = c; /*m_service->characteristic(QBluetoothUuid(Device_UUID_EEG_Characteristic));*/
+					m_writeCharacteristic = /*c;*/ m_service->characteristic(QBluetoothUuid(Device_UUID_EEG_Characteristic));
 					update_connected(true);
 					if (c.properties() & QLowEnergyCharacteristic::WriteNoResponse)
 						m_writeMode = QLowEnergyService::WriteWithoutResponse;
@@ -470,7 +470,7 @@ void ChannelMultiSelectionWidget::On_Start()
 {
 	QByteArray data;
 	m_bleInterface->setCurrentService(2);
-	data = QByteArray::fromHex("0a8000000d");
+	data = QByteArray::fromHex("0a8100000d");
 	m_bleInterface->write(data);
 }
 
