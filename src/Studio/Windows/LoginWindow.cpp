@@ -33,12 +33,6 @@
 #include <QGridLayout>
 #include <QDesktopServices>
 
-#ifdef NEUROMORE_BRANDING_ANT
-#define LOGINIMAGE ":/Images/Login-ANT.png"
-#else
-#define LOGINIMAGE ":/Images/Login-neuromore.png"
-#endif
-
 using namespace Core;
 
 // constructor
@@ -60,7 +54,7 @@ LoginWindow::LoginWindow(QWidget* parent, const char* title, const char* firstLi
 
 
 	// load the about dialog image and add it to the dialog
-	QPixmap aboutImage(LOGINIMAGE);
+	QPixmap aboutImage(GetManager()->GetLoginImageName());
 	const uint32 imageWidth = aboutImage.width();
 	QLabel* aboutImageLabel = new QLabel(this);
 	aboutImageLabel->setPixmap(aboutImage);
@@ -107,7 +101,8 @@ LoginWindow::LoginWindow(QWidget* parent, const char* title, const char* firstLi
 	QHBoxLayout* hLayout = new QHBoxLayout();
 
 	mRememberMe = new QCheckBox();
-	mRememberMe->setChecked(true);
+
+	mRememberMe->setChecked(GetManager()->IsLoginRemberMePrechecked());
 
 	// forgot password
 	mForgotPassword = new LinkWidget(forgotPasswordText);

@@ -54,6 +54,7 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.moc.cpp">
@@ -323,6 +324,7 @@
     <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveCommands.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.h" />

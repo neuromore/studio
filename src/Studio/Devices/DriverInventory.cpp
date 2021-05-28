@@ -46,10 +46,6 @@
     #include "OpenBCI/OpenBCIDriver.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINALIVE
-#include "BrainAlive/BrainaliveDriver.h"
-#endif
-
 #ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
 	#include "Versus/VersusDriver.h"
 #endif
@@ -64,6 +60,14 @@
 
 #ifdef INCLUDE_DEVICE_TOBIIEYEX
 	#include "EyeX\TobiiEyeXDriver.h"
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+#include "BrainFlow/BrainFlowDriver.h"
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+#include "BrainAlive/BrainaliveDriver.h"
 #endif
 
 #include "Bluetooth/BluetoothDriver.h"
@@ -157,16 +161,6 @@ void DriverInventory::RegisterDrivers()
 #endif
 
 
-#ifdef INCLUDE_DEVICE_BRAINALIVE
-	if (user->ReadAllowed(BrainAliveDevice::GetRuleName()) == true || user->ReadAllowed(BrainAliveDaisyDevice::GetRuleName()) == true)
-	{
-		// create and add the Brainalive system
-		BrainAliveDriver* brainAliveDriver = new BrainAliveDriver();
-		brainAliveDriver->Init();
-		deviceManager->AddDeviceDriver(brainAliveDriver);
-	}
-#endif
-
 #ifdef INCLUDE_DEVICE_MITSAR
 	if (user->ReadAllowed(MitsarDevice::GetRuleName()) == true)
 	{
@@ -211,6 +205,25 @@ void DriverInventory::RegisterDrivers()
 		AudioDriver* audioDriver = new AudioDriver();
 		audioDriver->Init();
 		deviceManager->AddDeviceDriver(audioDriver);
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+	//if (user->ReadAllowed(BrainFlowDevice::GetRuleName()) == true)
+	{
+		auto* driver = new BrainFlowDriver();
+		driver->Init();
+		deviceManager->AddDeviceDriver(driver);
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+	if (user->ReadAllowed(BrainAliveDevice::GetRuleName()) == true)
+	{
+		// create and add the Brainalive system
+		BrainAliveDriver* brainAliveDriver = new BrainAliveDriver();
+		brainAliveDriver->Init();
+		deviceManager->AddDeviceDriver(brainAliveDriver);
 	}
 #endif
 

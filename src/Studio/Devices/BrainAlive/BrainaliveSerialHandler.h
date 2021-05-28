@@ -38,6 +38,7 @@
 
 #include "../Engine/DSP/MultiChannel.h"
 #include "../Engine/Graph/Node.h"
+
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
 class BrainAliveDevice;

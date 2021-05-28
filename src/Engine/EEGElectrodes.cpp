@@ -29,7 +29,6 @@
 
 using namespace Core;
 
-
 // constructor
 EEGElectrodes::EEGElectrodes()
 {

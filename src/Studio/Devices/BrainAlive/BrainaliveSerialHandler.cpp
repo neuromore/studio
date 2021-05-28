@@ -144,24 +144,7 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 	// read out streampacket and feed raw samples into sensor channels
 	const BrainAliveStreamEEGData* sensors = packet.mSensors;
 
-	// if this is a BrainAlive + daisy device the 16 channels come in two successive packets (effective samplerate is halfed)
-	if (mDevice->GetType() == BrainAliveDaisyDevice::TYPE_ID)
-	{
-		const uint32 numElectrodes = 8;
-		// first or second half? (offset is either 0 (main board packets) or 7 (daisy packets)
-		const bool isFromDaisy = (currentPacketIndex % 2 == 0) ? true : false;
-		const uint32 sensorIndexOffset = (isFromDaisy ? numElectrodes : 0);
-		for (uint32 i = 0; i < numElectrodes; ++i)
-		{
-			const double gain = mElectrodeGainSettings[i];
-			const uint32 base = Math::PowD(2, 23) - 1.0;
-			const double scale = 4.5 / gain / base;
-
-			const double sampleValue = sensors[i].GetValue() * scale;
-			mDevice->GetSensor(i + sensorIndexOffset)->AddQueuedSample((double)sampleValue);
-		}
-	}
-	else
+	if (mDevice->GetType() == BrainAliveDevice::TYPE_ID)
 	{
 		// 8 channel device (and maybe ganglion)
 		const uint32 numElectrodes = mDevice->GetNumNeuroSensors();

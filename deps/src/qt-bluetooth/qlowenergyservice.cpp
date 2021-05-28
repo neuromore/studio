@@ -699,7 +699,7 @@ void QLowEnergyService::writeCharacteristic(
         const QByteArray &newValue, QLowEnergyService::WriteMode mode)
 {
     //TODO check behavior when writing to WriteSigned characteristic
-   Q_D(QLowEnergyService);
+    Q_D(QLowEnergyService);
 
     if (d->controller == nullptr
             || (d->controller->role == QLowEnergyController::CentralRole

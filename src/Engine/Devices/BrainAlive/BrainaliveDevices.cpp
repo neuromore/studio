@@ -84,10 +84,6 @@ void BrainAliveDeviceBase::CreateSensors()
 }
 
 
-//
-// OpenBCI without Daisy module
-//
-
 // constructor
 BrainAliveDevice::BrainAliveDevice(DeviceDriver* driver) : BrainAliveDeviceBase(driver)
 {
@@ -119,52 +115,5 @@ void BrainAliveDevice::CreateElectrodes()
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_7));
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_8));
 }
-
-
-//
-// OpenBCI + Daisy module
-//
-
-// constructor
-BrainAliveDaisyDevice::BrainAliveDaisyDevice(DeviceDriver* driver) : BrainAliveDeviceBase(driver)
-{
-	LogDetailedInfo("Constructing BrainAlive + Daisy device ...");
-
-	// create all sensors
-	CreateSensors();
-}
-
-
-// destructor
-BrainAliveDaisyDevice::~BrainAliveDaisyDevice()
-{
-	LogDetailedInfo("Destructing BrainAlive + Daisy device...");
-}
-
-
-// default: ultracortex positions
-void BrainAliveDaisyDevice::CreateElectrodes()
-{
-	mElectrodes.Clear();
-	mElectrodes.Reserve(16);
-
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T5"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T6"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T3"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T4"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));
-}
-
 
 #endif

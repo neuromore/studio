@@ -21,11 +21,46 @@
 **
 ****************************************************************************/
 
-#ifndef __NEUROMORE_STUDIO_VERSION_H
-#define __NEUROMORE_STUDIO_VERSION_H
+#ifndef __NEUROMORE_BRAINFLOW_H
+#define __NEUROMORE_BRAINFLOW_H
 
-	#define NEUROMORE_STUDIO_VERSION_MAJOR	1
-	#define NEUROMORE_STUDIO_VERSION_MINOR	4
-	#define NEUROMORE_STUDIO_VERSION_PATCH	9
+#include <Config.h>
+#include <DeviceDriver.h>
+#include <Devices/BrainFlow/BrainFlowDevices.h>
+#include <EngineManager.h>
+#include <Core/EventHandler.h>
+#include <Core/Array.h>
+
+#include <QObject>
+
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+
+#include <brainflow/cpp-package/board_shim.h>
+
+class BrainFlowDriver : public QObject, public DeviceDriver, public Core::EventHandler
+{
+public:
+	BrainFlowDriver();
+	virtual ~BrainFlowDriver() = default;
+
+	void DetectDevices() override;
+
+	const char* GetName() const;
+	uint32 GetType() const;
+	bool HasAutoDetectionSupport() const override { return false; }
+	bool Init() override;
+	void Update(const Core::Time& delta, const Core::Time& elapsed) override {};
+
+	void OnDeviceAdded(Device* device) override;
+	void OnRemoveDevice(Device* device) override;
+
+	void OnRemoveNode(Graph* graph, Node* node) override;
+
+	Device* CreateDevice(BoardIds boardId, BrainFlowInputParams params);
+private:
+	Device* CreateDevice(uint32 deviceTypeID) override { return nullptr; };
+};
+
+#endif
 
 #endif

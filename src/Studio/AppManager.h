@@ -90,6 +90,10 @@ class AppManager : public QObject
 		const char* GetLicenseUrl() const								{ return "https://assets.eego-perform.com/license/license.txt"; }
 		const char* GetCloudTermsUrl() const							{ return "https://assets.eego-perform.com/license/terms-and-conditions.txt"; }
 		const char* GetPrivacyPolicyUrl() const							{ return "https://assets.eego-perform.com/license/privacy-policy.txt"; }
+
+		const bool IsLoginRemberMePrechecked() const { return false; }
+		const char* GetLoginImageName() const							{ return ":/Images/Login-ANT.png"; }
+
 #else
 		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
@@ -104,6 +108,10 @@ class AppManager : public QObject
 		const char* GetLicenseUrl() const								{ return "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md"; }
 		const char* GetCloudTermsUrl() const							{ return "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md"; }
 		const char* GetPrivacyPolicyUrl() const							{ return "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md"; }
+
+		const bool IsLoginRemberMePrechecked() const					{ return true; }
+		const char* GetLoginImageName() const							{ return ":/Images/Login-neuromore.png"; }
+
 #endif
 
 		Core::String GetAppName() const;

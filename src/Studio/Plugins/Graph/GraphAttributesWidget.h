@@ -133,8 +133,6 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
 		Core::AttributeSet*				mAttributeSet;
 		Core::String					mParentGroupName;
 		Core::String					mTempString;
-
-
 };
 
 

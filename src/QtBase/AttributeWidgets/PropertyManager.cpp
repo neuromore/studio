@@ -124,6 +124,7 @@ Property* PropertyManager::AddComboBoxProperty(const char* groupName, const char
 	attributeSettings->ResizeComboValues( (uint32)numComboValues );
 	for (uint32 i=0; i<numComboValues; ++i)
 		attributeSettings->SetComboValue( i, comboValues[i].AsChar() );
+
 	attributeValue->SetValue( defaultComboIndex );
 	attributeSettings->SetDefaultValue( Core::AttributeInt32::Create(defaultComboIndex) );
 	attributeSettings->SetMinValue( Core::AttributeInt32::Create(defaultComboIndex) );

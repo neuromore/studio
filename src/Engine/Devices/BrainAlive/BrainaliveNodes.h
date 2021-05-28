@@ -52,24 +52,6 @@ public:
 };
 
 
-// OpenBCI + Daisy module device node
-class BrainAliveDaisyNode : public DeviceInputNode
-{
-public:
-	enum { TYPE_ID = 0xD00000 | BrainAliveDaisyDevice::TYPE_ID };
-	static const char* Uuid() { return "0000fe42-cc7a-482a-984a-7f2ed5b3e58f"; }
-
-	BrainAliveDaisyNode(Graph* parentGraph) : DeviceInputNode(parentGraph, BrainAliveDaisyDevice::TYPE_ID) {}
-	~BrainAliveDaisyNode() {}
-
-	Core::Color GetColor() const override { return Core::RGBA(80, 160, 240); }
-	uint32 GetType() const override { return TYPE_ID; }
-	const char* GetTypeUuid() const override final { return Uuid(); }
-	const char* GetReadableType() const override { return "BrainAlive_16"; }
-	const char* GetRuleName() const override final { return BrainAliveDaisyDevice::GetRuleName(); }
-	GraphObject* Clone(Graph* parentGraph) override { BrainAliveDaisyNode* clone = new BrainAliveDaisyNode(parentGraph); return clone; }
-};
-
 #endif
 
 #endif

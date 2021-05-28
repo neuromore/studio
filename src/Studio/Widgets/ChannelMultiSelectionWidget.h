@@ -353,8 +353,7 @@ public:
     };
 
     // constructor & destructor
-
-    ChannelMultiSelectionWidget(QWidget* parent = NULL);
+    ChannelMultiSelectionWidget(QWidget* parent=NULL);
     virtual ~ChannelMultiSelectionWidget();
 
     // initialize
@@ -406,9 +405,9 @@ signals:
 
 
 private:
-    DeviceSelectionWidget* mDeviceSelectionWidget;
-    QCheckBox* mShowUsedCheckbox;
-    HMultiCheckboxWidget* mChannelMultiCheckbox;
+    DeviceSelectionWidget*              mDeviceSelectionWidget;
+    QCheckBox*                          mShowUsedCheckbox;
+    HMultiCheckboxWidget*               mChannelMultiCheckbox;
 
     Core::Array<Channel<double>*>		mAvailableChannels;
     Core::Array<Channel<double>*>		mSelectedChannels;
@@ -434,10 +433,9 @@ private:
     QPushButton* mSave;
 
     void dataReceived(QByteArray data);
-   
+
 
 };
-
 
 
 #endif

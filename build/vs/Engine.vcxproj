@@ -149,7 +149,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -194,7 +194,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -239,7 +239,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -284,7 +284,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -328,7 +328,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -372,7 +372,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -416,7 +416,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -457,7 +457,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -590,10 +590,14 @@
     <ClCompile Include="..\..\src\Engine\Creud.cpp" />
     <ClInclude Include="..\..\src\Engine\Creud.h" />
     <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.cpp" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\DSP\AttributeChannels.cpp" />
     <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.h" />
     <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveNodes.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h" />
     <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.h" />
     <ClInclude Include="..\..\src\Engine\Devices\eemagine\eemagineNodes.h" />
     <ClInclude Include="..\..\src\Engine\DSP\AttributeChannels.h" />

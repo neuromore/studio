@@ -540,7 +540,12 @@
     <ClCompile Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.cpp">
       <Filter>Devices\Neurosity</Filter>
     </ClCompile>
-    <ClCompile Include="BrainaliveDevices.cpp" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
@@ -1230,8 +1235,12 @@
     <ClInclude Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.h">
       <Filter>Devices\Neurosity</Filter>
     </ClInclude>
-    <ClInclude Include="BrainaliveDevices.h" />
-    <ClInclude Include="BrainaliveNodes.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.h">
       <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
@@ -1282,9 +1291,6 @@
     <Filter Include="Devices\OpenBCI">
       <UniqueIdentifier>{B70AE6B7-479C-3A27-A1EA-6A48960600E1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Devices\BrainAlive">
-      <UniqueIdentifier>{B70AE6B8-479C-3A27-A1EA-6A48960600E1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Devices\Test">
       <UniqueIdentifier>{8ADFF921-1B33-30F2-89AC-216FA0D98761}</UniqueIdentifier>
     </Filter>
@@ -1311,6 +1317,12 @@
     </Filter>
     <Filter Include="Devices\Neurosity">
       <UniqueIdentifier>{cd35ff26-5a26-4821-81b8-7cda41d973f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainFlow">
+      <UniqueIdentifier>{897190e5-b568-494b-b0b2-f6c9120d6f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainAlive">
+      <UniqueIdentifier>{33392055-d1a9-4c68-a6ea-22f3d12d072b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

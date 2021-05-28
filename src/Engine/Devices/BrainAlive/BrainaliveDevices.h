@@ -102,30 +102,6 @@ public:
 };
 
 
-
-class ENGINE_API BrainAliveDaisyDevice : public BrainAliveDeviceBase
-{
-public:
-	enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINALIVE_DAISY };
-
-	// constructors & destructor
-	BrainAliveDaisyDevice(DeviceDriver* driver = NULL);
-	virtual ~BrainAliveDaisyDevice();
-
-	Device* Clone() override { return new BrainAliveDaisyDevice(); }
-
-	// information
-	uint32 GetType() const override { return TYPE_ID; }
-	const char* GetTypeName() const override { return "brainalive16"; }
-	const char* GetHardwareName() const override { return "BRAINALIVE + Daisy"; }
-	const char* GetUuid() const override { return "0000fe42-cc7a-482a-984a-7f2ed5b3e58f"; }
-	static const char* GetRuleName() { return "DEVICE_BrainAliveDaisy"; }
-	double GetSampleRate() const override { return 250; }
-
-	void CreateElectrodes() override;
-};
-
-
 #endif
 
 #endif

@@ -37,10 +37,7 @@ using namespace std;
 bool mDevice_connected = false;
 bool m_Save = false;
 extern uint mData_2[50];
-
-char ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8;
-
-//ofstream outdata;
+char ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8;
 int i = 0;
 
 DeviceInfo::DeviceInfo(const QBluetoothDeviceInfo& info) :
@@ -100,7 +97,6 @@ void BLEInterface::scanDevices()
 	m_devices.clear();
 	emit devicesNamesChanged(m_devicesNames);
 	m_deviceDiscoveryAgent->start();
-	//m_deviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(10000);
 	emit printf("Scanning for devices...");
 }
 
@@ -119,33 +115,12 @@ void BLEInterface::waitForWrite() {
 void BLEInterface::write(const QByteArray& data)
 {
 	qDebug() << "BLEInterface::write: " << data;
-	
+
 	if (m_service && m_writeCharacteristic.isValid())
 	{
 		m_service->writeCharacteristic(m_writeCharacteristic, data, m_writeMode);
 	}
 
-	/*	if (data.length() > CHUNK_SIZE)
-		{
-			int sentBytes = 0;
-			while (sentBytes < data.length())
-			{
-				m_service->writeCharacteristic(m_writeCharacteristic,
-					data.mid(sentBytes, CHUNK_SIZE),
-					m_writeMode);
-				sentBytes += CHUNK_SIZE;
-				if (m_writeMode == QLowEnergyService::WriteWithResponse)
-				{
-					waitForWrite();
-					if (m_service->error() != QLowEnergyService::NoError)
-						return;
-				}
-			}
-
-		}
-		else
-			m_service->QLowEnergyService::writeCharacteristic(m_writeCharacteristic, data, m_writeMode);
-	}*/
 }
 
 void BLEInterface::addDevice(const QBluetoothDeviceInfo& device)
@@ -283,25 +258,11 @@ void BLEInterface::onControllerError(QLowEnergyController::Error error)
 void BLEInterface::onCharacteristicChanged(const QLowEnergyCharacteristic& c,
 	const QByteArray& value)
 {
-	//time_t timetoday;
-	//time(&timetoday);
 	Q_UNUSED(c)
 
 		for each (uint mdata in value)
-		{
 			mData_2[i++] = mdata & 0xFF;
-			//mData_2[i++] = mdata;
-		}
-	/*for (int j = 0; j < i; ++j)
-	{
-		outdata << mData_2[j];
-		outdata << ",";
-	}
-	outdata << "\n";*/
 	i = 0;
-
-	//qDebug() << value.toHex();
-	//emit dataReceived(value);
 }
 void BLEInterface::onCharacteristicWrite(const QLowEnergyCharacteristic& c,
 	const QByteArray& value)
@@ -354,7 +315,7 @@ void BLEInterface::onCharacteristicRead(const QLowEnergyCharacteristic& c,
 
 void BLEInterface::searchCharacteristic() {
 	const QString Device_UUID_EEG_Characteristic = "{0000fe41-8e22-4541-9d4c-21edae82ed19}";
-	if (m_service) 
+	if (m_service)
 	{
 		foreach(QLowEnergyCharacteristic c, m_service->characteristics()) {
 			if (c.isValid())
@@ -424,13 +385,16 @@ ChannelMultiSelectionWidget::ChannelMultiSelectionWidget(QWidget* parent) : QWid
 	mShowUsedCheckbox->setToolTip("Show only channels used by classifier.");
 	mShowUsedCheckbox->setChecked(false);
 	connect(mShowUsedCheckbox, SIGNAL(stateChanged(int)), this, SLOT(OnShowUsedCheckboxToggled(int)));
+
 	mChannelMultiCheckbox = new HMultiCheckboxWidget();
 	connect(mChannelMultiCheckbox, SIGNAL(SelectionChanged()), this, SLOT(OnChannelSelectionChanged()));
+	
 	Scan->setText(" Scan ");
 	Start->setText(" Start ");
 	mDeviceSelectionWidget = new DeviceSelectionWidget();
 	connect(mDeviceSelectionWidget, SIGNAL(DeviceSelectionChanged(Device*)), this, SLOT(OnDeviceSelectionChanged(Device*)));
 	connect(Scan, &QPushButton::clicked, this, &ChannelMultiSelectionWidget::Scan_BLE);
+	
 	connect(Start, &QPushButton::clicked, this, &ChannelMultiSelectionWidget::On_Start);
 	QHBoxLayout* hLayout = new QHBoxLayout();
 	hLayout->addWidget(mDeviceSelectionWidget);
@@ -456,10 +420,11 @@ ChannelMultiSelectionWidget::ChannelMultiSelectionWidget(QWidget* parent) : QWid
 			mListWidget->addItems(services);
 		});
 	setLayout(hLayout);
+
 	mAutoSelectType = SELECT_NONE;
 	mShowOnlyEEGChannels = false;
-
 }
+
 
 // destructor
 ChannelMultiSelectionWidget::~ChannelMultiSelectionWidget()
@@ -481,7 +446,7 @@ void ChannelMultiSelectionWidget::Scan_BLE()
 	mwidget->setFixedWidth(200);
 	mwidget->setWindowModality(Qt::ApplicationModal);
 	mListWidget = new QListWidget();
-    vLayout_2 = new QVBoxLayout();
+	vLayout_2 = new QVBoxLayout();
 	Connect = new QPushButton();
 
 	mListWidget->setFixedHeight(180);
@@ -509,12 +474,12 @@ void  ChannelMultiSelectionWidget::On_connect()
 	if (mDevice_connected == true)
 	{
 		//Start->setVisible(true);
-		
+
 		Connect->setVisible(false);
 		mListWidget->close();
 		mwidget->close();
 	}
-	
+
 
 }
 
@@ -577,7 +542,7 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 			if (mShowOnlyEEGChannels == false)
 			{
 				const uint32 numSensors = headset->GetNumSensors();
-				for (uint32 i = 0; i < numSensors; ++i)
+				for (uint32 i=0; i<numSensors; ++i)
 				{
 					Sensor* sensor = headset->GetSensor(i);
 					Channel<double>* channel = sensor->GetChannel();
@@ -589,7 +554,7 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 					// check if this a neuro sensor (there is no other way to do it right now)
 					bool isNeuroSensor = false;
 					/*const uint32 numRawSensors = */headset->GetNumNeuroSensors();
-					for (uint32 j = 0; j < numSensors && isNeuroSensor == false; ++j)
+					for (uint32 j=0; j<numSensors && isNeuroSensor == false; ++j)
 					{
 						if (headset->GetSensor(i) == headset->GetNeuroSensor(j))
 							isNeuroSensor = true;
@@ -660,6 +625,7 @@ void ChannelMultiSelectionWidget::OnChannelSelectionChanged()
 	emit ChannelSelectionChanged();
 }
 
+
 void ChannelMultiSelectionWidget::OnDeviceSelectionChanged(Device* device)
 {
 	ReInit(device);
@@ -715,4 +681,3 @@ void ChannelMultiSelectionWidget::SetVisible(uint32 index, bool visible)
 
 	mChannelMultiCheckbox->GetCheckbox(index)->setVisible(visible);
 }
-

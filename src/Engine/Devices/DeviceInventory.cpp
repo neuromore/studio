@@ -64,11 +64,6 @@
     #include "OpenBCI/OpenBCINodes.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINALIVE
-#include "BrainAlive/BrainaliveDevices.h"
-#include "BrainAlive/BrainaliveNodes.h"
-#endif
-
 #ifdef INCLUDE_DEVICE_MITSAR
 	#include "Mitsar/MitsarDevices.h"
 	#include "Mitsar/MitsarNodes.h"
@@ -94,6 +89,11 @@
 	#include "BrainProducts/ActiChampNode.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+#include "BrainFlow/BrainFlowDevices.h"
+#include "BrainFlow/BrainFlowNodes.h"
+#endif
+
 #include "Generic/GenericDevices.h"
 #include "Generic/GenericDeviceNodes.h"
 
@@ -117,6 +117,10 @@
 	#include "Neurosity/NotionNode.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+#include "BrainAlive/BrainaliveDevices.h"
+#include "BrainAlive/BrainaliveNodes.h"
+#endif
 
 
 #include "../EngineManager.h"
@@ -232,20 +236,6 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	}
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINALIVE
-	if (disablePermissionCheck || user->ReadAllowed(BrainAliveDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new BrainAliveDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new BrainAliveNode(NULL));
-	}
-
-	if (disablePermissionCheck || user->ReadAllowed(BrainAliveDaisyDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new BrainAliveDaisyDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new BrainAliveDaisyNode(NULL));
-	}
-#endif
-
 
 #ifdef INCLUDE_DEVICE_MITSAR
 	if (disablePermissionCheck || user->ReadAllowed(MitsarDevice::GetRuleName()))
@@ -291,6 +281,14 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	}
 #endif 
 
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+	//if (disablePermissionCheck || user->ReadAllowed(BrainFlowDeviceCyton::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new BrainFlowDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new BrainFlowNode(NULL));
+	}
+#endif
+
 	/////////////////////////
 	// Generic Devices
 	
@@ -326,6 +324,14 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	{
 		GetDeviceManager()->RegisterDeviceType(new GamepadDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new GamepadNode(NULL));
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+	if (disablePermissionCheck || user->ReadAllowed(BrainAliveDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new BrainAliveDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new BrainAliveNode(NULL));
 	}
 #endif
 

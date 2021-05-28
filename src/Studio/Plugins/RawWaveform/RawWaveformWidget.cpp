@@ -13,10 +13,10 @@
 **
 ** neuromore Public License Usage
 ** Alternatively, this file may be used under the terms of the neuromore
-** Public License version 1 as published by neuromore co with exceptions as
-** appearing in the file neuromore-class-exception.md included in the
-** packaging of this file. Please review the following information to
-** ensure the neuromore Public License requirements will be met:
+** Public License version 1 as published by neuromore co with exceptions as 
+** appearing in the file neuromore-class-exception.md included in the 
+** packaging of this file. Please review the following information to 
+** ensure the neuromore Public License requirements will be met: 
 ** https://neuromore.com/npl
 **
 ****************************************************************************/
@@ -31,17 +31,16 @@
 
 
 using namespace Core;
-extern uint mData_2[50];
-int j = 4;
+
 // constructor
 RawWaveformWidget::RawWaveformWidget(RawWaveformPlugin* plugin, QWidget* parent) : OpenGLWidget(parent)
 {
 	// create the render callback
 	mRenderCallback = new RenderCallback(this);
-	SetCallback(mRenderCallback);
+	SetCallback( mRenderCallback );
 
-	mPlugin = plugin;
-	mEmptyText = "No active device";
+	mPlugin		= plugin;
+	mEmptyText	= "No active device";
 }
 
 
@@ -58,7 +57,7 @@ void RawWaveformWidget::paintGL()
 {
 	// initialize the painter and get the font metrics
 	QPainter painter(this);
-	mRenderCallback->SetPainter(&painter);
+	mRenderCallback->SetPainter( &painter );
 	painter.setRenderHint(QPainter::Antialiasing);
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 
@@ -86,13 +85,13 @@ void RawWaveformWidget::paintGL()
 // constructor
 RawWaveformWidget::RenderCallback::RenderCallback(RawWaveformWidget* parent) : OpenGLWidgetCallback(parent)
 {
-	mParent = parent;
+	mParent			= parent;
 
-	mLineWidth = 1.1f;
-	mTextColor = ColorPalette::Shared::GetTextColor();
-	mGridSubColor = ColorPalette::Shared::GetDarkSubGridColor();
-	mGridColor = ColorPalette::Shared::GetDarkGridColor();
-	mAxisColor = ColorPalette::Shared::GetAxisColor();
+	mLineWidth		= 1.1f;
+	mTextColor		= ColorPalette::Shared::GetTextColor();
+	mGridSubColor	= ColorPalette::Shared::GetDarkSubGridColor();
+	mGridColor		= ColorPalette::Shared::GetDarkGridColor();
+	mAxisColor		= ColorPalette::Shared::GetAxisColor();
 }
 
 
@@ -103,10 +102,10 @@ void RawWaveformWidget::RenderCallback::Render(uint32 index, bool isHighlighted,
 	//const double timeDelta = mParent->GetTimeDelta();
 
 	// base class render
-	OpenGLWidgetCallback::Render(index, isHighlighted, x, y, width, height);
+	OpenGLWidgetCallback::Render( index, isHighlighted, x, y, width, height );
 
 	// draw background rect
-	AddRect(0, 0, width, height, ColorPalette::Shared::GetDarkBackgroundColor());
+	AddRect( 0, 0, width, height, ColorPalette::Shared::GetDarkBackgroundColor() );
 	RenderRects();
 
 	ChannelMultiSelectionWidget* channelSelectionWidget = mParent->mPlugin->GetChannelSelectionWidget();
@@ -118,7 +117,7 @@ void RawWaveformWidget::RenderCallback::Render(uint32 index, bool isHighlighted,
 		headset = static_cast<BciDevice*>(selectedDevice);
 
 	// render callback per sensor
-	Render(headset, NULL, width, height);
+	Render( headset, NULL, width, height);
 }
 
 
@@ -130,12 +129,12 @@ void RawWaveformWidget::RenderCallback::Render(BciDevice* headset, Sensor* senso
 
 	ChannelMultiSelectionWidget* channelSelectionWidget = mParent->mPlugin->GetChannelSelectionWidget();
 
-	const double	settingsTimeRange = mParent->mPlugin->GetTimeRange();
-	const bool		showVoltages = mParent->mPlugin->GetShowVoltages();
-	const bool		showTimes = mParent->mPlugin->GetShowTimes();
-	const bool		useAutoScale = mParent->mPlugin->GetAutoScaleY();
-	const double	settingsAmplitudeScale = mParent->mPlugin->GetAmplitudeScale();
-	const bool		showSignalName = true;
+	const double	settingsTimeRange		= mParent->mPlugin->GetTimeRange();
+	const bool		showVoltages			= mParent->mPlugin->GetShowVoltages();
+	const bool		showTimes				= mParent->mPlugin->GetShowTimes();
+	const bool		useAutoScale			= mParent->mPlugin->GetAutoScaleY();
+	const double	settingsAmplitudeScale	= mParent->mPlugin->GetAmplitudeScale();
+	const bool		showSignalName			= true;
 
 	// get the number of visible sensors (number of checked checkboxes)
 	const uint32 numVisibleSensors = channelSelectionWidget->GetNumSelectedChannels();
@@ -174,11 +173,11 @@ void RawWaveformWidget::RenderCallback::Render(BciDevice* headset, Sensor* senso
 	const float gridSpacing = waveCellHeight / numVerticalDivs;
 
 	// get the current local cursor pos
-	QPoint localCursorPos = mParent->mapFromGlobal(QCursor::pos());
+	QPoint localCursorPos = mParent->mapFromGlobal( QCursor::pos() );
 
 	// helper values to make sure we don't render the whole wave, but only what is visible
-	const double xStart = 0;
-	const double xEnd = windowWidth;
+	const double xStart	= 0;
+	const double xEnd	= windowWidth;
 
 	// render the grid
 	RenderGrid(numVisibleSensors, (uint32)numVerticalDivs, waveCellHeight, xStart, xEnd, windowHeight, mGridColor, mGridSubColor, timeRange, elapsedTime);
@@ -232,19 +231,19 @@ void RawWaveformWidget::RenderCallback::Render(BciDevice* headset, Sensor* senso
 
 		// render signal name
 		if (showSignalName == true)
-		{
+		{ 
 			// draw the value of the last sample
-			RenderText(channel->GetName(), mParent->GetDefaultFontSize(), channel->GetColor(), 5, yOffset, OpenGLWidget::ALIGN_BOTTOM | OpenGLWidget::ALIGN_LEFT);
+			RenderText( channel->GetName(), mParent->GetDefaultFontSize(), channel->GetColor(), 5, yOffset, OpenGLWidget::ALIGN_BOTTOM | OpenGLWidget::ALIGN_LEFT);
 		}
 
 		// render voltage
 		if (showVoltages == true)
-		{
+		{ 
 			// draw the value of the last sample
 			if (channel->GetNumSamples() > 0)
 			{
 				mTempString.Format("%.2f uV", channel->GetLastSample());
-				RenderText(mTempString.AsChar(), mParent->GetDefaultFontSize(), mTextColor, windowWidth, yOffset, OpenGLWidget::ALIGN_BOTTOM | OpenGLWidget::ALIGN_RIGHT);
+				RenderText( mTempString.AsChar(), mParent->GetDefaultFontSize(), mTextColor, windowWidth, yOffset, OpenGLWidget::ALIGN_BOTTOM | OpenGLWidget::ALIGN_RIGHT );
 			}
 		}
 	}
@@ -364,13 +363,13 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 	//const double sampleRate = channel->GetSampleRate();
 
 	// calc remaining parameters
-	const uint32	maxSampleIndex = channel->GetMaxSampleIndex();			// index of last sample
+	const uint32	maxSampleIndex	= channel->GetMaxSampleIndex();			// index of last sample
 
-	const double	maxTime = channel->GetElapsedTime().InSeconds();
+	const double	maxTime			= channel->GetElapsedTime().InSeconds();
 	//const int32		numPixels		= xEnd - xStart;							// width of the chart area in pixels
 
-	double			minTime = maxTime - timeRange;						// time of first pixel
-	uint32			minSampleIndex = channel->FindIndexByTime(minTime);		// index of first sample (clamped to valid index and rounded downwards -> may lie outside of left border)
+	double			minTime			= maxTime - timeRange;						// time of first pixel
+	uint32			minSampleIndex	= channel->FindIndexByTime(minTime);		// index of first sample (clamped to valid index and rounded downwards -> may lie outside of left border)
 
 	CORE_ASSERT(maxSampleIndex >= minSampleIndex);
 
@@ -379,7 +378,7 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 	double rawMax = -DBL_MAX;
 	double mean = 0;
 	uint32 numVals = 0;
-	for (uint32 i = minSampleIndex; i <= maxSampleIndex; ++i)
+	for (uint32 i=minSampleIndex; i<=maxSampleIndex; ++i)
 	{
 		double* rawValue = channel->GetSampleRef(i);
 		rawMin = (*rawValue) < rawMin ? (*rawValue) : rawMin;
@@ -393,9 +392,9 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 	// calculate waveform scaling parmeters
 	if (useAutoScale == true)
 		amplitudeScale = rawMax - rawMin;
-	//amplitudeScale = fmax(abs(rawMax), abs(rawMin)) * 2; // <- replace above line with this for dc-offset-corrected values
-
-// handle zero amplitude scale (happens if all displayed values are the same)
+		//amplitudeScale = fmax(abs(rawMax), abs(rawMin)) * 2; // <- replace above line with this for dc-offset-corrected values
+	
+	// handle zero amplitude scale (happens if all displayed values are the same)
 	if (amplitudeScale < Math::epsilon)
 	{
 		// use arbitrary scale (does not matter as long it is not near 0)
@@ -415,13 +414,13 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 
 	// color range
 	const Color& color = channel->GetColor();
-	Color lighterColor = FromQtColor(ToQColor(color).lighter(110));
-	Color darkerColor = FromQtColor(ToQColor(color).darker(170));
+	Color lighterColor = FromQtColor( ToQColor(color).lighter(110) );
+	Color darkerColor = FromQtColor( ToQColor(color).darker(170) );
 	Color previousColor, valueColor;		// color of the pixel at the value position, interpolated between lighter/darker color
 
 	//// render axis
-	AddLine(xStart + 0.375, yCenter + 0.375, mAxisColor, xEnd + 0.375, yCenter + 0.375, mAxisColor);
-
+	AddLine( xStart + 0.375, yCenter + 0.375, mAxisColor, xEnd + 0.375, yCenter + 0.375, mAxisColor );
+	
 	////////////////////////////////////////////////////////////////////
 	//// 0) Setup: calculate previousX and previousY using the sample at minSampleIndex (which lies outside of the drawing area)
 	////
@@ -430,15 +429,15 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 		time = channel->GetSampleTime(minSampleIndex).InSeconds() - 1.0 / channel->GetSampleRate();
 
 		// map time to pixel x-coordinate
-		previousX = RemapRange(time, minTime, maxTime, xStart, xEnd);
+		previousX = RemapRange(time, minTime, maxTime, xStart,  xEnd);
 
 		// clamp and remap value to y coordinate
 		value = channel->GetSample(minSampleIndex);
 		previousY = yCenter + valueScale * (value - mean);
 
 		// calculate the color for the top point (value) of the line
-		float normalizedValue = ClampedRemapRange(value, rawMin, rawMax, 0.0, 1.0);
-		previousColor = LinearInterpolate<Color>(darkerColor, lighterColor, normalizedValue);
+		float normalizedValue = ClampedRemapRange( value, rawMin, rawMax, 0.0, 1.0 );
+		previousColor = LinearInterpolate<Color>( darkerColor, lighterColor, normalizedValue );
 
 		// FIX due to antialiasing problems : round the coords to int and add the twiddle factor
 		//previousX = (int32)previousX + 0.375;
@@ -453,13 +452,10 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 		time = channel->GetSampleTime(i).InSeconds();
 
 		// map time to pixel x-coordinate
-		x = RemapRange(time, minTime, maxTime, xStart, xEnd);
+		x = RemapRange(time, minTime, maxTime, xStart,  xEnd);
 
 		// clamp and remap value to y coordinate
-
-		value = /*int(((mData_2[j++] << 16 | mData_2[j++] << 8 | mData_2[j++]) << 8) >> 8);*/channel->GetSample(i);
-		if (j > 27)
-			j = 0;
+		value = channel->GetSample(i);
 		y = yCenter + valueScale * (value - mean);
 
 		// FIX due to antialiasing problems : round the coords to int and add the twiddle factor
@@ -467,16 +463,16 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 		y = (int32)y + 0.375;
 
 		// calculate the color for the top point (value) of the line
-		float normalizedValue = ClampedRemapRange(value, rawMin, rawMax, 0.0, 1.0);
-		valueColor = LinearInterpolate<Color>(darkerColor, lighterColor, normalizedValue);
+		float normalizedValue = ClampedRemapRange( value, rawMin, rawMax, 0.0, 1.0 );
+		valueColor = LinearInterpolate<Color>( darkerColor, lighterColor, normalizedValue );
 
 		// draw the sample
-		AddLine(previousX, previousY, previousColor, x, y, valueColor);
-
+		AddLine( previousX, previousY, previousColor, x, y, valueColor );
+	
 		// store the current x and y pos for the next cycle
-		previousX = x;
-		previousY = y;
-		previousColor = valueColor;
+		previousX		= x;
+		previousY		= y;
+		previousColor	= valueColor;
 	}
 
 	//// draw a circle indicator on the newest sample
@@ -491,7 +487,7 @@ void RawWaveformWidget::RenderCallback::RenderWave2D(Channel<double>* channel, b
 
 void RawWaveformWidget::RenderCallback::RenderTimeAxis(uint32 xEnd, uint32 xStart, uint32 windowHeight, double maxTime, double timeRange)
 {
-	OpenGLWidget2DHelpers::RenderTimeline(this, mTextColor, timeRange, maxTime, xStart, 0, xEnd - xStart, windowHeight, mTempString);
+	OpenGLWidget2DHelpers::RenderTimeline( this, mTextColor, timeRange, maxTime, xStart, 0, xEnd - xStart, windowHeight, mTempString);
 }
 
 
@@ -500,52 +496,52 @@ void RawWaveformWidget::RenderCallback::RenderGrid(uint32 numSensors, uint32 num
 {
 	// calc remaining parameters
 	const int32 numPixels = xEnd - xStart;							// width of the chart area in pixels
-	double minTime = maxTime - timeRange;						// time of first pixel
-
-// div by zero check
+		  double minTime = maxTime - timeRange;						// time of first pixel
+	
+	// div by zero check
 	if (IsClose<double>(timeRange, 0.0, Math::epsilon) == true)
 		return;
 
 	// calculate the optimal distance between two time labels (in seconds)
 	const double timeStampSpacing = 50; // require at least this many pixel between (the centers of) two labels
-	double timeSteps = Math::NiceNumberFloor(((double)numPixels / timeStampSpacing) / timeRange);
+	double timeSteps =  Math::NiceNumberFloor( ((double)numPixels / timeStampSpacing) / timeRange); 
 
 	// first and last rounded timestamp within range
-	const double minTimeStamp = Math::Floor(minTime * timeSteps + 0.5) / timeSteps;
-	const double maxTimeStamp = Math::Ceil(maxTime * timeSteps + 0.5) / timeSteps;
+	const double minTimeStamp = Math::Floor( minTime * timeSteps + 0.5) / timeSteps;
+	const double maxTimeStamp = Math::Ceil( maxTime * timeSteps + 0.5) / timeSteps;
 
 	// draw subdivision vertical grid lines first
 	const double stepTime = 1.0 / timeSteps;	// dont get confused here :P
 	const double stepTimeSub = stepTime / 10;	// dont get confused here :P
-	for (double t = minTimeStamp - stepTime; t <= maxTimeStamp + stepTime; t += stepTimeSub)
+	for (double t=minTimeStamp-stepTime; t <= maxTimeStamp+stepTime; t+=stepTimeSub)
 	{
 		// find the x coordinate that corresponds to this time
 		// NOTE: x-10 due to offset in RenderWave2D (dirty solution)
 		//const double x = (t-minTime) * ((double)numPixels / timeRange) - 10.0;
-
+		
 		// find the x coordinate that corresponds to this time
-		const double x = RemapRange(t, minTime, maxTime, xStart, xEnd);
+		const double x = RemapRange(t, minTime, maxTime, xStart,  xEnd);
 		AddLine(x, 0, gridSubColor, x, windowHeight, gridSubColor);
 	}
 
 
 	// draw main vertical grid lines
-	for (double t = minTimeStamp - stepTime; t <= maxTimeStamp + stepTime; t += stepTime)
+	for (double t=minTimeStamp-stepTime; t <= maxTimeStamp+stepTime; t+=stepTime)
 	{
 		// find the x coordinate that corresponds to this time
 		// NOTE: x-10 due to offset in RenderWave2D (dirty solution)
 		//const double x = (t-minTime) * ((double)numPixels / timeRange) - 10.0;
-		const double x = RemapRange(t, minTime, maxTime, xStart, xEnd);
+		const double x = RemapRange(t, minTime, maxTime, xStart,  xEnd);
 
 		AddLine(x, 0, gridColor, x, windowHeight, gridColor);
 	}
 
 
 	// draw horizontal grid lines
-	for (uint32 s = 0; s <= numSensors; s++)
+	for (uint32 s=0; s<=numSensors; s++)
 	{
-		const double offset = s * waveCellHeight;
-		for (uint32 i = 0; i <= numVerticalDivs; i++)
+		const double offset = s*waveCellHeight;
+		for (uint32 i=0; i<=numVerticalDivs; i++)
 		{
 			const double y = offset + (double)waveCellHeight / numVerticalDivs * (double)i;
 
@@ -559,17 +555,17 @@ void RawWaveformWidget::RenderCallback::RenderGrid(uint32 numSensors, uint32 num
 
 void RawWaveformWidget::RenderCallback::Render2DCircle(double posX, double posY, double radius, uint32 numSteps, const Color& color)
 {
-	const double maxAngle = 2.0 * Math::pi;
+	const double maxAngle = 2.0*Math::pi;
 	const double stepSize = maxAngle / numSteps;
 
-	for (double angle = 0.0; angle <= maxAngle; angle += stepSize)
+	for (double angle=0.0; angle<=maxAngle; angle+=stepSize)
 	{
 		const double startX = posX + sin(angle) * radius;
 		const double startY = posY + cos(angle) * radius;
 
-		const double endX = posX + sin(angle * Math::halfPi) * radius;
-		const double endY = posY + cos(angle * Math::halfPi) * radius;
+		const double endX = posX + sin(angle*Math::halfPi) * radius;
+		const double endY = posY + cos(angle*Math::halfPi) * radius;
 
-		AddLine(startX, startY, color, endX, endY, color);
+		AddLine( startX, startY, color, endX, endY, color );
 	}
 }

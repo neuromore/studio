@@ -127,8 +127,11 @@
     <Filter Include="Devices\eemagine">
       <UniqueIdentifier>{7303ed46-8c10-4db3-9513-c6435a74689e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Devices\BrainFlow">
+      <UniqueIdentifier>{658f9836-5ef0-4179-9ab9-f45901c63157}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Devices\BrainAlive">
-      <UniqueIdentifier>{adece09f-0a1a-4285-8cf4-b45c2a8f0072}</UniqueIdentifier>
+      <UniqueIdentifier>{c39f5296-a0fb-4d72-9dc5-38099244d9b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -824,6 +827,9 @@
     <ClCompile Include="..\..\src\Studio\Windows\ExperienceWizardWindow.moc.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp">
+      <Filter>Devices\BrainFlow</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
@@ -1216,6 +1222,9 @@
     <ClInclude Include="..\..\src\Studio\VideoPlayer.h" />
     <ClInclude Include="..\..\src\Studio\Windows\ExperienceWizardWindow.h">
       <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h">
+      <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveCommands.h">
       <Filter>Devices\BrainAlive</Filter>

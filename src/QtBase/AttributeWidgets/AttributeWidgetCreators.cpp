@@ -229,3 +229,9 @@ void WindowFunctionAttributeWidgetCreator::InitAttributes(Array<Attribute*>& att
 		static_cast<Core::AttributeInt32*>(attributeSettings->GetMaxValue())->SetValue( INT_MAX );
 	}
 }
+
+
+void ButtonAttributeWidgetCreator::InitAttributes(Array<Attribute*>& attributes, Core::AttributeSettings* attributeSettings, bool forceInitMinMaxAttributes, bool resetMinMaxAttributes)
+{
+	CreateAttributes(attributes, attributeSettings, forceInitMinMaxAttributes);	
+}

@@ -27,6 +27,12 @@
 
 using namespace Core;
 
+#if defined(NEUROMORE_BRANDING_ANT) && defined(PRODUCTION_BUILD)
+#define NEUROMORE_MINIMAL_DEVICE_STATS true
+#else
+#define NEUROMORE_MINIMAL_DEVICE_STATS false
+#endif
+
 // constructor
 BciDeviceWidget::BciDeviceWidget(BciDevice* device, QWidget* parent) : DeviceWidget(device, parent)
 {
@@ -129,10 +135,12 @@ void BciDeviceWidget::AddSensorItems(QTreeWidgetItem* parent)
 		// add signal quality subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Signal Quality");
-		
+		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
+
 		// add current value subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Current Value");
+		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
 
 		// add sample rate subitem
 		item = new QTreeWidgetItem(sensorItem);
@@ -141,14 +149,17 @@ void BciDeviceWidget::AddSensorItems(QTreeWidgetItem* parent)
 		// add drift correction subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Drift (Corrected)");
+		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
 
 		// add burst size subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Max/Avg Burst Size");
+		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
 
 		// add burst size subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Max Latency");
+		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
 
 		// add sample counter subitem
 		item = new QTreeWidgetItem(sensorItem);
@@ -161,6 +172,7 @@ void BciDeviceWidget::AddSensorItems(QTreeWidgetItem* parent)
 		// add total memory subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Memory Used");
+		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
 	}
 }
 

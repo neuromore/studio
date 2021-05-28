@@ -182,7 +182,7 @@ void RawWaveformPlugin::UpdateInterface()
 	if (channelsChanged == true)
 		mChannelSelectionWidget->ReInit();
 
-	// show/hide "used" checkbox 
+	// show/hide "used" checkbox
 	mChannelSelectionWidget->SetShowUsedVisible(hasDisabledChannels);
 }
 

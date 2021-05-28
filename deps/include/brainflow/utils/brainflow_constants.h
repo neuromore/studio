@@ -51,7 +51,6 @@ enum class BoardIds : int
     IRONBCI_BOARD = 15,
     GFORCE_PRO_BOARD = 16,
     FREEEEG32_BOARD = 17,
-    BRAINALIVE_BOARD = 18,
     // use it to iterate
     FIRST = PLAYBACK_FILE_BOARD,
     LAST = FREEEEG32_BOARD

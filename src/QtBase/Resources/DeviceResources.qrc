@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+		<file>Images/Devices/BrainFlow.png</file>
         <file>Images/Devices/eego 8ch.png</file>
         <file>Images/Devices/eego 32ch.png</file>
         <file>Images/Devices/eego 64ch.png</file>
@@ -12,9 +13,9 @@
         <file>Images/Devices/UnknownDevice.png</file>
         <file>Images/Devices/Versus.png</file>
         <file>Images/Devices/B-Alert X24.png</file>
-		<file>Images/Devices/Brainalive.png</file>
         <file>Images/Devices/OpenBCI.png</file>
         <file>Images/Devices/OpenBCI + Daisy.png</file>
+		<file>Images/Devices/Brainalive.png</file>
         <file>Images/Devices/Bluetooth Smart Device.png</file>
         <file>Images/Devices/Mitsar-EEG 201 v50.png</file>
         <file>Images/Devices/Mitsar-EEG 201 v60.png</file>

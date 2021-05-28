@@ -46,7 +46,6 @@ BrainAliveDriver::BrainAliveDriver() : DeviceDriver(false), EventHandler()
 	LogInfo("Constructing BrainAlive device driver ...");
 
 	AddSupportedDevice(BrainAliveDevice::TYPE_ID);
-	AddSupportedDevice(BrainAliveDaisyDevice::TYPE_ID);
 
 	mAutoDetection_2 = NULL;
 	mAutoDetectionTimer_2 = NULL;
@@ -168,7 +167,6 @@ Device* BrainAliveDriver::CreateDevice(uint32 deviceTypeID)
 	switch (deviceTypeID)
 	{
 	case BrainAliveDevice::TYPE_ID: return new BrainAliveDevice(this);
-	case BrainAliveDaisyDevice::TYPE_ID: return new BrainAliveDaisyDevice(this);
 	default: /* does not happen*/ return NULL;
 	}
 }
@@ -187,8 +185,7 @@ void BrainAliveDriver::AddDevice(BrainAliveDeviceBase* device)
 
 void BrainAliveDriver::OnRemoveDevice(Device* device)
 {
-	if (device->GetType() != BrainAliveDevice::TYPE_ID &&
-		device->GetType() != BrainAliveDaisyDevice::TYPE_ID)
+	if (device->GetType() != BrainAliveDevice::TYPE_ID)
 		return;
 
 	BrainAliveDeviceBase* BrainAliveDevice = static_cast<BrainAliveDeviceBase*>(device);
@@ -229,7 +226,6 @@ void BrainAliveAutoDetection::DetectDevices()
 	// collect all device configs and their serial ports (if any)
 	Array<const Device::DeviceConfig*> deviceConfigs;
 	deviceConfigs.Add(GetDeviceManager()->FindDeviceConfigsByType(BrainAliveDevice::TYPE_ID));
-	deviceConfigs.Add(GetDeviceManager()->FindDeviceConfigsByType(BrainAliveDaisyDevice::TYPE_ID));
 
 	//const uint32 numConfigs = deviceConfigs.Size();
 
