@@ -44,7 +44,7 @@ namespace
 	}
 }
 
-void BrainFlowNode::Init()
+void BrainFlowNodeBase::Init()
 {
 	DeviceInputNode::Init();
 	{
@@ -108,7 +108,7 @@ void BrainFlowNode::Init()
 	GetAttributeSettings(ATTRIB_DEVICEINDEX)->SetVisible(false);
 }
 
-void BrainFlowNode::OnAttributesChanged()
+void BrainFlowNodeBase::OnAttributesChanged()
 {
 	if (!GetBoolAttributeByName("apply"))
 		return;
@@ -126,7 +126,7 @@ void BrainFlowNode::OnAttributesChanged()
 	CreateNewDevice();
 }
 
-Device* BrainFlowNode::FindDevice()
+Device* BrainFlowNodeBase::FindDevice()
 {
 	for (unsigned i = 0; i < GetDeviceManager()->GetNumDevices(); ++i)
 		if (auto* device = dynamic_cast<BrainFlowDevice*>(GetDeviceManager()->GetDevice(i)))
@@ -136,7 +136,7 @@ Device* BrainFlowNode::FindDevice()
 	return nullptr;
 }
 
-void BrainFlowNode::ReInit(const Core::Time& elapsed, const Core::Time& delta)
+void BrainFlowNodeBase::ReInit(const Core::Time& elapsed, const Core::Time& delta)
 {
 	if (auto* device = FindDevice())
 	{
@@ -154,7 +154,7 @@ void BrainFlowNode::ReInit(const Core::Time& elapsed, const Core::Time& delta)
 	DeviceInputNode::ReInit(elapsed, delta);
 }
 
-void BrainFlowNode::SynchronizeParams()
+void BrainFlowNodeBase::SynchronizeParams()
 {
 	mBoardID = boardIndexToBoardID(GetInt32AttributeByName("boardID"));
 	mParams.serial_port = GetStringAttributeByName("serialPort");
@@ -168,7 +168,7 @@ void BrainFlowNode::SynchronizeParams()
 	mParams.file = GetStringAttributeByName("file");
 }
 
-void BrainFlowNode::CreateNewDevice()
+void BrainFlowNodeBase::CreateNewDevice()
 {
 	// create new device
 	if (auto* deviceManager = GetDeviceManager())

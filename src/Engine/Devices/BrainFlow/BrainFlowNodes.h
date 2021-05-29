@@ -32,44 +32,53 @@
 #include "../../Graph/DeviceInputNode.h"
 #include <brainflow/board_controller/brainflow_input_params.h>
 
-// normal OpenBCI device node
-class ENGINE_API BrainFlowNode : public DeviceInputNode
+
+class BrainFlowNodeBase : public DeviceInputNode
+{
+public:
+
+	~BrainFlowNodeBase() {}
+	BrainFlowNodeBase(Graph* parentGraph, uint32 deviceType) : DeviceInputNode(parentGraph, deviceType) { mBoardID = (int)BoardIds::SYNTHETIC_BOARD; }
+
+	void Init() override;
+
+	const BrainFlowInputParams& GetParams() const { return mParams; }
+	int GetBoardID() const { return mBoardID; }
+
+	void OnAttributesChanged() override;
+
+	BrainFlowDevice* GetCurrentDevice() { return dynamic_cast<BrainFlowDevice*>(mCurrentDevice); }
+
+	Device* FindDevice();
+
+	void ReInit(const Core::Time& elapsed, const Core::Time& delta) override;
+
+protected:
+	void SynchronizeParams();
+	void CreateNewDevice();
+
+	int mBoardID;
+	BrainFlowInputParams mParams;
+};
+
+class ENGINE_API BrainFlowNode : public BrainFlowNodeBase
 {
 	public:
-		int mBoardID;
-		BrainFlowInputParams mParams;
-
 		enum { TYPE_ID = 0xD00000 | BrainFlowDevice::TYPE_ID };
 		static const char* Uuid()												{ return "283fc2da-fe1b-11e4-a322-1697f925ec7c"; }
 
 		~BrainFlowNode()				   																	{}
-		BrainFlowNode(Graph* parentGraph) : DeviceInputNode(parentGraph, BrainFlowDevice::TYPE_ID)		{}
+		BrainFlowNode(Graph* parentGraph) : BrainFlowNodeBase(parentGraph, BrainFlowDevice::TYPE_ID)		{ mBoardID = (int)BoardIds::SYNTHETIC_BOARD; }
 
 		Core::Color GetColor() const override									{ return Core::RGBA(60,120,210); }
-		uint32 GetType() const override											{ return TYPE_ID; }
+		uint32 GetType() const override											{ return BrainFlowNode::TYPE_ID; }
 		const char* GetTypeUuid() const override final							{ return Uuid(); }
 		const char* GetReadableType() const override							{ return "BrainFlow"; }
 		const char* GetRuleName() const override final							{ return BrainFlowDevice::GetRuleName(); }
 		GraphObject* Clone(Graph* parentGraph) override							{ BrainFlowNode* clone = new BrainFlowNode (parentGraph); return clone; }
 
-		void Init() override;
-
-		const BrainFlowInputParams& GetParams() const { return mParams; }
-		int GetBoardID() const { return mBoardID; }
-
-		void OnAttributesChanged() override;
-
-		BrainFlowDevice* GetCurrentDevice() { return dynamic_cast<BrainFlowDevice*>(mCurrentDevice); }
-
-		Device* FindDevice();
-
-		void ReInit(const Core::Time& elapsed, const Core::Time& delta) override;
-
-	private:
-		void SynchronizeParams();
-		void CreateNewDevice();
-
 };
+
 
 
 #endif
