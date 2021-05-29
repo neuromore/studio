@@ -40,19 +40,28 @@ namespace
 	}
 }
 
-BrainFlowDevice::BrainFlowDevice(DeviceDriver* deviceDriver)
-	: BciDevice(deviceDriver), mBoardId(BoardIds::SYNTHETIC_BOARD), mParams() 
+BrainFlowDeviceBase::BrainFlowDeviceBase(DeviceDriver* deviceDriver)
+	: BciDevice(deviceDriver), mBoardId(BoardIds::SYNTHETIC_BOARD), mParams()
 {
+	mState = STATE_IDLE; 
 	CreateSensors();
 }
 
-BrainFlowDevice::BrainFlowDevice(BoardIds boardId, BrainFlowInputParams params, DeviceDriver* deviceDriver)
+BrainFlowDeviceBase::BrainFlowDeviceBase(BoardIds boardId, DeviceDriver* deviceDriver)
+	: BciDevice(deviceDriver), mBoardId(boardId), mParams()
+{
+	mState = STATE_IDLE;
+	CreateSensors();
+}
+
+BrainFlowDeviceBase::BrainFlowDeviceBase(BoardIds boardId, BrainFlowInputParams params, DeviceDriver* deviceDriver)
 	: BciDevice(deviceDriver), mBoardId(boardId), mParams(std::move(params))
 {
+	mState = STATE_IDLE;
 	CreateSensors();
 }
 
-bool BrainFlowDevice::Connect()
+bool BrainFlowDeviceBase::Connect()
 {
 	mBoard = std::make_unique<BoardShim>(GetBoardId(), mParams);
 	BoardShim::enable_dev_board_logger();
@@ -61,7 +70,7 @@ bool BrainFlowDevice::Connect()
 	return Device::Connect();
 }
 
-bool BrainFlowDevice::Disconnect()
+bool BrainFlowDeviceBase::Disconnect()
 {
 	if (mBoard && mBoard->is_prepared())
 	{
@@ -78,13 +87,13 @@ bool BrainFlowDevice::Disconnect()
 	return Device::Disconnect();
 }
 
-int BrainFlowDevice::GetBoardId() const
+int BrainFlowDeviceBase::GetBoardId() const
 {
 	return static_cast<int>(mBoardId);
 }
 
 // get the available electrodes of the neuro headset
-void BrainFlowDevice::CreateElectrodes()
+void BrainFlowDeviceBase::CreateElectrodes()
 {
 	// clear existed sensors/electrodes
 	mElectrodes.Clear();
@@ -127,7 +136,7 @@ void BrainFlowDevice::CreateElectrodes()
 }
 
 
-void BrainFlowDevice::Update(const Core::Time& elapsed, const Core::Time& delta)
+void BrainFlowDeviceBase::Update(const Core::Time& elapsed, const Core::Time& delta)
 {
 	if (!InitAfterConnected())
 		return;
@@ -156,12 +165,12 @@ void BrainFlowDevice::Update(const Core::Time& elapsed, const Core::Time& delta)
 	Device::Update(elapsed, delta);
 }
 
-bool BrainFlowDevice::DoesConnectingFinished() const
+bool BrainFlowDeviceBase::DoesConnectingFinished() const
 {
 	return mFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
 }
 
-bool BrainFlowDevice::InitAfterConnected()
+bool BrainFlowDeviceBase::InitAfterConnected()
 {
 	if (mBoard && mFuture.valid())
 	{
@@ -203,7 +212,7 @@ bool BrainFlowDevice::InitAfterConnected()
 	}
 }
 
-double BrainFlowDevice::GetSampleRate() const {
+double BrainFlowDeviceBase::GetSampleRate() const {
 	try
 	{
 		return BoardShim::get_sampling_rate(GetBoardId());
