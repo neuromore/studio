@@ -35,42 +35,58 @@
 #include <brainflow/board_controller/brainflow_input_params.h>
 #include <future>
 
-class BrainFlowDevice : public BciDevice
+// the base class for all OpenBCI devices
+class ENGINE_API BrainFlowDeviceBase : public BciDevice
 {
-public:
-	enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW };
 
-	BrainFlowDevice(DeviceDriver* deviceDriver = nullptr);
-	BrainFlowDevice(BoardIds boardId, BrainFlowInputParams params, DeviceDriver* deviceDriver = nullptr);
+public:
+	BrainFlowDeviceBase(DeviceDriver* driver = NULL);
+	BrainFlowDeviceBase(BoardIds boardId, DeviceDriver* deviceDriver = nullptr);
+	BrainFlowDeviceBase(BoardIds boardId, BrainFlowInputParams params, DeviceDriver* deviceDriver = nullptr);
+	virtual ~BrainFlowDeviceBase() {}
 
 	bool Connect() override;
 	bool Disconnect() override;
-	
-	uint32 GetType() const override { return TYPE_ID; }
-	const char* GetTypeName() const override { return "BrainFlowDevice_type"; }
-	const char* GetHardwareName() const override { return "BrainFlow"; }
-	const char* GetUuid() const override { return "5108993a-fe1b-11e4-a322-1697f925e000"; }
-	static const char* GetRuleName() { return "BrainFlowDevice_rule"; }
+	int GetBoardId() const;
+	double GetSampleRate() const override;
+	double GetLatency() const override { return 0.1; }
+	double GetExpectedJitter() const override { return 0.1; }
+	bool IsWireless() const override { return true; }
+	const BrainFlowInputParams& GetParams() const { return mParams; }
 	void Update(const Core::Time& elapsed, const Core::Time& delta) override;
 
-	const BrainFlowInputParams& GetParams() const { return mParams; }
-	int GetBoardId() const;
-
-private:
+	
+protected:
 	void CreateElectrodes();
-	Device* Clone() override { return new BrainFlowDevice(); }
 	bool DoesConnectingFinished() const;
 	bool InitAfterConnected();
-
-	// information
-	double GetSampleRate() const override;
-
 
 private:
 	const BoardIds mBoardId;
 	const BrainFlowInputParams mParams;
 	std::future<std::unique_ptr<BoardShim>> mFuture;
 	std::unique_ptr<BoardShim> mBoard = nullptr;
+
+};
+
+class BrainFlowDevice : public BrainFlowDeviceBase
+{
+public:
+	enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW };
+
+	BrainFlowDevice(DeviceDriver* deviceDriver = nullptr) : BrainFlowDeviceBase(deviceDriver) {};
+	BrainFlowDevice(BoardIds boardId, BrainFlowInputParams params, DeviceDriver* deviceDriver = nullptr) : BrainFlowDeviceBase(boardId, params, deviceDriver) {};
+	
+	uint32 GetType() const override { return TYPE_ID; }
+	const char* GetTypeName() const override { return "BrainFlowDevice_type"; }
+	const char* GetHardwareName() const override { return "BrainFlow"; }
+	const char* GetUuid() const override { return "5108993a-fe1b-11e4-a322-1697f925e000"; }
+	static const char* GetRuleName() { return "BrainFlowDevice_rule"; }
+
+private:
+	Device* Clone() override { return new BrainFlowDevice(); }	
+
+
 };
 
 

@@ -282,6 +282,7 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	{
 		GetDeviceManager()->RegisterDeviceType(new BrainFlowDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new BrainFlowNode(NULL));
+		GetGraphObjectFactory()->RegisterObjectType(new BrainFlowCytonNode(NULL));
 	}
 #endif
 
