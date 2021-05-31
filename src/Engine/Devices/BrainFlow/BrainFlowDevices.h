@@ -90,28 +90,6 @@ private:
 };
 
 
-class BrainFlowCytonDevice : public BrainFlowDeviceBase
-{
-public:
-	enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW_CYTON };
-	virtual uint32 GetType() const override { return BrainFlowCytonDevice::TYPE_ID; }
-
-	BrainFlowCytonDevice(DeviceDriver* deviceDriver = nullptr) : BrainFlowDeviceBase(BoardIds::CYTON_BOARD, deviceDriver) {}
-	BrainFlowCytonDevice(BoardIds boardId, BrainFlowInputParams params, DeviceDriver* deviceDriver = nullptr) : BrainFlowDeviceBase(BoardIds::CYTON_BOARD, params, deviceDriver) {}
-
-	const char* GetTypeName() const override { return "BrainFlowCytonDevice_type"; }
-	const char* GetHardwareName() const override { return "BrainFlowCytonDevice_hardware"; }
-	const char* GetUuid() const override { return "5308993a-fe1b-11e4-a322-1697f925e000"; }
-	static const char* GetRuleName() { return "BrainFlowCytonDevice_rule"; }
-
-protected:
-	Device* Clone() override { return new BrainFlowCytonDevice(); }
-
-private:
-	const BoardIds mBoardId = BoardIds::CYTON_BOARD;
-
-};
-
 #endif
 
 #endif

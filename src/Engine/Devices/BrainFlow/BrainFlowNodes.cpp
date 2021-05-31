@@ -205,15 +205,7 @@ void BrainFlowCytonNode::Init()
 	}
 	{
 		Core::AttributeSettings* attribute = RegisterAttribute("Serial port", "serialPort", "Serial port", Core::ATTRIBUTE_INTERFACETYPE_STRING);
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-		attribute->SetDefaultValue(Core::AttributeString::Create("COM3"));
-#elif NEUROMORE_PLATFORM_OSX
-		attribute->SetDefaultValue(Core::AttributeString::Create("/dev/cu.usbserial-DM0258D9"));
-#elif NEUROMORE_PLATFORM_LINUX
-		attribute->SetDefaultValue(Core::AttributeString::Create("/dev/ttyUSB0"));
-#else
-		attribute->SetDefaultValue(Core::AttributeString::Create(""));
-#endif
+		attribute->SetDefaultValue(Core::AttributeString::Create(mParams.serial_port.c_str()));
 	}
 	{
 		Core::AttributeSettings* attribute = RegisterAttribute("MAC address", "macAddress", "MAC address", Core::ATTRIBUTE_INTERFACETYPE_STRING);
@@ -264,7 +256,7 @@ void BrainFlowCytonNode::Init()
 		attribute->SetVisible(false);
 	}
 	{
-		Core::AttributeSettings* attribute = RegisterAttribute("Update", "apply", "Update", Core::ATTRIBUTE_INTERFACETYPE_BUTTON);
+		Core::AttributeSettings* attribute = RegisterAttribute("Apply", "apply", "Apply", Core::ATTRIBUTE_INTERFACETYPE_BUTTON);
 		attribute->SetDefaultValue(Core::AttributeBool::Create(false));
 		attribute->SetVisible(false);
 	}
@@ -272,6 +264,8 @@ void BrainFlowCytonNode::Init()
 	GetAttributeSettings(ATTRIB_RAWOUTPUT)->SetVisible(false);
 	GetAttributeSettings(ATTRIB_UPLOAD)->SetVisible(false);
 	GetAttributeSettings(ATTRIB_DEVICEINDEX)->SetVisible(false);
+
+	CreateNewDevice();
 }
 
 #endif

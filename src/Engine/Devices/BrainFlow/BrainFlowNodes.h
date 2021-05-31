@@ -82,12 +82,23 @@ class ENGINE_API BrainFlowNode : public BrainFlowNodeBase
 class ENGINE_API BrainFlowCytonNode : public BrainFlowNodeBase
 {
 public:
-	enum { TYPE_ID = 0xD00000 | BrainFlowCytonDevice::TYPE_ID };
+	enum { TYPE_ID = 0xD00000 | DeviceTypeIDs::DEVICE_TYPEID_BRAINFLOW_CYTON};
 	static const char* Uuid() { return "a8c6808f-3cc8-44e6-8d57-63ec144cbca9"; }
 	
 
 	~BrainFlowCytonNode() {}
-	BrainFlowCytonNode(Graph* parentGraph) : BrainFlowNodeBase(parentGraph, BrainFlowCytonDevice::TYPE_ID) { mBoardID = (int)BoardIds::CYTON_BOARD; }
+	BrainFlowCytonNode(Graph* parentGraph) : BrainFlowNodeBase(parentGraph, BrainFlowDevice::TYPE_ID) { 
+		mBoardID = (int)BoardIds::CYTON_BOARD; 
+#ifdef NEUROMORE_PLATFORM_WINDOWS
+		mParams.serial_port = "COM3";
+#elif NEUROMORE_PLATFORM_OSX
+		mParams.serial_port = "/dev/cu.usbserial-DM0258D9";
+#elif NEUROMORE_PLATFORM_LINUX
+		mParams.serial_port = "/dev/ttyUSB0";
+#else
+		mParams.serial_port = "";
+#endif
+	}
 
 	void Init() override;
 	void OnAttributesChanged() override;
@@ -96,7 +107,7 @@ public:
 	uint32 GetType() const override { return BrainFlowCytonNode::TYPE_ID; }
 	const char* GetTypeUuid() const override final { return Uuid(); }
 	const char* GetReadableType() const override { return "Cyton"; }
-	const char* GetRuleName() const override final { return BrainFlowCytonDevice::GetRuleName(); }
+	const char* GetRuleName() const override final { return BrainFlowDevice::GetRuleName(); }
 	GraphObject* Clone(Graph* parentGraph) override { BrainFlowCytonNode* clone = new BrainFlowCytonNode(parentGraph); return clone; }
 
 };
