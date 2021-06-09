@@ -140,7 +140,7 @@ make all-x64 -f Makefile.linux -j 4
 *Get the required build tools:*
 
 ```
-sudo apt-get install make clang llvm
+sudo apt-get install make clang llvm lld
 ```
 
 *Verify the build tool versions:*
