@@ -65,7 +65,7 @@ bool BrainFlowDeviceBase::Connect()
 {
 	mBoard = std::make_unique<BoardShim>(GetBoardId(), mParams);
 	BoardShim::enable_dev_board_logger();
-	BoardShim::set_log_file("brainflow.log");
+	BoardShim::set_log_file(::std::string(GetEngine()->GetAppDataFolder().AsChar()) + "brainflow.log");
 	mFuture = std::async(&connectToBoard, std::move(mBoard));
 	return Device::Connect();
 }
