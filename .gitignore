@@ -2,7 +2,8 @@
 /build/vs/lib
 /build/vs/obj
 /build/vs/.vs
-
+.vs/
+.vscode/
 /deps/build/vs/bin
 /deps/build/vs/lib
 /deps/build/vs/obj
@@ -14,3 +15,4 @@
 *.rcc.cpp
 
 .DS_Store
+build/vs/enc_temp_folder/

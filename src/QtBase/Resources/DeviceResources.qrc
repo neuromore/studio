@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
+		<file>Images/Devices/BrainFlow.png</file>
+		<file>Images/Devices/Cyton.png</file>
         <file>Images/Devices/eego 8ch.png</file>
         <file>Images/Devices/eego 32ch.png</file>
         <file>Images/Devices/eego 64ch.png</file>

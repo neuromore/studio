@@ -140,7 +140,7 @@ make all-x64 -f Makefile.linux -j 4
 *Get the required build tools:*
 
 ```
-sudo apt-get install make clang llvm
+sudo apt-get install make clang llvm lld
 ```
 
 *Verify the build tool versions:*
@@ -265,3 +265,4 @@ ar
 
 * [Run the muse-2 in neuromore](https://github.com/naxocaballero/muse2-neuromore) - https://github.com/naxocaballero/muse2-neuromore - thanks to [@naxocaballero](https://github.com/naxocaballero)
 * [There's also an LSL to OSC converter](https://github.com/ViacheslavBobrov/Muse_Neuromore) by @ViacheslavBobrov that works with the muse.
+* [BrainFlow configuration](https://github.com/brainflow-dev/brainflow/blob/master/docs/SupportedBoards.rst) by @Andrey1994

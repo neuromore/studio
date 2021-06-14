@@ -50,6 +50,7 @@
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.moc.cpp">
@@ -316,6 +317,7 @@
     <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDevice.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.h" />

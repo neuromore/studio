@@ -30,7 +30,11 @@ ENGINE_DEFINES      = -DUNICODE \
                       -Wno-unknown-warning-option
 ENGINE_DEFINES_X86  = $(ENGINE_DEFINES) $(ENGINE_DEFINES_X86_PLAT)
 ENGINE_DEFINES_X64  = $(ENGINE_DEFINES) $(ENGINE_DEFINES_X64_PLAT)
-ENGINE_INCLUDES     = -I$(ENGINE_INCDIR) -I$(ENGINE_SRCDIR) -I$(DEPSINCDIR)
+ENGINE_INCLUDES     = -I$(ENGINE_INCDIR) \
+                      -I$(ENGINE_SRCDIR) \
+                      -I$(DEPSINCDIR) \
+                      -I$(DEPSINCDIR)/brainflow/board_controller \
+                      -I$(DEPSINCDIR)/brainflow/utils
 ENGINE_INCLUDES_X86 = $(ENGINE_INCLUDES) $(ENGINE_INCLUDES_X86_PLAT)
 ENGINE_INCLUDES_X64 = $(ENGINE_INCLUDES) $(ENGINE_INCLUDES_X64_PLAT)
 ENGINE_BUILD_X86    = $(CXX_X86) $(CXXFLAGS_X86) $(ENGINE_DEFINES_X86) $(ENGINE_INCLUDES_X86) -c $(@:$(ENGINE_OBJDIR_X86)%.o=$(ENGINE_SRCDIR)%.cpp) -o $@
@@ -69,6 +73,8 @@ ENGINE_OBJS_ALL     = Core/AABB.o \
                       Devices/ABM/AbmDevices.o \
                       Devices/Audio/AudioDevices.o \
                       Devices/Audio/AudioNodes.o \
+                      Devices/BrainFlow/BrainFlowDevices.o \
+                      Devices/BrainFlow/BrainFlowNodes.o \
                       Devices/BrainProducts/ActiChampDevice.o \
                       Devices/Brainquiry/BrainquiryDevice.o \
                       Devices/Emotiv/EmotivEPOCDevice.o \
@@ -757,6 +763,7 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/Bluetooth/BluetoothDevice.o \
                        Devices/Bluetooth/BluetoothDriver.o \
                        Devices/Bluetooth/BluetoothService.o \
+                       Devices/BrainFlow/BrainFlowDriver.o \
                        Devices/BrainProducts/ActiChampDriver.o \
                        Devices/Brainquiry/BrainquiryDriver.o \
                        Devices/Brainquiry/BrainquirySerialHandler.o \

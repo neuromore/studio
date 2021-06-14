@@ -117,8 +117,8 @@ endef
 # Linker
 LINK_X86         = $(CXX_X86)
 LINK_X64         = $(CXX_X64)
-LINKFLAGS_X86    = -target $(TARGET_X86) $(FLAGS)
-LINKFLAGS_X64    = -target $(TARGET_X64) $(FLAGS)
+LINKFLAGS_X86    = -target $(TARGET_X86) -fuse-ld=lld $(FLAGS)
+LINKFLAGS_X64    = -target $(TARGET_X64) -fuse-ld=lld $(FLAGS)
 LINKFLAGSDYN_X86 = -fpic -shared -static-libstdc++
 LINKFLAGSDYN_X64 = -fpic -shared -static-libstdc++
 

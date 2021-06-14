@@ -62,6 +62,10 @@
 	#include "EyeX\TobiiEyeXDriver.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+#include "BrainFlow/BrainFlowDriver.h"
+#endif
+
 #include "Bluetooth/BluetoothDriver.h"
 #include "Audio/AudioDriver.h"
 
@@ -200,4 +204,12 @@ void DriverInventory::RegisterDrivers()
 	}
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINFLOW
+	//if (user->ReadAllowed(BrainFlowDevice::GetRuleName()) == true)
+	{
+		auto* driver = new BrainFlowDriver();
+		driver->Init();
+		deviceManager->AddDeviceDriver(driver);
+	}
+#endif
 }
