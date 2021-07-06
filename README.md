@@ -6,7 +6,7 @@
 
 ## Getting started
 
-1. Create a neuromore Cloud account at [https://www.neuromore.com/download](https://www.neuromore.com/download)
+1. Create a neuromore Cloud account at [https://www.neuromore.com/createaccount](https://www.neuromore.com/createaccount)
 2. Download the latest neuromore studio from our github [releases](https://github.com/neuromore/studio/releases) (or build it yourself).
 3. Start neuromore studio, sign-in with the created community account, accept the license and you're ready to go.
 
