@@ -11,25 +11,6 @@
 3. Start neuromore studio, sign-in with the created community account, accept the license and you're ready to go.
 4. Watch the tutorials for more info [https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw](https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw)
 
-### Getting started on a mac
-1. Download the **dmg** from the releases page above.
-2. Drag the neuromore studio app to the applications folder <img src="https://user-images.githubusercontent.com/760216/125139678-d1532b80-e0c5-11eb-88db-02308ed3cfea.jpg">
-3. Run the app (in the applications directory) <img width="529" src="https://user-images.githubusercontent.com/760216/125139761-f8116200-e0c5-11eb-8090-f024be4bbcb0.png">
-4. If you don't get this dialog skip to 7.<img width="276" src="https://user-images.githubusercontent.com/760216/125139890-3575ef80-e0c6-11eb-9d27-712a2e95417e.png">
-5. Go to preferences <img width="281" src="https://user-images.githubusercontent.com/760216/125139936-4de60a00-e0c6-11eb-84fa-a84b5bbaea72.png">
-6. Click on Privacy <img src="https://user-images.githubusercontent.com/760216/125140177-c5b43480-e0c6-11eb-8056-671f56309492.png">
-7. Click on Open Anyway <img src="https://user-images.githubusercontent.com/760216/125140339-1d52a000-e0c7-11eb-9902-0f104bb84cfc.png">
-8. Add a new directory <img width="223" src="https://user-images.githubusercontent.com/760216/125140371-34918d80-e0c7-11eb-9bfc-e1c2e23b01ba.png">
-9. Add a new classifier <img width="299" src="https://user-images.githubusercontent.com/760216/125140406-48d58a80-e0c7-11eb-90e7-0214241049a2.png">
-10. Double click on the new file <img width="228" src="https://user-images.githubusercontent.com/760216/125140480-6d316700-e0c7-11eb-93f6-05ac24d32d5d.png">
-11. Drag a device onto the page (Ex. OpenBCI Cyton) <img width="481" src="https://user-images.githubusercontent.com/760216/125140502-833f2780-e0c7-11eb-9e78-73153a8802b1.png">
-12. Click on the cyton device and notice the settings <img width="320" src="https://user-images.githubusercontent.com/760216/125140533-994ce800-e0c7-11eb-9dc0-11b1f0fcfdd4.png">
-13. If the device is red, you might need to update the settings (you may need to download the usb-serial driver for OpenBCI - https://ftdichip.com/drivers/vcp-drivers/)
-14. If it's still red, you may need to update the usb-serial device, open the terminal **⌘-space** and type **term** then the **return** key. <img src="https://user-images.githubusercontent.com/760216/125140934-82f35c00-e0c8-11eb-9afe-56df10673d1d.jpg">
-15. Type in: **ls /dev/cu.usb***
-16. Replace the **serial port** in step 12. and click enter.
-17. Watch the tutorials for more info [https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw](https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw)
-
 ## Contents
 
 #### Configuration/Cache Folders:
