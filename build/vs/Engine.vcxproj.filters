@@ -546,6 +546,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1238,6 +1241,12 @@
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h">
       <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveDevices.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainaliveNodes.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -1311,6 +1320,9 @@
     </Filter>
     <Filter Include="Devices\BrainFlow">
       <UniqueIdentifier>{897190e5-b568-494b-b0b2-f6c9120d6f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainAlive">
+      <UniqueIdentifier>{ebb61d70-d131-45f0-af3f-ee585d439580}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
