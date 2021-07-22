@@ -30,16 +30,12 @@
 #include <EngineManager.h>
 #include <Core/EventHandler.h>
 #include <Core/Array.h>
-
-#include <QObject>
-#include <QThread>
-#include <QTimer>
-
+#include "qtimer.h"
+#include <qthread.h>
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
-
-
 // forward decl. of classes at bottom of header
+
 class BrainAliveAutoDetection;
 class BrainAliveSerialThread;
 
@@ -82,7 +78,7 @@ public:
 	// for autodetection
 	QThread* mAutoDetectionThread_2;
 	QTimer* mAutoDetectionTimer_2;
-
+	
 
 	// list to keep track of connected devices (index-matched with theh serial thread array below)
 	Core::Array<BrainAliveDeviceBase*> mDevices;
@@ -110,9 +106,11 @@ public:
 	void DetectDevicesOnce() { mDetectOnce = true; }
 	bool IsSearching() const { return mIsSearching; }
 	BrainAliveDriver* mDriver;
+	
 public slots:
 
 	void DetectDevices();
+	
 
 private:
 	
@@ -129,13 +127,15 @@ class BrainAliveSerialThread : public QThread
 public:
 	BrainAliveSerialThread(BrainAliveDeviceBase* device) : mDevice(device) { moveToThread(this); }
 	virtual ~BrainAliveSerialThread() {};
-
+	
 	void run() override;
 
 private:
 	BrainAliveDeviceBase* mDevice;
 	Core::String mPortName;
 };
+
+
 
 #endif
 

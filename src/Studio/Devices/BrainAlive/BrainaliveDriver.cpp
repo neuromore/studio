@@ -30,19 +30,24 @@
 #include <QApplication>
 
 
-
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
-extern bool mDevice_connected;
-
 using namespace Core;
+using namespace std;
+
+
+extern bool mDevice_connected;
 
 BrainAliveDeviceBase* device;
 BrainAliveAutoDetection* mAutoDetection_2;
 
+
+
+
 // constructor
 BrainAliveDriver::BrainAliveDriver() : DeviceDriver(false), EventHandler()
 {
+	
 	LogInfo("Constructing BrainAlive device driver ...");
 
 	AddSupportedDevice(BrainAliveDevice::TYPE_ID);
@@ -50,7 +55,6 @@ BrainAliveDriver::BrainAliveDriver() : DeviceDriver(false), EventHandler()
 	mAutoDetection_2 = NULL;
 	mAutoDetectionTimer_2 = NULL;
 	mAutoDetectionThread_2 = NULL;
-
 	LogDetailedInfo("BrainAlive driver constructed");
 }
 
@@ -212,9 +216,9 @@ void BrainAliveDriver::OnRemoveDevice(Device* device)
 // run autodetection once
 void BrainAliveAutoDetection::DetectDevices()
 {
+	/*m_bleInterface = new BLEInterface(this);*/
 	if (mIsRunning == false && mDetectOnce == false)
 		return;
-
 	// tells driver detection is running now
 	mIsSearching = true;
 

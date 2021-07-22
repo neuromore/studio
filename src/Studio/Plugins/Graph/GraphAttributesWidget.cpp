@@ -31,9 +31,346 @@
 
 
 using namespace Core;
+bool mDevice_connected = false;
+extern uint mData_2[50];
+int i = 0;
+
 Core::Array<Core::String> ch_data = {}, ch_data_2 = {}, ch_data_3 = {}, ch_data_4 = {}, ch_data_5 = {}, ch_data_6 = {}, ch_data_7 = {}, ch_data_8 = {};
-String Val, Val_2, Val_3, Val_4, Val_5, Val_6, Val_7, Val_8;
+String Val, Val_2, Val_3, Val_4, Val_5, Val_6, Val_7, Val_8,val_9;
 String data_1 = "F5", data_2 = "FC3", data_3 = "C5", data_4 = "CP5", data_5 = "Cz", data_6 = "C6", data_7 = "FC6", data_8 = "F6";
+
+DeviceInfo::DeviceInfo(const QBluetoothDeviceInfo& info) :
+	QObject(), m_device(info)
+{
+
+}
+
+QBluetoothDeviceInfo DeviceInfo::getDevice() const
+{
+	return m_device;
+}
+
+QString DeviceInfo::getAddress() const
+{
+#ifdef Q_OS_MAC
+	// workaround for Core Bluetooth:
+	return m_device.deviceUuid().toString();
+#else
+	return m_device.address().toString();
+#endif
+}
+
+void DeviceInfo::setDevice(const QBluetoothDeviceInfo& device)
+{
+	m_device = device;
+	emit deviceChanged();
+}
+
+BLEInterface::BLEInterface(QObject* parent) : QObject(parent),
+m_currentDevice(0),
+m_control(0),
+m_service(0),
+m_readTimer(0),
+m_connected(false),
+m_currentService(0)
+{
+	m_deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
+
+	connect(m_deviceDiscoveryAgent, SIGNAL(deviceDiscovered(const QBluetoothDeviceInfo&)),
+		this, SLOT(addDevice(const QBluetoothDeviceInfo&)));
+	connect(m_deviceDiscoveryAgent, SIGNAL(error(QBluetoothDeviceDiscoveryAgent::Error)),
+		this, SLOT(onDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error)));
+	connect(m_deviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(onScanFinished()));
+}
+
+BLEInterface::~BLEInterface()
+{
+	qDeleteAll(m_devices);
+	m_devices.clear();
+}
+
+void BLEInterface::scanDevices()
+{
+	m_devicesNames.clear();
+	qDeleteAll(m_devices);
+	m_devices.clear();
+	emit devicesNamesChanged(m_devicesNames);
+	m_deviceDiscoveryAgent->start();
+	emit printf("Scanning for devices...");
+}
+
+void BLEInterface::read() {
+	if (m_service && m_readCharacteristic.isValid())
+		m_service->readCharacteristic(m_readCharacteristic);
+}
+
+void BLEInterface::waitForWrite()
+{
+	QEventLoop loop;
+	connect(m_service, SIGNAL(characteristicWritten(QLowEnergyCharacteristic, QByteArray)),
+		&loop, SLOT(quit()));
+	loop.exec();
+}
+
+void BLEInterface::write(const QByteArray& data)
+{
+	qDebug() << "BLEInterface::write: " << data;
+
+	if (m_service && m_writeCharacteristic.isValid())
+	{
+		m_service->writeCharacteristic(m_writeCharacteristic, data, m_writeMode);
+	}
+
+}
+
+void BLEInterface::addDevice(const QBluetoothDeviceInfo& device)
+{
+	if (device.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
+	{
+		qWarning() << "Discovered LE Device name: " << device.name() << " Address: "
+			<< device.address().toString();
+		m_devicesNames.append(device.name());
+		DeviceInfo* dev = new DeviceInfo(device);
+		m_devices.append(dev);
+		emit devicesNamesChanged(m_devicesNames);
+		emit printf("Low Energy device found. Scanning for more...");
+	}
+	//...
+}
+
+void BLEInterface::onScanFinished()
+{
+	if (m_devicesNames.size() == 0)
+		/*emit*/ printf("No Low Energy devices found");
+}
+
+void BLEInterface::onDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error error)
+{
+	if (error == QBluetoothDeviceDiscoveryAgent::PoweredOffError)
+		/*emit*/ printf("The Bluetooth adaptor is powered off, power it on before doing discovery.");
+	else if (error == QBluetoothDeviceDiscoveryAgent::InputOutputError)
+		/*emit*/ printf("Writing or reading from the device resulted in an error.");
+	else
+		/*emit*/ printf("An unknown error has occurred.");
+}
+
+
+
+void BLEInterface::connectCurrentDevice()
+{
+	if (m_devices.isEmpty())
+		return;
+
+	if (m_control)
+	{
+		m_control->disconnectFromDevice();
+		delete m_control;
+		m_control = 0;
+
+	}
+	m_control = new QLowEnergyController(m_devices[m_currentDevice]->getDevice(), this);
+	connect(m_control, SIGNAL(connected()),
+		this, SLOT(onDeviceConnected()));
+	connect(m_control, SIGNAL(error(QLowEnergyController::Error)),
+		this, SLOT(onControllerError(QLowEnergyController::Error)));
+	connect(m_control, SIGNAL(disconnected()),
+		this, SLOT(onDeviceDisconnected()));
+	connect(m_control, SIGNAL(serviceDiscovered(QBluetoothUuid)),
+		this, SLOT(onServiceDiscovered(QBluetoothUuid)));
+	connect(m_control, SIGNAL(discoveryFinished()),
+		this, SLOT(onServiceScanDone()));
+
+
+	m_control->connectToDevice();
+	m_deviceDiscoveryAgent->stop();
+
+}
+
+void BLEInterface::onDeviceConnected()
+{
+	m_servicesUuid.clear();
+	m_services.clear();
+
+	emit servicesChanged(m_services);
+	m_control->discoverServices();
+	setCurrentService(3);
+	mDevice_connected = true;
+
+}
+
+void BLEInterface::onDeviceDisconnected()
+{
+	update_connected(false);
+	emit printf("Service disconnected");
+	qWarning() << "Remote device disconnected";
+	mDevice_connected = false;
+}
+
+void BLEInterface::onServiceDiscovered(const QBluetoothUuid& gatt)
+{
+	Q_UNUSED(gatt)
+		/* emit*/ printf("Service discovered. Waiting for service scan to be done...");
+}
+
+void BLEInterface::onServiceScanDone()
+{
+	m_servicesUuid = m_control->services();
+	if (m_servicesUuid.isEmpty())
+		/* emit*/ printf("Can't find any services.");
+	else {
+		m_services.clear();
+		foreach(auto uuid, m_servicesUuid)
+			m_services.append(uuid.toString());
+		emit servicesChanged(m_services);
+		m_currentService = -1;// to force call update_currentService(once)
+		setCurrentService(0);
+		/* emit*/ printf("All services discovered.");
+	}
+}
+
+
+void BLEInterface::disconnectDevice()
+{
+	m_readTimer->deleteLater();
+	m_readTimer = NULL;
+
+	if (m_devices.isEmpty()) {
+		return;
+	}
+
+	//disable notifications
+	if (m_notificationDesc.isValid() && m_service) {
+		m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0000"));
+	}
+	else {
+		m_control->disconnectFromDevice();
+		delete m_service;
+		m_service = 0;
+	}
+}
+
+void BLEInterface::onControllerError(QLowEnergyController::Error error)
+{
+	/* emit*/ printf("Cannot connect to remote device.");
+	qWarning() << "Controller Error:" << error;
+}
+
+void BLEInterface::onCharacteristicChanged(const QLowEnergyCharacteristic& c,
+	const QByteArray& value)
+{
+	Q_UNUSED(c)
+
+		for each (uint mdata in value)
+			mData_2[i++] = mdata & 0xFF;
+	i = 0;
+}
+void BLEInterface::onCharacteristicWrite(const QLowEnergyCharacteristic& c,
+	const QByteArray& value)
+{
+	Q_UNUSED(c)
+		qDebug() << "Characteristic Written: " << value;
+}
+
+void BLEInterface::update_currentService(int indx)
+{
+	delete m_service;
+	m_service = 0;
+
+	if (indx >= 0 && m_servicesUuid.count() > indx) {
+		m_service = m_control->createServiceObject(
+			m_servicesUuid.at(indx), this);
+	}
+
+	if (!m_service) {
+		/* emit*/ printf("Service not found.");
+		return;
+	}
+
+	connect(m_service, SIGNAL(stateChanged(QLowEnergyService::ServiceState)),
+		this, SLOT(onServiceStateChanged(QLowEnergyService::ServiceState)));
+	connect(m_service, SIGNAL(characteristicChanged(QLowEnergyCharacteristic, QByteArray)),
+		this, SLOT(onCharacteristicChanged(QLowEnergyCharacteristic, QByteArray)));
+	/*connect(m_service, SIGNAL(characteristicRead(QLowEnergyCharacteristic, QByteArray)),
+		this, SLOT(onCharacteristicRead(QLowEnergyCharacteristic, QByteArray)));*/
+	connect(m_service, SIGNAL(characteristicWritten(QLowEnergyCharacteristic, QByteArray)),
+		this, SLOT(onCharacteristicWrite(QLowEnergyCharacteristic, QByteArray)));
+	connect(m_service, SIGNAL(error(QLowEnergyService::ServiceError)),
+		this, SLOT(serviceError(QLowEnergyService::ServiceError)));
+
+	if (m_service->state() == QLowEnergyService::DiscoveryRequired) {
+		/* emit*/ printf("Connecting to service...");
+		m_service->discoverDetails();
+	}
+	else
+		searchCharacteristic();
+}
+void BLEInterface::onCharacteristicRead(const QLowEnergyCharacteristic& c,
+	const QByteArray& value)
+{
+	Q_UNUSED(c)
+		qDebug() << "Characteristic Read: " << value;
+	/*mData_2 = value;*/
+	emit dataReceived(value);
+}
+
+void BLEInterface::searchCharacteristic() {
+	const QString Device_UUID_EEG_Characteristic = "{0000fe41-8e22-4541-9d4c-21edae82ed19}";
+	if (m_service)
+	{
+		foreach(QLowEnergyCharacteristic c, m_service->characteristics()) {
+			if (c.isValid())
+			{
+				if (c.properties() & QLowEnergyCharacteristic::WriteNoResponse ||
+					c.properties() & QLowEnergyCharacteristic::Write)
+				{
+					m_writeCharacteristic = /*c;*/ m_service->characteristic(QBluetoothUuid(Device_UUID_EEG_Characteristic));
+					update_connected(true);
+					if (c.properties() & QLowEnergyCharacteristic::WriteNoResponse)
+						m_writeMode = QLowEnergyService::WriteWithoutResponse;
+					else
+						m_writeMode = QLowEnergyService::WriteWithResponse;
+
+				}
+				if (c.properties() & QLowEnergyCharacteristic::Read)
+				{
+					m_readCharacteristic = c;
+					if (!m_readTimer)
+					{
+						m_readTimer = new QTimer(this);
+						connect(m_readTimer, &QTimer::timeout, this, &BLEInterface::read);
+						m_readTimer->start();
+						m_readTimer->setInterval(4);
+					}
+
+				}
+				m_notificationDesc = c.descriptor(
+					QBluetoothUuid::ClientCharacteristicConfiguration);
+				if (m_notificationDesc.isValid()) {
+					m_service->writeDescriptor(m_notificationDesc, QByteArray::fromHex("0100"));
+				}
+				if (m_service && m_writeCharacteristic.isValid())
+				{
+					m_service->writeCharacteristic(m_writeCharacteristic, QByteArray::fromHex("0a8100000d"), m_writeMode);
+					qDebug() << "BLEInterface::write: " << QByteArray::fromHex("0a8100000d");
+				}
+			}
+		}
+	}
+}
+
+
+void BLEInterface::onServiceStateChanged(QLowEnergyService::ServiceState s)
+{
+	qDebug() << "serviceStateChanged, state: " << s;
+	if (s == QLowEnergyService::ServiceDiscovered) {
+		searchCharacteristic();
+	}
+}
+void BLEInterface::serviceError(QLowEnergyService::ServiceError e)
+{
+	qWarning() << "Service error:" << e;
+}
+
 // constructor
 GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(parent)
 {
@@ -78,6 +415,20 @@ GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(pare
 	ch_data_6.Add("C4"); ch_data_6.Add("C6"); ch_data_6.Add("T8");
 	ch_data_7.Add("FC4"); ch_data_7.Add("FC6"); ch_data_7.Add("FT8");
 	ch_data_8.Add("F4"); ch_data_8.Add("F6"); ch_data_8.Add("F8");
+	m_bleInterface = new BLEInterface(this);
+	connect(m_bleInterface, &BLEInterface::dataReceived,
+		this, &GraphAttributesWidget::dataReceived);
+
+	connect(m_bleInterface, &BLEInterface::devicesNamesChanged,
+	[this](QStringList devices) {
+	mListWidget->clear();
+	mListWidget->addItems(devices);
+	});
+	connect(m_bleInterface, &BLEInterface::servicesChanged,
+	[this](QStringList services) {
+	mListWidget->clear();
+	mListWidget->addItems(services);
+	});
 }
 
 
@@ -88,7 +439,12 @@ GraphAttributesWidget::~GraphAttributesWidget()
 	CORE_EVENTMANAGER.RemoveEventHandler(this);
 }
 
-
+void GraphAttributesWidget::dataReceived(QByteArray data)
+{
+//	//mListWidget->clear();
+//	//mListWidget->addItem(data.toHex());
+//	//printf(data.toHex());
+}
 // event handler callback: an attribute has changed, check if it was one of the displayed ones
 void GraphAttributesWidget::OnAttributeUpdated(Graph* graph, GraphObject* object, Attribute* attribute)
 {
@@ -204,8 +560,9 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 		mNameProperty = mPropertyTreeWidget->GetPropertyManager()->AddStringProperty(mParentGroupName.AsChar(), "Node Name", node->GetName(), 0, isNameReadOnly);
 		if (node->GetNameString() == "BrainAlive")
 		{
+		
+			
 			mPropertyTreeWidget->GetPropertyManager()->AddReadOnlyStringProperty(mParentGroupName.AsChar(), "Channel Settings", NULL);
-
 			mNameProperty_1 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 1", ch_data, Val.ToInt(), false);
 			mNameProperty_2 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 2", ch_data_2, Val_2.ToInt(), false);
 			mNameProperty_3 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 3", ch_data_3, Val_3.ToInt(), false);
@@ -214,6 +571,7 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 			mNameProperty_6 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 6", ch_data_6, Val_6.ToInt(), false);
 			mNameProperty_7 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 7", ch_data_7, Val_7.ToInt(), false);
 			mNameProperty_8 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 8", ch_data_8, Val_8.ToInt(), false);
+			mNameProperty_9 = mPropertyTreeWidget->GetPropertyManager()->AddBoolProperty(mParentGroupName.AsChar(), "Start Scanning", false);
 		}
 	}
 	else
@@ -280,10 +638,57 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 		property->GetAttributeValue()->ConvertToString(Val_8);
 		data_8 = ch_data_8.GetItem(Val_8.ToInt());
 	}
+	else if (property == mNameProperty_9)
+	{
+		property->GetAttributeValue()->ConvertToString(val_9);
+		if (val_9 == "1")
+		{
+			Connect = new QPushButton();
+			Connect->setText(" Connect ");
+			mwidget = new QWidget();
+			mListWidget = new QListWidget();
+			mwidget->setFixedHeight(200);
+			mwidget->setFixedWidth(200);
+			QVBoxLayout* vLayout = new QVBoxLayout();
 
+
+			mListWidget->setFixedHeight(180);
+			mListWidget->setFixedWidth(180);
+			vLayout->setMargin(10);
+			vLayout->setSpacing(10);
+
+			vLayout->addWidget(mListWidget, 1, Qt::AlignTop);
+			vLayout->addWidget(Connect, 1, Qt::AlignBottom);
+			mwidget->setLayout(vLayout);
+			mwidget->setVisible(true);
+			m_bleInterface->scanDevices();
+			connect(Connect, &QPushButton::clicked, this, &GraphAttributesWidget::On_connect);
+		}
+		if (val_9 == "0")
+		{
+			Connect->setVisible(false);
+			mListWidget->close();
+			mwidget->close();
+			m_bleInterface->disconnectDevice();
+		}
+			
+	}
 	UpdateInterface();
 }
 
+void  GraphAttributesWidget::On_connect()
+{
+
+	m_bleInterface->set_currentDevice(0);
+	m_bleInterface->connectCurrentDevice();
+	if (mDevice_connected == true)
+	{
+		Connect->setVisible(false);
+		mListWidget->close();
+		mwidget->close();
+	}
+
+}
 
 // update the states
 void GraphAttributesWidget::UpdateInterface()
