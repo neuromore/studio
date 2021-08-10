@@ -26,12 +26,14 @@
 
 #include <Config.h>
 #include <DeviceDriver.h>
-#include <Devices/BrainAlive/BrainAliveDevices.h>
+#include <Devices/Brainalive/BrainaliveDevices.h>
 #include <EngineManager.h>
 #include <Core/EventHandler.h>
 #include <Core/Array.h>
-#include "qtimer.h"
-#include <qthread.h>
+
+//#include <QObject>
+#include <QThread>
+#include <QTimer>
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 // forward decl. of classes at bottom of header

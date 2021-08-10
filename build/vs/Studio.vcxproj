@@ -50,7 +50,7 @@
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.moc.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\Brainalive\BrainaliveDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.moc.cpp" />
@@ -482,8 +482,8 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
     <SpectreMitigation>false</SpectreMitigation>
+    <PlatformToolset>ClangCL</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

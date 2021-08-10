@@ -26,11 +26,11 @@
 
 // include required headers
 #include <Config.h>
-#include "BrainaliveCommands.h"
+#include "./BrainaliveCommands.h"
 //#include <System/SerialPort.h>
-#include <Devices/BrainAlive/BrainaliveDevices.h>
+#include "Devices/Brainalive/BrainaliveDevices.h"
 #include <Device.h>
-#include <QObject>
+//#include <QObject>
 #include <QThread>
 #include <QTimer>
 
@@ -82,8 +82,6 @@ private:
 	double mPPGValueIR;
 	double mPPGValueRed;
 	double mPPGValueGreen;
-	MultiChannel* mAxl;
-	MultiChannelReader* mmreader;
 
 	uint32 mNumPackets;
 

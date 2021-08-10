@@ -89,6 +89,7 @@ ENGINE_OBJS_ALL     = Core/AABB.o \
                       Devices/Neurosity/NotionDevices.o \
                       Devices/NeuroSky/NeuroSkyDevice.o \
                       Devices/OpenBCI/OpenBCIDevices.o \
+                      Devices/Brainalive/BrainaliveDevices.o \
                       Devices/Test/TestDevice.o \
                       Devices/Test/TestDeviceDriver.o \
                       Devices/Versus/VersusDevice.o \
@@ -630,6 +631,8 @@ STUDIO_MOCH_ALL      = Devices/Bluetooth/BluetoothDevice.cpp \
                        Devices/NeuroSky/NeuroSkySerialHandler.cpp \
                        Devices/OpenBCI/OpenBCIDriver.cpp \
                        Devices/OpenBCI/OpenBCISerialHandler.cpp \
+                       Devices/Brainalive/BrainaliveDriver.cpp \
+                       Devices/Brainalive/BrainaliveSerialHandler.cpp \
                        Devices/Versus/VersusDriver.cpp \
                        Devices/Versus/VersusSerialHandler.cpp \
                        Plugins/ABM/ABMPlugin.cpp \
@@ -775,6 +778,8 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/NeuroSky/NeuroSkySerialHandler.o \
                        Devices/OpenBCI/OpenBCIDriver.o \
                        Devices/OpenBCI/OpenBCISerialHandler.o \
+                       Devices/Brainalive/BrainaliveDriver.o \
+                       Devices/Brainalive/BrainaliveSerialHandler.o \
                        Devices/Versus/VersusDriver.o \
                        Devices/Versus/VersusSerialHandler.o \
                        Devices/DeviceHelpers.o \

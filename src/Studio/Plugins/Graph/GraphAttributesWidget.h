@@ -253,7 +253,7 @@ class BLEInterface : public QObject
 public:
     explicit BLEInterface(QObject* parent = 0);
     ~BLEInterface();
-
+    QBluetoothDeviceDiscoveryAgent* m_deviceDiscoveryAgent;
     void connectCurrentDevice();
     void disconnectDevice();
     Q_INVOKABLE void scanDevices();
@@ -319,7 +319,7 @@ private:
         }
     }
 
-    QBluetoothDeviceDiscoveryAgent* m_deviceDiscoveryAgent;
+   
     QLowEnergyDescriptor m_notificationDesc;
     QLowEnergyController* m_control;
     QList<QBluetoothUuid> m_servicesUuid;

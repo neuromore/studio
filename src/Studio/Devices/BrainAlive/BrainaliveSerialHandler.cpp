@@ -22,17 +22,17 @@
 ****************************************************************************/
 
 // include required files
-#include "BrainaliveSerialHandler.h"
-#include <Devices/BrainAlive/BrainAliveDevices.h>
+#include "./BrainaliveSerialHandler.h"
+#include <Devices/Brainalive/BrainaliveDevices.h>
 #include <EngineManager.h>
 #include <QCoreApplication>
 #include <QTimer>
-#include "../Engine/Graph\Node.h"
-
+#include <chrono>
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
 using namespace Core;
+using namespace std::chrono;
 uint mData_2[50];
 
 
@@ -214,12 +214,6 @@ bool BrainAliveSerialHandler::ReadStreamPacket(BrainAliveStreamPacket* data)
 		sizeof(data->mSensors) + sizeof(data->mPpg) + sizeof(data->mAcceleration) + sizeof(data->mError_status) + sizeof(data->mSampleNumber) +
 		sizeof(data->mFooter);
 
-	/*if (mSerialPort->GetNumBytesAvailable() < packetSize)
-	return false;*/
-
-	// try to read the stream packet
-	//const uint32 result = mSerialPort->Read((char*)data, packetSize);
-
 	data->mHeader = (uint)mData_2[0];
 	data->mStatusbyte_1 = (uint)mData_2[1];
 	data->mStatusbyte_2 = (uint)mData_2[2];
@@ -274,25 +268,22 @@ bool BrainAliveSerialHandler::ReadStreamPacket(BrainAliveStreamPacket* data)
 
 void BrainAliveSerialHandler::ReadStream()
 {
-
-
-
 	//try to read stream packets
 	while (ReadStreamPacket(&mStreamPacket) == true)
 	{
-		Sleep(3);
-		if (mStreamPacket.Verify() == true)
-		{
-			ProcessStreamPacket(mStreamPacket);
-			mNumPackets++;
-		}
-		else
-		{
-			LogWarning("BrainAliveSerialHandler: received invalid stream packet:");
-		}
+		//Sleep(3);
+		auto millisec = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+		while (((duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()) - millisec) < 4);
+			if (mStreamPacket.Verify() == true)
+			{
+				ProcessStreamPacket(mStreamPacket);
+				mNumPackets++;
+			}
+			else
+			{
+				LogWarning("BrainAliveSerialHandler: received invalid stream packet:");
+			}
 	}
-
-
 }
 
 #endif

@@ -95,11 +95,15 @@ void BLEInterface::scanDevices()
 	qDeleteAll(m_devices);
 	m_devices.clear();
 	emit devicesNamesChanged(m_devicesNames);
-	m_deviceDiscoveryAgent->start();
+	
+	m_deviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(5000);
+    // Start the discovery process
+    m_deviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 	emit printf("Scanning for devices...");
 }
 
-void BLEInterface::read() {
+void BLEInterface::read() 
+{
 	if (m_service && m_readCharacteristic.isValid())
 		m_service->readCharacteristic(m_readCharacteristic);
 }
@@ -260,7 +264,7 @@ void BLEInterface::onCharacteristicChanged(const QLowEnergyCharacteristic& c,
 {
 	Q_UNUSED(c)
 
-		for each (uint mdata in value)
+		for (uint mdata : value)
 			mData_2[i++] = mdata & 0xFF;
 	i = 0;
 }
@@ -426,8 +430,8 @@ GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(pare
 	});
 	connect(m_bleInterface, &BLEInterface::servicesChanged,
 	[this](QStringList services) {
-	mListWidget->clear();
-	mListWidget->addItems(services);
+	//mListWidget->clear();
+	//mListWidget->addItems(services);
 	});
 }
 
@@ -679,13 +683,14 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 void  GraphAttributesWidget::On_connect()
 {
 
-	m_bleInterface->set_currentDevice(0);
+	m_bleInterface->set_currentDevice(mListWidget->currentRow());
 	m_bleInterface->connectCurrentDevice();
 	if (mDevice_connected == true)
 	{
+		m_bleInterface->m_deviceDiscoveryAgent->stop();
 		Connect->setVisible(false);
-		mListWidget->close();
 		mwidget->close();
+		
 	}
 
 }

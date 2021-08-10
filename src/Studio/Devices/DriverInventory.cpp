@@ -67,7 +67,7 @@
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
-#include "BrainAlive/BrainaliveDriver.h"
+#include "./Brainalive/BrainaliveDriver.h"
 #endif
 
 #include "Bluetooth/BluetoothDriver.h"

@@ -22,10 +22,10 @@
 ****************************************************************************/
 
 // include required files
-#include "BrainaliveDriver.h"
-#include "BrainaliveSerialHandler.h"
+#include "./BrainaliveDriver.h"
+#include "./BrainaliveSerialHandler.h"
 #include "../DeviceHelpers.h"
-#include <Devices/BrainAlive/BrainAliveDevices.h>
+#include "./Devices/Brainalive/BrainaliveDevices.h"
 #include <EngineManager.h>
 #include <QApplication>
 
@@ -278,16 +278,11 @@ void BrainAliveAutoDetection::DetectDevices()
 			{
 				deviceType = reportedDeviceType;
 			}
-
 		}
-
-
-
+		
 		//
 		// Create Device
 		//
-		
-		
 		// create new  BrainAlive headset
 	
 			device = static_cast<BrainAliveDeviceBase*>(mDriver->CreateDevice(deviceType));

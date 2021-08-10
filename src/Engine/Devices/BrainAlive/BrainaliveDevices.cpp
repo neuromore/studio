@@ -25,7 +25,7 @@
 
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
-#include "BrainaliveDevices.h"
+#include "./BrainaliveDevices.h"
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
