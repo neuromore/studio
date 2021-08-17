@@ -41,15 +41,54 @@ class VisualizationManager : public QObject
 
 		void ReInit();
 
-		Visualization* GetVisualization(uint32 index) const								{ return mVisualizations[index]; }
-		uint32 GetNumVisualizations() const												{ return mVisualizations.Size(); }
+		inline Visualization* GetVisualization(uint32 index) const	{ return mVisualizations[index]; }
+		inline uint32 GetNumVisualizations() const							{ return mVisualizations.Size(); }
 	
+		inline bool IsRunning() const
+		{
+			const uint32_t numVis = mVisualizations.Size();
+			for (uint32 i = 0; i < numVis; i++)
+				if (mVisualizations[i]->IsRunnning())
+					return true;
+			return false;
+		}
+
+		inline uint32 GetVisualizationIndex(const Visualization* v)
+		{
+			if (v)
+			{
+				const uint32_t numVis = mVisualizations.Size();
+				for (uint32 i = 0; i < numVis; i++)
+					if (mVisualizations[i] == v)
+						return i;
+			}
+
+			return CORE_INVALIDINDEX32;
+		}
+
+		inline bool Start(uint32_t index) const
+		{
+			const uint32_t numVis = mVisualizations.Size();
+
+			// invalid index or already one running
+			if (index >= numVis || IsRunning())
+				return false;
+
+			// try start it
+			return mVisualizations[index]->Start();
+		}
+
+		inline bool Start(const Visualization* v)
+		{
+			const uint32 idx = GetVisualizationIndex(v);
+			return (idx != CORE_INVALIDINDEX32) ? Start(idx) : false;
+		}
+
 	private:
 		void Clear();
 		
 		Core::Array<Core::String>   mVisualizationFolders;
 		Core::Array<Visualization*> mVisualizations;
 };
-
 
 #endif

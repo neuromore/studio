@@ -193,7 +193,7 @@ void VisualizationSelectWidget::UpdateInterface()
 void VisualizationSelectWidget::OnSelectVisualization()
 {
 	emit VisualizationSelected();
-	mVisualization->Start();
+	GetManager()->GetVisualizationManager()->Start(mVisualization);
 }
 
 

@@ -30,117 +30,108 @@
 #include <QProcess>
 #include <QMessageBox>
 
-
 using namespace Core;
 
 // constructor
 Visualization::Visualization()
 {
-}
+   // setup process arguments
+   mArguments.append("-single-instance");
 
+   // others that might work
+   //mArguments.append("-screen-width 800");
+   //mArguments.append("-screen-height 640");
+   //mArguments.append("-screen-fullscreen 1");
+   //mArguments.append("-popupwindow");
+   //mArguments.append("-show-screen-selector");
+   //mArguments.append("-adapter 2");
+
+   // setup process
+   mProcess.setArguments(mArguments);
+   mProcess.setProcessChannelMode(QProcess::ProcessChannelMode::ForwardedChannels);
+
+   // connect signals
+   connect(&mProcess, &QProcess::stateChanged, this, &Visualization::OnProcessStateChanged);
+   connect(&mProcess, &QProcess::started, this, &Visualization::OnProcessStarted);
+   connect(&mProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &Visualization::OnProcessFinished);
+}
 
 // destructor
 Visualization::~Visualization()
 {
 }
 
-
 void Visualization::SetExecutableFilename(const char* filename)
 {
-	mExecutableFilename = filename;
-	mExecutableFilename.ConvertToNativePath();
+   mExecutableFilename = filename;
+   mExecutableFilename.ConvertToNativePath();
 }
 
-
-void Visualization::Start()
+bool Visualization::Start()
 {
-	String arguments = "-single-instance ";
-	String quotedFilename;
-	String temp;
+   // do not start if already running
+   if (mProcess.isOpen())
+      return false;
 
-	bool showScreenSelector		= true;
-	bool showFullscreen			= true;
-	bool popupWindow			= false;				// The window will be created as a a pop-up window (without a frame).
-	int32 screenWidth			= 640;
-	int32 screenHeight			= 480;
+   // set executable and arguments
+   mProcess.setProgram(mExecutableFilename.AsChar());
+   mProcess.setArguments(mArguments);
+   mProcess.start();
 
-	/*QStringList args;
+   // wait for it to start
+   return mProcess.waitForStarted(1000);
 
-	// single instance
-	args.append("-single-instance");
-
-	// dimensions
-	temp.Format( "-screen-width %i", screenWidth );
-	args.append( temp.AsChar() );
-	temp.Format( "-screen-height %i", screenHeight );
-	args.append( temp.AsChar() );
-
-	// fullscreen
-	temp.Format( "-screen-fullscreen %i", showFullscreen );
-	args.append( temp.AsChar() );
-
-	// popup window
-	if (popupWindow == true)
-		args.append("-popupwindow");
-
-	// TODO: not working yet
-	// show screen selector
-	if (showScreenSelector == true)
-		args.append("-show-screen-selector");
-
-	// screen
-	args.append( "-adapter 2" );
-
-	arguments = args.join(' ').toUtf8().data();*/
-
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-	quotedFilename.Format("\"%s\" %s", mExecutableFilename.AsChar(), arguments.AsChar());
-#elif NEUROMORE_PLATFORM_OSX
-	// TODO implement arguments on osx
-    quotedFilename.Format("open \"%s\"", mExecutableFilename.AsChar());
-#else
-	quotedFilename.Format("%s", mExecutableFilename.AsChar());
-#endif
-
-	QProcess process;
-	if (QProcess::startDetached(quotedFilename.AsChar()) == false)
-	{
-		String message;
-		message.Format("Can't start the '%s' visualization.\n\nPlease contact the support team.", mExecutableFilename.ExtractFilename().AsChar());
-		QMessageBox::critical( GetMainWindow(), "Can't start visualization", message.AsChar(), QMessageBox::Ok);
-	}
 }
-
 
 bool Visualization::ParseFromJsonFile(const char* filename)
 {
-	String folder = String(filename).ExtractPath();
+   String folder = String(filename).ExtractPath();
 
-	Json json;
-	if (json.ParseFile(filename) == false)
-		return false;
+   Json json;
+   if (json.ParseFile(filename) == false)
+      return false;
 
-	Json::Item rootItem = json.GetRootItem();
-	
-	// name
-	Json::Item nameItem = json.Find("name");
-	if (nameItem.IsString() == true)
-		mName = nameItem.GetString();
+   // rootitem
+   const Json::Item rootItem = json.GetRootItem();
 
-	// description
-	Json::Item descItem = json.Find("description");
-	if (descItem.IsString() == true)
-		mDescription = descItem.GetString();
+   // name
+   const Json::Item nameItem = json.Find("name");
+   if (nameItem.IsString() == true)
+      mName = nameItem.GetString();
 
-	// executable
-	Json::Item executableItem = json.Find("executable");
-	if (executableItem.IsString() == true)
-		mExecutableFilename = folder + executableItem.GetString();
+   // description
+   const Json::Item descItem = json.Find("description");
+   if (descItem.IsString() == true)
+      mDescription = descItem.GetString();
 
-	// image
-	Json::Item imageItem = json.Find("image");
-	if (imageItem.IsString() == true)
-		mImageFilename = folder + imageItem.GetString();
+   // executable
+   const Json::Item executableItem = json.Find("executable");
+   if (executableItem.IsString() == true)
+      mExecutableFilename = folder + executableItem.GetString();
 
-	return true;
+   // image
+   const Json::Item imageItem = json.Find("image");
+   if (imageItem.IsString() == true)
+      mImageFilename = folder + imageItem.GetString();
+
+   return true;
+}
+
+// SIGNALS
+
+void Visualization::OnProcessStarted()
+{
+   // not used
+}
+
+void Visualization::OnProcessFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+   // close the process
+   if (mProcess.isOpen())
+      mProcess.close();
+}
+
+void Visualization::OnProcessStateChanged(const QProcess::ProcessState& newState)
+{
+   // not used
 }
