@@ -83,6 +83,12 @@ bool Visualization::Start()
 
 }
 
+void Visualization::Stop()
+{
+   if (mProcess.isOpen())
+      mProcess.terminate();
+}
+
 bool Visualization::ParseFromJsonFile(const char* filename)
 {
    String folder = String(filename).ExtractPath();

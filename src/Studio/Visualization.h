@@ -39,8 +39,9 @@ public:
    // true if this visualization process is running
    inline bool IsRunnning() const { return mProcess.isOpen(); }
 
-   // start the visualization
+   // start and stop the visualization
    bool Start();
+   void Stop();
 
    // parse visualization configuration
    bool ParseFromJsonFile(const char* filename);

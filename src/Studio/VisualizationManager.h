@@ -84,6 +84,13 @@ class VisualizationManager : public QObject
 			return (idx != CORE_INVALIDINDEX32) ? Start(idx) : false;
 		}
 
+		inline void Stop()
+		{
+			const uint32_t numVis = mVisualizations.Size();
+			for (uint32 i = 0; i < numVis; i++)
+				if (mVisualizations[i]->IsRunnning())
+					mVisualizations[i]->Stop();
+		}
 	private:
 		void Clear();
 		
