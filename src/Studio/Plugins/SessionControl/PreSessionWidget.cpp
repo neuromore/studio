@@ -59,10 +59,7 @@ void PreSessionWidget::Init()
 	connect( mBackToSelectionButton, &QPushButton::clicked, this, [=]
 	{
 		if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
-		{
-			GetManager()->GetVisualizationManager()->Stop();
 			GetLayoutManager()->SwitchToLayoutByName("Experience Selection");
-		}
 	});
 
 	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") == NULL)
