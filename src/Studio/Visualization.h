@@ -28,41 +28,52 @@
 #include <Core/StandardHeaders.h>
 #include <Core/String.h>
 #include "Config.h"
+#include <QProcess>
 
-
-class Visualization
+class Visualization : public QObject
 {
-	public:
-		Visualization();
-		virtual ~Visualization();
+public:
+   Visualization();
+   virtual ~Visualization();
 
-		// start the visualization
-		void Start();
+   // true if this visualization process is running
+   inline bool IsRunnning() const { return mProcess.isOpen(); }
 
-		bool ParseFromJsonFile(const char* filename);
+   // start and stop the visualization
+   bool Start();
+   void Stop();
 
-		// name
-		void SetName(const char* name)								{ mName = name; }
-		const char* GetName() const									{ return mName; }
+   // parse visualization configuration
+   bool ParseFromJsonFile(const char* filename);
 
-		// description
-		void SetDescription(const char* desc)						{ mDescription = desc; }
-		const char* GetDescription() const							{ return mDescription; }
+   // name
+   inline void SetName(const char* name)              { mName = name; }
+   inline const char* GetName() const                 { return mName; }
 
-		// executable filename
-		void SetExecutableFilename(const char* filename);
-		const char* GetExecutableFilename() const					{ return mExecutableFilename; }
+   // description
+   inline void SetDescription(const char* desc)       { mDescription = desc; }
+   inline const char* GetDescription() const          { return mDescription; }
 
-		// name
-		void SetImageFilename(const char* filename)					{ mImageFilename = filename; }
-		const char* GetImageFilename() const						{ return mImageFilename; }
+   // executable filename
+   void SetExecutableFilename(const char* filename);
+   inline const char* GetExecutableFilename() const   { return mExecutableFilename; }
 
-	private:
-		Core::String	mName;
-		Core::String	mDescription;
-		Core::String	mExecutableFilename;
-		Core::String	mImageFilename;
+   // name
+   inline void SetImageFilename(const char* filename) { mImageFilename = filename; }
+   inline const char* GetImageFilename() const        { return mImageFilename; }
+
+   // qt signal handlers
+   void OnProcessStarted();
+   void OnProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
+   void OnProcessStateChanged(const QProcess::ProcessState& newState);
+
+protected:
+   QProcess     mProcess;
+   QStringList  mArguments;
+   Core::String mName;
+   Core::String mDescription;
+   Core::String mExecutableFilename;
+   Core::String mImageFilename;
 };
-
 
 #endif

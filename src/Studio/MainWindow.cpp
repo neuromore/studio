@@ -2326,9 +2326,8 @@ void MainWindow::OnStartVisualization()
 	QAction*	action		= qobject_cast<QAction*>( sender() );
 	int			vizIndex	= action->property("index").toInt();
 
-	Visualization* visualization = GetManager()->GetVisualizationManager()->GetVisualization(vizIndex);
-	if (visualization != NULL)
-		visualization->Start();
+	// try to start it
+	const bool started = GetManager()->GetVisualizationManager()->Start(vizIndex);
 }
 
 

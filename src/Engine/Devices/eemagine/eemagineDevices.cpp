@@ -219,6 +219,9 @@ eemagine8Device::eemagine8Device(DeviceDriver* driver) : eemagineDevice(driver)
 {
    LogDetailedInfo("Constructing eemagine with 8 channels ...");
    CreateSensors();
+
+   // set powersupplytype to line
+   SetPowerSupplyType(EPowerSupplyType::POWERSUPPLY_LINE);
 }
 
 eemagine8Device::~eemagine8Device()
@@ -258,6 +261,9 @@ eemagine32Device::eemagine32Device(DeviceDriver* driver) : eemagineDevice(driver
 {
    LogDetailedInfo("Constructing eemagine with 32 channels ...");
    CreateSensors();
+
+   // todo: set powersupplytype, battery or line?
+   //SetPowerSupplyType(EPowerSupplyType::POWERSUPPLY_LINE);
 }
 
 eemagine32Device::~eemagine32Device()
@@ -321,6 +327,9 @@ eemagine64Device::eemagine64Device(DeviceDriver* driver) : eemagineDevice(driver
 {
    LogDetailedInfo("Constructing eemagine with 64 channels ...");
    CreateSensors();
+
+   // todo: set powersupplytype, battery or line?
+   //SetPowerSupplyType(EPowerSupplyType::POWERSUPPLY_LINE);
 }
 
 eemagine64Device::~eemagine64Device()

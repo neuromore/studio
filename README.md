@@ -4,11 +4,13 @@
 
 [Click here to learn about neuromore Licensing](https://github.com/neuromore/studio/blob/master/neuromore-licensing-info.md)
 
-## Getting started
+## Getting started (all platforms)
 
-1. Create a neuromore Cloud account at [https://www.neuromore.com/download](https://www.neuromore.com/download)
+1. Create a neuromore Cloud account at [https://www.neuromore.com/createaccount](https://www.neuromore.com/createaccount)
 2. Download the latest neuromore studio from our github [releases](https://github.com/neuromore/studio/releases) (or build it yourself).
 3. Start neuromore studio, sign-in with the created community account, accept the license and you're ready to go.
+4. Check out the wiki for specific device information or on examples on how to get started https://github.com/neuromore/studio/wiki
+5. Watch the tutorials for more info [https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw](https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw)
 
 ## Contents
 
