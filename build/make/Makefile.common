@@ -235,9 +235,11 @@ ENGINE_OBJS_ALL     = Core/AABB.o \
                       User.o
 
 $(ENGINE_OBJDIR_X86)/%.o:
+	@mkdir -p $(@D)
 	$(ENGINE_BUILD_X86)
 
 $(ENGINE_OBJDIR_X64)/%.o:
+	@mkdir -p $(@D)
 	$(ENGINE_BUILD_X64)
 
 ###################################################################################################################
@@ -932,9 +934,11 @@ $(STUDIO_RCCDIR_X64)/%.cpp:
 	$(STUDIO_RCC_X64)
 
 $(STUDIO_OBJDIR_X86)/%.o:
+	@mkdir -p $(@D)
 	$(STUDIO_BUILD_X86)
 
 $(STUDIO_OBJDIR_X64)/%.o:
+	@mkdir -p $(@D)
 	$(STUDIO_BUILD_X64)
 
 $(STUDIO_OBJDIR_X86)/%.omoc:
