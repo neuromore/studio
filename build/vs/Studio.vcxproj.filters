@@ -130,7 +130,7 @@
     <Filter Include="Devices\BrainFlow">
       <UniqueIdentifier>{658f9836-5ef0-4179-9ab9-f45901c63157}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Devices\Brainalive">
+    <Filter Include="Devices\BrainAlive">
       <UniqueIdentifier>{dbba01df-9fd4-4320-a9b3-5051050b3abc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -830,17 +830,17 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.cpp">
-      <Filter>Devices\Brainalive</Filter>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.cpp">
+      <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.moc.cpp">
-      <Filter>Devices\Brainalive</Filter>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.moc.cpp">
+      <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.moc.cpp">
-      <Filter>Devices\Brainalive</Filter>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.moc.cpp">
+      <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Devices\Brainalive\BrainaliveDriver.cpp">
-      <Filter>Devices\Brainalive</Filter>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.cpp">
+      <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1226,14 +1226,14 @@
     <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h">
       <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveCommands.h">
-      <Filter>Devices\Brainalive</Filter>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveCommands.h">
+      <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveDriver.h">
-      <Filter>Devices\Brainalive</Filter>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.h">
+      <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainaliveSerialHandler.h">
-      <Filter>Devices\Brainalive</Filter>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.h">
+      <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
