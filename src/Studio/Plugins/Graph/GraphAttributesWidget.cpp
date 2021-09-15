@@ -675,6 +675,7 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 		 else
 		 {
 			 mScan_Widget->show();
+			 //mScan_Widget->showMaximized();
 			 mScan_Widget->activateWindow();
 			 mListWidget->show();
 
