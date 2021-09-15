@@ -25,7 +25,7 @@
 
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
-#include "./BrainaliveDevices.h"
+#include "./BrainAliveDevices.h"
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
@@ -87,7 +87,7 @@ void BrainAliveDeviceBase::CreateSensors()
 // constructor
 BrainAliveDevice::BrainAliveDevice(DeviceDriver* driver) : BrainAliveDeviceBase(driver)
 {
-	LogDetailedInfo("Constructing Brainalive headset ...");
+	LogDetailedInfo("Constructing BrainAlive headset ...");
 
 	// create all sensors
 	CreateSensors();
@@ -97,7 +97,7 @@ BrainAliveDevice::BrainAliveDevice(DeviceDriver* driver) : BrainAliveDeviceBase(
 // destructor
 BrainAliveDevice::~BrainAliveDevice()
 {
-	LogDetailedInfo("Destructing Brainalive headset ...");
+	LogDetailedInfo("Destructing BrainAlive headset ...");
 }
 
 

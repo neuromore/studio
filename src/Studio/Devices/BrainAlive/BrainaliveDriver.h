@@ -26,7 +26,7 @@
 
 #include <Config.h>
 #include <DeviceDriver.h>
-#include <Devices/Brainalive/BrainaliveDevices.h>
+#include <Devices/BrainAlive/BrainAliveDevices.h>
 #include <EngineManager.h>
 #include <Core/EventHandler.h>
 #include <Core/Array.h>

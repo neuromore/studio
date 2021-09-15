@@ -26,7 +26,7 @@
 
 // include the required headers
 #include "../../Config.h"
-#include "./BrainaliveDevices.h"
+#include "./BrainAliveDevices.h"
 #include "../../Graph/DeviceInputNode.h"
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE

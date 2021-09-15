@@ -434,6 +434,8 @@ GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(pare
 	//mListWidget->clear();
 	//mListWidget->addItems(services);
 	});
+	mScan_Widget = new QWidget();
+	mListWidget = new QListWidget();
 }
 
 
@@ -576,10 +578,9 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 			mNameProperty_8 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 8", ch_data_8, Val_8.ToInt(), false);
 			mNameProperty_9 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), "Apply Settings", "Apply", true);
 			mNameProperty_10 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), "Start Scaning", "Scan", true);
-
 			// create and return the property
 
-
+			
 		}
 	}
 	else
@@ -648,13 +649,14 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 	}
 	else if (property == mNameProperty_10)
 	{
-
+		
+		 if((mScan_Widget->isVisible() )== false)
+		{
 			Connect = new QPushButton();
 			Connect->setText(" Connect ");
-			mwidget = new QWidget();
-			mListWidget = new QListWidget();
-			mwidget->setFixedHeight(400);
-			mwidget->setFixedWidth(400);
+			
+			mScan_Widget->setFixedHeight(400);
+			mScan_Widget->setFixedWidth(400);
 			QVBoxLayout* vLayout = new QVBoxLayout();
 
 
@@ -665,10 +667,18 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 
 			vLayout->addWidget(mListWidget, 1, Qt::AlignTop);
 			vLayout->addWidget(Connect, 1, Qt::AlignBottom);
-			mwidget->setLayout(vLayout);
-			mwidget->setVisible(true);
+			mScan_Widget->setLayout(vLayout);
+			mScan_Widget->setVisible(true);
 			m_bleInterface->scanDevices();
 			connect(Connect, &QPushButton::clicked, this, &GraphAttributesWidget::On_connect);
+		}
+		 else
+		 {
+			 mScan_Widget->show();
+			 mScan_Widget->activateWindow();
+			 mListWidget->show();
+
+		 }
 			
 	}
 	else if (property == mNameProperty_9)
@@ -695,7 +705,7 @@ void  GraphAttributesWidget::On_connect()
 		{
 			m_bleInterface->m_deviceDiscoveryAgent->stop();
 			Connect->setVisible(false);
-			mwidget->close();
+			mScan_Widget->close();
 
 		}
 	}

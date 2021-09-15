@@ -22,10 +22,10 @@
 ****************************************************************************/
 
 // include required files
-#include "./BrainaliveDriver.h"
-#include "./BrainaliveSerialHandler.h"
+#include "./BrainAliveDriver.h"
+#include "./BrainAliveSerialHandler.h"
 #include "../DeviceHelpers.h"
-#include "./Devices/Brainalive/BrainaliveDevices.h"
+#include "./Devices/BrainAlive/BrainAliveDevices.h"
 #include <EngineManager.h>
 #include <QApplication>
 

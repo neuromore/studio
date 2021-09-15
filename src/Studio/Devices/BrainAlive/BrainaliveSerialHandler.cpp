@@ -22,8 +22,8 @@
 ****************************************************************************/
 
 // include required files
-#include "./BrainaliveSerialHandler.h"
-#include <Devices/Brainalive/BrainaliveDevices.h>
+#include "./BrainAliveSerialHandler.h"
+#include <Devices/BrainAlive/BrainAliveDevices.h>
 #include <EngineManager.h>
 #include <QCoreApplication>
 #include <QTimer>

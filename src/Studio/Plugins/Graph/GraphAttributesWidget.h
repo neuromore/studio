@@ -439,7 +439,7 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
         BLEInterface*                   m_bleInterface;
         QPushButton*                    Connect;
         QListWidget*                    mListWidget;
-        QWidget*                        mwidget;
+        QWidget*                        mScan_Widget;
         QPushButton*                    Ok_Button;
         QWidget*                        mwidget_2;
         QListWidget*                    mListWidget_2;

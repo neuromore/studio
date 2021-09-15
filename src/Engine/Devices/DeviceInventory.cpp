@@ -118,8 +118,8 @@
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
-#include "./Brainalive/BrainaliveDevices.h"
-#include "./Brainalive/BrainaliveNodes.h"
+#include "./BrainAlive/BrainAliveDevices.h"
+#include "./BrainAlive/BrainAliveNodes.h"
 #endif
 
 #include "../EngineManager.h"

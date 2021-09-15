@@ -67,7 +67,7 @@
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
-#include "./Brainalive/BrainaliveDriver.h"
+#include "./BrainAlive/BrainAliveDriver.h"
 #endif
 
 #include "Bluetooth/BluetoothDriver.h"
@@ -220,7 +220,7 @@ void DriverInventory::RegisterDrivers()
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 	if (user->ReadAllowed(BrainAliveDevice::GetRuleName()) == true)
 	{
-		// create and add the Brainalive system
+		// create and add the BrainAlive system
 		BrainAliveDriver* brainAliveDriver = new BrainAliveDriver();
 		brainAliveDriver->Init();
 		deviceManager->AddDeviceDriver(brainAliveDriver);

@@ -26,9 +26,9 @@
 
 // include required headers
 #include <Config.h>
-#include "./BrainaliveCommands.h"
+#include "./BrainAliveCommands.h"
 //#include <System/SerialPort.h>
-#include "Devices/Brainalive/BrainaliveDevices.h"
+#include "Devices/BrainAlive/BrainAliveDevices.h"
 #include <Device.h>
 //#include <QObject>
 #include <QThread>
