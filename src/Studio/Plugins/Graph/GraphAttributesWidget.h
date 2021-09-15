@@ -47,6 +47,9 @@
 #include "qbluetooth.h"
 #include <qobject.h>
 #include "qlistwidget.h"
+#include "../../studio/src/QtBase/AttributeWidgets/PropertyManager.h"
+
+
 
 #define QML_WRITABLE_PROPERTY(type, name) \
     protected: \
@@ -411,6 +414,7 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
 		void AddActions(GraphObject* object, bool readOnly);
         void dataReceived(QByteArray data);
         void On_connect();
+        void On_Ok();
 		uint32 FindRemoveButtonIndex(QObject* button) const;
 
 		GraphObject*					mGraphObject;
@@ -426,6 +430,8 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
 		Property*						mNameProperty_7;
 		Property*						mNameProperty_8;
         Property*                       mNameProperty_9;
+        Property*                       mNameProperty_10;
+
 		Core::Array<AttributeLink>		mAttributeLinks;
 		Core::AttributeSet*				mAttributeSet;
 		Core::String					mParentGroupName;
@@ -434,6 +440,9 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
         QPushButton*                    Connect;
         QListWidget*                    mListWidget;
         QWidget*                        mwidget;
+        QPushButton*                    Ok_Button;
+        QWidget*                        mwidget_2;
+        QListWidget*                    mListWidget_2;
 };
 
 

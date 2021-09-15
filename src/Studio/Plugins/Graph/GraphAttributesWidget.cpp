@@ -28,7 +28,7 @@
 #include <EngineManager.h>
 #include "../../AppManager.h"
 #include "../../MainWindow.h"
-
+#include <QLowEnergyController>
 
 using namespace Core;
 bool mDevice_connected = false;
@@ -36,8 +36,8 @@ extern uint mData_2[50];
 int i = 0;
 
 Core::Array<Core::String> ch_data = {}, ch_data_2 = {}, ch_data_3 = {}, ch_data_4 = {}, ch_data_5 = {}, ch_data_6 = {}, ch_data_7 = {}, ch_data_8 = {};
-String Val, Val_2, Val_3, Val_4, Val_5, Val_6, Val_7, Val_8,val_9;
-String data_1 = "F5", data_2 = "FC3", data_3 = "C5", data_4 = "CP5", data_5 = "Cz", data_6 = "C6", data_7 = "FC6", data_8 = "F6";
+String Val, Val_2, Val_3, Val_4, Val_5, Val_6, Val_7, Val_8,val_9,val_10;
+String data_1 = "F7", data_2 = "FT7", data_3 = "T7", data_4 = "TP7", data_5 = "Cz", data_6 = "C4", data_7 = "FC4", data_8 = "F4";
 
 DeviceInfo::DeviceInfo(const QBluetoothDeviceInfo& info) :
 	QObject(), m_device(info)
@@ -100,6 +100,7 @@ void BLEInterface::scanDevices()
     // Start the discovery process
     m_deviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 	emit printf("Scanning for devices...");
+	m_deviceDiscoveryAgent->stop();
 }
 
 void BLEInterface::read() 
@@ -186,7 +187,7 @@ void BLEInterface::connectCurrentDevice()
 
 
 	m_control->connectToDevice();
-	m_deviceDiscoveryAgent->stop();
+	//m_deviceDiscoveryAgent->stop();
 
 }
 
@@ -564,8 +565,6 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 		mNameProperty = mPropertyTreeWidget->GetPropertyManager()->AddStringProperty(mParentGroupName.AsChar(), "Node Name", node->GetName(), 0, isNameReadOnly);
 		if (node->GetNameString() == "BrainAlive")
 		{
-		
-			
 			mPropertyTreeWidget->GetPropertyManager()->AddReadOnlyStringProperty(mParentGroupName.AsChar(), "Channel Settings", NULL);
 			mNameProperty_1 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 1", ch_data, Val.ToInt(), false);
 			mNameProperty_2 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 2", ch_data_2, Val_2.ToInt(), false);
@@ -575,7 +574,12 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 			mNameProperty_6 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 6", ch_data_6, Val_6.ToInt(), false);
 			mNameProperty_7 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 7", ch_data_7, Val_7.ToInt(), false);
 			mNameProperty_8 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 8", ch_data_8, Val_8.ToInt(), false);
-			mNameProperty_9 = mPropertyTreeWidget->GetPropertyManager()->AddBoolProperty(mParentGroupName.AsChar(), "Start Scanning", false);
+			mNameProperty_9 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), "Apply Settings", "Apply", true);
+			mNameProperty_10 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), "Start Scaning", "Scan", true);
+
+			// create and return the property
+
+
 		}
 	}
 	else
@@ -642,22 +646,20 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 		property->GetAttributeValue()->ConvertToString(Val_8);
 		data_8 = ch_data_8.GetItem(Val_8.ToInt());
 	}
-	else if (property == mNameProperty_9)
+	else if (property == mNameProperty_10)
 	{
-		property->GetAttributeValue()->ConvertToString(val_9);
-		if (val_9 == "1")
-		{
+
 			Connect = new QPushButton();
 			Connect->setText(" Connect ");
 			mwidget = new QWidget();
 			mListWidget = new QListWidget();
-			mwidget->setFixedHeight(200);
-			mwidget->setFixedWidth(200);
+			mwidget->setFixedHeight(400);
+			mwidget->setFixedWidth(400);
 			QVBoxLayout* vLayout = new QVBoxLayout();
 
 
-			mListWidget->setFixedHeight(180);
-			mListWidget->setFixedWidth(180);
+			mListWidget->setFixedHeight(380);
+			mListWidget->setFixedWidth(380);
 			vLayout->setMargin(10);
 			vLayout->setSpacing(10);
 
@@ -667,31 +669,60 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 			mwidget->setVisible(true);
 			m_bleInterface->scanDevices();
 			connect(Connect, &QPushButton::clicked, this, &GraphAttributesWidget::On_connect);
-		}
-		if (val_9 == "0")
-		{
-			Connect->setVisible(false);
-			mListWidget->close();
-			mwidget->close();
-			m_bleInterface->disconnectDevice();
-		}
 			
 	}
+	else if (property == mNameProperty_9)
+	{
+
+		
+
+	}
+
 	UpdateInterface();
 }
-
+void  GraphAttributesWidget::On_Ok()
+{
+	Ok_Button->setVisible(false);
+	mwidget_2->close();
+}
 void  GraphAttributesWidget::On_connect()
 {
-
-	m_bleInterface->set_currentDevice(mListWidget->currentRow());
-	m_bleInterface->connectCurrentDevice();
-	if (mDevice_connected == true)
+	if (mListWidget->currentRow() > (-1))
 	{
-		m_bleInterface->m_deviceDiscoveryAgent->stop();
-		Connect->setVisible(false);
-		mwidget->close();
+		m_bleInterface->set_currentDevice(mListWidget->currentRow());
+		m_bleInterface->connectCurrentDevice();
+		if (mDevice_connected == true)
+		{
+			m_bleInterface->m_deviceDiscoveryAgent->stop();
+			Connect->setVisible(false);
+			mwidget->close();
+
+		}
+	}
+	else
+	{
+	
+		Ok_Button = new QPushButton();
+		Ok_Button->setText(" OK ");
+		mwidget_2 = new QWidget();
+		mwidget_2->setFixedHeight(100);
+		mwidget_2->setFixedWidth(250);
+		mListWidget_2 = new QListWidget();
+		QVBoxLayout* vLayout = new QVBoxLayout();
+		vLayout->setMargin(10);
+		vLayout->setSpacing(10);
+		mListWidget_2->setFixedHeight(80);
+		mListWidget_2->setFixedWidth(230);
+		mListWidget_2->addItem("Please Select Any Device");
+		vLayout->addWidget(mListWidget_2, 1, Qt::AlignTop);
+		vLayout->addWidget(Ok_Button, 1, Qt::AlignBottom);
+		mwidget_2->setLayout(vLayout);
+		mwidget_2->setVisible(true);
+
+		connect(Ok_Button, &QPushButton::clicked, this, &GraphAttributesWidget::On_Ok);
 		
 	}
+		
 
 }
 

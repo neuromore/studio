@@ -33,6 +33,9 @@ class QTBASE_API PropertyManager : public QObject
 		// combo box
 		Property* AddComboBoxProperty(const char* groupName, const char* valueName, const Core::Array<Core::String>& comboValues, int32 defaultComboIndex, bool readOnly=false);
 
+		//button
+		Property* AddButtonProperty(const char* groupName, const char* valueName, const char* Value, bool readOnly = false);
+
 		// float
 		Property* AddFloatSpinnerProperty(const char* groupName, const char* valueName, float value, float defaultValue, float min, float max, bool readOnly=false);
 		Property* AddReadOnlyFloatSpinnerProperty(const char* groupName, const char* valueName, float value)				{ return AddFloatSpinnerProperty( groupName, valueName, value, value, -FLT_MIN, FLT_MAX, true ); }
