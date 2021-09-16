@@ -113,9 +113,14 @@ LicenseAgreementWindow::LicenseAgreementWindow(bool showAgreeAndCancelButtons, Q
 	setSizeGripEnabled(false);
 	setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
 
-	AddLicense( "Licensing", GetManager()->GetLicenseUrl() );
-	AddLicense( "Terms and Conditions", GetManager()->GetCloudTermsUrl() );
-	AddLicense( "Privacy Policy", GetManager()->GetPrivacyPolicyUrl() );
+#if defined(NEUROMORE_BRANDING_ANT)
+	AddLicense("License Terms", GetManager()->GetLicenseUrl());
+	AddLicense("Privacy Policy", GetManager()->GetPrivacyPolicyUrl());
+#else
+	AddLicense("Licensing", GetManager()->GetLicenseUrl());
+	AddLicense("Terms and Conditions", GetManager()->GetCloudTermsUrl());
+	AddLicense("Privacy Policy", GetManager()->GetPrivacyPolicyUrl());
+#endif
 
 	// position window in the screen center
 	GetQtBaseManager()->CenterToScreen(this);
