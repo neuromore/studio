@@ -51,9 +51,15 @@
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.cpp" />
