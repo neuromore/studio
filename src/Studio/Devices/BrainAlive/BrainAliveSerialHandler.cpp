@@ -29,12 +29,12 @@
 #include <QTimer>
 #include <chrono>
 
+uint mData_2[50];
+
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
 using namespace Core;
 using namespace std::chrono;
-uint mData_2[50];
-
 
 // constructor
 BrainAliveSerialHandler::BrainAliveSerialHandler(BrainAliveDeviceBase* headset, QObject* parent) : QObject(parent)
