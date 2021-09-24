@@ -633,6 +633,7 @@ STUDIO_MOCH_ALL      = Devices/Bluetooth/BluetoothDevice.cpp \
                        Devices/OpenBCI/OpenBCISerialHandler.cpp \
                        Devices/BrainAlive/BrainAliveDriver.cpp \
                        Devices/BrainAlive/BrainAliveSerialHandler.cpp \
+		       Devices/BrainAlive/BrainAliveBluetooth.cpp \
                        Devices/Versus/VersusDriver.cpp \
                        Devices/Versus/VersusSerialHandler.cpp \
                        Plugins/ABM/ABMPlugin.cpp \
@@ -780,6 +781,7 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/OpenBCI/OpenBCISerialHandler.o \
                        Devices/BrainAlive/BrainAliveDriver.o \
                        Devices/BrainAlive/BrainAliveSerialHandler.o \
+ 		       Devices/BrainAlive/BrainAliveBluetooth.o \
                        Devices/Versus/VersusDriver.o \
                        Devices/Versus/VersusSerialHandler.o \
                        Devices/DeviceHelpers.o \

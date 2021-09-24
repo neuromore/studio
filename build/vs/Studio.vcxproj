@@ -51,9 +51,20 @@
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.cpp" />
@@ -324,6 +335,7 @@
     <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveCommands.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.h" />

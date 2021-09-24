@@ -833,6 +833,12 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.moc.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.moc.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
@@ -1233,6 +1239,9 @@
       <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.h">
       <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
   </ItemGroup>

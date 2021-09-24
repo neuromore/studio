@@ -24,6 +24,7 @@ set VAR=-DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG_H -D_UNICO
 %MOC% %INC% %VAR% %DIR%/Devices/OpenBCI/OpenBCISerialHandler.h -o %DIR%/Devices/OpenBCI/OpenBCISerialHandler.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/BrainAlive/BrainAliveDriver.h -o %DIR%/Devices/BrainAlive/BrainAliveDriver.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/BrainAlive/BrainAliveSerialHandler.h -o %DIR%/Devices/BrainAlive/BrainAliveSerialHandler.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Devices/BrainAlive/BrainAliveBluetooth.h -o %DIR%/Devices/BrainAlive/BrainAliveBluetooth.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Versus/VersusDriver.h -o %DIR%/Devices/Versus/VersusDriver.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Versus/VersusSerialHandler.h -o %DIR%/Devices/Versus/VersusSerialHandler.moc.cpp
 
