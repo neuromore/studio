@@ -102,7 +102,6 @@ struct BrainAliveStreamPacket
 	// The packet data:
 
 	char mHeader; // header byte
-	char mSampleNumber; // increasing sample number
 	char mStatusbyte_1; // status register 1
 	char mStatusbyte_2; // status register 2
 	char mStatusbyte_3; // status register 3
@@ -116,6 +115,7 @@ struct BrainAliveStreamPacket
 
 	BrainAliveStreamPPGData mPpg[3]; // int24 data
 
+	char mSampleNumber; // increasing sample number
 	char mFooter; // Footer byte
 
 	bool Verify() { return (mHeader == GetProtocolHeader() && mFooter == GetProtocolFooter()); }

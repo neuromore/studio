@@ -213,24 +213,53 @@ class BLEInterface : public QObject
         QML_WRITABLE_PROPERTY(int, currentDevice)
         QML_READONLY_PROPERTY(QStringList, devicesNames)
         QML_READONLY_PROPERTY(QStringList, services)
+#define BLE_DATA_BUFFER_SIZE 50
+#define BLE_PACKET_SIZE 46
+
+        /*Communication Buffer typeDef */
+
 public:
+
+    typedef struct
+    {
+        uint8_t* data_buffer; /*< Data Buffer Pointer to carry data*/
+
+        uint32_t buffer_size; /*< Stores the size of data buffer to prevent overflow*/
+
+        uint32_t read_pointer; /*< Read Pointer */
+
+        uint32_t write_pointer; /*< Write Pointer */
+
+        volatile uint32_t data_count; /*< Counts the amount of data inside buffer*/
+
+    } Communication_Buffer;
     explicit BLEInterface(QObject* parent = 0);
     ~BLEInterface();
+    
     QBluetoothDeviceDiscoveryAgent* m_deviceDiscoveryAgent;
     void connectCurrentDevice();
     void disconnectDevice();
+    bool BLE_Satus();
     Q_INVOKABLE void scanDevices();
     void write(const QByteArray& data);
 
+    uint8_t read_data_buffer(Communication_Buffer* buffer, uint8_t* data, uint32_t count);
+    uint8_t write_data_buffer(Communication_Buffer* buffer, uint8_t* data, uint32_t count);
+
+    void app_ble_data_buffer_init(void);
+   void Get_BLE_Data( uint8_t *);
     bool isConnected() const
     {
         return m_connected;
     }
 
+
     int currentService() const
     {
         return m_currentService;
     }
+
+   
 
 public slots:
     void setCurrentService(int currentService)
@@ -290,12 +319,13 @@ private:
     QLowEnergyCharacteristic m_readCharacteristic;
     QLowEnergyCharacteristic m_writeCharacteristic;
     QList<DeviceInfo*> m_devices;
-    //    bool m_foundService;
     QTimer* m_readTimer;
     bool m_connected;
     void searchCharacteristic();
     int m_currentService;
     QLowEnergyService::WriteMode m_writeMode;
+
+
 };
 
 #endif

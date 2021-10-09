@@ -25,7 +25,6 @@
 #include "./BrainAliveDriver.h"
 #include "./BrainAliveSerialHandler.h"
 #include "../DeviceHelpers.h"
-#include "./Devices/BrainAlive/BrainAliveDevices.h"
 #include <EngineManager.h>
 #include <QApplication>
 
@@ -36,13 +35,8 @@ using namespace Core;
 using namespace std;
 
 
-extern bool mDevice_connected;
-
 BrainAliveDeviceBase* device;
 BrainAliveAutoDetection* mAutoDetection_2;
-
-
-
 
 // constructor
 BrainAliveDriver::BrainAliveDriver() : DeviceDriver(false), EventHandler()
@@ -236,7 +230,7 @@ void BrainAliveAutoDetection::DetectDevices()
 
 
 
-	if (mDevice_connected == true)
+	if (mBLEinterface->BLE_Satus() == true)
 	{
 
 		if (deviceConfigs.Size() > 0)

@@ -27,6 +27,7 @@
 #include <Config.h>
 #include <DeviceDriver.h>
 #include <Devices/BrainAlive/BrainAliveDevices.h>
+#include "../Studio/Devices/BrainAlive/BrainAliveBluetooth.h"
 #include <EngineManager.h>
 #include <Core/EventHandler.h>
 #include <Core/Array.h>
@@ -108,6 +109,7 @@ public:
 	void DetectDevicesOnce() { mDetectOnce = true; }
 	bool IsSearching() const { return mIsSearching; }
 	BrainAliveDriver* mDriver;
+	BLEInterface* mBLEinterface;
 	
 public slots:
 

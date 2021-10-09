@@ -31,7 +31,6 @@
 #include <Config.h>
 
 using namespace Core;
-bool mDevice_connected = false;
 
 
 Core::Array<Core::String> ch_data = {}, ch_data_2 = {}, ch_data_3 = {}, ch_data_4 = {}, ch_data_5 = {}, ch_data_6 = {}, ch_data_7 = {}, ch_data_8 = {};
@@ -371,7 +370,7 @@ void  GraphAttributesWidget::On_connect()
 	{
 		m_bleInterface->set_currentDevice(mListWidget->currentRow());
 		m_bleInterface->connectCurrentDevice();
-		if (mDevice_connected == true)
+		if (m_bleInterface->BLE_Satus() == true)
 		{
 		//	m_bleInterface->m_deviceDiscoveryAgent->stop();
 			Connect->setVisible(false);

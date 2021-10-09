@@ -23,7 +23,7 @@
 
 // include required files
 #include "./BrainAliveSerialHandler.h"
-#include <Devices/BrainAlive/BrainAliveDevices.h>
+#include "../Studio/Devices/BrainAlive/BrainAliveBluetooth.h"
 #include <EngineManager.h>
 #include <QCoreApplication>
 #include <QTimer>
@@ -33,8 +33,8 @@
 
 using namespace Core;
 using namespace std::chrono;
-uint mData_2[50];
 
+BLEInterface* mBLE_Interface;
 
 // constructor
 BrainAliveSerialHandler::BrainAliveSerialHandler(BrainAliveDeviceBase* headset, QObject* parent) : QObject(parent)
@@ -54,7 +54,7 @@ BrainAliveSerialHandler::BrainAliveSerialHandler(BrainAliveDeviceBase* headset, 
 	mTimer = new QTimer();
 	QObject::connect(mTimer, SIGNAL(timeout()), this, SLOT(ReadStream()));
 	mTimer->setTimerType(Qt::PreciseTimer);
-	mTimer->setInterval(2* 1000 / mSampleRate);
+	mTimer->setInterval(2 * 1000 / mSampleRate);
 
 	mIsConnected = false;
 
@@ -67,44 +67,24 @@ BrainAliveSerialHandler::BrainAliveSerialHandler(BrainAliveDeviceBase* headset, 
 // destructor
 BrainAliveSerialHandler::~BrainAliveSerialHandler()
 {
-	//if (mSerialPort != NULL)
-	//{
-	// // if device has timed out, it means the bluetooth connection is gone
-	// if (mDevice->IsTimeoutReached() == false)
-	// Disconnect();
-	// else
-	// {
-	// mSerialPort->Clear();
-	// mSerialPort->Close();
-	// }
-	//}
+
 }
 
 
 bool BrainAliveSerialHandler::Connect()
 {
 
-
 	// start data receive thread
 	mTimer->start();
-
 	return true;
 }
 
 
-// disconnect from openbci
+// disconnect from BrainAlive
 void BrainAliveSerialHandler::Disconnect()
 {
-
-
 	mIsConnected = false;
 }
-
-
-
-
-
-
 
 void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& packet)
 {
@@ -130,12 +110,6 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 			numLostPackets = currentPacketIndex - expectedPacketIndex;
 		else
 			numLostPackets = (currentPacketIndex + 256) - expectedPacketIndex;
-
-		
-		// TODO: First two packets contains obsolete data. This causes an exception at this point. Has to be handled
-		// add zero values to compensate for lost samples
-		/*for (uint32 i=0; i<mDevice->GetNumElectrodes(); ++i)
-		mDevice->GetSensor(i)->HandleLostSamples(numLostPackets);*/
 
 	}
 	mLastPacketIndex = currentPacketIndex;
@@ -205,65 +179,63 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 // read one stream packet from serial port into data struct
 bool BrainAliveSerialHandler::ReadStreamPacket(BrainAliveStreamPacket* data)
 {
-
-	// check if the buffer has enough bytes are present to read the rest
-	//const uint32 packetSize = sizeof(data);
-	// FIXME: Why is sizeof(data) = 4 bytes? This doesn't make any sense
-	const uint32 packetSize = sizeof(data->mHeader) + sizeof(data->mStatusbyte_1) +
-		sizeof(data->mStatusbyte_2) + sizeof(data->mStatusbyte_3) +
-		sizeof(data->mSensors) + sizeof(data->mPpg) + sizeof(data->mAcceleration) + sizeof(data->mError_status) + sizeof(data->mSampleNumber) +
-		sizeof(data->mFooter);
-
-	data->mHeader = (uint)mData_2[0];
-	data->mStatusbyte_1 = (uint)mData_2[1];
-	data->mStatusbyte_2 = (uint)mData_2[2];
-	data->mStatusbyte_3 = (uint)mData_2[3];
-	data->mSensors[0].mEEGChannel[0] = (uint)mData_2[4];
-	data->mSensors[0].mEEGChannel[1] = (uint)mData_2[5];
-	data->mSensors[0].mEEGChannel[2] = (uint)mData_2[6];
-	data->mSensors[1].mEEGChannel[0] = (uint)mData_2[7];
-	data->mSensors[1].mEEGChannel[1] = (uint)mData_2[8];
-	data->mSensors[1].mEEGChannel[2] = (uint)mData_2[9];
-	data->mSensors[2].mEEGChannel[0] = (uint)mData_2[10];
-	data->mSensors[2].mEEGChannel[1] = (uint)mData_2[11];
-	data->mSensors[2].mEEGChannel[2] = (uint)mData_2[12];
-	data->mSensors[3].mEEGChannel[0] = (uint)mData_2[13];
-	data->mSensors[3].mEEGChannel[1] = (uint)mData_2[14];
-	data->mSensors[3].mEEGChannel[2] = (uint)mData_2[15];
-	data->mSensors[4].mEEGChannel[0] = (uint)mData_2[16];
-	data->mSensors[4].mEEGChannel[1] = (uint)mData_2[17];
-	data->mSensors[4].mEEGChannel[2] = (uint)mData_2[18];
-	data->mSensors[5].mEEGChannel[0] = (uint)mData_2[19];
-	data->mSensors[5].mEEGChannel[1] = (uint)mData_2[20];
-	data->mSensors[5].mEEGChannel[2] = (uint)mData_2[21];
-	data->mSensors[6].mEEGChannel[0] = (uint)mData_2[22];
-	data->mSensors[6].mEEGChannel[1] = (uint)mData_2[23];
-	data->mSensors[6].mEEGChannel[2] = (uint)mData_2[24];
-	data->mSensors[7].mEEGChannel[0] = (uint)mData_2[25];
-	data->mSensors[7].mEEGChannel[1] = (uint)mData_2[26];
-	data->mSensors[7].mEEGChannel[2] = (uint)mData_2[27];
-	data->mPpg[0].mPPGChannel[0] = (uint)mData_2[28];
-	data->mPpg[0].mPPGChannel[1] = (uint)mData_2[29];
-	data->mPpg[0].mPPGChannel[2] = (uint)mData_2[30];
-	data->mPpg[1].mPPGChannel[0] = (uint)mData_2[31];
-	data->mPpg[1].mPPGChannel[1] = (uint)mData_2[32];
-	data->mPpg[1].mPPGChannel[2] = (uint)mData_2[33];
-	data->mPpg[2].mPPGChannel[0] = (uint)mData_2[34];
-	data->mPpg[2].mPPGChannel[1] = (uint)mData_2[35];
-	data->mPpg[2].mPPGChannel[2] = (uint)mData_2[36];
-	data->mAcceleration[0].mAccelerationChannel[0] = (uint)mData_2[37];
-	data->mAcceleration[0].mAccelerationChannel[1] = (uint)mData_2[38];
-	data->mAcceleration[1].mAccelerationChannel[0] = (uint)mData_2[39];
-	data->mAcceleration[1].mAccelerationChannel[1] = (uint)mData_2[40];
-	data->mAcceleration[2].mAccelerationChannel[0] = (uint)mData_2[41];
-	data->mAcceleration[2].mAccelerationChannel[1] = (uint)mData_2[42];
-	data->mSampleNumber = (uint)mData_2[43];
-	data->mError_status = (uint)mData_2[44];
-	data->mFooter = (uint)mData_2[45];
-	const uint32 result = packetSize;
-
-
-	return true;
+	
+	 mBLE_Interface->Get_BLE_Data((uint8_t *)data);
+	 return true;
+	 /*if (mData_2 != NULL)
+	 {
+		 data->mHeader = (uint)mData_2[0];
+		 data->mStatusbyte_1 = (uint)mData_2[1];
+		 data->mStatusbyte_2 = (uint)mData_2[2];
+		 data->mStatusbyte_3 = (uint)mData_2[3];
+		 data->mSensors[0].mEEGChannel[0] = (uint)mData_2[4];
+		 data->mSensors[0].mEEGChannel[1] = (uint)mData_2[5];
+		 data->mSensors[0].mEEGChannel[2] = (uint)mData_2[6];
+		 data->mSensors[1].mEEGChannel[0] = (uint)mData_2[7];
+		 data->mSensors[1].mEEGChannel[1] = (uint)mData_2[8];
+		 data->mSensors[1].mEEGChannel[2] = (uint)mData_2[9];
+		 data->mSensors[2].mEEGChannel[0] = (uint)mData_2[10];
+		 data->mSensors[2].mEEGChannel[1] = (uint)mData_2[11];
+		 data->mSensors[2].mEEGChannel[2] = (uint)mData_2[12];
+		 data->mSensors[3].mEEGChannel[0] = (uint)mData_2[13];
+		 data->mSensors[3].mEEGChannel[1] = (uint)mData_2[14];
+		 data->mSensors[3].mEEGChannel[2] = (uint)mData_2[15];
+		 data->mSensors[4].mEEGChannel[0] = (uint)mData_2[16];
+		 data->mSensors[4].mEEGChannel[1] = (uint)mData_2[17];
+		 data->mSensors[4].mEEGChannel[2] = (uint)mData_2[18];
+		 data->mSensors[5].mEEGChannel[0] = (uint)mData_2[19];
+		 data->mSensors[5].mEEGChannel[1] = (uint)mData_2[20];
+		 data->mSensors[5].mEEGChannel[2] = (uint)mData_2[21];
+		 data->mSensors[6].mEEGChannel[0] = (uint)mData_2[22];
+		 data->mSensors[6].mEEGChannel[1] = (uint)mData_2[23];
+		 data->mSensors[6].mEEGChannel[2] = (uint)mData_2[24];
+		 data->mSensors[7].mEEGChannel[0] = (uint)mData_2[25];
+		 data->mSensors[7].mEEGChannel[1] = (uint)mData_2[26];
+		 data->mSensors[7].mEEGChannel[2] = (uint)mData_2[27];
+		 data->mPpg[0].mPPGChannel[0] = (uint)mData_2[28];
+		 data->mPpg[0].mPPGChannel[1] = (uint)mData_2[29];
+		 data->mPpg[0].mPPGChannel[2] = (uint)mData_2[30];
+		 data->mPpg[1].mPPGChannel[0] = (uint)mData_2[31];
+		 data->mPpg[1].mPPGChannel[1] = (uint)mData_2[32];
+		 data->mPpg[1].mPPGChannel[2] = (uint)mData_2[33];
+		 data->mPpg[2].mPPGChannel[0] = (uint)mData_2[34];
+		 data->mPpg[2].mPPGChannel[1] = (uint)mData_2[35];
+		 data->mPpg[2].mPPGChannel[2] = (uint)mData_2[36];
+		 data->mAcceleration[0].mAccelerationChannel[0] = (uint)mData_2[37];
+		 data->mAcceleration[0].mAccelerationChannel[1] = (uint)mData_2[38];
+		 data->mAcceleration[1].mAccelerationChannel[0] = (uint)mData_2[39];
+		 data->mAcceleration[1].mAccelerationChannel[1] = (uint)mData_2[40];
+		 data->mAcceleration[2].mAccelerationChannel[0] = (uint)mData_2[41];
+		 data->mAcceleration[2].mAccelerationChannel[1] = (uint)mData_2[42];
+		 data->mSampleNumber = (uint)mData_2[43];
+		 data->mError_status = (uint)mData_2[44];
+		 data->mFooter = (uint)mData_2[45];
+		 return true;
+	 }
+	 else
+		 return false;*/
+	/*	const uint32 result = packetSize;*/
+		
 }
 
 void BrainAliveSerialHandler::ReadStream()
@@ -272,8 +244,8 @@ void BrainAliveSerialHandler::ReadStream()
 	while (ReadStreamPacket(&mStreamPacket) == true)
 	{
 		//Sleep(3);
-		auto millisec = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-		while (((duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()) - millisec) < 4);
+		/*auto millisec = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+		while (((duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()) - millisec) < 4);*/
 			if (mStreamPacket.Verify() == true)
 			{
 				ProcessStreamPacket(mStreamPacket);

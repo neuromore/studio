@@ -1,11 +1,15 @@
 
 #include <QLowEnergyController>
 #include "BrainAliveBluetooth.h"
-#include <qt/QtCore/qeventloop.h>
+#include <qt/QtCore/qeventloop.h> 
 
-extern uint mData_2[50];
-extern bool mDevice_connected;
-int i = 0;
+static bool mDevice_connected = false;
+
+/* Local Buffer to save BLE data using #Communication_Buffer structure */
+static uint8_t BLE_Data_Buffer[BLE_DATA_BUFFER_SIZE][BLE_PACKET_SIZE];
+
+/* #Communication_Buffer type structure to synchronize the Buffer Read/Write operations */
+BLEInterface::Communication_Buffer BLE_DATA_Buffer_s;
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
@@ -51,6 +55,8 @@ m_currentService(0)
 	connect(m_deviceDiscoveryAgent, SIGNAL(error(QBluetoothDeviceDiscoveryAgent::Error)),
 		this, SLOT(onDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error)));
 	connect(m_deviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(onScanFinished()));
+	mDevice_connected = false;
+	BLEInterface::app_ble_data_buffer_init();
 }
 
 BLEInterface::~BLEInterface()
@@ -58,7 +64,10 @@ BLEInterface::~BLEInterface()
 	qDeleteAll(m_devices);
 	m_devices.clear();
 }
-
+bool BLEInterface:: BLE_Satus()
+{
+	return mDevice_connected;
+}
 void BLEInterface::scanDevices()
 {
 	m_devicesNames.clear();
@@ -233,12 +242,16 @@ void BLEInterface::onControllerError(QLowEnergyController::Error error)
 void BLEInterface::onCharacteristicChanged(const QLowEnergyCharacteristic& c,
 	const QByteArray& value)
 {
+	uint8_t mData_2[46];
 	Q_UNUSED(c)
-
-		for (uint mdata : value)
+		int i = 0;
+		for (uint8_t mdata : value)
 			mData_2[i++] = mdata & 0xFF;
-	i = 0;
+		BLEInterface::write_data_buffer(&BLE_DATA_Buffer_s,&mData_2[0]/*(uint8_t *)&mData_2[0]*/, BLE_PACKET_SIZE);
+		
 }
+
+
 void BLEInterface::onCharacteristicWrite(const QLowEnergyCharacteristic& c,
 	const QByteArray& value)
 {
@@ -344,6 +357,93 @@ void BLEInterface::onServiceStateChanged(QLowEnergyService::ServiceState s)
 void BLEInterface::serviceError(QLowEnergyService::ServiceError e)
 {
 	qWarning() << "Service error:" << e;
+}
+void BLEInterface::app_ble_data_buffer_init(void)
+{
+
+	BLE_DATA_Buffer_s.data_buffer = &BLE_Data_Buffer[0][0];
+	BLE_DATA_Buffer_s.buffer_size = BLE_PACKET_SIZE * BLE_DATA_BUFFER_SIZE;
+	BLE_DATA_Buffer_s.data_count = 0U;
+	BLE_DATA_Buffer_s.read_pointer = 0U;
+	BLE_DATA_Buffer_s.write_pointer = 0U;
+}
+
+
+/* Buffer Reader Function */
+uint8_t BLEInterface::read_data_buffer(BLEInterface::Communication_Buffer* buffer, uint8_t* data,
+	uint32_t count)
+{
+	/* Check if amount of requested data is available */
+	if ((buffer->data_count < count) || (count == 0))
+		return 1;
+
+	/* Assign the amount of data requested to the new buffer */
+	for (uint32_t i = 0U; i < count; i++)
+	{
+		data[i] = buffer->data_buffer[buffer->read_pointer++];
+		buffer->data_count--;
+
+		/* Check if buffer overflows */
+		if (buffer->read_pointer == buffer->buffer_size)
+		{
+			/* Go to Start - Buffer is GOL */
+			buffer->read_pointer = 0;
+		}
+	}
+
+	/* Return Success */
+	return 0;
+}
+/* Buffer Writer Function */
+uint8_t BLEInterface::write_data_buffer(BLEInterface::Communication_Buffer* buffer, uint8_t* data,
+	uint32_t count)
+{
+	/* Check if space is available for the amount of data that has been pushed & some other param */
+	if ((data == NULL) || (count == 0))
+		return 1;
+
+	/* Push the data into buffer */
+	for (uint32_t i = 0U; i < count; i++)
+	{
+		buffer->data_buffer[buffer->write_pointer++] = data[i];
+
+		if (buffer->data_count == buffer->buffer_size)
+		{
+			buffer->read_pointer++;
+
+			/* Check if buffer overflows */
+			if (buffer->read_pointer == buffer->buffer_size)
+			{
+				/* Go to Start - Buffer is GOL */
+				buffer->read_pointer = 0;
+			}
+		}
+		else
+		{
+			buffer->data_count++;
+		}
+		/* Check if buffer overflows */
+		if (buffer->write_pointer == buffer->buffer_size)
+		{
+			/* Go to Start - Buffer is GOL */
+			buffer->write_pointer = 0;
+		}
+	}
+
+	/* Return Success */
+	return 0;
+}
+/* Buffer Writer Function */
+uint32_t get_data_buffer_size(BLEInterface::Communication_Buffer* buffer)
+{
+	return buffer->data_count;
+}
+void BLEInterface::Get_BLE_Data( uint8_t *mData)
+{
+	//uint8_t mData[BLE_PACKET_SIZE];
+	if (get_data_buffer_size(&BLE_DATA_Buffer_s) >= BLE_PACKET_SIZE)
+		BLEInterface::read_data_buffer(&BLE_DATA_Buffer_s, mData, BLE_PACKET_SIZE);
+	
 }
 
 #endif
