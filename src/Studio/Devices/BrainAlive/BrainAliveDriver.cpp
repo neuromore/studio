@@ -73,17 +73,7 @@ BrainAliveDriver::~BrainAliveDriver()
 	delete mAutoDetectionTimer_2;
 	delete mAutoDetectionThread_2;
 
-	// NOTE: devices and serial threads are usually removed by the device manager. We check this, maybe some something went wrong (e.g. we fucked up the order):
 	CORE_ASSERT(mSerialHandlerThreads.Size() == 0 && mDevices.Size() == 0);
-
-	//// stop and delete serial handler threads (in case some remain, which means the device manager did not call RemoveDevice())
-	//const uint32 numThreads = mSerialHandlerThreads.Size();
-	//for (uint32 i = 0; i < numThreads; ++i)
-	//{
-	// mSerialHandlerThreads[i]->quit();
-	// mSerialHandlerThreads[i]->wait();
-	// mSerialHandlerThreads[i]->deleteLater();
-	//}
 
 
 	 LogDetailedInfo("BrainAlive device driver destructed");
@@ -100,7 +90,6 @@ bool BrainAliveDriver::Init()
 	mAutoDetectionThread_2 = new QThread(this);
 
 	QObject::connect(mAutoDetectionTimer_2, &QTimer::timeout, mAutoDetection_2, &BrainAliveAutoDetection::DetectDevices);
-	// lower frequency for this device to optimize detection (we wait most of the time on the serial port)
 	mAutoDetectionTimer_2->setInterval(1000);
 	mAutoDetectionTimer_2->start();
 	mAutoDetectionTimer_2->moveToThread(mAutoDetectionThread_2);
@@ -173,7 +162,6 @@ Device* BrainAliveDriver::CreateDevice(uint32 deviceTypeID)
 void BrainAliveDriver::AddDevice(BrainAliveDeviceBase* device)
 {
 	mDevices.Add(device);
-	// create serial thread for the device (uses the serial handler)
 	BrainAliveSerialThread* serialThread = new BrainAliveSerialThread(device);
 	serialThread->start();
 
@@ -210,31 +198,18 @@ void BrainAliveDriver::OnRemoveDevice(Device* device)
 // run autodetection once
 void BrainAliveAutoDetection::DetectDevices()
 {
-	/*m_bleInterface = new BLEInterface(this);*/
 	if (mIsRunning == false && mDetectOnce == false)
 		return;
 	// tells driver detection is running now
 	mIsSearching = true;
-
-	// list with all serial ports we want to try
-	/*Array<String> portNames;*/
-
-
-
-	// collect all device configs and their serial ports (if any)
 	Array<const Device::DeviceConfig*> deviceConfigs;
 	deviceConfigs.Add(GetDeviceManager()->FindDeviceConfigsByType(BrainAliveDevice::TYPE_ID));
-
-	//const uint32 numConfigs = deviceConfigs.Size();
-
-
-
 
 	if (mBLEinterface->BLE_Satus() == true)
 	{
 
 		if (deviceConfigs.Size() > 0)
-			deviceConfigs.Add(deviceConfigs[0]); // use first device config, if any (so we can configure electrodes of auto detected devices etc)
+			deviceConfigs.Add(deviceConfigs[0]); 
 		else
 			deviceConfigs.Add(NULL);
 
@@ -247,9 +222,6 @@ void BrainAliveAutoDetection::DetectDevices()
 		if (config != NULL)
 			configuredDeviceType = config->mDeviceType;
 
-		// FIXME autodetection does not work with 32 bit board, the reset command does nothing from the looks of it (not yet tested with our device)
-		// skip autodetection if a config is specified
-		// Note: this makes it incompatible with 8 bit deviec
 		const bool skipTypeDetection = (configuredDeviceType != 0);
 
 		if (skipTypeDetection == true)
@@ -261,8 +233,6 @@ void BrainAliveAutoDetection::DetectDevices()
 		{
 
 			reportedDeviceType = BrainAliveDevice::TYPE_ID;
-
-			// if daisy is reported, but configuration requested the 8 channel device, then disable the daisy module
 			if (configuredDeviceType == BrainAliveDevice::TYPE_ID)
 			{
 				deviceType = BrainAliveDevice::TYPE_ID;
@@ -280,10 +250,6 @@ void BrainAliveAutoDetection::DetectDevices()
 		// create new  BrainAlive headset
 	
 			device = static_cast<BrainAliveDeviceBase*>(mDriver->CreateDevice(deviceType));
-			/*	device->Connect();
-				device->KeepAlive();*/
-				//device->KeepAlive();
-				// configure device
 			if (config != NULL)
 			{
 				CORE_ASSERT(deviceType == config->mDeviceType);
@@ -296,15 +262,9 @@ void BrainAliveAutoDetection::DetectDevices()
 			// add device to device manager
 
 			GetDeviceManager()->AddDeviceAsync(device);
-	
-		//mDetectOnce = true;
 		mDriver->mAutoDetectionTimer_2->stop();
-		//mDriver->mAutoDetectionThread_2->exit();
 	}
 
-
-
-	// detect only once? -> stop
 	if (mDetectOnce == true)
 		mDetectOnce = false;
 
@@ -315,10 +275,7 @@ void BrainAliveAutoDetection::DetectDevices()
 
 void BrainAliveSerialThread::run()
 {
-	// creat serial port
-	//SerialPort serialPort(mPortName, this);
 
-	//// try to connect to the versus
 	BrainAliveSerialHandler serialHandler(mDevice, this);
 
 	const bool success = serialHandler.Connect();

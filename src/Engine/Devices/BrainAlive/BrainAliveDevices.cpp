@@ -46,11 +46,11 @@ void BrainAliveDeviceBase::CreateSensors()
 	mRed->GetChannel()->SetMaxValue(1996.1);
 	mRed->GetChannel()->SetUnit("mm/s^2");
 	AddSensor(mRed);
-	mIr = new Sensor("IR", 250);
-	mIr->GetChannel()->SetMinValue(-2000.0);
-	mIr->GetChannel()->SetMaxValue(1996.1);
-	mIr->GetChannel()->SetUnit("mm/s^2");
-	AddSensor(mIr);
+	mIR = new Sensor("IR", 250);
+	mIR->GetChannel()->SetMinValue(-2000.0);
+	mIR->GetChannel()->SetMaxValue(1996.1);
+	mIR->GetChannel()->SetUnit("mm/s^2");
+	AddSensor(mIR);
 	mGreen = new Sensor("Green", 250);
 	mGreen->GetChannel()->SetMinValue(-2000.0);
 	mGreen->GetChannel()->SetMaxValue(1996.1);
@@ -81,6 +81,12 @@ void BrainAliveDeviceBase::CreateSensors()
 	mAccLeftSensor->GetChannel()->SetMaxValue(1996.1);
 	mAccLeftSensor->GetChannel()->SetUnit("mm/s^2");
 	AddSensor(mAccLeftSensor);
+
+	mPID = new Sensor("PID", 250);
+	mPID->GetChannel()->SetMinValue(0);
+	mPID->GetChannel()->SetMaxValue(255);
+	mAccLeftSensor->GetChannel()->SetUnit("mm/s^2");
+	AddSensor(mPID);
 }
 
 
@@ -100,8 +106,6 @@ BrainAliveDevice::~BrainAliveDevice()
 	LogDetailedInfo("Destructing BrainAlive headset ...");
 }
 
-
-// get the available electrodes of the neuro headset
 void BrainAliveDevice::CreateElectrodes()
 {
 	mElectrodes.Clear();

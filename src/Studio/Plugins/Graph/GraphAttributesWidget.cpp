@@ -34,7 +34,7 @@ using namespace Core;
 
 
 Core::Array<Core::String> ch_data = {}, ch_data_2 = {}, ch_data_3 = {}, ch_data_4 = {}, ch_data_5 = {}, ch_data_6 = {}, ch_data_7 = {}, ch_data_8 = {};
-String Val, Val_2, Val_3, Val_4, Val_5, Val_6, Val_7, Val_8,val_9,val_10;
+String Val[20];
 String data_1 = "F7", data_2 = "FT7", data_3 = "T7", data_4 = "TP7", data_5 = "Cz", data_6 = "C4", data_7 = "FC4", data_8 = "F4";
 
 // constructor
@@ -43,6 +43,17 @@ GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(pare
 	LogDebug("Constructing attributes widget ...");
 	mGraphObject	= NULL;
 	mNameProperty	= NULL;
+	mNameProperty_2 = NULL;
+	mNameProperty_3 = NULL;
+	mNameProperty_4 = NULL;
+	mNameProperty_5 = NULL;
+	mNameProperty_6 = NULL;
+	mNameProperty_7 = NULL;
+	mNameProperty_8 = NULL;
+	mNameProperty_9 = NULL;
+	mNameProperty_10 = NULL;
+	mNameProperty_11 = NULL;
+	mNameProperty_12 = NULL;
 	mParentGroupName= "";
 
 	setContentsMargins(0,0,0,0);
@@ -113,9 +124,7 @@ GraphAttributesWidget::~GraphAttributesWidget()
 
 void GraphAttributesWidget::dataReceived(QByteArray data)
 {
-//	//mListWidget->clear();
-//	//mListWidget->addItem(data.toHex());
-//	//printf(data.toHex());
+
 }
 // event handler callback: an attribute has changed, check if it was one of the displayed ones
 void GraphAttributesWidget::OnAttributeUpdated(Graph* graph, GraphObject* object, Attribute* attribute)
@@ -233,16 +242,18 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 		if (node->GetNameString() == "BrainAlive")
 		{
 			mPropertyTreeWidget->GetPropertyManager()->AddReadOnlyStringProperty(mParentGroupName.AsChar(), "Channel Settings", NULL);
-			mNameProperty_1 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 1", ch_data, Val.ToInt(), false);
-			mNameProperty_2 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 2", ch_data_2, Val_2.ToInt(), false);
-			mNameProperty_3 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 3", ch_data_3, Val_3.ToInt(), false);
-			mNameProperty_4 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 4", ch_data_4, Val_4.ToInt(), false);
-			mNameProperty_5 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 5", ch_data_5, Val_5.ToInt(), false);
-			mNameProperty_6 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 6", ch_data_6, Val_6.ToInt(), false);
-			mNameProperty_7 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 7", ch_data_7, Val_7.ToInt(), false);
-			mNameProperty_8 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 8", ch_data_8, Val_8.ToInt(), false);
+			mNameProperty_1 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 1", ch_data, Val[0].ToInt(), false);
+			mNameProperty_2 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 2", ch_data_2, Val[1].ToInt(), false);
+			mNameProperty_3 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 3", ch_data_3, Val[2].ToInt(), false);
+			mNameProperty_4 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 4", ch_data_4, Val[3].ToInt(), false);
+			mNameProperty_5 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 5", ch_data_5, Val[4].ToInt(), false);
+			mNameProperty_6 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 6", ch_data_6, Val[5].ToInt(), false);
+			mNameProperty_7 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 7", ch_data_7, Val[6].ToInt(), false);
+			mNameProperty_8 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 8", ch_data_8, Val[7].ToInt(), false);
 			mNameProperty_9 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), "Apply Settings", "Apply", true);
 			mNameProperty_10 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), "Start Scaning", "Scan", true);
+			mNameProperty_11 = mPropertyTreeWidget->GetPropertyManager()->AddStringProperty(mParentGroupName.AsChar(), "Write Command","", 0, isNameReadOnly);
+			mNameProperty_12 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), " ", "Write", true);
 			// create and return the property
 
 			
@@ -274,44 +285,44 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 	else if (property == mNameProperty_1)
 	{
-		property->GetAttributeValue()->ConvertToString(Val);
-		data_1 = ch_data.GetItem(Val.ToInt());
+		property->GetAttributeValue()->ConvertToString(Val[0]);
+		data_1 = ch_data.GetItem(Val[0].ToInt());
 	}
 	else if (property == mNameProperty_2)
 	{
-		property->GetAttributeValue()->ConvertToString(Val_2);
-		data_2 = ch_data_2.GetItem(Val_2.ToInt());
+		property->GetAttributeValue()->ConvertToString(Val[1]);
+		data_2 = ch_data_2.GetItem(Val[1].ToInt());
 	}
 	else if (property == mNameProperty_3)
 	{
-		property->GetAttributeValue()->ConvertToString(Val_3);
-		data_3 = ch_data_3.GetItem(Val_3.ToInt());
+		property->GetAttributeValue()->ConvertToString(Val[2]);
+		data_3 = ch_data_3.GetItem(Val[2].ToInt());
 
 	}
 	else if (property == mNameProperty_4)
 	{
-		property->GetAttributeValue()->ConvertToString(Val_4);
-		data_4 = ch_data_4.GetItem(Val_4.ToInt());
+		property->GetAttributeValue()->ConvertToString(Val[3]);
+		data_4 = ch_data_4.GetItem(Val[3].ToInt());
 	}
 	else if (property == mNameProperty_5)
 	{
-		property->GetAttributeValue()->ConvertToString(Val_5);
-		data_5 = ch_data_5.GetItem(Val_5.ToInt());
+		property->GetAttributeValue()->ConvertToString(Val[4]);
+		data_5 = ch_data_5.GetItem(Val[4].ToInt());
 	}
 	else if (property == mNameProperty_6)
 	{
-		property->GetAttributeValue()->ConvertToString(Val_6);
-		data_6 = ch_data_6.GetItem(Val_6.ToInt());
+		property->GetAttributeValue()->ConvertToString(Val[5]);
+		data_6 = ch_data_6.GetItem(Val[5].ToInt());
 	}
 	else if (property == mNameProperty_7)
 	{
-		property->GetAttributeValue()->ConvertToString(Val_7);
-		data_7 = ch_data_7.GetItem(Val_7.ToInt());
+		property->GetAttributeValue()->ConvertToString(Val[6]);
+		data_7 = ch_data_7.GetItem(Val[6].ToInt());
 	}
 	else if (property == mNameProperty_8)
 	{
-		property->GetAttributeValue()->ConvertToString(Val_8);
-		data_8 = ch_data_8.GetItem(Val_8.ToInt());
+		property->GetAttributeValue()->ConvertToString(Val[7]);
+		data_8 = ch_data_8.GetItem(Val[7].ToInt());
 	}
 	else if (property == mNameProperty_10)
 	{
@@ -348,6 +359,11 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 		 }
 
 			
+	}
+	else if (property == mNameProperty_12)
+	{
+		mNameProperty_11->GetAttributeValue()->ConvertToString(Val[8]);
+		m_bleInterface->write((QByteArray)Val[9]);
 	}
 	else if (property == mNameProperty_9)
 	{

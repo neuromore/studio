@@ -83,6 +83,7 @@ private:
 	double mPPGValueIR;
 	double mPPGValueRed;
 	double mPPGValueGreen;
+	uint8_t mPID;
 	uint32 mNumPackets;
 
 };

@@ -36,6 +36,7 @@ using namespace std::chrono;
 
 BLEInterface* mBLE_Interface;
 
+
 // constructor
 BrainAliveSerialHandler::BrainAliveSerialHandler(BrainAliveDeviceBase* headset, QObject* parent) : QObject(parent)
 {
@@ -54,7 +55,7 @@ BrainAliveSerialHandler::BrainAliveSerialHandler(BrainAliveDeviceBase* headset, 
 	mTimer = new QTimer();
 	QObject::connect(mTimer, SIGNAL(timeout()), this, SLOT(ReadStream()));
 	mTimer->setTimerType(Qt::PreciseTimer);
-	mTimer->setInterval(2 * 1000 / mSampleRate);
+	mTimer->setInterval(1000/mSampleRate);
 
 	mIsConnected = false;
 
@@ -73,7 +74,6 @@ BrainAliveSerialHandler::~BrainAliveSerialHandler()
 
 bool BrainAliveSerialHandler::Connect()
 {
-
 	// start data receive thread
 	mTimer->start();
 	return true;
@@ -91,7 +91,6 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 	if (mDevice->IsEnabled() == false)
 		return;
 
-	// this is first packet (we now know the device has received our start stream command and answered)
 	if (mIsConnected == false)
 	{
 		mIsConnected = true;
@@ -110,7 +109,7 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 			numLostPackets = currentPacketIndex - expectedPacketIndex;
 		else
 			numLostPackets = (currentPacketIndex + 256) - expectedPacketIndex;
-
+	
 	}
 	mLastPacketIndex = currentPacketIndex;
 
@@ -120,7 +119,6 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 
 	if (mDevice->GetType() == BrainAliveDevice::TYPE_ID)
 	{
-		// 8 channel device (and maybe ganglion)
 		const uint32 numElectrodes = mDevice->GetNumNeuroSensors();
 		for (uint32 i = 0; i < numElectrodes; ++i)
 		{
@@ -135,6 +133,7 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 
 	// read out acceleration streampacket and feed them into the sensor channels
 	const BrainAliveStreamAccData* accSensor = packet.mAcceleration;
+	mPID = packet.mSampleNumber;
 	double accValueLeftDelta = accSensor[0].GetValue();
 	double accValueForwardDelta = accSensor[1].GetValue();
 	double accValueUpDelta = accSensor[2].GetValue();
@@ -142,6 +141,7 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 	double ppgValueIRDelta = ppgSensor[0].GetValue();
 	double ppgValueRedDelta = ppgSensor[1].GetValue();
 	double ppgValueGreenDelta = ppgSensor[2].GetValue();
+	
 	const uint32 scaleFactor = 8500;
 	accValueLeftDelta /= scaleFactor;
 	accValueUpDelta /= scaleFactor;
@@ -171,81 +171,81 @@ void BrainAliveSerialHandler::ProcessStreamPacket(const BrainAliveStreamPacket& 
 	mDevice->GetAccUpSensor()->AddQueuedSample((double)mAccValueUp);
 	mDevice->GetAccForwardSensor()->AddQueuedSample((double)mAccValueForward);
 	mDevice->GetPpgRedSensor()->AddQueuedSample((double)mPPGValueRed);
-	mDevice->GetPpgIrSensor()->AddQueuedSample((double)mPPGValueIR);
+	mDevice->GetPpgIRSensor()->AddQueuedSample((double)mPPGValueIR);
 	mDevice->GetPpgGreenSensor()->AddQueuedSample((double)mPPGValueGreen);
+	mDevice->GetPIDSensor()->AddQueuedSample((double)mPID);
 }
 
 
-// read one stream packet from serial port into data struct
 bool BrainAliveSerialHandler::ReadStreamPacket(BrainAliveStreamPacket* data)
 {
+	if (mBLE_Interface->BLE_Satus() == false)
+		return false;
+
+	uint8_t* mData_2 = mBLE_Interface->Get_BLE_Data();
 	
-	 mBLE_Interface->Get_BLE_Data((uint8_t *)data);
-	 return true;
-	 /*if (mData_2 != NULL)
-	 {
-		 data->mHeader = (uint)mData_2[0];
-		 data->mStatusbyte_1 = (uint)mData_2[1];
-		 data->mStatusbyte_2 = (uint)mData_2[2];
-		 data->mStatusbyte_3 = (uint)mData_2[3];
-		 data->mSensors[0].mEEGChannel[0] = (uint)mData_2[4];
-		 data->mSensors[0].mEEGChannel[1] = (uint)mData_2[5];
-		 data->mSensors[0].mEEGChannel[2] = (uint)mData_2[6];
-		 data->mSensors[1].mEEGChannel[0] = (uint)mData_2[7];
-		 data->mSensors[1].mEEGChannel[1] = (uint)mData_2[8];
-		 data->mSensors[1].mEEGChannel[2] = (uint)mData_2[9];
-		 data->mSensors[2].mEEGChannel[0] = (uint)mData_2[10];
-		 data->mSensors[2].mEEGChannel[1] = (uint)mData_2[11];
-		 data->mSensors[2].mEEGChannel[2] = (uint)mData_2[12];
-		 data->mSensors[3].mEEGChannel[0] = (uint)mData_2[13];
-		 data->mSensors[3].mEEGChannel[1] = (uint)mData_2[14];
-		 data->mSensors[3].mEEGChannel[2] = (uint)mData_2[15];
-		 data->mSensors[4].mEEGChannel[0] = (uint)mData_2[16];
-		 data->mSensors[4].mEEGChannel[1] = (uint)mData_2[17];
-		 data->mSensors[4].mEEGChannel[2] = (uint)mData_2[18];
-		 data->mSensors[5].mEEGChannel[0] = (uint)mData_2[19];
-		 data->mSensors[5].mEEGChannel[1] = (uint)mData_2[20];
-		 data->mSensors[5].mEEGChannel[2] = (uint)mData_2[21];
-		 data->mSensors[6].mEEGChannel[0] = (uint)mData_2[22];
-		 data->mSensors[6].mEEGChannel[1] = (uint)mData_2[23];
-		 data->mSensors[6].mEEGChannel[2] = (uint)mData_2[24];
-		 data->mSensors[7].mEEGChannel[0] = (uint)mData_2[25];
-		 data->mSensors[7].mEEGChannel[1] = (uint)mData_2[26];
-		 data->mSensors[7].mEEGChannel[2] = (uint)mData_2[27];
-		 data->mPpg[0].mPPGChannel[0] = (uint)mData_2[28];
-		 data->mPpg[0].mPPGChannel[1] = (uint)mData_2[29];
-		 data->mPpg[0].mPPGChannel[2] = (uint)mData_2[30];
-		 data->mPpg[1].mPPGChannel[0] = (uint)mData_2[31];
-		 data->mPpg[1].mPPGChannel[1] = (uint)mData_2[32];
-		 data->mPpg[1].mPPGChannel[2] = (uint)mData_2[33];
-		 data->mPpg[2].mPPGChannel[0] = (uint)mData_2[34];
-		 data->mPpg[2].mPPGChannel[1] = (uint)mData_2[35];
-		 data->mPpg[2].mPPGChannel[2] = (uint)mData_2[36];
-		 data->mAcceleration[0].mAccelerationChannel[0] = (uint)mData_2[37];
-		 data->mAcceleration[0].mAccelerationChannel[1] = (uint)mData_2[38];
-		 data->mAcceleration[1].mAccelerationChannel[0] = (uint)mData_2[39];
-		 data->mAcceleration[1].mAccelerationChannel[1] = (uint)mData_2[40];
-		 data->mAcceleration[2].mAccelerationChannel[0] = (uint)mData_2[41];
-		 data->mAcceleration[2].mAccelerationChannel[1] = (uint)mData_2[42];
-		 data->mSampleNumber = (uint)mData_2[43];
-		 data->mError_status = (uint)mData_2[44];
-		 data->mFooter = (uint)mData_2[45];
-		 return true;
-	 }
-	 else
-		 return false;*/
-	/*	const uint32 result = packetSize;*/
+	// no data -> return (probably does not happen?)
+	if (mData_2 == 0)
+		return false;
+
+		data->mHeader = (uint)mData_2[0];
+		data->mStatusbyte_1 = (uint)mData_2[1];
+		data->mStatusbyte_2 = (uint)mData_2[2];
+		data->mStatusbyte_3 = (uint)mData_2[3];
+		data->mSensors[0].mEEGChannel[0] = (uint)mData_2[4];
+		data->mSensors[0].mEEGChannel[1] = (uint)mData_2[5];
+		data->mSensors[0].mEEGChannel[2] = (uint)mData_2[6];
+		data->mSensors[1].mEEGChannel[0] = (uint)mData_2[7];
+		data->mSensors[1].mEEGChannel[1] = (uint)mData_2[8];
+		data->mSensors[1].mEEGChannel[2] = (uint)mData_2[9];
+		data->mSensors[2].mEEGChannel[0] = (uint)mData_2[10];
+		data->mSensors[2].mEEGChannel[1] = (uint)mData_2[11];
+		data->mSensors[2].mEEGChannel[2] = (uint)mData_2[12];
+		data->mSensors[3].mEEGChannel[0] = (uint)mData_2[13];
+		data->mSensors[3].mEEGChannel[1] = (uint)mData_2[14];
+		data->mSensors[3].mEEGChannel[2] = (uint)mData_2[15];
+		data->mSensors[4].mEEGChannel[0] = (uint)mData_2[16];
+		data->mSensors[4].mEEGChannel[1] = (uint)mData_2[17];
+		data->mSensors[4].mEEGChannel[2] = (uint)mData_2[18];
+		data->mSensors[5].mEEGChannel[0] = (uint)mData_2[19];
+		data->mSensors[5].mEEGChannel[1] = (uint)mData_2[20];
+		data->mSensors[5].mEEGChannel[2] = (uint)mData_2[21];
+		data->mSensors[6].mEEGChannel[0] = (uint)mData_2[22];
+		data->mSensors[6].mEEGChannel[1] = (uint)mData_2[23];
+		data->mSensors[6].mEEGChannel[2] = (uint)mData_2[24];
+		data->mSensors[7].mEEGChannel[0] = (uint)mData_2[25];
+		data->mSensors[7].mEEGChannel[1] = (uint)mData_2[26];
+		data->mSensors[7].mEEGChannel[2] = (uint)mData_2[27];
+		//data->mPpg[0].mPPGChannel[0] = (uint)mData_2[28];
+		//data->mPpg[0].mPPGChannel[1] = (uint)mData_2[29];
+		//data->mPpg[0].mPPGChannel[2] = (uint)mData_2[30];
+		//data->mPpg[1].mPPGChannel[0] = (uint)mData_2[31];
+		//data->mPpg[1].mPPGChannel[1] = (uint)mData_2[32];
+		//data->mPpg[1].mPPGChannel[2] = (uint)mData_2[33];
+		//data->mPpg[2].mPPGChannel[0] = (uint)mData_2[34];
+		//data->mPpg[2].mPPGChannel[1] = (uint)mData_2[35];
+		//data->mPpg[2].mPPGChannel[2] = (uint)mData_2[36];
+		data->mAcceleration[0].mAccelerationChannel[0] = (uint)mData_2[28];
+		data->mAcceleration[0].mAccelerationChannel[1] = (uint)mData_2[29];
+		data->mAcceleration[1].mAccelerationChannel[0] = (uint)mData_2[30];
+		data->mAcceleration[1].mAccelerationChannel[1] = (uint)mData_2[31];
+		data->mAcceleration[2].mAccelerationChannel[0] = (uint)mData_2[32];
+		data->mAcceleration[2].mAccelerationChannel[1] = (uint)mData_2[33];
+		data->mDeviceStatus = (uint)mData_2[34];
+		data->mSampleNumber = (uint)mData_2[35];
+		data->mError_status = (uint)mData_2[36];
+		data->mFooter = (uint)mData_2[37];
+	
+	return true;
 		
 }
 
 void BrainAliveSerialHandler::ReadStream()
 {
 	//try to read stream packets
-	while (ReadStreamPacket(&mStreamPacket) == true)
+	if((ReadStreamPacket(&mStreamPacket) == true))
 	{
-		//Sleep(3);
-		/*auto millisec = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-		while (((duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()) - millisec) < 4);*/
+
 			if (mStreamPacket.Verify() == true)
 			{
 				ProcessStreamPacket(mStreamPacket);

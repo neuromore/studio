@@ -32,7 +32,7 @@
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
-// the base class for all OpenBCI devices
+// the base class for all BrainAlive devices
 
 class ENGINE_API BrainAliveDeviceBase : public BciDevice
 {
@@ -57,9 +57,10 @@ public:
 	inline Sensor* GetAccUpSensor() const { return mAccUpSensor; }
 	inline Sensor* GetAccLeftSensor() const { return mAccLeftSensor; }
 	inline Sensor* GetPpgRedSensor() const { return mRed; }
-	inline Sensor* GetPpgIrSensor() const { return mIr; }
+	inline Sensor* GetPpgIRSensor() const { return mIR; }
 	inline Sensor* GetPpgGreenSensor() const { return mGreen; }
 	inline Sensor* GetAXLSensor() const { return Axl; }
+	inline Sensor* GetPIDSensor() const { return mPID; }
 	
 
 private:
@@ -69,14 +70,12 @@ private:
 	Sensor* mAccUpSensor;
 	Sensor* mAccLeftSensor;
 	Sensor* mRed;
-	Sensor* mIr;
+	Sensor* mIR;
 	Sensor* mGreen;
+	Sensor* mPID;
 
 };
 
-
-
-// the default OpenBCI device class
 class ENGINE_API BrainAliveDevice : public BrainAliveDeviceBase
 {
 public:

@@ -32,7 +32,7 @@
 #include <Core/EventHandler.h>
 #include <Core/Array.h>
 
-//#include <QObject>
+#include <QObject>
 #include <QThread>
 #include <QTimer>
 
@@ -69,8 +69,6 @@ public:
 	void DetectDevices() override;
 
 	virtual Device* CreateDevice(uint32 deviceTypeID) override;
-
-	// add device at given serial port
 	void AddDevice(BrainAliveDeviceBase* device);
 
 	// event handler (removes serial threads)
@@ -86,13 +84,9 @@ public:
 	// list to keep track of connected devices (index-matched with theh serial thread array below)
 	Core::Array<BrainAliveDeviceBase*> mDevices;
 
-	// one thread per device
-	// TODO use one thread for all serial handlers
 	Core::Array<BrainAliveSerialThread*> mSerialHandlerThreads;
 
 };
-
-
 
 class BrainAliveAutoDetection : public QObject
 {

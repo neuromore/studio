@@ -115,6 +115,7 @@ struct BrainAliveStreamPacket
 
 	BrainAliveStreamPPGData mPpg[3]; // int24 data
 
+	char mDeviceStatus; // Device Status
 	char mSampleNumber; // increasing sample number
 	char mFooter; // Footer byte
 

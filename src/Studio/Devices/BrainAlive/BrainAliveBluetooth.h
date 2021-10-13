@@ -213,26 +213,20 @@ class BLEInterface : public QObject
         QML_WRITABLE_PROPERTY(int, currentDevice)
         QML_READONLY_PROPERTY(QStringList, devicesNames)
         QML_READONLY_PROPERTY(QStringList, services)
-#define BLE_DATA_BUFFER_SIZE 50
-#define BLE_PACKET_SIZE 46
+#define BLE_DATA_BUFFER_SIZE 250
+#define BLE_PACKET_SIZE 38
 
         /*Communication Buffer typeDef */
 
 public:
-
     typedef struct
     {
-        uint8_t* data_buffer; /*< Data Buffer Pointer to carry data*/
+        uint16_t read_pointer;	/**< Buffer location from where data should be read. */
+        uint16_t write_pointer; /**< Buffer location where data should be written. */
+        uint16_t size;
+        uint8_t value[BLE_DATA_BUFFER_SIZE][BLE_PACKET_SIZE];
+    } BLE_buffer_s;
 
-        uint32_t buffer_size; /*< Stores the size of data buffer to prevent overflow*/
-
-        uint32_t read_pointer; /*< Read Pointer */
-
-        uint32_t write_pointer; /*< Write Pointer */
-
-        volatile uint32_t data_count; /*< Counts the amount of data inside buffer*/
-
-    } Communication_Buffer;
     explicit BLEInterface(QObject* parent = 0);
     ~BLEInterface();
     
@@ -242,12 +236,10 @@ public:
     bool BLE_Satus();
     Q_INVOKABLE void scanDevices();
     void write(const QByteArray& data);
-
-    uint8_t read_data_buffer(Communication_Buffer* buffer, uint8_t* data, uint32_t count);
-    uint8_t write_data_buffer(Communication_Buffer* buffer, uint8_t* data, uint32_t count);
-
-    void app_ble_data_buffer_init(void);
-   void Get_BLE_Data( uint8_t *);
+    uint8_t BLE_read_buffer(uint8_t* temp, uint16_t length);
+    uint8_t BLE_write_buffer(uint8_t* temp, uint16_t length);
+    uint8_t BLE_reset_buffer(void);
+    uint8_t* Get_BLE_Data( );
     bool isConnected() const
     {
         return m_connected;
@@ -324,7 +316,7 @@ private:
     void searchCharacteristic();
     int m_currentService;
     QLowEnergyService::WriteMode m_writeMode;
-
+    uint mWrite_pointer = 0;
 
 };
 

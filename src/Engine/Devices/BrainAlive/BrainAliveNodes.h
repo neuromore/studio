@@ -32,7 +32,7 @@
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
 
-// normal OpenBCI device node
+// normal BrainAlive device node
 class ENGINE_API BrainAliveNode : public DeviceInputNode
 {
 public:

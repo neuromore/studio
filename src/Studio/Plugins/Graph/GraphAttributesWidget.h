@@ -137,6 +137,9 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
 		Property*						mNameProperty_8;
         Property*                       mNameProperty_9;
         Property*                       mNameProperty_10;
+		Property*                       mNameProperty_11;
+		Property*                       mNameProperty_12;
+
 
 		Core::Array<AttributeLink>		mAttributeLinks;
 		Core::AttributeSet*				mAttributeSet;
