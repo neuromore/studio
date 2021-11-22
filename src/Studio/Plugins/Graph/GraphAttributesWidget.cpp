@@ -28,9 +28,14 @@
 #include <EngineManager.h>
 #include "../../AppManager.h"
 #include "../../MainWindow.h"
-
+#include <Config.h>
 
 using namespace Core;
+
+
+Core::Array<Core::String> ch_data = {}, ch_data_2 = {}, ch_data_3 = {}, ch_data_4 = {}, ch_data_5 = {}, ch_data_6 = {}, ch_data_7 = {}, ch_data_8 = {};
+String Val[20];
+String data_1 = "F7", data_2 = "FT7", data_3 = "T7", data_4 = "TP7", data_5 = "Cz", data_6 = "C4", data_7 = "FC4", data_8 = "F4";
 
 // constructor
 GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(parent)
@@ -38,6 +43,18 @@ GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(pare
 	LogDebug("Constructing attributes widget ...");
 	mGraphObject	= NULL;
 	mNameProperty	= NULL;
+	mNameProperty_2 = NULL;
+	mNameProperty_3 = NULL;
+	mNameProperty_4 = NULL;
+	mNameProperty_5 = NULL;
+	mNameProperty_6 = NULL;
+	mNameProperty_7 = NULL;
+	mNameProperty_8 = NULL;
+	mNameProperty_9 = NULL;
+	mNameProperty_10 = NULL;
+	mNameProperty_11 = NULL;
+	mNameProperty_12 = NULL;
+    mChannel_Config = NULL;
 	mParentGroupName= "";
 
 	setContentsMargins(0,0,0,0);
@@ -68,6 +85,34 @@ GraphAttributesWidget::GraphAttributesWidget(QWidget* parent) : QScrollArea(pare
 	// init
 	InitForNode( NULL );
 	show();
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+
+	ch_data.Add("F7"); ch_data.Add("F5"); ch_data.Add("F3");
+	ch_data_2.Add("FT7"); ch_data_2.Add("FC5"); ch_data_2.Add("FC3");
+	ch_data_3.Add("T7"); ch_data_3.Add("C5"); ch_data_3.Add("C3");
+	ch_data_4.Add("TP7"); ch_data_4.Add("CP5"); ch_data_4.Add("CP3");
+	ch_data_5.Add("Cz");
+	ch_data_6.Add("C4"); ch_data_6.Add("C6"); ch_data_6.Add("T8");
+	ch_data_7.Add("FC4"); ch_data_7.Add("FC6"); ch_data_7.Add("FT8");
+	ch_data_8.Add("F4"); ch_data_8.Add("F6"); ch_data_8.Add("F8");
+
+	m_bleInterface = new BLEInterface(this);
+	connect(m_bleInterface, &BLEInterface::dataReceived,
+		this, &GraphAttributesWidget::dataReceived);
+
+	connect(m_bleInterface, &BLEInterface::devicesNamesChanged,
+	[this](QStringList devices) {
+	mListWidget->clear();
+	mListWidget->addItems(devices);
+	});
+	connect(m_bleInterface, &BLEInterface::servicesChanged,
+	[this](QStringList services) {
+	//mListWidget->clear();
+	//mListWidget->addItems(services);
+	});
+	mScan_Widget = new QWidget();
+	mListWidget = new QListWidget();
+    #endif
 }
 
 
@@ -78,7 +123,10 @@ GraphAttributesWidget::~GraphAttributesWidget()
 	CORE_EVENTMANAGER.RemoveEventHandler(this);
 }
 
+void GraphAttributesWidget::dataReceived(QByteArray data)
+{
 
+}
 // event handler callback: an attribute has changed, check if it was one of the displayed ones
 void GraphAttributesWidget::OnAttributeUpdated(Graph* graph, GraphObject* object, Attribute* attribute)
 {
@@ -190,7 +238,31 @@ void GraphAttributesWidget::InitForNode(Node* node, bool showName)
 
 	// add the name as property first
 	if (showName == true)
-		mNameProperty = mPropertyTreeWidget->GetPropertyManager()->AddStringProperty( mParentGroupName.AsChar(), "Node Name", node->GetName(), 0, isNameReadOnly);
+	{
+		mNameProperty = mPropertyTreeWidget->GetPropertyManager()->AddStringProperty(mParentGroupName.AsChar(), "Node Name", node->GetName(), 0, isNameReadOnly);
+		if (node->GetNameString() == "BrainAlive")
+		{
+                  mChannel_Config = mPropertyTreeWidget->GetPropertyManager()
+                          ->AddButtonProperty(mParentGroupName.AsChar(),
+                                              "Channel Settings",
+                                              "Configuration", true);
+			mNameProperty_1 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 1", ch_data, Val[0].ToInt(), false);
+			mNameProperty_2 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 2", ch_data_2, Val[1].ToInt(), false);
+			mNameProperty_3 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 3", ch_data_3, Val[2].ToInt(), false);
+			mNameProperty_4 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 4", ch_data_4, Val[3].ToInt(), false);
+			mNameProperty_5 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 5", ch_data_5, Val[4].ToInt(), false);
+			mNameProperty_6 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 6", ch_data_6, Val[5].ToInt(), false);
+			mNameProperty_7 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 7", ch_data_7, Val[6].ToInt(), false);
+			mNameProperty_8 = mPropertyTreeWidget->GetPropertyManager()->AddComboBoxProperty(mParentGroupName.AsChar(), "Ch 8", ch_data_8, Val[7].ToInt(), false);
+			mNameProperty_9 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), "Apply Settings", "Apply", true);
+			mNameProperty_10 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), "Start Scaning", "Scan", true);
+			mNameProperty_11 = mPropertyTreeWidget->GetPropertyManager()->AddStringProperty(mParentGroupName.AsChar(), "Write Command","", 0, isNameReadOnly);
+			mNameProperty_12 = mPropertyTreeWidget->GetPropertyManager()->AddButtonProperty(mParentGroupName.AsChar(), " ", "Write", true);
+			// create and return the property
+
+			
+		}
+	}
 	else
 		mNameProperty = NULL;
 
@@ -213,12 +285,379 @@ void GraphAttributesWidget::OnValueChanged(Property* property)
 {
 	// when changing the node name
 	if (property == mNameProperty)
-		mGraphObject->SetName( property->AsString().AsChar() );
+		mGraphObject->SetName(property->AsString().AsChar());
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+	else if (property == mNameProperty_1)
+	{
+		property->GetAttributeValue()->ConvertToString(Val[0]);
+		data_1 = ch_data.GetItem(Val[0].ToInt());
+	}
+	else if (property == mNameProperty_2)
+	{
+		property->GetAttributeValue()->ConvertToString(Val[1]);
+		data_2 = ch_data_2.GetItem(Val[1].ToInt());
+	}
+	else if (property == mNameProperty_3)
+	{
+		property->GetAttributeValue()->ConvertToString(Val[2]);
+		data_3 = ch_data_3.GetItem(Val[2].ToInt());
 
+	}
+	else if (property == mNameProperty_4)
+	{
+		property->GetAttributeValue()->ConvertToString(Val[3]);
+		data_4 = ch_data_4.GetItem(Val[3].ToInt());
+	}
+	else if (property == mNameProperty_5)
+	{
+		property->GetAttributeValue()->ConvertToString(Val[4]);
+		data_5 = ch_data_5.GetItem(Val[4].ToInt());
+	}
+	else if (property == mNameProperty_6)
+	{
+		property->GetAttributeValue()->ConvertToString(Val[5]);
+		data_6 = ch_data_6.GetItem(Val[5].ToInt());
+	}
+	else if (property == mNameProperty_7)
+	{
+		property->GetAttributeValue()->ConvertToString(Val[6]);
+		data_7 = ch_data_7.GetItem(Val[6].ToInt());
+	}
+	else if (property == mNameProperty_8)
+	{
+		property->GetAttributeValue()->ConvertToString(Val[7]);
+		data_8 = ch_data_8.GetItem(Val[7].ToInt());
+	}
+	else if (property == mNameProperty_10)
+	{
+		
+		 if((mScan_Widget->isVisible() )== false)
+		{
+			Connect = new QPushButton();
+			Connect->setText(" Connect ");
+			
+			mScan_Widget->setFixedHeight(400);
+			mScan_Widget->setFixedWidth(400);
+			QVBoxLayout* vLayout = new QVBoxLayout();
+
+
+			mListWidget->setFixedHeight(380);
+			mListWidget->setFixedWidth(380);
+			vLayout->setMargin(10);
+			vLayout->setSpacing(10);
+
+			vLayout->addWidget(mListWidget, 1, Qt::AlignTop);
+			vLayout->addWidget(Connect, 1, Qt::AlignBottom);
+			mScan_Widget->setLayout(vLayout);
+			mScan_Widget->setVisible(true);
+			m_bleInterface->scanDevices();
+			connect(Connect, &QPushButton::clicked, this, &GraphAttributesWidget::On_connect);
+		} 
+		 else
+		 {
+			 mScan_Widget->show();
+			 //mScan_Widget->showMaximized();
+			 mScan_Widget->activateWindow();
+			 mListWidget->show();
+
+		 }
+
+			
+	} else if (property == mChannel_Config) {
+          gain_combo = new QComboBox();
+          channel_no = new QComboBox();
+          input_type = new QComboBox();
+          bias_type = new QComboBox();
+          Power_down = new QComboBox();
+          sendcmd_2 = new QPushButton();
+          QCheckBox *mShowUsedCheckbox_4 = new QCheckBox();
+          QWidget *menuWidget = new QWidget();
+          QHBoxLayout *hLayout_1 = new QHBoxLayout();
+          hLayout_1->setMargin(10);
+          hLayout_1->setSpacing(10);
+          channel_no->setFixedHeight(20);
+          channel_no->setFixedWidth(75);
+          Power_down->setFixedHeight(20);
+          Power_down->setFixedWidth(75);
+          gain_combo->setFixedHeight(20);
+          gain_combo->setFixedWidth(75);
+          input_type->setFixedHeight(20);
+          input_type->setFixedWidth(75);
+          bias_type->setFixedHeight(20);
+          bias_type->setFixedWidth(75);
+          channel_no->addItem("Channel");
+          channel_no->addItem("1");
+          channel_no->addItem("2");
+          channel_no->addItem("3");
+          channel_no->addItem("4");
+          channel_no->addItem("5");
+          channel_no->addItem("6");
+          channel_no->addItem("7");
+          channel_no->addItem("8");
+          channel_no->addItem("All channel");
+          Power_down->addItem("Channel State");
+          Power_down->addItem("Enable");
+          Power_down->addItem("Disable");
+          gain_combo->addItem("Gain");
+          gain_combo->addItem("1");
+          gain_combo->addItem("2");
+          gain_combo->addItem("3");
+          gain_combo->addItem("4");
+          gain_combo->addItem("6");
+          gain_combo->addItem("8");
+          gain_combo->addItem("12");
+          input_type->addItem("Input Type");
+          input_type->addItem("Normal");
+          input_type->addItem("Shorted");
+          input_type->addItem("Bias Meas");
+          input_type->addItem("MVDD");
+          input_type->addItem("Temp");
+          input_type->addItem("Test");
+          input_type->addItem("BIAS_DRP");
+          input_type->addItem("BIAS_DRN");
+          bias_type->addItem("BIAS");
+          bias_type->addItem("Not Include");
+          bias_type->addItem("Include");
+          hLayout_1->addWidget(channel_no, 0, Qt::AlignTop);
+          hLayout_1->addWidget(Power_down, 0, Qt::AlignTop);
+          hLayout_1->addWidget(gain_combo, 0, Qt::AlignTop);
+          hLayout_1->addWidget(input_type, 0, Qt::AlignTop);
+          hLayout_1->addWidget(bias_type, 0, Qt::AlignTop);
+          sendcmd_2->setText("Send");
+          hLayout_1->addWidget(sendcmd_2, 0, Qt::AlignBottom);
+          menuWidget->setLayout(hLayout_1);
+          menuWidget->setStyleSheet("color: rgb(0,159,227);");
+          menuWidget->setFixedHeight(100);
+          menuWidget->setFixedWidth(500);
+
+          menuWidget->setWindowTitle("Channel Settings");
+          menuWidget->setVisible(true);
+
+          connect(channel_no, &QComboBox::currentTextChanged, this,
+                  &GraphAttributesWidget::Channel_config);
+          connect(Power_down, &QComboBox::currentTextChanged, this,
+                  &GraphAttributesWidget::Channel_config);
+          connect(gain_combo, &QComboBox::currentTextChanged, this,
+                  &GraphAttributesWidget::Channel_config);
+          connect(input_type, &QComboBox::currentTextChanged, this,
+                  &GraphAttributesWidget::Channel_config);
+          connect(bias_type, &QComboBox::currentTextChanged, this,
+                  &GraphAttributesWidget::Channel_config);
+        }
+	else if (property == mNameProperty_12)
+	{
+		mNameProperty_11->GetAttributeValue()->ConvertToString(Val[8]);
+		m_bleInterface->write_data((QByteArray)Val[8]);
+	}
+	else if (property == mNameProperty_9)
+	{
+
+		
+
+	}
+#endif
 	UpdateInterface();
 }
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+ void GraphAttributesWidget::Channel_config()
+{
+  int cmd_data_2[10] = {0};
+  int temp = 0;
+  cmd_data_2[1] = channel_no->currentIndex();
+  if (cmd_data_2[1] == 1) {
+    ss_cmd[4] = 0;
+    ss_cmd[5] = 1;
+  } else if (cmd_data_2[1] == 2) {
+    ss_cmd[4] = 0;
+    ss_cmd[5] = 2;
+  } else if (cmd_data_2[1] == 3) {
+    ss_cmd[4] = 0;
+    ss_cmd[5] = 3;
+  } else if (cmd_data_2[1] == 4) {
+    ss_cmd[4] = 0;
+    ss_cmd[5] = 4;
+  } else if (cmd_data_2[1] == 5) {
+    ss_cmd[4] = 0;
+    ss_cmd[5] = 5;
+  } else if (cmd_data_2[1] == 6) {
+    ss_cmd[4] = 0;
+    ss_cmd[5] = 6;
+  } else if (cmd_data_2[1] == 7) {
+    ss_cmd[4] = 0;
+    ss_cmd[5] = 7;
+  } else if (cmd_data_2[1] == 8) {
+    ss_cmd[5] = 8;
+    ss_cmd[4] = 0;
+  } else if (cmd_data_2[1] == 9) {
+    ss_cmd[4] = 0x0f;
+    ss_cmd[5] = 0x0f;
+  }
 
+  cmd_data_2[2] = Power_down->currentIndex();
+  if (cmd_data_2[2] == 1)
+    ss_cmd[6] = 0;
+  else if (cmd_data_2[2] == 2)
+    ss_cmd[6] = 1;
 
+  cmd_data_2[3] = gain_combo->currentIndex();
+  if (cmd_data_2[3] == 1)
+    ss_cmd[7] = 1;
+  else if (cmd_data_2[3] == 2)
+    ss_cmd[7] = 2;
+  else if (cmd_data_2[3] == 3)
+    ss_cmd[7] = 3;
+  else if (cmd_data_2[3] == 4)
+    ss_cmd[7] = 4;
+  else if (cmd_data_2[3] == 5)
+    ss_cmd[7] = 0;
+  else if (cmd_data_2[3] == 6)
+    ss_cmd[7] = 5;
+  else if (cmd_data_2[3] == 7)
+    ss_cmd[7] = 6;
+
+  cmd_data_2[4] = input_type->currentIndex();
+  if (cmd_data_2[4] == 1)
+    ss_cmd[8] = 0;
+  else if (cmd_data_2[4] == 2)
+    ss_cmd[8] = 1;
+  else if (cmd_data_2[4] == 3)
+    ss_cmd[8] = 2;
+  else if (cmd_data_2[4] == 4)
+    ss_cmd[8] = 3;
+  else if (cmd_data_2[4] == 5)
+    ss_cmd[8] = 4;
+  else if (cmd_data_2[4] == 6)
+    ss_cmd[8] = 5;
+  else if (cmd_data_2[4] == 7)
+    ss_cmd[8] = 6;
+  else if (cmd_data_2[4] == 8)
+    ss_cmd[8] = 7;
+
+  cmd_data_2[5] = bias_type->currentIndex();
+  if (cmd_data_2[5] == 1)
+    ss_cmd[9] = 0;
+  else if (cmd_data_2[5] == 2)
+    ss_cmd[9] = 1;
+  temp = (ss_cmd[6] << 7) | (ss_cmd[7] << 4) | (ss_cmd[8] << 1) | ss_cmd[9];
+  ss_cmd[6] = temp / 0x10;
+  ss_cmd[7] = temp % 0x10;
+  connect(sendcmd_2, &QPushButton::clicked, this,
+          &GraphAttributesWidget::config_data);
+}
+
+ void GraphAttributesWidget::config_data() {
+
+  ss_cmd[0] = '0';
+  ss_cmd[1] = 'a';
+  ss_cmd[2] = '8';
+  ss_cmd[3] = '1';
+
+  for (int i = 4; i < 8; i++) {
+    switch (ss_cmd[i]) {
+    case 0:
+      ss_cmd[i] = '0';
+      break;
+    case 1:
+      ss_cmd[i] = '1';
+      break;
+    case 2:
+      ss_cmd[i] = '2';
+      break;
+    case 3:
+      ss_cmd[i] = '3';
+      break;
+    case 4:
+      ss_cmd[i] = '4';
+      break;
+    case 5:
+      ss_cmd[i] = '5';
+      break;
+    case 6:
+      ss_cmd[i] = '6';
+      break;
+    case 7:
+      ss_cmd[i] = '7';
+      break;
+    case 8:
+      ss_cmd[i] = '8';
+      break;
+    case 9:
+      ss_cmd[i] = '9';
+      break;
+    case 10:
+      ss_cmd[i] = 'a';
+      break;
+    case 11:
+      ss_cmd[i] = 'b';
+      break;
+    case 12:
+      ss_cmd[i] = 'c';
+      break;
+    case 13:
+      ss_cmd[i] = 'd';
+      break;
+    case 14:
+      ss_cmd[i] = 'e';
+      break;
+    case 15:
+      ss_cmd[i] = 'f';
+      break;
+    }
+  }
+  ss_cmd[8] = '0';
+  ss_cmd[9] = 'd';
+  if (m_bleInterface->BLE_Satus() == true) {
+    m_bleInterface->write_data(ss_cmd);
+  }
+  //config_c = true;
+}
+
+void  GraphAttributesWidget::On_Ok()
+{
+	Ok_Button->setVisible(false);
+	mwidget_2->close();
+}
+void  GraphAttributesWidget::On_connect()
+{
+	if (mListWidget->currentRow() > (-1))
+	{
+		m_bleInterface->set_currentDevice(mListWidget->currentRow());
+		m_bleInterface->connectCurrentDevice();
+		if (m_bleInterface->BLE_Satus() == true)
+		{
+		//	m_bleInterface->m_deviceDiscoveryAgent->stop();
+			Connect->setVisible(false);
+			mScan_Widget->close();
+
+		}
+	}
+	else
+	{
+	
+		Ok_Button = new QPushButton();
+		Ok_Button->setText(" OK ");
+		mwidget_2 = new QWidget();
+		mwidget_2->setFixedHeight(100);
+		mwidget_2->setFixedWidth(250);
+		mListWidget_2 = new QListWidget();
+		QVBoxLayout* vLayout = new QVBoxLayout();
+		vLayout->setMargin(10);
+		vLayout->setSpacing(10);
+		mListWidget_2->setFixedHeight(80);
+		mListWidget_2->setFixedWidth(230);
+		mListWidget_2->addItem("Please Select Any Device");
+		vLayout->addWidget(mListWidget_2, 1, Qt::AlignTop);
+		vLayout->addWidget(Ok_Button, 1, Qt::AlignBottom);
+		mwidget_2->setLayout(vLayout);
+		mwidget_2->setVisible(true);
+
+		connect(Ok_Button, &QPushButton::clicked, this, &GraphAttributesWidget::On_Ok);
+		
+	}
+		
+
+}
+#endif
 // update the states
 void GraphAttributesWidget::UpdateInterface()
 {

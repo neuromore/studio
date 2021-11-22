@@ -130,6 +130,9 @@
     <Filter Include="Devices\BrainFlow">
       <UniqueIdentifier>{658f9836-5ef0-4179-9ab9-f45901c63157}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Devices\BrainAlive">
+      <UniqueIdentifier>{dbba01df-9fd4-4320-a9b3-5051050b3abc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp">
@@ -827,6 +830,24 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.moc.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.moc.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.moc.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
@@ -1210,6 +1231,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h">
       <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveCommands.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveDriver.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveSerialHandler.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainAlive\BrainAliveBluetooth.h">
+      <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

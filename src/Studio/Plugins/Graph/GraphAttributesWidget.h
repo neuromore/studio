@@ -38,6 +38,10 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QScrollArea>
+#include "qtimer.h"
+#include <qthread.h>
+#include "../../studio/src/QtBase/AttributeWidgets/PropertyManager.h"
+#include "./Studio/Devices/BrainAlive/BrainAliveBluetooth.h"
 
 
 class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
@@ -114,17 +118,54 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
 
 		void AddConditions(GraphObject* object, bool readOnly);
 		void AddActions(GraphObject* object, bool readOnly);
-
+        void dataReceived(QByteArray data);
+        void On_connect();
+        void Channel_config();
+        void config_data();
+        void On_Ok();
 		uint32 FindRemoveButtonIndex(QObject* button) const;
 
 		GraphObject*					mGraphObject;
 		GraphObjectViewWidget*			mGraphObjectView;
 		PropertyTreeWidget*				mPropertyTreeWidget;
 		Property*						mNameProperty;
+        Property*                       mChannel_Config;
+		Property*						mNameProperty_1;
+		Property*						mNameProperty_2;
+		Property*						mNameProperty_3;
+		Property*						mNameProperty_4;
+		Property*						mNameProperty_5;
+		Property*						mNameProperty_6;
+		Property*						mNameProperty_7;
+		Property*						mNameProperty_8;
+        Property*                       mNameProperty_9;
+        Property*                       mNameProperty_10;
+		Property*                       mNameProperty_11;
+		Property*                       mNameProperty_12;
+
+
 		Core::Array<AttributeLink>		mAttributeLinks;
 		Core::AttributeSet*				mAttributeSet;
 		Core::String					mParentGroupName;
 		Core::String					mTempString;
+public:
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+        BLEInterface*                   m_bleInterface;
+        QPushButton*                    Connect;
+        QListWidget*                    mListWidget;
+        QWidget*                        mScan_Widget;
+        QPushButton*                    Ok_Button;
+        QWidget*                        mwidget_2;
+        QListWidget*                    mListWidget_2;
+        QComboBox*                      gain_combo;
+        QComboBox*                      channel_no;
+        QComboBox*                      input_type;
+        QComboBox*                      bias_type;
+        QComboBox*                      Power_down;
+        QPushButton*                    sendcmd_2;
+        char ss_cmd[10] = {0};
+
+#endif
 };
 
 

@@ -117,7 +117,10 @@
 	#include "Neurosity/NotionNode.h"
 #endif
 
-
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+#include "./BrainAlive/BrainAliveDevices.h"
+#include "./BrainAlive/BrainAliveNodes.h"
+#endif
 
 #include "../EngineManager.h"
 #include "../Core/LogManager.h"
@@ -321,6 +324,14 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	{
 		GetDeviceManager()->RegisterDeviceType(new GamepadDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new GamepadNode(NULL));
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+	if (disablePermissionCheck || user->ReadAllowed(BrainAliveDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new BrainAliveDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new BrainAliveNode(NULL));
 	}
 #endif
 

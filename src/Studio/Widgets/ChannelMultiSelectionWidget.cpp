@@ -13,10 +13,10 @@
 **
 ** neuromore Public License Usage
 ** Alternatively, this file may be used under the terms of the neuromore
-** Public License version 1 as published by neuromore co with exceptions as 
-** appearing in the file neuromore-class-exception.md included in the 
-** packaging of this file. Please review the following information to 
-** ensure the neuromore Public License requirements will be met: 
+** Public License version 1 as published by neuromore co with exceptions as
+** appearing in the file neuromore-class-exception.md included in the
+** packaging of this file. Please review the following information to
+** ensure the neuromore Public License requirements will be met:
 ** https://neuromore.com/npl
 **
 ****************************************************************************/
@@ -41,7 +41,7 @@ ChannelMultiSelectionWidget::ChannelMultiSelectionWidget(QWidget* parent) : QWid
 
 	mChannelMultiCheckbox = new HMultiCheckboxWidget();
 	connect(mChannelMultiCheckbox, SIGNAL(SelectionChanged()), this, SLOT(OnChannelSelectionChanged()));
-	
+
 	mDeviceSelectionWidget = new DeviceSelectionWidget();
 	connect(mDeviceSelectionWidget, SIGNAL(DeviceSelectionChanged(Device*)), this, SLOT(OnDeviceSelectionChanged(Device*)));
 
@@ -96,18 +96,18 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 		if (device->GetBaseType() == BciDevice::BASE_TYPE_ID)
 		{
 			headset = static_cast<BciDevice*>(device);
-			
+
 			// add all EEG channels
-			const uint32 numRawSensors = headset->GetNumNeuroSensors(); 
+			const uint32 numRawSensors = headset->GetNumNeuroSensors();
 			for (uint32 i = 0; i < numRawSensors; i++)
 			{
 				Sensor* sensor = headset->GetNeuroSensor(i);
 				Channel<double>* channel = sensor->GetChannel();
-				
+
 				// skip channel, if it is not used
 				if (IsShowUsedChecked() == true && mUsedChannels.Contains(channel) == false)
 					continue;
-			
+
 				mAvailableChannels.Add(channel);
 				names.Add(channel->GetName());
 				tooltips.Add(channel->GetName());
@@ -116,8 +116,8 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 			// add all other non-EEG sensors
 			if (mShowOnlyEEGChannels == false)
 			{
-				const uint32 numSensors = headset->GetNumSensors(); 
-				for (uint32 i=0; i<numSensors; ++i)
+				const uint32 numSensors = headset->GetNumSensors();
+				for (uint32 i = 0; i < numSensors; ++i)
 				{
 					Sensor* sensor = headset->GetSensor(i);
 					Channel<double>* channel = sensor->GetChannel();
@@ -125,16 +125,16 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 					// skip channel, if it is not used
 					if (IsShowUsedChecked() == true && mUsedChannels.Contains(channel) == false)
 						continue;
-			
+
 					// check if this a neuro sensor (there is no other way to do it right now)
 					bool isNeuroSensor = false;
 					/*const uint32 numRawSensors = */headset->GetNumNeuroSensors();
-					for (uint32 j=0; j<numSensors && isNeuroSensor == false; ++j)
+					for (uint32 j = 0; j < numSensors && isNeuroSensor == false; ++j)
 					{
-						if (headset->GetSensor(i) == headset->GetNeuroSensor(j))	
+						if (headset->GetSensor(i) == headset->GetNeuroSensor(j))
 							isNeuroSensor = true;
 					}
-				
+
 					// don't add this sensor if its a neurosensor
 					if (isNeuroSensor == false)
 					{
@@ -149,7 +149,7 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 
 		}
 
-		
+
 
 	}
 
@@ -164,12 +164,12 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 	uint32 numBoxesToSelect = 0;
 	switch (mAutoSelectType)
 	{
-		case AutoSelectType::SELECT_NONE: numBoxesToSelect = 0; break;
-		case AutoSelectType::SELECT_FIRST: numBoxesToSelect = 1; break;
-		
-		case AutoSelectType::SELECT_ALL: 
-		default:
-			numBoxesToSelect = numCheckBoxes; break;
+	case AutoSelectType::SELECT_NONE: numBoxesToSelect = 0; break;
+	case AutoSelectType::SELECT_FIRST: numBoxesToSelect = 1; break;
+
+	case AutoSelectType::SELECT_ALL:
+	default:
+		numBoxesToSelect = numCheckBoxes; break;
 	}
 	mChannelMultiCheckbox->CheckXCheckboxes(numBoxesToSelect);
 
@@ -188,7 +188,7 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 void ChannelMultiSelectionWidget::OnChannelSelectionChanged()
 {
 	const uint32 numSensors = mAvailableChannels.Size();
-	
+
 	mSelectedChannels.Clear();
 
 	for (uint32 i = 0; i < numSensors; ++i)
@@ -230,7 +230,7 @@ void ChannelMultiSelectionWidget::SetChannelAsUsed(Channel<double>* channel, boo
 
 void ChannelMultiSelectionWidget::ClearUsedChannels()
 {
-	mUsedChannels.Clear(); 
+	mUsedChannels.Clear();
 	mShowUsedCheckbox->setVisible(false);
 }
 

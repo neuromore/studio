@@ -66,6 +66,10 @@
 #include "BrainFlow/BrainFlowDriver.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+#include "./BrainAlive/BrainAliveDriver.h"
+#endif
+
 #include "Bluetooth/BluetoothDriver.h"
 #include "Audio/AudioDriver.h"
 
@@ -210,6 +214,16 @@ void DriverInventory::RegisterDrivers()
 		auto* driver = new BrainFlowDriver();
 		driver->Init();
 		deviceManager->AddDeviceDriver(driver);
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINALIVE
+	if (user->ReadAllowed(BrainAliveDevice::GetRuleName()) == true)
+	{
+		// create and add the BrainAlive system
+		BrainAliveDriver* brainAliveDriver = new BrainAliveDriver();
+		brainAliveDriver->Init();
+		deviceManager->AddDeviceDriver(brainAliveDriver);
 	}
 #endif
 }
