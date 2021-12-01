@@ -245,7 +245,7 @@ bool BrainAliveSerialHandler::ReadStreamPacket(BrainAliveStreamPacket* data)
 void BrainAliveSerialHandler::ReadStream()
 {
 	//try to read stream packets
-	if((ReadStreamPacket(&mStreamPacket) == true))
+  while ((ReadStreamPacket(&mStreamPacket) == true))
 	{
 
 			if (mStreamPacket.Verify() == true)

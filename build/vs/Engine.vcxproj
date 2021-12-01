@@ -149,7 +149,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src\Studio;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\deps\include\json%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -590,6 +590,7 @@
     <ClCompile Include="..\..\src\Engine\Creud.cpp" />
     <ClInclude Include="..\..\src\Engine\Creud.h" />
     <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveDevices.cpp" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveNodes.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.cpp" />
@@ -937,6 +938,7 @@
     <ClInclude Include="..\..\src\Engine\Version.h" />
     <ClCompile Include="..\..\src\Engine\neuromoreEngine.cpp" />
     <ClInclude Include="..\..\src\Engine\neuromoreEngine.h" />
+    <ClInclude Include="BrainAliveConstant.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Engine\Proprietary\README.md" />

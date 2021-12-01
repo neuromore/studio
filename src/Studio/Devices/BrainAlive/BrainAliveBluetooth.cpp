@@ -98,8 +98,7 @@ void BLEInterface::waitForWrite()
 void BLEInterface::write_data(const QByteArray& data)
 {
 
-  qDebug() << "BLEInterface::write: " << data;
-  
+  qDebug() << "BLEInterface::write: " << QByteArray::fromHex(data);
   set_currentDevice(0);
   update_currentService(3);
   if (m_service && m_writeCharacteristic.isValid()) {

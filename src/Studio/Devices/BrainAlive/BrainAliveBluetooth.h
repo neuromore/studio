@@ -4,7 +4,6 @@
 #include "qlowenergyservice.h"
 #include "qbluetooth.h"
 #include <qobject.h>
-#include "qlistwidget.h"
 #include "qtimer.h"
 #include <qthread.h>
 #include <Config.h>

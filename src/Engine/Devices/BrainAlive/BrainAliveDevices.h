@@ -29,6 +29,7 @@
 #include "../../BciDevice.h"
 #include "../../DeviceDriver.h"
 #include "../../../Engine/DSP/MultiChannel.h"
+#include "BrainAliveConstant.h"
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
@@ -50,8 +51,9 @@ public:
 	double GetLatency() const override { return 0.1; }
 	double GetExpectedJitter() const override { return 0.1; }
 	bool IsWireless() const override { return true; }
-
+    const BrainAliveInputParams &GetParams() const { return mParams; }
 	void CreateSensors() override;
+   
 	// custom sensor
 	inline Sensor* GetAccForwardSensor() const { return mAccForwardSensor; }
 	inline Sensor* GetAccUpSensor() const { return mAccUpSensor; }
@@ -61,10 +63,11 @@ public:
 	inline Sensor* GetPpgGreenSensor() const { return mGreen; }
 	inline Sensor* GetAXLSensor() const { return Axl; }
 	inline Sensor* GetPIDSensor() const { return mPID; }
+    
 	
 
 private:
-
+    BrainAliveInputParams mParams;
 	Sensor* Axl;
 	Sensor* mAccForwardSensor;
 	Sensor* mAccUpSensor;
@@ -73,7 +76,7 @@ private:
 	Sensor* mIR;
 	Sensor* mGreen;
 	Sensor* mPID;
-
+    
 };
 
 class ENGINE_API BrainAliveDevice : public BrainAliveDeviceBase
@@ -98,7 +101,11 @@ public:
 	double GetTimeoutLimit() const override { return 120; } // Long timeout limit because channel config takes so long
 
 	void CreateElectrodes() override;
-};
+    void set_electrodes();
+
+      private:
+    BrainAliveInputParams mParams;
+    };
 
 
 #endif

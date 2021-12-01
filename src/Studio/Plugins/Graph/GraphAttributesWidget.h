@@ -41,7 +41,7 @@
 #include "qtimer.h"
 #include <qthread.h>
 #include "../../studio/src/QtBase/AttributeWidgets/PropertyManager.h"
-#include "./Studio/Devices/BrainAlive/BrainAliveBluetooth.h"
+//#include "./Studio/Devices/BrainAlive/BrainAliveBluetooth.h"
 
 
 class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
@@ -150,20 +150,20 @@ class GraphAttributesWidget : public QScrollArea, public Core::EventHandler
 		Core::String					mTempString;
 public:
 #ifdef INCLUDE_DEVICE_BRAINALIVE
-        BLEInterface*                   m_bleInterface;
-        QPushButton*                    Connect;
-        QListWidget*                    mListWidget;
-        QWidget*                        mScan_Widget;
-        QPushButton*                    Ok_Button;
-        QWidget*                        mwidget_2;
-        QListWidget*                    mListWidget_2;
-        QComboBox*                      gain_combo;
-        QComboBox*                      channel_no;
-        QComboBox*                      input_type;
-        QComboBox*                      bias_type;
-        QComboBox*                      Power_down;
-        QPushButton*                    sendcmd_2;
-        char ss_cmd[10] = {0};
+        //BLEInterface*                   m_bleInterface;
+        //QPushButton*                    Connect;
+        //QListWidget*                    mListWidget;
+        //QWidget*                        mScan_Widget;
+        //QPushButton*                    Ok_Button;
+        //QWidget*                        mwidget_2;
+        //QListWidget*                    mListWidget_2;
+        //QComboBox*                      gain_combo;
+        //QComboBox*                      channel_no;
+        //QComboBox*                      input_type;
+        //QComboBox*                      bias_type;
+        //QComboBox*                      Power_down;
+        //QPushButton*                    sendcmd_2;
+       /* char ss_cmd[10] = {0};*/
 
 #endif
 };

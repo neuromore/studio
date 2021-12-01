@@ -50,7 +50,7 @@ OpenBCISerialHandler::OpenBCISerialHandler(SerialPort* port, OpenBCIDeviceBase* 
 	mTimer = new QTimer();
 	QObject::connect(mTimer, SIGNAL(timeout()), this, SLOT(ReadStream()));
 	mTimer->setTimerType( Qt::PreciseTimer );
-	mTimer->setInterval(2*1000/mSampleRate);
+	mTimer->setInterval(2 * 1000/mSampleRate);
 
 	mIsConnected = false;
 

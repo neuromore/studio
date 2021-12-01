@@ -549,6 +549,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveDevices.cpp">
       <Filter>Devices\BrainAlive</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveNodes.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1245,6 +1248,9 @@
       <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveNodes.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="BrainAliveConstant.h">
       <Filter>Devices\BrainAlive</Filter>
     </ClInclude>
   </ItemGroup>

@@ -30,7 +30,7 @@
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
 using namespace Core;
-extern String data_1, data_2, data_3, data_4, data_5, data_6, data_7, data_8;
+String data_1, data_2, data_3, data_4, data_5, data_6, data_7, data_8;
 
 //base class commons
 void BrainAliveDeviceBase::CreateSensors()
@@ -89,12 +89,21 @@ void BrainAliveDeviceBase::CreateSensors()
 	AddSensor(mPID);
 }
 
-
+void BrainAliveDevice::set_electrodes() {
+	mParams.channel_1 = "F7";
+    mParams.channel_2 = "FT7";
+    mParams.channel_3 = "T7";
+    mParams.channel_4 = "TP7";
+    mParams.channel_5 = "Cz";
+    mParams.channel_6 = "C4";
+    mParams.channel_7 = "FC4";
+    mParams.channel_8 = "F4";
+}
 // constructor
 BrainAliveDevice::BrainAliveDevice(DeviceDriver* driver) : BrainAliveDeviceBase(driver)
 {
 	LogDetailedInfo("Constructing BrainAlive headset ...");
-
+    set_electrodes();
 	// create all sensors
 	CreateSensors();
 }
@@ -106,18 +115,26 @@ BrainAliveDevice::~BrainAliveDevice()
 	LogDetailedInfo("Destructing BrainAlive headset ...");
 }
 
-void BrainAliveDevice::CreateElectrodes()
-{
+void BrainAliveDevice::CreateElectrodes() {
 	mElectrodes.Clear();
 	mElectrodes.Reserve(8);
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_1));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_2));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_3));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_4));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_5));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_6));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_7));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID(data_8));
-}
+        
+        mElectrodes.Add(
+            GetEEGElectrodes()->GetElectrodeByID(mParams.channel_1));
+        mElectrodes.Add(
+            GetEEGElectrodes()->GetElectrodeByID(mParams.channel_2));
+        mElectrodes.Add(
+            GetEEGElectrodes()->GetElectrodeByID(mParams.channel_3));
+        mElectrodes.Add(
+            GetEEGElectrodes()->GetElectrodeByID(mParams.channel_4));
+        mElectrodes.Add(
+            GetEEGElectrodes()->GetElectrodeByID(mParams.channel_5));
+        mElectrodes.Add(
+            GetEEGElectrodes()->GetElectrodeByID(mParams.channel_6));
+        mElectrodes.Add(
+            GetEEGElectrodes()->GetElectrodeByID(mParams.channel_7));
+        mElectrodes.Add(
+            GetEEGElectrodes()->GetElectrodeByID(mParams.channel_8));
+        }
 
 #endif
