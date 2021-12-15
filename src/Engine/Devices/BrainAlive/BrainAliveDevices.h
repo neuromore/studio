@@ -101,7 +101,7 @@ public:
 	double GetTimeoutLimit() const override { return 120; } // Long timeout limit because channel config takes so long
 
 	void CreateElectrodes() override;
-    void set_electrodes();
+        void set_channel(Core::String data[]);
 
       private:
     BrainAliveInputParams mParams;

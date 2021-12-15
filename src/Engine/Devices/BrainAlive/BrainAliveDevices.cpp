@@ -89,21 +89,10 @@ void BrainAliveDeviceBase::CreateSensors()
 	AddSensor(mPID);
 }
 
-void BrainAliveDevice::set_electrodes() {
-	mParams.channel_1 = "F7";
-    mParams.channel_2 = "FT7";
-    mParams.channel_3 = "T7";
-    mParams.channel_4 = "TP7";
-    mParams.channel_5 = "Cz";
-    mParams.channel_6 = "C4";
-    mParams.channel_7 = "FC4";
-    mParams.channel_8 = "F4";
-}
 // constructor
 BrainAliveDevice::BrainAliveDevice(DeviceDriver* driver) : BrainAliveDeviceBase(driver)
 {
 	LogDetailedInfo("Constructing BrainAlive headset ...");
-    set_electrodes();
 	// create all sensors
 	CreateSensors();
 }
@@ -114,11 +103,19 @@ BrainAliveDevice::~BrainAliveDevice()
 {
 	LogDetailedInfo("Destructing BrainAlive headset ...");
 }
-
+void BrainAliveDevice::set_channel(Core::String data[]) {
+  mParams.channel_1 = data[0];
+  mParams.channel_2 = data[1];
+  mParams.channel_3 = data[2];
+  mParams.channel_4 = data[3];
+  mParams.channel_5 = data[4];
+  mParams.channel_6 = data[5];
+  mParams.channel_7 = data[6];
+  mParams.channel_8 = data[7];
+}
 void BrainAliveDevice::CreateElectrodes() {
 	mElectrodes.Clear();
 	mElectrodes.Reserve(8);
-        
         mElectrodes.Add(
             GetEEGElectrodes()->GetElectrodeByID(mParams.channel_1));
         mElectrodes.Add(

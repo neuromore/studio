@@ -32,7 +32,7 @@
 #include "BrainAliveDevices.h"
 #include "../../Graph/DeviceInputNode.h"
 #include "BrainAliveConstant.h"
-//#include "../../../Studio/Devices/BrainAlive/BrainAliveBluetooth.h"
+
 //#include "qt/qwid"
 
 class BrainAliveNodeBase : public DeviceInputNode {
@@ -63,6 +63,7 @@ protected:
   void CreateNewDevice();
 
   int mBoardID;
+  Core::String data[10];
   BrainAliveInputParams mParams;
 };
 
@@ -86,16 +87,6 @@ public:
     BrainAliveNode *clone = new BrainAliveNode(parentGraph);
     return clone;
   }
-
-  private:
- /* QPushButton *Connect;*/
- // BLEInterface *m_bleInterface;
-  //QPushButton *Connect;
-  //QListWidget *mListWidget;
-  //QWidget *mScan_Widget;
-  //QPushButton *Ok_Button;
-  //QWidget *mwidget_2;
-  //QListWidget *mListWidget_2;
 
 
 };

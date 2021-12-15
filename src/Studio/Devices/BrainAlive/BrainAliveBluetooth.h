@@ -6,7 +6,7 @@
 #include <qobject.h>
 #include "qtimer.h"
 #include <qthread.h>
-#include <Config.h>
+#include "../../../Engine/Config.h"
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 

@@ -40,7 +40,6 @@ BLEInterface* mBLE_Interface;
 // constructor
 BrainAliveSerialHandler::BrainAliveSerialHandler(BrainAliveDeviceBase* headset, QObject* parent) : QObject(parent)
 {
-
 	mDevice = headset;
 
 	// default gain values

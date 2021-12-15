@@ -2,7 +2,11 @@
 
 #ifdef INCLUDE_DEVICE_BRAINALIVE
 
+#include "../../../Studio/Devices/BrainAlive/BrainAliveBluetooth.h"
 #include "../../EngineManager.h"
+//#include "../../../../deps/src/qt-core/tools/qbytearray.cpp"
+
+BLEInterface *m_bleInterface;
 
 void BrainAliveNodeBase::Init() {
   DeviceInputNode::Init();
@@ -14,8 +18,8 @@ void BrainAliveNodeBase::Init() {
     attribute->SetVisible(false);
   }
   {
-    Core::AttributeSettings *attribute = RegisterAttribute(
-        "Channel 1", "channel1", "Channel 1",
+    Core::AttributeSettings *attribute =
+        RegisterAttribute("Channel 1", "channel1", "Channel 1",
                           Core::ATTRIBUTE_INTERFACETYPE_COMBOBOX);
     attribute->ResizeComboValues(3);
     attribute->SetComboValue(0, "F7");
@@ -96,62 +100,61 @@ void BrainAliveNodeBase::Init() {
         "Apply", "apply", "Apply", Core::ATTRIBUTE_INTERFACETYPE_BUTTON);
     attribute->SetDefaultValue(Core::AttributeBool::Create(false));
   }
+  {
+    Core::AttributeSettings *attribute =
+        RegisterAttribute("Write command", "write_command", "Write command",
+                          Core::ATTRIBUTE_INTERFACETYPE_STRING);
+    attribute->SetDefaultValue(Core::AttributeString::Create(""));
+  }
+  {
+    Core::AttributeSettings *attribute = RegisterAttribute(
+        "Write", "write", "Write", Core::ATTRIBUTE_INTERFACETYPE_BUTTON);
+    attribute->SetDefaultValue(Core::AttributeBool::Create(false));
+  }
+
   GetAttributeSettings(ATTRIB_RAWOUTPUT)->SetVisible(false);
   GetAttributeSettings(ATTRIB_UPLOAD)->SetVisible(false);
   GetAttributeSettings(ATTRIB_DEVICEINDEX)->SetVisible(false);
+
+  m_bleInterface = new BLEInterface();
+  m_bleInterface->scanDevices();
 }
 
 void BrainAliveNodeBase::OnAttributesChanged() {
   if (GetBoolAttributeByName("apply") == true) {
     SetBoolAttribute("apply", false);
     SynchronizeParams();
-    // check current device is synced with params
-    if(auto *currentDevice = GetCurrentDevice()) {
-    
- GetDeviceManager()->RemoveDeviceAsync(currentDevice);
-   }
-    CreateNewDevice();
+    m_bleInterface->set_currentDevice(0);
+    m_bleInterface->connectCurrentDevice();
+
+    if (auto *deviceManager = GetDeviceManager())
+      if (auto *deviceDriver = deviceManager->FindDeviceDriverByDeviceType(
+              BrainAliveDevice::TYPE_ID))
+        if (auto *newDevice = new BrainAliveDevice(deviceDriver)) {
+          newDevice->set_channel(data);
+          newDevice->CreateElectrodes();
+        }
   }
-  if (GetBoolAttributeByName("scan") == true) {
-    //if ((mScan_Widget->isVisible()) == false) {
-    //  Connect = new QPushButton();
-    //  Connect->setText(" Connect ");
-
-    //  mScan_Widget->setFixedHeight(400);
-    //  mScan_Widget->setFixedWidth(400);
-    //  QVBoxLayout *vLayout = new QVBoxLayout();
-
-    //  mListWidget->setFixedHeight(380);
-    //  mListWidget->setFixedWidth(380);
-    //  vLayout->setMargin(10);
-    //  vLayout->setSpacing(10);
-
-    //  vLayout->addWidget(mListWidget, 1, Qt::AlignTop);
-    //  vLayout->addWidget(Connect, 1, Qt::AlignBottom);
-    //  mScan_Widget->setLayout(vLayout);
-    //  mScan_Widget->setVisible(true);
-    //  m_bleInterface->scanDevices();
-    //  connect(Connect, &QPushButton::clicked, this,
-    //          &GraphAttributesWidget::On_connect);
-    //} else {
-    //  mScan_Widget->show();
-    //  // mScan_Widget->showMaximized();
-    //  mScan_Widget->activateWindow();
-    //  mListWidget->show();
-    //}
+  if (GetBoolAttributeByName("write") == true) {
+    SetBoolAttribute("write", false);
+    if (m_bleInterface->BLE_Satus()) {
+      QByteArray data = GetStringAttributeByName("write_command");
+      m_bleInterface->write_data(data);
+    }
+    SetStringAttribute("write_command", "");
   }
 }
 
 Device *BrainAliveNodeBase::FindDevice() {
-    if (auto *device =
-            dynamic_cast<BrainAliveDevice *>(GetDeviceManager()->GetDevice(0)))
-    return device; 
+  if (auto *device =
+          dynamic_cast<BrainAliveDevice *>(GetDeviceManager()->GetDevice(0)))
+    return device;
 
   return nullptr;
 }
 
 void BrainAliveNodeBase::ReInit(const Core::Time &elapsed,
-                               const Core::Time &delta) {
+                                const Core::Time &delta) {
   if (auto *device = FindDevice()) {
     if (device != GetCurrentDevice()) {
       // setup the output ports
@@ -164,27 +167,71 @@ void BrainAliveNodeBase::ReInit(const Core::Time &elapsed,
   DeviceInputNode::ReInit(elapsed, delta);
 }
 
-void BrainAliveNodeBase::SynchronizeParams() 
-{
- GetAttributeValue(GetInt32AttributeByName("channel1"))->ConvertToString(mParams.channel_1);
+void BrainAliveNodeBase::SynchronizeParams() {
+  GetAttributeValue(GetInt32AttributeByName("channel1"))
+      ->ConvertToString(mParams.channel_1);
   GetAttributeValue(GetInt32AttributeByName("channel2"))
       ->ConvertToString(mParams.channel_2);
- GetAttributeValue(GetInt32AttributeByName("channel3"))
-     ->ConvertToString(mParams.channel_3);
+  GetAttributeValue(GetInt32AttributeByName("channel3"))
+      ->ConvertToString(mParams.channel_3);
   GetAttributeValue(GetInt32AttributeByName("channel4"))
       ->ConvertToString(mParams.channel_4);
- GetAttributeValue(GetInt32AttributeByName("channel5"))
-     ->ConvertToString(mParams.channel_5);
+  GetAttributeValue(GetInt32AttributeByName("channel5"))
+      ->ConvertToString(mParams.channel_5);
   GetAttributeValue(GetInt32AttributeByName("channel6"))
       ->ConvertToString(mParams.channel_6);
- GetAttributeValue(GetInt32AttributeByName("channel7"))
-     ->ConvertToString(mParams.channel_7);
+  GetAttributeValue(GetInt32AttributeByName("channel7"))
+      ->ConvertToString(mParams.channel_7);
   GetAttributeValue(GetInt32AttributeByName("channel8"))
       ->ConvertToString(mParams.channel_8);
+
+  if (mParams.channel_1 == "0")
+    data[0] = "F7";
+  else if (mParams.channel_1 == "1")
+    data[0] = "F5";
+  else if (mParams.channel_1 == "2")
+    data[0] = "F3";
+  if (mParams.channel_2 == "0")
+    data[1] = "FT7";
+  else if (mParams.channel_2 == "1")
+    data[1] = "FC5";
+  else if (mParams.channel_2 == "2")
+    data[1] = "FC3";
+  if (mParams.channel_3 == "0")
+    data[2] = "T7";
+  else if (mParams.channel_3 == "1")
+    data[2] = "C5";
+  else if (mParams.channel_3 == "2")
+    data[2] = "C3";
+  if (mParams.channel_4 == "0")
+    data[3] = "TP7";
+  else if (mParams.channel_4 == "1")
+    data[3] = "CP5";
+  else if (mParams.channel_4 == "2")
+    data[3] = "CP3";
+  if (mParams.channel_5 == "0")
+    data[4] = "Cz";
+  if (mParams.channel_6 == "0")
+    data[5] = "C4";
+  else if (mParams.channel_6 == "1")
+    data[5] = "C6";
+  else if (mParams.channel_6 == "2")
+    data[5] = "T8";
+  if (mParams.channel_7 == "0")
+    data[6] = "FC4";
+  else if (mParams.channel_7 == "1")
+    data[6] = "FC6";
+  else if (mParams.channel_7 == "2")
+    data[6] = "FT8";
+  if (mParams.channel_8 == "0")
+    data[7] = "F4";
+  else if (mParams.channel_8 == "1")
+    data[7] = "F6";
+  else if (mParams.channel_8 == "2")
+    data[7] = "F8";
 }
 
-void BrainAliveNodeBase::CreateNewDevice() 
-{
+void BrainAliveNodeBase::CreateNewDevice() {
   // create new device
   if (auto *deviceManager = GetDeviceManager())
     if (auto *deviceDriver = deviceManager->FindDeviceDriverByDeviceType(
@@ -193,9 +240,6 @@ void BrainAliveNodeBase::CreateNewDevice()
         GetDeviceManager()->AddDeviceAsync(newDevice);
         newDevice->CreateElectrodes();
       }
-        
 }
-
-
 
 #endif
