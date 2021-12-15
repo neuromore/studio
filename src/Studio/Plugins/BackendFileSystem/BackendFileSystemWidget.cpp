@@ -118,12 +118,12 @@ BackendFileSystemWidget::BackendFileSystemWidget(QWidget* parent, BackendFileSys
 	//mTreeWidget->setDragEnabled(true);
 	mTreeWidget->setDragDropMode(QAbstractItemView::DragDropMode::InternalMove);
 
-#ifdef NEUROMORE_PLATFORM_WINDOWS
+//#ifdef NEUROMORE_PLATFORM_WINDOWS
 	mTreeWidget->setDragEnabled(true);
 	mTreeWidget->setAcceptDrops(true);
 	mTreeWidget->setDropIndicatorShown(true);
 	//mTreeWidget->setDragDropMode( QAbstractItemView::DragDrop );
-#endif
+//#endif
 
 	QStringList headerLabels;
 	headerLabels << "Name";
@@ -573,11 +573,11 @@ QTreeWidgetItem* BackendFileSystemWidget::AddFolderItem(const Json::Item& jsonFo
 
 	String folderUuid = folderIdItem.GetString();
 
-#ifdef NEUROMORE_PLATFORM_WINDOWS
+//#ifdef NEUROMORE_PLATFORM_WINDOWS
 	folderItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled);
-#else
-	folderItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-#endif
+//#else
+	//folderItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+//#endif
 
 	// creud
 	Creud creud;
@@ -663,11 +663,11 @@ QTreeWidgetItem* BackendFileSystemWidget::AddFileItem(const Json::Item& jsonFile
 
 	// create and add the tree widget item
 	QTreeWidgetItem* fileItem = new QTreeWidgetItem(parentItem);
-#ifdef NEUROMORE_PLATFORM_WINDOWS
+//#ifdef NEUROMORE_PLATFORM_WINDOWS
 	fileItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
-#else
-	fileItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-#endif
+//#else
+	//fileItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+//#endif
 
 	String typeString = typeItem.GetString();
 	if (typeString.IsEqualNoCase(ITEM_TYPE_CLASSIFIER) == true)
@@ -853,7 +853,7 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 			}
 
 #ifndef PRODUCTION_BUILD
-#ifdef NEUROMORE_PLATFORM_WINDOWS
+//#ifdef NEUROMORE_PLATFORM_WINDOWS
 			menu.addSeparator();
 
 				// copy to clipboard
@@ -869,7 +869,7 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				loadFromDiskSaveToCloudAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png") );
 			
 			menu.addSeparator();
-#endif
+//#endif
 #endif
 
 			// revisions
@@ -1374,10 +1374,7 @@ void BackendFileSystemWidget::BackendFileSystemTreeWidget::dragEnterEvent(QDragE
 
 void BackendFileSystemWidget::BackendFileSystemTreeWidget::dragMoveEvent(QDragMoveEvent* event)
 {
-#ifndef NEUROMORE_PLATFORM_WINDOWS
-	event->ignore();
-	return;
-#endif
+
 
 	// only accept drop events from the same tree widget
 	if (event->source() != this)
@@ -1437,9 +1434,6 @@ void BackendFileSystemWidget::BackendFileSystemTreeWidget::dragMoveEvent(QDragMo
 
 void BackendFileSystemWidget::BackendFileSystemTreeWidget::dropEvent(QDropEvent* event)
 {
-#ifndef NEUROMORE_PLATFORM_WINDOWS
-	return;
-#endif
 
 	// only accept drop events from the same tree widget
 	if (event->source() != this)

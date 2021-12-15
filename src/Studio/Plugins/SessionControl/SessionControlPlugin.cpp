@@ -740,13 +740,9 @@ void SessionControlPlugin::OnAfterLoadLayout()
 {
 	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
 	{
-		// get the visualization manager and reinitalize it
+		// open visualization select window if one is available and none is running
 		VisualizationManager* vizManager = GetManager()->GetVisualizationManager();
-		vizManager->ReInit();
-
-		// open visualization select window
-		const uint32 numVisualizations = vizManager->GetNumVisualizations();
-		if (numVisualizations > 0)
+		if (vizManager->GetNumVisualizations() > 0 && !vizManager->IsRunning())
 		{
 			VisualizationSelectWindow selectVizWindow(GetMainWindow());
 			selectVizWindow.exec();

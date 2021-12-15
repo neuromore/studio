@@ -29,6 +29,7 @@
 #include <Backend/FileSystemGetRequest.h>
 #include <Backend/FileSystemGetResponse.h>
 #include "../../MainWindow.h"
+#include "../../VisualizationManager.h"
 #include "../../AppManager.h"
 #include <QtBaseManager.h>
 #include <QGridLayout>
@@ -147,6 +148,10 @@ void ExperienceSelectionWidget::ReInit(bool downloadAssets)
 		CreateWidgetsForFolders(downloadAssets);
 	else
 		CreateWidgetsForFiles(downloadAssets);
+
+	// stop a running visualization
+	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
+		GetManager()->GetVisualizationManager()->Stop();
 }
 
 

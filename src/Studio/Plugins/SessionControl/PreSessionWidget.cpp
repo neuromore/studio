@@ -93,7 +93,6 @@ void PreSessionWidget::Init()
 	// add the level selection button (for local ones)
 	mVisSelectionButton = new QPushButton();
 
-	GetManager()->GetVisualizationManager()->ReInit();
 	if (GetManager()->GetVisualizationManager()->GetNumVisualizations() == 0)
 		mVisSelectionButton->setEnabled(false);
 
@@ -278,10 +277,10 @@ void PreSessionWidget::OnTotalTimeChanged(double value)
 
 void PreSessionWidget::OnSelectVisualizationClicked()
 {
-	// get the visualization manager and reinitalize it
 	VisualizationManager* vizManager = GetManager()->GetVisualizationManager();
-	vizManager->ReInit();
-
-	VisualizationSelectWindow selectVizWindow(GetMainWindow());
-	selectVizWindow.exec();
+	if (vizManager->GetNumVisualizations() > 0 && !vizManager->IsRunning())
+	{
+		VisualizationSelectWindow selectVizWindow(GetMainWindow());
+		selectVizWindow.exec();
+	}
 }
