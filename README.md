@@ -1,5 +1,7 @@
 # neuromore Studio
 
+Build state-of-the-art neurofeedback applications with ease using neuromore Studio! Our node-based IDE supports a wide variety of biosensors like EEG headsets (e.g. OpenBCI boards, Interaxon’s Muse or Neurosity's Notion), heart rate monitors, and bluetooth devices that you can effortlessly connect to your applications. Create audio or visual experiences within neuromore Studio or make your application control your Unity game, your favorite audio production, or your visualizer of choice using the Open Sound Control protocol. The sky is the limit!
+
 ![2022_02_03_Demo](https://user-images.githubusercontent.com/10089188/152370510-9eb30fc5-eb27-4696-9dc0-1ae25acb3586.gif)
 
 ## License
