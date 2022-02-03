@@ -1,4 +1,6 @@
-# neuromore studio
+# neuromore Studio
+
+![2022_02_03_Demo](https://user-images.githubusercontent.com/10089188/152370510-9eb30fc5-eb27-4696-9dc0-1ae25acb3586.gif)
 
 ## License
 
