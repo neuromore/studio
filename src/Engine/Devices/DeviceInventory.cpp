@@ -256,7 +256,12 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINMASTER
-	// TODO: Register Devices once available
+	// TODO: Enable once Back-End Rule is there
+	//if (disablePermissionCheck || user->ReadAllowed(DiscoveryDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new Discovery20Device());
+		GetGraphObjectFactory()->RegisterObjectType(new Discovery20Node(NULL));
+	}
 #endif
 
 #ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE

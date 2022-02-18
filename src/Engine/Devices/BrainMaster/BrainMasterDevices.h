@@ -30,6 +30,47 @@
 
 #ifdef INCLUDE_DEVICE_BRAINMASTER
 
+// discovery amplifier base class
+class ENGINE_API DiscoveryDevice : public BciDevice
+{
+public:
+   // constructor & destructor
+   DiscoveryDevice(DeviceDriver* driver = NULL);
+   virtual ~DiscoveryDevice();
+
+   // overloaded
+   double GetExpectedJitter() const override { return 0.2; }
+   double GetSampleRate() const override { return 512; }
+   bool IsWireless() const override { return false; }
+   bool HasTestMode() const override { return false; }
+   static const char* GetRuleName() { return "DEVICE_BrainMaster"; }
+   void CreateSensors() override;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// discovery with 20 channels
+class ENGINE_API Discovery20Device : public DiscoveryDevice
+{
+public:
+   enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_BRAINMASTER_DISCOVERY20 };
+
+   // constructor & destructor
+   Discovery20Device(DeviceDriver* driver = NULL);
+   ~Discovery20Device();
+
+   Device* Clone() override { return new Discovery20Device(); }
+
+   // overloaded
+   uint32 GetType() const override { return TYPE_ID; }
+   const char* GetUuid() const override { return "fd90f87b-5a78-4885-b6b3-7ed82f3cb85a"; }
+   const char* GetTypeName() const override { return "discovery20"; }
+   const char* GetHardwareName() const override { return "Discovery 20"; }
+
+   void CreateElectrodes() override;
+   void CreateSensors() override;
+};
+
 #endif
 
 #endif

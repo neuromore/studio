@@ -31,6 +31,24 @@
 
 #ifdef INCLUDE_DEVICE_BRAINMASTER
 
+class ENGINE_API Discovery20Node : public DeviceInputNode
+{
+public:
+   enum { TYPE_ID = 0xD00000 | Discovery20Device::TYPE_ID };
+   static const char* Uuid() { return "fe2edadc-5641-4be7-97c4-caa615adee86"; }
+
+   // constructor & destructor
+   Discovery20Node(Graph* parentGraph) : DeviceInputNode(parentGraph, Discovery20Device::TYPE_ID) {}
+   ~Discovery20Node() {}
+
+   Core::Color GetColor() const override { return Core::RGBA(255, 104, 1); }
+   uint32 GetType() const override { return TYPE_ID; }
+   const char* GetTypeUuid() const override final { return Uuid(); }
+   const char* GetReadableType() const override { return "Discovery 20"; }
+   const char* GetRuleName() const override final { return Discovery20Device::GetRuleName(); }
+   GraphObject* Clone(Graph* parentObject) override { Discovery20Node* clone = new Discovery20Node(parentObject); return clone; }
+};
+
 #endif
 
 #endif

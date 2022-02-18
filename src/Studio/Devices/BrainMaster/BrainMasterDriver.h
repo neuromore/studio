@@ -30,6 +30,37 @@
 #include <Devices/BrainMaster/BrainMasterDevices.h>
 
 #ifdef INCLUDE_DEVICE_BRAINMASTER
+
+// the BrainMaster driver class
+class BrainMasterDriver : public DeviceDriver, Core::EventHandler
+{
+public:
+   enum { TYPE_ID = DeviceTypeIDs::DRIVER_TYPEID_BRAINMASTER };
+
+   // constructor & destructor
+   BrainMasterDriver();
+   virtual ~BrainMasterDriver();
+
+   const char* GetName() const override { return "BrainMaster Devices"; }
+   uint32      GetType() const override { return TYPE_ID; }
+
+   bool Init() override;
+   void Update(const Core::Time& elapsed, const Core::Time& delta) override;
+   void DetectDevices() override;
+   Device* CreateDevice(uint32 deviceTypeID) override;
+   void OnRemoveDevice(Device* device) override;
+   void OnDeviceAdded(Device* device) override;
+
+   // autodetection of local devices
+   bool HasAutoDetectionSupport() const override final { return true; }
+   void SetAutoDetectionEnabled(bool enable = true) override;
+
+private:
+   void Cleanup();
+
+   DiscoveryDevice* mDevice;
+};
+
 #endif
 
 #endif

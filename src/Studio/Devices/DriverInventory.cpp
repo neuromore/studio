@@ -58,6 +58,10 @@
   #include "Brainquiry/BrainquiryDriver.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+#include "BrainMaster/BrainMasterDriver.h"
+#endif
+
 #ifdef INCLUDE_DEVICE_TOBIIEYEX
 	#include "EyeX\TobiiEyeXDriver.h"
 #endif
@@ -173,6 +177,17 @@ void DriverInventory::RegisterDrivers()
 		BrainquiryDriver* brainquiryDriver = new BrainquiryDriver();
 		brainquiryDriver->Init();
 		deviceManager->AddDeviceDriver(brainquiryDriver);
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	//TODO: Enable once Rule is created in DB
+	//if (user->ReadAllowed(DiscoveryDevice::GetRuleName()) == true)
+	{
+		// create and add the eemagine system
+		BrainMasterDriver* _brainMasterDriver = new BrainMasterDriver();
+		_brainMasterDriver->Init();
+		deviceManager->AddDeviceDriver(_brainMasterDriver);
 	}
 #endif
 
