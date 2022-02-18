@@ -130,6 +130,9 @@
     <Filter Include="Devices\BrainFlow">
       <UniqueIdentifier>{658f9836-5ef0-4179-9ab9-f45901c63157}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Devices\BrainMaster">
+      <UniqueIdentifier>{4fe9b200-c172-45b0-98da-aa7e3e34ae5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp">
@@ -827,6 +830,9 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.cpp">
+      <Filter>Devices\BrainMaster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
@@ -1210,6 +1216,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h">
       <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.h">
+      <Filter>Devices\BrainMaster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -112,6 +112,11 @@
       #pragma comment(lib, "BQPetDLL.lib")
    #endif
 
+   // PROPRIETARY (BRAINMASTER)
+   #ifdef INCLUDE_DEVICE_BRAINMASTER
+      #pragma comment(lib, "bmrcm.lib")
+   #endif
+
    // OPENSOURCE / NEUROMORE
    #if _DEBUG
       #pragma comment(lib, "DbgHelp.lib")                // winapi: debug

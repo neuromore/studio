@@ -245,6 +245,7 @@ ar
 | INCLUDE_DEVICE_BRAINQUIRY              | ?        | Brainquiry EEG                     |
 | INCLUDE_DEVICE_ACTICHAMP               | ?        | ActiChamp EEG                      |
 | INCLUDE_DEVICE_EEMAGINE                | 1.3.19   | eego Amplifiers/EEG                |
+| INCLUDE_DEVICE_BRAINMASTER             | 1.4      | BrainMaster Discovery 20 Amp.      |
 
 #### Studio Features
 

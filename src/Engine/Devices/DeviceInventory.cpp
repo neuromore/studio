@@ -79,6 +79,11 @@
 	#include "Brainquiry/BrainquiryNode.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	#include "BrainMaster/BrainMasterDevices.h"
+	#include "BrainMaster/BrainMasterNodes.h"
+#endif
+
 #ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
 	#include "eSense/eSenseSkinResponseDevice.h"
 	#include "eSense/eSenseSkinResponseNode.h"
@@ -250,6 +255,9 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	}
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	// TODO: Register Devices once available
+#endif
 
 #ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
 	if (disablePermissionCheck || user->ReadAllowed(eSenseSkinResponseDevice::GetRuleName()))
