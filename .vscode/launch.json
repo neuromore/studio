@@ -1,0 +1,85 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Studio (x64)",
+            "program": "",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "",
+            "environment": [],
+            "externalConsole": true,
+            "linux": {
+                "type": "cppdbg",
+                "MIMode": "gdb",
+                "cwd": "${workspaceFolder}/build/make/bin/linux-x64/",
+                "program": "${workspaceFolder}/build/make/bin/linux-x64/Studio_d"
+            },
+            "osx": {
+                "type": "cppdbg",
+                "MIMode": "lldb",
+                "cwd": "${workspaceFolder}/build/make/bin/osx-x64/",
+                "program": "${workspaceFolder}/build/make/bin/osx-x64/Studio_d"
+
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "MIMode": "lldb",
+                "cwd": "${workspaceFolder}/build/make/bin/win-x64/",
+                "program": "${workspaceFolder}/build/make/bin/win-x64/Studio_d.exe"
+            }
+        },
+        {
+            "name": "Studio (x86)",
+            "program": "",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "",
+            "environment": [],
+            "externalConsole": true,
+            "windows": {
+                "type": "cppvsdbg",
+                "MIMode": "lldb",
+                "cwd": "${workspaceFolder}/build/make/bin/win-x86/",
+                "program": "${workspaceFolder}/build/make/bin/win-x86/Studio_d.exe"
+            }
+        },
+        {
+            "name": "Studio (arm64)",
+            "program": "",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "",
+            "environment": [],
+            "externalConsole": true,
+            "linux": {
+                "type": "cppdbg",
+                "MIMode": "gdb",
+                "cwd": "${workspaceFolder}/build/make/bin/linux-arm64/",
+                "program": "${workspaceFolder}/build/make/bin/linux-arm64/Studio_d"
+            },
+            "osx": {
+                "type": "cppdbg",
+                "MIMode": "lldb",
+                "cwd": "${workspaceFolder}/build/make/bin/osx-arm64/",
+                "program": "${workspaceFolder}/build/make/bin/osx-arm64/Studio_d"
+
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "MIMode": "lldb",
+                "cwd": "${workspaceFolder}/build/make/bin/win-arm64/",
+                "program": "${workspaceFolder}/build/make/bin/win-arm64/Studio_d.exe"
+            }
+        }
+    ]
+}

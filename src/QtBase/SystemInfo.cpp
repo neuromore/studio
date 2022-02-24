@@ -276,7 +276,7 @@ uint64 SystemInfo::GetProcessMemoryInBytes() const
 
 	// macOS
 	#ifdef NEUROMORE_PLATFORM_OSX
-
+		return 0;
 	#endif
 
 	// linux
@@ -317,7 +317,7 @@ double SystemInfo::GetCpuUsage() const
 
 	// macOS
 	#ifdef NEUROMORE_PLATFORM_OSX
-
+		return 0.0;
 	#endif
 
 	// linux
@@ -397,7 +397,7 @@ double SystemInfo::GetProcessCpuUsage()
 
 	// macOS
 	#ifdef NEUROMORE_PLATFORM_OSX
-
+		return 0.0;
 	#endif
 
 	// linux

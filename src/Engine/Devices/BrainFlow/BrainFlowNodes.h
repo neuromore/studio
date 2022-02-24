@@ -49,7 +49,7 @@ public:
 
 	BrainFlowDevice* GetCurrentDevice() { return dynamic_cast<BrainFlowDevice*>(mCurrentDevice); }
 
-	Device* FindDevice();
+	Device* FindDevice() override;
 
 	void ReInit(const Core::Time& elapsed, const Core::Time& delta) override;
 

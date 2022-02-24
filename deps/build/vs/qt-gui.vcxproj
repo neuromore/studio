@@ -847,7 +847,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -889,7 +889,7 @@ qt-gui.cmd
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -931,7 +931,7 @@ qt-gui.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -982,7 +982,7 @@ qt-gui.cmd
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;WIN32;_WINDOWS;_UNICODE;QT_STATIC;QT_STATICPLUGIN;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_FONTCONFIG;QT_FEATURE_dbus=-1;QT_QPA_DEFAULT_PLATFORM_NAME="windows";QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>

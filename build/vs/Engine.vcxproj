@@ -162,7 +162,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -207,7 +207,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -252,7 +252,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_BRANDING_ANT;PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_BRANDING_ANT;PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -297,7 +297,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -341,7 +341,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -385,7 +385,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_BRANDING_ANT;PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_BRANDING_ANT;PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -431,7 +431,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <DisableSpecificWarnings>4189</DisableSpecificWarnings>
@@ -472,7 +472,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <OmitFramePointers>false</OmitFramePointers>
