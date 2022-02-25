@@ -35,6 +35,8 @@
 #define DEFAULT_DRIVER_ENABLED false
 #endif
 
+#include <brainmaster/CMKRDLLU.H>
+
 using namespace Core;
 
 // constructor
@@ -64,6 +66,11 @@ bool BrainMasterDriver::Init()
 
    // register event handler
    CORE_EVENTMANAGER.AddEventHandler(this);
+
+   //LIBTEST
+   HANDLE h = 0;
+   BOOL r1 = AtlOpenPort(4, 9600, &h);
+   BOOL r2 = AtlClosePort(4);
 
    LogDetailedInfo("BrainMaster driver initialized ...");
    return true;
