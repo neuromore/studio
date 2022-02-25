@@ -181,8 +181,7 @@ void DriverInventory::RegisterDrivers()
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINMASTER
-	//TODO: Enable once Rule is created in DB
-	//if (user->ReadAllowed(DiscoveryDevice::GetRuleName()) == true)
+	if (user->ReadAllowed(DiscoveryDevice::GetRuleName()) == true)
 	{
 		// create and add the eemagine system
 		BrainMasterDriver* _brainMasterDriver = new BrainMasterDriver();
