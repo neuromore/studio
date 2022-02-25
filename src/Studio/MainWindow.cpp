@@ -203,7 +203,7 @@ void MainWindow::Init()
 	setDockNestingEnabled( true );
 
 	
-	setDockOptions( AnimatedDocks | AllowNestedDocks );
+	setDockOptions( AnimatedDocks | AllowNestedDocks | AllowTabbedDocks | VerticalTabs);
 
 	setFocusPolicy(Qt::StrongFocus);
 
