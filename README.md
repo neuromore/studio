@@ -1,4 +1,12 @@
-# neuromore studio
+# neuromore Studio
+
+Build state-of-the-art neurofeedback applications with ease using neuromore Studio! 
+
+Our node-based IDE supports a wide variety of biosensors like EEG headsets (e.g. OpenBCI boards, Interaxon’s Muse and devices supported by the Brainflow API), heart rate monitors, and bluetooth devices that you can effortlessly connect to your applications.
+
+Create audio or visual experiences within neuromore Studio or make your application control your Unity game, your favorite audio production, or your visualizer of choice using the Open Sound Control protocol. The only limit is our imagination!
+
+![2022_02_03_Demo](https://user-images.githubusercontent.com/10089188/152370510-9eb30fc5-eb27-4696-9dc0-1ae25acb3586.gif)
 
 ## License
 
@@ -6,7 +14,7 @@
 
 ## Getting started (all platforms)
 
-1. Create a neuromore Cloud account at [https://www.neuromore.com/createaccount](https://www.neuromore.com/createaccount)
+1. Create a neuromore Cloud account at [https://account.neuromore.com/#/purchase?state=start&productId=community](https://account.neuromore.com/#/purchase?state=start&productId=community)
 2. Download the latest neuromore studio from our github [releases](https://github.com/neuromore/studio/releases) (or build it yourself).
 3. Start neuromore studio, sign-in with the created community account, accept the license and you're ready to go.
 4. Check out the wiki for specific device information or on examples on how to get started https://github.com/neuromore/studio/wiki
