@@ -65,7 +65,7 @@ class ENGINE_API ChannelFileWriter
 		bool WriteHeader(EFormat format, const Core::Array<Channel<double>*>& channels, FILE* file);
 		
 		// appends the last N sampels to the file
-		bool WriteSamples(EFormat format, const Core::Array<Channel<double>*>& channels, uint64 numSamples, FILE* file, const char* fileName);
+		bool WriteSamples(EFormat format, const Core::Array<Channel<double>*>& channels, uint64 numSamples, FILE* file, const int edfHandler = -1);
 
 	private:
 
@@ -83,7 +83,7 @@ class ENGINE_API ChannelFileWriter
 		bool WriteSamplesRawDouble(const Core::Array<Channel<double>*>& inChannels, uint64 numSamples, FILE* outFile);
 
 		// edf plus
-		bool WriteSamplesEDF(const Core::Array<Channel<double>*>& inChannels, uint64 numSamples, const char* fileName);
+		bool WriteSamplesEDF(const Core::Array<Channel<double>*>& inChannels, uint64 numSamples, const int handle = -1);
 };
 
 
