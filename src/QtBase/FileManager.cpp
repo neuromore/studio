@@ -37,6 +37,8 @@ FileManager::FileManager()
 	mExperienceLoaded = false;
 	mClassifierLoaded = false;
 	mStateMachineLoaded = false;
+
+	mIsInFileSaving = false;
 }
 
 
@@ -78,10 +80,14 @@ bool FileManager::Close(const char* identifier, bool askSaveChanges)
 		mTempString.Format("File was modified. Save changes?");
 		int result = QMessageBox::warning(GetQtBaseManager()->GetMainWindow(), "Save changes?", mTempString.AsChar(), QMessageBox::Save,  QMessageBox::Discard,  QMessageBox::Cancel);
 		
-		if (result == QMessageBox::Save)
+		if (result == QMessageBox::Save) {
+			mIsInFileSaving = true;
 			Save(file);
-		else if (result == QMessageBox::Cancel)
+		}
+		else if (result == QMessageBox::Cancel) {
+			mIsInFileSaving = false;
 			return false;
+		}
 	}
 
 	// if Experiences: also close referenced files
@@ -100,7 +106,13 @@ bool FileManager::Close(const char* identifier, bool askSaveChanges)
 				return false;
 	}
 
-	return Close(file);
+	bool closeResult = true;
+	if (!mIsInFileSaving) {
+		closeResult = Close(file);
+	}
+	// else: do nothing, file will be closed from WriteDataToBackend
+
+	return closeResult;
 }
 
 
@@ -179,8 +191,26 @@ void FileManager::OpenClassifier(ELocation location, const char* identifier, con
 		if (CloseWithPrompt(activeClassifier->GetUuid()) == false)
 			return;	// user aborted
 
+	if (mIsInFileSaving)
+	{
+		//wait for backend reply
+		QTimer timer;
+		timer.setSingleShot(true);
+		QEventLoop loop;
+		connect(this, &FileManager::writeToBackendFinished, &loop, &QEventLoop::quit);
+		connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+		timer.start(10000);
+		loop.exec();
+		if (!timer.isActive())
+		{
+			Core::LogError("Timeout on writing data to backend");
+		}
+	}
+
 	Classifier* classifier = new Classifier();
 	OpenGraph(classifier, location, identifier, name, revision);
+
+	mIsInFileSaving = false;
 }
 
 
@@ -466,16 +496,27 @@ bool FileManager::WriteDataToBackend(OpenFile* file)
 	// lambda slot for processing reply
 	connect(reply, &QNetworkReply::finished, this, [reply, this, file]()
 	{
-		// translate it to our data model
-		FilesUpdateResponse response(reply);
-		if (response.HasError() == true)
+		if (file == nullptr || !mIsInFileSaving)
 		{
-			// TODO error message
 			return;
 		}
 
-		// finished
-		file->SetUndirty();
+		// translate it to our data model
+		FilesUpdateResponse response(reply);
+		if (response.HasError())
+		{
+			Core::LogError(response.GetErrorMessage());
+		}
+		else
+		{
+			file->SetUndirty();
+		}
+
+		if (!Close(file))
+		{
+			Core::LogError("Cannot close the file");
+		}
+		emit writeToBackendFinished();
 	});
 
 	return true;
