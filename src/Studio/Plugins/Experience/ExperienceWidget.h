@@ -63,6 +63,8 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		// experience events
 		void OnExitStateReached(uint32 exitStatus) override;
 
+		void OnStopSession() override;
+		
 		void OnPlayAudio(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override;
 		void OnStopAudio(const char* url) override;
 		void OnSeekAudio(const char* url, uint32 millisecs) override;

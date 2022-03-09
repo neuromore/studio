@@ -212,7 +212,8 @@ class GraphWidget : public QOpenGLWidget, Core::EventHandler, protected QOpenGLF
 		Graph*							mShownGraph;
 		Node*							mOnMouseOverNode;
 
-		Core::String					mNoGraphShownError;
+		Core::String					mNoClassifierShownError;
+		Core::String					mNoStateMachineShownError;
 		Core::String					mGraphProtectionModeError;
 
 		GraphShared						mShared;

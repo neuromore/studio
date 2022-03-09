@@ -607,6 +607,11 @@ void ExperienceWidget::OnExitStateReached(uint32 exitStatus)
 	Clear();
 }
 
+void ExperienceWidget::OnStopSession()
+{
+	Clear();
+}
+
 
 void ExperienceWidget::OnPlayAudio(const char* url, int32 numLoops,  double beginAt, double volume, bool allowStreaming)
 {
