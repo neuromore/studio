@@ -101,7 +101,7 @@ class ENGINE_API FileWriterNode : public SPNode
 			WRITEMODE_KEEP = 0, 
 			WRITEMODE_OVERWRITE_ALWAYS,
 			WRITEMODE_OVERWRITE_SESSION,
-			WRITEMODE_APPEND
+			// WRITEMODE_APPEND
 		};
 
 		EWriteMode					mWriteMode;			// overwrite/append modes

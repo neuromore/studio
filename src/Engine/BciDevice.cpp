@@ -27,7 +27,6 @@
 #include "Core/LogManager.h"
 #include "Core/Timer.h"
 
-
 using namespace Core;
 
 // constructor
@@ -74,6 +73,10 @@ void BciDevice::CreateSensors()
 
 		// set unique color for each sensor
 		sensor->GetChannel()->GetColor().SetUniqueColor(i);
+
+		// set min and max value for channel: Possible min/max range - [-1500,1500].
+		sensor->GetChannel()->SetMinValue(-1500);
+		sensor->GetChannel()->SetMaxValue(1500);
 		
 		// add sensors to our lists
 		mNeuroSensors.Add(sensor);
