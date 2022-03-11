@@ -48,6 +48,14 @@ void DiscoveryDevice::CreateSensors()
 {
    // create EEG electrode sensors first
    BciDevice::CreateSensors();
+
+   // add custom aux inputs
+   mAUX23 = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "AUX23");
+   mAUX24 = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "AUX24");
+
+   // use device default samplerate on them
+   mAUX23->SetSampleRate(GetSampleRate());
+   mAUX24->SetSampleRate(GetSampleRate());
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,39 +81,46 @@ void Discovery20Device::CreateElectrodes()
    mElectrodes.Clear();
    mElectrodes.Reserve(22);
 
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));
+   // thist must exactly match the ordering of the device channels
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1")); // ch01
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));  // ch02
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));  // ch03
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));  // ch04
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));  // ch05
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));  // ch06
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T3"));  // ch07
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T5"));  // ch08
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));  // ch09
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2")); // ch10
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));  // ch11
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));  // ch12
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));  // ch13
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));  // ch14
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));  // ch15
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T4"));  // ch16
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T6"));  // ch17
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));  // ch18
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));  // ch19
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));  // ch20 rather:A2-A1
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz")); // ch21
+   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));  // ch22
 
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F7"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F8"));
-
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T3"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T4"));
-
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T5"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T6"));
-
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));
-
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A1"));
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));
-
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("GND"));
+   //mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AUX23")); // ch23
+   //mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AUX24")); // ch24
 }
 
 void Discovery20Device::CreateSensors()
 {
    DiscoveryDevice::CreateSensors();
+
+   // extend buffers so they can hold up to 60s of samples
+   uint32_t numSensors = GetNumSensors();
+   for (uint32_t i = 0; i < numSensors; i++)
+   {
+      Sensor* sensor = GetSensor(i);
+      sensor->GetInput()->SetBufferSizeInSeconds(60.0);
+      sensor->GetOutput()->SetBufferSizeInSeconds(60.0);
+   }
 }
 
 #endif

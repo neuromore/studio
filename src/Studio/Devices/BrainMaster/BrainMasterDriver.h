@@ -31,8 +31,10 @@
 
 #ifdef INCLUDE_DEVICE_BRAINMASTER
 
+#include "Discovery20.h"
+
 // the BrainMaster driver class
-class BrainMasterDriver : public DeviceDriver, Core::EventHandler
+class BrainMasterDriver : public DeviceDriver, Core::EventHandler, Discovery20::Callback
 {
 public:
    enum { TYPE_ID = DeviceTypeIDs::DRIVER_TYPEID_BRAINMASTER };
@@ -58,6 +60,15 @@ public:
 private:
    void Cleanup();
 
+   virtual void onLoadSDKSuccess(HMODULE h) override;
+   virtual void onLoadSDKFail() override;
+   virtual void onSyncStart() override;
+   virtual void onSyncSuccess() override;
+   virtual void onSyncFail() override;
+   virtual void onSyncLost() override;
+   virtual void onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) override;
+
+   Discovery20      mSDK;
    DiscoveryDevice* mDevice;
 };
 

@@ -39,12 +39,16 @@ public:
    virtual ~DiscoveryDevice();
 
    // overloaded
-   double GetExpectedJitter() const override { return 0.2; }
-   double GetSampleRate() const override { return 512; }
+   double GetExpectedJitter() const override { return 0.1; }
+   double GetSampleRate() const override { return 256; }
    bool IsWireless() const override { return false; }
    bool HasTestMode() const override { return false; }
    static const char* GetRuleName() { return "DEVICE_BrainMaster"; }
    void CreateSensors() override;
+
+protected:
+   Sensor* mAUX23;
+   Sensor* mAUX24;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////

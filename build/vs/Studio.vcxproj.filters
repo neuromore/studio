@@ -1220,6 +1220,9 @@
     <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.h">
       <Filter>Devices\BrainMaster</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.h">
+      <Filter>Devices\BrainMaster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Studio\Resources\AppIcon.icns">

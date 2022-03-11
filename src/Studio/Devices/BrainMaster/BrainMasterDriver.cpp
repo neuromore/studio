@@ -35,12 +35,10 @@
 #define DEFAULT_DRIVER_ENABLED false
 #endif
 
-#include <brainmaster/CMKRDLLU.H>
-
 using namespace Core;
 
 // constructor
-BrainMasterDriver::BrainMasterDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mDevice(0)
+BrainMasterDriver::BrainMasterDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mSDK(*this), mDevice(0)
 {
    LogDetailedInfo("Constructing BrainMaster driver ...");
 
@@ -67,11 +65,6 @@ bool BrainMasterDriver::Init()
    // register event handler
    CORE_EVENTMANAGER.AddEventHandler(this);
 
-   //LIBTEST
-   HANDLE h = 0;
-   BOOL r1 = AtlOpenPort(4, 9600, &h);
-   BOOL r2 = AtlClosePort(4);
-
    LogDetailedInfo("BrainMaster driver initialized ...");
    return true;
 }
@@ -83,22 +76,22 @@ void BrainMasterDriver::Update(const Time& elapsed, const Time& delta)
    if (!mIsEnabled)
       return;
 
-   //TODO: If autodection is enabled, an attempt to discover the according
-   // device could be made here. But careful: This is the mainthread.
-
    // no device available/found
    if (!mDevice)
       return;
 
+   //WIP
+   mSDK.update();
+
    // TODO: Implement real data pulling from device
    // This simply adds 0.0 with given sample rate
-   const double expectedsamples = mDevice->GetSampleRate() * delta.InSeconds();
+   /*const double expectedsamples = mDevice->GetSampleRate() * delta.InSeconds();
    const uint32 numsamples = (uint32)expectedsamples;
    const uint32 numSensors = mDevice->GetNumNeuroSensors();
    for (uint32_t e = 0; e < numSensors; e++)
       if (Sensor* sensor = mDevice->GetNeuroSensor(e))
          for (uint32_t s = 0; s < numsamples; s++)
-            sensor->AddQueuedSample(0.0);
+            sensor->AddQueuedSample(0.0);*/
 }
 
 Device* BrainMasterDriver::CreateDevice(uint32 deviceTypeID)
@@ -121,12 +114,12 @@ void BrainMasterDriver::DetectDevices()
    if (!mIsEnabled || mDevice)
       return;
 
-   // TODO: This just claims one is connected and creates it
-   // Replace with actual SDK call/detection/initiation
-   mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
-
-   // add device to manager
-   GetDeviceManager()->AddDeviceAsync(mDevice);
+   // TODO: Replace by scanning
+   if (mSDK.connect(8))
+   {
+      mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
+      GetDeviceManager()->AddDeviceAsync(mDevice);
+   }
 }
 
 void BrainMasterDriver::OnRemoveDevice(Device* device)
@@ -144,10 +137,14 @@ void BrainMasterDriver::OnDeviceAdded(Device* device)
    // not our device
    if (device != mDevice)
       return;
+
+   // start data streaming, TODO: handle false
+   mSDK.start();
 }
 
 void BrainMasterDriver::Cleanup()
 {
+   mSDK.disconnect();
    mDevice = NULL;
 }
 
@@ -156,4 +153,44 @@ void BrainMasterDriver::SetAutoDetectionEnabled(bool enable)
    DeviceDriver::SetAutoDetectionEnabled(enable);
 }
 
+// SDK CALLBACKS
+
+void BrainMasterDriver::onLoadSDKSuccess(HMODULE h) 
+{
+   LogInfo("Loaded bmrcm.dll successfully.");
+}
+void BrainMasterDriver::onLoadSDKFail()
+{
+   LogError("Failed to load bmrcm.dll.");
+}
+void BrainMasterDriver::onSyncStart() 
+{
+}
+void BrainMasterDriver::onSyncSuccess() 
+{
+   LogInfo("Successful sync on Discovery 20 device.");
+}
+void BrainMasterDriver::onSyncFail()
+{
+}
+void BrainMasterDriver::onSyncLost()
+{
+   LogWarning("Lost sync on Discovery 20 device.");
+}
+void BrainMasterDriver::onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) 
+{
+   if (!mDevice)
+      return;
+
+   const uint32 numSensors = mDevice->GetNumInputSensors();
+   if (numSensors > Discovery20::Channels::SIZE)
+      return;
+
+   // this requires identical ordering of sensors and frame channels on first 22
+   for (uint32_t i = 0; i < numSensors; i++)
+   {
+      Sensor* s = mDevice->GetInputSensor(i);
+      s->AddQueuedSample(c.data[i]);
+   }
+}
 #endif

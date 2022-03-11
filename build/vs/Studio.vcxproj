@@ -320,6 +320,7 @@
     <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.h" />
