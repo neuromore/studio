@@ -82,16 +82,6 @@ void BrainMasterDriver::Update(const Time& elapsed, const Time& delta)
 
    //WIP
    mSDK.update();
-
-   // TODO: Implement real data pulling from device
-   // This simply adds 0.0 with given sample rate
-   /*const double expectedsamples = mDevice->GetSampleRate() * delta.InSeconds();
-   const uint32 numsamples = (uint32)expectedsamples;
-   const uint32 numSensors = mDevice->GetNumNeuroSensors();
-   for (uint32_t e = 0; e < numSensors; e++)
-      if (Sensor* sensor = mDevice->GetNeuroSensor(e))
-         for (uint32_t s = 0; s < numsamples; s++)
-            sensor->AddQueuedSample(0.0);*/
 }
 
 Device* BrainMasterDriver::CreateDevice(uint32 deviceTypeID)
@@ -114,11 +104,14 @@ void BrainMasterDriver::DetectDevices()
    if (!mIsEnabled || mDevice)
       return;
 
-   // try connect
-   if (mSDK.connect())
+   if (mSDK.find())
    {
-      mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
-      GetDeviceManager()->AddDeviceAsync(mDevice);
+      LogInfo("Found Discovery 20 device on COM%i.", mSDK.getPort());
+      if (mSDK.connect())
+      {
+         mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
+         GetDeviceManager()->AddDeviceAsync(mDevice);
+      }
    }
 }
 
@@ -139,7 +132,10 @@ void BrainMasterDriver::OnDeviceAdded(Device* device)
       return;
 
    // start data streaming, TODO: handle false
-   mSDK.start();
+   if (!mSDK.start())
+   {
+
+   }
 }
 
 void BrainMasterDriver::Cleanup()

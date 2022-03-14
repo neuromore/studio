@@ -833,6 +833,9 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.cpp">
       <Filter>Devices\BrainMaster</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.cpp">
+      <Filter>Devices\BrainMaster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
