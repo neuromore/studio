@@ -114,8 +114,8 @@ void BrainMasterDriver::DetectDevices()
    if (!mIsEnabled || mDevice)
       return;
 
-   // TODO: Replace by scanning
-   if (mSDK.connect(8))
+   // try connect
+   if (mSDK.connect())
    {
       mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
       GetDeviceManager()->AddDeviceAsync(mDevice);
