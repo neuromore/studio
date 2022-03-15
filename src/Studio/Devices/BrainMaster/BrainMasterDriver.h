@@ -62,6 +62,10 @@ private:
 
    virtual void onLoadSDKSuccess(HMODULE h) override;
    virtual void onLoadSDKFail() override;
+   virtual void onDeviceFound(int32_t port)override;
+   virtual void onDeviceConnected() override;
+   virtual void onDeviceDisconnected() override;
+   virtual void onDeviceTimeout() override;
    virtual void onSyncStart() override;
    virtual void onSyncSuccess() override;
    virtual void onSyncFail() override;

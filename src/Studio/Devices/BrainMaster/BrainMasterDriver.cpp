@@ -106,7 +106,6 @@ void BrainMasterDriver::DetectDevices()
 
    if (mSDK.find())
    {
-      LogInfo("Found Discovery 20 device on COM%i.", mSDK.getPort());
       if (mSDK.connect())
       {
          mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
@@ -153,25 +152,44 @@ void BrainMasterDriver::SetAutoDetectionEnabled(bool enable)
 
 void BrainMasterDriver::onLoadSDKSuccess(HMODULE h) 
 {
-   LogInfo("Loaded bmrcm.dll successfully.");
+   LogInfo("DISCOVERY20: Loaded bmrcm.dll successfully.");
 }
 void BrainMasterDriver::onLoadSDKFail()
 {
-   LogError("Failed to load bmrcm.dll.");
+   LogError("DISCOVERY20: Failed to load bmrcm.dll.");
+}
+void BrainMasterDriver::onDeviceFound(int32_t port)
+{
+   LogInfo("DISCOVERY20: Found device on COM%i.", port);
+}
+void BrainMasterDriver::onDeviceConnected()
+{
+   LogInfo("DISCOVERY20: Device connected.");
+}
+void BrainMasterDriver::onDeviceDisconnected()
+{
+   LogInfo("DISCOVERY20: Device disconnected.");
+}
+void BrainMasterDriver::onDeviceTimeout()
+{
+   LogError("DISCOVERY20: Device timeout.");
+   // TODO: Trigger removal
 }
 void BrainMasterDriver::onSyncStart() 
 {
+   LogDebug("DISCOVERY20: Sync started.");
 }
 void BrainMasterDriver::onSyncSuccess() 
 {
-   LogInfo("Successful sync on Discovery 20 device.");
+   LogInfo("DISCOVERY20: Sync successful.");
 }
 void BrainMasterDriver::onSyncFail()
 {
+   LogDebug("DISCOVERY20: Sync fail.");
 }
 void BrainMasterDriver::onSyncLost()
 {
-   LogWarning("Lost sync on Discovery 20 device.");
+   LogWarning("DISCOVERY20: Sync lost.");
 }
 void BrainMasterDriver::onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) 
 {
