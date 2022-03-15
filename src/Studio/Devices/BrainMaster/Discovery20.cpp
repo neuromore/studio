@@ -138,6 +138,22 @@ void Discovery20::processQueue()
    }
 }
 
+bool Discovery20::find()
+{
+   if (mState != State::DISCONNECTED)
+      return false;
+
+   // try find the device com port
+   mPort = findCOM();
+
+   // raise callback
+   if (mPort)
+      mCallback.onDeviceFound(mPort);
+
+   // found or not
+   return mPort != 0;
+}
+
 bool Discovery20::connect()
 {
    if (!mSDK.Handle)
@@ -211,6 +227,9 @@ bool Discovery20::start()
    // set to unsynced state
    mState = State::UNSYNCED;
 
+   // set streaming init tick
+   mTickLastData = gettick();
+
    // success
    return true;
 }
@@ -218,9 +237,7 @@ bool Discovery20::start()
 bool Discovery20::stop()
 {
    // must be in streaming mode
-   if (mState != State::UNSYNCED && 
-       mState != State::SYNCING  && 
-       mState != State::SYNCED)
+   if (!isStreaming())
        return true;
 
    // flush
@@ -259,4 +276,40 @@ bool Discovery20::disconnect()
 
    // success
    return R1 && R2;
+}
+
+void Discovery20::update()
+{
+   // must be in streaming mode
+   if (!isStreaming())
+      return;
+
+   // get amount of bytes and full frames in queue
+   const DWORD NBYTES  = mSDK.AtlGetBytesInQue();
+   const DWORD NFRAMES = NBYTES / Frame::SIZE;
+
+   // current tick and delta since last frame
+   const uint64_t TICK = gettick();
+   const uint64_t DT  = TICK - mTickLastData;
+
+   // got at least one frame
+   if (NFRAMES > 0)
+   {
+      // update last frame tick
+      mTickLastData = TICK;
+
+      // process all frames in the queue
+      for (DWORD i = 0; i < NFRAMES; i++)
+         processQueue();
+
+      // debug
+      //printf("PROCESSED %i FRAMES \n", NFRAMES);
+   }
+
+   // check for timeout
+   else if (DT > (TIMEOUT * 1000 * 1000))
+   {
+      mCallback.onDeviceTimeout();
+      disconnect();
+   }
 }

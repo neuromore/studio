@@ -4,13 +4,14 @@
 #include <cstdint>
 #include <iostream>
 #include <cassert>
+#include <chrono>
 
 // Windows API
 #include <windows.h> 
 
 /// <summary>
 /// Discovery 20 EEG Amplifier.
-/// Make sure you have the Device Drivers (Serial over USB) installed!
+/// Requires installed device drivers (FTDI Serial over USB) and the bmrcm.dll.
 /// </summary>
 class Discovery20
 {
@@ -204,6 +205,7 @@ public:
       inline virtual void onDeviceFound(int32_t port) { }
       inline virtual void onDeviceConnected()         { }
       inline virtual void onDeviceDisconnected()      { }
+      inline virtual void onDeviceTimeout()           { }
       inline virtual void onSyncStart()               { }
       inline virtual void onSyncSuccess()             { }
       inline virtual void onSyncFail()                { }
@@ -215,11 +217,11 @@ public:
    /// States
    /// </summary>
    enum class State {
-      DISCONNECTED = 0,
-      CONNECTED    = 1,
-      UNSYNCED     = 2,
-      SYNCING      = 3,
-      SYNCED       = 4,
+      DISCONNECTED = 0, // not connected
+      CONNECTED    = 1, // connected
+      UNSYNCED     = 2, // streaming: unsynced
+      SYNCING      = 3, // streaming: syncing
+      SYNCED       = 4, // streaming: synced
    };
 
    /// <summary>
@@ -238,6 +240,11 @@ public:
    /// </summary>
    static constexpr uint32_t BUFFERSIZE = 1024U * 1024U;
 
+   /// <summary>
+   /// Timeout for receiving data in streaming state (in milliseconds).
+   /// </summary>
+   static constexpr uint64_t TIMEOUT = 3000;
+
 protected:
    SDK       mSDK;
    State     mState;
@@ -247,6 +254,7 @@ protected:
    uint32_t  mNumBytes;
    uint8_t   mNextSync;
    int32_t   mAuth;
+   uint64_t  mTickLastData;
    Frame     mFrame;
    Channels  mChannels;
    Callback& mCallback;
@@ -273,6 +281,14 @@ protected:
    /// </summary>
    void processQueue();
 
+   /// <summary>
+   /// Gets a high precision clock tick.
+   /// </summary>
+   inline static uint64_t gettick()
+   {
+      return std::chrono::high_resolution_clock::now().time_since_epoch().count();
+   }
+
 public:
    /// <summary>
    /// Constructor
@@ -286,6 +302,7 @@ public:
       mNumBytes(0),
       mNextSync(0),
       mAuth(0),
+      mTickLastData(0),
       mFrame(),
       mChannels(),
       mCallback(cb) 
@@ -325,6 +342,12 @@ public:
    inline const Channels& getChannels() const { return mChannels; }
 
    /// <summary>
+   /// True after successful execution of start() for states
+   /// UNSYNCED, SYNCING and SYNCED.
+   /// </summary>
+   inline bool isStreaming() const { return mState > State::CONNECTED; }
+
+   /// <summary>
    /// True if currently logged-in on the device.
    /// </summary>
    inline bool isLoggedIn() const { return mAuth != 0; }
@@ -349,21 +372,7 @@ public:
    /// Tries to find a connected Discovery 20 device.
    /// Returns true on success.
    /// </summary>
-   inline bool find()
-   {
-      if (mState != State::DISCONNECTED)
-         return false;
-
-      // try find the device com port
-      mPort = findCOM();
-
-      // raise callback
-      if (mPort)
-         mCallback.onDeviceFound(mPort);
-
-      // found or not
-      return mPort != 0;
-   }
+   bool find();
 
    /// <summary>
    /// Try connect to Discovery 20 device.
@@ -393,17 +402,5 @@ public:
    /// Processes pending data from the device queue.
    /// Must be called regularly if start() succeeded.
    /// </summary>
-   inline void update()
-   {
-      // must be in streaming mode
-      if (mState != State::UNSYNCED && 
-          mState != State::SYNCING  && 
-          mState != State::SYNCED)
-          return;
-
-      // process full frames in the queue
-      const DWORD n = mSDK.AtlGetBytesInQue() / Frame::SIZE;
-      for (DWORD i = 0; i < n; i++)
-         processQueue();
-   }
+   void update();
 };
