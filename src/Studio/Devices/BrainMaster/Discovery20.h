@@ -28,6 +28,7 @@ public:
       typedef BOOL  (__cdecl* FuncAtlSetBaudRate)         (int32_t ratecode);
       typedef BOOL  (__cdecl* FuncAtlWriteSamplingRate)   (int32_t samplingrate);
       typedef BOOL  (__cdecl* FuncAtlClearSpecials)       ();
+      typedef void  (__cdecl* FuncAtlFlush)               ();
       typedef int   (__cdecl* FuncAtlLoginDevice)         (char* codekey, char* serialnumber, char* passkey);
       typedef BOOL  (__cdecl* FuncDiscStartModule)        ();
       typedef BOOL  (__cdecl* FuncDiscStopModule)         ();
@@ -49,6 +50,7 @@ public:
       FuncAtlSetBaudRate          AtlSetBaudRate;
       FuncAtlWriteSamplingRate    AtlWriteSamplingRate;
       FuncAtlClearSpecials        AtlClearSpecials;
+      FuncAtlFlush                AtlFlush;
       FuncAtlLoginDevice          AtlLoginDevice;
       FuncDiscStartModule         DiscStartModule;
       FuncDiscStopModule          DiscStopModule;
@@ -65,6 +67,7 @@ public:
          AtlSetBaudRate         (Handle ? (FuncAtlSetBaudRate)          GetProcAddress(Handle, "AtlSetBaudRate")          : 0),
          AtlWriteSamplingRate   (Handle ? (FuncAtlWriteSamplingRate)    GetProcAddress(Handle, "AtlWriteSamplingRate")    : 0),
          AtlClearSpecials       (Handle ? (FuncAtlClearSpecials)        GetProcAddress(Handle, "AtlClearSpecials")        : 0),
+         AtlFlush               (Handle ? (FuncAtlFlush)                GetProcAddress(Handle, "AtlFlush")                : 0),
          AtlLoginDevice         (Handle ? (FuncAtlLoginDevice)          GetProcAddress(Handle, "AtlLoginDevice")          : 0),
          DiscStartModule        (Handle ? (FuncDiscStartModule)         GetProcAddress(Handle, "DiscStartModule")         : 0),
          DiscStopModule         (Handle ? (FuncDiscStopModule)          GetProcAddress(Handle, "DiscStopModule")          : 0),
@@ -79,17 +82,18 @@ public:
          if (Handle)
          {
             FreeLibrary(Handle);
-            Handle               = 0;
-            AtlOpenPort          = 0;
-            AtlClosePort         = 0;
-            AtlSetBaudRate       = 0;
-            AtlWriteSamplingRate = 0;
-            AtlClearSpecials     = 0;
-            AtlLoginDevice       = 0;
-            DiscStartModule      = 0;
-            DiscStopModule       = 0;
-            AtlGetBytesInQue     = 0;
-            AtlReadData          = 0;
+            Handle                  = 0;
+            AtlOpenPort             = 0;
+            AtlClosePort            = 0;
+            AtlSetBaudRate          = 0;
+            AtlWriteSamplingRate    = 0;
+            AtlClearSpecials        = 0;
+            AtlFlush                = 0;
+            AtlLoginDevice          = 0;
+            DiscStartModule         = 0;
+            DiscStopModule          = 0;
+            AtlGetBytesInQue        = 0;
+            AtlReadData             = 0;
             AtlSelectImpedanceChans = 0;
             AtlSelectSpecial        = 0;
          }
@@ -195,13 +199,16 @@ public:
    class Callback
    {
    public:
-      virtual void onLoadSDKSuccess(HMODULE h) { }
-      virtual void onLoadSDKFail()             { }
-      virtual void onSyncStart()               { }
-      virtual void onSyncSuccess()             { }
-      virtual void onSyncFail()                { }
-      virtual void onSyncLost()                { }
-      virtual void onFrame(const Frame& f, const Channels& c) { }
+      inline virtual void onLoadSDKSuccess(HMODULE h) { }
+      inline virtual void onLoadSDKFail()             { }
+      inline virtual void onDeviceFound(int32_t port) { }
+      inline virtual void onDeviceConnected()         { }
+      inline virtual void onDeviceDisconnected()      { }
+      inline virtual void onSyncStart()               { }
+      inline virtual void onSyncSuccess()             { }
+      inline virtual void onSyncFail()                { }
+      inline virtual void onSyncLost()                { }
+      inline virtual void onFrame(const Frame& f, const Channels& c) { }
    };
 
    /// <summary>
@@ -284,7 +291,7 @@ public:
       mCallback(cb) 
    {
       if (mSDK.Handle) mCallback.onLoadSDKSuccess(mSDK.Handle);
-      else             mCallback.onLoadSDKFail();
+      else mCallback.onLoadSDKFail();
    }
 
    /// <summary>
@@ -349,6 +356,10 @@ public:
 
       // try find the device com port
       mPort = findCOM();
+
+      // raise callback
+      if (mPort)
+         mCallback.onDeviceFound(mPort);
 
       // found or not
       return mPort != 0;

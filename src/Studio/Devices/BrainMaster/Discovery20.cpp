@@ -72,7 +72,10 @@ void Discovery20::processQueue()
    case State::UNSYNCED:
    {
       nret = (uint32_t)mSDK.AtlReadData(mFrame.data, Frame::SIZE);
-      assert(nret == Frame::SIZE);
+      if (nret != Frame::SIZE) {
+         disconnect();
+         return;
+      }
       for (uint32_t i = 0; i < nret; i++)
       {
          if (mFrame.data[i] == 0x20)
@@ -95,32 +98,33 @@ void Discovery20::processQueue()
    }
    case State::SYNCING:
    {
-      if (mFrame.sync != mNextSync)
-      {
+      if (mFrame.sync != mNextSync) {
          mState = State::UNSYNCED;
          mNumSyncs = 0;
          mCallback.onSyncFail();
          break;
       }
-      if (mNumSyncs >= MINSYNCS)
-      {
+      if (mNumSyncs >= MINSYNCS) {
          mState = State::SYNCED;
          stepSync();
          mCallback.onSyncSuccess();
          break;
       }
-      nret = (uint32_t)mSDK.AtlReadData(&mFrame.data[mNumBytes], Frame::SIZE-mNumBytes);
-      assert(nret == Frame::SIZE-mNumBytes);
+      if (mSDK.AtlReadData(&mFrame.data[mNumBytes], Frame::SIZE-mNumBytes) != Frame::SIZE-mNumBytes) {
+         disconnect();
+         return;
+      }
       mNumBytes = 0;
       stepSync();
       break;
    }
    case State::SYNCED:
    {
-      nret = (uint32_t)mSDK.AtlReadData(mFrame.data, Frame::SIZE);
-      assert(nret == Frame::SIZE);
-      if (mFrame.sync != mNextSync)
-      {
+      if (mSDK.AtlReadData(mFrame.data, Frame::SIZE) != Frame::SIZE) {
+         disconnect();
+         return;
+      }
+      if (mFrame.sync != mNextSync) {
          mState = State::UNSYNCED;
          mNumSyncs = 0;
          mCallback.onSyncLost();
@@ -143,7 +147,7 @@ bool Discovery20::connect()
    if (mState != State::DISCONNECTED)
       return true;
 
-   // no device discovered
+   // no device discovered or found
    if (!mPort)
       return false;
 
@@ -183,8 +187,9 @@ bool Discovery20::connect()
       return false;
    }
 
-   // set state and remember port
+   // set state and raise callback
    mState = State::CONNECTED;
+   mCallback.onDeviceConnected();
 
    // success
    return true;
@@ -218,9 +223,15 @@ bool Discovery20::stop()
        mState != State::SYNCED)
        return true;
 
+   // flush
+   mSDK.AtlFlush();
+
    // try to stop streaming
    if (!mSDK.DiscStopModule())
+   {
+      disconnect();
       return false;
+   }
 
    // set to connected state
    mState = State::CONNECTED;
@@ -235,24 +246,17 @@ bool Discovery20::disconnect()
    if (mState == State::DISCONNECTED)
       return true;
 
-   // try to stop any possible streaming
-   if (!stop())
-      return false;
-
-   // set back to 9600 baud
-   if (!mSDK.AtlSetBaudRate(SDK::BR9600)) {
-      mSDK.AtlClosePort(mPort);
-      return false;
-   }
-
-   // and close
-   if (!mSDK.AtlClosePort(mPort))
-      return false;
+   // reset to 9600 baud and close port
+   const BOOL R1 = mSDK.AtlSetBaudRate(SDK::BR9600);
+   const BOOL R2 = mSDK.AtlClosePort(mPort);
 
    // set to disconnected and reset auth
    mState = State::DISCONNECTED;
    mAuth  = 0;
 
+   // raise callback
+   mCallback.onDeviceDisconnected();
+
    // success
-   return true;
+   return R1 && R2;
 }
