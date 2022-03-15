@@ -126,9 +126,133 @@ void Discovery20::processQueue()
          mCallback.onSyncLost();
          break;
       }
-      processFrame();
+      mFrame.extract(mChannels);
+      mCallback.onFrame(mFrame, mChannels);
       stepSync();
       break;
    }
    }
+}
+
+bool Discovery20::connect()
+{
+   if (!mSDK.Handle)
+      return false;
+
+   // must be disconnected to connect
+   if (mState != State::DISCONNECTED)
+      return true;
+
+   // no device discovered
+   if (!mPort)
+      return false;
+
+   // connect at 9600 baud first
+   if (!mSDK.AtlOpenPort(mPort, 9600, &mHandle))
+      return false;
+
+   // set to 460800 baud
+   if (!mSDK.AtlSetBaudRate(SDK::BR460800)) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
+   // close port
+   if (!mSDK.AtlClosePort(mPort))
+      return false;
+
+   // now open at 460800 baud
+   if (!mSDK.AtlOpenPort(mPort, 460800, &mHandle))
+      return false;
+
+   // setup serial port buffers
+   if (!::SetupComm(mHandle, BUFFERSIZE, BUFFERSIZE)) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
+   // set to expected sampling rate
+   if (!mSDK.AtlWriteSamplingRate(SAMPLERATE)) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
+   // clear any specials that might be set
+   if (!mSDK.AtlClearSpecials()) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
+   // set state and remember port
+   mState = State::CONNECTED;
+
+   // success
+   return true;
+}
+
+bool Discovery20::start()
+{
+   if (!mSDK.Handle)
+      return false;
+
+   // must be in connected state to init data streaming
+   if (mState != State::CONNECTED)
+      return false;
+
+   // try to start streaming
+   if (!mSDK.DiscStartModule())
+      return false;
+
+   // set to unsynced state
+   mState = State::UNSYNCED;
+
+   // success
+   return true;
+}
+
+bool Discovery20::stop()
+{
+   // must be in streaming mode
+   if (mState != State::UNSYNCED && 
+       mState != State::SYNCING  && 
+       mState != State::SYNCED)
+       return true;
+
+   // try to stop streaming
+   if (!mSDK.DiscStopModule())
+      return false;
+
+   // set to connected state
+   mState = State::CONNECTED;
+
+   // success
+   return true;
+}
+
+bool Discovery20::disconnect()
+{
+   // already disconnected
+   if (mState == State::DISCONNECTED)
+      return true;
+
+   // try to stop any possible streaming
+   if (!stop())
+      return false;
+
+   // set back to 9600 baud
+   if (!mSDK.AtlSetBaudRate(SDK::BR9600)) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
+   // and close
+   if (!mSDK.AtlClosePort(mPort))
+      return false;
+
+   // set to disconnected and reset auth
+   mState = State::DISCONNECTED;
+   mAuth  = 0;
+
+   // success
+   return true;
 }

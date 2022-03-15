@@ -245,12 +245,6 @@ protected:
    Callback& mCallback;
 
    /// <summary>
-   /// Tries to find the COM port of the Discovery 20.
-   /// Returns 0 if not found.
-   /// </summary>
-   int findCOM();
-
-   /// <summary>
    /// Increments the sync byte to next expected sync byte
    /// and the sync counter by one.
    /// </summary>
@@ -262,21 +256,15 @@ protected:
    }
 
    /// <summary>
+   /// Tries to find the COM port of the Discovery 20.
+   /// Returns 0 if not found.
+   /// </summary>
+   int findCOM();
+
+   /// <summary>
    /// Processes bytes (up to one frame) from the device queue.
    /// </summary>
    void processQueue();
-
-   /// <summary>
-   /// Processes the current frame.
-   /// </summary>
-   inline void processFrame()
-   {
-      // extract and convert channel values from raw frame
-      mFrame.extract(mChannels);
-
-      // raise callback
-      mCallback.onFrame(mFrame, mChannels);
-   }
 
 public:
    /// <summary>
@@ -332,7 +320,7 @@ public:
    /// <summary>
    /// True if currently logged-in on the device.
    /// </summary>
-   inline bool isLoggedIn() { return mAuth != 0; }
+   inline bool isLoggedIn() const { return mAuth != 0; }
 
    /// <summary>
    /// Tries to login to the device with provided credentials.
@@ -370,140 +358,25 @@ public:
    /// Try connect to Discovery 20 device.
    /// Returns true on success or if already connected.
    /// </summary>
-   inline bool connect()
-   {
-      if (!mSDK.Handle)
-         return false;
-
-      // must be disconnected to connect
-      if (mState != State::DISCONNECTED)
-         return true;
-
-      // no device discovered
-      if (!mPort)
-         return false;
-
-      // connect at 9600 baud first
-      if (!mSDK.AtlOpenPort(mPort, 9600, &mHandle))
-         return false;
-
-      // set to 460800 baud
-      if (!mSDK.AtlSetBaudRate(SDK::BR460800)) {
-         mSDK.AtlClosePort(mPort);
-         return false;
-      }
-
-      // close port
-      if (!mSDK.AtlClosePort(mPort))
-         return false;
-
-      // now open at 460800 baud
-      if (!mSDK.AtlOpenPort(mPort, 460800, &mHandle))
-         return false;
-
-      // setup serial port buffers
-      if (!::SetupComm(mHandle, BUFFERSIZE, BUFFERSIZE)) {
-         mSDK.AtlClosePort(mPort);
-         return false;
-      }
-
-      // set to expected sampling rate
-      if (!mSDK.AtlWriteSamplingRate(SAMPLERATE)) {
-         mSDK.AtlClosePort(mPort);
-         return false;
-      }
-
-      // clear any specials that might be set
-      if (!mSDK.AtlClearSpecials()) {
-         mSDK.AtlClosePort(mPort);
-         return false;
-      }
-
-      // set state and remember port
-      mState = State::CONNECTED;
-
-      // success
-      return true;
-   }
+   bool connect();
 
    /// <summary>
    /// Starts data streaming on a connected Discovery 20.
    /// You must regularly call update() if this succeeds.
    /// </summary>
-   inline bool start()
-   {
-      if (!mSDK.Handle)
-         return false;
-
-      // must be in connected state to init data streaming
-      if (mState != State::CONNECTED)
-         return false;
-
-      // try to start streaming
-      if (!mSDK.DiscStartModule())
-         return false;
-
-      // set to unsynced state
-      mState = State::UNSYNCED;
-
-      // success
-      return true;
-   }
+   bool start();
 
    /// <summary>
    /// Stops streaming on a currently streaming Discovery 20.
    /// Returns true on success or if not streaming at all.
    /// </summary>
-   inline bool stop()
-   {
-      // must be in streaming mode
-      if (mState != State::UNSYNCED && 
-          mState != State::SYNCING  && 
-          mState != State::SYNCED)
-          return true;
-
-      // try to stop streaming
-      if (!mSDK.DiscStopModule())
-         return false;
-
-      // set to connected state
-      mState = State::CONNECTED;
-
-      // success
-      return true;
-   }
+   bool stop();
 
    /// <summary>
    /// Disconnects a currently connected or streaming Discovery 20.
    /// Returns true on success or if not connected at all.
    /// </summary>
-   inline bool disconnect()
-   {
-      // already disconnected
-      if (mState == State::DISCONNECTED)
-         return true;
-
-      // try to stop any possible streaming
-      if (!stop())
-         return false;
-
-      // set back to 9600 baud
-      if (!mSDK.AtlSetBaudRate(SDK::BR9600)) {
-         mSDK.AtlClosePort(mPort);
-         return false;
-      }
-
-      // and close
-      if (!mSDK.AtlClosePort(mPort))
-         return false;
-
-      // set to disconnected and reset auth
-      mState = State::DISCONNECTED;
-      mAuth  = 0;
-
-      // success
-      return true;
-   }
+   bool disconnect();
 
    /// <summary>
    /// Processes pending data from the device queue.
