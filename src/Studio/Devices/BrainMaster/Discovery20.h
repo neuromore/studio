@@ -23,15 +23,19 @@ public:
    public:
       static constexpr TCHAR NAME[] = TEXT("bmrcm.dll");
    protected:
-      typedef BOOL  (__cdecl* FuncAtlOpenPort)          (int32_t portno, int32_t baudrate, HANDLE* h);
-      typedef BOOL  (__cdecl* FuncAtlClosePort)         (int32_t portno);
-      typedef BOOL  (__cdecl* FuncAtlSetBaudRate)       (int32_t ratecode);
-      typedef BOOL  (__cdecl* FuncAtlWriteSamplingRate) (int32_t samplingrate);
-      typedef int   (__cdecl* FuncAtlLoginDevice)       (char* codekey, char* serialnumber, char* passkey);
-      typedef BOOL  (__cdecl* FuncDiscStartModule)      ();
-      typedef BOOL  (__cdecl* FuncDiscStopModule)       ();
-      typedef DWORD (__cdecl* FuncAtlGetBytesInQue)     ();
-      typedef int   (__cdecl* FuncAtlReadData)          (uint8_t* buffer, int32_t count);
+      typedef BOOL  (__cdecl* FuncAtlOpenPort)            (int32_t portno, int32_t baudrate, HANDLE* h);
+      typedef BOOL  (__cdecl* FuncAtlClosePort)           (int32_t portno);
+      typedef BOOL  (__cdecl* FuncAtlSetBaudRate)         (int32_t ratecode);
+      typedef BOOL  (__cdecl* FuncAtlWriteSamplingRate)   (int32_t samplingrate);
+      typedef BOOL  (__cdecl* FuncAtlClearSpecials)       ();
+      typedef int   (__cdecl* FuncAtlLoginDevice)         (char* codekey, char* serialnumber, char* passkey);
+      typedef BOOL  (__cdecl* FuncDiscStartModule)        ();
+      typedef BOOL  (__cdecl* FuncDiscStopModule)         ();
+      typedef DWORD (__cdecl* FuncAtlGetBytesInQue)       ();
+      typedef int   (__cdecl* FuncAtlReadData)            (uint8_t* buffer, int32_t count);
+      typedef BOOL  (__cdecl* FuncAtlSelectImpedanceChans)(int selectcode);
+      typedef BOOL  (__cdecl* FuncAtlSelectSpecial)       (int selectcode);
+
    public:
       enum BRCodes : int32_t {
          BR460800 = 0x10,
@@ -39,28 +43,35 @@ public:
          BR9600   = 0x30
       };
    public:
-      HMODULE                  Handle;
-      FuncAtlOpenPort          AtlOpenPort;
-      FuncAtlClosePort         AtlClosePort;
-      FuncAtlSetBaudRate       AtlSetBaudRate;
-      FuncAtlWriteSamplingRate AtlWriteSamplingRate;
-      FuncAtlLoginDevice       AtlLoginDevice;
-      FuncDiscStartModule      DiscStartModule;
-      FuncDiscStopModule       DiscStopModule;
-      FuncAtlGetBytesInQue     AtlGetBytesInQue;
-      FuncAtlReadData          AtlReadData;
+      HMODULE                     Handle;
+      FuncAtlOpenPort             AtlOpenPort;
+      FuncAtlClosePort            AtlClosePort;
+      FuncAtlSetBaudRate          AtlSetBaudRate;
+      FuncAtlWriteSamplingRate    AtlWriteSamplingRate;
+      FuncAtlClearSpecials        AtlClearSpecials;
+      FuncAtlLoginDevice          AtlLoginDevice;
+      FuncDiscStartModule         DiscStartModule;
+      FuncDiscStopModule          DiscStopModule;
+      FuncAtlGetBytesInQue        AtlGetBytesInQue;
+      FuncAtlReadData             AtlReadData;
+      FuncAtlSelectImpedanceChans AtlSelectImpedanceChans;
+      FuncAtlSelectSpecial        AtlSelectSpecial;
+
    public:
       inline SDK() :
          Handle(LoadLibrary(NAME)),
-         AtlOpenPort         (Handle ? (FuncAtlOpenPort)         GetProcAddress(Handle, "AtlOpenPort")          : 0),
-         AtlClosePort        (Handle ? (FuncAtlClosePort)        GetProcAddress(Handle, "AtlClosePort")         : 0),
-         AtlSetBaudRate      (Handle ? (FuncAtlSetBaudRate)      GetProcAddress(Handle, "AtlSetBaudRate")       : 0),
-         AtlWriteSamplingRate(Handle ? (FuncAtlWriteSamplingRate)GetProcAddress(Handle, "AtlWriteSamplingRate") : 0),
-         AtlLoginDevice      (Handle ? (FuncAtlLoginDevice)      GetProcAddress(Handle, "AtlLoginDevice")       : 0),
-         DiscStartModule     (Handle ? (FuncDiscStartModule)     GetProcAddress(Handle, "DiscStartModule")      : 0),
-         DiscStopModule      (Handle ? (FuncDiscStopModule)      GetProcAddress(Handle, "DiscStopModule")       : 0),
-         AtlGetBytesInQue    (Handle ? (FuncAtlGetBytesInQue)    GetProcAddress(Handle, "AtlGetBytesInQue")     : 0),
-         AtlReadData         (Handle ? (FuncAtlReadData)         GetProcAddress(Handle, "AtlReadData")          : 0)
+         AtlOpenPort            (Handle ? (FuncAtlOpenPort)             GetProcAddress(Handle, "AtlOpenPort")             : 0),
+         AtlClosePort           (Handle ? (FuncAtlClosePort)            GetProcAddress(Handle, "AtlClosePort")            : 0),
+         AtlSetBaudRate         (Handle ? (FuncAtlSetBaudRate)          GetProcAddress(Handle, "AtlSetBaudRate")          : 0),
+         AtlWriteSamplingRate   (Handle ? (FuncAtlWriteSamplingRate)    GetProcAddress(Handle, "AtlWriteSamplingRate")    : 0),
+         AtlClearSpecials       (Handle ? (FuncAtlClearSpecials)        GetProcAddress(Handle, "AtlClearSpecials")        : 0),
+         AtlLoginDevice         (Handle ? (FuncAtlLoginDevice)          GetProcAddress(Handle, "AtlLoginDevice")          : 0),
+         DiscStartModule        (Handle ? (FuncDiscStartModule)         GetProcAddress(Handle, "DiscStartModule")         : 0),
+         DiscStopModule         (Handle ? (FuncDiscStopModule)          GetProcAddress(Handle, "DiscStopModule")          : 0),
+         AtlGetBytesInQue       (Handle ? (FuncAtlGetBytesInQue)        GetProcAddress(Handle, "AtlGetBytesInQue")        : 0),
+         AtlReadData            (Handle ? (FuncAtlReadData)             GetProcAddress(Handle, "AtlReadData")             : 0),
+         AtlSelectImpedanceChans(Handle ? (FuncAtlSelectImpedanceChans) GetProcAddress(Handle, "AtlSelectImpedanceChans") : 0),
+         AtlSelectSpecial       (Handle ? (FuncAtlSelectSpecial)        GetProcAddress(Handle, "AtlSelectSpecial")        : 0)
       {
       }
       inline ~SDK()
@@ -73,11 +84,14 @@ public:
             AtlClosePort         = 0;
             AtlSetBaudRate       = 0;
             AtlWriteSamplingRate = 0;
+            AtlClearSpecials     = 0;
             AtlLoginDevice       = 0;
             DiscStartModule      = 0;
             DiscStopModule       = 0;
             AtlGetBytesInQue     = 0;
             AtlReadData          = 0;
+            AtlSelectImpedanceChans = 0;
+            AtlSelectSpecial        = 0;
          }
       }
    };
@@ -388,12 +402,22 @@ public:
          return false;
 
       // setup serial port buffers
-      if (!::SetupComm(mHandle, BUFFERSIZE, BUFFERSIZE))
+      if (!::SetupComm(mHandle, BUFFERSIZE, BUFFERSIZE)) {
+         mSDK.AtlClosePort(mPort);
          return false;
+      }
 
       // set to expected sampling rate
-      if (!mSDK.AtlWriteSamplingRate(SAMPLERATE))
+      if (!mSDK.AtlWriteSamplingRate(SAMPLERATE)) {
+         mSDK.AtlClosePort(mPort);
          return false;
+      }
+
+      // clear any specials that might be set
+      if (!mSDK.AtlClearSpecials()) {
+         mSDK.AtlClosePort(mPort);
+         return false;
+      }
 
       // set state and remember port
       mState = State::CONNECTED;
@@ -432,9 +456,6 @@ public:
    /// </summary>
    inline bool stop()
    {
-      if (!mSDK.Handle)
-         return false;
-
       // must be in streaming mode
       if (mState != State::UNSYNCED && 
           mState != State::SYNCING  && 
@@ -467,8 +488,10 @@ public:
          return false;
 
       // set back to 9600 baud
-      if (!mSDK.AtlSetBaudRate(SDK::BR9600))
+      if (!mSDK.AtlSetBaudRate(SDK::BR9600)) {
+         mSDK.AtlClosePort(mPort);
          return false;
+      }
 
       // and close
       if (!mSDK.AtlClosePort(mPort))
@@ -494,8 +517,9 @@ public:
           mState != State::SYNCED)
           return;
 
-      // loop as long as there are full frames in the queue
-      while (mSDK.AtlGetBytesInQue() >= Frame::SIZE)
+      // process full frames in the queue
+      const DWORD n = mSDK.AtlGetBytesInQue() / Frame::SIZE;
+      for (DWORD i = 0; i < n; i++)
          processQueue();
    }
 };
