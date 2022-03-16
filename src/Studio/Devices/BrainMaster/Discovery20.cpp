@@ -66,32 +66,33 @@ int Discovery20::findCOM()
 
 void Discovery20::processQueue()
 {
-   uint32_t nret;
    switch (mState)
    {
    case State::UNSYNCED:
    {
-      nret = (uint32_t)mSDK.AtlReadData(mFrame.data, Frame::SIZE);
-      if (nret != Frame::SIZE) {
+      constexpr size_t BUFSIZE = Frame::SIZE*2;
+      if (mSDK.AtlReadData(mBuffer, BUFSIZE) != BUFSIZE) {
          disconnect();
          return;
       }
-      for (uint32_t i = 0; i < nret; i++)
+      for (uint32_t i = 0; i < Frame::SIZE; i++)
       {
-         if (mFrame.data[i] == 0x20)
+         const uint8_t c1 = mBuffer[i];
+         const uint8_t c2 = mBuffer[i+Frame::SIZE];
+         if (isSyncPair(c1, c2))
          {
             if (i > 0) {
-               mNumBytes = nret - i;
-               std::memcpy(mFrame.data, &mFrame.data[i], mNumBytes);
+               mNumBytes = BUFSIZE - (i+Frame::SIZE);
+               std::memcpy(mFrame.data, &mBuffer[i+Frame::SIZE], mNumBytes);
             }
             else {
                mNumBytes = 0;
             }
             mState = State::SYNCING;
             mNumSyncs = 0;
-            mNextSync = 0x20;
-            mCallback.onSyncStart();
-            break;
+            mNextSync = c2;
+            mCallback.onSyncStart(c1, c2);
+            return;
          }
       }
       break;
@@ -101,7 +102,7 @@ void Discovery20::processQueue()
       if (mFrame.sync != mNextSync) {
          mState = State::UNSYNCED;
          mNumSyncs = 0;
-         mCallback.onSyncFail();
+         mCallback.onSyncFail(mNextSync, mFrame.sync);
          break;
       }
       if (mNumSyncs >= MINSYNCS) {
@@ -114,8 +115,9 @@ void Discovery20::processQueue()
          disconnect();
          return;
       }
+      if (mNumBytes == 0)
+         stepSync();
       mNumBytes = 0;
-      stepSync();
       break;
    }
    case State::SYNCED:
@@ -292,8 +294,11 @@ void Discovery20::update()
    const uint64_t TICK = gettick();
    const uint64_t DT  = TICK - mTickLastData;
 
-   // got at least one frame
-   if (NFRAMES > 0)
+   // how many frames must be available to start processing
+   const DWORD WAITFRAMES = (mState == State::UNSYNCED) ? 2U : 1U;
+
+   // got at least one or two frame(s)
+   if (NFRAMES >= WAITFRAMES)
    {
       // update last frame tick
       mTickLastData = TICK;
@@ -301,9 +306,6 @@ void Discovery20::update()
       // process all frames in the queue
       for (DWORD i = 0; i < NFRAMES; i++)
          processQueue();
-
-      // debug
-      //printf("PROCESSED %i FRAMES \n", NFRAMES);
    }
 
    // check for timeout

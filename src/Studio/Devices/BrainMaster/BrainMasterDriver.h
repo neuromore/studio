@@ -66,9 +66,9 @@ private:
    virtual void onDeviceConnected() override;
    virtual void onDeviceDisconnected() override;
    virtual void onDeviceTimeout() override;
-   virtual void onSyncStart() override;
+   virtual void onSyncStart(uint8_t c1, uint8_t c2) override;
    virtual void onSyncSuccess() override;
-   virtual void onSyncFail() override;
+   virtual void onSyncFail(uint8_t expected, uint8_t received) override;
    virtual void onSyncLost() override;
    virtual void onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) override;
 

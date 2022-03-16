@@ -175,17 +175,17 @@ void BrainMasterDriver::onDeviceTimeout()
    LogError("DISCOVERY20: Device timeout.");
    // TODO: Trigger removal
 }
-void BrainMasterDriver::onSyncStart() 
+void BrainMasterDriver::onSyncStart(uint8_t c1, uint8_t c2)
 {
-   LogDebug("DISCOVERY20: Sync started.");
+   LogDebug("DISCOVERY20: Sync started on pair (%i, %i)", c1, c2);
 }
 void BrainMasterDriver::onSyncSuccess() 
 {
    LogInfo("DISCOVERY20: Sync successful.");
 }
-void BrainMasterDriver::onSyncFail()
+void BrainMasterDriver::onSyncFail(uint8_t expected, uint8_t received)
 {
-   LogDebug("DISCOVERY20: Sync fail.");
+   LogDebug("DISCOVERY20: Sync fail. Expected: %i Received: %i.", expected, received);
 }
 void BrainMasterDriver::onSyncLost()
 {

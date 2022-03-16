@@ -200,17 +200,17 @@ public:
    class Callback
    {
    public:
-      inline virtual void onLoadSDKSuccess(HMODULE h) { }
-      inline virtual void onLoadSDKFail()             { }
-      inline virtual void onDeviceFound(int32_t port) { }
-      inline virtual void onDeviceConnected()         { }
-      inline virtual void onDeviceDisconnected()      { }
-      inline virtual void onDeviceTimeout()           { }
-      inline virtual void onSyncStart()               { }
-      inline virtual void onSyncSuccess()             { }
-      inline virtual void onSyncFail()                { }
-      inline virtual void onSyncLost()                { }
-      inline virtual void onFrame(const Frame& f, const Channels& c) { }
+      inline virtual void onLoadSDKSuccess(HMODULE h)                    { }
+      inline virtual void onLoadSDKFail()                                { }
+      inline virtual void onDeviceFound(int32_t port)                    { }
+      inline virtual void onDeviceConnected()                            { }
+      inline virtual void onDeviceDisconnected()                         { }
+      inline virtual void onDeviceTimeout()                              { }
+      inline virtual void onSyncStart(uint8_t c1, uint8_t c2)            { }
+      inline virtual void onSyncSuccess()                                { }
+      inline virtual void onSyncFail(uint8_t expected, uint8_t received) { }
+      inline virtual void onSyncLost()                                   { }
+      inline virtual void onFrame(const Frame& f, const Channels& c)     { }
    };
 
    /// <summary>
@@ -255,9 +255,35 @@ protected:
    uint8_t   mNextSync;
    int32_t   mAuth;
    uint64_t  mTickLastData;
-   Frame     mFrame;
+   union {
+     Frame   mFrame;
+     uint8_t mBuffer[Frame::SIZE*2];
+   };
    Channels  mChannels;
    Callback& mCallback;
+
+   /// <summary>
+   /// Returns next sync byte for sync byte s
+   /// </summary>
+   static inline uint8_t nextSync(const uint8_t s)
+   {
+      return  (s == 0xe0) ? 0x20 : s + 0x20;
+   }
+
+   /// <summary>
+   /// True if b is next valid sync byte of a
+   /// </summary>
+   static inline bool isSyncPair(const uint8_t a, const uint8_t b)
+   {
+      return
+         (a == 0x20 && b == 0x40) ||
+         (a == 0x40 && b == 0x60) ||
+         (a == 0x60 && b == 0x80) ||
+         (a == 0x80 && b == 0xa0) ||
+         (a == 0xa0 && b == 0xc0) ||
+         (a == 0xc0 && b == 0xe0) ||
+         (a == 0xe0 && b == 0x20);
+   }
 
    /// <summary>
    /// Increments the sync byte to next expected sync byte
@@ -266,8 +292,7 @@ protected:
    inline void stepSync() 
    {
       mNumSyncs++;
-      mNextSync = (mNextSync == 0xe0) ? 
-         0x20 : mNextSync + 0x20;
+      mNextSync = nextSync(mNextSync);
    }
 
    /// <summary>
