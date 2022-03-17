@@ -191,26 +191,22 @@ void FileManager::OpenClassifier(ELocation location, const char* identifier, con
 		if (CloseWithPrompt(activeClassifier->GetUuid()) == false)
 			return;	// user aborted
 
+	Classifier* classifier = new Classifier();
+
 	if (mIsInFileSaving)
 	{
-		//wait for backend reply
-		QTimer timer;
-		timer.setSingleShot(true);
-		QEventLoop loop;
-		connect(this, &FileManager::writeToBackendFinished, &loop, &QEventLoop::quit);
-		connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
-		timer.start(10000);
-		loop.exec();
-		if (!timer.isActive())
-		{
-			Core::LogError("Timeout on writing data to backend");
-		}
+		QMetaObject::Connection * const connection = new QMetaObject::Connection;
+		*connection = connect(this, &FileManager::writeToBackendFinished,
+								[this, connection, location, identifier = String(identifier), name = String(name), revision, classifier]() {
+			OpenGraph(classifier, location, identifier.AsChar(), name.AsChar(), revision);
+			mIsInFileSaving = false;
+			QObject::disconnect(*connection);
+			delete connection;
+		});
+	} else {
+		OpenGraph(classifier, location, identifier, name, revision);
 	}
 
-	Classifier* classifier = new Classifier();
-	OpenGraph(classifier, location, identifier, name, revision);
-
-	mIsInFileSaving = false;
 }
 
 
