@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\include\brainflow-bluetooth\bluetooth_functions.h" />
+    <ClInclude Include="..\..\include\brainflow-bluetooth\bluetooth_types.h" />
+    <ClInclude Include="..\..\include\brainflow-bluetooth\socket_bluetooth.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\brainflow-bluetooth\bluetooth_functions.cpp" />
+    <ClCompile Include="..\..\src\brainflow-bluetooth\socket_bluetooth_win.cpp" />
+  </ItemGroup>
+</Project>

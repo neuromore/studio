@@ -19,17 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\ant_neuro\ant_neuro.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\ant_neuro\wrapper.cc" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\ble_lib_board.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\board.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\board_controller.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\board_info_getter.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\brainalive\brainalive.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\brainflow_boards.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\bt_lib_board.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\dyn_lib_board.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\enophone\enophone.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\file_streamer.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\freeeeg32\freeeeg32.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\gtec\unicorn_board.cpp" />
-    <ClCompile Include="..\..\src\brainflow-boardcontroller\ironbci\ironbci.cpp" />
-    <ClCompile Include="..\..\src\brainflow-boardcontroller\mit\fascia.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\hackerbci\ironbci.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\hackerbci\pieeg.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\multicast_streamer.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\muse\muse.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\muse\muse_bled.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit_bled.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\callibri.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\callibri_ecg.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\callibri_eeg.cpp" />
@@ -41,28 +51,40 @@
     <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\cyton_daisy_wifi.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\cyton_wifi.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\galea.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\galea_serial.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\ganglion.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\ganglion_wifi.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\openbci_serial_board.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\openbci_wifi_shield_board.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\oymotion\gforce_dual.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\oymotion\gforce_pro.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\playback_file_board.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\streaming_board.cpp" />
     <ClCompile Include="..\..\src\brainflow-boardcontroller\synthetic_board.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\brainflow\board_controller\ant_neuro\ant_neuro.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\ble_lib_board.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\board.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\board_controller.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\board_info_getter.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\brainalive\brainalive.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\brainflow_boards.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\brainflow_input_params.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\bt_lib_board.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\dyn_lib_board.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\enophone\enophone.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\file_streamer.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\freeeeg32\freeeeg32.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\gtec\unicorn_board.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\ironbci\ironbci.h" />
-    <ClInclude Include="..\..\include\brainflow\board_controller\mit\fascia.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\hackerbci\ironbci.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\hackerbci\pieeg.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\multicast_streamer.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\muse\muse.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\muse\muse_bled.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\muse\muse_constants.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\brainbit.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\brainbit_bled.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_ecg.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\neuromd\callibri_eeg.h" />
@@ -74,10 +96,12 @@
     <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_daisy_wifi.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\openbci\cyton_wifi.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\openbci\galea.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\openbci\galea_serial.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\openbci\ganglion_wifi.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_serial_board.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\openbci\openbci_wifi_shield_board.h" />
+    <ClInclude Include="..\..\include\brainflow\board_controller\oymotion\gforce_dual.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\oymotion\gforce_pro.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\playback_file_board.h" />
     <ClInclude Include="..\..\include\brainflow\board_controller\streamer.h" />
@@ -155,7 +179,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\freeeeg32;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\ironbci;..\..\include\brainflow\board_controller\mit;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\neurosity;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\oymotion;..\..\include\brainflow\ganglion-bglib;..\..\include\brainflow\gforcesdkcxx-wrapper;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\deps\include\brainflow-bluetooth;$(SolutionDir)..\..\deps\include\brainflow\utils;$(SolutionDir)..\..\deps\include\brainflow\board_controller\neuromd;$(SolutionDir)..\..\deps\src\SimpleBLE\include;$(SolutionDir)..\..\deps\include\brainflow\board_controller\muse;$(SolutionDir)..\..\deps\include\brainflow\board_controller\hackerbci;$(SolutionDir)..\..\deps\include\brainflow\board_controller\enophone;$(SolutionDir)..\..\deps\include\brainflow\board_controller\brainalive;$(SolutionDir)..\..\deps\include\brainflow\board_controller\ant_neuro;..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\freeeeg32;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\ironbci;..\..\include\brainflow\board_controller\mit;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\neurosity;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\oymotion;..\..\include\brainflow\ganglion-bglib;..\..\include\brainflow\gforcesdkcxx-wrapper;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -191,7 +215,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\freeeeg32;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\ironbci;..\..\include\brainflow\board_controller\mit;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\neurosity;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\oymotion;..\..\include\brainflow\ganglion-bglib;..\..\include\brainflow\gforcesdkcxx-wrapper;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\deps\include\brainflow-bluetooth;$(SolutionDir)..\..\deps\include\brainflow\utils;$(SolutionDir)..\..\deps\include\brainflow\board_controller\neuromd;$(SolutionDir)..\..\deps\src\SimpleBLE\include;$(SolutionDir)..\..\deps\include\brainflow\board_controller\muse;$(SolutionDir)..\..\deps\include\brainflow\board_controller\hackerbci;$(SolutionDir)..\..\deps\include\brainflow\board_controller\enophone;$(SolutionDir)..\..\deps\include\brainflow\board_controller\brainalive;$(SolutionDir)..\..\deps\include\brainflow\board_controller\ant_neuro;..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\freeeeg32;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\ironbci;..\..\include\brainflow\board_controller\mit;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\neurosity;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\oymotion;..\..\include\brainflow\ganglion-bglib;..\..\include\brainflow\gforcesdkcxx-wrapper;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -227,7 +251,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\freeeeg32;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\ironbci;..\..\include\brainflow\board_controller\mit;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\neurosity;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\oymotion;..\..\include\brainflow\ganglion-bglib;..\..\include\brainflow\gforcesdkcxx-wrapper;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\deps\include\brainflow-bluetooth;$(SolutionDir)..\..\deps\include\brainflow\utils;$(SolutionDir)..\..\deps\include\brainflow\board_controller\neuromd;$(SolutionDir)..\..\deps\src\SimpleBLE\include;$(SolutionDir)..\..\deps\include\brainflow\board_controller\muse;$(SolutionDir)..\..\deps\include\brainflow\board_controller\hackerbci;$(SolutionDir)..\..\deps\include\brainflow\board_controller\enophone;$(SolutionDir)..\..\deps\include\brainflow\board_controller\brainalive;$(SolutionDir)..\..\deps\include\brainflow\board_controller\ant_neuro;..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\freeeeg32;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\ironbci;..\..\include\brainflow\board_controller\mit;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\neurosity;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\oymotion;..\..\include\brainflow\ganglion-bglib;..\..\include\brainflow\gforcesdkcxx-wrapper;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -272,7 +296,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\freeeeg32;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\ironbci;..\..\include\brainflow\board_controller\mit;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\neurosity;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\oymotion;..\..\include\brainflow\ganglion-bglib;..\..\include\brainflow\gforcesdkcxx-wrapper;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\deps\include\brainflow-bluetooth;$(SolutionDir)..\..\deps\include\brainflow\utils;$(SolutionDir)..\..\deps\include\brainflow\board_controller\neuromd;$(SolutionDir)..\..\deps\src\SimpleBLE\include;$(SolutionDir)..\..\deps\include\brainflow\board_controller\muse;$(SolutionDir)..\..\deps\include\brainflow\board_controller\hackerbci;$(SolutionDir)..\..\deps\include\brainflow\board_controller\enophone;$(SolutionDir)..\..\deps\include\brainflow\board_controller\brainalive;$(SolutionDir)..\..\deps\include\brainflow\board_controller\ant_neuro;..\..\include;..\..\include\brainflow\board_controller;..\..\include\brainflow\board_controller\freeeeg32;..\..\include\brainflow\board_controller\gtec;..\..\include\brainflow\board_controller\ironbci;..\..\include\brainflow\board_controller\mit;..\..\include\brainflow\board_controller\neuromd;..\..\include\brainflow\board_controller\neurosity;..\..\include\brainflow\board_controller\openbci;..\..\include\brainflow\board_controller\oymotion;..\..\include\brainflow\ganglion-bglib;..\..\include\brainflow\gforcesdkcxx-wrapper;..\..\include\brainflow\utils;..\..\include\fft;..\..\include\gForceSDKCXX;..\..\include\http;..\..\include\json;..\..\include\kdtree;..\..\include\libsvm;..\..\include\neurosdk;..\..\include\oscpp;..\..\include\unicorn;..\..\include\wavelib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>

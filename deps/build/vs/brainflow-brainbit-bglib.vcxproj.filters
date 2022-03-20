@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\include\brainflow\utils\timestamp.h" />
+    <ClInclude Include="..\..\include\brainflow\brainbit-bglib\apitypes.h" />
+    <ClInclude Include="..\..\include\brainflow\brainbit-bglib\brainbit_functions.h" />
+    <ClInclude Include="..\..\include\brainflow\brainbit-bglib\cmd_def.h" />
+    <ClInclude Include="..\..\include\brainflow\brainbit-bglib\helpers.h" />
+    <ClInclude Include="..\..\include\brainflow\brainbit-bglib\uart.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\brainflow\utils\data_buffer.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\timestamp.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit_bglib\callbacks.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit_bglib\cmd_def.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit_bglib\helpers.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit_bglib\main.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit_bglib\stubs.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\neuromd\brainbit_bglib\uart.cpp" />
+  </ItemGroup>
+</Project>
