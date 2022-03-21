@@ -765,6 +765,7 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/Bluetooth/BluetoothDriver.o \
                        Devices/Bluetooth/BluetoothService.o \
                        Devices/BrainMaster/BrainMasterDriver.o \
+                       Devices/BrainMaster/Discovery20.o \
                        Devices/BrainFlow/BrainFlowDriver.o \
                        Devices/BrainProducts/ActiChampDriver.o \
                        Devices/Brainquiry/BrainquiryDriver.o \
