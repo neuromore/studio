@@ -173,7 +173,8 @@ void BrainMasterDriver::onDeviceDisconnected()
 void BrainMasterDriver::onDeviceTimeout()
 {
    LogError("DISCOVERY20: Device timeout.");
-   // TODO: Trigger removal
+   if (mDevice)
+      GetDeviceManager()->RemoveDeviceAsync(mDevice);
 }
 void BrainMasterDriver::onSyncStart(uint8_t c1, uint8_t c2)
 {
