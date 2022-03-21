@@ -1,3 +1,6 @@
+// WINDOWS X86 ONLY
+#if defined(_WIN32) && (defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i686__))
+
 #include "Discovery20.h"
 
 // Windows API DEFINE
@@ -315,3 +318,4 @@ void Discovery20::update()
       disconnect();
    }
 }
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 
+// WINDOWS X86 ONLY
+#if defined(_WIN32) && (defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i686__))
+
 // C++ Standards
 #include <cstdint>
 #include <iostream>
@@ -328,7 +331,7 @@ public:
       mNextSync(0),
       mAuth(0),
       mTickLastData(0),
-      mFrame(),
+      mBuffer(),
       mChannels(),
       mCallback(cb) 
    {
@@ -429,3 +432,4 @@ public:
    /// </summary>
    void update();
 };
+#endif
