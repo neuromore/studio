@@ -47,6 +47,7 @@ FileWriterNode::FileWriterNode(Graph* graph) : SPNode(graph)
 // destructor
 FileWriterNode::~FileWriterNode()
 {
+	closeFile();
 }
 
 
@@ -85,8 +86,8 @@ void FileWriterNode::Init()
 	// write modes
 	Core::AttributeSettings* attributeWriteMode = RegisterAttribute("Write Mode", "WriteMode", "Changes the write behaviour.", Core::ATTRIBUTE_INTERFACETYPE_COMBOBOX);
 	attributeWriteMode->AddComboValue("Never Overwrite");
-	attributeWriteMode->AddComboValue("Always Overwrite");
-	attributeWriteMode->AddComboValue("Overwrite during Session");
+	attributeWriteMode->AddComboValue("Overwrite");
+	// attributeWriteMode->AddComboValue("Overwrite during Session");
 	// attributeWriteMode->AddComboValue("Append");
 	attributeWriteMode->SetDefaultValue(Core::AttributeInt32::Create());
 }
@@ -130,15 +131,8 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 	{
 		ClearError(ERROR_FILE_NOT_WRITEABLE);
 	}
-	
-	if (mIsWriting == true && mWriteMode == WRITEMODE_OVERWRITE_SESSION && GetSession()->IsRunning() == false)
-	{
-		// stop node if session was stopped
-		mIsInitialized = false;
-	}
-	else if (mIsWriting == false)  // if we are not writing, try to open the file and begin writing
-	{
-		// collect array of write channels (can't reuse multichannel here until we have template free typesystem)
+
+	if (!mIsWriting) {
 		mWriteChannels.Clear();
 		const uint32 numChannels = mInputReader.GetNumChannels();
 		for (uint32 i = 0; i < numChannels; ++i)
@@ -147,7 +141,6 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 			if (channel->GetType() == Channel<double>::TYPE_ID)
 				mWriteChannels.Add(static_cast<Channel<double>*>(channel));
 		}
-
 		// generate filename
 		mFileName = GetStringAttribute(ATTRIB_FILE);
 		// HACKFIX backslash escape sequences are interpreted somewhere in the attribute stack 
@@ -168,36 +161,27 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 		if (file != NULL)
 			fclose(file);
 
-		// handle the different write modes
-		if (mWriteMode == WRITEMODE_KEEP && fileExists == true)
-		{
-			// file exists -> abort early
+		if (mWriteMode == WRITEMODE_KEEP && fileExists) {
 			mIsInitialized = false;
 			SetError(ERROR_FILE_ALREADY_EXISTS, "File already exists.");
-
 		}
 		else
 		{
 			ClearError(ERROR_FILE_ALREADY_EXISTS);
 
-			if (mWriteMode == WRITEMODE_OVERWRITE_SESSION && GetSession()->IsRunning() == false)
-			{
-				// don't overwrite file if session is stopped (but do not handle it like an error)
-				mIsInitialized = false;
-			}
-			else
-			{
-				// try to open file
-				if (mFileFormat == ChannelFileWriter::EFormat::FORMAT_CSV_SIMPLE || mFileFormat == ChannelFileWriter::EFormat::FORMAT_CSV_TIMESTAMP) {
-					if (!mTempString.IsEmpty()) {
+			if (GetSession()->IsRunning()) {
+				if (mTempString.IsEmpty()) {
+					SetError(ERROR_FILE_NOT_WRITEABLE, "Cannot open file for writing.");
+					mIsInitialized = false;
+				} else {
+					// try to open file
+					if (mFileFormat == ChannelFileWriter::EFormat::FORMAT_CSV_SIMPLE || mFileFormat == ChannelFileWriter::EFormat::FORMAT_CSV_TIMESTAMP) {
 						// if (mWriteMode == WRITEMODE_APPEND)
 						// 	mFile = fopen(mTempString.AsChar(), "a+b\0");
 						// else {
 						//	mFile = fopen(mTempString.AsChar(), "w+b\0");
 						// }
-
 						mFile = fopen(mTempString.AsChar(), "w+b\0");
-
 						if (mFile == NULL)
 						{
 							// file could not be opened
@@ -216,18 +200,14 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 						else
 						{
 							ClearError(ERROR_FILE_NOT_WRITEABLE);
-
 							// init successfull
 							mIsWriting = true;
 						}
 					}
-				}
-
-				// if the file format is "edf plus", open the file, keep the handle for future use, and set up the file for each channel.
-				else if (mFileFormat == ChannelFileWriter::EFormat::FORMAT_EDF_PLUS) {
-					uint32 channelsSize = mWriteChannels.Size();
-					if (channelsSize > 0) {
-						if (!mTempString.IsEmpty()) {
+					// if the file format is "edf plus", open the file, keep the handle for future use, and set up the file for each channel.
+					else if (mFileFormat == ChannelFileWriter::EFormat::FORMAT_EDF_PLUS) {
+						uint32 channelsSize = mWriteChannels.Size();
+						if (channelsSize > 0) {
 							int handle = edfopen_file_writeonly(mTempString.AsChar(), EDFLIB_FILETYPE_EDFPLUS, channelsSize);
 							if (handle >= 0) {
 								bool success = true;
@@ -239,7 +219,6 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 									success = success && edf_set_digital_minimum(handle, i, -32768) == 0;
 									success = success && edf_set_digital_maximum(handle, i, 32767) == 0;
 									success = success && edf_set_physical_dimension(handle, i, "uV") == 0;
-
 									if (!success) {
 										SetError(ERROR_FILE_NOT_WRITEABLE, "Cannot configure the file.");
 										if (edfclose_file(handle) != 0) {
@@ -250,10 +229,12 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 								}
 								if (success) {
 									mHandle = handle;
-
 									// init successfull
 									mIsWriting = true;
 								}
+							} else if (handle == EDFLIB_NO_SUCH_FILE_OR_DIRECTORY) {
+								SetError(ERROR_FILE_NOT_WRITEABLE, "Cannot open file for writing.");
+								mIsInitialized = false;
 							}
 						}
 					}

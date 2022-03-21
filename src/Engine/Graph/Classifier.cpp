@@ -116,9 +116,6 @@ void Classifier::ReInit(const Time& elapsed, const Time& delta)
 	// recursively reinit all nodes, beginning with the endnodes
 	const uint32 numEndNodes = mEndNodes.Size();
 	for (uint32 i = 0; i < numEndNodes; ++i) {
-		if (!mIsRunning && dynamic_cast<FileWriterNode*>(mEndNodes[i]) != nullptr) {
-			continue;
-		}
 		mEndNodes[i]->ReInit(elapsed, delta);
 	}
 
