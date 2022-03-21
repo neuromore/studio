@@ -39,6 +39,7 @@ VisualizationManager::VisualizationManager(QObject* parent) : QObject(parent), m
 	mVisualizationFolders.Add(appDir + ".\\Visualizations\\");
 	mVisualizationFolders.Add(appDir + "..\\Visualizations\\");
 #else
+	mVisualizationFolders.Add(appDir + "..\\Visualizations\\");
 	mVisualizationFolders.Add(appDir + "..\\..\\..\\Visualizations\\");
 #endif
 }
@@ -96,7 +97,6 @@ void VisualizationManager::ReInit()
 			subDir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
 			subDir.setSorting(QDir::Name);
 
-#ifdef NEUROMORE_PLATFORM_WINDOWS
 			String currentFilename;
 			QFileInfoList subList = subDir.entryInfoList();
 			for (int j = 0; j < subList.size(); ++j)
@@ -113,9 +113,6 @@ void VisualizationManager::ReInit()
 					newViz->ParseFromJsonFile(currentFilename.AsChar());
 				}
 			}
-#else
-			newViz->SetExecutableFilename(FromQtString(folderInfo.absoluteFilePath()).AsChar());
-#endif
 
 			mVisualizations.Add(newViz);
 		}
