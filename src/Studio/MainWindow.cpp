@@ -84,7 +84,7 @@
 #include "Plugins/Development/HeatmapPlugin/HeatmapPlugin.h"
 
 #ifdef OPENCV_SUPPORT
-//#include "Plugins/Development/LORETA/LoretaPlugin.h"
+#include "Plugins/Development/LORETA/LoretaPlugin.h"
 #endif
 
 // include Qt related
@@ -583,12 +583,12 @@ void MainWindow::OnPostAuthenticationInit()
 		GetPluginManager()->RegisterPlugin( new LatencyTestPlugin() );
 		GetPluginManager()->RegisterPlugin( new EEGElectrodePlacementPlugin() );
 		GetPluginManager()->RegisterPlugin( new HeatmapPlugin() );
-	
-	#ifdef OPENCV_SUPPORT
-		//GetPluginManager()->RegisterPlugin( new LoretaPlugin() );
-	#endif 
-	
-	#endif
+#endif
+
+#ifdef OPENCV_SUPPORT
+		GetPluginManager()->RegisterPlugin(new LoretaPlugin());
+#endif 
+
 	
 	// LAYOUTS
 	GetManager()->SetSplashScreenMessage("Initializing layout ...");
