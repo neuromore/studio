@@ -89,7 +89,7 @@ void FileWriterNode::Init()
 	attributeWriteMode->AddComboValue("Overwrite");
 	// attributeWriteMode->AddComboValue("Overwrite during Session");
 	// attributeWriteMode->AddComboValue("Append");
-	attributeWriteMode->SetDefaultValue(Core::AttributeInt32::Create());
+	attributeWriteMode->SetDefaultValue(Core::AttributeInt32::Create(1));
 }
 
 void FileWriterNode::Reset()
