@@ -31,7 +31,7 @@
 #include "Core/Math.h"
 #include "Loreta.h"
 #include "ColorMapper.h"
-#include "../QtBase/SDKs/stb/stb_image.h"
+#include "stb/stb_image.h"
 #include "qfile.h"
 #include "LoretaThreadHandler.h"
 #include "QtBaseManager.h"

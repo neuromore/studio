@@ -29,6 +29,8 @@
 #include <Engine/Core/LogManager.h>
 #include "Loreta.h"
 #include "LoretaWidget.h"
+#include "Core/Vector.h"
+#include "Core/Ray.h"
 
 // forward declaration
 class Loreta;
@@ -110,8 +112,7 @@ class LoretaThreadHandler : public Core::ThreadHandler
 		// output voxels
 		void CreateVoxels();
 
-
-
+		bool CheckRayIntersection(const Core::Ray& ray, const Core::Vector3& v0, const Core::Vector3& v1, const Core::Vector3& v2);
 };
 
 #endif

@@ -1238,6 +1238,9 @@
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h">
       <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Ray.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

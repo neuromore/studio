@@ -29,7 +29,7 @@
 #include <opencv2/core/core.hpp>
 #include <Core/Ray.h>
 #include <Core/AABB.h>
-#include "../../../../../Engine/Source/Core/FpsCounter.h"
+#include <Core/FpsCounter.h>
 #include "../../../Rendering/Mesh.h"
 #include "EngineManager.h"
 #include "Voxel.h"

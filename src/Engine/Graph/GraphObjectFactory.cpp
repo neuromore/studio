@@ -73,6 +73,8 @@
 #include "BinSelectorNode.h"
 #include "OscillatorNode.h"
 #include "WaveformNode.h"
+#include "LoretaNode.h"
+
 
 // Bio Analysis
 #include "HrvNode.h"
@@ -116,12 +118,6 @@
 
 // actions
 #include "Actions.h"
-
-// in development
-#ifndef PRODUCTION_BUILD
-	#include "LoretaNode.h"
-#endif
-
 
 
 using namespace Core;
@@ -186,6 +182,7 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new BinSelectorNode(NULL) );
 		RegisterObjectType( new OscillatorNode(NULL) );
 		RegisterObjectType( new WaveformNode(NULL) );
+		RegisterObjectType( new LoretaNode(NULL));
 		
 		// Bio Analysis
 		RegisterObjectType( new HrvNode(NULL) );
@@ -253,11 +250,6 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new CommandAction(NULL) );
 		RegisterObjectType( new ParameterAction(NULL) );
 		RegisterObjectType( new ClearButtonsAction(NULL) );
-
-#ifndef PRODUCTION_BUILD
-		// LORETA
-		RegisterObjectType( new LoretaNode(NULL) );
-#endif
 }
 
 

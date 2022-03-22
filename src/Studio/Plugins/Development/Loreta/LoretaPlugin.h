@@ -30,7 +30,7 @@
 #include <PluginSystem/Plugin.h>
 #include "LoretaWidget.h"
 #include <Core/EventHandler.h>
-#include <AttributeWidgets/AttributeSetWidget.h>
+#include <AttributeWidgets/Property.h>
 
 class LoretaPlugin : public Plugin, public Core::EventHandler
 {

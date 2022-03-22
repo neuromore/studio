@@ -27,7 +27,7 @@
 #include <Core/LogManager.h>
 #include <AttributeWidgets/AttributeSetGridWidget.h>
 #include <QtBaseManager.h>
-#include <DialogStack.h>
+#include <QStackedWidget>
 
 // include OpenCV
 #include <opencv2/opencv.hpp>
@@ -81,14 +81,14 @@ bool LoretaPlugin::Init()
 	///////////////////////////////////////////////////////////////////////////
 
 	// add the dialog stack to the right side
-	DialogStack* settingsDialogStack = CreateSettingsDialogStack(mainWidget);
+	QStackedWidget* settingsDialogStack = new QStackedWidget(mainWidget);
 
 	// create the attribute set grid widget
 	AttributeSetGridWidget* attributeSetGridWidget = new AttributeSetGridWidget(settingsDialogStack);
 	attributeSetGridWidget->ReInit(this);
 
 	// add the new attribute set grid widget as settings dialog stack entry
-	settingsDialogStack->Add(attributeSetGridWidget, "Settings", false, false, false);
+	settingsDialogStack->addWidget (attributeSetGridWidget);
 
 	///////////////////////////////////////////////////////////////////////////
 	// Add render widget at the end

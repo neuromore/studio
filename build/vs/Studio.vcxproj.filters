@@ -130,6 +130,9 @@
     <Filter Include="Devices\BrainFlow">
       <UniqueIdentifier>{658f9836-5ef0-4179-9ab9-f45901c63157}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Plugins\Development\Loreta">
+      <UniqueIdentifier>{394baf59-7b81-4e47-9768-a1d852fd9ce8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp">
@@ -827,6 +830,27 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\Loreta.cpp">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaPlugin.cpp">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaThreadHandler.cpp">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaWidget.cpp">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\Voxel.cpp">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaWidget.moc.cpp">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaPlugin.moc.cpp">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
@@ -1210,6 +1234,21 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h">
       <Filter>Devices\BrainFlow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\Loreta.h">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaPlugin.h">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaThreadHandler.h">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaWidget.h">
+      <Filter>Plugins\Development\Loreta</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\Voxel.h">
+      <Filter>Plugins\Development\Loreta</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

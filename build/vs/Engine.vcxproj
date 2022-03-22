@@ -554,6 +554,7 @@
     <ClInclude Include="..\..\src\Engine\Core\MemoryFile.h" />
     <ClCompile Include="..\..\src\Engine\Core\Mutex.cpp" />
     <ClInclude Include="..\..\src\Engine\Core\Mutex.h" />
+    <ClInclude Include="..\..\src\Engine\Core\Ray.h" />
     <ClInclude Include="..\..\src\Engine\Core\StandardHeaders.h" />
     <ClCompile Include="..\..\src\Engine\Core\String.cpp" />
     <ClInclude Include="..\..\src\Engine\Core\String.h" />

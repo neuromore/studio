@@ -132,6 +132,13 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestPlugin.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\Loreta.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaPlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaThreadHandler.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaWidget.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\Voxel.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Devices\DevicesPlugin.cpp" />
@@ -350,6 +357,11 @@
     <ClInclude Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapWidget.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestPlugin.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Development\LatencyTestPlugin\LatencyTestWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\Loreta.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaPlugin.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaThreadHandler.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\Voxel.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Devices\BciDeviceWidget.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Devices\DevicesPlugin.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Devices\DevicesWidget.h" />
