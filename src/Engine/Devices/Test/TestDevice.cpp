@@ -27,6 +27,8 @@
 #include "../../Core/LogManager.h"
 #include "../../Core/Math.h"
 
+#include <limits>
+
 #ifdef INCLUDE_DEVICE_TEST
 	
 using namespace Core;
@@ -51,8 +53,12 @@ TestDevice::TestDevice(DeviceDriver* driver, uint32 sampleRate) : BciDevice()
 	// set random time offset so it looks good
 	const uint32 numSensors = mSensors.Size();
 	mElectrodeTimeOffsets.Resize( numSensors );
-	for (uint32 i=0; i<numSensors; i++)
+	for (uint32 i=0; i<numSensors; i++) {
+		// set min and max value for channel: Possible min/max range - [short::min,short::max].
+		mSensors[i]->GetChannel()->SetMinValue(std::numeric_limits<short>::min());
+		mSensors[i]->GetChannel()->SetMaxValue(std::numeric_limits<short>::max());
 		mElectrodeTimeOffsets[i] = Math::RandD( 0.0, 100.0 );
+	}
 
 	// Mitsar long-term Crash example code:
 	/*
