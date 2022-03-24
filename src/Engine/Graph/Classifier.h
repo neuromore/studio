@@ -167,6 +167,7 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		void Start()														{ mIsRunning = true;}
 		void Pause();
 		void Continue();
+		void Stop();
 
 		bool IsRunning() const												{ return mIsRunning; }
 
