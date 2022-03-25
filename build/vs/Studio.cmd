@@ -12,6 +12,8 @@ set VAR=-DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG_H -D_UNICO
 %MOC% %INC% %VAR% %DIR%/MainWindow.h -o %DIR%/MainWindow.moc.cpp
 %MOC% %INC% %VAR% %DIR%/VisualizationManager.h -o %DIR%/VisualizationManager.moc.cpp
 %MOC% %INC% %VAR% %DIR%/VideoPlayer.h -o %DIR%/VideoPlayer.moc.cpp
+%MOC% %INC% %VAR% %DIR%/OnboardingAction.h -o %DIR%/OnboardingAction.moc.cpp
+%MOC% %INC% %VAR% %DIR%/TourManager.h -o %DIR%/TourManager.moc.cpp
 
 %MOC% %INC% %VAR% %DIR%/Devices/Bluetooth/BluetoothDevice.h -o %DIR%/Devices/Bluetooth/BluetoothDevice.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Bluetooth/BluetoothDriver.h -o %DIR%/Devices/Bluetooth/BluetoothDriver.moc.cpp

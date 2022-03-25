@@ -290,6 +290,8 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		void OnValueChanged(Property* property);
 		void OnLoadSettings();
 		void OnSaveSettings();
+	signals:
+		void postAuthenticationInitSucceed();
 
 	private:
 		Core::String CreateMuseCommandLine(uint32 deviceID, uint32 powerLineFreq, Core::String preset, Core::String bluetoothNameOrMac);

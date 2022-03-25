@@ -700,6 +700,7 @@ void MainWindow::OnPostAuthenticationInit()
 	//if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)
 		//QMessageBox::warning(this, "WARNING", "You are using the Production (AWS) backend with a development version of neuromore Studio.\n\nPlease switch back to the Test (AWS) backend." );
 #endif
+	emit postAuthenticationInitSucceed();
 }
 
 
@@ -1124,7 +1125,6 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event)
 
 	QMainWindow::keyReleaseEvent(event);
 }
-
 
 // find the menu action for a given plugin
 QAction* MainWindow::FindAction(QList<QAction*>& actionList, Plugin* plugin)

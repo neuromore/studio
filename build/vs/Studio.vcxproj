@@ -108,6 +108,10 @@
     <ClCompile Include="..\..\src\Studio\main.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\OnboardingAction.cpp" />
+    <ClCompile Include="..\..\src\Studio\OnboardingAction.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\TourManager.cpp" />
+    <ClCompile Include="..\..\src\Studio\TourManager.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.cpp" />
@@ -341,6 +345,8 @@
     <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.h" />
     <ClInclude Include="..\..\src\Studio\DocumentationExporter.h" />
     <ClInclude Include="..\..\src\Studio\MainWindow.h" />
+    <ClInclude Include="..\..\src\Studio\OnboardingAction.h" />
+    <ClInclude Include="..\..\src\Studio\TourManager.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\ABM\ABMPlugin.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\ABM\ABMProgressWidget.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\BackendFileSystem\BackendFileSystemPlugin.h" />
@@ -452,6 +458,13 @@
     <None Include="..\..\src\Studio\Resources\StudioResources.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\Close.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\DownRectArrow.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftArrowGray.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftRectArrow.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightArrowGray.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightRectArrow.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\TopRectArrow.png" />
     <Image Include="..\..\src\Studio\Resources\AppIcon.ico" />
   </ItemGroup>
   <ItemGroup>

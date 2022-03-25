@@ -52,6 +52,16 @@ Plugin::~Plugin()
 	}
 }
 
+QRect Plugin::GetGeometry() const
+{
+	auto mainWindow = GetQtBaseManager()->GetMainWindow();
+	int frameHeight = mainWindow->frameGeometry().height() - mainWindow->height();
+	QRect rect(mDock->x(),
+		mDock->y() + frameHeight,
+		mDock->width(),
+		mDock->height());
+	return rect;
+}
 
 // create the base interface
 void Plugin::CreateBaseInterface(const char* objectName)

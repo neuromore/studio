@@ -36,6 +36,8 @@ class DockHeader : public QWidget
 
 		void SetTitle(const char* title)						{ mTitleLabel->setText(title); }
 
+		void EnableButtons(bool enable);
+
 	signals:
 		void RemovePlugin();
 

@@ -45,6 +45,7 @@
 #include <QFontDatabase>
 #include <QPalette>
 #include <QSysInfo>
+#include <qsettings.h>
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 #include <windows.h>
@@ -176,6 +177,7 @@ AppManager::~AppManager()
 	delete mMainWindow;
 	delete mOpenGLManager;
 	delete mVisualizationManager;
+	delete mTourManager;
 
 	delete mSplashScreen;
 
@@ -211,7 +213,9 @@ bool AppManager::ExecuteApp()
 
 	LogDetailedInfo("Constructing main window ...");
 	mMainWindow = new MainWindow();
+
 	connect( mApp, &SingleApplication::instanceStarted, mMainWindow, &MainWindow::OnRaise );
+	connect( mMainWindow, &MainWindow::postAuthenticationInitSucceed, this, &AppManager::LoadTourManager);
 
 	SetSplashScreenMessage("Initializing windows ...");
 
@@ -263,7 +267,6 @@ bool AppManager::ExecuteApp()
 #ifdef USE_CRASHREPORTER
 	CrashReporterAddFile( FromQtString( GetMainWindow()->GetSettingsFilename() ).AsChar(), "neuromore Studio settings file" );
 #endif
-
 	// tell everything that we fully loaded everything and that we are about to start the event loop
 	emit AppStartPrepared();
 
@@ -314,6 +317,21 @@ String AppManager::GetAppName() const
 	return name;
 }
 
+void AppManager::LoadTourManager()
+{
+	QSettings settings(GetMainWindow()->GetSettingsFilename(), QSettings::IniFormat, this);
+	bool isFirstRun = settings.value("isFirstRun", true).toBool();
+
+	if (true/*isFirstRun*/) //!TODO always true for testing. Uncomment before merge
+	{
+		settings.setValue("isFirstRun", false);
+		this->mTourManager = new TourManager();
+		this->mTourManager->InitOnboardingActions();
+		QTimer::singleShot(1000, this, [this] {
+			this->mTourManager->startTour();
+		});
+	}
+}
 
 const char* AppManager::GetBackendSystemName() const
 {

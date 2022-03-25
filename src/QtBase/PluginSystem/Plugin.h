@@ -9,6 +9,7 @@
 
 // include required headers
 #include "../QtBaseConfig.h"
+#include "../DockHeader.h"
 #include <Core/StandardHeaders.h>
 #include <Core/AttributeSet.h>
 #include "../DockWidget.h"
@@ -17,7 +18,6 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-
 
 // forward declaration
 class SettingsWindow;
@@ -39,6 +39,8 @@ class QTBASE_API Plugin : public QObject, public Core::AttributeSet
 
 		// plugin name and uuid
 		virtual const char* GetName() const = 0;
+		QRect GetGeometry() const;
+
 		virtual const char* GetRuleName() const = 0;
 		const char* GetTypeUuid() const															{ return mTypeUuid.AsChar(); }
 		const Core::String& GetTypeUuidString() const											{ return mTypeUuid; }
@@ -98,6 +100,7 @@ class QTBASE_API Plugin : public QObject, public Core::AttributeSet
 
 		void SetTitle(const char* title);
 		void SetTitleBarVisible(bool visible = true);
+		void EnableTitleBarButtons(bool enabled)												{ mDockHeader->EnableButtons(enabled); }
 
 	signals:
 		void RemovePlugin();

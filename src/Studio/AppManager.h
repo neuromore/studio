@@ -34,12 +34,15 @@
 #include <PluginSystem/PluginManager.h>
 #include "Windows/LoginWindow.h"
 #include <singleapplication/singleapplication.h>
+#include "OnboardingAction.h"
+#include "TourManager.h"
 
 // include Qt
 #include <QObject>
 #include <QString>
 #include <QWidget>
 #include <QSplashScreen>
+#include <QMouseEvent>
 
 // forward declarations
 QT_FORWARD_DECLARE_CLASS(QSplashScreen)
@@ -50,6 +53,7 @@ QT_FORWARD_DECLARE_CLASS(QLabel)
 // forward declarations
 class MainWindow;
 class VisualizationManager;
+class TourManager;
 
 /**
  *
@@ -130,6 +134,9 @@ class AppManager : public QObject
 
 		void ProcessCommandLine();
 
+public slots:
+	void LoadTourManager();
+
 	signals:
 		void AppStartPrepared();
 
@@ -141,6 +148,7 @@ class AppManager : public QObject
 		PluginManager*						mPluginManager;
 		FileManager*						mFileManager;
 		OpenGLManager*						mOpenGLManager;
+		TourManager*						mTourManager;
 		VisualizationManager*				mVisualizationManager;
 		Core::Version						mVersion;
 };
@@ -152,7 +160,6 @@ class AppInitializer
 		static bool CORE_CDECL Init(int argc, char* argv[]);
 		static void CORE_CDECL Shutdown();
 };
-
 
 // the global manager
 extern AppManager* gAppManager;

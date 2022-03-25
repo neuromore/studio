@@ -10,7 +10,6 @@
 #include <QHBoxLayout>
 #include <QPainter>
 
-
 void DockHeaderFillWidget::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
@@ -126,6 +125,14 @@ DockHeader::DockHeader(QDockWidget* dockWidget) : QWidget()
 	OnUpdate();
 }
 
+void DockHeader::EnableButtons(bool enabled)
+{
+	QLayout* mainLayout = layout();
+	if (mainLayout) {
+		for (int i = 0; i < mainLayout->count(); ++i)
+			mainLayout->itemAt(i)->widget()->setEnabled(enabled);
+	}
+}
 
 // destructor
 DockHeader::~DockHeader()

@@ -731,6 +731,8 @@ STUDIO_MOCH_ALL      = Devices/Bluetooth/BluetoothDevice.cpp \
                        AuthenticationCenter.cpp \
                        MainWindow.cpp \
                        VideoPlayer.cpp \
+                       OnboardingAction.cpp \
+                       TourManager.cpp \
                        VisualizationManager.cpp
 STUDIO_MOC_C_X86     = $(MOC_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
                        $(@:$(STUDIO_MOCDIR_X86)/%.moc=$(STUDIO_SRCDIR)/%.cpp) \
@@ -888,6 +890,8 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        MainWindow.o \
                        VideoPlayer.o \
                        Visualization.o \
+                       OnboardingAction.o \
+                       TourManager.o \
                        VisualizationManager.o
 STUDIO_BUILD_MOC_X86 = $(CXX_X86) $(CXXFLAGS_X86) $(STUDIO_DEFINES_X86) $(STUDIO_INCLUDES_X86) \
                        -c $(@:$(STUDIO_OBJDIR_X86)/%.omoc=$(STUDIO_MOCDIR_X86)/moc_$(@F:.omoc=.cpp)) -o $@
