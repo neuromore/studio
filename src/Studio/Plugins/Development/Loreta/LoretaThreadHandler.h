@@ -111,8 +111,6 @@ class LoretaThreadHandler : public Core::ThreadHandler
 
 		// output voxels
 		void CreateVoxels();
-
-		bool CheckRayIntersection(const Core::Ray& ray, const Core::Vector3& v0, const Core::Vector3& v1, const Core::Vector3& v2);
 };
 
 #endif

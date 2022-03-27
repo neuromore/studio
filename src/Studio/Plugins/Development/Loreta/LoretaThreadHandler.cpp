@@ -256,11 +256,11 @@ bool LoretaThreadHandler::CheckIfMeshIsInside(Mesh* mesh, Ray* rayUp, Ray* rayDo
 		Vector3 p2 = allMeshVertices[i + 1];
 		Vector3 p3 = allMeshVertices[i + 2];
 
-		rayUpIntersects   = CheckRayIntersection(*rayUp, p1, p2, p3);
+		rayUpIntersects   = mesh->CheckRayIntersection(rayUp, p1, p2, p3);
 		if (rayUpIntersects)
 			isInsideUp = true;
 
-		rayDownIntersects = CheckRayIntersection(*rayDown, p1, p2, p3);
+		rayDownIntersects = mesh->CheckRayIntersection(rayDown, p1, p2, p3);
 		if (rayDownIntersects)
 			isInsideDown = true;
 
@@ -268,37 +268,6 @@ bool LoretaThreadHandler::CheckIfMeshIsInside(Mesh* mesh, Ray* rayUp, Ray* rayDo
 		    return true;
 	}
 	return false;
-}
-
-// copypasted with minor changes
-bool LoretaThreadHandler::CheckRayIntersection(const Core::Ray& ray, const Core::Vector3& v0, const Core::Vector3& v1, const Core::Vector3& v2)
-{
-	Core::Vector3 e1 = v1 - v0;
-	Core::Vector3 e2 = v2 - v0;
-	//find perpendicular vector between ray direction and one of the sides
-	Core::Vector3 p = ray.Direction().Cross(e2);
-	//take the dot product between this vector and the other side of the triangle
-	float a = e1.Dot(p);
-	//if a is equal to zero then the ray is parallel with the triangle and no intersection ocurs
-	if (a == 0 || (a < 0.001f && a > -0.001f))
-	{
-		return false;
-	}
-	//compute denominator
-	float f = 1.0f / a;
-	//compute barycentric coordinates and check if they are within the accepted boundaries
-	Core::Vector3 s = ray.Origin() - v0;
-	float v = f * s.Dot(p);
-
-	if (v < 0.0f || v > 1.0f)
-		return false;
-
-	Core::Vector3 q = s.Cross(e1);
-	float w = f * ray.Direction().Dot(q);
-
-	if (w < 0.0f || w + v > 1.0f)
-		return false;
-	return true;
 }
 
 

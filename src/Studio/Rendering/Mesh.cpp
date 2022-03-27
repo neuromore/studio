@@ -287,3 +287,9 @@ void Mesh::CalcAABB(Core::AABB* outBoundingBox)
 	for (uint32 i=0; i<numVerts; ++i)
 		outBoundingBox->Add( mVertices[i] );
 }
+
+// check for ray intersection
+const bool Mesh::CheckRayIntersection(Ray* ray, Core::Vector3 p1, Core::Vector3 p2, Core::Vector3 p3) const
+{
+	return ray->Intersects(p1, p2, p3);
+}

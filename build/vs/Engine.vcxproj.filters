@@ -546,6 +546,12 @@
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Ray.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Core\Plane.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1239,6 +1245,9 @@
       <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Core\Ray.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Core\Plane.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>

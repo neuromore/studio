@@ -57,6 +57,11 @@ void AABB::Init()
 	mMax.Set(-CORE_FLOAT_MAX, -CORE_FLOAT_MAX, -CORE_FLOAT_MAX);
 }
 
+void AABB::Add(const AABB& box)
+{
+	Add(box.mMin);
+	Add(box.mMax);
+}
 
 // add point and grow AABB
 void AABB::Add(const Vector3& point)
