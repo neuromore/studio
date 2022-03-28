@@ -28,8 +28,7 @@
 
 #ifdef INCLUDE_DEVICE_BRAINMASTER
 
-// TODO: Switch this for branding
-#if true
+#ifdef NEUROMORE_BRANDING_BRAINSTATION
 #define DEFAULT_DRIVER_ENABLED true
 #else
 #define DEFAULT_DRIVER_ENABLED false
