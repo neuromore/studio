@@ -6,10 +6,13 @@
         <file>Images/Icons/TreeWidget/ArrowRight.png</file>
         <file>Images/About-neuromore.png</file>
         <file>Images/About-ANT.png</file>
+        <file>Images/About-BrainStation.png</file>
         <file>Images/Login-neuromore.png</file>
         <file>Images/Login-ANT.png</file>
+        <file>Images/Login-BrainStation.png</file>
         <file>Images/SplashScreen-neuromore.png</file>
         <file>Images/SplashScreen-ANT.png</file>
+        <file>Images/SplashScreen-BrainStation.png</file>
         <file>Images/Icons/KeyboardShortcuts.png</file>
         <file>Images/Icons/ArrowDownGray.png</file>
         <file>Images/Icons/ArrowUpGray.png</file>
