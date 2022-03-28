@@ -37,7 +37,7 @@ Classifier::Classifier(Graph* parentNode) : Graph(parentNode)
 	SetName("Classifier");
 	
 	mIsDirty		= false;
-	mIsRunning		= false;
+	mIsRunning		= true;
 	mIsFinalized	= false;
 	mBufferDuration	= 10.0;
 }
@@ -175,7 +175,6 @@ void Classifier::Stop()
 			}
 		}
 	}
-	mIsRunning = false;
 }
 
 
