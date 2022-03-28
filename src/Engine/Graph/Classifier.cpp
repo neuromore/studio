@@ -37,7 +37,6 @@ Classifier::Classifier(Graph* parentNode) : Graph(parentNode)
 	SetName("Classifier");
 	
 	mIsDirty		= false;
-	mIsRunning		= true;
 	mIsFinalized	= false;
 	mBufferDuration	= 10.0;
 }
@@ -63,7 +62,7 @@ void Classifier::Update(const Time& elapsed, const Time& delta)
 	// FIXME execute finalize only if something changed (not working correctly, ReinitAsync() is not called at every required action which leaves the classifier partially uninitialized)
 	Finalize(elapsed, delta);
 
-	if (mIsRunning == true && mCreud.Execute() == true)
+	if (mCreud.Execute() == true)
 	{
 		/////////////////////////////////////////////////////////////
 		// Phase 2: Update

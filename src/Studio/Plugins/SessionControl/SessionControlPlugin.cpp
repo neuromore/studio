@@ -498,8 +498,6 @@ void SessionControlPlugin::OnStart()
 	// load parameters
 	GetBackendInterface()->GetParameters()->Load(true, *GetSessionUser(), activeExperience, activeClassifier);
 
-	// enable the active classifier data updating.
-	activeClassifier->Start();
 }
 
 
