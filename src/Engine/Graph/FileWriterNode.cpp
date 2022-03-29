@@ -262,6 +262,10 @@ void FileWriterNode::Start(const Time& elapsed)
 // update the node
 void FileWriterNode::Update(const Time& elapsed, const Time& delta)
 {	
+	if (!GetSession()->IsRunning()) {
+		return;
+	}
+
 	// shared base update helper
 	if (BaseUpdate(elapsed, delta) == false)
 		return;
