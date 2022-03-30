@@ -163,12 +163,10 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		// finalize the graph (locks it and prepares it, for faster updating)
 		void Finalize(const Core::Time& elapsed, const Core::Time& delta);
 
-		// start/resume/pause classifier execution
-		void Start()														{ mIsRunning = true;}
+		// resume/pause classifier execution
 		void Pause();
 		void Continue();
-
-		bool IsRunning() const												{ return mIsRunning; }
+		void Stop();
 
 		//
 		//  Buffers
@@ -251,7 +249,6 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		Core::Array<MultiChannel>				mViewSpectrumChannels;	// all view channels (Spectrum)
 		Core::Array<ViewNode*>					mViewNodeSpectrumMap;	// all the nodes that provide the spectrum channels
 
-		bool	mIsRunning;				
 		bool	mIsPaused;				
 		bool	mIsFinalized;			// true, after finalize() was called, until something is changed
 		double  mBufferDuration;		// number of seconds the buffers can take (also defines the absolute minimum update frequency)

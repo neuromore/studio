@@ -27,7 +27,6 @@
 #include "Core/LogManager.h"
 #include "Core/Timer.h"
 
-
 using namespace Core;
 
 // constructor

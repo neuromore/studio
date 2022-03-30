@@ -26,6 +26,7 @@
 #include "GraphImporter.h"
 #include "GraphExporter.h"
 #include "../EngineManager.h"
+#include "FileWriterNode.h"
 
 
 using namespace Core;
@@ -36,7 +37,6 @@ Classifier::Classifier(Graph* parentNode) : Graph(parentNode)
 	SetName("Classifier");
 	
 	mIsDirty		= false;
-	mIsRunning		= true;
 	mIsFinalized	= false;
 	mBufferDuration	= 10.0;
 }
@@ -62,7 +62,7 @@ void Classifier::Update(const Time& elapsed, const Time& delta)
 	// FIXME execute finalize only if something changed (not working correctly, ReinitAsync() is not called at every required action which leaves the classifier partially uninitialized)
 	Finalize(elapsed, delta);
 
-	if (mIsRunning == true && mCreud.Execute() == true)
+	if (mCreud.Execute() == true)
 	{
 		/////////////////////////////////////////////////////////////
 		// Phase 2: Update
@@ -114,8 +114,9 @@ void Classifier::ReInit(const Time& elapsed, const Time& delta)
 
 	// recursively reinit all nodes, beginning with the endnodes
 	const uint32 numEndNodes = mEndNodes.Size();
-	for (uint32 i = 0; i<numEndNodes; ++i)
+	for (uint32 i = 0; i < numEndNodes; ++i) {
 		mEndNodes[i]->ReInit(elapsed, delta);
+	}
 
 	// resize buffers
 	ResizeBuffers(mBufferDuration);
@@ -157,6 +158,22 @@ void Classifier::Continue()
 {
 	mIsPaused = false;
 	// TODO continue all child classifiers
+}
+
+void Classifier::Stop()
+{
+	// iterate over all endNodes and call FileWriterNode::closeFile to close the file.
+
+	const uint32 numEndNodes = mEndNodes.Size();
+
+	for (uint32 i = 0; i < numEndNodes; ++i) {
+		FileWriterNode* fileWriterInstance = dynamic_cast<FileWriterNode*>(mEndNodes[i]);
+		if (fileWriterInstance != nullptr) {
+			if (!fileWriterInstance->closeFile()) {
+				SetError(GraphObjectError::EError::ERROR_RUNTIME, "Cannot close the file.");
+			}
+		}
+	}
 }
 
 

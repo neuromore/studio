@@ -214,12 +214,6 @@ void ExperienceWidget::OnFinishedPreloading()
 		stateMachine->Start();
 	}
 
-	Classifier* classifier = GetEngine()->GetActiveClassifier();
-	if (classifier != NULL)
-	{
-		classifier->Start();
-	}
-
 	// FIXME this crashes the engine sometimes during layout switch?!
 	// reset engine
 	GetEngine()->Reset();
