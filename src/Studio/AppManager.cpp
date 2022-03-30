@@ -288,6 +288,26 @@ void AppManager::ProcessCommandLine()
 		mMainWindow->LoadFiles( mCommandLineArguments );*/
 }
 
+void AppManager::SetPluginTabVisible(int activePluginIdx)
+{
+	auto activePlugin = GetQtBaseManager()->GetPluginManager()
+					  ->GetActivePlugin(activePluginIdx);
+	if (activePlugin == nullptr)
+	{
+		return;
+	}
+	QDockWidget* dockWidget = activePlugin->GetDockWidget();
+	Q_FOREACH(QTabBar * tabBar, mMainWindow->findChildren<QTabBar*>()) {
+		for (int i = 0; i < tabBar->count(); ++i) {
+			if (dockWidget == (QDockWidget*)tabBar->tabData(i).toULongLong())
+			{
+				tabBar->setCurrentIndex(i);
+				return;
+			}
+		}
+	}
+}
+
 
 String AppManager::GetAppName() const
 {
@@ -326,9 +346,12 @@ void AppManager::LoadTourManager()
 	{
 		settings.setValue("isFirstRun", false);
 		this->mTourManager = new TourManager();
-		this->mTourManager->InitOnboardingActions();
 		QTimer::singleShot(1000, this, [this] {
-			this->mTourManager->startTour();
+			if (this->mTourManager->InitOnboardingActions()) {
+				this->mTourManager->startTour();
+			} else {
+				Core::LogError("Could not find some widgets for the tour.");
+			}
 		});
 	}
 }

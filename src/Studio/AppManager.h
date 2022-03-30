@@ -134,6 +134,8 @@ class AppManager : public QObject
 
 		void ProcessCommandLine();
 
+		void SetPluginTabVisible(int activePluginIdx);
+
 public slots:
 	void LoadTourManager();
 

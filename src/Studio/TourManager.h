@@ -4,6 +4,7 @@
 // include required headers
 #include <QtBaseManager.h>
 #include <PluginSystem/PluginManager.h>
+#include "AppManager.h"
 #include "OnboardingAction.h"
 
 // include Qt
@@ -21,7 +22,7 @@ public:
 	TourManager();
 	~TourManager();
 
-	void InitOnboardingActions();
+	bool InitOnboardingActions();
 
 	void startTour();
 
@@ -32,6 +33,10 @@ public slots:
 	void OnWindowClosed();
 
 private:
+
+	QDockWidget* getDockWidget(std::string pluginName) const;
+
+	QRect getTabRect(const QDockWidget* dockWidget) const;
 
 	std::vector<OnboardingAction*>	mOnboardingActions;
 };

@@ -53,6 +53,9 @@ public slots:
 	void OnGoToPreviousAction();
 	void OnGoToNextAction();
 
+signals:
+	void ActivePluginChanged(int activePluginIdx);
+
 private:
 	OnboardingAction* mNextOnboardingAction = nullptr;
 	OnboardingAction* mPrevOnboardingAction = nullptr;

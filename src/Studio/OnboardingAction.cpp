@@ -127,8 +127,10 @@ void OnboardingAction::ShowButtons()
 
 void OnboardingAction::Invoke()
 {
+	emit ActivePluginChanged(mActivePluginIdx);
+
 	auto mainWindow = GetQtBaseManager()->GetMainWindow();
-    setMainRegion(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
+    setMainRegion(QRect(0, 0, mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
 
 	setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
@@ -154,6 +156,7 @@ void OnboardingAction::Invoke()
 void OnboardingAction::paintEvent(QPaintEvent*) 
 {
 	QPainter painter(this);
+	painter.setPen(QPen(QColor(0, 0, 0)));
 	painter.fillRect(mMainRegion, QBrush(QColor(0, 0, 0, 128)));
 
 	QPainterPath path;
