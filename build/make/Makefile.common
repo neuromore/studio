@@ -34,7 +34,8 @@ ENGINE_INCLUDES     = -I$(ENGINE_INCDIR) \
                       -I$(ENGINE_SRCDIR) \
                       -I$(DEPSINCDIR) \
                       -I$(DEPSINCDIR)/brainflow/board_controller \
-                      -I$(DEPSINCDIR)/brainflow/utils
+                      -I$(DEPSINCDIR)/brainflow/utils \
+                      -I$(DEPSINCDIR)/json
 ENGINE_INCLUDES_X86 = $(ENGINE_INCLUDES) $(ENGINE_INCLUDES_X86_PLAT)
 ENGINE_INCLUDES_X64 = $(ENGINE_INCLUDES) $(ENGINE_INCLUDES_X64_PLAT)
 ENGINE_BUILD_X86    = $(CXX_X86) $(CXXFLAGS_X86) $(ENGINE_DEFINES_X86) $(ENGINE_INCLUDES_X86) -c $(@:$(ENGINE_OBJDIR_X86)%.o=$(ENGINE_SRCDIR)%.cpp) -o $@

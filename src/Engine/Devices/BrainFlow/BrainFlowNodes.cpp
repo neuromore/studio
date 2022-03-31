@@ -8,10 +8,52 @@
 
 namespace
 {
-	constexpr int MinBoardID = static_cast<int>(BoardIds::FIRST);
-	constexpr int MaxBoardID = static_cast<int>(BoardIds::LAST);
-	constexpr int BoardIDSize = MaxBoardID - MinBoardID + 1;
-	constexpr int BoardIDShift = MinBoardID < 0 ? -MinBoardID : 0; // shift until zero
+	int BrainFlowBoardIdsNeuromore[] = {
+		(int)BoardIds::PLAYBACK_FILE_BOARD,
+		(int)BoardIds::STREAMING_BOARD,
+		(int)BoardIds::SYNTHETIC_BOARD,
+		(int)BoardIds::CYTON_BOARD,
+		(int)BoardIds::GANGLION_BOARD,
+		(int)BoardIds::CYTON_DAISY_BOARD,
+		(int)BoardIds::GANGLION_WIFI_BOARD,
+		(int)BoardIds::CYTON_WIFI_BOARD,
+		(int)BoardIds::CYTON_DAISY_WIFI_BOARD,
+		(int)BoardIds::BRAINBIT_BOARD,
+		(int)BoardIds::UNICORN_BOARD,
+		(int)BoardIds::CALLIBRI_EEG_BOARD,
+		(int)BoardIds::CALLIBRI_EMG_BOARD,
+		(int)BoardIds::CALLIBRI_ECG_BOARD,
+		(int)BoardIds::NOTION_1_BOARD,
+		(int)BoardIds::NOTION_2_BOARD,
+		(int)BoardIds::IRONBCI_BOARD,
+		(int)BoardIds::GFORCE_PRO_BOARD,
+		(int)BoardIds::FREEEEG32_BOARD,
+		(int)BoardIds::BRAINBIT_BLED_BOARD,
+		(int)BoardIds::GFORCE_DUAL_BOARD,
+		(int)BoardIds::MUSE_S_BLED_BOARD,
+		(int)BoardIds::MUSE_2_BLED_BOARD,
+		(int)BoardIds::CROWN_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_410_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_411_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_430_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_211_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_212_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_213_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_214_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_215_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_221_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_222_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_223_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_224_BOARD,
+		(int)BoardIds::ANT_NEURO_EE_225_BOARD,
+		(int)BoardIds::ENOPHONE_BOARD,
+		(int)BoardIds::MUSE_2_BOARD,
+		(int)BoardIds::MUSE_S_BOARD,
+		(int)BoardIds::BRAINALIVE_BOARD,
+		(int)BoardIds::MUSE_2016_BOARD,
+		(int)BoardIds::MUSE_2016_BLED_BOARD
+	};
+
 	constexpr int DefaultBoardID = static_cast<int>(BoardIds::SYNTHETIC_BOARD);
 
 	constexpr int MinIPPortValue = 1;
@@ -23,14 +65,18 @@ namespace
 
 	unsigned boardIDToBoardIndex(int boardID)
 	{
-		return boardID + BoardIDShift;
+		for (int i = 0; i < sizeof(BrainFlowBoardIdsNeuromore) / sizeof(int); i++)
+			if (boardID == BrainFlowBoardIdsNeuromore[i])
+				return i;
+		return boardIDToBoardIndex(DefaultBoardID); // for safety, should not be executed
 	}
 
 	int boardIndexToBoardID(unsigned boardIndex)
 	{
-		return static_cast<int>(boardIndex) - BoardIDShift;
+		if (boardIndex <= sizeof(BrainFlowBoardIdsNeuromore) / sizeof(int))
+			return BrainFlowBoardIdsNeuromore[boardIndex];
+		return DefaultBoardID; // for safety
 	}
-
 
 	std::string getDeviceNameSafely(int boardID)
 	{
@@ -49,9 +95,10 @@ void BrainFlowNodeBase::Init()
 	DeviceInputNode::Init();
 	{
 		Core::AttributeSettings* attribute = RegisterAttribute("Board ID", "boardID", "Identificator of the board", Core::ATTRIBUTE_INTERFACETYPE_COMBOBOX);
-		attribute->ResizeComboValues(BoardIDSize);
-		for (int boardID = MinBoardID; boardID <= MaxBoardID; ++boardID)
-			attribute->SetComboValue(boardIDToBoardIndex(boardID), getDeviceNameSafely(boardID).c_str());
+		int NumBrainFlowBoards = sizeof(BrainFlowBoardIdsNeuromore) / sizeof(int);
+		attribute->ResizeComboValues(NumBrainFlowBoards);
+		for (int i = 0; i < NumBrainFlowBoards; ++i)
+			attribute->SetComboValue(i, getDeviceNameSafely(boardIndexToBoardID(i)).c_str());
 		attribute->SetDefaultValue(Core::AttributeInt32::Create(boardIDToBoardIndex(DefaultBoardID)));
 	}
 	{
@@ -197,9 +244,10 @@ void BrainFlowCytonNode::Init()
 	DeviceInputNode::Init();
 	{
 		Core::AttributeSettings* attribute = RegisterAttribute("Board ID", "boardID", "Identificator of the board", Core::ATTRIBUTE_INTERFACETYPE_COMBOBOX);
-		attribute->ResizeComboValues(BoardIDSize);
-		for (int boardID = MinBoardID; boardID <= MaxBoardID; ++boardID)
-			attribute->SetComboValue(boardIDToBoardIndex(boardID), getDeviceNameSafely(boardID).c_str());
+		int NumBrainFlowBoards = sizeof(BrainFlowBoardIdsNeuromore) / sizeof(int);
+		attribute->ResizeComboValues(NumBrainFlowBoards);
+		for (int i = 0; i < NumBrainFlowBoards; ++i)
+			attribute->SetComboValue(i, getDeviceNameSafely(boardIndexToBoardID(i)).c_str());
 		attribute->SetDefaultValue(Core::AttributeInt32::Create(boardIDToBoardIndex(static_cast<int>(BoardIds::CYTON_BOARD))));
 		attribute->SetVisible(false);
 	}

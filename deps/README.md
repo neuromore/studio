@@ -43,6 +43,7 @@ Open-Source Third Party Software included in this repository.
 | qt                  | 5.12.4   | https://www.qt.io/                                    | Qt Framework (only partial)             |
 | rapidjson           | 1.1.0    | https://rapidjson.org/                                | JSON Support                            |
 | rfc6234             | ?.?.?    |                                                       | RFC6234 Implementation                  |
+| SimpleBLE           | ?.?.?    | https://github.com/OpenBluetoothToolbox/SimpleBLE     | SimpleBLE, used by BrainFlow            |
 | sha1                | ?.?.?    |                                                       | SHA1                                    |
 | sha3                | ?.?.?    |                                                       | SHA3                                    |
 | singleapplication   | ?.?.?    | https://github.com/itay-grudev/SingleApplication      | Qt Single Application Extension         |

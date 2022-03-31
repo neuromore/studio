@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\include\brainflow\utils\timestamp.h" />
+    <ClInclude Include="..\..\include\brainflow\muse-bglib\apitypes.h" />
+    <ClInclude Include="..\..\include\brainflow\muse-bglib\cmd_def.h" />
+    <ClInclude Include="..\..\include\brainflow\muse-bglib\muse_bglib_helper.h" />
+    <ClInclude Include="..\..\include\brainflow\muse-bglib\muse_functions.h" />
+    <ClInclude Include="..\..\include\brainflow\muse-bglib\uart.h" />
+    <ClInclude Include="..\..\include\brainflow\utils\data_buffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\brainflow\utils\data_buffer.cpp" />
+    <ClCompile Include="..\..\src\brainflow\utils\timestamp.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\muse\muse_bglib\callbacks.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\muse\muse_bglib\cmd_def.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\muse\muse_bglib\main.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\muse\muse_bglib\muse_bglib_helper.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\muse\muse_bglib\stubs.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\muse\muse_bglib\uart.cpp" />
+  </ItemGroup>
+</Project>
