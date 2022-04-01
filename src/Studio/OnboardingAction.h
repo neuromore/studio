@@ -62,6 +62,7 @@ private:
 	QToolButton* mCloseBtn = nullptr;
 	QToolButton* mPreviousBtn = nullptr;
 	QToolButton* mNextBtn = nullptr;
+	QToolButton* mEndBtn = nullptr;
 	QRect mMainRegion;
 	QRegion mActiveRegion = QRect(0, 0, 0, 0);
 	QRect mWindowPosition = QRect(800, 350, 350, 200);

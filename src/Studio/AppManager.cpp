@@ -350,7 +350,7 @@ void AppManager::LoadTourManager()
 			if (this->mTourManager->InitOnboardingActions()) {
 				this->mTourManager->startTour();
 			} else {
-				Core::LogError("Could not find some widgets for the tour.");
+				Core::LogError("Could not find some widgets or tabs for the tour.");
 			}
 		});
 	}

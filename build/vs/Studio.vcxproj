@@ -459,6 +459,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\Close.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\EndTutorial.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\DownRectArrow.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftArrowGray.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftRectArrow.png" />

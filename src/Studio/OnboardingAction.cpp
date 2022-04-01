@@ -12,6 +12,7 @@ OnboardingAction::~OnboardingAction()
 	delete mCloseBtn;
 	delete mPreviousBtn;
 	delete mNextBtn;
+	delete mEndBtn;
 }
 
 void OnboardingAction::setNextOnboardingAction(OnboardingAction* nextOnboardingAction)
@@ -89,25 +90,38 @@ void OnboardingAction::CreateButtons()
 	mCloseBtn = new QToolButton(this);
 	mCloseBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/Close.png"));
 	mCloseBtn->setStyleSheet(QString("border: 0px"));
-	mCloseBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 45,
-						   mWindowPosition.y() + 35,
+	mCloseBtn->setIconSize(QSize(29, 29));
+	mCloseBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
+						   mWindowPosition.y() + 15,
 						   29, 29);
 
 	mPreviousBtn = new QToolButton(this);
 	mPreviousBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/LeftArrowGray.png"));
 	mPreviousBtn->setStyleSheet(QString("border: 1px"));
-	mPreviousBtn->setGeometry(mWindowPosition.x() + 34,
-						      mWindowPosition.y() + mWindowPosition.height() - 45,
+	mPreviousBtn->setIconSize(QSize(29, 29));
+	mPreviousBtn->setGeometry(mWindowPosition.x() + 15,
+						      mWindowPosition.y() + mWindowPosition.height() - 44,
 						      29, 29);
 
 	mNextBtn = new QToolButton(this);
 	mNextBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/RightArrowGray.png"));
 	mNextBtn->setStyleSheet(QString("border: none"));
-	mNextBtn->setGeometry(mWindowPosition.x() + 670,
-						  mWindowPosition.y() + mWindowPosition.height() - 45,
+	mNextBtn->setIconSize(QSize(29, 29));
+	mNextBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
+						  mWindowPosition.y() + mWindowPosition.height() - 44,
 					      29, 29);
 
+	mEndBtn = new QToolButton(this);
+	mEndBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/EndTutorial.png"));
+	mEndBtn->setStyleSheet(QString("border: none"));
+	mEndBtn->setIconSize(QSize(124, 35));
+	mEndBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 139,
+						  mWindowPosition.y() + mWindowPosition.height() - 50,
+					      124, 35);
+	mEndBtn->setVisible(false);
+
 	connect(mCloseBtn, SIGNAL(pressed()), this, SLOT(OnCloseAction()));
+	connect(mEndBtn, SIGNAL(pressed()), this, SLOT(OnCloseAction()));
 	connect(mNextBtn, SIGNAL(pressed()), this, SLOT(OnGoToNextAction()));
 	connect(mPreviousBtn, SIGNAL(pressed()), this, SLOT(OnGoToPreviousAction()));
 }
@@ -122,6 +136,7 @@ void OnboardingAction::ShowButtons()
 	if (mNextOnboardingAction == nullptr)
 	{
 		mNextBtn->setVisible(false);
+		mEndBtn->setVisible(true);
 	}
 }
 
@@ -166,6 +181,7 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 
 	QFont titleFont;
 	titleFont.setPixelSize(35);
+	titleFont.setStretch(85);
 	titleFont.setWeight(QFont::Bold);
 	titleFont.setFamily("Roboto");
 	painter.setFont(titleFont);
@@ -177,6 +193,7 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 
 	QFont descriptionFont;
 	descriptionFont.setPixelSize(19);
+	descriptionFont.setStretch(85);
 	descriptionFont.setWeight(QFont::DemiBold);
 	descriptionFont.setFamily("Roboto");
 	painter.setFont(descriptionFont);
@@ -231,6 +248,7 @@ void OnboardingAction::OnCloseAction()
 		->GetActivePlugin(mActivePluginIdx);
 	activePlugin->EnableTitleBarButtons(true);
 	this->hide();
+	mEndBtn->setVisible(false);
 }
 
 void OnboardingAction::OnGoToPreviousAction()
