@@ -120,7 +120,9 @@ void OnboardingAction::CreateButtons()
 					      124, 35);
 	mEndBtn->setVisible(false);
 
-	connect(mCloseBtn, SIGNAL(pressed()), this, SLOT(OnCloseAction()));
+	auto appManager = GetManager();
+	connect(mCloseBtn, &QToolButton::pressed, appManager, &AppManager::CloseTour);
+
 	connect(mEndBtn, SIGNAL(pressed()), this, SLOT(OnCloseAction()));
 	connect(mNextBtn, SIGNAL(pressed()), this, SLOT(OnGoToNextAction()));
 	connect(mPreviousBtn, SIGNAL(pressed()), this, SLOT(OnGoToPreviousAction()));

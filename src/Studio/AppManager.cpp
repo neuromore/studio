@@ -177,7 +177,6 @@ AppManager::~AppManager()
 	delete mMainWindow;
 	delete mOpenGLManager;
 	delete mVisualizationManager;
-	delete mTourManager;
 
 	delete mSplashScreen;
 
@@ -353,6 +352,15 @@ void AppManager::LoadTourManager()
 				Core::LogError("Could not find some widgets or tabs for the tour.");
 			}
 		});
+	}
+}
+
+void AppManager::CloseTour()
+{
+	if (mTourManager != nullptr)
+	{
+		delete mTourManager;
+		mTourManager = nullptr;
 	}
 }
 

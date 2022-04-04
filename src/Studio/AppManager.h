@@ -139,6 +139,8 @@ class AppManager : public QObject
 public slots:
 	void LoadTourManager();
 
+	void CloseTour();
+
 	signals:
 		void AppStartPrepared();
 

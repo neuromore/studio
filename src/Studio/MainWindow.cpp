@@ -1003,6 +1003,9 @@ void MainWindow::OnVisitSupport()
 // user wants to close the window: ask to save dirty files
 void MainWindow::closeEvent(QCloseEvent* event)
 {
+	auto appManager = GetManager();
+	appManager->CloseTour();
+
 	String message;
 
 	// session is running

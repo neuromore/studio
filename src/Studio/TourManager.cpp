@@ -11,7 +11,7 @@ TourManager::~TourManager()
 {
 	foreach(auto action, mOnboardingActions) 
 	{
-		delete action;
+		action->deleteLater();
 	}
 }
 
