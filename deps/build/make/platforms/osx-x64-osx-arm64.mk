@@ -1,5 +1,8 @@
+# Platforms directory
+PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
+
 # Include shared for host os
-include $(dir $(lastword $(MAKEFILE_LIST)))/osx-all.mk
+include $(PLATDIR)/osx-all.mk
 
 # Generic
 EXTBIN     = 
@@ -22,7 +25,7 @@ AR         = ar
 ARFLAGS    = rcs
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path)
-LINKPATH   = -L$(LIBDIR) -L../../prebuilt/osx/arm64
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/osx/arm64
 LINKLIBS   = 
 
 # Debug vs. Release

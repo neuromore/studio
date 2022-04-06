@@ -1,5 +1,8 @@
+# Platforms directory
+PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
+
 # Include shared for host os
-include $(dir $(lastword $(MAKEFILE_LIST)))/osx-all.mk
+include $(PLATDIR)/osx-all.mk
 
 # Generic
 EXTBIN     = 
@@ -22,7 +25,7 @@ AR         = ar
 ARFLAGS    = rcs
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET)
-LINKPATH   = -L$(LIBDIR) -L../../prebuilt/osx/x64
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/osx/x64
 LINKLIBS   = 
 
 # Debug vs. Release

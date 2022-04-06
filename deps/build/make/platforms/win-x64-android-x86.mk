@@ -1,5 +1,8 @@
+# Platforms directory
+PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
+
 # Include shared for host os
-include $(dir $(lastword $(MAKEFILE_LIST)))/win-all.mk
+include $(PLATDIR)/win-all.mk
 
 # Android Specific
 ANDROID_API         = 21

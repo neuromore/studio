@@ -1,5 +1,8 @@
+# Platforms directory
+PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
+
 # Include shared for host os
-include $(dir $(lastword $(MAKEFILE_LIST)))/win-all.mk
+include $(PLATDIR)/win-all.mk
 
 # Generic
 EXTBIN     = .exe
@@ -21,7 +24,7 @@ AR         = llvm-ar
 ARFLAGS    = rcs
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -Xlinker /MACHINE:X86
-LINKPATH   = -L$(LIBDIR) -L../../prebuilt/win/x86
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/x86
 LINKLIBS   = 
 
 # MSVC Resource Compiler

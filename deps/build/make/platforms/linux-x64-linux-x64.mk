@@ -1,5 +1,8 @@
+# Platforms directory
+PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
+
 # Include shared for host os
-include $(dir $(lastword $(MAKEFILE_LIST)))/linux-all.mk
+include $(PLATDIR)/linux-all.mk
 
 # Generic
 EXTBIN     = 
@@ -21,7 +24,7 @@ AR         = llvm-ar
 ARFLAGS    = rcs
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
-LINKPATH   = -L$(LIBDIR) -L../../prebuilt/linux/x64
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/x64
 LINKLIBS   = 
 
 # Debug vs. Release
