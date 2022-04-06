@@ -34,10 +34,6 @@ public slots:
 
 private:
 
-	QDockWidget* getDockWidget(std::string pluginName) const;
-
-	QRect getTabRect(const QDockWidget* dockWidget) const;
-
 	std::vector<OnboardingAction*>	mOnboardingActions;
 };
 

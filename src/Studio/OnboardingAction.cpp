@@ -4,7 +4,7 @@ OnboardingAction::OnboardingAction(QWidget* parent) :
 	QWidget(parent)
 {
 	setAttribute(Qt::WA_TranslucentBackground, true);
-	setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+	setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
 }
 
 OnboardingAction::~OnboardingAction()
@@ -44,7 +44,7 @@ void OnboardingAction::setActivePlugin(std::string pluginName)
 {
 	const uint32 numRegisteredPlugins = GetQtBaseManager()->GetPluginManager()
 		->GetNumActivePlugins();
-	for (uint32 i = 1; i < numRegisteredPlugins; ++i)
+	for (uint32 i = 0; i < numRegisteredPlugins; ++i)
 	{
 		Plugin* plugin = GetPluginManager()->GetActivePlugin(i);
 		if (std::string(plugin->GetName()) == pluginName)
@@ -73,11 +73,6 @@ void OnboardingAction::setArrowPosition(ARROWTYPE arrowType, const QRect& arrowP
 void OnboardingAction::setDescriptionPosition(const QRect& rect)
 {
 	mDescriptionRect = rect;
-}
-
-void OnboardingAction::setImagePosition(const QRect& rect)
-{
-	mImagePosition = rect;
 }
 
 void OnboardingAction::setTitlePosition(const QRect& rect)
@@ -153,8 +148,20 @@ void OnboardingAction::Invoke()
 	setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
 
-	const uint32 numRegisteredPlugins = GetQtBaseManager()->GetPluginManager()->GetNumActivePlugins();
-	if (mActivePluginIdx)
+	if (mActivePluginIdx == 0)
+	{
+		QDockWidget * debugWindowWidget = getDockWidget();
+
+		if (nullptr == debugWindowWidget)
+		{
+			return;
+		}
+
+		setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y(), 
+								debugWindowWidget->width(), 2 * debugWindowWidget->height()));
+	}
+
+	else if (mActivePluginIdx > 0)
 	{
 		auto activePlugin = GetQtBaseManager()->GetPluginManager()
 			->GetActivePlugin(mActivePluginIdx);
@@ -176,35 +183,6 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 	painter.setPen(QPen(QColor(0, 0, 0)));
 	painter.fillRect(mMainRegion, QBrush(QColor(0, 0, 0, 128)));
 
-	QPainterPath path;
-	QRectF messageBox(mWindowPosition);
-	path.addRoundedRect(mWindowPosition, 25, 25);
-	painter.fillPath(path, QColor("#E5E5E5"));
-
-	QFont titleFont;
-	titleFont.setPixelSize(35);
-	titleFont.setStretch(85);
-	titleFont.setWeight(QFont::Bold);
-	titleFont.setFamily("Roboto");
-	painter.setFont(titleFont);
-	painter.drawText(QRectF(messageBox.x() + mTitleRect.x(),
-							messageBox.y() + mTitleRect.y(),
-							mTitleRect.width(),
-							mTitleRect.height()),
-							mTitle);
-
-	QFont descriptionFont;
-	descriptionFont.setPixelSize(19);
-	descriptionFont.setStretch(85);
-	descriptionFont.setWeight(QFont::DemiBold);
-	descriptionFont.setFamily("Roboto");
-	painter.setFont(descriptionFont);
-	painter.drawText(QRect(messageBox.x() + mDescriptionRect.x(),
-							messageBox.y() + mDescriptionRect.y(),
-							mDescriptionRect.width(),
-							mDescriptionRect.height()),
-							mDescription);
-
 	QIcon arrowIcon;
 	switch (mArrowType)
 	{
@@ -214,7 +192,7 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 		break;
 	}
 	case OnboardingAction::RIGHTARROW:
-	{ 
+	{
 		arrowIcon = GetQtBaseManager()->FindIcon("/Images/Icons/RightRectArrow.png");
 		break;
 	}
@@ -234,8 +212,49 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 
 	if (!arrowIcon.isNull()) {
 		QPixmap pixmap = arrowIcon.pixmap(QSize(mArrowPosition.width(), mArrowPosition.height()));
+		if (mActiveRegion.contains(mArrowPosition))
+		{
+			painter.setCompositionMode(QPainter::CompositionMode_Source);
+		}
+		else
+		{
+			painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+		}
 		painter.drawPixmap(mArrowPosition.x(), mArrowPosition.y(), pixmap);
 	}
+
+	QPainterPath path;
+	QRectF messageBox(mWindowPosition);
+	path.addRoundedRect(mWindowPosition, 25, 25);
+	painter.fillPath(path, QColor("#E5E5E5"));
+
+	QFont titleFont;
+	titleFont.setPixelSize(35);
+	#if defined(__linux__)
+		titleFont.setStretch(85);
+	#endif
+	titleFont.setWeight(QFont::Bold);
+	titleFont.setFamily("Roboto");
+	painter.setFont(titleFont);
+	painter.drawText(QRectF(messageBox.x() + mTitleRect.x(),
+							messageBox.y() + mTitleRect.y(),
+							mTitleRect.width(),
+							mTitleRect.height()),
+							mTitle);
+
+	QFont descriptionFont;
+	descriptionFont.setPixelSize(19);
+	#if defined(__linux__)
+		descriptionFont.setStretch(85);
+	#endif
+	descriptionFont.setWeight(QFont::DemiBold);
+	descriptionFont.setFamily("Roboto");
+	painter.setFont(descriptionFont);
+	painter.drawText(QRect(messageBox.x() + mDescriptionRect.x(),
+							messageBox.y() + mDescriptionRect.y(),
+							mDescriptionRect.width(),
+							mDescriptionRect.height()),
+							mDescription);
 
 	ShowButtons();
 
@@ -244,13 +263,49 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 	setMask(overlayRegion);
 }
 
+QDockWidget* OnboardingAction::getDockWidget() const
+{
+	if (mActivePluginIdx < 0)
+	{
+		return nullptr;
+	}
+
+	Plugin* plugin = GetQtBaseManager()->GetPluginManager()->GetActivePlugin(mActivePluginIdx);
+
+	if (nullptr != plugin)
+	{
+		return plugin->GetDockWidget();
+	}
+
+	return nullptr;
+}
+
+QRect OnboardingAction::getTabRect(const QDockWidget* DWidget) const
+{
+	auto mainWindow = GetMainWindow();
+	Q_FOREACH(QTabBar * tabBar, mainWindow->findChildren<QTabBar*>())
+	{
+		for (int i = 0; i < tabBar->count(); ++i)
+		{
+			if (DWidget == (QDockWidget*)tabBar->tabData(i).toULongLong())
+			{
+				return tabBar->tabRect(i);
+			}
+		}
+	}
+
+	return QRect();
+}
+
 void OnboardingAction::OnCloseAction()
 {
-	auto activePlugin = GetQtBaseManager()->GetPluginManager()
-		->GetActivePlugin(mActivePluginIdx);
-	activePlugin->EnableTitleBarButtons(true);
+	if (mActivePluginIdx >= 0)
+	{
+		auto activePlugin = GetQtBaseManager()->GetPluginManager()
+			->GetActivePlugin(mActivePluginIdx);
+		activePlugin->EnableTitleBarButtons(true);
+	}
 	this->hide();
-	mEndBtn->setVisible(false);
 }
 
 void OnboardingAction::OnGoToPreviousAction()

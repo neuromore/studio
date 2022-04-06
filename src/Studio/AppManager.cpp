@@ -289,6 +289,11 @@ void AppManager::ProcessCommandLine()
 
 void AppManager::SetPluginTabVisible(int activePluginIdx)
 {
+	if (activePluginIdx < 0)
+	{
+		return;
+	}
+
 	auto activePlugin = GetQtBaseManager()->GetPluginManager()
 					  ->GetActivePlugin(activePluginIdx);
 	if (activePlugin == nullptr)

@@ -5,6 +5,7 @@
 #include <QtBaseManager.h>
 #include <PluginSystem/PluginManager.h>
 #include "TourManager.h"
+#include "MainWindow.h"
 
 #include <QObject>
 #include <QString>
@@ -42,11 +43,13 @@ public:
 	void setArrowPosition(ARROWTYPE arrowtype, const QRect& arrowPosition = QRect());
 	void setDescriptionPosition(const QRect& rect);
 	void setTitlePosition(const QRect& rect);
-	void setImagePosition(const QRect& rect);
 	void ShowButtons();
 	void CreateButtons();
 	void Invoke();
 	void paintEvent(QPaintEvent*) override;
+
+	QDockWidget* getDockWidget() const;
+	QRect getTabRect(const QDockWidget* dockWidget) const;
 
 public slots:
 	void OnCloseAction();
@@ -68,10 +71,9 @@ private:
 	QRect mWindowPosition = QRect(800, 350, 350, 200);
 	QRect mDescriptionRect;
 	QRect mTitleRect;
-	QRect mImagePosition;
 	QRect mArrowPosition;
 	ARROWTYPE mArrowType = ARROWTYPE::NOARROW;
-	int mActivePluginIdx = 0;
+	int mActivePluginIdx = -1;
 	QString mTitle;
 	QString mDescription;
 };
