@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "SpectrumAnalyzerSettings.h"
 #include "../Core/LogManager.h"

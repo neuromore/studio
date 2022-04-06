@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "StatisticsNode.h"
 #include "../EngineManager.h"

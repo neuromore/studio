@@ -1,3 +1,7 @@
+
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 #include "BrainFlowNodes.h"
 
 #ifdef INCLUDE_DEVICE_BRAINFLOW

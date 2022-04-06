@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include the required headers
 #include "StateTransitionButtonCondition.h"
 #include "../Core/AttributeSettings.h"

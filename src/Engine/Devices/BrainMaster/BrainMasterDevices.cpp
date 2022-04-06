@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "BrainMasterDevices.h"
 #include "../../EngineManager.h"

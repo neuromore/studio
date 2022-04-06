@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "ChannelMathNode.h"
 #include "../Core/AttributeSettings.h"

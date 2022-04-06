@@ -13,6 +13,7 @@ INCLUDES  := $(INCLUDES) \
              -I$(INCDIR) \
              -I$(INCDIR)/brainflow/utils \
              -I$(INCDIR)/brainflow/board_controller \
+             -I../../src \
              -I$(SRCDIR)
 CXXFLAGS  := $(CXXFLAGS) \
              -Wno-unknown-warning-option \
