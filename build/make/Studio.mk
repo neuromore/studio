@@ -687,6 +687,8 @@ build: $(PRES) $(OBLS) $(RESO)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
 	@echo [LNK] $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
 	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
+	@echo [CPY] Prebuilt Libraries
+	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR)/)
 
 clean:
 	$(call deletefiles,$(MOCDIR),*.cpp)
