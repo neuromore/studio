@@ -145,6 +145,9 @@ class BackendFileSystemWidget : public QWidget
 		void ReInit();
 		void UpdateInterface();
 
+		// expand item by path, e.g. { "examples", "GettingStarted", "FocusTrainer"}
+		bool ExpandByPath(QVector<QString> itemPath);
+
 		// keyboard shortcuts
 		void keyPressEvent(QKeyEvent* event);
 		void keyReleaseEvent(QKeyEvent* event);

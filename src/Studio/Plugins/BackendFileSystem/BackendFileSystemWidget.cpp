@@ -1597,7 +1597,7 @@ bool BackendFileSystemWidget::IsItemCollapsed(const char* uuid)
 {
 	CollapseState* state = FindCollapsedState(uuid);
 	if (state == NULL)
-		return false;
+		return true;
 
 	return state->IsCollapsed();
 }
@@ -1613,6 +1613,50 @@ void BackendFileSystemWidget::SetCollapseState(const char* uuid, bool isCollapse
 	}
 
 	state->SetIsCollapsed(isCollapsed);
+}
+
+bool BackendFileSystemWidget::ExpandByPath(QVector<QString> itemPath)
+{
+	QList<QTreeWidgetItem*> itemsToExpand;
+	QTreeWidgetItem* topWidget = nullptr;
+	for (int i = 0; i < mTreeWidget->topLevelItemCount(); ++i)
+	{
+		if (itemPath[0] == mTreeWidget->topLevelItem(i)->text(0))
+		{
+			topWidget = mTreeWidget->topLevelItem(i);
+			itemsToExpand.push_back(topWidget);
+			break;
+		}
+	}
+	if (nullptr == topWidget)
+	{
+		return false;
+	}
+
+	for (int i = 1; i < itemPath.size(); ++i)
+	{
+		auto currentTreeWidget = itemsToExpand.back();
+		QTreeWidgetItem* childWidget = nullptr;
+		for (int j = 0; j < currentTreeWidget->childCount(); ++j)
+		{
+			if (itemPath[i] == currentTreeWidget->child(j)->text(0))
+			{
+				childWidget = currentTreeWidget->child(j);
+				itemsToExpand.push_back(childWidget);
+				break;
+			}
+		}
+		if (nullptr == childWidget)
+		{
+			return false;
+		}
+	}
+
+	foreach(auto item, itemsToExpand)
+	{
+		item->setExpanded(true);
+	}
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

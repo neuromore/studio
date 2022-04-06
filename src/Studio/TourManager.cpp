@@ -1,5 +1,6 @@
 #include "TourManager.h"
 #include "MainWindow.h"
+#include "Plugins/BackendFileSystem/BackendFileSystemPlugin.h"
 
 OnboardingAction* TourManager::CurrentOnboardingAction = nullptr;
 
@@ -268,9 +269,28 @@ bool TourManager::InitOnboardingActions()
 	mOnboardingActions.push_back(endTutorialAction);
 	connect(endTutorialAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
+	const uint32 numRegisteredPlugins = GetQtBaseManager()->GetPluginManager()
+		->GetNumActivePlugins();
+	BackendFileSystemPlugin* backendFileSystemPlugin = nullptr;
+	for (uint32 i = 0; i < numRegisteredPlugins; ++i)
+	{
+		Plugin* plugin = GetPluginManager()->GetActivePlugin(i);
+		if ("Back-End File System" == std::string(plugin->GetName()))
+		{
+			backendFileSystemPlugin = dynamic_cast<BackendFileSystemPlugin*>(plugin);
+			break;
+		}
+	}
+	if (nullptr == backendFileSystemPlugin)
+	{
+		return false;
+	}
+	QVector<QString> itemPath = { "examples", "GettingStarted", "FocusTrainer"};
+	backendFileSystemPlugin->ExpandByPath(itemPath);
+
 	// loads the "FirstFocusTrainerClassifierTestSystem" classifier and "FirstFocusTrainerStateMachine" state machine for the tour.
-	GetFileManager()->OpenClassifier( FileManager::LOCATION_BACKEND, "ef5cff5a-d569-4f5d-8e00-03049540ff42","FirstFocusTrainerClassifierTestSystem", -1 );
-	GetFileManager()->OpenStateMachine( FileManager::LOCATION_BACKEND, "33d18723-73a4-42f5-9869-7bb3da0530c1", "FirstFocusTrainerStateMachine" , -1 );
+	GetFileManager()->OpenClassifier(FileManager::LOCATION_BACKEND, "ef5cff5a-d569-4f5d-8e00-03049540ff42", "FirstFocusTrainerClassifierTestSystem", -1);
+	GetFileManager()->OpenStateMachine(FileManager::LOCATION_BACKEND, "33d18723-73a4-42f5-9869-7bb3da0530c1", "FirstFocusTrainerStateMachine", -1);
 
 	return true;
 }

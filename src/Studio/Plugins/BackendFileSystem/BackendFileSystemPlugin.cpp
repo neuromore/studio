@@ -71,3 +71,8 @@ bool BackendFileSystemPlugin::Init()
 	LogDetailedInfo("Backend file system plugin successfully initialized");
 	return true;
 }
+
+bool BackendFileSystemPlugin::ExpandByPath(QVector<QString>itemPath)
+{
+	return mFileSystemWidget->ExpandByPath(itemPath);
+}
