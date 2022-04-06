@@ -13,6 +13,7 @@ OBJDIR    := $(OBJDIR)/$(NAME)
 QTMOC     := "../../deps/build/make/$(QTMOC)"
 QTRCC     := "../../deps/build/make/$(QTRCC)"
 QTUIC     := "../../deps/build/make/$(QTUIC)"
+BINDIRDEP  = "../../deps/build/make/$(BINDIR)"
 LIBDIRDEP  = "../../deps/build/make/$(LIBDIR)"
 LIBDIRPRE  = "../../deps/prebuilt/$(TARGET_OS)/$(TARGET_ARCH)"
 DEFINES   := $(DEFINES) \
@@ -689,6 +690,8 @@ build: $(PRES) $(OBLS) $(RESO)
 	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
 	@echo [CPY] Prebuilt Libraries
 	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR)/)
+	@echo [CPY] Built Libraries
+	$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR)/)
 
 clean:
 	$(call deletefiles,$(MOCDIR),*.cpp)

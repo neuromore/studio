@@ -131,11 +131,14 @@ $(OBJDIR)/%.o:
 .DEFAULT_GOAL := build
 
 build: $(OBJS)
-	@echo [LNK] $(LIBDIR)/$(NAMEDLL)$(EXTDLL)
-	$(LINK) $(LINKFLAGS) $(LINKPATH) $(OBJS) $(LINKLIBS) -o $(LIBDIR)/$(NAMEDLL)$(EXTDLL)
+	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
+	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS)
+	@echo [LNK] $(BINDIR)/$(NAMEDLL)$(EXTDLL)
+	$(LINK) $(LINKFLAGS) $(LINKPATH) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(BINDIR)/$(NAMEDLL)$(EXTDLL)
 
 clean:
 	$(call deletefiles,$(OBJDIR),*.o)
-	$(call deletefiles,$(LIBDIR),$(NAMEDLL)$(EXTLIB))
-	$(call deletefiles,$(LIBDIR),$(NAMEDLL)$(EXTDLL))
-	$(call deletefiles,$(LIBDIR),$(NAMEDLL)$(EXTPDB))
+	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTLIB))
+	$(call deletefiles,$(BINDIR),$(NAMEDLL)$(EXTLIB))
+	$(call deletefiles,$(BINDIR),$(NAMEDLL)$(EXTDLL))
+	$(call deletefiles,$(BINDIR),$(NAMEDLL)$(EXTPDB))
