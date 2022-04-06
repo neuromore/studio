@@ -214,12 +214,6 @@ void ExperienceWidget::OnFinishedPreloading()
 		stateMachine->Start();
 	}
 
-	Classifier* classifier = GetEngine()->GetActiveClassifier();
-	if (classifier != NULL)
-	{
-		classifier->Start();
-	}
-
 	// FIXME this crashes the engine sometimes during layout switch?!
 	// reset engine
 	GetEngine()->Reset();
@@ -604,6 +598,11 @@ void ExperienceWidget::OnVideoLooped(QString url)
 void ExperienceWidget::OnExitStateReached(uint32 exitStatus)
 {
 	// TODO: stop session automatically
+	Clear();
+}
+
+void ExperienceWidget::OnStopSession()
+{
 	Clear();
 }
 

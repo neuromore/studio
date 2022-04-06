@@ -461,6 +461,12 @@ endif
 ##################################################################################
 ifeq ($(TARGET_OS),linux)
 
+fontconfig:
+	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f fontconfig.mk -j $(DETECTED_CORES)
+
+fontconfig-clean:
+	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f fontconfig.mk clean -j $(DETECTED_CORES)
+
 qt-dbus: qt-moc qt-rcc qt-uic
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f qt-dbus.mk -j $(DETECTED_CORES)
 
@@ -473,8 +479,8 @@ qt-platform-xcb: qt-moc qt-rcc qt-uic
 qt-platform-xcb-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f qt-platform-xcb.mk clean -j $(DETECTED_CORES)
 
-all: --base qt-dbus qt-platform-xcb
-clean: --base-clean qt-dbus-clean qt-platform-xcb-clean
+all: --base fontconfig qt-dbus qt-platform-xcb
+clean: --base-clean fontconfig-clean qt-dbus-clean qt-platform-xcb-clean
 
 endif
 

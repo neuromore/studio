@@ -58,6 +58,7 @@ OBJS       = Core/AABB.o \
              Devices/Audio/AudioNodes.o \
              Devices/BrainFlow/BrainFlowDevices.o \
              Devices/BrainFlow/BrainFlowNodes.o \
+             Devices/BrainMaster/BrainMasterDevices.o \
              Devices/BrainProducts/ActiChampDevice.o \
              Devices/Brainquiry/BrainquiryDevice.o \
              Devices/Emotiv/EmotivEPOCDevice.o \

@@ -73,7 +73,8 @@ GraphWidget::GraphWidget(Type type, GraphPlugin* plugin, QWidget* parent) : QOpe
 	mSelectStart			= QPoint( 0, 0 );
 	mSelectEnd				= QPoint( 0, 0 );
 
-	mNoGraphShownError			= "Please select a graph before starting a session";
+	mNoClassifierShownError			= "Please select a classifier from the back-end file system before starting a session";
+	mNoStateMachineShownError			= "Please select a state machine from the back-end file system before starting a session";
 	mGraphProtectionModeError	= "Due to security restrictions, the graph won't be visible.";
 
 	setAutoFillBackground(false);
@@ -233,7 +234,7 @@ void GraphWidget::paintGL()
 			mRenderer->RenderText( true, painter, mGraphProtectionModeError, mShared.GetErrorBlinkColor(), QRect(0, 0, width, height), mShared.GetStandardFont(), mShared.GetStandardFontMetrics(), Qt::AlignCenter );
 		else
 			// no graph active
-			mRenderer->RenderText( true, painter, mNoGraphShownError, mShared.GetErrorBlinkColor(), QRect(0, 0, width, height), mShared.GetStandardFont(), mShared.GetStandardFontMetrics(), Qt::AlignCenter );
+			mRenderer->RenderText( true, painter, mType == CLASSIFIER ? mNoClassifierShownError : mNoStateMachineShownError, mShared.GetErrorBlinkColor(), QRect(0, 0, width, height), mShared.GetStandardFont(), mShared.GetStandardFontMetrics(), Qt::AlignCenter );
 	}
 
 	// render selection rect

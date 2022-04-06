@@ -34,3 +34,7 @@ SiUSBXp.dll
 # brainquiry sdk
 BQPetDLL.lib
 BQPetDLL.dll
+
+# brainmaster sdk
+bmrcm.dll
+bmrcm.lib

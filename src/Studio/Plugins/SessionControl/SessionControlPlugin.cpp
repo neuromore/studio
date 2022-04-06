@@ -497,6 +497,7 @@ void SessionControlPlugin::OnStart()
 
 	// load parameters
 	GetBackendInterface()->GetParameters()->Load(true, *GetSessionUser(), activeExperience, activeClassifier);
+
 }
 
 
@@ -613,6 +614,8 @@ void SessionControlPlugin::OnStop()
 	const Time& stopTime  = GetSession()->GetStopTime();
 	const bool isValid = true;
 
+	// disable active classifier data updating.
+	activeClassifier->Stop();
 
 	// 1. construct /datachunks/create request
 	DataChunksCreateRequest request( token.AsChar(), userId.AsChar(), supervisorId.AsChar(), paymentRecipientId.AsChar(), classifierUUID, classifierRevision, statemachineUUID, statemachineRevision, experienceUUID, experienceRevision, startTime, stopTime, isValid );
