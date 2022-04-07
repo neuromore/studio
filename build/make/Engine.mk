@@ -23,6 +23,7 @@ CXXFLAGS  := $(CXXFLAGS) \
 LINKFLAGS := $(LINKFLAGS)
 LINKPATH  := $(LINKPATH)
 LINKLIBS  := $(LINKLIBS)
+PCH        = Precompiled
 OBJS       = Core/AABB.o \
              Core/AES.o \
              Core/AttributeFactory.o \
@@ -304,18 +305,24 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+pch:
+	@echo [PCH] $(OBJDIR)/$(PCH).pch
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -x c++-header $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
+
 OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
 
-.DEFAULT_GOAL := build
+$(OBJS) : pch
 
-build: $(OBJS)
+build: pch $(OBJS)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS)
 
 clean:
 	$(call deletefiles,$(OBJDIR),*.o)
 	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTLIB))
+
+.DEFAULT_GOAL := build
