@@ -122,6 +122,7 @@ void OnboardingAction::CreateButtons()
 
 	auto appManager = GetManager();
 	connect(mCloseBtn, &QToolButton::pressed, appManager, &AppManager::CloseTour);
+	connect(mCloseBtn, SIGNAL(pressed()), this, SLOT(OnCloseAction()));
 
 	connect(mEndBtn, SIGNAL(pressed()), this, SLOT(OnCloseAction()));
 	connect(mNextBtn, SIGNAL(pressed()), this, SLOT(OnGoToNextAction()));
@@ -176,13 +177,16 @@ void OnboardingAction::Invoke()
 			setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y(),
 								debugWindowWidget->width(), 2 * debugWindowWidget->height()));
 		#endif
+		auto activePlugin = GetQtBaseManager()->GetPluginManager()
+			->GetActivePlugin(mActivePluginIdx);
+		activePlugin->SetLocked(true);
 	}
 
 	else if (mActivePluginIdx > 0)
 	{
 		auto activePlugin = GetQtBaseManager()->GetPluginManager()
 			->GetActivePlugin(mActivePluginIdx);
-		activePlugin->EnableTitleBarButtons(false);
+		activePlugin->SetLocked(true);
 		setActiveRegion(activePlugin->GetGeometry());
 	}
 
@@ -318,7 +322,7 @@ void OnboardingAction::OnCloseAction()
 	{
 		auto activePlugin = GetQtBaseManager()->GetPluginManager()
 			->GetActivePlugin(mActivePluginIdx);
-		activePlugin->EnableTitleBarButtons(true);
+		activePlugin->SetLocked(false);
 	}
 	this->hide();
 }
