@@ -1,4 +1,5 @@
 #include "OnboardingAction.h"
+#include "MainWindow.h"
 
 OnboardingAction::OnboardingAction(QWidget* parent) :
 	QWidget(parent)
@@ -84,7 +85,8 @@ void OnboardingAction::CreateButtons()
 {
 	mCloseBtn = new QToolButton(this);
 	mCloseBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/Close.png"));
-	mCloseBtn->setStyleSheet(QString("border: 0px"));
+	mCloseBtn->setStyleSheet(QString("background: transparent;"
+									 "border: 0px;"));
 	mCloseBtn->setIconSize(QSize(29, 29));
 	mCloseBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
 						   mWindowPosition.y() + 15,
@@ -92,7 +94,8 @@ void OnboardingAction::CreateButtons()
 
 	mPreviousBtn = new QToolButton(this);
 	mPreviousBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/LeftArrowGray.png"));
-	mPreviousBtn->setStyleSheet(QString("border: 1px"));
+	mPreviousBtn->setStyleSheet(QString("background: transparent;"
+										"border: 0px;"));
 	mPreviousBtn->setIconSize(QSize(29, 29));
 	mPreviousBtn->setGeometry(mWindowPosition.x() + 15,
 						      mWindowPosition.y() + mWindowPosition.height() - 44,
@@ -100,7 +103,8 @@ void OnboardingAction::CreateButtons()
 
 	mNextBtn = new QToolButton(this);
 	mNextBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/RightArrowGray.png"));
-	mNextBtn->setStyleSheet(QString("border: none"));
+	mNextBtn->setStyleSheet(QString("background: transparent;"
+									"border: 0px;"));
 	mNextBtn->setIconSize(QSize(29, 29));
 	mNextBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
 						  mWindowPosition.y() + mWindowPosition.height() - 44,
@@ -108,7 +112,8 @@ void OnboardingAction::CreateButtons()
 
 	mEndBtn = new QToolButton(this);
 	mEndBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/EndTutorial.png"));
-	mEndBtn->setStyleSheet(QString("border: none"));
+	mEndBtn->setStyleSheet(QString("background: transparent;"
+								   "border: 0px;"));
 	mEndBtn->setIconSize(QSize(124, 35));
 	mEndBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 139,
 						  mWindowPosition.y() + mWindowPosition.height() - 50,

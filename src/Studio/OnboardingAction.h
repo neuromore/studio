@@ -5,7 +5,6 @@
 #include <QtBaseManager.h>
 #include <PluginSystem/PluginManager.h>
 #include "TourManager.h"
-#include "MainWindow.h"
 
 #include <QObject>
 #include <QString>

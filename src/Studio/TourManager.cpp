@@ -1,6 +1,7 @@
 #include "TourManager.h"
-#include "MainWindow.h"
 #include "Plugins/BackendFileSystem/BackendFileSystemPlugin.h"
+#include "MainWindow.h"
+
 
 OnboardingAction* TourManager::CurrentOnboardingAction = nullptr;
 
@@ -19,8 +20,9 @@ TourManager::~TourManager()
 bool TourManager::InitOnboardingActions()
 {
 	auto appManager = GetManager();
+	auto mainWindow = GetMainWindow();
 
-	OnboardingAction* welcomeAction = new OnboardingAction;
+	OnboardingAction* welcomeAction = new OnboardingAction(mainWindow);
 	welcomeAction->setTitle(QString("Welcome to neuromore Studio"));
 	welcomeAction->setDescription(QString("Let us give you a quick tour to show you how to create a simple neurofeedback application in neuromore Studio."));
 	welcomeAction->setWindowPosition(QRect(563, 281, 729, 222));
@@ -28,7 +30,7 @@ bool TourManager::InitOnboardingActions()
 	welcomeAction->setDescriptionPosition(QRect(38, 118, 636, 50));
 	mOnboardingActions.push_back(welcomeAction);
 
-	OnboardingAction* fileHandlingAction = new OnboardingAction;
+	OnboardingAction* fileHandlingAction = new OnboardingAction(mainWindow);
 	fileHandlingAction->setTitle(QString("Handling files"));
 	fileHandlingAction->setDescription((QString("Every neurofeedback application consists at "
 		"least of a classifier in which you define the signal processing pipeline and usually also "
@@ -54,7 +56,7 @@ bool TourManager::InitOnboardingActions()
 	welcomeAction->setNextOnboardingAction(fileHandlingAction);
 	mOnboardingActions.push_back(fileHandlingAction);
 
-	OnboardingAction* editorAction = new OnboardingAction;
+	OnboardingAction* editorAction = new OnboardingAction(mainWindow);
 	editorAction->setTitle(QString("The editor window"));
 	editorAction->setDescription(QString("This is the main editor window in which you can access all 3 parts "
 		"of a neurofeedback application: the classifier, the state machine and the experience window.\n"
@@ -88,7 +90,7 @@ bool TourManager::InitOnboardingActions()
 	mOnboardingActions.push_back(editorAction);
 	connect(editorAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
-	OnboardingAction* stateMachineAction = new OnboardingAction;
+	OnboardingAction* stateMachineAction = new OnboardingAction(mainWindow);
 	stateMachineAction->setTitle(QString("Defining the user flow in the state machine"));
 	stateMachineAction->setDescription(QString("The state machine contains the interaction logic of your application.\n"
 		"In this example we prompt the user to select for how long they want to do the focus training before a video "
@@ -121,7 +123,7 @@ bool TourManager::InitOnboardingActions()
 	mOnboardingActions.push_back(stateMachineAction);
 	connect(stateMachineAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
-	OnboardingAction* experienceWindowAction = new OnboardingAction;
+	OnboardingAction* experienceWindowAction = new OnboardingAction(mainWindow);
 	experienceWindowAction->setTitle(QString("The experience window"));
 	experienceWindowAction->setDescription(QString("In the experience window you can find the user - facing "
 		"part of the application. Using this window you can show simple UIs using text buttons, images or play "
@@ -154,7 +156,7 @@ bool TourManager::InitOnboardingActions()
 	mOnboardingActions.push_back(experienceWindowAction);
 	connect(experienceWindowAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
-	OnboardingAction* debugWindowAction = new OnboardingAction;
+	OnboardingAction* debugWindowAction = new OnboardingAction(mainWindow);
 	debugWindowAction->setTitle(QString("The debug window"));
 	debugWindowAction->setDescription(QString("On the bottom you can find different windows "
 		"to debug the current application output."));
@@ -175,7 +177,7 @@ bool TourManager::InitOnboardingActions()
 	mOnboardingActions.push_back(debugWindowAction);
 	connect(debugWindowAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
-	OnboardingAction* feedbackViewAction = new OnboardingAction;
+	OnboardingAction* feedbackViewAction = new OnboardingAction(mainWindow);
 	feedbackViewAction->setTitle(QString("The feedback view"));
 	feedbackViewAction->setDescription(QString("In the feedback view you can see the live feedback values of the custom "
 		"variables defined in the classifier."));
@@ -203,7 +205,7 @@ bool TourManager::InitOnboardingActions()
 	mOnboardingActions.push_back(feedbackViewAction);
 	connect(feedbackViewAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
-	OnboardingAction* customParametersAction = new OnboardingAction;
+	OnboardingAction* customParametersAction = new OnboardingAction(mainWindow);
 	customParametersAction->setTitle(QString("Using custom parameters"));
 	customParametersAction->setDescription(QString("You can parameterize the experience and adjust those parameters "
 		"either before or during a session."));
@@ -221,7 +223,7 @@ bool TourManager::InitOnboardingActions()
 		return false;
 	}
 
-	OnboardingAction* sessionControlAction = new OnboardingAction;
+	OnboardingAction* sessionControlAction = new OnboardingAction(mainWindow);
 	sessionControlAction->setActivePlugin("Session Control");
 	auto sessionControlWidget = sessionControlAction->getDockWidget();
 
@@ -252,7 +254,7 @@ bool TourManager::InitOnboardingActions()
 	mOnboardingActions.push_back(sessionControlAction);
 	connect(sessionControlAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
-	OnboardingAction* endTutorialAction = new OnboardingAction;
+	OnboardingAction* endTutorialAction = new OnboardingAction(mainWindow);
 	endTutorialAction->setTitle(QString("Running the experience"));
 	endTutorialAction->setDescription(QString("It's time to use the neurofeedback application in action. "
 		"Click on one of the 3 buttons in the experience window and see how the image brightness of the "
