@@ -36,7 +36,7 @@ void OnboardingAction::setDescription(const QString& description)
 	mDescription = description;
 }
 
-void OnboardingAction::setActiveRegion(const QRegion& activeRegion)
+void OnboardingAction::setActiveRegion(const QRect& activeRegion)
 {
 	mActiveRegion = activeRegion;
 }
@@ -200,6 +200,16 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 	painter.setPen(QPen(QColor(0, 0, 0)));
 	painter.fillRect(mMainRegion, QBrush(QColor(0, 0, 0, 128)));
 
+
+	QRegion overlayRegion = QRegion(mMainRegion) - mActiveRegion
+		+ mWindowPosition + mArrowPosition;
+	setMask(overlayRegion);
+
+	QPixmap activeRegionPixmap(mActiveRegion.width(), mActiveRegion.height());
+	painter.setCompositionMode(QPainter::CompositionMode_Clear);
+	painter.drawPixmap(mActiveRegion.x(), mActiveRegion.y(), activeRegionPixmap);
+	painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+
 	QIcon arrowIcon;
 	switch (mArrowType)
 	{
@@ -229,14 +239,6 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 
 	if (!arrowIcon.isNull()) {
 		QPixmap pixmap = arrowIcon.pixmap(QSize(mArrowPosition.width(), mArrowPosition.height()));
-		if (mActiveRegion.contains(mArrowPosition))
-		{
-			painter.setCompositionMode(QPainter::CompositionMode_Source);
-		}
-		else
-		{
-			painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-		}
 		painter.drawPixmap(mArrowPosition.x(), mArrowPosition.y(), pixmap);
 	}
 
@@ -274,10 +276,6 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 							mDescription);
 
 	ShowButtons();
-
-	QRegion overlayRegion = QRegion(mMainRegion) - mActiveRegion
-		+ mWindowPosition + mArrowPosition;
-	setMask(overlayRegion);
 }
 
 QDockWidget* OnboardingAction::getDockWidget() const

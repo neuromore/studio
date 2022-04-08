@@ -35,7 +35,7 @@ public:
 	void setPrevOnboardingAction(OnboardingAction* prevOnboardingAction);
 	void setTitle(const QString& title);
 	void setDescription(const QString& description);
-	void setActiveRegion(const QRegion& activeRegion);
+	void setActiveRegion(const QRect& activeRegion);
 	void setActivePlugin(std::string pluginName);
 	void setMainRegion(const QRect& mainRegion);
 	void setWindowPosition(const QRect& windowPosition);
@@ -66,7 +66,7 @@ private:
 	QToolButton* mNextBtn = nullptr;
 	QToolButton* mEndBtn = nullptr;
 	QRect mMainRegion;
-	QRegion mActiveRegion = QRect(0, 0, 0, 0);
+	QRect mActiveRegion = QRect(0, 0, 0, 0);
 	QRect mWindowPosition = QRect(800, 350, 350, 200);
 	QRect mDescriptionRect;
 	QRect mTitleRect;
