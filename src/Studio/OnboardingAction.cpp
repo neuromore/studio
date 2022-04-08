@@ -147,11 +147,18 @@ void OnboardingAction::Invoke()
 	emit ActivePluginChanged(mActivePluginIdx);
 
 	auto mainWindow = GetQtBaseManager()->GetMainWindow();
-    setMainRegion(QRect(0, 0, mainWindow->frameGeometry().width(),
-		mainWindow->frameGeometry().height()));
 
-	setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
+	#if defined(NEUROMORE_PLATFORM_OSX)
+		setMainRegion(QRect(0, 0, mainWindow->geometry().width(),
+		mainWindow->geometry().height()));
+		setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->geometry().width(),
+		mainWindow->geometry().height()));
+	#else
+		setMainRegion(QRect(0, 0, mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
+		setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
+		mainWindow->frameGeometry().height()));
+	#endif
 
 	if (mActivePluginIdx == 0)
 	{
@@ -162,8 +169,13 @@ void OnboardingAction::Invoke()
 			return;
 		}
 
-		setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y(), 
+		#if defined(NEUROMORE_PLATFORM_OSX)
+			setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y() - 25,
 								debugWindowWidget->width(), 2 * debugWindowWidget->height()));
+		#else
+			setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y(),
+								debugWindowWidget->width(), 2 * debugWindowWidget->height()));
+		#endif
 	}
 
 	else if (mActivePluginIdx > 0)

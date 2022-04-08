@@ -56,6 +56,9 @@ QRect Plugin::GetGeometry() const
 {
 	auto mainWindow = GetQtBaseManager()->GetMainWindow();
 	int frameHeight = mainWindow->frameGeometry().height() - mainWindow->height();
+	#if defined(NEUROMORE_PLATFORM_OSX)
+		frameHeight = 0;
+	#endif
 	QRect rect(mDock->x(),
 		mDock->y() + frameHeight,
 		mDock->width(),

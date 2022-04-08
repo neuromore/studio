@@ -22,10 +22,18 @@ bool TourManager::InitOnboardingActions()
 	auto appManager = GetManager();
 	auto mainWindow = GetMainWindow();
 
+	int titleBarHeight = 0;
+	#if defined(NEUROMORE_PLATFORM_OSX)
+		QWidget * menuWidget = GetMainWindow()->menuWidget();
+		if (nullptr != menuWidget) {
+			titleBarHeight = menuWidget->height() + 20;
+		}
+	#endif
+
 	OnboardingAction* welcomeAction = new OnboardingAction(mainWindow);
 	welcomeAction->setTitle(QString("Welcome to neuromore Studio"));
 	welcomeAction->setDescription(QString("Let us give you a quick tour to show you how to create a simple neurofeedback application in neuromore Studio."));
-	welcomeAction->setWindowPosition(QRect(563, 281, 729, 222));
+	welcomeAction->setWindowPosition(QRect(563, 281 - titleBarHeight, 729, 222));
 	welcomeAction->setTitlePosition(QRect(38, 35, 545, 47));
 	welcomeAction->setDescriptionPosition(QRect(38, 118, 636, 50));
 	mOnboardingActions.push_back(welcomeAction);
@@ -46,12 +54,12 @@ bool TourManager::InitOnboardingActions()
 	}
 
 	fileHandlingAction->setWindowPosition(QRect(backendFileSystemWidget->x()+backendFileSystemWidget->width() + 38,
-												backendFileSystemWidget->y()+backendFileSystemWidget->height() / 4, 700, 396));
+												backendFileSystemWidget->y()+backendFileSystemWidget->height() / 4 - titleBarHeight, 700, 396));
 	fileHandlingAction->setTitlePosition(QRect(38, 44, 255, 50));
 	fileHandlingAction->setDescriptionPosition(QRect(38, 129, 620, 203));
 	fileHandlingAction->setPrevOnboardingAction(welcomeAction);
 	fileHandlingAction->setArrowPosition(OnboardingAction::ARROWTYPE::LEFTARROW, QRect(backendFileSystemWidget->x()+backendFileSystemWidget->width() + 10,
-																					   backendFileSystemWidget->y()+backendFileSystemWidget->height() / 3 + 25,
+																					   backendFileSystemWidget->y()+backendFileSystemWidget->height() / 3 + 25 - titleBarHeight,
 																					   30, 51));
 	welcomeAction->setNextOnboardingAction(fileHandlingAction);
 	mOnboardingActions.push_back(fileHandlingAction);
@@ -79,11 +87,11 @@ bool TourManager::InitOnboardingActions()
 	}
 
 	editorAction->setWindowPosition(QRect(classifierWidget->x() - backendFileSystemWidget->width() / 2,
-										  classifierWidget->y() + 3 * classifierTabRect.height() / 2 + 29, 765, 330));
+										  classifierWidget->y() + 3 * classifierTabRect.height() / 2 + 29 - titleBarHeight, 765, 330));
 	editorAction->setTitlePosition(QRect(38, 11, 368, 47));
 	editorAction->setDescriptionPosition(QRect(38, 72, 673, 201));
 	editorAction->setArrowPosition(OnboardingAction::ARROWTYPE::TOPARROW, QRect(classifierWidget->x(),
-																				classifierWidget->y() + 3 * classifierTabRect.height() / 2,
+																				classifierWidget->y() + 3 * classifierTabRect.height() / 2 - titleBarHeight,
 																				51, 30));
 	editorAction->setPrevOnboardingAction(fileHandlingAction);
 	fileHandlingAction->setNextOnboardingAction(editorAction);
@@ -112,11 +120,11 @@ bool TourManager::InitOnboardingActions()
 	}
 
 	stateMachineAction->setWindowPosition(QRect(classifierWidget->x() - backendFileSystemWidget->width() / 4,
-												classifierWidget->y() + 3 * stateTabRect.height() / 2 + 29, 791, 313));
+												classifierWidget->y() + 3 * stateTabRect.height() / 2 + 29 - titleBarHeight, 791, 313));
 	stateMachineAction->setTitlePosition(QRect(38, 11, 630, 80));
 	stateMachineAction->setDescriptionPosition(QRect(38, 113, 690, 203));
 	stateMachineAction->setArrowPosition(OnboardingAction::ARROWTYPE::TOPARROW, QRect(classifierWidget->x() + stateTabRect.x(),
-																					  classifierWidget->y() + 3 * stateTabRect.height() / 2,
+																					  classifierWidget->y() + 3 * stateTabRect.height() / 2 - titleBarHeight,
 																					  51, 30));
 	stateMachineAction->setPrevOnboardingAction(editorAction);
 	editorAction->setNextOnboardingAction(stateMachineAction);
@@ -145,11 +153,11 @@ bool TourManager::InitOnboardingActions()
 	}
 
 	experienceWindowAction->setWindowPosition(QRect(classifierWidget->x() - backendFileSystemWidget->width() / 6,
-													classifierWidget->y() + 3 * experienceTabRect.height() / 2 + 29, 791, 290));
+													classifierWidget->y() + 3 * experienceTabRect.height() / 2 + 29 - titleBarHeight, 791, 290));
 	experienceWindowAction->setTitlePosition(QRect(38, 11, 689, 38));
 	experienceWindowAction->setDescriptionPosition(QRect(38, 72, 680, 180));
 	experienceWindowAction->setArrowPosition(OnboardingAction::ARROWTYPE::TOPARROW, QRect(classifierWidget->x() + experienceTabRect.x(),
-																						  classifierWidget->y() + 3 * experienceTabRect.height() / 2,
+																						  classifierWidget->y() + 3 * experienceTabRect.height() / 2 - titleBarHeight,
 																						  51, 30));
 	experienceWindowAction->setPrevOnboardingAction(stateMachineAction);
 	stateMachineAction->setNextOnboardingAction(experienceWindowAction);
@@ -168,10 +176,10 @@ bool TourManager::InitOnboardingActions()
 		return false;
 	}
 
-	debugWindowAction->setWindowPosition(QRect(debugWindowWidget->x() - backendFileSystemWidget->width() / 6, debugWindowWidget->y() - 226, 791, 196));
+	debugWindowAction->setWindowPosition(QRect(debugWindowWidget->x() - backendFileSystemWidget->width() / 6, debugWindowWidget->y() - 226 - titleBarHeight, 791, 196));
 	debugWindowAction->setTitlePosition(QRect(34, 27, 689, 45));
 	debugWindowAction->setDescriptionPosition(QRect(34, 88, 680, 99));
-	debugWindowAction->setArrowPosition(OnboardingAction::ARROWTYPE::DOWNARROW, QRect(debugWindowWidget->x() + 131, debugWindowWidget->y() - 30, 51, 30));
+	debugWindowAction->setArrowPosition(OnboardingAction::ARROWTYPE::DOWNARROW, QRect(debugWindowWidget->x() + 131, debugWindowWidget->y() - 30 - titleBarHeight, 51, 30));
 	debugWindowAction->setPrevOnboardingAction(experienceWindowAction);
 	experienceWindowAction->setNextOnboardingAction(debugWindowAction);
 	mOnboardingActions.push_back(debugWindowAction);
@@ -195,11 +203,11 @@ bool TourManager::InitOnboardingActions()
 		return false;
 	}
 
-	feedbackViewAction->setWindowPosition(QRect(debugWindowWidget->x() - backendFileSystemWidget->width() / 4, debugWindowWidget->y() - 215, 795, 185));
+	feedbackViewAction->setWindowPosition(QRect(debugWindowWidget->x() - backendFileSystemWidget->width() / 4, debugWindowWidget->y() - 215 - titleBarHeight, 795, 185));
 	feedbackViewAction->setTitlePosition(QRect(37, 20, 689, 40));
 	feedbackViewAction->setDescriptionPosition(QRect(37, 81, 680, 99));
 	feedbackViewAction->setArrowPosition(OnboardingAction::ARROWTYPE::DOWNARROW, QRect(debugWindowWidget->x() + feedbackViewTabRect.x(),
-																					   debugWindowWidget->y() - 30, 51, 30));
+																					   debugWindowWidget->y() - 30 - titleBarHeight, 51, 30));
 	feedbackViewAction->setPrevOnboardingAction(debugWindowAction);
 	debugWindowAction->setNextOnboardingAction(feedbackViewAction);
 	mOnboardingActions.push_back(feedbackViewAction);
@@ -231,11 +239,11 @@ bool TourManager::InitOnboardingActions()
 		return false;
 	}
 
-	customParametersAction->setWindowPosition(QRect(0, sessionControlWidget->y() - 267, 791, 237));
+	customParametersAction->setWindowPosition(QRect(0, sessionControlWidget->y() - 267 - titleBarHeight, 791, 237));
 	customParametersAction->setTitlePosition(QRect(37, 20, 689, 45));
 	customParametersAction->setDescriptionPosition(QRect(38, 80, 673, 99));
 	customParametersAction->setArrowPosition(OnboardingAction::ARROWTYPE::DOWNARROW, QRect(customParametersTabRect.x(),
-																						   sessionControlWidget->y() - 30, 51, 30));
+																						   sessionControlWidget->y() - 30 - titleBarHeight, 51, 30));
 	customParametersAction->setPrevOnboardingAction(feedbackViewAction);
 	feedbackViewAction->setNextOnboardingAction(customParametersAction);
 	mOnboardingActions.push_back(customParametersAction);
@@ -245,10 +253,10 @@ bool TourManager::InitOnboardingActions()
 	sessionControlAction->setDescription(QString("Now it's time to run the experience. Click on the \"Go\" button "
 		"to start a session. You can also use one of our existing neurofeedback  visualizations by clicking on "
 		"the button with the eye icon. "));
-	sessionControlAction->setWindowPosition(QRect(0, sessionControlWidget->y() - 267, 791, 237));
+	sessionControlAction->setWindowPosition(QRect(0, sessionControlWidget->y() - 267 - titleBarHeight, 791, 237));
 	sessionControlAction->setTitlePosition(QRect(38, 11, 689, 45));
 	sessionControlAction->setDescriptionPosition(QRect(38, 80, 680, 99));
-	sessionControlAction->setArrowPosition(OnboardingAction::ARROWTYPE::DOWNARROW, QRect(20, sessionControlWidget->y() - 30, 51, 30));
+	sessionControlAction->setArrowPosition(OnboardingAction::ARROWTYPE::DOWNARROW, QRect(20, sessionControlWidget->y() - 30 - titleBarHeight, 51, 30));
 	sessionControlAction->setPrevOnboardingAction(customParametersAction);
 	customParametersAction->setNextOnboardingAction(sessionControlAction);
 	mOnboardingActions.push_back(sessionControlAction);
@@ -260,7 +268,7 @@ bool TourManager::InitOnboardingActions()
 		"Click on one of the 3 buttons in the experience window and see how the image brightness of the "
 		"video changes according to the average Alpha band amplitude."));
 	endTutorialAction->setActivePlugin("Experience");
-	endTutorialAction->setWindowPosition(QRect(27, 60, 670, 279));
+	endTutorialAction->setWindowPosition(QRect(27, 60 - titleBarHeight, 670, 279));
 	endTutorialAction->setTitlePosition(QRect(38, 11, 689, 45));
 	endTutorialAction->setDescriptionPosition(QRect(38, 80, 590, 95));
 	endTutorialAction->setPrevOnboardingAction(sessionControlAction);
