@@ -363,6 +363,13 @@ DEFINES   := $(DEFINES)
 endif
 
 ################################################################################################
+# PCH
+
+pch:
+	@echo [PCH] $(OBJDIR)/$(PCH).pch
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -x c++-header $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
+
+################################################################################################
 # MOC
 
 MOCH := $(patsubst %,$(MOCDIR)/%,$(MOCH))
@@ -387,11 +394,11 @@ $(MOCDIR)/%.mocmm:
 
 $(OBJDIR)/%.omoc:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)/%.omoc=$(MOCDIR)/moc_$(@F:.omoc=.cpp)) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omoc=$(MOCDIR)/moc_$(@F:.omoc=.cpp)) -o $@
 
 $(OBJDIR)/%.omocmm:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)/%.omocmm=$(MOCDIR)/moc_%.mm) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omocmm=$(MOCDIR)/moc_%.mm) -o $@
 
 ################################################################################################
 # RCC
@@ -423,26 +430,29 @@ OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
 
 $(OBJDIR)/%.oc:
 	@echo [CC]  $@
-	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -c $(@:$(OBJDIR)%.oc=$(SRCDIR)%.c) -o $@
+	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.oc=$(SRCDIR)%.c) -o $@
 
 $(OBJDIR)/%.omm:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
 
 ################################################################################################
 
 .DEFAULT_GOAL := build
+
+$(MOCO) : pch
+$(OBJS) : pch
 
 PRES := $(MOCH) $(MOCC) $(RCCH) $(UICH)
 OBLS := $(OBJS) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
 
-build: $(PRES) $(OBLS)
+build: pch $(PRES) $(OBLS)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(MOCO) $(RCCO) $(OBJS)
 
@@ -452,6 +462,7 @@ clean:
 	$(call deletefiles,$(MOCDIR),*.mocmm)
 	$(call deletefiles,$(RCCDIR),*.cpp)
 	$(call deletefiles,$(UICDIR),*.h)
+	$(call deletefiles,$(OBJDIR),$(PCH).pch)
 	$(call deletefiles,$(OBJDIR),*.o)
 	$(call deletefiles,$(OBJDIR),*.oc)
 	$(call deletefiles,$(OBJDIR),*.omm)
