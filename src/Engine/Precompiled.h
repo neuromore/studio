@@ -9,11 +9,16 @@
 #include <Engine/Core/AttributeInt32.h>
 #include <Engine/Core/AttributeString.h>
 #include <Engine/Core/AttributeColor.h>
+#include <Engine/Core/ByteArray.h>
+#include <Engine/Core/Color.h>
 #include <Engine/Core/Json.h>
 #include <Engine/Core/LogManager.h>
 #include <Engine/Core/Math.h>
+#include <Engine/Core/Mutex.h>
 #include <Engine/Core/StandardHeaders.h>
 #include <Engine/Core/String.h>
+#include <Engine/Core/StringCharacter.h>
+#include <Engine/Core/StringIterator.h>
 #include <Engine/Core/Time.h>
 #include <Engine/Core/Timer.h>
 #include <Engine/Core/Vector.h>
@@ -26,13 +31,16 @@
 #include <Engine/DSP/Spectrum.h>
 
 // From Graph Folder
+#include <Engine/Graph/Connection.h>
 #include <Engine/Graph/Graph.h>
 #include <Engine/Graph/Node.h>
 #include <Engine/Graph/InputNode.h>
 #include <Engine/Graph/OutputNode.h>
+#include <Engine/Graph/Port.h>
 #include <Engine/Graph/ProcessorNode.h>
 #include <Engine/Graph/SPNode.h>
 #include <Engine/Graph/State.h>
+#include <Engine/Graph/StateMachine.h>
 
 // From Devices Folder
 #include <Engine/Devices/DeviceInventory.h>
