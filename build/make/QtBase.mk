@@ -367,7 +367,7 @@ endif
 
 pch:
 	@echo [PCH] $(OBJDIR)/$(PCH).pch
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -x c++-header $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -x c++-header -c $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
 
 ################################################################################################
 # MOC
