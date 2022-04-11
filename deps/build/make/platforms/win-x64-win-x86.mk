@@ -14,7 +14,7 @@ LIBDIR     = lib/win-x86
 BINDIR     = bin/win-x86
 TARGET     = i686-pc-windows-msvc
 CPUFLAGS   = -msse -msse2 -msse3
-DEFINES    = -DWIN32
+DEFINES    = -DWIN32 -D_MT
 INCLUDES   = 
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -static
@@ -37,11 +37,11 @@ DEFINES   := $(DEFINES) -DNDEBUG
 CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
 CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
 LINKFLAGS := $(LINKFLAGS) -flto -g -Xlinker /OPT:ref -Xlinker /OPT:icf
-LINKLIBS  := $(LINKLIBS)
+LINKLIBS  := $(LINKLIBS) -llibcmt.lib
 else
 DEFINES   := $(DEFINES) -D_DEBUG
 CXXFLAGS  := $(CXXFLAGS) -Og -g3
 CFLAGS    := $(CFLAGS) -Og -g3
-LINKFLAGS := $(LINKFLAGS) -g3 -MTd
-LINKLIBS  := $(LINKLIBS) -lDbgHelp.lib -lmsvcrtd.lib
+LINKFLAGS := $(LINKFLAGS) -g3
+LINKLIBS  := $(LINKLIBS) -llibcmtd.lib -lDbgHelp.lib
 endif

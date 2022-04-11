@@ -14,7 +14,7 @@ LIBDIR     = lib/win-arm64
 BINDIR     = bin/win-arm64
 TARGET     = aarch64-pc-windows-msvc
 CPUFLAGS   = -march=armv8-a
-DEFINES    =
+DEFINES    = -DWIN32 -DWIN64 -D_MT
 INCLUDES   = 
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -static
@@ -28,19 +28,20 @@ LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/arm64
 LINKLIBS   = 
 
 # MSVC Resource Compiler
-RC          = llvm-rc
-RCFLAGS_X86 = /l 0x0409 /nologo
-RCFLAGS_X64 = /l 0x0409 /nologo
+RC         = llvm-rc
+RCFLAGS    = /l 0x0409 /nologo
 
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
 CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
 CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-LINKFLAGS := $(LINKFLAGS) -flto -g -Xlinker -MT /OPT:ref -Xlinker /OPT:icf
+LINKFLAGS := $(LINKFLAGS) -flto -g -Xlinker /OPT:ref -Xlinker /OPT:icf
+LINKLIBS  := $(LINKLIBS) -llibcmt.lib
 else
 DEFINES   := $(DEFINES) -D_DEBUG
 CXXFLAGS  := $(CXXFLAGS) -Og -g3
 CFLAGS    := $(CFLAGS) -Og -g3
-LINKFLAGS := $(LINKFLAGS) -g3 -MTd
+LINKFLAGS := $(LINKFLAGS) -g3
+LINKLIBS  := $(LINKLIBS) -llibcmtd.lib -lDbgHelp.lib
 endif
