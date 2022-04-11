@@ -420,8 +420,14 @@ RCCO      := $(RCCO)
 UICH      := $(UICH)
 RESO      := $(RESO) Resources/NMStudio.res
 OBJS      := $(OBJS)
+LINKFLAGS := $(LINKFLAGS)
 LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/qt-platform-windows$(SUFFIX)$(EXTLIB)
+ifeq ($(MODE),debug)
+LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:CONSOLE
+else
+LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:WINDOWS
+endif
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
@@ -586,11 +592,12 @@ endif
 endif
 
 ################################################################################################
+# MODE
 
-ifeq ($(MODE),release)
-DEFINES   := $(DEFINES) -DQT_NO_DEBUG
+ifeq ($(MODE),debug)
+DEFINES := $(DEFINES) -DQT_DEBUG
 else
-DEFINES   := $(DEFINES)
+DEFINES := $(DEFINES) -DQT_NO_DEBUG -DPRODUCTION_BUILD
 endif
 
 ################################################################################################

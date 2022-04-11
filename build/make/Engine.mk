@@ -214,6 +214,8 @@ OBJS       = Core/AABB.o \
              SessionExporter.o \
              User.o
 
+################################################################################################
+
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES) -DNEUROMORE_ARCHITECTURE_X86
 endif
@@ -230,6 +232,8 @@ ifeq ($(TARGET_ARCH),arm64)
 DEFINES   := $(DEFINES)
 endif
 
+################################################################################################
+# WINDOWS
 ifeq ($(TARGET_OS),win)
 DEFINES   := $(DEFINES) \
              -D_CRT_SECURE_NO_WARNINGS \
@@ -250,6 +254,8 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+################################################################################################
+# OSX
 ifeq ($(TARGET_OS),osx)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_OSX
 CXXFLAGS  := $(CXXFLAGS)
@@ -268,6 +274,8 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+################################################################################################
+# LINUX
 ifeq ($(TARGET_OS),linux)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_LINUX
 CXXFLAGS  := $(CXXFLAGS)
@@ -286,6 +294,8 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+################################################################################################
+# ANDROID
 ifeq ($(TARGET_OS),android)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_ANDROID
 CXXFLAGS  := $(CXXFLAGS)
@@ -303,6 +313,18 @@ ifeq ($(TARGET_ARCH),arm64)
 DEFINES   := $(DEFINES)
 endif
 endif
+
+
+################################################################################################
+# MODE
+
+ifeq ($(MODE),debug)
+DEFINES := $(DEFINES)
+else
+DEFINES := $(DEFINES) -DPRODUCTION_BUILD
+endif
+
+################################################################################################
 
 pch:
 	@echo [PCH] $(OBJDIR)/$(PCH).pch

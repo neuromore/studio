@@ -355,11 +355,12 @@ endif
 endif
 
 ################################################################################################
+# MODE
 
-ifeq ($(MODE),release)
-DEFINES   := $(DEFINES) -DQT_NO_DEBUG
+ifeq ($(MODE),debug)
+DEFINES := $(DEFINES) -DQT_DEBUG
 else
-DEFINES   := $(DEFINES)
+DEFINES := $(DEFINES) -DQT_NO_DEBUG -DPRODUCTION_BUILD
 endif
 
 ################################################################################################
