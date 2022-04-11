@@ -49,11 +49,6 @@ OBJS       = Core/AABB.o \
              Core/Thread.o \
              Core/ThreadHandler.o \
              Core/Time.o \
-             Core/TimerAndroid.o \
-             Core/TimeriOS.o \
-             Core/TimerLinux.o \
-             Core/TimermacOS.o \
-             Core/TimerWindows.o \
              Core/Version.o \
              Devices/ABM/AbmDevices.o \
              Devices/Audio/AudioDevices.o \
@@ -240,6 +235,7 @@ DEFINES   := $(DEFINES) \
              -D_CRT_SECURE_NO_WARNINGS \
              -DNEUROMORE_PLATFORM_WINDOWS
 CXXFLAGS  := $(CXXFLAGS)
+OBJS      := $(OBJS) Core/TimerWindows.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES) 
 endif
@@ -257,6 +253,7 @@ endif
 ifeq ($(TARGET_OS),osx)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_OSX
 CXXFLAGS  := $(CXXFLAGS)
+OBJS      := $(OBJS) Core/TimermacOS.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
@@ -274,6 +271,7 @@ endif
 ifeq ($(TARGET_OS),linux)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_LINUX
 CXXFLAGS  := $(CXXFLAGS)
+OBJS      := $(OBJS) Core/TimerLinux.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
@@ -291,6 +289,7 @@ endif
 ifeq ($(TARGET_OS),android)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_ANDROID
 CXXFLAGS  := $(CXXFLAGS)
+OBJS      := $(OBJS) Core/TimerAndroid.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
