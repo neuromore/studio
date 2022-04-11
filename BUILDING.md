@@ -1,50 +1,13 @@
-## Building
+## Building and Developing
 
-We provide two integrated build environments in this repository:
+We provide two integrated build and development environments in this repository:
 
-- [Visual Studio](#visual-studio) solution for intuitive Windows development using MSVC++ as compiler
 - [GNU Makefiles](#gnu-make-clang) for building with Clang/LLVM on multiple platforms
-
-### Visual Studio
-
-_Folder:_ [/build/vs](https://github.com/neuromore/studio/tree/master/build/vs)
-
-_Requirements:_
-
-- Visual Studio 2019 (default) or 2017 (old)
-- Installed VS-Feature: Desktop Development (C/MSVC++ tools/components)
-- Installed VS-Feature: Windows 10 SDK (any version, the later the better)
-
-_Steps:_
-
-- Open [Neuromore.sln](https://github.com/neuromore/studio/blob/master/build/vs/Neuromore.sln) in Visual Studio
-- For VS2017: Manually downgrade project platformtoolset from v142 (2019) to v141 (2017)
-- For VS2017: Manually set a Win 10 SDK version that you have installed
-- Build the "Studio" project in release mode or start it directly in debug mode
-
-_Configurations:_
-
-| Name       | Optimized | Debuggable | Logging | Notes                          |
-| ---------- | --------- | ---------- | ------- | ------------------------------ |
-| Debug      | No        | Yes        | Max     |                                |
-| Release    | Yes       | No         | Medium  | Also called DEVELOPMENT        |
-| Production | Yes       | No         | Min     | Release + PRODUCTION_BUILD set |
-
-_Build Output Studio:_
-
-| Arch | Folder            |
-| ---- | ----------------- |
-| x86  | /build/vs/bin/x86 |
-| x64  | /build/vs/bin/x64 |
-
-_Notes:_
-
-- Creates portable, stand-alone executable not requiring any special DLLs
-- Runs on Windows 7 and above
+- [Visual Studio](#visual-studio) solution for intuitive Windows development using MSVC++ as compiler
 
 ### GNU Make + Clang
 
-This is our multi-platform build environment based on [GNU Make](https://www.gnu.org/software/make/) and [Clang](https://clang.llvm.org/).
+This is our main multi-platform build environment based on [GNU Make](https://www.gnu.org/software/make/) and [Clang](https://clang.llvm.org/).
 
 It supports the following platforms:
 
@@ -121,68 +84,116 @@ ar
 
 ##### Windows
 
-- We recommend to use Visual Studio on Windows, not Clang.
 - Visual Studio is still required to build with Clang on Windows (linking VC runtime).
 - Requires GNU Make for Windows, Clang for Windows and LLVM for Windows (TODO: Links)
 
 #### Building (all platforms)
 
-_Building third party dependencies:_
+##### Makefile Parameters
+
+Following Parameters are supported. Defaults will be used if not provided.
+
+| Parameter   | Values                      | Default    |
+| ----------- | --------------------------- | ---------- |
+| MODE        | debug, release, production  | debug      |
+| BRANDING    | neuromore, ant, starrbase   | neuromore  |
+| TARGET_OS   | win, osx, linux, android    | {host-os}  |
+| TARGET_ARCH | x86, x64, arm, arm64        | {host-cpu} |
+
+##### Basic Builds with Defaults
+
+_Building third party dependencies in debug mode for operating system and CPU of the current host:_
 
 ```
-cd deps/build/make
+make Dependencies
+```
+
+_Building all neuromore projects in debug mode for operating system and CPU of the current host:_
+
+```
 make
 ```
 
-_Building Studio:_
+_Cleaning debug third party dependencies for operating system and CPU of the current host:_
 
 ```
-cd build/make
-make
+make Dependencies-clean
 ```
 
-_Cleaning third party dependencies:_
+_Cleaning all neuromore projects in debug mode for operating system and CPU of the current host:_
 
 ```
-cd deps/build/make
 make clean
 ```
 
-_Cleaning Studio:_
+##### Customized Examples
+
+_Building with customized parameters:_
 
 ```
-cd build/make
-make clean
+make MODE=release TARGET_OS=win TARGET_ARCH=x86 Dependencies
+make MODE=release TARGET_OS=win TARGET_ARCH=x86 Studio
 ```
 
-_Building with custom parameters:_
+##### Build Output Folders
 
-```
-cd deps/build/make
-make all-x64 -f Makefile.linux -j 4
-```
+_Example Outputs of Executables:_
 
-_Notes:_
+| OS  | Arch | Mode    | Folder                               |
+| --- | ---- | ------- | ------------------------------------ |
+| win | x86  | debug   | /build/make/bin/win-x86/Studio_d.exe |
+| osx | x64  | release | /build/make/bin/osx-x64/Studio       |
+| ... | ...  | ...     | ...                                  |
 
-- Building without parameters will build for your current os, arch and cpu cores count
-- Building the dependencies is only required once (or when they change, which doesn't occur often)
-- Custom: Replace 'linux' in 'Makefile.linux' by 'windows' or 'osx' to build on Windows or OSX
-- Custom: Replace 'x64' by 'x86' to build the 32 Bit version instead of 64 Bit
-- Custom: Replace '4' in '-j 4' by the number of cores you want to use for compilation
+_Example Outputs Third Party Libraries:_
+
+| OS  | Arch | Folder                                  |
+| --- | ---- | --------------------------------------- |
+| win | x86  | /deps/build/make/lib/win-x86/zlib_d.lib |
+| osx | x64  | /deps/build/make/lib/osx-x64/zlib.a     |
+| ... | ...  | ...                                     |
+
+
+### Visual Studio (deprecated)
+
+TODO: Update this
+
+_Folder:_ [/build/vs](https://github.com/neuromore/studio/tree/master/build/vs)
+
+_Requirements:_
+
+- Visual Studio 2019 (default) or 2017 (old)
+- Installed VS-Feature: Desktop Development (C/MSVC++ tools/components)
+- Installed VS-Feature: Windows 10 SDK (any version, the later the better)
+
+_Steps:_
+
+- Open [Neuromore.sln](https://github.com/neuromore/studio/blob/master/Neuromore.sln) in Visual Studio
+- For VS2017: Manually downgrade project platformtoolset from v142 (2019) to v141 (2017)
+- For VS2017: Manually set a Win 10 SDK version that you have installed
+- Build the "Studio" project in release mode or start it directly in debug mode
+
+_Configurations:_
+
+| Name       | Optimized | Debuggable | Logging | Notes                          |
+| ---------- | --------- | ---------- | ------- | ------------------------------ |
+| Debug      | No        | Yes        | Max     |                                |
+| Release    | Yes       | No         | Medium  | Also called DEVELOPMENT        |
+| Production | Yes       | No         | Min     | Release + PRODUCTION_BUILD set |
 
 _Build Output Studio:_
 
-| Arch | Folder              |
-| ---- | ------------------- |
-| x86  | /build/make/bin/x86 |
-| x64  | /build/make/bin/x64 |
+| Arch | Folder            |
+| ---- | ----------------- |
+| x86  | /build/vs/bin/x86 |
+| x64  | /build/vs/bin/x64 |
 
-_Build Output Dependencies:_
+_Notes:_
 
-| Arch | Folder                   |
-| ---- | ------------------------ |
-| x86  | /deps/build/make/lib/x86 |
-| x64  | /deps/build/make/lib/x64 |
+- Creates portable, stand-alone executable not requiring any special DLLs
+- Runs on Windows 7 and above
+
+
 
 #### Customizing the Build
 
