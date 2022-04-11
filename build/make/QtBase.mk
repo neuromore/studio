@@ -22,6 +22,7 @@ DEFINES   := $(DEFINES) \
              -DPCRE2_STATIC \
              -D_ENABLE_EXTENDED_ALIGNED_STORAGE
 INCLUDES  := $(INCLUDES) \
+             -I../../src \
              -I../../src/Engine \
              -I$(INCDIR) \
              -I$(SRCDIR) \
@@ -41,15 +42,12 @@ CFLAGS    := $(CFLAGS)
 LINKFLAGS := $(LINKFLAGS)
 LINKPATH  := $(LINKPATH)
 LINKLIBS  := $(LINKLIBS)
+PCH        = Precompiled
 MOCH       = AttributeWidgets/AttributeSetGridWidget.cpp \
-             AttributeWidgets/AttributeWidgetCreators.cpp \
-             AttributeWidgets/AttributeWidgetFactory.cpp \
              AttributeWidgets/AttributeWidgets.cpp \
-             AttributeWidgets/Property.cpp \
              AttributeWidgets/PropertyManager.cpp \
              AttributeWidgets/PropertyTreeWidget.cpp \
              Audio/MediaContent.cpp \
-             AutoUpdate/AutoUpdate.cpp \
              Backend/BackendFileSystem.cpp \
              Backend/BackendInterface.cpp \
              Backend/BackendParameters.cpp \
@@ -83,7 +81,6 @@ MOCH       = AttributeWidgets/AttributeSetGridWidget.cpp \
              Gamepad.cpp \
              GamepadManager.cpp \
              ImageButton.cpp \
-             ImageManipulation.cpp \
              Layout.cpp \
              LayoutComboBox.cpp \
              LayoutManager.cpp \
@@ -91,11 +88,9 @@ MOCH       = AttributeWidgets/AttributeSetGridWidget.cpp \
              LinkWidget.cpp \
              MainWindowBase.cpp \
              PainterStaticTextCache.cpp \
-             QtBaseConfig.cpp \
              QtBaseManager.cpp \
              Slider.cpp \
-             Spinbox.cpp \
-             SystemInfo.cpp
+             Spinbox.cpp
 MOCC       =
 MOCO       = $(patsubst %.cpp,%.omoc,$(MOCH))
 RCCH       = Resources/Assets.cpp \
@@ -376,19 +371,19 @@ MOCO := $(patsubst %,$(OBJDIR)/%,$(MOCO))
 
 $(MOCDIR)/%.cpp:
 	@echo [MOC] $@
-	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.cpp=$(INCDIRQT)/%.h) -o $(@:$(MOCDIR)/%.cpp=$(MOCDIR)/moc_$(@F))
+	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.cpp=$(INCDIRQT)/%.h) -b $(NAME)/$(PCH).h -o $(@:$(MOCDIR)/%.cpp=$(MOCDIR)/moc_$(@F))
 
 $(MOCDIR)/%.mm:
 	@echo [MOC] $@
-	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.mm=$(INCDIRQT)/%.h) -o $(@:$(MOCDIR)/%.mm=$(MOCDIR)/moc_$(@F))
+	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.mm=$(INCDIRQT)/%.h) -b $(NAME)/$(PCH).h -o $(@:$(MOCDIR)/%.mm=$(MOCDIR)/moc_$(@F))
 
 $(MOCDIR)/%.moc:
 	@echo [MOC] $@
-	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.moc=$(SRCDIR)/%.cpp) -o $(@:$(MOCDIR)/%.moc=$(MOCDIR)/$(@F))
+	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.moc=$(SRCDIR)/%.cpp) -b $(NAME)/$(PCH).h -o $(@:$(MOCDIR)/%.moc=$(MOCDIR)/$(@F))
 
 $(MOCDIR)/%.mocmm:
 	@echo [MOC] $@
-	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.mocmm=$(SRCDIR)/%.mm) -o $(@:$(MOCDIR)/%.mocmm=$(MOCDIR)/$(basename $(@F)).moc)
+	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.mocmm=$(SRCDIR)/%.mm) -b $(NAME)/$(PCH).h -o $(@:$(MOCDIR)/%.mocmm=$(MOCDIR)/$(basename $(@F)).moc)
 
 $(OBJDIR)/%.omoc:
 	@echo [CXX] $@
