@@ -134,10 +134,6 @@ struct VersusCommandPacket
 	// set command
 	void SetCommand(EVersusCommand cmd)
 	{
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-		CORE_ASSERT(cmd < 100);
-#endif
-
 		sprintf(mCommand, "%i", cmd);
 
 		// fix the \0 char caused by sprintf ^.^
