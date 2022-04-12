@@ -27,10 +27,10 @@ Engine:
 Engine-clean:
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Engine.mk clean -j $(DETECTED_CORES)
 
-EngineJNI: Engine
+EngineJNI:
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f EngineJNI.mk -j $(DETECTED_CORES)
 
-EngineJNI-clean: Engine-clean
+EngineJNI-clean:
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f EngineJNI.mk clean -j $(DETECTED_CORES)
 
 QtBase:
@@ -39,10 +39,10 @@ QtBase:
 QtBase-clean:
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f QtBase.mk clean -j $(DETECTED_CORES)
 
-Studio: Engine QtBase
+Studio:
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Studio.mk -j $(DETECTED_CORES)
 
-Studio-clean: Engine-clean QtBase-clean
+Studio-clean:
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Studio.mk clean -j $(DETECTED_CORES)
 
 # combined
