@@ -7,5 +7,5 @@ endef
 
 # Copy Files between Folders by Pattern
 define copyfiles
-	cp $(1) $(2)
+	cp $(1) $(2) 2>/dev/null || :
 endef
