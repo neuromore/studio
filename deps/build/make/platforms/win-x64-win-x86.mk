@@ -13,7 +13,7 @@ OBJDIR     = obj/win-x86-$(MODE)
 LIBDIR     = lib/win-x86
 BINDIR     = bin/win-x86
 TARGET     = i686-pc-windows-msvc
-CPUFLAGS   = -msse -msse2 -msse3
+CPUFLAGS   = -march=i686 -mtune=generic -msse -msse2 -msse3
 DEFINES    = -DWIN32 -D_MT
 INCLUDES   = 
 CXX        = clang++

@@ -14,7 +14,7 @@ LIBDIR     = lib/osx-x64
 BINDIR     = bin/osx-x64
 TARGET     = x86_64-apple-darwin19.6.0
 MINVER     = -mmacosx-version-min=10.15
-CPUFLAGS   = -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mpclmul
+CPUFLAGS   = -march=x86-64-v2 -mtune=generic -mpclmul -maes -mavx
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
