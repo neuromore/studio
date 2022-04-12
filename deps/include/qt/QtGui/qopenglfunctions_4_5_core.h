@@ -57,7 +57,7 @@
 #include <QtGui/QOpenGLVersionFunctions>
 #include <QtGui/qopenglcontext.h>
 
-#ifdef MemoryBarrier
+#if (defined(__arm__) || defined(__aarch64__)) && defined(MemoryBarrier)
 #undef MemoryBarrier
 #endif
 

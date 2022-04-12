@@ -16,15 +16,39 @@ LINKLIBS  := $(LINKLIBS)
 OBJS       = png.o pngerror.o pngget.o pngmem.o pngpread.o pngread.o pngrio.o pngrtran.o pngrutil.o \
              pngset.o pngtrans.o pngwio.o pngwrite.o pngwtran.o pngwutil.o
 
+################################################################################################
+# CPU
+
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES) -DPNG_INTEL_SSE
-OBJS      := $(OBJS) intel/filter_sse2_intrinsics.o intel/intel_init.o
+OBJS      := $(OBJS) \
+             intel/filter_sse2_intrinsics.o \
+             intel/intel_init.o
 endif
 
 ifeq ($(TARGET_ARCH),x64)
 DEFINES   := $(DEFINES) -DPNG_INTEL_SSE
-OBJS      := $(OBJS) intel/filter_sse2_intrinsics.o intel/intel_init.o
+OBJS      := $(OBJS) \
+             intel/filter_sse2_intrinsics.o \
+             intel/intel_init.o
 endif
+
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+OBJS      := $(OBJS) \
+             arm/arm_init.o \
+             arm/filter_neon_intrinsics.o
+endif
+
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+OBJS      := $(OBJS) \
+             arm/arm_init.o \
+             arm/filter_neon_intrinsics.o
+endif
+
+################################################################################################
+# OS
 
 ifeq ($(TARGET_OS),win)
 DEFINES   := $(DEFINES) -D_CRT_SECURE_NO_WARNINGS

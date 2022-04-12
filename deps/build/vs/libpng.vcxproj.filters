@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\libpng\png.c" />
+    <ClCompile Include="..\..\src\libpng\pngerror.c" />
+    <ClCompile Include="..\..\src\libpng\pngget.c" />
+    <ClCompile Include="..\..\src\libpng\pngmem.c" />
+    <ClCompile Include="..\..\src\libpng\pngpread.c" />
+    <ClCompile Include="..\..\src\libpng\pngread.c" />
+    <ClCompile Include="..\..\src\libpng\pngrio.c" />
+    <ClCompile Include="..\..\src\libpng\pngrtran.c" />
+    <ClCompile Include="..\..\src\libpng\pngrutil.c" />
+    <ClCompile Include="..\..\src\libpng\pngset.c" />
+    <ClCompile Include="..\..\src\libpng\pngtrans.c" />
+    <ClCompile Include="..\..\src\libpng\pngwio.c" />
+    <ClCompile Include="..\..\src\libpng\pngwrite.c" />
+    <ClCompile Include="..\..\src\libpng\pngwtran.c" />
+    <ClCompile Include="..\..\src\libpng\pngwutil.c" />
+    <ClCompile Include="..\..\src\libpng\intel\filter_sse2_intrinsics.c">
+      <Filter>intel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libpng\intel\intel_init.c">
+      <Filter>intel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libpng\arm\arm_init.c">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libpng\arm\filter_neon_intrinsics.c">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libpng\arm\palette_neon_intrinsics.c">
+      <Filter>arm</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\libpng\png.h" />
+    <ClInclude Include="..\..\include\libpng\pngconf.h" />
+    <ClInclude Include="..\..\include\libpng\pngdebug.h" />
+    <ClInclude Include="..\..\include\libpng\pnginfo.h" />
+    <ClInclude Include="..\..\include\libpng\pnglibconf.h" />
+    <ClInclude Include="..\..\include\libpng\pngpriv.h" />
+    <ClInclude Include="..\..\include\libpng\pngstruct.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="intel">
+      <UniqueIdentifier>{0ce44bce-9d1b-4e69-ba78-f27b7689e181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arm">
+      <UniqueIdentifier>{6d9bc2a8-3660-40e1-8499-562ab99d8d46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\libpng\arm\filter_neon.S">
+      <Filter>arm</Filter>
+    </None>
+  </ItemGroup>
+</Project>
