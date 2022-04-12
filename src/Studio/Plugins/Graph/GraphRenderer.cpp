@@ -490,9 +490,6 @@ void GraphRenderer::RenderNode(Graph* graph, Node* node, QPainter& painter, cons
 		if (node->HasError() == true)
 		{
 			#ifndef SCREENSHOT_MODE
-            #ifdef NEUROMORE_PLATFORM_WINDOWS
-			#pragma message ( CORE_TODO "Hacky implementation! Fix me!" )
-            #endif
 			
 			// pixmap and position
 			int pixmapSize = (32.0 * mShared->GetScreenScaling());
