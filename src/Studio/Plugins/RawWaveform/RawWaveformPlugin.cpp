@@ -26,7 +26,6 @@
 
 // include required headers
 #include "RawWaveformPlugin.h"
-#include <AttributeWidgets/AttributeSetGridWidget.h>
 
 using namespace Core;
 

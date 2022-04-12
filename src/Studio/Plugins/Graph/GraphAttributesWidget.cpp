@@ -26,9 +26,6 @@
 
 // include required headers
 #include "GraphAttributesWidget.h"
-#include <AttributeWidgets/AttributeWidgetFactory.h>
-#include "../../MainWindow.h"
-
 
 using namespace Core;
 

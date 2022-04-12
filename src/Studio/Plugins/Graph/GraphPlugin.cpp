@@ -28,7 +28,6 @@
 #include "GraphPlugin.h"
 #include "GraphPaletteWidget.h"
 #include <Graph/GraphExporter.h>
-#include "../../MainWindow.h"
 
 using namespace Core;
 

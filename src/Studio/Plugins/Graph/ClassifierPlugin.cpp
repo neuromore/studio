@@ -26,7 +26,6 @@
 
 // include required headers
 #include "ClassifierPlugin.h"
-#include "../../MainWindow.h"
 
 using namespace Core;
 

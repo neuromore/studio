@@ -27,7 +27,6 @@
 // include required headers
 #include "SessionControlPlugin.h"
 #include <SessionExporter.h>
-#include "../../MainWindow.h"
 #include "../../Windows/ReportWindow.h"
 #include "../../Windows/VisualizationSelectWindow.h"
 #include <Backend/DataChunksCreateRequest.h>

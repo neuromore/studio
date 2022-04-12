@@ -26,10 +26,8 @@
 
 // include required headers
 #include "SpectrumAnalyzerSettingsPlugin.h"
-#include <Studio/MainWindow.h>
 
 using namespace Core;
-
 
 // constructor
 SpectrumAnalyzerSettingsPlugin::SpectrumAnalyzerSettingsPlugin() : Plugin(GetStaticTypeUuid())

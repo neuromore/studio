@@ -26,7 +26,6 @@
 
 // include required headers
 #include "HeatmapPlugin.h"
-#include <AttributeWidgets/AttributeSetGridWidget.h>
 
 using namespace Core;
 

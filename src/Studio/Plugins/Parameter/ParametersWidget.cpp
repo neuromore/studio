@@ -27,7 +27,6 @@
 // include required headers
 #include "ParametersWidget.h"
 
-
 using namespace Core;
 
 // constructor

@@ -30,7 +30,6 @@
 #include "GraphPlugin.h"
 #include "GraphRendererState.h"
 #include "GraphPaletteWidget.h"
-#include "../../MainWindow.h"
 
 using namespace Core;
 

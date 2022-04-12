@@ -26,9 +26,6 @@
 
 // include required headers
 #include "ABMPlugin.h"
-#include <Core/LogManager.h>
-#include <AttributeWidgets/AttributeSetGridWidget.h>
-
 
 using namespace Core;
 

@@ -26,10 +26,7 @@
 
 // include required headers
 #include "ViewPlugin.h"
-#include <Studio/MainWindow.h>
 #include <DSP/Epoch.h>
-#include <AttributeWidgets/AttributeSetGridWidget.h>
-
 
 using namespace Core;
 

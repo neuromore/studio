@@ -26,7 +26,6 @@
 
 // include required headers
 #include "BackendFileSystemPlugin.h"
-#include "../../MainWindow.h"
 
 using namespace Core;
 

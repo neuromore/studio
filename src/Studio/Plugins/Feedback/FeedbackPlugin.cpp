@@ -26,8 +26,6 @@
 
 // include required headers
 #include "FeedbackPlugin.h"
-#include "../../MainWindow.h"
-#include <AttributeWidgets/AttributeSetGridWidget.h>
 
 using namespace Core;
 

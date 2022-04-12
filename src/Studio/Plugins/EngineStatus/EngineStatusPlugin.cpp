@@ -27,7 +27,6 @@
 // include required headers
 #include "EngineStatusPlugin.h"
 #include <Networking/NetworkClient.h>
-#include "../../MainWindow.h"
 
 using namespace Core;
 

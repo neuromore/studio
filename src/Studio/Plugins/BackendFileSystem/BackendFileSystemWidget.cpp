@@ -29,7 +29,6 @@
 #include "BackendFileSystemPlugin.h"
 #include <Graph/StateMachine.h>
 #include <FileManager.h>
-#include "../../MainWindow.h"
 #include <Graph/GraphImporter.h>
 #include <Graph/GraphExporter.h>
 #include <Windows/EnterLabelWindow.h>

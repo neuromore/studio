@@ -26,7 +26,6 @@
 
 // include required headers
 #include "ClientInfoWidget.h"
-#include <Studio/MainWindow.h>
 
 using namespace Core;
 

@@ -107,6 +107,8 @@
 #include <QtBase/Backend/Response.h>
 #include <QtBase/ImageButton.h>
 #include <QtBase/Slider.h>
+#include <QtBase/AttributeWidgets/AttributeSetGridWidget.h>
+#include <QtBase/AttributeWidgets/AttributeWidgetFactory.h>
 
 // From Rendering
 #include <Studio/Rendering/OpenGLWidget2DHelpers.h>
@@ -116,3 +118,4 @@
 
 // From Root
 #include <Studio/AppManager.h>
+#include <Studio/MainWindow.h>

@@ -27,10 +27,6 @@
 // include the required headers
 #include "SpectrumAnalyzerSettingsWidget.h"
 #include "SpectrumAnalyzerSettingsPlugin.h"
-#include <EngineManager.h>
-#include "../../AppManager.h"
-#include <QtBaseManager.h>
-
 
 #define MIN_RANGE 1.0
 

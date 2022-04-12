@@ -26,7 +26,6 @@
 
 // include required headers
 #include "StateMachinePlugin.h"
-#include "../../MainWindow.h"
 
 using namespace Core;
 

@@ -27,7 +27,6 @@
 // include required headers
 #include "PreSessionWidget.h"
 #include "SessionControlPlugin.h"
-#include <Studio/MainWindow.h>
 #include <Studio/Windows/VisualizationSelectWindow.h>
 
 using namespace Core;

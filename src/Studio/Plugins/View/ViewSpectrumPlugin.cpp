@@ -26,8 +26,6 @@
 
 // include required headers
 #include "ViewSpectrumPlugin.h"
-#include <Studio/MainWindow.h>
-#include <AttributeWidgets/AttributeSetGridWidget.h>
 
 using namespace Core;
 

@@ -27,7 +27,6 @@
 // include required headers
 #include "ABMProgressWidget.h"
 
-
 using namespace Core;
 
 // constructor
