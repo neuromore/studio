@@ -27,7 +27,6 @@
 // include the required headers
 #include "DataVisualizationSettingsWidget.h"
 #include "DataVisualizationPlugin.h"
-#include <QLabel>
 
 #ifdef USE_QTDATAVISUALIZATION
 

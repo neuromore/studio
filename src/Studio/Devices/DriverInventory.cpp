@@ -26,8 +26,6 @@
 
 // include required files
 #include "DriverInventory.h"
-#include <Config.h>
-
 
 #ifdef INCLUDE_DEVICE_NEUROSKY_MINDWAVE
   #include "NeuroSky/NeuroSkyDriver.h"
@@ -75,10 +73,6 @@
 
 #include "Bluetooth/BluetoothDriver.h"
 #include "Audio/AudioDriver.h"
-
-
-#include <EngineManager.h>
-#include <Core/LogManager.h>
 
 using namespace Core;
 

@@ -26,10 +26,7 @@
 
 // include required headers
 #include "DataVisualizationPlugin.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
 #include <AttributeWidgets/PropertyTreeWidget.h>
-#include <QHBoxLayout>
 
 #ifdef USE_QTDATAVISUALIZATION
 

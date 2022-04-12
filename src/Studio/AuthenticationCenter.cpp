@@ -26,12 +26,6 @@
 
 // include the required headers
 #include "AuthenticationCenter.h"
-#include "AppManager.h"
-#include <Core/EncryptedJSONFile.h>
-#include <Core/Thread.h>
-#include <EngineManager.h>
-#include <Core/LogManager.h>
-#include <Core/EventManager.h>
 #include <License.h>
 #include "MainWindow.h"
 #include <Windows/ProgressWindowManager.h>
@@ -40,10 +34,6 @@
 #include <Backend/LoginResponse.h>
 #include <Backend/SystemsGetRequest.h>
 #include <Backend/SystemsGetResponse.h>
-#include <QApplication>
-#include <QMessageBox>
-#include <QFileInfo>
-
 
 using namespace Core;
 

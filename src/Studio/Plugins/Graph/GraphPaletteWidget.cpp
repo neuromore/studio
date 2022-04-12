@@ -28,19 +28,6 @@
 #include "GraphPaletteWidget.h"
 #include "GraphPlugin.h"
 #include <ImageManipulation.h>
-#include <QtBaseManager.h>
-#include <EngineManager.h>
-#include <QVBoxLayout>
-#include <QListWidget>
-#include <QTabBar>
-#include <QIcon>
-#include <QAction>
-#include <QFile>
-#include <QMimeData>
-#include <QLabel>
-#include <QComboBox>
-#include <QTextEdit>
-
 
 using namespace Core;
 

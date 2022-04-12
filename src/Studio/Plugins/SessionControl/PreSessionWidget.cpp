@@ -27,14 +27,8 @@
 // include required headers
 #include "PreSessionWidget.h"
 #include "SessionControlPlugin.h"
-#include <QtBaseManager.h>
-#include <EngineManager.h>
-#include "../../MainWindow.h"
-#include "../../Windows/VisualizationSelectWindow.h"
-#include <Core/EventManager.h>
-#include <QHBoxLayout>
-#include <QGridLayout>
-
+#include <Studio/MainWindow.h>
+#include <Studio/Windows/VisualizationSelectWindow.h>
 
 using namespace Core;
 

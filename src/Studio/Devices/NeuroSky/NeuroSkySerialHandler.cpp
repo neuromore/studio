@@ -27,10 +27,6 @@
 // include required files
 #include "NeuroSkySerialHandler.h"
 #include <Devices/NeuroSky/NeuroSkyDevice.h>
-#include <EngineManager.h>
-#include <QCoreApplication>
-#include <QTimer>
-#include <System/BluetoothHelpers.h>
 
 #ifdef INCLUDE_DEVICE_NEUROSKY_MINDWAVE
 

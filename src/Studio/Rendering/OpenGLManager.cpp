@@ -26,10 +26,6 @@
 
 // include the required headers
 #include "OpenGLManager.h"
-#include <QtBaseManager.h>
-#include <QScreen>
-#include <QSurface>
-
 
 using namespace Core;
 

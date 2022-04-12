@@ -25,15 +25,9 @@
 #include <Studio/Precompiled.h>
 
 // include required files
-#include <Config.h>
 #include <Devices/Versus/VersusDevice.h>
-#include "../DeviceHelpers.h"
 #include "VersusDriver.h"
 #include "VersusSerialHandler.h"
-#include <EngineManager.h>
-#include <System/SerialPort.h>
-#include <System/BluetoothHelpers.h>
-#include <QApplication>
 
 #ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
 

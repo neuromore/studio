@@ -33,14 +33,6 @@
 #include <Backend/FileSystemGetResponse.h>
 #include "../../MainWindow.h"
 #include "../../VisualizationManager.h"
-#include "../../AppManager.h"
-#include <QtBaseManager.h>
-#include <QGridLayout>
-#include <QPainter>
-#include <QLabel>
-#include <QTimer>
-#include <Core/LogManager.h>
-
 
 using namespace Core;
 

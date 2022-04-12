@@ -26,8 +26,6 @@
 
 // include the required headers
 #include "OpenGLWidget.h"
-#include <QtBaseManager.h>
-
 
 using namespace Core;
 

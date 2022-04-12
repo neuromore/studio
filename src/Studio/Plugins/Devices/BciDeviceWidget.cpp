@@ -27,7 +27,6 @@
 // include required headers
 #include "BciDeviceWidget.h"
 
-
 using namespace Core;
 
 #if defined(NEUROMORE_BRANDING_ANT) && defined(PRODUCTION_BUILD)

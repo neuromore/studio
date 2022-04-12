@@ -26,29 +26,12 @@
 
 // include required headers
 #include "SessionControlPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <Notifications.h>
 #include <SessionExporter.h>
-#include <Core/EventManager.h>
-#include <Core/Thread.h>
-#include <Core/String.h>
-#include <QtBaseManager.h>
-#include <Backend/BackendHelpers.h>
-#include "../../Windows/ReportWindow.h"
-#include "../../AppManager.h"
 #include "../../MainWindow.h"
+#include "../../Windows/ReportWindow.h"
 #include "../../Windows/VisualizationSelectWindow.h"
 #include <Backend/DataChunksCreateRequest.h>
 #include <Backend/DataChunksCreateResponse.h>
-
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QApplication>
-#include <QDesktopWidget>
-#include <QMessageBox>
-#include <QDesktopServices>
-
 
 using namespace Core;
 

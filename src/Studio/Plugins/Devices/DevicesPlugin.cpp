@@ -26,10 +26,6 @@
 
 // include required headers
 #include "DevicesPlugin.h"
-#include <EngineManager.h>
-#include <Core/EventManager.h>
-#include <Core/LogManager.h>
-
 
 using namespace Core;
 

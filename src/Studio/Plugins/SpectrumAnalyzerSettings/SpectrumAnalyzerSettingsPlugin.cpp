@@ -26,12 +26,7 @@
 
 // include required headers
 #include "SpectrumAnalyzerSettingsPlugin.h"
-#include "../../MainWindow.h"
-#include "../../AppManager.h"
-#include <Core/LogManager.h>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QIcon>
+#include <Studio/MainWindow.h>
 
 using namespace Core;
 

@@ -26,14 +26,8 @@
 
 // include required files
 #include "BrainFlowDriver.h"
-#include "../DeviceHelpers.h"
 #include <Devices/BrainFlow/BrainFlowDevices.h>
 #include <Devices/BrainFlow/BrainFlowNodes.h>
-#include <EngineManager.h>
-#include <System/SerialPort.h>
-#include <QApplication>
-
-#include <memory>
 
 #ifdef INCLUDE_DEVICE_BRAINFLOW
 

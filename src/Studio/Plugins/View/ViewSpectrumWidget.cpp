@@ -27,11 +27,6 @@
 // include required headers
 #include "ViewSpectrumWidget.h"
 #include "ViewSpectrumPlugin.h"
-#include <Core/Math.h>
-#include <Core/LogManager.h>
-#include <Core/EventManager.h>
-#include <ColorPalette.h>
-#include <QPainter>
 
 using namespace Core;
 

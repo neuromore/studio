@@ -27,10 +27,6 @@
 // include required files
 #include "BrainquiryDriver.h"
 #include "BrainquirySerialHandler.h"
-#include <EngineManager.h>
-#include <System/SerialPort.h>
-#include <System/BluetoothHelpers.h>
-#include <QApplication>
 
 #ifdef INCLUDE_DEVICE_BRAINQUIRY
 

@@ -27,11 +27,7 @@
 // include required headers
 #include "GraphRenderer.h"
 #include "GraphPaletteWidget.h"
-#include <QtBaseManager.h>
-#include <QStaticText>
 #include <DSP/AttributeChannels.h>
-
-
 
 using namespace Core;
 

@@ -26,12 +26,7 @@
 
 // include the required headers
 #include "Visualization.h"
-#include <Core/LogManager.h>
-#include <Core/Json.h>
-#include "AppManager.h"
 #include "MainWindow.h"
-#include <QProcess>
-#include <QMessageBox>
 
 using namespace Core;
 

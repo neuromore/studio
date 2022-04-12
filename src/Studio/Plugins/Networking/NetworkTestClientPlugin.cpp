@@ -26,15 +26,8 @@
 
 // include required headers
 #include "NetworkTestClientPlugin.h"
-#include <Core/LogManager.h>
 #include <Networking/NetworkClient.h>
 #include <Networking/NetworkServerClient.h>
-#include <EngineManager.h>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QIcon>
-
 
 #define TESTCLIENT_TCP_PORT	1337
 #define TESTCLIENT_UDP_PORT	4242

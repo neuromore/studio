@@ -26,8 +26,6 @@
 
 // include required files
 #include "BluetoothDevice.h"
-#include <EngineManager.h>
-
 
 using namespace Core;
 

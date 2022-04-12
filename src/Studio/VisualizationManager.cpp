@@ -26,10 +26,6 @@
 
 // include the required headers
 #include "VisualizationManager.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QDir>
-
 
 using namespace Core;
 

@@ -26,8 +26,6 @@
 
 // include required headers
 #include "GraphTextPixmapCache.h"
-#include <Core/Timer.h>
-
 
 //#define ENABLE_TEXT_DEBUGMODE
 

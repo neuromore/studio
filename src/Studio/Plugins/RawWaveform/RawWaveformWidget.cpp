@@ -27,11 +27,6 @@
 // include required headers
 #include "RawWaveformWidget.h"
 #include "RawWaveformPlugin.h"
-#include <Core/LogManager.h>
-#include <ColorPalette.h>
-#include "../../Rendering/OpenGLWidget2DHelpers.h"
-#include <QPainter>
-
 
 using namespace Core;
 

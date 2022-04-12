@@ -26,13 +26,7 @@
 
 // include required headers
 #include "WhileSessionWidget.h"
-#include <ImageButton.h>
-#include <QtBaseManager.h>
-#include <EngineManager.h>
-#include "../../MainWindow.h"
-#include <QHBoxLayout>
-#include <QMovie>
-
+#include <Studio/MainWindow.h>
 
 using namespace Core;
 

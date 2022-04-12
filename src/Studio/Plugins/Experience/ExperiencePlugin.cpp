@@ -26,12 +26,6 @@
 
 // include required headers
 #include "ExperiencePlugin.h"
-#include <EngineManager.h>
-#include <QtBaseManager.h>
-#include "../../AppManager.h"
-#include <Core/LogManager.h>
-#include <Core/EventManager.h>
-
 
 using namespace Core;
 

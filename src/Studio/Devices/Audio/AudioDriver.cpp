@@ -25,11 +25,8 @@
 #include <Studio/Precompiled.h>
 
 // include required files
-#include <Config.h>
 #include <Devices/Audio/AudioDevices.h>
 #include "AudioDriver.h"
-#include <EngineManager.h>
-#include <QApplication>
 
 #ifdef INCLUDE_DEVICE_GENERIC_AUDIO
 

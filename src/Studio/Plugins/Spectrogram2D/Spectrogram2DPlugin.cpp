@@ -27,8 +27,6 @@
 // include required headers
 #include "Spectrogram2DPlugin.h"
 #include <AttributeWidgets/AttributeSetGridWidget.h>
-#include <Core/LogManager.h>
-
 
 using namespace Core;
 

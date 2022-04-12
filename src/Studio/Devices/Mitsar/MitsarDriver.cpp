@@ -26,11 +26,7 @@
 
 // include required files
 #include "MitsarDriver.h"
-#include <Core/LogManager.h>
 #include <Core/ThreadHandler.h>
-#include <QMessageBox>
-#include <QtBaseConfig.h>
-#include <QtBaseManager.h>
 
 #ifdef INCLUDE_DEVICE_MITSAR
 

@@ -28,9 +28,6 @@
 #include "GraphHelpers.h"
 #include "GraphShared.h"
 #include "GraphRenderer.h"
-#include <Core/Math.h>
-#include <EngineManager.h>
-
 
 using namespace Core;
 

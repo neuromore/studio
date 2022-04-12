@@ -26,10 +26,7 @@
 
 // include required headers
 #include "EEGElectrodePlacementPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
 #include <AttributeWidgets/AttributeSetGridWidget.h>
-
 
 using namespace Core;
 

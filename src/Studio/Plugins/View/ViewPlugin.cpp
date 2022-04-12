@@ -26,18 +26,9 @@
 
 // include required headers
 #include "ViewPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <QtBaseManager.h>
-#include "../../AppManager.h"
-#include "../../MainWindow.h"
+#include <Studio/MainWindow.h>
 #include <DSP/Epoch.h>
 #include <AttributeWidgets/AttributeSetGridWidget.h>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QHeaderView>
-#include <QApplication>
-#include <QDesktopWidget>
 
 
 using namespace Core;

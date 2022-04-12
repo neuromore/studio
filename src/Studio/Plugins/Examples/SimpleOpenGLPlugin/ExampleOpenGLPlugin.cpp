@@ -26,9 +26,7 @@
 
 // include required headers
 #include "ExampleOpenGLPlugin.h"
-#include <Core/LogManager.h>
 #include <AttributeWidgets/AttributeSetGridWidget.h>
-
 
 using namespace Core;
 

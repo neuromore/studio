@@ -27,14 +27,9 @@
 // include required headers
 #include "BackendFileSystemWidget.h"
 #include "BackendFileSystemPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
 #include <Graph/StateMachine.h>
-#include <QtBaseManager.h>
 #include <FileManager.h>
-#include "../../AppManager.h"
 #include "../../MainWindow.h"
-#include <Core/EncryptedJSONFile.h>
 #include <Graph/GraphImporter.h>
 #include <Graph/GraphExporter.h>
 #include <Windows/EnterLabelWindow.h>
@@ -48,19 +43,6 @@
 #include <Backend/FilesGetResponse.h>
 #include <Backend/FilesUpdateRequest.h>
 #include <Backend/FilesUpdateResponse.h>
-#include <QPushButton>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QDir>
-#include <QMessageBox>
-#include <QHeaderView>
-#include <QFileDialog>
-#include <QApplication>
-#include <QClipboard>
-#include <QMessageBox>
-#include <QMimeData>
-
 
 using namespace Core;
 

@@ -27,10 +27,6 @@
 // include required files
 #include "BrainquirySerialHandler.h"
 #include <Devices/Brainquiry/BrainquiryDevice.h>
-#include <EngineManager.h>
-#include <QCoreApplication>
-#include <QTimer>
-#include <System/BluetoothHelpers.h>
 
 #ifdef INCLUDE_DEVICE_BRAINQUIRY
 

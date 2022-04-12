@@ -26,8 +26,6 @@
 
 // include required files
 #include "BluetoothService.h"
-#include <Core/LogManager.h>
-
 
 using namespace Core;
 

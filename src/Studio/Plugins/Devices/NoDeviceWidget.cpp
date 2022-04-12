@@ -26,11 +26,6 @@
 
 // include required headers
 #include "NoDeviceWidget.h"
-#include <EngineManager.h>
-#include <QLabel>
-#include <QMovie>
-#include <QVBoxLayout>
-
 
 using namespace Core;
 

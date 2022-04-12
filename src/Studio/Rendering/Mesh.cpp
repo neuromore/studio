@@ -27,12 +27,7 @@
 // include required headers
 #include "Mesh.h"
 #include <tinyobjloader/tiny_obj_loader.h>
-#include <Core/String.h>
-#include <Core/LogManager.h>
 #include <Core/Timer.h>
-#include <QString>
-#include <QFile>
-#include <QTextStream>
 #include <sstream>
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 #include <gl/glu.h>

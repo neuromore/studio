@@ -26,7 +26,6 @@
 
 // include required headers
 #include "VideoPlayer.h"
-#include <Core/LogManager.h>
 
 using namespace Core;
 

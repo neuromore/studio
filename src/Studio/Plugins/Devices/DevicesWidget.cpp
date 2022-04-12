@@ -26,12 +26,7 @@
 
 // include required headers
 #include "DevicesWidget.h"
-#include <EngineManager.h>
 #include "BciDeviceWidget.h"
-#include <QLabel>
-#include <QMovie>
-#include <QVBoxLayout>
-
 
 using namespace Core;
 

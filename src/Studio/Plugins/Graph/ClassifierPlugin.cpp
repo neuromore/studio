@@ -26,11 +26,7 @@
 
 // include required headers
 #include "ClassifierPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
 #include "../../MainWindow.h"
-#include "../../AppManager.h"
-
 
 using namespace Core;
 

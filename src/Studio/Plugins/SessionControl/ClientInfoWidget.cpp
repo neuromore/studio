@@ -26,15 +26,7 @@
 
 // include required headers
 #include "ClientInfoWidget.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <QtBaseManager.h>
-#include "../../MainWindow.h"
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QHeaderView>
-#include <QApplication>
-
+#include <Studio/MainWindow.h>
 
 using namespace Core;
 

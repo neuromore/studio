@@ -27,9 +27,6 @@
 // include the required headers
 #include "OpenGLWidget2DHelpers.h"
 #include <QtBaseConfig.h>
-#include <Core/Math.h>
-#include <Core/Time.h>
-
 
 using namespace Core;
 

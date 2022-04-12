@@ -27,9 +27,6 @@
 // include required headers
 #include "AbmThreadHandler.h"
 #include "AbmDriver.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <QtBaseManager.h>
 
 #ifdef INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
 

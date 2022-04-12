@@ -26,9 +26,6 @@
 
 // include required headers
 #include "SpectrogramBandsPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <QtBaseManager.h>
 
 #ifdef USE_QTDATAVISUALIZATION
 

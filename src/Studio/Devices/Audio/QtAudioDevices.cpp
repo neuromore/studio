@@ -25,10 +25,7 @@
 #include <Studio/Precompiled.h>
 
 // include required headers
-#include "../../Config.h"
 #include "QtAudioDevices.h"
-#include <Device.h>
-#include <DeviceDriver.h>
 #include "AudioDriver.h"
 
 #ifdef INCLUDE_DEVICE_GENERIC_AUDIO

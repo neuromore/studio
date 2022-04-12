@@ -31,24 +31,6 @@
 #include "Version.h"
 #include "VisualizationManager.h"
 
-// include required headers related
-#include <Core/LogManager.h>
-
-// include Qt related things
-#include <QPushButton>
-#include <QApplication>
-#include <QFile>
-#include <QTextStream>
-#include <QComboBox>
-#include <QUuid>
-#include <QSplashScreen>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QLabel>
-#include <QFontDatabase>
-#include <QPalette>
-#include <QSysInfo>
-
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 #include <windows.h>
 #include <winuser.h>

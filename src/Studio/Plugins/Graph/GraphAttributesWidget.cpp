@@ -27,9 +27,6 @@
 // include required headers
 #include "GraphAttributesWidget.h"
 #include <AttributeWidgets/AttributeWidgetFactory.h>
-#include <QtBaseManager.h>
-#include <EngineManager.h>
-#include "../../AppManager.h"
 #include "../../MainWindow.h"
 
 

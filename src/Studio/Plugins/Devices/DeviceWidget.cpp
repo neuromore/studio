@@ -27,16 +27,6 @@
 // include required headers
 #include "DeviceWidget.h"
 #include "DevicesPlugin.h"
-#include "../../AppManager.h"
-#include <EngineManager.h>
-#include <QPushButton>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QHeaderView>
-#include <QTableWidget>
-
 
 using namespace Core;
 
