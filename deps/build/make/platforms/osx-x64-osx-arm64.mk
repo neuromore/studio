@@ -14,7 +14,7 @@ LIBDIR     = lib/osx-arm64
 BINDIR     = bin/osx-arm64
 TARGET     = arm64-apple-darwin19.6.0
 MINVER     = -mmacosx-version-min=10.15
-CPUFLAGS   = -march=armv8-a
+CPUFLAGS   = -march=armv8-a -mtune=apple-m1
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
