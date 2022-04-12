@@ -4,7 +4,7 @@ set RCC=%RCC%
 set PCH=Studio/Precompiled.h
 set DIR=../../src/Studio
 set INC=-I../../src/Engine -I../../src/Studio -I../../deps/include
-set VAR=-DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG_H -D_UNICODE -DUNICODE
+set VAR=--no-notes -DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG_H -D_UNICODE -DUNICODE
 
 %RCC% --name StudioResources --output ../../src/Studio/Resources/StudioResources.rcc.cpp ../../src/Studio/Resources/StudioResources.qrc
 
