@@ -26,7 +26,6 @@
 
 // include the required headers
 #include "ExperienceWizardWindow.h"
-#include <Backend/BackendHelpers.h>
 #include <Backend/FileHierarchyGetRequest.h>
 #include <Backend/FileHierarchyGetResponse.h>
 #include <Backend/FilesGetRequest.h>

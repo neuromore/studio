@@ -25,10 +25,9 @@
 #include <Studio/Precompiled.h>
 
 // include the required headers
-#include "SelectUserWindow.h"
 #include <Backend/UsersGetRequest.h>
 #include <Backend/UsersGetResponse.h>
-#include <Backend/BackendHelpers.h>
+#include "SelectUserWindow.h"
 #include "InviteUserWindow.h"
 #include "CreateUserWindow.h"
 

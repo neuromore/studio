@@ -26,7 +26,6 @@
 
 // include required headers
 #include "GraphHelpers.h"
-#include "GraphShared.h"
 #include "GraphRenderer.h"
 
 using namespace Core;

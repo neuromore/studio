@@ -27,7 +27,6 @@
 // include required headers
 #include "EmailValidator.h"
 
-
 using namespace Core;
 
 // constructor

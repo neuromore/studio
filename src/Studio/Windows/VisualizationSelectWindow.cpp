@@ -26,9 +26,6 @@
 
 // include the required headers
 #include "VisualizationSelectWindow.h"
-#include "../MainWindow.h"
-#include <ImageButton.h>
-
 
 using namespace Core;
 

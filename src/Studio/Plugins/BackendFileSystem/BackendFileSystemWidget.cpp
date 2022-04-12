@@ -27,7 +27,6 @@
 // include required headers
 #include "BackendFileSystemWidget.h"
 #include "BackendFileSystemPlugin.h"
-#include <Graph/StateMachine.h>
 #include <FileManager.h>
 #include <Graph/GraphImporter.h>
 #include <Graph/GraphExporter.h>

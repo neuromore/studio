@@ -24,10 +24,6 @@
 // include precompiled header
 #include <Studio/Precompiled.h>
 
-// include required headers
-#include "GraphShared.h"
-#include "GraphHelpers.h"
-
 using namespace Core;
 
 // constructor

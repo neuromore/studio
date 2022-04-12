@@ -228,6 +228,7 @@ void MitsarConnectorHandler::Execute()
 				}
 				mState = STATE_IDLE;
 			}	break;
+			default: break;
 		}
 		
 		// limit update rate
