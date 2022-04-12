@@ -197,7 +197,6 @@ OBJS       = accessible/qaccessible.o \
              image/qimage.o \
              image/qimage_compat.o \
              image/qimage_conversions.o \
-             image/qimage_ssse3.o \
              image/qimageiohandler.o \
              image/qimagepixmapcleanuphooks.o \
              image/qimagereader.o \
@@ -321,14 +320,9 @@ OBJS       = accessible/qaccessible.o \
              painting/qcosmeticstroker.o \
              painting/qcssutil.o \
              painting/qdrawhelper.o \
-             painting/qdrawhelper_avx2.o \
-             painting/qdrawhelper_sse2.o \
-             painting/qdrawhelper_sse4.o \
-             painting/qdrawhelper_ssse3.o \
              painting/qemulationpaintengine.o \
              painting/qgrayraster.oc \
              painting/qimagescale.o \
-             painting/qimagescale_sse4.o \
              painting/qmatrix.o \
              painting/qmemrotate.o \
              painting/qoutlinemapper.o \
@@ -412,18 +406,39 @@ OBJS       = accessible/qaccessible.o \
 
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
+OBJS      := $(OBJS) \
+             image/qimage_ssse3.o \
+             painting/qdrawhelper_sse2.o \
+             painting/qdrawhelper_sse4.o \
+             painting/qdrawhelper_ssse3.o \
+             painting/qimagescale_sse4.o
 endif
 
 ifeq ($(TARGET_ARCH),x64)
 DEFINES   := $(DEFINES)
+OBJS      := $(OBJS) \
+             image/qimage_ssse3.o \
+             painting/qdrawhelper_avx2.o \
+             painting/qdrawhelper_sse2.o \
+             painting/qdrawhelper_sse4.o \
+             painting/qdrawhelper_ssse3.o \
+             painting/qimagescale_sse4.o
 endif
 
 ifeq ($(TARGET_ARCH),arm)
 DEFINES   := $(DEFINES)
+OBJS      := $(OBJS) \
+             image/qimage_neon.o \
+             painting/qdrawhelper_neon.o \
+             painting/qimagescale_neon.o
 endif
 
 ifeq ($(TARGET_ARCH),arm64)
 DEFINES   := $(DEFINES)
+OBJS      := $(OBJS) \
+             image/qimage_neon.o \
+             painting/qdrawhelper_neon.o \
+             painting/qimagescale_neon.o
 endif
 
 ################################################################################################
