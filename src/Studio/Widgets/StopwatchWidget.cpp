@@ -26,11 +26,6 @@
 
 // include required headers
 #include "StopwatchWidget.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-
 
 using namespace Core;
 

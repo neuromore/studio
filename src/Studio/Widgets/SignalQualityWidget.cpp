@@ -26,10 +26,6 @@
 
 // include required headers
 #include "SignalQualityWidget.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QHBoxLayout>
-
 
 using namespace Core;
 

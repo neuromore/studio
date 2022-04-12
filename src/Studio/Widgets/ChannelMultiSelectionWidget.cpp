@@ -26,12 +26,8 @@
 
 // include required headers
 #include "ChannelMultiSelectionWidget.h"
-#include <Core/LogManager.h>
-
-#include <QHBoxLayout>
 
 using namespace Core;
-
 
 // constructor
 ChannelMultiSelectionWidget::ChannelMultiSelectionWidget(QWidget* parent) : QWidget(parent)

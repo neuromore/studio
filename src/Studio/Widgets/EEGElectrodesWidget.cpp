@@ -26,11 +26,6 @@
 
 // include required headers
 #include "EEGElectrodesWidget.h"
-#include <EngineManager.h>
-#include <Core/LogManager.h>
-#include "../Rendering/OpenGLWidget2DHelpers.h"
-#include <QPainter>
-
 
 using namespace Core;
 

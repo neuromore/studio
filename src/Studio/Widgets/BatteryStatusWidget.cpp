@@ -26,11 +26,6 @@
 
 // include required headers
 #include "BatteryStatusWidget.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <Core/Math.h>
-#include <QHBoxLayout>
-
 
 using namespace Core;
 

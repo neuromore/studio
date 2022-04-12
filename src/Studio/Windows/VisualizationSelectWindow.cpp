@@ -26,9 +26,7 @@
 
 // include the required headers
 #include "VisualizationSelectWindow.h"
-#include "../AppManager.h"
 #include "../MainWindow.h"
-#include <Core/LogManager.h>
 #include <ImageButton.h>
 
 

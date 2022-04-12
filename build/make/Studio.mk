@@ -105,6 +105,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/libpng$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/libsvm$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/zlib$(SUFFIX)$(EXTLIB)
+PCH        = Precompiled
 MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
              Devices/Bluetooth/BluetoothDriver.cpp \
              Devices/Bluetooth/BluetoothService.cpp \
@@ -598,6 +599,13 @@ DEFINES := $(DEFINES) -DQT_NO_DEBUG -DPRODUCTION_BUILD
 endif
 
 ################################################################################################
+# PCH
+
+pch:
+	@echo [PCH] $(OBJDIR)/$(PCH).pch
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -x c++-header -c $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
+
+################################################################################################
 # MOC
 
 MOCH := $(patsubst %,$(MOCDIR)/%,$(MOCH))
@@ -606,27 +614,27 @@ MOCO := $(patsubst %,$(OBJDIR)/%,$(MOCO))
 
 $(MOCDIR)/%.cpp:
 	@echo [MOC] $@
-	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.cpp=$(INCDIRQT)/%.h) -o $(@:$(MOCDIR)/%.cpp=$(MOCDIR)/moc_$(@F))
+	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.cpp=$(INCDIRQT)/%.h) -b $(NAME)/$(PCH).h -o $(@:$(MOCDIR)/%.cpp=$(MOCDIR)/moc_$(@F))
 
 $(MOCDIR)/%.mm:
 	@echo [MOC] $@
-	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.mm=$(INCDIRQT)/%.h) -o $(@:$(MOCDIR)/%.mm=$(MOCDIR)/moc_$(@F))
+	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.mm=$(INCDIRQT)/%.h) -b $(NAME)/$(PCH).h -o $(@:$(MOCDIR)/%.mm=$(MOCDIR)/moc_$(@F))
 
 $(MOCDIR)/%.moc:
 	@echo [MOC] $@
-	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.moc=$(SRCDIR)/%.cpp) -o $(@:$(MOCDIR)/%.moc=$(MOCDIR)/$(@F))
+	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.moc=$(SRCDIR)/%.cpp) -b $(NAME)/$(PCH).h -o $(@:$(MOCDIR)/%.moc=$(MOCDIR)/$(@F))
 
 $(MOCDIR)/%.mocmm:
 	@echo [MOC] $@
-	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.mocmm=$(SRCDIR)/%.mm) -o $(@:$(MOCDIR)/%.mocmm=$(MOCDIR)/$(basename $(@F)).moc)
+	$(QTMOC) $(DEFINES) $(INCLUDES) $(@:$(MOCDIR)/%.mocmm=$(SRCDIR)/%.mm) -b $(NAME)/$(PCH).h -o $(@:$(MOCDIR)/%.mocmm=$(MOCDIR)/$(basename $(@F)).moc)
 
 $(OBJDIR)/%.omoc:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)/%.omoc=$(MOCDIR)/moc_$(@F:.omoc=.cpp)) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omoc=$(MOCDIR)/moc_$(@F:.omoc=.cpp)) -o $@
 
 $(OBJDIR)/%.omocmm:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)/%.omocmm=$(MOCDIR)/moc_%.mm) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omocmm=$(MOCDIR)/moc_%.mm) -o $@
 
 ################################################################################################
 # RCC
@@ -658,15 +666,15 @@ OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
 
 $(OBJDIR)/%.oc:
 	@echo [CC]  $@
-	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -c $(@:$(OBJDIR)%.oc=$(SRCDIR)%.c) -o $@
+	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.oc=$(SRCDIR)%.c) -o $@
 
 $(OBJDIR)/%.omm:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
 
 ################################################################################################
 # RES
@@ -681,13 +689,16 @@ $(OBJDIR)/%.res:
 
 .DEFAULT_GOAL := build
 
+$(MOCO) : pch
+$(OBJS) : pch
+
 PRES := $(MOCH) $(MOCC) $(RCCH) $(UICH)
 OBLS := $(OBJS) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
 $(RESO) : $(PRES)
  
-build: $(PRES) $(OBLS) $(RESO)
+build: pch $(PRES) $(OBLS) $(RESO)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
 	@echo [LNK] $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
@@ -703,6 +714,7 @@ clean:
 	$(call deletefiles,$(MOCDIR),*.mocmm)
 	$(call deletefiles,$(RCCDIR),*.cpp)
 	$(call deletefiles,$(UICDIR),*.h)
+	$(call deletefiles,$(OBJDIR),$(PCH).pch)
 	$(call deletefiles,$(OBJDIR),*.o)
 	$(call deletefiles,$(OBJDIR),*.oc)
 	$(call deletefiles,$(OBJDIR),*.omm)

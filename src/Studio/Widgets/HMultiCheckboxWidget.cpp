@@ -26,9 +26,6 @@
 
 // include required headers
 #include "HMultiCheckboxWidget.h"
-#include <Core/LogManager.h>
-#include <QScrollArea>
-
 
 using namespace Core;
 

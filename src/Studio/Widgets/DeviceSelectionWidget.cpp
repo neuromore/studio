@@ -26,9 +26,6 @@
 
 // include required headers
 #include "DeviceSelectionWidget.h"
-#include <Core/LogManager.h>
-#include <qcombobox.h>
-
 
 using namespace Core;
 

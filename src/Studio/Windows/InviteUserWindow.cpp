@@ -26,13 +26,8 @@
 
 // include the required headers
 #include "InviteUserWindow.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
 #include <Backend/UsersInviteRequest.h>
 #include <Backend/UsersInviteResponse.h>
-#include <QMessageBox>
-#include <QVBoxLayout>
-
 
 using namespace Core;
 

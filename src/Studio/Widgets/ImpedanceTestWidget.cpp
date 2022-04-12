@@ -26,15 +26,6 @@
 
 // include required headers
 #include "ImpedanceTestWidget.h"
-//#include "../../AppManager.h"
-//#include <Device.h>
-#include <BciDevice.h>
-#include <QtBaseManager.h>
-#include <Core/LogManager.h>
-#include <Core/Math.h>
-#include <QHBoxLayout>
-#include <QSpacerItem>
-
 
 using namespace Core;
 

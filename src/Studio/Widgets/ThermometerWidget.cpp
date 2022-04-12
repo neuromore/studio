@@ -25,10 +25,6 @@
 #include <Studio/Precompiled.h>
 
 #include "ThermometerWidget.h"
-#include <QtGui>
-#include <cmath>
-#include <assert.h>
-
 
 // constructor
 ThermometerWidget::ThermometerWidget(QWidget *parent) : QWidget(parent)

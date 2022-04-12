@@ -26,19 +26,6 @@
 
 // include the required headers
 #include "LicenseAgreement.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <EngineManager.h>
-#include <QLabel>
-#include <QDir>
-#include <QSizePolicy>
-#include <QPixmap>
-#include <QMessageBox>
-#include <QTextEdit>
-#include <QPushButton>
-#include <QVBoxLayout>
-
 
 using namespace Core;
 

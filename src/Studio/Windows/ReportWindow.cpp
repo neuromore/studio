@@ -26,11 +26,6 @@
 
 // include the required headers
 #include "ReportWindow.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QHBoxLayout>
-#include <QDesktopServices>
-
 
 using namespace Core;
 
