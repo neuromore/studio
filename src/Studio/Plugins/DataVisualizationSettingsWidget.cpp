@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "DataVisualizationSettingsWidget.h"
 #include "DataVisualizationPlugin.h"

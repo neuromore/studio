@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "NeuroSkySerialHandler.h"
 #include <Devices/NeuroSky/NeuroSkyDevice.h>

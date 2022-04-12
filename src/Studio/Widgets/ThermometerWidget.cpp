@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include "ThermometerWidget.h"
 #include <QtGui>
 #include <cmath>

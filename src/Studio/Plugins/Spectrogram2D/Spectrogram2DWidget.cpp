@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "Spectrogram2DWidget.h"
 #include "Spectrogram2DPlugin.h"

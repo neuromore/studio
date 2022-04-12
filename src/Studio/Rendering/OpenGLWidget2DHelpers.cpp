@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "OpenGLWidget2DHelpers.h"
 #include <QtBaseConfig.h>

@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "OpenBCISerialHandler.h"
 #include <Devices/OpenBCI/OpenBCIDevices.h>

@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include "ActiChampDriver.h"
 #include <Core/LogManager.h>
 #include <Core/ThreadHandler.h>

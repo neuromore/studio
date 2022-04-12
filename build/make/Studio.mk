@@ -144,12 +144,9 @@ MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
              Plugins/Feedback/FeedbackPlugin.cpp \
              Plugins/Graph/ClassifierPlugin.cpp \
              Plugins/Graph/GraphAttributesWidget.cpp \
-             Plugins/Graph/GraphHelpers.cpp \
              Plugins/Graph/GraphInfoWidget.cpp \
              Plugins/Graph/GraphPaletteWidget.cpp \
              Plugins/Graph/GraphPlugin.cpp \
-             Plugins/Graph/GraphRenderer.cpp \
-             Plugins/Graph/GraphRendererState.cpp \
              Plugins/Graph/GraphShared.cpp \
              Plugins/Graph/GraphTextPixmapCache.cpp \
              Plugins/Graph/GraphWidget.cpp \

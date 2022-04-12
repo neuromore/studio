@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "NetworkTestClientPlugin.h"
 #include <Core/LogManager.h>

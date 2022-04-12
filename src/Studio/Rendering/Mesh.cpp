@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "Mesh.h"
 #include <tinyobjloader/tiny_obj_loader.h>

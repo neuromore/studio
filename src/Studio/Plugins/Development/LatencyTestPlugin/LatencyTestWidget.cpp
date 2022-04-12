@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "LatencyTestWidget.h"
 #include "LatencyTestPlugin.h"

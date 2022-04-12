@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include <Core/StandardHeaders.h>
 #include <QApplication>
 #include <QMessageBox>

@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include <Graph/GraphImporter.h>
 #include "ExperienceSelectionWidget.h"
