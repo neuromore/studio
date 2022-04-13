@@ -13,14 +13,16 @@
             "stopAtEntry": false,
             "cwd": "",
             "environment": [],
-            "externalConsole": true,
+            "externalConsole": false,
             "linux": {
+                "targetArchitecture": "x86_64",
                 "type": "cppdbg",
                 "MIMode": "gdb",
                 "cwd": "${workspaceFolder}/build/make/bin/linux-x64/",
                 "program": "${workspaceFolder}/build/make/bin/linux-x64/Studio_d"
             },
             "osx": {
+                "targetArchitecture": "x86_64",
                 "type": "cppdbg",
                 "MIMode": "lldb",
                 "cwd": "${workspaceFolder}/build/make/bin/osx-x64/",
@@ -28,6 +30,7 @@
 
             },
             "windows": {
+                "targetArchitecture": "x64",
                 "type": "cppvsdbg",
                 "MIMode": "lldb",
                 "cwd": "${workspaceFolder}/build/make/bin/win-x64/",
@@ -45,6 +48,7 @@
             "environment": [],
             "externalConsole": true,
             "windows": {
+                "targetArchitecture": "x86",
                 "type": "cppvsdbg",
                 "MIMode": "lldb",
                 "cwd": "${workspaceFolder}/build/make/bin/win-x86/",
@@ -62,12 +66,14 @@
             "environment": [],
             "externalConsole": true,
             "linux": {
+                "targetArchitecture": "arm64",
                 "type": "cppdbg",
                 "MIMode": "gdb",
                 "cwd": "${workspaceFolder}/build/make/bin/linux-arm64/",
                 "program": "${workspaceFolder}/build/make/bin/linux-arm64/Studio_d"
             },
             "osx": {
+                "targetArchitecture": "arm64",
                 "type": "cppdbg",
                 "MIMode": "lldb",
                 "cwd": "${workspaceFolder}/build/make/bin/osx-arm64/",
@@ -75,6 +81,7 @@
 
             },
             "windows": {
+                "targetArchitecture": "arm64",
                 "type": "cppvsdbg",
                 "MIMode": "lldb",
                 "cwd": "${workspaceFolder}/build/make/bin/win-arm64/",
