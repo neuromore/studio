@@ -12,17 +12,14 @@ DEFINES   := $(DEFINES) \
              -DUNICODE \
              -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 INCLUDES  := $(INCLUDES) \
-             -I"$(JAVA_HOME)/include" \
-             -I"$(JAVA_HOME)/include/win32" \
-             -I"$(JAVA_HOME)/include/linux" \
-             -I"$(JAVA_HOME)/include/darwin" \
-             -I$(INCDIR) \
              -I../../src/Engine \
+             -I$(INCDIR) \
              -I$(SRCDIR)
 CXXFLAGS  := $(CXXFLAGS) \
              -Wno-unknown-warning-option \
              -Wno-deprecated-declarations \
              -Wno-enum-compare-switch \
+             -Wno-format-security \
              -std=c++17
 LINKFLAGS := $(LINKFLAGS) -shared
 LINKPATH  := $(LINKPATH)
@@ -65,7 +62,9 @@ ifeq ($(TARGET_OS),win)
 DEFINES   := $(DEFINES) \
              -D_CRT_SECURE_NO_WARNINGS \
              -DNEUROMORE_PLATFORM_WINDOWS
-INCLUDES  := $(INCLUDES)
+INCLUDES  := $(INCLUDES) \
+             -I"$(JAVA_HOME)/include" \
+             -I"$(JAVA_HOME)/include/win32"
 CXXFLAGS  := $(CXXFLAGS)
 LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:CONSOLE -DLL
 LINKLIBS  := $(LINKLIBS)
@@ -85,6 +84,9 @@ endif
 
 ifeq ($(TARGET_OS),osx)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_OSX
+INCLUDES  := $(INCLUDES) \
+             -I"$(JAVA_HOME)/include" \
+             -I"$(JAVA_HOME)/include/darwin"
 CXXFLAGS  := $(CXXFLAGS)
 LINKFLAGS := $(LINKFLAGS)
 LINKLIBS  := $(LINKLIBS)
@@ -104,6 +106,9 @@ endif
 
 ifeq ($(TARGET_OS),linux)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_LINUX
+INCLUDES  := $(INCLUDES) \
+             -I"$(JAVA_HOME)/include" \
+             -I"$(JAVA_HOME)/include/linux"
 CXXFLAGS  := $(CXXFLAGS)
 LINKFLAGS := $(LINKFLAGS)
 LINKLIBS  := $(LINKLIBS)
@@ -144,15 +149,19 @@ OBJS  := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 JOBJS := $(patsubst %,$(OBJDIR)/%,$(JOBJS))
 
 $(OBJDIR)/%.o:
+	@echo [CXX] $@
 	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
 
 $(OBJDIR)/%.class:
+	@echo [JVC] $@
 	$(JAVAC) -sourcepath $(SRCDIR)/Java -d $(OBJDIR)/Java $(@:$(OBJDIR)%.class=$(SRCDIR)%.java)
 
 .DEFAULT_GOAL := build
 
 build: $(OBJS) $(JOBJS)
+	@echo [LNK] $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTDLL)
 	$(LINK) $(LINKFLAGS) $(LINKPATH) $(OBJS) $(LINKLIBS) -o $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTDLL)
+	@echo [JAR] $(LIBDIR)/$(NAME)$(SUFFIX).jar
 	$(JAR) cf $(LIBDIR)/$(NAME)$(SUFFIX).jar -C $(OBJDIR)/Java .
 
 clean:
