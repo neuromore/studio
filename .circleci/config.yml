@@ -21,7 +21,7 @@ jobs:
             sudo apt-get install -y make clang llvm lld
       - run: 
           name: "Install dependencies"
-          command: sudo apt-get install \
+          command: sudo apt-get update && sudo apt-get install \
                   libgstreamer1.0-dev \
                   libgstreamer-plugins-base1.0-dev \
                   libgstreamer-plugins-good1.0-dev \
