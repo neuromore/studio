@@ -51,7 +51,7 @@ jobs:
           command: ls
       - run:
           name: "Build dependencies"
-          command: cd studio && make Dependencies
+          command: make Dependencies
       - run:
           name: "Build"
           command: make
