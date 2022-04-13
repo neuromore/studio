@@ -40,6 +40,7 @@
 #ifndef QIOSURFACEGRAPHICSBUFFER_H
 #define QIOSURFACEGRAPHICSBUFFER_H
 
+#include <CoreGraphics/CGColorSpace.h>
 #include <qpa/qplatformgraphicsbuffer.h>
 #include <private/qcore_mac_p.h>
 

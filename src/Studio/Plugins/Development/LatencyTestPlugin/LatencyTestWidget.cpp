@@ -21,14 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "LatencyTestWidget.h"
 #include "LatencyTestPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include "../../../Rendering/OpenGLWidget2DHelpers.h"
-#include <QPainter>
-
 
 using namespace Core;
 

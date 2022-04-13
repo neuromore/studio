@@ -21,11 +21,10 @@
 **
 ****************************************************************************/
 
-#include "ThermometerWidget.h"
-#include <QtGui>
-#include <cmath>
-#include <assert.h>
+// include precompiled header
+#include <Studio/Precompiled.h>
 
+#include "ThermometerWidget.h"
 
 // constructor
 ThermometerWidget::ThermometerWidget(QWidget *parent) : QWidget(parent)

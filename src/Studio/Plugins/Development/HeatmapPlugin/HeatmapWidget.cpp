@@ -21,15 +21,14 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "HeatmapWidget.h"
 #include "HeatmapPlugin.h"
-#include <Core/LogManager.h>
-#include <QPainter>
-#include <QtBase/QtBaseManager.h>
 
 using namespace Core;
-
 
 // constructor
 HeatmapWidget::HeatmapWidget(HeatmapPlugin* plugin, QWidget* parent) : OpenGLWidget(parent)

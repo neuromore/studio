@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "DeviceOutputNode.h"
 #include "../EngineManager.h"

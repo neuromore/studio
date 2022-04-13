@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "Histogram.h"
 #include "../Core/LogManager.h"

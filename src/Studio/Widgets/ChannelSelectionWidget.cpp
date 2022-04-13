@@ -21,12 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "ChannelSelectionWidget.h"
-#include <Core/LogManager.h>
-#include <BciDevice.h>
-
-#include <QHBoxLayout>
 
 using namespace Core;
 

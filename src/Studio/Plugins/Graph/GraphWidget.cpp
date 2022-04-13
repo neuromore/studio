@@ -21,24 +21,15 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "GraphWidget.h"
-#include <Core/Timer.h>
-#include <Core/EventManager.h>
-#include <Core/Math.h>
 #include <Graph/ProcessorNode.h>
-#include <EngineManager.h>
 #include "GraphPlugin.h"
 #include "GraphRendererState.h"
-#include "ColorPalette.h"
 #include "GraphPaletteWidget.h"
-#include "../../AppManager.h"
-#include "../../MainWindow.h"
-#include <QToolTip>
-#include <QMenu>
-#include <QOpenGLContext>
-#include <QScreen>
-
 
 using namespace Core;
 

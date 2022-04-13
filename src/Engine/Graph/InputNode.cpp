@@ -20,11 +20,9 @@
 ** https://neuromore.com/npl
 **
 ****************************************************************************/
-	/*
- * neuromore Engine
- * Copyright (c) 2012-2016 neuromore Inc.
- * All Rights Reserved.
- */
+
+// include precompiled header
+#include <Engine/Precompiled.h>
 
 // include required headers
 #include "InputNode.h"

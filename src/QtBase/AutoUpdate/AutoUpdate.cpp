@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+ // include precompiled header
+#include <QtBase/Precompiled.h>
+
 #if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_OSX)
 
 #include "AutoUpdate.h"

@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include the required headers
 #include "StateTransitionCondition.h"
 #include "StateMachine.h"

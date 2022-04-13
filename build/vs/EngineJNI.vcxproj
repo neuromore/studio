@@ -133,7 +133,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -163,7 +163,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x86;../../deps/build/vs/lib/x86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -182,7 +182,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -212,7 +212,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x86;../../deps/build/vs/lib/x86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -231,7 +231,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -260,7 +260,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x64;../../deps/build/vs/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -279,7 +279,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;PRODUCTION_BUILD;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;NDEBUG;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -308,7 +308,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x64;../../deps/build/vs/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -329,7 +329,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <DisableSpecificWarnings>4189</DisableSpecificWarnings>
@@ -353,7 +353,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine_d.lib;oscpack_d.lib;zlib_d.lib;edflib_d.lib;kissfft_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine_d.lib;oscpack_d.lib;zlib_d.lib;edflib_d.lib;kissfft_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x86;../../deps/build/vs/lib/x86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -374,7 +374,7 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;NEUROMORE_PLATFORM_WINDOWS;_UNICODE;UNICODE;WIN32;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;NEUROMORE_ARCHITECTURE_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <OmitFramePointers>false</OmitFramePointers>
@@ -398,7 +398,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine_d.lib;oscpack_d.lib;zlib_d.lib;edflib_d.lib;kissfft_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine_d.lib;oscpack_d.lib;zlib_d.lib;edflib_d.lib;kissfft_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x64;../../deps/build/vs/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

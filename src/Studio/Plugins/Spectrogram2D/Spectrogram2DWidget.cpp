@@ -21,15 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "Spectrogram2DWidget.h"
 #include "Spectrogram2DPlugin.h"
-#include <Core/Math.h>
-#include <Core/LogManager.h>
-#include <Core/EventManager.h>
-#include <QPainter>
-#include <ColorPalette.h>
-
 
 using namespace Core;
 

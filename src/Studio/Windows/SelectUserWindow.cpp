@@ -21,19 +21,15 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
-#include "SelectUserWindow.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
 #include <Backend/UsersGetRequest.h>
 #include <Backend/UsersGetResponse.h>
-#include <Backend/BackendHelpers.h>
-#include <QHeaderView>
-#include <QVBoxLayout>
-#include <QScrollBar>
+#include "SelectUserWindow.h"
 #include "InviteUserWindow.h"
 #include "CreateUserWindow.h"
-
 
 using namespace Core;
 

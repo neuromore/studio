@@ -666,9 +666,6 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
@@ -676,12 +673,6 @@
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.moc.cpp">
@@ -836,6 +827,7 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.cpp">
       <Filter>Devices\BrainMaster</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Precompiled.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
@@ -1226,6 +1218,7 @@
     <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.h">
       <Filter>Devices\BrainMaster</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Studio\Resources\AppIcon.icns">

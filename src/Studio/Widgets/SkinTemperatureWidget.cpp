@@ -21,16 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "SkinTemperatureWidget.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QPainter>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPen>
-
-
 
 using namespace Core;
 

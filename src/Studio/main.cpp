@@ -21,18 +21,13 @@
 **
 ****************************************************************************/
 
-#include <Core/StandardHeaders.h>
-#include <QApplication>
-#include <QMessageBox>
-#include <Core/LogManager.h>
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include "Devices/DriverInventory.h"
-#include <QtBaseManager.h>
-#include <EngineManager.h>
 #include "MainWindow.h"
 #include <AutoUpdate/AutoUpdate.h>
-#include "AppManager.h"
 #include "CrashReporter.h"
-#include <QtPlugin>
 
 // Library Linking
 #if defined(NEUROMORE_PLATFORM_WINDOWS)

@@ -21,6 +21,8 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
 
 // include required files
 #include "EmotivEPOCDevice.h"

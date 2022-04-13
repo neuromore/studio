@@ -1,0 +1,55 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "makefile.extensionOutputFolder": "./.vscode",
+    "makefile.phonyOnlyTargets": false,
+    "makefile.alwaysPreConfigure": false,
+    "makefile.loggingLevel": "Verbose",
+    "makefile.launchConfigurations": [
+    ],
+    "makefile.configurations": [
+        // LINUX
+        {
+            "name": "linux-x64",
+            "makeArgs": ["TARGET_OS=linux", "TARGET_ARCH=x64", "MODE=debug"]
+        },
+        // OSX
+        {
+            "name": "osx-x64",
+            "makeArgs": ["TARGET_OS=osx", "TARGET_ARCH=x64", "MODE=debug"]
+        },
+        {
+            "name": "osx-arm64",
+            "makeArgs": ["TARGET_OS=osx", "TARGET_ARCH=arm64", "MODE=debug"]
+        },
+        // WINDOWS
+        {
+            "name": "win-x64",
+            "makeArgs": ["TARGET_OS=win", "TARGET_ARCH=x64", "MODE=debug"]
+        },
+        {
+            "name": "win-x86",
+            "makeArgs": ["TARGET_OS=win", "TARGET_ARCH=x86", "MODE=debug"]
+        },
+        {
+            "name": "win-arm64",
+            "makeArgs": ["TARGET_OS=win", "TARGET_ARCH=arm64", "MODE=debug"]
+        },
+        // ANDROID
+        {
+            "name": "android-x64",
+            "makeArgs": ["TARGET_OS=android", "TARGET_ARCH=x64", "MODE=debug"]
+        },
+        {
+            "name": "android-x86",
+            "makeArgs": ["TARGET_OS=android", "TARGET_ARCH=x86", "MODE=debug"]
+        },
+        {
+            "name": "android-arm64",
+            "makeArgs": ["TARGET_OS=android", "TARGET_ARCH=arm64", "MODE=debug"]
+        },
+        {
+            "name": "android-arm",
+            "makeArgs": ["TARGET_OS=android", "TARGET_ARCH=arm", "MODE=debug"]
+        }
+    ]
+}

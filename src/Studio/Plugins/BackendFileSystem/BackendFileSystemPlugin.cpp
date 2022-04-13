@@ -21,19 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "BackendFileSystemPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include "../../MainWindow.h"
-#include "../../AppManager.h"
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QIcon>
-#include <QSplitter>
-#include <QFileDialog>
-
 
 using namespace Core;
 

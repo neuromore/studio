@@ -3,7 +3,7 @@
  * Copyright (c) 2012-2016 neuromore Inc.
  * All Rights Reserved.
  */
-/*
+
 #ifndef __NEUROMORE_FILTERPLOTWIDGET_H
 #define __NEUROMORE_FILTERPLOTWIDGET_H
 
@@ -12,7 +12,7 @@
 #include <Core/StandardHeaders.h>
 #include <DSP/Filter.h>
 #include "PlotWidget.h"
-
+/*
 class QTBASE_API FilterPlotWidget : public PlotWidget
 {
 	Q_OBJECT
@@ -50,6 +50,5 @@ class QTBASE_API FilterPlotWidget : public PlotWidget
 		bool			mShowDecibel;
 };
 
-
-#endif
 */
+#endif

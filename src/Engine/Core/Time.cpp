@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 #include "Time.h"
 #include "LogManager.h"
 #include <chrono>
