@@ -47,14 +47,11 @@ jobs:
                   libxcb-xkb-dev \
                   libxcb-util-dev
       - run:
-          name: "ls"
-          command: ls
-      - run:
           name: "Build dependencies"
-          command: make Dependencies
+          command: make -j 4 Dependencies
       - run:
           name: "Build"
-          command: make
+          command: make -j 4
         
 
 # Invoke jobs via workflows
