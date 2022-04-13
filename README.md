@@ -20,6 +20,15 @@ Create audio or visual experiences within neuromore Studio or make your applicat
 4. Check out the wiki for specific device information or on examples on how to get started https://github.com/neuromore/studio/wiki
 5. Watch the tutorials for more info [https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw](https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw)
 
+## Minimum System Requirements
+
+| What     | Minimum                                               | Recommended |
+| -------- | ----------------------------------------------------- | ----------- |
+| OS       | Windows 10, Ubuntu 20.04, OSX 10.15                   | TODO        |
+| CPU      | Dual-Core released past ~2010 (with SSE4.2, AVX, ...) | TODO        |
+| RAM      | 4GB                                                   | TODO        |
+| GPU      | OpenGL 2.x compatible (TODO: more details, e.g. MEM)  | TODO        |
+
 ## Configuration/Cache Folders
 
 | Platform | Folder                                           |
