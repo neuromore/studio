@@ -16,7 +16,9 @@ jobs:
       - checkout
       - run:
           name: "Set up build tools"
-          command: sudo apt-get install make clang llvm lld
+          command: |
+            sudo apt-get update 
+            sudo apt-get install -y make clang llvm lld
       - run: 
           name: "Install dependencies"
           command: sudo apt-get install \
