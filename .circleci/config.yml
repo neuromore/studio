@@ -47,8 +47,11 @@ jobs:
                   libxcb-xkb-dev \
                   libxcb-util-dev
       - run:
+          name: "ls"
+          command: ls
+      - run:
           name: "Build dependencies"
-          command: make Dependencies
+          command: cd studio && make Dependencies
       - run:
           name: "Build"
           command: make
