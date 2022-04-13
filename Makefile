@@ -1,83 +1,54 @@
 
 include ./deps/build/make/platforms/detect-host.mk
 
-# Use Detected Platform as Target by default
-
-ifeq ($(TARGET_OS),)
-TARGET_OS = $(DETECTED_OS)
-endif
-
-ifeq ($(TARGET_ARCH),)
-TARGET_ARCH = $(DETECTED_ARCH)
-endif
-
 ##################################################################################
 # ALL PLATFORMS
 ##################################################################################
 
 Dependencies:
-	@make -s -C ./deps/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Makefile
+	@echo [BLD] Dependencies
+	@make -s -C ./deps/ -f Makefile
 
 Dependencies-clean:
-	@make -s -C ./deps/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Makefile clean
+	@echo [CLN] Dependencies
+	@make -s -C ./deps/ -f Makefile clean
 
 Engine:
-	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Engine.mk -j $(DETECTED_CORES)
+	@echo [BLD] Engine
+	@make -s -C ./build/make/ -f Engine.mk -j $(DETECTED_CORES)
 
 Engine-clean:
-	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Engine.mk clean -j $(DETECTED_CORES)
+	@echo [CLN] Engine
+	@make -s -C ./build/make/ -f Engine.mk clean -j $(DETECTED_CORES)
 
 EngineJNI:
-	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f EngineJNI.mk -j $(DETECTED_CORES)
+	@echo [BLD] EngineJNI
+	@make -s -C ./build/make/ -f EngineJNI.mk -j $(DETECTED_CORES)
 
 EngineJNI-clean:
-	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f EngineJNI.mk clean -j $(DETECTED_CORES)
+	@echo [CLN] EngineJNI
+	@make -s -C ./build/make/ -f EngineJNI.mk clean -j $(DETECTED_CORES)
 
 QtBase:
-	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f QtBase.mk -j $(DETECTED_CORES)
+	@echo [BLD] QtBase
+	@make -s -C ./build/make/ -f QtBase.mk -j $(DETECTED_CORES)
 
 QtBase-clean:
-	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f QtBase.mk clean -j $(DETECTED_CORES)
+	@echo [CLN] QtBase
+	@make -s -C ./build/make/ -f QtBase.mk clean -j $(DETECTED_CORES)
 
 Studio:
-	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Studio.mk -j $(DETECTED_CORES)
+	@echo [BLD] Studio
+	@make -s -C ./build/make/ -f Studio.mk -j $(DETECTED_CORES)
 
 Studio-clean:
-	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f Studio.mk clean -j $(DETECTED_CORES)
-
-# combined
---base: Engine QtBase Studio 
---base-clean: Engine-clean QtBase-clean Studio-clean 
+	@echo [CLN] Studio
+	@make -s -C ./build/make/ -f Studio.mk clean -j $(DETECTED_CORES)
 
 ##################################################################################
-# WINDOWS
-##################################################################################
-ifeq ($(TARGET_OS),win)
 
-all: --base
-clean: --base-clean
-
-endif
-
-##################################################################################
-# OSX
-##################################################################################
-ifeq ($(TARGET_OS),osx)
-
-all: --base
-clean: --base-clean
-
-endif
-
-##################################################################################
-# LINUX
-##################################################################################
-ifeq ($(TARGET_OS),linux)
-
-all: --base
-clean: --base-clean
-
-endif
+all: Engine QtBase Studio 
+clean: Engine-clean QtBase-clean Studio-clean 
 
 ##################################################################################
 

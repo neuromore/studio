@@ -53,6 +53,14 @@ else
 	endif
 endif
 
+# Use Detected Platform as Target by default
+ifeq ($(TARGET_OS),)
+TARGET_OS = $(DETECTED_OS)
+endif
+ifeq ($(TARGET_ARCH),)
+TARGET_ARCH = $(DETECTED_ARCH)
+endif
+
 # Debug by default
 ifeq ($(MODE),)
 MODE = debug
