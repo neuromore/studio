@@ -1,11 +1,11 @@
-## Building and Developing
+# Building
 
-We provide two integrated build and development environments in this repository:
+We provide two integrated build systems in this repository:
 
-- [GNU Makefiles](#gnu-make-clang) for building with Clang/LLVM on multiple platforms
-- [Visual Studio](#visual-studio) solution for intuitive Windows development using MSVC++ as compiler
+- GNU Makefiles for building with Clang/LLVM on all platforms
+- (deprecated) Visual Studio solution for intuitive Windows development using MSVC++ as compiler
 
-### GNU Make + Clang
+## GNU Make + Clang
 
 This is our main multi-platform build environment based on [GNU Make](https://www.gnu.org/software/make/) and [Clang](https://clang.llvm.org/).
 
@@ -15,9 +15,9 @@ It supports the following platforms:
 - Linux
 - Mac OSX
 
-#### Prerequisites
+### Prerequisites
 
-##### Linux (Ubuntu)
+#### Linux (Ubuntu)
 
 _Get the required build tools:_
 
@@ -65,7 +65,7 @@ sudo apt-get install \
  libxcb-util-dev
 ```
 
-##### Mac OSX
+#### Mac OSX
 
 _Install these_
 
@@ -82,25 +82,37 @@ clang++ -v
 ar
 ```
 
-##### Windows
+#### Windows
 
-- Visual Studio is still required to build with Clang on Windows (linking VC runtime).
-- Requires GNU Make for Windows, Clang for Windows and LLVM for Windows (TODO: Links)
+- [Download](https://github.com/llvm/llvm-project/releases) and install LLVM.
+- [Download](http://gnuwin32.sourceforge.net/packages/make.htm) and install GNU Make.
+- [Download](https://visualstudio.microsoft.com/downloads/) install Visual Studio.
+- Reboot
 
-#### Building (all platforms)
+During installation, enable the checkbox to add them to your user's path (or all users' path).
 
-##### Makefile Parameters
+_Verify:_
+
+```
+make -v
+clang++ -v
+llvm-ar --version
+```
+
+### Building (all platforms)
+
+#### Makefile Parameters
 
 Following Parameters are supported. Defaults will be used if not provided.
 
 | Parameter   | Values                      | Default    |
 | ----------- | --------------------------- | ---------- |
-| MODE        | debug, release, production  | debug      |
+| MODE        | debug, release              | debug      |
 | BRANDING    | neuromore, ant, starrbase   | neuromore  |
 | TARGET_OS   | win, osx, linux, android    | {host-os}  |
 | TARGET_ARCH | x86, x64, arm, arm64        | {host-cpu} |
 
-##### Basic Builds with Defaults
+#### Basic Builds with Defaults
 
 _Building third party dependencies in debug mode for operating system and CPU of the current host:_
 
@@ -126,7 +138,7 @@ _Cleaning all neuromore projects in debug mode for operating system and CPU of t
 make clean
 ```
 
-##### Customized Examples
+#### Customized Examples
 
 _Building with customized parameters:_
 
@@ -135,7 +147,7 @@ make MODE=release TARGET_OS=win TARGET_ARCH=x86 Dependencies
 make MODE=release TARGET_OS=win TARGET_ARCH=x86 Studio
 ```
 
-##### Build Output Folders
+#### Build Output Folders
 
 _Example Outputs of Executables:_
 
@@ -154,7 +166,7 @@ _Example Outputs Third Party Libraries:_
 | ... | ...  | ...                                     |
 
 
-### Visual Studio (deprecated)
+## Visual Studio (deprecated)
 
 TODO: Update this
 
@@ -194,8 +206,7 @@ _Notes:_
 - Runs on Windows 7 and above
 
 
-
-#### Customizing the Build
+## Customizing the Build
 
 - Using preprocessor C/C++ macro defines.
 - Set in Config.h files or in build environment.
