@@ -32,21 +32,27 @@ bool TourManager::InitOnboardingActions()
 
 	OnboardingAction* welcomeAction = new OnboardingAction(mainWindow);
 	welcomeAction->setTitle(QString("Welcome to neuromore Studio"));
-	welcomeAction->setDescription(QString("Let us give you a quick tour to show you how to create a simple neurofeedback application in neuromore Studio."));
-	welcomeAction->setWindowPosition(QRect(563, 281 - titleBarHeight, 729, 222));
+	welcomeAction->setDescription(QString("neuromore Studio is your all-in-one platform to create any kind of bio-tech application, "
+		"from state-of-the art neuro- and bio-feedback experiences to rich, interactive EEG analysis dashboards.<br/>"
+		"Let us give you a quick tour to show you how to create a simple neurofeedback application in neuromore Studio."));
+	welcomeAction->setWindowPosition(QRect(563, 281 - titleBarHeight, 729, 280));
 	welcomeAction->setTitlePosition(QRect(38, 35, 545, 47));
-	welcomeAction->setDescriptionPosition(QRect(38, 118, 636, 50));
+	welcomeAction->setDescriptionPosition(QRect(38, 120, 660, 121));
 	mOnboardingActions.push_back(welcomeAction);
 
 	OnboardingAction* fileHandlingAction = new OnboardingAction(mainWindow);
 	fileHandlingAction->setTitle(QString("Handling files"));
-	fileHandlingAction->setDescription((QString("Every neurofeedback application consists at "
-		"least of a classifier in which you define the signal processing pipeline and usually also "
-		"of a state machine for your application logic.\nFor the intro we've already loaded the "
-		"classifier and state machine of out getting started guide.\nAll files in the examples folder"
-		"are read-only. To use them as a basis for your own projects you can copy them to your "
-		"personal folder which makes them editable.")));
+	fileHandlingAction->setDescription((QString("Every neuromore experience consists of two files:<br/>"
+			" 1. a <font color='#4EBCEB'>classifier</font> in which you define the signal processing pipeline and <br/>"
+			" 2. a <font color='#4EBCEB'>state machine</font> for the application logic and the UI.<br/> For this intro we've already loaded the"
+			" classifier and state machine of our <i>getting started</i> tutorial.<br/> All files in the <i> examples </i>-folder"
+			" are read-only. To edit them you can copy them to your personal folder"
+			" by right-clicking on them. ")));
 	fileHandlingAction->setActivePlugin("Back-End File System");
+	fileHandlingAction->setInstructionsTitle("Do this now");
+	fileHandlingAction->setInstructionsDescription(" . Copy the <i>GettingStartedClassifier</i> and the"
+		" <i>GettingStartedStateMachine</i> from the <i>examples GetingStarted</i> folder to your"
+		" personal folder <br/> . Open both files by double clicking them");
 	auto backendFileSystemWidget = fileHandlingAction->getDockWidget();
 
 	if (nullptr == backendFileSystemWidget) {
@@ -54,58 +60,74 @@ bool TourManager::InitOnboardingActions()
 	}
 
 	fileHandlingAction->setWindowPosition(QRect(backendFileSystemWidget->x()+backendFileSystemWidget->width() + 38,
-												backendFileSystemWidget->y()+backendFileSystemWidget->height() / 4 - titleBarHeight, 700, 396));
+												backendFileSystemWidget->y()+backendFileSystemWidget->height() / 4 - titleBarHeight, 711, 529));
 	fileHandlingAction->setTitlePosition(QRect(38, 44, 255, 50));
-	fileHandlingAction->setDescriptionPosition(QRect(38, 129, 620, 203));
+	fileHandlingAction->setDescriptionPosition(QRect(38, 112, 620, 285));
+	fileHandlingAction->setInstructionsTitlePosition(QRect(38, 336, 249, 47));
+	fileHandlingAction->setInstructionsPosition(QRect(38, 365, 620, 150));
 	fileHandlingAction->setPrevOnboardingAction(welcomeAction);
-	fileHandlingAction->setArrowPosition(OnboardingAction::ARROWTYPE::LEFTARROW, QRect(backendFileSystemWidget->x()+backendFileSystemWidget->width() + 10,
-																					   backendFileSystemWidget->y()+backendFileSystemWidget->height() / 3 + 25 - titleBarHeight,
-																					   30, 51));
+	fileHandlingAction->setArrowPosition(OnboardingAction::ARROWTYPE::LEFTARROW, QRect(backendFileSystemWidget->x() + backendFileSystemWidget->width() + 10,
+		backendFileSystemWidget->y() + backendFileSystemWidget->height() / 3 + 25 - titleBarHeight,
+		30, 51));
 	welcomeAction->setNextOnboardingAction(fileHandlingAction);
 	mOnboardingActions.push_back(fileHandlingAction);
 
-	OnboardingAction* editorAction = new OnboardingAction(mainWindow);
-	editorAction->setTitle(QString("The editor window"));
-	editorAction->setDescription(QString("This is the main editor window in which you can access all 3 parts "
-		"of a neurofeedback application: the classifier, the state machine and the experience window.\n"
-		"Right now you're seeing the classifier tab in which you define the signal processing pipeline "
-		"by dragging nodes from the toolbox on the right into the graph.\nIn this example we average "
-		"the amplitude of the Alpha band over all channels and over 3s and steam it into a custom"
-		"feedback node to set the image brightness of a video."));
-	editorAction->setActivePlugin("Classifier");
+	OnboardingAction* classifierAction = new OnboardingAction(mainWindow);
+	classifierAction->setTitle(QString("The classifier"));
+	classifierAction->setDescription(QString("This is the <font color='#4EBCEB'>classifier</font> tab in which"
+						"you define how you want to process the signals from your bio-sensors. <br/> <br/> neuromore Studio is"
+						" <font color='#4EBCEB'>hardware agnostic</font> and supports a wide variety of EEG devices as well as "
+						"heartrate and GSR sensors. Simply drag a node into the graph and link it to any other node. "
+						"<br/><br/>In this example we average the amplitude of the Alpha band over all channels and stream it into a"
+						"custom feedback node to set the image brightness of a video.<br/><br/>"
+						"You can edit the classifier by simply dragging nodes from the right into the graph."));
+	classifierAction->setActivePlugin("Classifier");
+	classifierAction->setInstructionsTitle("Do this now");
+	classifierAction->setInstructionsDescription("<blockquote/> <pre/>. Drag a View node from the <i>Output</i> section"
+		"of the toolbox on the right into the classifier and connect it the the <i>Alpha Band</i> node "
+		"<pre/> . Optional: click on the <i>Alpha Band</i> node and choose a different band");
 
-	auto classifierWidget = editorAction->getDockWidget();
+	auto classifierWidget = classifierAction->getDockWidget();
 
 	if (nullptr == classifierWidget) {
 		return false;
 	}
 
-	auto classifierTabRect = editorAction->getTabRect(classifierWidget);
+	auto classifierTabRect = classifierAction->getTabRect(classifierWidget);
 
 	if (classifierTabRect.isEmpty()) {
 		return false;
 	}
 
-	editorAction->setWindowPosition(QRect(classifierWidget->x() - backendFileSystemWidget->width() / 2,
-										  classifierWidget->y() + 3 * classifierTabRect.height() / 2 + 29 - titleBarHeight, 765, 330));
-	editorAction->setTitlePosition(QRect(38, 11, 368, 47));
-	editorAction->setDescriptionPosition(QRect(38, 72, 673, 201));
-	editorAction->setArrowPosition(OnboardingAction::ARROWTYPE::TOPARROW, QRect(classifierWidget->x(),
+	classifierAction->setWindowPosition(QRect(classifierWidget->x() - backendFileSystemWidget->width() / 2,
+										  classifierWidget->y() + 3 * classifierTabRect.height() / 2 + 29 - titleBarHeight, 770, 590));
+	classifierAction->setTitlePosition(QRect(38, 11, 368, 47));
+	classifierAction->setDescriptionPosition(QRect(38, 72, 710, 300));
+	classifierAction->setInstructionsTitlePosition(QRect(38, 400, 243, 47));
+	classifierAction->setInstructionsPosition(QRect(38, 435, 620, 150));
+	classifierAction->setArrowPosition(OnboardingAction::ARROWTYPE::TOPARROW, QRect(classifierWidget->x(),
 																				classifierWidget->y() + 3 * classifierTabRect.height() / 2 - titleBarHeight,
 																				51, 30));
-	editorAction->setPrevOnboardingAction(fileHandlingAction);
-	fileHandlingAction->setNextOnboardingAction(editorAction);
-	mOnboardingActions.push_back(editorAction);
-	connect(editorAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
+	classifierAction->setPrevOnboardingAction(fileHandlingAction);
+	fileHandlingAction->setNextOnboardingAction(classifierAction);
+	mOnboardingActions.push_back(classifierAction);
+	connect(classifierAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
 	OnboardingAction* stateMachineAction = new OnboardingAction(mainWindow);
-	stateMachineAction->setTitle(QString("Defining the user flow in the state machine"));
-	stateMachineAction->setDescription(QString("The state machine contains the interaction logic of your application.\n"
-		"In this example we prompt the user to select for how long they want to do the focus training before a video "
-		"starts to play. You can set conditions on transitions, for example to stop playing the video once the timer "
-		"is up. The brightness and the session duration are streamed in real time through the custom feedback nodes "
-		"from the classifier."));
+	stateMachineAction->setTitle(QString("The state machine"));
+	stateMachineAction->setDescription(QString("In the state machine you can define the user"
+		" interaction of your exprience. In this example we prompt the user to select for how"
+		" long they want to do the focus training before a video starts to play. <br/> "
+		"Every state machine contains a start state, an end state and a couple of action states"
+		" in between.When you start your experience it will jump in at the start state.To transition"
+		" between states <br/><br/>You can set conditions on transitions, for example to stop playing "
+		"the video once the timer is up.<br/>The brightness and the session duration are streamed in"
+		"real time through the custom feedback nodes from the classifier."));
 	stateMachineAction->setActivePlugin("State Machine");;
+	stateMachineAction->setInstructionsTitle("Do this now");
+	stateMachineAction->setInstructionsDescription("Let's add another option to do the focus training "
+		" for 5 minutes <br/> . Add another Action state to the graph .Optional: click on the"
+		" personal folder <br/> . Open both files by double clicking them");
 
 	auto stateMachineWidget = stateMachineAction->getDockWidget();
 
@@ -120,14 +142,16 @@ bool TourManager::InitOnboardingActions()
 	}
 
 	stateMachineAction->setWindowPosition(QRect(classifierWidget->x() - backendFileSystemWidget->width() / 4,
-												classifierWidget->y() + 3 * stateTabRect.height() / 2 + 29 - titleBarHeight, 791, 313));
+												classifierWidget->y() + 3 * stateTabRect.height() / 2 + 29 - titleBarHeight, 791, 595));
 	stateMachineAction->setTitlePosition(QRect(38, 11, 630, 80));
-	stateMachineAction->setDescriptionPosition(QRect(38, 113, 690, 203));
+	stateMachineAction->setDescriptionPosition(QRect(38, 85, 730, 285));
+	stateMachineAction->setInstructionsTitlePosition(QRect(38, 370, 243, 47));
+	stateMachineAction->setInstructionsPosition(QRect(38, 405, 613, 150));
 	stateMachineAction->setArrowPosition(OnboardingAction::ARROWTYPE::TOPARROW, QRect(classifierWidget->x() + stateTabRect.x(),
 																					  classifierWidget->y() + 3 * stateTabRect.height() / 2 - titleBarHeight,
 																					  51, 30));
-	stateMachineAction->setPrevOnboardingAction(editorAction);
-	editorAction->setNextOnboardingAction(stateMachineAction);
+	stateMachineAction->setPrevOnboardingAction(classifierAction);
+	classifierAction->setNextOnboardingAction(stateMachineAction);
 	mOnboardingActions.push_back(stateMachineAction);
 	connect(stateMachineAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 

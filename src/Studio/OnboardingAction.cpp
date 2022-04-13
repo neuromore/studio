@@ -1,5 +1,7 @@
 #include "OnboardingAction.h"
 #include "MainWindow.h"
+#include <QTextDocument>
+#include <QTextOption>
 
 OnboardingAction::OnboardingAction(QWidget* parent) :
 	QWidget(parent)
@@ -34,6 +36,16 @@ void OnboardingAction::setTitle(const QString& title)
 void OnboardingAction::setDescription(const QString& description)
 {
 	mDescription = description;
+}
+
+void OnboardingAction::setInstructionsTitle(const QString& instructionsTitle)
+{
+	mInstructionsTitle = instructionsTitle;
+}
+
+void OnboardingAction::setInstructionsDescription(const QString& instructionsDescription)
+{
+	mInstructionsDescription = instructionsDescription;
 }
 
 void OnboardingAction::setActiveRegion(const QRect& activeRegion)
@@ -81,50 +93,60 @@ void OnboardingAction::setTitlePosition(const QRect& rect)
 	mTitleRect = rect;
 }
 
+void OnboardingAction::setInstructionsTitlePosition(const QRect& rect)
+{
+	mInstructionsTitleRect = rect;
+}
+
+void OnboardingAction::setInstructionsPosition(const QRect& rect)
+{
+	mInstructionsRect = rect;
+}
+
 void OnboardingAction::CreateButtons()
 {
 	mCloseBtn = new QToolButton(this);
 	mCloseBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/Close.png"));
 	mCloseBtn->setStyleSheet(QString("background: transparent;"
-									 "border: 0px;"));
+		"border: 0px;"));
 	mCloseBtn->setIconSize(QSize(29, 29));
 	mCloseBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
-						   mWindowPosition.y() + 15,
-						   29, 29);
+		mWindowPosition.y() + 15,
+		29, 29);
 
 	mPreviousBtn = new QToolButton(this);
-	mPreviousBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/LeftArrowGray.png"));
+	mPreviousBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/LeftArrowBlue.png"));
 	mPreviousBtn->setStyleSheet(QString("background: transparent;"
-										"border: 0px;"));
+		"border: 0px;"));
 	mPreviousBtn->setIconSize(QSize(29, 29));
 	mPreviousBtn->setGeometry(mWindowPosition.x() + 15,
-						      mWindowPosition.y() + mWindowPosition.height() - 44,
-						      29, 29);
+		mWindowPosition.y() + mWindowPosition.height() - 44,
+		29, 29);
 
 	mNextBtn = new QToolButton(this);
-	mNextBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/RightArrowGray.png"));
+	mNextBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/RightArrowBlue.png"));
 	mNextBtn->setStyleSheet(QString("background: transparent;"
-									"border: 0px;"));
+		"border: 0px;"));
 	mNextBtn->setIconSize(QSize(29, 29));
 	mNextBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
-						  mWindowPosition.y() + mWindowPosition.height() - 44,
-					      29, 29);
+		mWindowPosition.y() + mWindowPosition.height() - 44,
+		29, 29);
 
 	mEndBtn = new QToolButton(this);
 	mEndBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/EndTutorial.png"));
 	mEndBtn->setStyleSheet(QString("background: transparent;"
-								   "border: 0px;"));
+		"border: 0px;"));
 	mEndBtn->setIconSize(QSize(124, 35));
 	mEndBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 139,
-						  mWindowPosition.y() + mWindowPosition.height() - 50,
-					      124, 35);
+		mWindowPosition.y() + mWindowPosition.height() - 50,
+		124, 35);
 	mEndBtn->setVisible(false);
 
 	auto appManager = GetManager();
 	connect(mCloseBtn, &QToolButton::pressed, appManager, &AppManager::CloseTour);
 	connect(mCloseBtn, SIGNAL(pressed()), this, SLOT(OnCloseAction()));
 
-	connect(mEndBtn, SIGNAL(pressed()), this, SLOT(OnCloseAction()));
+	connect(mEndBtn, &QToolButton::pressed, appManager, &AppManager::CloseTour);
 	connect(mNextBtn, SIGNAL(pressed()), this, SLOT(OnGoToNextAction()));
 	connect(mPreviousBtn, SIGNAL(pressed()), this, SLOT(OnGoToPreviousAction()));
 }
@@ -149,34 +171,34 @@ void OnboardingAction::Invoke()
 
 	auto mainWindow = GetQtBaseManager()->GetMainWindow();
 
-	#if defined(NEUROMORE_PLATFORM_OSX)
-		setMainRegion(QRect(0, 0, mainWindow->geometry().width(),
+#if defined(NEUROMORE_PLATFORM_OSX)
+	setMainRegion(QRect(0, 0, mainWindow->geometry().width(),
 		mainWindow->geometry().height()));
-		setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->geometry().width(),
+	setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->geometry().width(),
 		mainWindow->geometry().height()));
-	#else
-		setMainRegion(QRect(0, 0, mainWindow->frameGeometry().width(),
+#else
+	setMainRegion(QRect(0, 0, mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
-		setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
+	setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
-	#endif
+#endif
 
 	if (mActivePluginIdx == 0)
 	{
-		QDockWidget * debugWindowWidget = getDockWidget();
+		QDockWidget* debugWindowWidget = getDockWidget();
 
 		if (nullptr == debugWindowWidget)
 		{
 			return;
 		}
 
-		#if defined(NEUROMORE_PLATFORM_OSX)
-			setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y() - 25,
-								debugWindowWidget->width(), 2 * debugWindowWidget->height()));
-		#else
-			setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y(),
-								debugWindowWidget->width(), 2 * debugWindowWidget->height()));
-		#endif
+#if defined(NEUROMORE_PLATFORM_OSX)
+		setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y() - 25,
+			debugWindowWidget->width(), 2 * debugWindowWidget->height()));
+#else
+		setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y(),
+			debugWindowWidget->width(), 2 * debugWindowWidget->height()));
+#endif
 		auto activePlugin = GetQtBaseManager()->GetPluginManager()
 			->GetActivePlugin(mActivePluginIdx);
 		activePlugin->SetLocked(true);
@@ -198,7 +220,7 @@ void OnboardingAction::Invoke()
 	show();
 }
 
-void OnboardingAction::paintEvent(QPaintEvent*) 
+void OnboardingAction::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 	painter.setPen(QPen(QColor(0, 0, 0)));
@@ -253,31 +275,67 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 
 	QFont titleFont;
 	titleFont.setPixelSize(35);
-	#if defined(__linux__)
-		titleFont.setStretch(85);
-	#endif
+#if defined(__linux__)
+	titleFont.setStretch(85);
+#endif
 	titleFont.setWeight(QFont::Bold);
 	titleFont.setFamily("Roboto");
 	painter.setFont(titleFont);
 	painter.drawText(QRectF(messageBox.x() + mTitleRect.x(),
-							messageBox.y() + mTitleRect.y(),
-							mTitleRect.width(),
-							mTitleRect.height()),
-							mTitle);
+		messageBox.y() + mTitleRect.y(),
+		mTitleRect.width(),
+		mTitleRect.height()),
+		mTitle);
 
+	QTextDocument descriptionText;
 	QFont descriptionFont;
 	descriptionFont.setPixelSize(19);
-	#if defined(__linux__)
-		descriptionFont.setStretch(85);
-	#endif
+#if defined(__linux__)
+	descriptionFont.setStretch(85);
+#endif
 	descriptionFont.setWeight(QFont::DemiBold);
 	descriptionFont.setFamily("Roboto");
-	painter.setFont(descriptionFont);
-	painter.drawText(QRect(messageBox.x() + mDescriptionRect.x(),
-							messageBox.y() + mDescriptionRect.y(),
-							mDescriptionRect.width(),
-							mDescriptionRect.height()),
-							mDescription);
+	descriptionText.setTextWidth(mDescriptionRect.width());
+	descriptionText.setDefaultFont(descriptionFont);
+	descriptionText.setHtml(mDescription);
+	QRect descriptionRect(0, 0, mDescriptionRect.width(),
+		mDescriptionRect.height());
+	painter.translate(messageBox.x() + mDescriptionRect.x(),
+		messageBox.y() + mDescriptionRect.y());
+	descriptionText.drawContents(&painter, descriptionRect);
+
+	QFont instructionTitleFont;
+	instructionTitleFont.setPixelSize(30);
+#if defined(__linux__)
+	instructionTitleFont.setStretch(85);
+#endif
+	instructionTitleFont.setWeight(QFont::Bold);
+	instructionTitleFont.setFamily("Roboto");
+	painter.setFont(instructionTitleFont);
+	painter.translate(-messageBox.x() - mDescriptionRect.x(),
+		-messageBox.y() - mDescriptionRect.y());
+	painter.drawText(QRectF(messageBox.x() + mInstructionsTitleRect.x(),
+		messageBox.y() + mInstructionsTitleRect.y(),
+		mInstructionsTitleRect.width(),
+		mInstructionsTitleRect.height()),
+		mInstructionsTitle);
+
+	QTextDocument instructionsText;
+	QFont instructionFont;
+	instructionFont.setPixelSize(19);
+#if defined(__linux__)
+	instructionFont.setStretch(85);
+#endif
+	instructionFont.setWeight(QFont::DemiBold);
+	instructionFont.setFamily("Roboto");
+	instructionsText.setTextWidth(mInstructionsRect.width());
+	instructionsText.setDefaultFont(instructionFont);
+	instructionsText.setHtml(mInstructionsDescription);
+	QRect instructionsRect(0, 0, mInstructionsRect.width(),
+		mInstructionsRect.height());
+	painter.translate(messageBox.x() + mInstructionsRect.x(),
+		messageBox.y() + mInstructionsRect.y());
+	instructionsText.drawContents(&painter, instructionsRect);
 
 	ShowButtons();
 }

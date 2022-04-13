@@ -461,9 +461,9 @@
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\Close.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\EndTutorial.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\DownRectArrow.png" />
-    <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftArrowGray.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftArrowBlue.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftRectArrow.png" />
-    <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightArrowGray.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightArrowBlue.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightRectArrow.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\TopRectArrow.png" />
     <Image Include="..\..\src\Studio\Resources\AppIcon.ico" />

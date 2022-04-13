@@ -155,6 +155,7 @@ public slots:
 		TourManager*						mTourManager;
 		VisualizationManager*				mVisualizationManager;
 		Core::Version						mVersion;
+		Qt::WindowFlags						mWindowFlags;
 };
 
 

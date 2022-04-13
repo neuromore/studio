@@ -35,6 +35,8 @@ public:
 	void setPrevOnboardingAction(OnboardingAction* prevOnboardingAction);
 	void setTitle(const QString& title);
 	void setDescription(const QString& description);
+	void setInstructionsTitle(const QString& instructionsTitle);
+	void setInstructionsDescription(const QString& instructionsDescription);
 	void setActiveRegion(const QRect& activeRegion);
 	void setActivePlugin(std::string pluginName);
 	void setMainRegion(const QRect& mainRegion);
@@ -42,6 +44,8 @@ public:
 	void setArrowPosition(ARROWTYPE arrowtype, const QRect& arrowPosition = QRect());
 	void setDescriptionPosition(const QRect& rect);
 	void setTitlePosition(const QRect& rect);
+	void setInstructionsTitlePosition(const QRect& rect);
+	void setInstructionsPosition(const QRect& rect);
 	void ShowButtons();
 	void CreateButtons();
 	void Invoke();
@@ -70,11 +74,15 @@ private:
 	QRect mWindowPosition = QRect(800, 350, 350, 200);
 	QRect mDescriptionRect;
 	QRect mTitleRect;
+	QRect mInstructionsRect;
+	QRect mInstructionsTitleRect;
 	QRect mArrowPosition;
 	ARROWTYPE mArrowType = ARROWTYPE::NOARROW;
 	int mActivePluginIdx = -1;
 	QString mTitle;
 	QString mDescription;
+	QString mInstructionsTitle;
+	QString mInstructionsDescription;
 };
 
 #endif
