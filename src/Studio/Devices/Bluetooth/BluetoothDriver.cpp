@@ -21,11 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "BluetoothDriver.h"
-#include <Core/EventManager.h>
-#include <QtBaseManager.h>
-
 
 using namespace Core;
 

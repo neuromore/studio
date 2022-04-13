@@ -21,15 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "WhileSessionWidget.h"
-#include <ImageButton.h>
-#include <QtBaseManager.h>
-#include <EngineManager.h>
-#include "../../MainWindow.h"
-#include <QHBoxLayout>
-#include <QMovie>
-
 
 using namespace Core;
 

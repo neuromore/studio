@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 #include "../../Config.h"
 #include "../../Device.h"
 #include "../../DeviceDriver.h"

@@ -21,19 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "SettingsWindow.h"
-#include <QtBaseManager.h>
-#include <PluginSystem/PluginManager.h>
-#include "../AppManager.h"
-#include <QSettings>
-#include <QLabel>
-#include <QPixmap>
-#include <QVBoxLayout>
-#include <QStackedWidget>
-#include <QListWidget>
-#include <QGridLayout>
-
 
 using namespace Core;
 

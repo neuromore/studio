@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // includd required headers
 #include "StringIterator.h"
 #include "LogManager.h"

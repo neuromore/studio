@@ -21,20 +21,14 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "ExperienceWidget.h"
-#include <Core/EventManager.h>
 #include "Graph/StateTransitionButtonCondition.h"
 #include "Graph/StateTransitionAudioCondition.h"
 #include "Graph/StateTransitionVideoCondition.h"
-#include "../../AppManager.h"
-#include <EngineManager.h>
-#include <QtBaseManager.h>
-#include <QSoundEffect>
-#include <QPainter>
-#include <QFileInfo>
-#include <QBuffer>
-#include <QMessageBox>
 
 // for system master volume control
 #ifdef NEUROMORE_PLATFORM_WINDOWS
@@ -42,8 +36,6 @@
 	#include <windows.h>
 	#include <mmdeviceapi.h>
 	#include <endpointvolume.h>
-	
-	#include <QSettings>
 #endif
 
 using namespace Core;

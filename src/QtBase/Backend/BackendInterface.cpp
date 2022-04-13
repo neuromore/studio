@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+// include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required files
 #include "BackendInterface.h"
 #include <EngineManager.h>

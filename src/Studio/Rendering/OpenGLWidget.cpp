@@ -21,14 +21,13 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "OpenGLWidget.h"
-#include "../AppManager.h"
 #include <MainWindowBase.h>
 #include <ColorPalette.h>
-#include <QFile>
-#include <QByteArray>
-#include <QMouseEvent>
 
 // font stash
 // the implementation defines enable function declarations inside the header files

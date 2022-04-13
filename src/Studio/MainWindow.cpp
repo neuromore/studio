@@ -21,12 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "MainWindow.h"
-#include <Core/LogManager.h>
 #include <License.h>
-#include "AppManager.h"
-#include <PluginSystem/PluginManager.h>
 #include <Graph/GraphImporter.h>
 #include "Windows/AboutWindow.h"
 #include "Windows/UpgradeWindow.h"
@@ -34,7 +34,6 @@
 #include "Windows/LicenseAgreementWindow.h"
 #include "Windows/EnterLabelWindow.h"
 #include "Windows/SelectUserWindow.h"
-#include <EngineManager.h>
 #include <AutoUpdate/AutoUpdate.h>
 #include <LayoutManager.h>
 #include <LayoutComboBox.h>
@@ -86,28 +85,6 @@
 #ifdef OPENCV_SUPPORT
 //#include "Plugins/Development/LORETA/LoretaPlugin.h"
 #endif
-
-// include Qt related
-#include <QMenu>
-#include <QMenuBar>
-#include <QVariant>
-#include <QSignalMapper>
-#include <QTextEdit>
-#include <QDir>
-#include <QMessageBox>
-#include <QToolBar>
-#include <QLineEdit>
-#include <QLabel>
-#include <QFileDialog>
-#include <QApplication>
-#include <QDesktopServices>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QHBoxLayout>
-#include <QTimer>
-#include <QSettings>
-#include <QProcess>
-
 
 using namespace Core;
 

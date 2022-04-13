@@ -21,17 +21,16 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "CreateUserWindow.h"
 #include "InviteUserWindow.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QGridLayout>
 #include <Backend/UsersCreateRequest.h>
 #include <Backend/UsersCreateResponse.h>
 #include <Backend/UsersInviteRequest.h>
 #include <Backend/UsersInviteResponse.h>
-#include <QMessageBox>
 
 using namespace Core;
 

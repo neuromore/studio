@@ -21,13 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "ExampleOpenGLWidget.h"
 #include "ExampleOpenGLPlugin.h"
-#include <Core/LogManager.h>
-#include "../../../Rendering/OpenGLWidget2DHelpers.h"
-#include <QPainter>
-
 
 using namespace Core;
 

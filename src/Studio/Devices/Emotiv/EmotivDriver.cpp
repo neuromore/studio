@@ -21,10 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "EmotivDriver.h"
-#include <Core/LogManager.h>
-#include <QMessageBox>
 
 #ifdef INCLUDE_DEVICE_EMOTIV
 

@@ -21,20 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "EngineStatusPlugin.h"
-#include <Core/Config.h>
-#include <Core/LogManager.h>
 #include <Networking/NetworkClient.h>
-#include <EngineManager.h>
-#include "../../MainWindow.h"
-#include "../../AppManager.h"
-
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QIcon>
-
 
 using namespace Core;
 

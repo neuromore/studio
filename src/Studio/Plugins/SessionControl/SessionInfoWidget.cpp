@@ -21,14 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "SessionInfoWidget.h"
-#include <Core/EventManager.h>
-#include <Notifications.h>
-#include <QtBaseManager.h>
-#include <QLabel>
-#include <QPixmap>
-#include <QPropertyAnimation>
 
 using namespace Core;
 

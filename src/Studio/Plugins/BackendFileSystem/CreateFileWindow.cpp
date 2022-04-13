@@ -21,16 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "CreateFileWindow.h"
 #include "BackendFileSystemWidget.h"
-#include <QtBaseManager.h>
-#include <QLabel>
-#include <QSizePolicy>
-#include <QPixmap>
-#include <QVBoxLayout>
-#include <QPushButton>
-
 
 using namespace Core;
 

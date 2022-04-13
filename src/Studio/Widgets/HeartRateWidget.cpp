@@ -21,15 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "HeartRateWidget.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QPainter>
-#include <QPen>
-
 
 using namespace Core;
 

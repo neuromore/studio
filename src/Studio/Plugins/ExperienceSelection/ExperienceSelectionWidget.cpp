@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include <Graph/GraphImporter.h>
 #include "ExperienceSelectionWidget.h"
@@ -30,14 +33,6 @@
 #include <Backend/FileSystemGetResponse.h>
 #include "../../MainWindow.h"
 #include "../../VisualizationManager.h"
-#include "../../AppManager.h"
-#include <QtBaseManager.h>
-#include <QGridLayout>
-#include <QPainter>
-#include <QLabel>
-#include <QTimer>
-#include <Core/LogManager.h>
-
 
 using namespace Core;
 

@@ -21,17 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "FeedbackHistoryWidget.h"
 #include "FeedbackPlugin.h"
-#include <Core/Math.h>
-#include <Core/LogManager.h>
-#include <Core/EventManager.h>
-#include <EngineManager.h>
-#include <ColorPalette.h>
-#include "../../Rendering/OpenGLWidget2DHelpers.h"
-#include <QPainter>
-
 
 using namespace Core;
 

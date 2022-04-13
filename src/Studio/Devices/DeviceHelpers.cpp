@@ -21,12 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "DeviceHelpers.h"
-#include <Device.h>
-#include <EngineManager.h>
-#include "System/SerialPort.h"
-
 
 using namespace Core;
 
