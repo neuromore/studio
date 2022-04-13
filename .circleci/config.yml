@@ -15,14 +15,44 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Set up build tools"
+          command: sudo apt-get install make clang llvm lld
+      - run: 
+          name: "Install dependencies"
+          command: sudo apt-get install \
+                  libgstreamer1.0-dev \
+                  libgstreamer-plugins-base1.0-dev \
+                  libgstreamer-plugins-good1.0-dev \
+                  libglib2.0-dev \
+                  libgl1-mesa-dev \
+                  libglu1-mesa-dev \
+                  libsm-dev \
+                  libx11-dev \
+                  libx11-xcb-dev \
+                  libexpat-dev \
+                  libxkbcommon-dev \
+                  libxcb1-dev \
+                  libxcb-glx0-dev \
+                  libxcb-icccm4-dev \
+                  libxcb-image0-dev \
+                  libxcb-keysyms1-dev \
+                  libxcb-randr0-dev \
+                  libxcb-render0-dev \
+                  libxcb-render-util0-dev \
+                  libxcb-shape0-dev \
+                  libxcb-shm0-dev \
+                  libxcb-sync-dev \
+                  libxcb-xfixes0-dev \
+                  libxcb-xinerama0-dev \
+                  libxcb-xkb-dev \
+                  libxcb-util-dev
+      - run:
+          name: "Build dependencies"
+          command: make Dependencies
+      - run:
           name: "Build"
-          command: | 
-            cd deps/build/make
-            make clean
-            make -j 4
-            cd ../../build/make
-            make clean
-            make -j 4
+          command: make
+        
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
