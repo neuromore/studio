@@ -245,14 +245,6 @@ void MainWindow::Init()
 	spacerWidget->setMaximumWidth(5);
 	menuLayout->addWidget(spacerWidget);
 
-	// layout combo box
-	QLabel* layoutLabel = new QLabel("Layout: ");
-	menuLayout->addWidget(layoutLabel);
-	
-	mLayoutComboBox = new LayoutComboBox();
-	menuLayout->addWidget(mLayoutComboBox);
-	GetLayoutManager()->SetComboBox( mLayoutComboBox );
-	
 	// spacer
 	spacerWidget = new QWidget();
 	spacerWidget->setMinimumWidth(5);
@@ -523,12 +515,27 @@ void MainWindow::OnPostAuthenticationInit()
 
 	// from extern repo:
 	DriverInventory::RegisterDrivers(); 
+
+	User* user = GetUser();
 	
 	// studio built in:
 	#ifdef INCLUDE_DEVICE_TEST
-	if (GetUser()->ReadAllowed(TestDevice::GetRuleName()))
+	if (user->ReadAllowed(TestDevice::GetRuleName()))
 		GetDeviceManager()->AddDeviceDriver(new TestDeviceDriver());
 	#endif
+
+	if (user->FindRule("ROLE_ClinicPatient") == nullptr) {
+		// layout combo box
+		QLabel* layoutLabel = new QLabel("Layout: ");
+		auto menuWdg = menuWidget();
+		auto menuLayout = menuWdg->layout();
+
+		menuLayout->addWidget(layoutLabel);
+
+		mLayoutComboBox = new LayoutComboBox();
+		menuLayout->addWidget(mLayoutComboBox);
+		GetLayoutManager()->SetComboBox(mLayoutComboBox);
+	}
 
 	// load device configs (requires all devices to be present)
 	GetManager()->SetSplashScreenMessage("Loading device definitions...");
@@ -597,7 +604,6 @@ void MainWindow::OnPostAuthenticationInit()
 	LogDetailedInfo("Searching for available layouts ...");
 
 	// update layouts menu
-	User* user = GetUser();
 
 	bool uiCustomization = false;
 	if (user != NULL && user->FindRule("STUDIO_SETTING_CustomLayouts") != NULL)
