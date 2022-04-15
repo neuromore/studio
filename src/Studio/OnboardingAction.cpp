@@ -2,6 +2,7 @@
 #include "MainWindow.h"
 #include <QTextDocument>
 #include <QTextOption>
+#include <QAbstractTextDocumentLayout>
 
 OnboardingAction::OnboardingAction(QWidget* parent) :
 	QWidget(parent)
@@ -227,7 +228,6 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 	painter.setPen(QPen(QColor(0, 0, 0)));
 	painter.fillRect(mMainRegion, QBrush(QColor(0, 0, 0, 128)));
 
-
 	QRegion overlayRegion = QRegion(mMainRegion) - mActiveRegion
 		+ mWindowPosition + mArrowPosition;
 	setMask(overlayRegion);
@@ -303,7 +303,10 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 		mDescriptionRect.height());
 	painter.translate(messageBox.x() + mDescriptionRect.x(),
 		messageBox.y() + mDescriptionRect.y());
-	descriptionText.drawContents(&painter, descriptionRect);
+
+	QAbstractTextDocumentLayout::PaintContext ctx;
+	ctx.palette.setColor(QPalette::Text, painter.pen().color());
+	descriptionText.documentLayout()->draw(&painter, ctx);
 
 	QFont instructionTitleFont;
 	instructionTitleFont.setPixelSize(30);
@@ -336,7 +339,8 @@ void OnboardingAction::paintEvent(QPaintEvent*)
 		mInstructionsRect.height());
 	painter.translate(messageBox.x() + mInstructionsRect.x(),
 		messageBox.y() + mInstructionsRect.y());
-	instructionsText.drawContents(&painter, instructionsRect);
+
+	instructionsText.documentLayout()->draw(&painter, ctx);
 
 	ShowButtons();
 }

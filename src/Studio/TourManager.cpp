@@ -50,9 +50,9 @@ bool TourManager::InitOnboardingActions()
 			" by right-clicking on them. ")));
 	fileHandlingAction->setActivePlugin("Back-End File System");
 	fileHandlingAction->setInstructionsTitle("Do this now");
-	fileHandlingAction->setInstructionsDescription(" . Copy the <i>GettingStartedClassifier</i> and the"
-		" <i>GettingStartedStateMachine</i> from the <i>examples GetingStarted</i> folder to your"
-		" personal folder <br/> . Open both files by double clicking them");
+	fileHandlingAction->setInstructionsDescription("<ul> <li> Copy the <i> GettingStartedClassifier </i> and the"
+		" <i> GettingStartedStateMachine </i> from the <i> examples GetingStarted </i> folder to your"
+		" personal folder </li> <li> Open both files by double clicking them </li> </ul>");
 	auto backendFileSystemWidget = fileHandlingAction->getDockWidget();
 
 	if (nullptr == backendFileSystemWidget) {
@@ -83,9 +83,9 @@ bool TourManager::InitOnboardingActions()
 						"You can edit the classifier by simply dragging nodes from the right into the graph."));
 	classifierAction->setActivePlugin("Classifier");
 	classifierAction->setInstructionsTitle("Do this now");
-	classifierAction->setInstructionsDescription("<blockquote/> <pre/>. Drag a View node from the <i>Output</i> section"
-		"of the toolbox on the right into the classifier and connect it the the <i>Alpha Band</i> node "
-		"<pre/> . Optional: click on the <i>Alpha Band</i> node and choose a different band");
+	classifierAction->setInstructionsDescription("<ul> <li> Drag a View node from the <i> Output </i> section"
+		"of the toolbox on the right into the classifier and connect it the the <i> Alpha Band </i> node </li>"
+		"<li> Optional: click on the <i> Alpha Band </i> node and choose a different band </li> </ul>");
 
 	auto classifierWidget = classifierAction->getDockWidget();
 
@@ -126,8 +126,8 @@ bool TourManager::InitOnboardingActions()
 	stateMachineAction->setActivePlugin("State Machine");;
 	stateMachineAction->setInstructionsTitle("Do this now");
 	stateMachineAction->setInstructionsDescription("Let's add another option to do the focus training "
-		" for 5 minutes <br/> . Add another Action state to the graph .Optional: click on the"
-		" personal folder <br/> . Open both files by double clicking them");
+		" for 5 minutes <ul> <li> Add another Action state to the graph </li> <li> Optional: click on the <i> Alpha Band </i> "
+		" node and choose a different band </ul> </li>");
 
 	auto stateMachineWidget = stateMachineAction->getDockWidget();
 
