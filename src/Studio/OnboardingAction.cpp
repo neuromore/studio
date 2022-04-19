@@ -7,7 +7,8 @@ OnboardingAction::OnboardingAction(QWidget* parent) :
 	QWidget(parent)
 {
 	setAttribute(Qt::WA_TranslucentBackground, true);
-	setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+	setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
+	setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
 }
 
 OnboardingAction::~OnboardingAction()

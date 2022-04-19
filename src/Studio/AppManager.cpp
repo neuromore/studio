@@ -348,15 +348,6 @@ void AppManager::LoadTourManager()
 
 	if (true/*isFirstRun*/) //!TODO always true for testing. Uncomment before merge
 	{
-		#if defined(NEUROMORE_PLATFORM_OSX)
-			mWindowFlags = GetMainWindow()->windowFlags();
-			GetMainWindow()->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint);
-			if (GetMainWindow()->windowState() != Qt::WindowFullScreen) {
-				QTimer::singleShot(0, this, SLOT(GetMainWindow()->showFullScreen()));
-			}
-			GetMainWindow()->show();
-		#endif
-
 		settings.setValue("isFirstRun", false);
 		this->mTourManager = new TourManager();
 		QTimer::singleShot(1000, this, [this] {
@@ -373,11 +364,6 @@ void AppManager::CloseTour()
 {
 	if (mTourManager != nullptr)
 	{
-		#if defined(NEUROMORE_PLATFORM_OSX)
-			GetMainWindow()->setWindowFlags(mWindowFlags);
-			GetMainWindow()->show();
-		#endif
-
 		delete mTourManager;
 		mTourManager = nullptr;
 	}
