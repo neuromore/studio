@@ -216,6 +216,13 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		// window close event
 		void closeEvent(QCloseEvent* event) override;
 
+		// window resize event
+		void resizeEvent(QResizeEvent* event) override;
+
+		void moveEvent(QMoveEvent* event) override;
+
+		void changeEvent(QEvent* event) override;
+
 		// keyboard events
 		void keyPressEvent(QKeyEvent* event) override;
 		void keyReleaseEvent(QKeyEvent* event) override;
@@ -292,6 +299,9 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		void OnSaveSettings();
 	signals:
 		void postAuthenticationInitSucceed();
+		void resized();
+		void minimized();
+		void maximized();
 
 	private:
 		Core::String CreateMuseCommandLine(uint32 deviceID, uint32 powerLineFreq, Core::String preset, Core::String bluetoothNameOrMac);

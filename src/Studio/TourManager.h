@@ -28,6 +28,8 @@ public:
 
 	static OnboardingAction* CurrentOnboardingAction;
 
+	QRect getTabRect(const QDockWidget* DWidget) const;
+
 public slots: 
 
 	void OnWindowClosed();

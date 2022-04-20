@@ -1129,6 +1129,42 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event)
 	QMainWindow::keyReleaseEvent(event);
 }
 
+
+// key released
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+	QMainWindow::resizeEvent(event);
+	emit resized();
+}
+
+
+void MainWindow::moveEvent(QMoveEvent* event)
+{
+	QMainWindow::moveEvent(event);
+	emit resized();
+}
+
+void MainWindow::changeEvent(QEvent* event)
+{
+	QMainWindow::changeEvent(event);
+    if (event->type() == QEvent::WindowStateChange)
+	{
+        QWindowStateChangeEvent* stateEvent = static_cast<QWindowStateChangeEvent*>(event);
+        if (isMinimized())
+        {
+			emit minimized();
+        }
+		else if (stateEvent->oldState() & Qt::WindowMinimized)
+		{
+			emit maximized();
+		}
+        else
+        {
+			emit resized();
+        }
+    }
+}
+
 // find the menu action for a given plugin
 QAction* MainWindow::FindAction(QList<QAction*>& actionList, Plugin* plugin)
 {

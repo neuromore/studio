@@ -74,15 +74,15 @@ void OnboardingAction::setMainRegion(const QRect& mainRegion)
 	mMainRegion = mainRegion;
 }
 
-void OnboardingAction::setWindowPosition(const QRect& windowPosition)
-{
-	mWindowPosition = windowPosition;
-}
-
 void OnboardingAction::setArrowPosition(ARROWTYPE arrowType, const QRect& arrowPosition)
 {
 	mArrowType = arrowType;
 	mArrowPosition = arrowPosition;
+}
+
+void OnboardingAction::setArrowType(ARROWTYPE arrowType)
+{
+	mArrowType = arrowType;
 }
 
 void OnboardingAction::setDescriptionPosition(const QRect& rect)
@@ -112,36 +112,24 @@ void OnboardingAction::CreateButtons()
 	mCloseBtn->setStyleSheet(QString("background: transparent;"
 		"border: 0px;"));
 	mCloseBtn->setIconSize(QSize(29, 29));
-	mCloseBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
-		mWindowPosition.y() + 15,
-		29, 29);
 
 	mPreviousBtn = new QToolButton(this);
 	mPreviousBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/LeftArrowBlue.png"));
 	mPreviousBtn->setStyleSheet(QString("background: transparent;"
 		"border: 0px;"));
 	mPreviousBtn->setIconSize(QSize(29, 29));
-	mPreviousBtn->setGeometry(mWindowPosition.x() + 15,
-		mWindowPosition.y() + mWindowPosition.height() - 44,
-		29, 29);
 
 	mNextBtn = new QToolButton(this);
 	mNextBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/RightArrowBlue.png"));
 	mNextBtn->setStyleSheet(QString("background: transparent;"
 		"border: 0px;"));
 	mNextBtn->setIconSize(QSize(29, 29));
-	mNextBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
-		mWindowPosition.y() + mWindowPosition.height() - 44,
-		29, 29);
 
 	mEndBtn = new QToolButton(this);
 	mEndBtn->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/EndTutorial.png"));
 	mEndBtn->setStyleSheet(QString("background: transparent;"
 		"border: 0px;"));
 	mEndBtn->setIconSize(QSize(124, 35));
-	mEndBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 139,
-		mWindowPosition.y() + mWindowPosition.height() - 50,
-		124, 35);
 	mEndBtn->setVisible(false);
 
 	auto appManager = GetManager();
@@ -151,6 +139,11 @@ void OnboardingAction::CreateButtons()
 	connect(mEndBtn, &QToolButton::pressed, appManager, &AppManager::CloseTour);
 	connect(mNextBtn, SIGNAL(pressed()), this, SLOT(OnGoToNextAction()));
 	connect(mPreviousBtn, SIGNAL(pressed()), this, SLOT(OnGoToPreviousAction()));
+
+	auto mainWindow = GetMainWindow();
+	connect(mainWindow, &MainWindow::resized, this, &OnboardingAction::OnResized);
+	connect(mainWindow, &MainWindow::minimized, this, &OnboardingAction::OnMinimized);
+	connect(mainWindow, &MainWindow::maximized, this, &OnboardingAction::OnMaximized);
 }
 
 void OnboardingAction::ShowButtons()
@@ -167,19 +160,66 @@ void OnboardingAction::ShowButtons()
 	}
 }
 
+void OnboardingAction::SetButtonsGeometry()
+{
+	mCloseBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
+		mWindowPosition.y() + 15, 29, 29);
+
+	mPreviousBtn->setGeometry(mWindowPosition.x() + 15,
+		mWindowPosition.y() + mWindowPosition.height() - 44,
+		29, 29);
+
+	mNextBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 44,
+		mWindowPosition.y() + mWindowPosition.height() - 44,
+		29, 29);
+
+	mEndBtn->setGeometry(mWindowPosition.x() + mWindowPosition.width() - 139,
+		mWindowPosition.y() + mWindowPosition.height() - 50,
+		124, 35);
+}
+
 void OnboardingAction::Invoke()
 {
 	emit ActivePluginChanged(mActivePluginIdx);
 
+	SetWindowGeometry();
+
 	auto mainWindow = GetQtBaseManager()->GetMainWindow();
 
+	if (mActivePluginIdx >= 0)
+	{
+		auto activePlugin = GetQtBaseManager()->GetPluginManager()
+		->GetActivePlugin(mActivePluginIdx);
+		activePlugin->SetLocked(true);
+	}
+
+	if (mCloseBtn == nullptr)
+	{
+		CreateButtons();
+	}
+
+	SetButtonsGeometry();
+
+	show();
+}
+
+void OnboardingAction::SetWindowGeometry()
+{
+	auto mainWindow = GetMainWindow();
+
 #if defined(NEUROMORE_PLATFORM_OSX)
-	setMainRegion(QRect(0, 0, mainWindow->geometry().width(),
-		mainWindow->geometry().height()));
-	setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->geometry().width(),
-		mainWindow->geometry().height()));
+
+		if (mainWindow->windowState() != Qt::WindowFullScreen) {
+			setGeometry(QRect(mainWindow->x(), mainWindow->y() + 30, mainWindow->geometry().width(),
+				mainWindow->geometry().height()));
+		} else {
+			setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->geometry().width(),
+				mainWindow->geometry().height()));
+		}
+		setMainRegion(QRect(0, 0, mainWindow->geometry().width(),
+			mainWindow->geometry().height()));
 #else
-	setMainRegion(QRect(0, 0, mainWindow->frameGeometry().width(),
+	setMainRegion(QRect(0, 25, mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
 	setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
@@ -201,29 +241,66 @@ void OnboardingAction::Invoke()
 		setActiveRegion(QRect(debugWindowWidget->x(), debugWindowWidget->y(),
 			debugWindowWidget->width(), 2 * debugWindowWidget->height()));
 #endif
-		auto activePlugin = GetQtBaseManager()->GetPluginManager()
-			->GetActivePlugin(mActivePluginIdx);
-		activePlugin->SetLocked(true);
 	}
 
 	else if (mActivePluginIdx > 0)
 	{
 		auto activePlugin = GetQtBaseManager()->GetPluginManager()
 			->GetActivePlugin(mActivePluginIdx);
-		activePlugin->SetLocked(true);
 		setActiveRegion(activePlugin->GetGeometry());
 	}
 
-	if (mCloseBtn == nullptr)
+	int titleBarHeight = 0;
+#if defined(NEUROMORE_PLATFORM_OSX)
+	QWidget* menuWidget = GetMainWindow()->menuWidget();
+	if (nullptr != menuWidget) {
+		titleBarHeight = menuWidget->height() + 20;
+	}
+#endif
+
+	auto dockWidget = getDockWidget();
+
+	mWindowPosition = getWindowPosition(dockWidget, titleBarHeight, this);
+
+	if (nullptr == dockWidget)
 	{
-		CreateButtons();
+		return;
 	}
 
-	show();
+	if (mArrowType != OnboardingAction::NOARROW)
+	{
+		mArrowPosition = getArrowPosition(dockWidget, titleBarHeight, this);
+	}
+}
+
+void OnboardingAction::OnResized()
+{
+	this->raise();
+	SetWindowGeometry();
+	SetButtonsGeometry();
+
+	repaint();
+}
+
+void OnboardingAction::OnMinimized()
+{
+	hide();
+}
+
+void OnboardingAction::OnMaximized()
+{
+	TourManager::CurrentOnboardingAction->setVisible(true);
+}
+
+void OnboardingAction::setWindowPosition(const QRect& windowPosition)
+{
+	mWindowPosition = windowPosition;
 }
 
 void OnboardingAction::paintEvent(QPaintEvent*)
 {
+	auto mainWindow = GetMainWindow();
+
 	QPainter painter(this);
 	painter.setPen(QPen(QColor(0, 0, 0)));
 	painter.fillRect(mMainRegion, QBrush(QColor(0, 0, 0, 128)));

@@ -31,6 +31,7 @@ public:
 	OnboardingAction(QWidget* parent = nullptr);
 	~OnboardingAction();
 
+	void setWindowPosition(const QRect& windowPosition);
 	void setNextOnboardingAction(OnboardingAction* nextOnboardingAction);
 	void setPrevOnboardingAction(OnboardingAction* prevOnboardingAction);
 	void setTitle(const QString& title);
@@ -40,24 +41,31 @@ public:
 	void setActiveRegion(const QRect& activeRegion);
 	void setActivePlugin(std::string pluginName);
 	void setMainRegion(const QRect& mainRegion);
-	void setWindowPosition(const QRect& windowPosition);
 	void setArrowPosition(ARROWTYPE arrowtype, const QRect& arrowPosition = QRect());
+	void setArrowType(ARROWTYPE arrowType);
 	void setDescriptionPosition(const QRect& rect);
 	void setTitlePosition(const QRect& rect);
 	void setInstructionsTitlePosition(const QRect& rect);
 	void setInstructionsPosition(const QRect& rect);
 	void ShowButtons();
 	void CreateButtons();
+	void SetButtonsGeometry();
 	void Invoke();
 	void paintEvent(QPaintEvent*) override;
 
 	QDockWidget* getDockWidget() const;
 	QRect getTabRect(const QDockWidget* dockWidget) const;
 
+	QRect (*getWindowPosition) (QDockWidget* dockWidget, int titleBarHeight, OnboardingAction* currentAction);
+	QRect (*getArrowPosition) (QDockWidget* dockWidget, int titleBarHeight, OnboardingAction* currentAction);
 public slots:
 	void OnCloseAction();
 	void OnGoToPreviousAction();
 	void OnGoToNextAction();
+	void SetWindowGeometry();
+	void OnResized();
+	void OnMinimized();
+	void OnMaximized();
 
 signals:
 	void ActivePluginChanged(int activePluginIdx);
