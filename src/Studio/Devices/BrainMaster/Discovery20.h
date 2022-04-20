@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+
 // WINDOWS X86 ONLY
 #if defined(_WIN32) && (defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i686__))
 
@@ -432,4 +434,5 @@ public:
    /// </summary>
    void update();
 };
+#endif
 #endif
