@@ -15,6 +15,7 @@
 #endif
 
 // Windows API
+#include <Ntddser.h>
 #include <SetupAPI.h> // SetupAPI
 #include <cfgmgr32.h> // for MAX_DEVICE_ID_LEN and CM_Get_Device_ID
 #include <devpkey.h>  // for DEVPKEY_Device_FriendlyName
