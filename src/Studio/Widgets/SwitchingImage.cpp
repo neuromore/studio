@@ -21,12 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "SwitchingImage.h"
-#include <Core/LogManager.h>
-#include <QPainter>
-#include <QPaintEvent>
-
 
 // constructor
 SwitchingImage::SwitchingImage(QString imageFilenameA, QString imageFilenameB, int32 width, int32 height) : QLabel()

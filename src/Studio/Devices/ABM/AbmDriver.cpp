@@ -21,10 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "AbmDriver.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
 #include "AbmThreadHandler.h"
 
 #ifdef INCLUDE_DEVICE_ADVANCEDBRAINMONITORING

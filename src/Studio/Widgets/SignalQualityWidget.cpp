@@ -21,12 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "SignalQualityWidget.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QHBoxLayout>
-
 
 using namespace Core;
 

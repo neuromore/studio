@@ -21,12 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "OpenGLManager.h"
-#include <QtBaseManager.h>
-#include <QScreen>
-#include <QSurface>
-
 
 using namespace Core;
 

@@ -21,16 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "AboutWindow.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QLabel>
-#include <QSizePolicy>
-#include <QPixmap>
-#include <QTextEdit>
-#include <QVBoxLayout>
 
 #ifdef NEUROMORE_BRANDING_ANT
 #define ABOUTIMAGE ":/Images/About-ANT.png"

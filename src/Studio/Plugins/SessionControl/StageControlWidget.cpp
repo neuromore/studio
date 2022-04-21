@@ -21,18 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "StageControlWidget.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <QtBaseManager.h>
-#include "../../MainWindow.h"
-#include <Core/EventManager.h>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QHeaderView>
-#include <QApplication>
-
 
 using namespace Core;
 

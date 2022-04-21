@@ -21,13 +21,8 @@
 **
 ****************************************************************************/
 
-// include required headers
-#include "GraphShared.h"
-#include "GraphHelpers.h"
-#include <QtBaseManager.h>
-#include <ColorPalette.h>
-#include <Core/Math.h>
-
+// include precompiled header
+#include <Studio/Precompiled.h>
 
 using namespace Core;
 

@@ -21,14 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "GraphAttributesWidget.h"
-#include <AttributeWidgets/AttributeWidgetFactory.h>
-#include <QtBaseManager.h>
-#include <EngineManager.h>
-#include "../../AppManager.h"
-#include "../../MainWindow.h"
-
 
 using namespace Core;
 

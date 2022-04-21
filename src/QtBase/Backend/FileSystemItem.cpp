@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+// include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include the required headers
 #include "FileSystemItem.h"
 #include <Core/LogManager.h>

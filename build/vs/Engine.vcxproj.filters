@@ -549,6 +549,7 @@
     <ClCompile Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterDevices.cpp">
       <Filter>Devices\BrainMaster</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Precompiled.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1247,6 +1248,7 @@
     <ClInclude Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterNodes.h">
       <Filter>Devices\BrainMaster</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

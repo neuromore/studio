@@ -21,12 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "OpenBCISerialHandler.h"
 #include <Devices/OpenBCI/OpenBCIDevices.h>
-#include <EngineManager.h>
-#include <QCoreApplication>
-#include <QTimer>
 
 #ifdef INCLUDE_DEVICE_OPENBCI
 

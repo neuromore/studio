@@ -21,11 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "ExperienceWizardWindow.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <Backend/BackendHelpers.h>
 #include <Backend/FileHierarchyGetRequest.h>
 #include <Backend/FileHierarchyGetResponse.h>
 #include <Backend/FilesGetRequest.h>
@@ -33,10 +33,6 @@
 #include <Backend/FilesCreateRequest.h>
 #include <Backend/FilesCreateResponse.h>
 #include <Engine/Devices/eemagine/eemagineNodes.h>
-#include <QHeaderView>
-#include <QVBoxLayout>
-#include <QIcon>
-#include <QMessageBox>
 
 #define COLUMN_IDX_TYPE 0
 #define COLUMN_IDX_NAME 1

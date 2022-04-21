@@ -21,11 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "SpectrogramSurfacePlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <QtBaseManager.h>
 
 #ifdef USE_QTDATAVISUALIZATION
 

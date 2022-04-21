@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+
 // WINDOWS X86 ONLY
 #if defined(_WIN32) && (defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i686__))
 
@@ -40,6 +42,10 @@ public:
       typedef int   (__cdecl* FuncAtlReadData)            (uint8_t* buffer, int32_t count);
       typedef BOOL  (__cdecl* FuncAtlSelectImpedanceChans)(int selectcode);
       typedef BOOL  (__cdecl* FuncAtlSelectSpecial)       (int selectcode);
+      typedef BOOL  (__cdecl* FuncAtlSetNotchFilters)     (int selectcode);
+      typedef int   (__cdecl* FuncAtlPeek)                (uint16_t location);
+      typedef int   (__cdecl* FuncAtlPoke)                (uint16_t location, uint16_t data);
+      typedef int   (__cdecl* FuncAtlQueryFirmware)       (int32_t authorization);
 
    public:
       enum BRCodes : int32_t {
@@ -62,6 +68,10 @@ public:
       FuncAtlReadData             AtlReadData;
       FuncAtlSelectImpedanceChans AtlSelectImpedanceChans;
       FuncAtlSelectSpecial        AtlSelectSpecial;
+      FuncAtlSetNotchFilters      AtlSetNotchFilters;
+      FuncAtlPeek                 AtlPeek;
+      FuncAtlPoke                 AtlPoke;
+      FuncAtlQueryFirmware        AtlQueryFirmware;
 
    public:
       inline SDK() :
@@ -78,7 +88,11 @@ public:
          AtlGetBytesInQue       (Handle ? (FuncAtlGetBytesInQue)        GetProcAddress(Handle, "AtlGetBytesInQue")        : 0),
          AtlReadData            (Handle ? (FuncAtlReadData)             GetProcAddress(Handle, "AtlReadData")             : 0),
          AtlSelectImpedanceChans(Handle ? (FuncAtlSelectImpedanceChans) GetProcAddress(Handle, "AtlSelectImpedanceChans") : 0),
-         AtlSelectSpecial       (Handle ? (FuncAtlSelectSpecial)        GetProcAddress(Handle, "AtlSelectSpecial")        : 0)
+         AtlSelectSpecial       (Handle ? (FuncAtlSelectSpecial)        GetProcAddress(Handle, "AtlSelectSpecial")        : 0),
+         AtlSetNotchFilters     (Handle ? (FuncAtlSetNotchFilters)      GetProcAddress(Handle, "AtlSetNotchFilters")      : 0),
+         AtlPeek                (Handle ? (FuncAtlPeek)                 GetProcAddress(Handle, "AtlPeek")                 : 0),
+         AtlPoke                (Handle ? (FuncAtlPoke)                 GetProcAddress(Handle, "AtlPoke")                 : 0),
+         AtlQueryFirmware       (Handle ? (FuncAtlQueryFirmware)        GetProcAddress(Handle, "AtlQueryFirmware")        : 0)
       {
       }
       inline ~SDK()
@@ -100,6 +114,10 @@ public:
             AtlReadData             = 0;
             AtlSelectImpedanceChans = 0;
             AtlSelectSpecial        = 0;
+            AtlSetNotchFilters      = 0;
+            AtlPeek                 = 0;
+            AtlPoke                 = 0;
+            AtlQueryFirmware        = 0;
          }
       }
    };
@@ -168,7 +186,7 @@ public:
    struct Frame
    {
       static constexpr size_t SIZE = 75;
-      static constexpr float CONVERTUV = 0.0174f * 1000.0f;
+      static constexpr float CONVERTUV = 0.01658f;
       union {
          uint8_t data[SIZE];
          struct {
@@ -432,4 +450,5 @@ public:
    /// </summary>
    void update();
 };
+#endif
 #endif

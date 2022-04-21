@@ -57,6 +57,10 @@
 #include <QtGui/QOpenGLVersionFunctions>
 #include <QtGui/qopenglcontext.h>
 
+#if (defined(__arm__) || defined(__aarch64__)) && defined(MemoryBarrier)
+#undef MemoryBarrier
+#endif
+
 QT_BEGIN_NAMESPACE
 
 class Q_GUI_EXPORT QOpenGLFunctions_4_2_Compatibility : public QAbstractOpenGLFunctions

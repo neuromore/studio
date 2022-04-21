@@ -1,3 +1,9 @@
+
+// include precompiled header
+#include <Studio/Precompiled.h>
+
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+
 // WINDOWS X86 ONLY
 #if defined(_WIN32) && (defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i686__))
 
@@ -9,6 +15,7 @@
 #endif
 
 // Windows API
+#include <Ntddser.h>
 #include <SetupAPI.h> // SetupAPI
 #include <cfgmgr32.h> // for MAX_DEVICE_ID_LEN and CM_Get_Device_ID
 #include <devpkey.h>  // for DEVPKEY_Device_FriendlyName
@@ -318,4 +325,5 @@ void Discovery20::update()
       disconnect();
    }
 }
+#endif
 #endif

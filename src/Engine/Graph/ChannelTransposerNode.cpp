@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "ChannelTransposerNode.h"
 #include "../Core/AttributeSettings.h"

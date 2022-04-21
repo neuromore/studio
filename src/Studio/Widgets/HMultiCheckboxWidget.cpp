@@ -21,11 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "HMultiCheckboxWidget.h"
-#include <Core/LogManager.h>
-#include <QScrollArea>
-
 
 using namespace Core;
 
