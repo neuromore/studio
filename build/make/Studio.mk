@@ -229,6 +229,7 @@ OBJS       = Devices/ABM/AbmDriver.o \
              Devices/Bluetooth/BluetoothService.o \
              Devices/BrainFlow/BrainFlowDriver.o \
              Devices/BrainMaster/BrainMasterDriver.o \
+             Devices/BrainMaster/Discovery20.o \
              Devices/BrainProducts/ActiChampDriver.o \
              Devices/Brainquiry/BrainquiryDriver.o \
              Devices/Brainquiry/BrainquirySerialHandler.o \

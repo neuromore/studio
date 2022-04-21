@@ -66,6 +66,8 @@
    #pragma comment(lib, "mfuuid.lib")           // winapi: media foundation
    #pragma comment(lib, "wmcodecdspuuid.lib")   // winapi: 
    #pragma comment(lib, "strmiids.lib")         // winapi: 
+   #pragma comment(lib, "Advapi32.lib")         // winapi: 
+   #pragma comment(lib, "Shell32.lib")          // winapi: 
    #pragma comment(lib, "opengl32.lib")         // opengl
    #pragma comment(lib, "glu32.lib")            // opengl
 

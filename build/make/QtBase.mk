@@ -212,6 +212,28 @@ OBJS       = AttributeWidgets/AttributeSetGridWidget.o \
              SystemInfo.o
 
 ################################################################################################
+# BRANDINGS
+
+ifeq ($(BRANDING),)
+BRANDING = neuromore
+endif
+
+ifeq ($(BRANDING),neuromore)
+DEFINES   := $(DEFINES)
+endif
+
+ifeq ($(BRANDING),ant)
+DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING_ANT
+endif
+
+ifeq ($(BRANDING),starrbase)
+DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING_STARRBASE
+endif
+
+################################################################################################
+# CPU
 
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES) -DNEUROMORE_ARCHITECTURE_X86

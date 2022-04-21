@@ -93,7 +93,7 @@ class AppManager : public QObject
 
 		const bool IsLoginRemberMePrechecked() const { return false; }
 		const char* GetLoginImageName() const							{ return ":/Images/Login-ANT.png"; }
-#elif NEUROMORE_BRANDING_BRAINSTATION
+#elif NEUROMORE_BRANDING_STARRBASE
 		const char* GetCompanyName() const								{ return "myneurva"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
 		const char* GetWebsite() const									{ return "https://starrbase.myneurva.com"; }
