@@ -540,6 +540,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.cpp">
       <Filter>Devices\Neurosity</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Neurosity\CrownDevice.cpp">
+      <Filter>Devices\Neurosity</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
@@ -1234,6 +1237,9 @@
       <Filter>Devices\Neurosity</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.h">
+      <Filter>Devices\Neurosity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Neurosity\CrownDevice.h">
       <Filter>Devices\Neurosity</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h">
