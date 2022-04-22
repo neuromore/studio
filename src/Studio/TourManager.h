@@ -33,6 +33,9 @@ public:
 public slots: 
 
 	void OnWindowClosed();
+	void OnResized();
+	void OnMinimized();
+	void OnMaximized();
 
 private:
 

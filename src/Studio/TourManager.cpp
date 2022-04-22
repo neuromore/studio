@@ -403,6 +403,10 @@ bool TourManager::InitOnboardingActions()
 	GetFileManager()->OpenClassifier(FileManager::LOCATION_BACKEND, "ef5cff5a-d569-4f5d-8e00-03049540ff42", "FirstFocusTrainerClassifierTestSystem", -1);
 	GetFileManager()->OpenStateMachine(FileManager::LOCATION_BACKEND, "33d18723-73a4-42f5-9869-7bb3da0530c1", "FirstFocusTrainerStateMachine", -1);
 
+	connect(mainWindow, &MainWindow::resized, this, &TourManager::OnResized);
+	connect(mainWindow, &MainWindow::minimized, this, &TourManager::OnMinimized);
+	connect(mainWindow, &MainWindow::maximized, this, &TourManager::OnMaximized);
+
 	return true;
 }
 
@@ -432,4 +436,19 @@ void TourManager::startTour()
 {
 	TourManager::CurrentOnboardingAction = mOnboardingActions[0];
 	TourManager::CurrentOnboardingAction->Invoke();
+}
+
+void TourManager::OnMinimized()
+{
+	TourManager::CurrentOnboardingAction->hide();
+}
+
+void TourManager::OnMaximized()
+{
+	TourManager::CurrentOnboardingAction->setVisible(true);
+}
+
+void TourManager::OnResized()
+{
+	TourManager::CurrentOnboardingAction->OnResized();
 }

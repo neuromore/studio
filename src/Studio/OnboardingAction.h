@@ -64,8 +64,6 @@ public slots:
 	void OnGoToNextAction();
 	void SetWindowGeometry();
 	void OnResized();
-	void OnMinimized();
-	void OnMaximized();
 
 signals:
 	void ActivePluginChanged(int activePluginIdx);

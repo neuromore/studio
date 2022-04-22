@@ -139,11 +139,6 @@ void OnboardingAction::CreateButtons()
 	connect(mEndBtn, &QToolButton::pressed, appManager, &AppManager::CloseTour);
 	connect(mNextBtn, SIGNAL(pressed()), this, SLOT(OnGoToNextAction()));
 	connect(mPreviousBtn, SIGNAL(pressed()), this, SLOT(OnGoToPreviousAction()));
-
-	auto mainWindow = GetMainWindow();
-	connect(mainWindow, &MainWindow::resized, this, &OnboardingAction::OnResized);
-	connect(mainWindow, &MainWindow::minimized, this, &OnboardingAction::OnMinimized);
-	connect(mainWindow, &MainWindow::maximized, this, &OnboardingAction::OnMaximized);
 }
 
 void OnboardingAction::ShowButtons()
@@ -206,11 +201,12 @@ void OnboardingAction::Invoke()
 void OnboardingAction::SetWindowGeometry()
 {
 	auto mainWindow = GetMainWindow();
+	int frameHeight = mainWindow->geometry().y() - mainWindow->y();
 
 #if defined(NEUROMORE_PLATFORM_OSX)
 
 		if (mainWindow->windowState() != Qt::WindowFullScreen) {
-			setGeometry(QRect(mainWindow->x(), mainWindow->y() + 30, mainWindow->geometry().width(),
+			setGeometry(QRect(mainWindow->x(), mainWindow->y() + frameHeight, mainWindow->geometry().width(),
 				mainWindow->geometry().height()));
 		} else {
 			setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->geometry().width(),
@@ -219,7 +215,7 @@ void OnboardingAction::SetWindowGeometry()
 		setMainRegion(QRect(0, 0, mainWindow->geometry().width(),
 			mainWindow->geometry().height()));
 #else
-	setMainRegion(QRect(0, 25, mainWindow->frameGeometry().width(),
+	setMainRegion(QRect(0, frameHeight, mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
 	setGeometry(QRect(mainWindow->x(), mainWindow->y(), mainWindow->frameGeometry().width(),
 		mainWindow->frameGeometry().height()));
@@ -278,18 +274,7 @@ void OnboardingAction::OnResized()
 	this->raise();
 	SetWindowGeometry();
 	SetButtonsGeometry();
-
 	repaint();
-}
-
-void OnboardingAction::OnMinimized()
-{
-	hide();
-}
-
-void OnboardingAction::OnMaximized()
-{
-	TourManager::CurrentOnboardingAction->setVisible(true);
 }
 
 void OnboardingAction::setWindowPosition(const QRect& windowPosition)
