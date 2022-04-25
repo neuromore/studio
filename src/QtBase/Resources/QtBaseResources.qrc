@@ -16,6 +16,12 @@
         <file>Images/Icons/ArrowDownHover.png</file>
         <file>Images/Icons/ArrowRightGray.png</file>
         <file>Images/Icons/ArrowRightHover.png</file>
+        <file>Images/Icons/RightArrowBlue.png</file>
+        <file>Images/Icons/LeftArrowBlue.png</file>
+        <file>Images/Icons/DownRectArrow.png</file>
+        <file>Images/Icons/RightRectArrow.png</file>
+        <file>Images/Icons/TopRectArrow.png</file>
+        <file>Images/Icons/LeftRectArrow.png</file>
         <file>Images/Icons/BatteryUnknown.png</file>
         <file>Images/Icons/BatteryEmpty.png</file>
         <file>Images/Icons/Battery0.png</file>
@@ -29,6 +35,8 @@
         <file>Images/Icons/CheckBoxCheckerPressed.png</file>
         <file>Images/Icons/Cloud.png</file>
         <file>Images/Icons/Clear.png</file>
+        <file>Images/Icons/Close.png</file>
+        <file>Images/Icons/EndTutorial.png</file>
         <file>Images/Icons/Devices.png</file>
         <file>Images/Icons/Eye.png</file>
         <file>Images/Icons/Error.png</file>

@@ -677,6 +677,8 @@ void MainWindow::OnPostAuthenticationInit()
 	//if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)
 		//QMessageBox::warning(this, "WARNING", "You are using the Production (AWS) backend with a development version of neuromore Studio.\n\nPlease switch back to the Test (AWS) backend." );
 #endif
+
+	emit postAuthenticationInitSucceed();
 }
 
 
@@ -979,6 +981,9 @@ void MainWindow::OnVisitSupport()
 // user wants to close the window: ask to save dirty files
 void MainWindow::closeEvent(QCloseEvent* event)
 {
+	auto appManager = GetManager();
+	appManager->CloseTour();
+
 	String message;
 
 	// session is running
@@ -1052,6 +1057,41 @@ void MainWindow::closeEvent(QCloseEvent* event)
 	event->accept();
 }
 
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+	QMainWindow::resizeEvent(event);
+	emit resized();
+}
+
+
+void MainWindow::moveEvent(QMoveEvent* event)
+{
+	QMainWindow::moveEvent(event);
+	emit resized();
+}
+
+
+void MainWindow::changeEvent(QEvent* event)
+{
+	QMainWindow::changeEvent(event);
+	if (event->type() == QEvent::WindowStateChange)
+	{
+		QWindowStateChangeEvent* stateEvent = static_cast<QWindowStateChangeEvent*>(event);
+		if (isMinimized())
+		{
+			emit minimized();
+		}
+		else if (stateEvent->oldState() & Qt::WindowMinimized)
+		{
+			emit maximized();
+		}
+		else
+		{
+			emit resized();
+		}
+	}
+}
 
 // key pressed
 void MainWindow::keyPressEvent(QKeyEvent* event)

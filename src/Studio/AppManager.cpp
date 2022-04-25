@@ -23,6 +23,7 @@
 
 // include precompiled header
 #include <Studio/Precompiled.h>
+#include <qsettings.h>
 
 // include the required headers
 #include "AppManager.h"
@@ -30,6 +31,7 @@
 #include "CrashReporter.h"
 #include "Version.h"
 #include "VisualizationManager.h"
+#include "TourManager.h"
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 #include <windows.h>
@@ -197,6 +199,7 @@ bool AppManager::ExecuteApp()
 	LogDetailedInfo("Constructing main window ...");
 	mMainWindow = new MainWindow();
 	connect( mApp, &SingleApplication::instanceStarted, mMainWindow, &MainWindow::OnRaise );
+	connect( mMainWindow, &MainWindow::postAuthenticationInitSucceed, this, &AppManager::LoadTourManager);
 
 	SetSplashScreenMessage("Initializing windows ...");
 
@@ -311,6 +314,59 @@ const char* AppManager::GetBackendSystemName() const
 #ifdef NEUROMORE_PLATFORM_LINUX
 	return "win_studio"; // TODO linux backend system name
 #endif
+}
+
+void AppManager::SetPluginTabVisible(int activePluginIdx)
+{
+	if (activePluginIdx < 0)
+	{
+		return;
+	}
+
+	auto activePlugin = GetQtBaseManager()->GetPluginManager()
+					  ->GetActivePlugin(activePluginIdx);
+	if (nullptr == activePlugin)
+	{
+		return;
+	}
+	QDockWidget* dockWidget = activePlugin->GetDockWidget();
+	Q_FOREACH(QTabBar * tabBar, mMainWindow->findChildren<QTabBar*>()) {
+		for (int i = 0; i < tabBar->count(); ++i) {
+			if (dockWidget == (QDockWidget*)tabBar->tabData(i).toULongLong())
+			{
+				tabBar->setCurrentIndex(i);
+				return;
+			}
+		}
+	}
+}
+
+void AppManager::LoadTourManager()
+{
+	QSettings settings(GetMainWindow()->GetSettingsFilename(), QSettings::IniFormat, this);
+	bool isFirstRun = settings.value("isFirstRun", true).toBool();
+
+	if (true/*isFirstRun*/) //!TODO always true for testing. Uncomment before merge
+	{
+		settings.setValue("isFirstRun", false);
+		this->mTourManager = new TourManager();
+		QTimer::singleShot(1000, this, [this] {
+			if (this->mTourManager->InitOnboardingActions()) {
+				this->mTourManager->startTour();
+			} else {
+				Core::LogError("Could not find some widgets or tabs for the tour.");
+			}
+		});
+	}
+}
+
+void AppManager::CloseTour()
+{
+	if (mTourManager != nullptr)
+	{
+		delete mTourManager;
+		mTourManager = nullptr;
+	}
 }
 
 //--------------------------------------------------------------------------

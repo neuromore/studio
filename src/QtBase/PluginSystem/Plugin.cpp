@@ -283,6 +283,14 @@ void Plugin::RealtimeUpdate()
 		mRealtimeWidget->update();
 }
 
+QRect Plugin::GetGeometry() const
+{
+	QRect rect(mDock->x(),
+		mDock->y(),
+		mDock->width(),
+		mDock->height());
+	return rect;
+}
 
 QDockWidget::DockWidgetFeatures Plugin::GetDockWidgetFeatures() const
 {

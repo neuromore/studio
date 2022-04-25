@@ -34,6 +34,7 @@
 #include <PluginSystem/PluginManager.h>
 #include "Windows/LoginWindow.h"
 #include <singleapplication/singleapplication.h>
+#include "OnboardingAction.h"
 
 // include Qt
 #include <QObject>
@@ -50,6 +51,7 @@ QT_FORWARD_DECLARE_CLASS(QLabel)
 // forward declarations
 class MainWindow;
 class VisualizationManager;
+class TourManager;
 
 /**
  *
@@ -130,6 +132,13 @@ class AppManager : public QObject
 
 		void ProcessCommandLine();
 
+		void SetPluginTabVisible(int activePluginIdx);
+
+	public slots:
+		void LoadTourManager();
+
+		void CloseTour();
+
 	signals:
 		void AppStartPrepared();
 
@@ -142,6 +151,7 @@ class AppManager : public QObject
 		FileManager*						mFileManager;
 		OpenGLManager*						mOpenGLManager;
 		VisualizationManager*				mVisualizationManager;
+		TourManager*						mTourManager;
 		Core::Version						mVersion;
 };
 
