@@ -47,7 +47,7 @@ class ENGINE_API CrownDevice : public BciDevice
         // overloaded
         uint32 GetType() const override                     { return TYPE_ID; }
         double GetSampleRate() const override               { return 256; }
-        const char* GetHardwareName() const override        { return "Neurosity Notion"; } // we use the same icon for notion and crown
+        const char* GetHardwareName() const override        { return "Neurosity Crown"; }
         const char* GetUuid() const override                { return "a993213e-bfbf-11ec-9d64-0242ac120002"; }
         const char* GetTypeName() const override            { return "crown"; }
         double GetLatency() const override                  { return 0.1; }
