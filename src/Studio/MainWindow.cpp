@@ -678,7 +678,10 @@ void MainWindow::OnPostAuthenticationInit()
 		//QMessageBox::warning(this, "WARNING", "You are using the Production (AWS) backend with a development version of neuromore Studio.\n\nPlease switch back to the Test (AWS) backend." );
 #endif
 
-	emit postAuthenticationInitSucceed();
+	if (GetAuthenticationCenter()->IsUserInputLogIn())
+	{
+		emit postAuthenticationInitSucceed();
+	}
 }
 
 

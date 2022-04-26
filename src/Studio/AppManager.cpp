@@ -343,21 +343,14 @@ void AppManager::SetPluginTabVisible(int activePluginIdx)
 
 void AppManager::LoadTourManager()
 {
-	QSettings settings(GetMainWindow()->GetSettingsFilename(), QSettings::IniFormat, this);
-	bool isFirstRun = settings.value("isFirstRun", true).toBool();
-
-	if (true/*isFirstRun*/) //!TODO always true for testing. Uncomment before merge
-	{
-		settings.setValue("isFirstRun", false);
-		this->mTourManager = new TourManager();
-		QTimer::singleShot(1000, this, [this] {
-			if (this->mTourManager->InitOnboardingActions()) {
-				this->mTourManager->startTour();
-			} else {
-				Core::LogError("Could not find some widgets or tabs for the tour.");
-			}
-		});
-	}
+	this->mTourManager = new TourManager();
+	QTimer::singleShot(1000, this, [this] {
+		if (this->mTourManager->InitOnboardingActions()) {
+			this->mTourManager->startTour();
+		} else {
+			Core::LogError("Could not find some widgets or tabs for the tour.");
+		}
+	});
 }
 
 void AppManager::CloseTour()

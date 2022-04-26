@@ -44,6 +44,7 @@ AuthenticationCenter::AuthenticationCenter() : QObject()
 
 	mUserLoggedIn		= false;
 	mLastLoginFailed	= false;
+	mUserInputLogIn 	= false;
 }
 
 
@@ -216,6 +217,8 @@ bool AuthenticationCenter::LoginUser()
 			LogDebug("Saving login info ...");
 			license.Save( GetLicenseFilename().AsChar() );
 		}
+
+		mUserInputLogIn = true;
 	}
 
 	// user login
