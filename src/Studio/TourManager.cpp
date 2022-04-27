@@ -35,26 +35,27 @@ bool TourManager::InitOnboardingActions()
 
 	OnboardingAction* welcomeAction = new OnboardingAction(mainWindow);
 	welcomeAction->setTitle(QString("Welcome to neuromore Studio"));
-	welcomeAction->setDescription(QString("neuromore Studio is your all-in-one platform to create any kind of bio-tech application, "
-		"from state-of-the art neuro- and bio-feedback experiences to rich, interactive EEG analysis dashboards.<br/>"
-		"Let us give you a quick tour to show you how to create a simple neurofeedback application in neuromore Studio."));
+	welcomeAction->setDescription(QString("neuromore Studio is your all-in-one platform to create any kind of bio-sensor application - "
+		"from state-of-the art bio-feedback experiences over stress and health monitoring to diagnosis tools based on biodata.<br/>"
+		"Let us show you the main features by giving you a quick tour through a simple neurofeedback application."));
 	welcomeAction->setTitlePosition(QRect(38, 35, 545, 47));
-	welcomeAction->setDescriptionPosition(QRect(38, 120, 660, 121));
+	welcomeAction->setDescriptionPosition(QRect(38, 120, 680, 121));
 	welcomeAction->getWindowPosition = [](QDockWidget*, int titleBarHeight, OnboardingAction*)
 	{ 
-		return QRect(563 - titleBarHeight, 281 - 0, 729, 280);
+		return QRect(563 - titleBarHeight, 281, 729, 280);
 	};
 
 	mOnboardingActions.push_back(welcomeAction);
 
 	OnboardingAction* fileHandlingAction = new OnboardingAction(mainWindow);
 	fileHandlingAction->setTitle(QString("Handling files"));
-	fileHandlingAction->setDescription((QString("Every neuromore experience consists of two files:<br/>"
-			" 1. a <font color='#4EBCEB'>classifier</font> in which you define the signal processing pipeline and <br/>"
-			" 2. a <font color='#4EBCEB'>state machine</font> for the application logic and the UI.<br/> For this intro we've already loaded the"
-			" classifier and state machine of our <i>getting started</i> tutorial.<br/> All files in the <i> examples </i>-folder"
-			" are read-only. To edit them you can copy them to your personal folder"
-			" by right-clicking on them. ")));
+	fileHandlingAction->setDescription((QString("A bio-feedback application in neuromore Studio consists of two files:<br/><br/>"
+			"	1. a <font color='#4EBCEB'>classifier</font> in which you process the signals from your bio-sensors and<br/>"
+			"	2. a <font color='#4EBCEB'>state machine</font> for the application logic and the UI.<br/><br/>"
+			"For this intro we've already loaded the "
+			"classifier and state machine of our <i>getting started</i> tutorial.<br/> All files in the <i> examples </i>-folder "
+			"are read-only. To edit them you can copy them to your personal folder "
+			"by right-clicking on them. ")));
 	fileHandlingAction->setActivePlugin("Back-End File System");
 	fileHandlingAction->setInstructionsTitle("Do this now");
 	fileHandlingAction->setInstructionsDescription("<ul> <li> Copy the <i> GettingStartedClassifier </i> and the"
@@ -69,7 +70,7 @@ bool TourManager::InitOnboardingActions()
 
 	fileHandlingAction->getWindowPosition = [](QDockWidget * backendFileSystemWidget, int titleBarHeight, OnboardingAction*)
 	{ return  QRect(backendFileSystemWidget->x() + backendFileSystemWidget->width() + 38,
-		backendFileSystemWidget->y() + backendFileSystemWidget->height() / 4 - titleBarHeight, 711, 529);
+		backendFileSystemWidget->y() + backendFileSystemWidget->height() / 4 - titleBarHeight, 711, 580);
 	};
 	fileHandlingAction->getArrowPosition = [](QDockWidget* backendFileSystemWidget, int titleBarHeight, OnboardingAction*)
 	{
@@ -77,28 +78,32 @@ bool TourManager::InitOnboardingActions()
 			backendFileSystemWidget->y() + backendFileSystemWidget->height() / 3 + 25 - titleBarHeight,
 			30, 51);
 	};
+
 	fileHandlingAction->setArrowType(OnboardingAction::ARROWTYPE::LEFTARROW);
 	fileHandlingAction->setTitlePosition(QRect(38, 44, 255, 50));
 	fileHandlingAction->setDescriptionPosition(QRect(38, 112, 620, 285));
-	fileHandlingAction->setInstructionsTitlePosition(QRect(38, 336, 249, 47));
-	fileHandlingAction->setInstructionsPosition(QRect(38, 365, 620, 150));
+	fileHandlingAction->setInstructionsTitlePosition(QRect(38, 400, 249, 47));
+	fileHandlingAction->setInstructionsPosition(QRect(38, 450, 650, 120));
 	fileHandlingAction->setPrevOnboardingAction(welcomeAction);
 	welcomeAction->setNextOnboardingAction(fileHandlingAction);
 	mOnboardingActions.push_back(fileHandlingAction);
 
 	OnboardingAction* classifierAction = new OnboardingAction(mainWindow);
 	classifierAction->setTitle(QString("The classifier"));
-	classifierAction->setDescription(QString("This is the <font color='#4EBCEB'>classifier</font> tab in which"
-						"you define how you want to process the signals from your bio-sensors. <br/> <br/> neuromore Studio is"
-						" <font color='#4EBCEB'>hardware agnostic</font> and supports a wide variety of EEG devices as well as "
-						"heartrate and GSR sensors. Simply drag a node into the graph and link it to any other node. "
-						"<br/><br/>In this example we average the amplitude of the Alpha band over all channels and stream it into a"
-						"custom feedback node to set the image brightness of a video.<br/><br/>"
-						"You can edit the classifier by simply dragging nodes from the right into the graph."));
+	classifierAction->setDescription(QString("neuromore Studio is <font color='#4EBCEB'>hardware agnostic</font> and supports a wide variaty of "
+						"sensors, from consumer and med-grage EEG devices to heartrate and GSR"
+						" sensors."
+						"<br/><br/>In this example we control the brightness of a video using neurofeedback. "
+						"For that we average the amplitude of the Alpha band and stream it into a "
+						"<i>custom feedback</i> node called \"ScreenBrightness\". Using custom feedback "
+						"nodes and the Open Sound Control (OSC) protocol you can also control "
+						"other applications, for example a Unity game or a music production "
+						"program like Ableton. You can learn more about that on "
+						"<font color='#4EBCEB'>doc.neuromore.com</font><br/>"));
 	classifierAction->setActivePlugin("Classifier");
 	classifierAction->setInstructionsTitle("Do this now");
 	classifierAction->setInstructionsDescription("<ul> <li> Drag a View node from the <i> Output </i> section"
-		"of the toolbox on the right into the classifier and connect it the the <i> Alpha Band </i> node </li>"
+		" of the toolbox on the right into the classifier and connect it the the <i> Alpha Band </i> node </li>"
 		"<li> Optional: click on the <i> Alpha Band </i> node and choose a different band </li> </ul>");
 
 	auto classifierWidget = classifierAction->getDockWidget();
@@ -118,9 +123,8 @@ bool TourManager::InitOnboardingActions()
 	classifierAction->getWindowPosition = [](QDockWidget* classifierWidget, int titleBarHeight, OnboardingAction* classifierAction)
 	{	
 		auto classifierTabRect = classifierAction->getTabRect(classifierWidget);
-		return  QRect(classifierWidget->x() - classifierWidget->width() / 11,
-			classifierWidget->y() + 3 * classifierTabRect.height() / 2 + 29 - titleBarHeight,
-			770, 590); 
+		return  QRect(10, classifierWidget->y() + 3 * classifierTabRect.height() / 2 + 29 - titleBarHeight,
+			770, 530);
 	};
 	classifierAction->getArrowPosition = [](QDockWidget* classifierWidget, int titleBarHeight, OnboardingAction* classifierAction)
 	{
@@ -129,11 +133,12 @@ bool TourManager::InitOnboardingActions()
 			classifierWidget->y() + 3 * classifierTabRect.height() / 2 - titleBarHeight,
 			51, 30);
 	};
+
 	classifierAction->setArrowType(OnboardingAction::ARROWTYPE::TOPARROW);
 	classifierAction->setTitlePosition(QRect(38, 11, 368, 47));
 	classifierAction->setDescriptionPosition(QRect(38, 72, 710, 300));
-	classifierAction->setInstructionsTitlePosition(QRect(38, 400, 243, 47));
-	classifierAction->setInstructionsPosition(QRect(38, 435, 620, 150));
+	classifierAction->setInstructionsTitlePosition(QRect(38, 350, 243, 47));
+	classifierAction->setInstructionsPosition(QRect(38, 385, 660, 150));
 	classifierAction->setPrevOnboardingAction(fileHandlingAction);
 	fileHandlingAction->setNextOnboardingAction(classifierAction);
 	mOnboardingActions.push_back(classifierAction);
@@ -141,19 +146,21 @@ bool TourManager::InitOnboardingActions()
 
 	OnboardingAction* stateMachineAction = new OnboardingAction(mainWindow);
 	stateMachineAction->setTitle(QString("The state machine"));
-	stateMachineAction->setDescription(QString("In the state machine you can define the user"
-		" interaction of your exprience. In this example we prompt the user to select for how"
-		" long they want to do the focus training before a video starts to play. <br/> "
-		"Every state machine contains a start state, an end state and a couple of action states"
-		" in between.When you start your experience it will jump in at the start state.To transition"
-		" between states <br/><br/>You can set conditions on transitions, for example to stop playing "
-		"the video once the timer is up.<br/>The brightness and the session duration are streamed in"
-		"real time through the custom feedback nodes from the classifier."));
+	stateMachineAction->setDescription(QString("In the <font color='#4EBCEB'>state machine</font> you design the <font color='#4EBCEB'>user interface</font> "
+		"and define the <font color='#4EBCEB'>user interaction</font> of your exprience.<br/><br/>"
+		"Here you can prompt the user to select which video they want to watch, show them a progress "
+		"update while recording a baseline, or play reward sounds when they perform well.<br/><br/>"
+		"In this example we first ask the user to select for how long they want to do the training "
+		"before playing  a video whose brightness is controlled in the classifier.<br/><br/>"
+		"Every state machine contains a start state, an end state and a couple of action states "
+		"in between. You can set conditions on transitions, for example to stop playing the video once the timer is up.<br/><br/>"
+		"You can also access <i> CustomFeedback </i> variables from the classifier which can be "
+		"very useful. In this example we measure the time how long the session is running in the "
+		"classifier and check in the TimerRunning state if the session duration of the training is finished."));
 	stateMachineAction->setActivePlugin("State Machine");;
 	stateMachineAction->setInstructionsTitle("Do this now");
-	stateMachineAction->setInstructionsDescription("Let's add another option to do the focus training "
-		" for 5 minutes <ul> <li> Add another Action state to the graph </li> <li> Optional: click on the <i> Alpha Band </i> "
-		" node and choose a different band </ul> </li>");
+	stateMachineAction->setInstructionsDescription("<ul> <li> Double click on the 'SelectDuration' node and explore the properties "
+		"on the right of the <i>State Machine</i> window. Feel free to edit the text if you like.</li> </ul>");
 
 	auto stateMachineWidget = stateMachineAction->getDockWidget();
 
@@ -170,9 +177,9 @@ bool TourManager::InitOnboardingActions()
 	}
 
 	stateMachineAction->getWindowPosition = [](QDockWidget* stateMachineWidget, int titleBarHeight, OnboardingAction* stateMachineAction)
-	{	auto stateTabRect = stateMachineAction->getTabRect(stateMachineWidget);
-	    return QRect(stateMachineWidget->x() - stateMachineWidget->width() / 22,
-			stateMachineWidget->y() + 3 * stateTabRect.height() / 2 + 29 - titleBarHeight, 791, 595);
+	{
+		auto stateTabRect = stateMachineAction->getTabRect(stateMachineWidget);
+	    return QRect(0, stateMachineWidget->y() + 3 * stateTabRect.height() / 2 + 29 - titleBarHeight, 791, 690);
 	};
 	stateMachineAction->getArrowPosition = [](QDockWidget* stateMachineWidget, int titleBarHeight, OnboardingAction* stateMachineAction)
 	{
@@ -181,65 +188,63 @@ bool TourManager::InitOnboardingActions()
 			stateMachineWidget->y() + 3 * stateTabRect.height() / 2 - titleBarHeight,
 			51, 30);
 	};
+
 	stateMachineAction->setArrowType(OnboardingAction::ARROWTYPE::TOPARROW);
 	stateMachineAction->setTitlePosition(QRect(38, 11, 630, 80));
-	stateMachineAction->setDescriptionPosition(QRect(38, 85, 730, 285));
-	stateMachineAction->setInstructionsTitlePosition(QRect(38, 370, 243, 47));
-	stateMachineAction->setInstructionsPosition(QRect(38, 405, 613, 150));
+	stateMachineAction->setDescriptionPosition(QRect(38, 85, 730, 420));
+	stateMachineAction->setInstructionsTitlePosition(QRect(38, 520, 243, 47));
+	stateMachineAction->setInstructionsPosition(QRect(38, 565, 730, 150));
 	stateMachineAction->setPrevOnboardingAction(classifierAction);
 	classifierAction->setNextOnboardingAction(stateMachineAction);
 	mOnboardingActions.push_back(stateMachineAction);
 	connect(stateMachineAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
-	OnboardingAction* experienceWindowAction = new OnboardingAction(mainWindow);
-	experienceWindowAction->setTitle(QString("The experience window"));
-	experienceWindowAction->setDescription(QString("In the experience window you can find the user - facing "
-		"part of the application. Using this window you can show simple UIs using text buttons, images or play "
-		"audio or video from a file or an URL.\nTo create more customizable experiences (e.g.a Unity game or a "
-		"sound generator) you can also stream custom feedback variables to other applications using the OSC "
-		"interface. You can find more information about OSC and other integrations in the docs."));
-	experienceWindowAction->setActivePlugin("Experience");
 
-	auto experienceWindowWidget = experienceWindowAction->getDockWidget();
+	OnboardingAction* sessionControlAction = new OnboardingAction(mainWindow);
+	sessionControlAction->setActivePlugin("Session Control");
 
-	if (nullptr == experienceWindowWidget)
+	auto sessionControlWidget = sessionControlAction->getDockWidget();
+
+	if (nullptr == sessionControlWidget)
 	{
 		return false;
 	}
 
-	auto experienceTabRect = experienceWindowAction->getTabRect(experienceWindowWidget);
-
-	if (experienceTabRect.isEmpty())
+	sessionControlAction->setTitle(QString("A simple Attention Trainer"));
+	sessionControlAction->setDescription(QString("Let's take a look at an example of a very simple biofeedback experience "
+		"that uses a simulated EEG headset. The goal of the experience is to <font color='#4EBCEB'>train "
+		"the user's attention</font> by raising their Alpha band brain activity: if the Alpha "
+		"amplitude is relatively high then the video is clear, otherwise the screen "
+		"brightness decreases.<br/>"
+		"Note that this is not a clinical neurofeedback protocol and that the focus of "
+		"this example is to show you through all main aspects of neuromore Studio. "));
+	sessionControlAction->setInstructionsTitle("Do this now");
+	sessionControlAction->setInstructionsDescription("<ul> <li>Start the neurofeedback experience by clicking on the 'go' button in the Session Control window</li> </ul>");
+	sessionControlAction->getWindowPosition = [](QDockWidget* sessionControlWidget, int titleBarHeight, OnboardingAction* sessionControlAction)
 	{
-		return false;
-	}
-
-	experienceWindowAction->getWindowPosition = [](QDockWidget* experienceWindowWidget, int titleBarHeight, OnboardingAction* experienceWindowAction)
-	{	auto experienceTabRect = experienceWindowAction->getTabRect(experienceWindowWidget);
-		return QRect(experienceWindowWidget->x() - experienceWindowWidget->width() / 33,
-		experienceWindowWidget->y() + 3 * experienceTabRect.height() / 2 + 29 - titleBarHeight,
-			791, 290);
+		return QRect(10, sessionControlWidget->y() - 430 - titleBarHeight, 791, 400);
 	};
-	experienceWindowAction->getArrowPosition = [](QDockWidget* experienceWindowWidget, int titleBarHeight, OnboardingAction* experienceWindowAction)
+	sessionControlAction->getArrowPosition = [](QDockWidget* sessionControlWidget, int titleBarHeight, OnboardingAction* )
 	{
-		auto experienceTabRect = experienceWindowAction->getTabRect(experienceWindowWidget);
-		return QRect(experienceWindowWidget->x() + experienceTabRect.x(),
-			experienceWindowWidget->y() + 3 * experienceTabRect.height() / 2 - titleBarHeight,
+		return QRect(30, sessionControlWidget->y() - 30 - titleBarHeight,
 			51, 30);
 	};
 
-	experienceWindowAction->setArrowType(OnboardingAction::ARROWTYPE::TOPARROW);
-	experienceWindowAction->setTitlePosition(QRect(38, 11, 689, 42));
-	experienceWindowAction->setDescriptionPosition(QRect(38, 72, 680, 180));
-	experienceWindowAction->setPrevOnboardingAction(stateMachineAction);
-	stateMachineAction->setNextOnboardingAction(experienceWindowAction);
-	mOnboardingActions.push_back(experienceWindowAction);
-	connect(experienceWindowAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
+	sessionControlAction->setArrowType(OnboardingAction::ARROWTYPE::DOWNARROW);
+	sessionControlAction->setTitlePosition(QRect(38, 11, 689, 45));
+	sessionControlAction->setDescriptionPosition(QRect(38, 80, 680, 200));
+	sessionControlAction->setInstructionsTitlePosition(QRect(38, 290, 243, 47));
+	sessionControlAction->setInstructionsPosition(QRect(38, 320, 680, 110));
+	sessionControlAction->setPrevOnboardingAction(stateMachineAction);
+	stateMachineAction->setNextOnboardingAction(sessionControlAction);
+	mOnboardingActions.push_back(sessionControlAction);
+	connect(sessionControlAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
 	OnboardingAction* debugWindowAction = new OnboardingAction(mainWindow);
-	debugWindowAction->setTitle(QString("The debug window"));
+	debugWindowAction->setTitle(QString("Investigate the Raw Signals"));
 	debugWindowAction->setDescription(QString("On the bottom you can find different windows "
-		"to debug the current application output."));
+		"to debug the current application output. Thus is the Raw EEG window where "
+		"you can see the activity for all the channels of the simulated EEG devices."));
 	debugWindowAction->setActivePlugin("Raw EEG");
 
 	auto debugWindowWidget = debugWindowAction->getDockWidget();
@@ -252,26 +257,28 @@ bool TourManager::InitOnboardingActions()
 	debugWindowAction->getWindowPosition = [](QDockWidget* debugWindowWidget, int titleBarHeight, OnboardingAction*)
 	{
 		return  QRect(debugWindowWidget->x() - debugWindowWidget->width() / 34,
-			debugWindowWidget->y() - 226 - titleBarHeight, 791, 196);
+			debugWindowWidget->y() - 226 - titleBarHeight, 791, 215);
 	};
 	debugWindowAction->getArrowPosition = [](QDockWidget* debugWindowWidget, int titleBarHeight, OnboardingAction* )
 	{
 		return QRect(debugWindowWidget->x() + 131, debugWindowWidget->y() - 30 - titleBarHeight,
 			51, 30);
 	};
+
 	debugWindowAction->setArrowType(OnboardingAction::ARROWTYPE::DOWNARROW);
 	debugWindowAction->setTitlePosition(QRect(34, 27, 689, 45));
 	debugWindowAction->setDescriptionPosition(QRect(34, 88, 680, 99));
 	debugWindowAction->setArrowPosition(OnboardingAction::ARROWTYPE::DOWNARROW, QRect(debugWindowWidget->x() + 131, debugWindowWidget->y() - 30 - titleBarHeight, 51, 30));
-	debugWindowAction->setPrevOnboardingAction(experienceWindowAction);
-	experienceWindowAction->setNextOnboardingAction(debugWindowAction);
+	debugWindowAction->setPrevOnboardingAction(sessionControlAction);
+	sessionControlAction->setNextOnboardingAction(debugWindowAction);
 	mOnboardingActions.push_back(debugWindowAction);
 	connect(debugWindowAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
 	OnboardingAction* feedbackViewAction = new OnboardingAction(mainWindow);
 	feedbackViewAction->setTitle(QString("The feedback view"));
 	feedbackViewAction->setDescription(QString("In the feedback view you can see the live feedback values of the custom "
-		"variables defined in the classifier."));
+		"variables defined in the classifier. Here you see how the ScreenBrightness "
+		"changes continuously and that you can also control other parameters, e.g. the weather in a game."));
 	feedbackViewAction->setActivePlugin("Feedback");
 
 	auto feedbackViewWidget = feedbackViewAction->getDockWidget();
@@ -284,7 +291,7 @@ bool TourManager::InitOnboardingActions()
 	feedbackViewAction->getWindowPosition = [](QDockWidget* feedbackViewWidget, int titleBarHeight, OnboardingAction *)
 	{
 		return  QRect(feedbackViewWidget->x() - feedbackViewWidget->width() / 9,
-			feedbackViewWidget->y() -215 - titleBarHeight, 795, 185);
+			feedbackViewWidget->y() - 240 - titleBarHeight, 795, 220);
 	};
 
 	auto feedbackViewTabRect = feedbackViewAction->getTabRect(feedbackViewWidget);
@@ -298,9 +305,10 @@ bool TourManager::InitOnboardingActions()
 		return QRect(feedbackViewWidget->x()  + feedbackViewTabRect.x(),
 			feedbackViewWidget->y() - 30 - titleBarHeight, 51, 30);
 	};
+
 	feedbackViewAction->setArrowType(OnboardingAction::ARROWTYPE::DOWNARROW);
 	feedbackViewAction->setTitlePosition(QRect(37, 20, 689, 40));
-	feedbackViewAction->setDescriptionPosition(QRect(37, 81, 680, 99));
+	feedbackViewAction->setDescriptionPosition(QRect(37, 81, 750, 99));
 	feedbackViewAction->setArrowPosition(OnboardingAction::ARROWTYPE::DOWNARROW, QRect(debugWindowWidget->x() + feedbackViewTabRect.x(),
 																					   debugWindowWidget->y() - 30 - titleBarHeight, 51, 30));
 	feedbackViewAction->setPrevOnboardingAction(debugWindowAction);
@@ -308,10 +316,12 @@ bool TourManager::InitOnboardingActions()
 	mOnboardingActions.push_back(feedbackViewAction);
 	connect(feedbackViewAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
+
 	OnboardingAction* customParametersAction = new OnboardingAction(mainWindow);
 	customParametersAction->setTitle(QString("Using custom parameters"));
 	customParametersAction->setDescription(QString("You can parameterize the experience and adjust those parameters "
-		"either before or during a session."));
+		"either before or during a session. Here you find the 'Duration' parameter again "
+		"that you can also set in the experience by clicking on one of the buttons."));
 	customParametersAction->setActivePlugin("Parameters");
 
 	auto customParametersWidget = customParametersAction->getDockWidget();
@@ -323,7 +333,7 @@ bool TourManager::InitOnboardingActions()
 
 	customParametersAction->getWindowPosition = [](QDockWidget* customParametersWidget, int titleBarHeight, OnboardingAction*)
 	{
-		return  QRect(0, customParametersWidget->y() - 267 - titleBarHeight, 791, 237);
+		return  QRect(0, customParametersWidget->y() - 267 - titleBarHeight, 850, 237);
 	};
 
 	auto customParametersTabRect = customParametersAction->getTabRect(customParametersWidget);
@@ -341,59 +351,44 @@ bool TourManager::InitOnboardingActions()
 	};
 	customParametersAction->setArrowType(OnboardingAction::ARROWTYPE::DOWNARROW);
 
-	OnboardingAction* sessionControlAction = new OnboardingAction(mainWindow);
-	sessionControlAction->setActivePlugin("Session Control");
-	auto sessionControlWidget = sessionControlAction->getDockWidget();
-
-	if (nullptr == sessionControlWidget)
-	{
-		return false;
-	}
-
 	customParametersAction->setWindowPosition(QRect(0, sessionControlWidget->y() - 267 - titleBarHeight, 791, 237));
 	customParametersAction->setTitlePosition(QRect(37, 20, 689, 45));
-	customParametersAction->setDescriptionPosition(QRect(38, 80, 673, 99));
+	customParametersAction->setDescriptionPosition(QRect(38, 80, 800, 99));
 	customParametersAction->setPrevOnboardingAction(feedbackViewAction);
 	feedbackViewAction->setNextOnboardingAction(customParametersAction);
 	mOnboardingActions.push_back(customParametersAction);
 	connect(customParametersAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
-	sessionControlAction->setTitle(QString("Starting a session"));
-	sessionControlAction->setDescription(QString("Now it's time to run the experience. Click on the \"Go\" button "
-		"to start a session. You can also use one of our existing neurofeedback  visualizations by clicking on "
-		"the button with the eye icon. "));
-	sessionControlAction->getWindowPosition = [](QDockWidget* sessionControlWidget, int titleBarHeight, OnboardingAction* sessionControlAction)
+	OnboardingAction* endTutorialAction = new OnboardingAction(mainWindow);
+	endTutorialAction->setTitle(QString("Starting a Visualization"));
+	endTutorialAction->setDescription(QString("You can also use one of the pre-built visualizations. Those are little "
+		"games in which you can contol the speed of a car, the weather, the volume "
+		"or special camera effects using biofeedback." ));
+	endTutorialAction->setActivePlugin("Session Control");
+	endTutorialAction->setInstructionsTitle("Do this now");
+	endTutorialAction->setInstructionsDescription("<ul> <li> Click on the eye icon and start one of the games. "
+		"It will open in another window</li> "
+		"<li>Click on the 'go' button and observe the game changing in real time</li> "
+		"<li>Congratulations! You've made it through the tutorial and are now ready to "
+		"create your own applications. For more information go to <font color='#4EBCEB'>doc.neuromore.com</font></li> </ul>");
+
+	endTutorialAction->getWindowPosition = [](QDockWidget* sessionControlWidget, int titleBarHeight, OnboardingAction*)
 	{
-		return QRect(0, sessionControlWidget->y() - 267 - titleBarHeight, 791, 237);
+		return QRect(75, sessionControlWidget->y() - 310 - titleBarHeight, 900, 350);
 	};
-	sessionControlAction->getArrowPosition = [](QDockWidget* sessionControlWidget, int titleBarHeight, OnboardingAction* )
+
+	endTutorialAction->getArrowPosition = [](QDockWidget* sessionControlWidget, int titleBarHeight, OnboardingAction* )
 	{
-		return QRect(20, sessionControlWidget->y() - 30 - titleBarHeight,
+		return QRect(200, sessionControlWidget->y() + 40 - titleBarHeight,
 			51, 30);
 	};
-	sessionControlAction->setArrowType(OnboardingAction::ARROWTYPE::DOWNARROW);
-	sessionControlAction->setTitlePosition(QRect(38, 11, 689, 45));
-	sessionControlAction->setDescriptionPosition(QRect(38, 80, 680, 99));
-	sessionControlAction->setPrevOnboardingAction(customParametersAction);
-	customParametersAction->setNextOnboardingAction(sessionControlAction);
-	mOnboardingActions.push_back(sessionControlAction);
-	connect(sessionControlAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
-
-	OnboardingAction* endTutorialAction = new OnboardingAction(mainWindow);
-	endTutorialAction->setTitle(QString("Running the experience"));
-	endTutorialAction->setDescription(QString("It's time to use the neurofeedback application in action. "
-		"Click on one of the 3 buttons in the experience window and see how the image brightness of the "
-		"video changes according to the average Alpha band amplitude."));
-	endTutorialAction->setActivePlugin("Experience");
-	endTutorialAction->getWindowPosition = [](QDockWidget*, int titleBarHeight, OnboardingAction*)
-	{
-		return QRect(27, 60 - titleBarHeight, 670, 279);
-	};
-	endTutorialAction->setWindowPosition(QRect(27, 60 - titleBarHeight, 670, 279));
+	endTutorialAction->setArrowType(OnboardingAction::ARROWTYPE::DOWNARROW);
 	endTutorialAction->setTitlePosition(QRect(38, 11, 689, 45));
-	endTutorialAction->setDescriptionPosition(QRect(38, 80, 590, 95));
-	endTutorialAction->setPrevOnboardingAction(sessionControlAction);
-	sessionControlAction->setNextOnboardingAction(endTutorialAction);
+	endTutorialAction->setDescriptionPosition(QRect(38, 60, 730, 75));
+	endTutorialAction->setInstructionsTitlePosition(QRect(38, 140, 243, 47));
+	endTutorialAction->setInstructionsPosition(QRect(38, 180, 850, 110));
+	endTutorialAction->setPrevOnboardingAction(customParametersAction);
+	customParametersAction->setNextOnboardingAction(endTutorialAction);
 	mOnboardingActions.push_back(endTutorialAction);
 	connect(endTutorialAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 

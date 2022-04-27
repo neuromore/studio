@@ -455,7 +455,6 @@ void MainWindow::Init()
 	updateAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Refresh.png") );
 #endif
 
-
 	helpMenu->addSeparator();
 
 	QAction* visitWebsiteAction = helpMenu->addAction( tr("Website"), this, &MainWindow::OnVisitWebsite );
@@ -677,10 +676,31 @@ void MainWindow::OnPostAuthenticationInit()
 	//if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)
 		//QMessageBox::warning(this, "WARNING", "You are using the Production (AWS) backend with a development version of neuromore Studio.\n\nPlease switch back to the Test (AWS) backend." );
 #endif
-
-	if (GetAuthenticationCenter()->IsUserInputLogIn())
+	if (user->FindRule("ROLE_Community") != nullptr)
 	{
-		emit postAuthenticationInitSucceed();
+		QList<QMenu*> allMenus = mMenuBar->findChildren<QMenu*>();
+		for (const auto helpMenu: allMenus)
+		{
+			if (helpMenu != nullptr && helpMenu->title() == "&Help")
+			{
+				auto actions = helpMenu->actions();
+				for (const auto action: actions)
+				{
+					if (action != nullptr && action->text() == "Website")
+					{
+						QAction* productTourAction = new QAction(GetQtBaseManager()->FindIcon("Images/Icons/Info.png"), "Product tour", mMenuBar);
+						connect(productTourAction, &QAction::triggered, GetManager(), &AppManager::LoadTourManager);
+						helpMenu->insertAction(action, productTourAction);
+						helpMenu->insertSeparator(action);
+					}
+				}
+			}
+		}
+
+		if (GetAuthenticationCenter()->IsUserInputLogIn())
+		{
+			emit postAuthenticationInitSucceed();
+		}
 	}
 }
 
