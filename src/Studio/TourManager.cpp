@@ -151,8 +151,8 @@ bool TourManager::InitOnboardingActions()
 	fileHandlingAction->setActivePlugin("Back-End File System");
 	fileHandlingAction->setInstructionsTitle("Do this now");
 	fileHandlingAction->setInstructionsDescription("<ul> <li> Copy the <i> GettingStartedClassifier </i> and the"
-		" <i> GettingStartedStateMachine </i> from the <i> examples GetingStarted </i> folder to your"
-		" personal folder </li> <li> Open both files by double clicking them </li> </ul>");
+		" <i> GettingStartedStateMachine </i> from the <i> examples -> GettingStarted -> FocusTrainer </i> folder to your"
+		" personal folder </li> <li> Go to your personal folder (the top-most folder in the file system) and open both files by double clicking them </li> </ul>");
 	auto backendFileSystemWidget = fileHandlingAction->getDockWidget();
 
 	if (nullptr == backendFileSystemWidget)
@@ -193,7 +193,7 @@ bool TourManager::InitOnboardingActions()
 		"<li> Drag a View node from the <i> Output </i> section"
 		" of the toolbox on the right into the classifier and connect it the the <i> Alpha Band </i> node </li>"
 		"<li>Look at the <i> Signal View </i> below the classifier to see the Alpha amplitude for each "
-		"electrode of the simualated EEG headset.</li></ul>");
+		"electrode of the simulated EEG headset.</li></ul>");
 
 	auto classifierWidget = classifierAction->getDockWidget();
 
@@ -234,9 +234,9 @@ bool TourManager::InitOnboardingActions()
 	connect(classifierAction, &OnboardingAction::ActivePluginChanged, appManager, &AppManager::SetPluginTabVisible);
 
 	OnboardingAction* stateMachineAction = new OnboardingAction(mainWindow);
-	stateMachineAction->setTitle("Design the UX in the State machine");
+	stateMachineAction->setTitle("Design the UX in the State Machine");
 	stateMachineAction->setDescription("In the <font color='#4EBCEB'>state machine</font> you define the user flow "
-		"and design <font color='#4EBCEB'>user interface</font> of your exprience.<br/><br/>"
+		"and design the <font color='#4EBCEB'>user interface</font> of your exprience.<br/><br/>"
 		"Every state machine contains of a start state, an end state and a couple of action states "
 		"in between. You can set conditions on transitions, for example to stop playing the video once the timer is up.<br/><br/>"
 		"You can also access the state of the classifier through <i> CustomFeedback </i> "
@@ -244,8 +244,8 @@ bool TourManager::InitOnboardingActions()
 		"classifier and check in the <i> TimerRunning </i> state if the session duration of the training is finished.");
 	stateMachineAction->setActivePlugin("State Machine");;
 	stateMachineAction->setInstructionsTitle("Do this now");
-	stateMachineAction->setInstructionsDescription("<ul> <li> Double click on the 'SelectDuration' node and explore the properties "
-		"on the right of the <i>State Machine</i> window. Feel free to edit the text if you like.</li> </ul>");
+	stateMachineAction->setInstructionsDescription("<ul><li>Right-click and drag to explore the state machine</li> <li> Double click on the 'Select Duration' node and explore the properties "
+		"on the right of the <i>State Machine</i> window.</li> </ul>");
 
 	auto stateMachineWidget = stateMachineAction->getDockWidget();
 
