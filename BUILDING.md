@@ -244,6 +244,5 @@ _Notes:_
 | ----------------------- | ----------------------------------------- |
 | BACKEND_LOGGING         | Controls Backend Logging                  |
 | OPENCV_SUPPORT          | OpenCV support in Studio                  |
-| USE_CRASHREPORTER       | Enables/Disables CrashReporter utility    |
 | USE_QTDATAVISUALIZATION | Not supported / WIP                       |
 | USE_AUTOUPDATE          | deprecated: controlled autoupdate-feature |

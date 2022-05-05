@@ -27,7 +27,6 @@
 // include the required headers
 #include "AppManager.h"
 #include "MainWindow.h"
-#include "CrashReporter.h"
 #include "Version.h"
 #include "VisualizationManager.h"
 
@@ -96,10 +95,6 @@ AppManager::AppManager(int argc, char* argv[])
 	// log header
 	LogInfo();
 	LogDetailedInfo("Log file '%s' created ...", logFilename.AsChar());
-
-#ifdef USE_CRASHREPORTER
-	CrashReporterAddFile( logFilename.AsChar(), "neuromore Studio log file" );
-#endif
 
 	// show splash screen
 	LogDetailedInfo("Initializing splash screen ...");
@@ -244,10 +239,6 @@ bool AppManager::ExecuteApp()
 	// reload the settings a second time after all windows have been initialized
 	LogDetailedInfo( "Load application settings (after all plugins successfully loaded) ..." );
 	mMainWindow->OnLoadSettings();
-
-#ifdef USE_CRASHREPORTER
-	CrashReporterAddFile( FromQtString( GetMainWindow()->GetSettingsFilename() ).AsChar(), "neuromore Studio settings file" );
-#endif
 
 	// tell everything that we fully loaded everything and that we are about to start the event loop
 	emit AppStartPrepared();

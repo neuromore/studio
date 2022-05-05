@@ -27,7 +27,6 @@
 #include "Devices/DriverInventory.h"
 #include "MainWindow.h"
 #include <AutoUpdate/AutoUpdate.h>
-#include "CrashReporter.h"
 
 // Library Linking
 #if defined(NEUROMORE_PLATFORM_WINDOWS)
@@ -131,10 +130,6 @@
       #pragma comment(lib, "tinyaes_d.lib")              // 3rdparty: TinyAES
       #pragma comment(lib, "tinyobjloader_d.lib")        // 3rdparty: tinyobjloader
       #pragma comment(lib, "zlib_d.lib")                 // 3rdparty: zlib
-      #ifdef USE_CRASHREPORTER
-         #pragma comment(lib, "crashrpt_d.lib")          // 3rdparty: crashreport
-         #pragma comment(lib, "crashrptprobe_d.lib")     // 3rdparty: crashreport
-      #endif
       #pragma comment(lib, "double-conversion_d.lib")    // 3rdparty: double-conversion
       #pragma comment(lib, "libcrypto_d.lib")            // 3rdparty: openssl libcrypto
       #pragma comment(lib, "libssl_d.lib")               // 3rdparty: openssl libssl
@@ -182,10 +177,6 @@
       #pragma comment(lib, "tinyaes.lib")
       #pragma comment(lib, "tinyobjloader.lib")
       #pragma comment(lib, "zlib.lib")
-      #ifdef USE_CRASHREPORTER
-         #pragma comment(lib, "crashrpt.lib")
-         #pragma comment(lib, "crashrptprobe.lib")
-      #endif
       #pragma comment(lib, "double-conversion.lib")
       #pragma comment(lib, "libcrypto.lib")
       #pragma comment(lib, "libssl.lib")
@@ -251,32 +242,11 @@ int APIENTRY WinMain(
 int main(int argc, char *argv[])
 {
 #endif
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// crash reporting system
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef USE_CRASHREPORTER
-	#ifdef NEUROMORE_PLATFORM_WINDOWS
-		// first check if it is safe to call functions from CrashRpt.dll
-		// OBSOLETE
-		/*if (CrashReporterCheckVersion() == false)
-		{
-			MessageBox(NULL, L"The CrashRpt dll cannot be found or has a wrong version! Please contact the neuromore support team.\n\nneuromore Studio cannot launch." , L"Critical Error", MB_OK|MB_ICONEXCLAMATION);
-			return 666;
-		}*/
-		
-		// try to init the crash reporter
-		if (CrashReporterInit() == false)
-			return 666;
-	#endif
-#endif
 
 	// initialize core helper system
 	if (EngineInitializer::Init() == false)
 	{
 		Core::LogError( "Failed to initialize the neuromore Engine." );
-		#ifdef USE_CRASHREPORTER
-			CrashReporterShutdown();			// shutdown crash reporter
-		#endif
 		return -1;
 	}
 
@@ -285,9 +255,6 @@ int main(int argc, char *argv[])
 	{
 		Core::LogCritical("Failed to initialize the Qt base manager.");
 		EngineInitializer::Shutdown();			// shutdown neuro system
-		#ifdef USE_CRASHREPORTER
-			CrashReporterShutdown();			// shutdown crash reporter
-		#endif
 		return -1;
 	}
 
@@ -297,9 +264,6 @@ int main(int argc, char *argv[])
 		Core::LogCritical("Failed to initialize application.");
 		QtBaseInitializer::Shutdown();			// shutdown QtBase
 		EngineInitializer::Shutdown();			// shutdown Core system
-		#ifdef USE_CRASHREPORTER
-			CrashReporterShutdown();			// shutdown crash reporter
-		#endif
 		return -1;
 	}
     
@@ -318,9 +282,6 @@ int main(int argc, char *argv[])
             
 			// DON'T destruct memory here, the AutoUpdate automatically closes the application
 
-#ifdef USE_CRASHREPORTER
-            CrashReporterShutdown();                // shutdown crash reporter
-#endif
             
             return -1;
         }
@@ -337,10 +298,6 @@ int main(int argc, char *argv[])
 	AppInitializer::Shutdown();				// shutdown studio core
 	QtBaseInitializer::Shutdown();			// shutdown QtBase
 	EngineInitializer::Shutdown();			// shutdown Core system
-
-	#ifdef USE_CRASHREPORTER
-		CrashReporterShutdown();			// shutdown crash reporter
-	#endif
 
 	return returnCode;
 }
