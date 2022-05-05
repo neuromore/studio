@@ -200,7 +200,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\AppManager.cpp" />
     <ClCompile Include="..\..\src\Studio\AuthenticationCenter.cpp" />
-    <ClCompile Include="..\..\src\Studio\CrashReporter.cpp" />
     <ClCompile Include="..\..\src\Studio\DocumentationExporter.cpp" />
     <ClCompile Include="..\..\src\Studio\main.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
@@ -902,7 +901,6 @@
     <ClInclude Include="..\..\src\Studio\AppManager.h" />
     <ClInclude Include="..\..\src\Studio\AuthenticationCenter.h" />
     <ClInclude Include="..\..\src\Studio\Config.h" />
-    <ClInclude Include="..\..\src\Studio\CrashReporter.h" />
     <ClInclude Include="..\..\src\Studio\DocumentationExporter.h" />
     <ClInclude Include="..\..\src\Studio\MainWindow.h" />
     <ClInclude Include="..\..\src\Studio\Version.h" />

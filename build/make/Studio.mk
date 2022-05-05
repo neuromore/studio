@@ -345,7 +345,6 @@ OBJS       = Devices/ABM/AbmDriver.o \
              Windows/VisualizationSelectWindow.o \
              AppManager.o \
              AuthenticationCenter.o \
-             CrashReporter.o \
              DocumentationExporter.o \
              main.o \
              MainWindow.o \
