@@ -3,6 +3,7 @@ include ../../deps/build/make/platforms/detect-host.mk
 include ../../deps/build/make/platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = Studio
+TARGET     = $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
 INCDIR     = ../../deps/include
 SRCDIR     = ../../src/$(NAME)
 INCDIRQT   = $(SRCDIR)
@@ -697,16 +698,20 @@ OBLS := $(OBJS) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
 $(RESO) : $(PRES)
- 
+
 build: pch $(PRES) $(OBLS) $(RESO)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
-	@echo [LNK] $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
-	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
+	@echo [LNK] $(TARGET)
+	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
 	@echo [CPY] Prebuilt Libraries
 	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR)/)
 	@echo [CPY] Built Libraries
 	$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR)/)
+ifeq ($(MODE),release)
+	@echo [STR] $(TARGET)
+	$(STRIP) $(STRIPFLAGS) $(TARGET)
+endif
 
 clean:
 	$(call deletefiles,$(MOCDIR),*.cpp)
