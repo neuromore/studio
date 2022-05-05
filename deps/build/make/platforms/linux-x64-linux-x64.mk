@@ -22,6 +22,8 @@ CC         = clang
 CFLAGS     = -target $(TARGET) -fPIC -static
 AR         = llvm-ar
 ARFLAGS    = rcs
+STRIP      = llvm-strip
+STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
 LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/x64
