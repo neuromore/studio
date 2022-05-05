@@ -38,45 +38,10 @@
    //Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow
    Q_IMPORT_PLUGIN(WMFServicePlugin); // Windows Media Foundation
 
-   // WINAPI
-   #pragma comment(lib, "Version.lib")          // winapi: version
-   #pragma comment(lib, "Bthprops.lib")         // winapi: bluetooth
-   #pragma comment(lib, "Setupapi.lib")         // winapi: setup
-   #pragma comment(lib, "Vfw32.lib")            // winapi: VideoForWindows
-   #pragma comment(lib, "Rpcrt4.lib")           // winapi: Rpcrt
-   #pragma comment(lib, "Ws2_32.lib")           // winapi: sockets
-   #pragma comment(lib, "Iphlpapi.lib")         // winapi: ip helper
-   #pragma comment(lib, "Imm32.lib")            // winapi: internationalization
-   #pragma comment(lib, "winmm.lib")            // winapi: multimedia
-   #pragma comment(lib, "Crypt32.lib")          // winapi: crypto
-   #pragma comment(lib, "Netapi32.lib")         // winapi: netapi
-   #pragma comment(lib, "Userenv.lib")          // winapi: userenv
-   #pragma comment(lib, "Dwmapi.lib")           // winapi: desktop window manager
-   #pragma comment(lib, "Wtsapi32.lib")         // winapi: remote desktop services
-   #pragma comment(lib, "Gdi32.lib")            // winapi: gdi
-   #pragma comment(lib, "WindowsApp.lib")       // winapi: WinRT basics
-   #pragma comment(lib, "dxva2.lib")            // winapi: DirectX Video Acceleration
-   #pragma comment(lib, "D3d9.lib")             // winapi: Direct3D 9
-   #pragma comment(lib, "evr.lib")              // winapi: media foundation
-   #pragma comment(lib, "mf.lib")               // winapi: media foundation
-   #pragma comment(lib, "mfplat.lib")           // winapi: media foundation
-   #pragma comment(lib, "mfplay.lib")           // winapi: media foundation
-   #pragma comment(lib, "mfreadwrite.lib")      // winapi: media foundation
-   #pragma comment(lib, "mfuuid.lib")           // winapi: media foundation
-   #pragma comment(lib, "wmcodecdspuuid.lib")   // winapi: 
-   #pragma comment(lib, "strmiids.lib")         // winapi: 
-   #pragma comment(lib, "AdvAPI32.lib")         // winapi: 
-   #pragma comment(lib, "shell32.lib")          // winapi: 
-   #pragma comment(lib, "pdh.lib")              // winapi: 
-   #pragma comment(lib, "opengl32.lib")         // opengl
-   #pragma comment(lib, "glu32.lib")            // opengl
-
-   // PROPRIETARY (TOBIIEYEX)
+   // PROPRIETARY LIBS WITH NO RUNTIME LOADING BUT LIB FOR LINKER ONLY
    #ifdef INCLUDE_DEVICE_TOBIIEYEX
       #pragma comment(lib, "Tobii.EyeX.Client.lib")
    #endif
-
-   // PROPRIETARY (NEUROSKY MINDWAVE)
    #ifdef INCLUDE_DEVICE_NEUROSKY_MINDWAVE
    #if _M_X64
       #pragma comment(lib, "thinkgear64.lib")
@@ -84,8 +49,6 @@
       #pragma comment(lib, "thinkgear.lib")
    #endif
    #endif
-
-   // PROPRIETARY (ABM)
    #ifdef INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
       #pragma comment (lib, "ABM_Athena.lib")
       #pragma comment (lib, "ABM_CommLib.lib")
@@ -93,18 +56,9 @@
       #pragma comment (lib, "ABM_Datastreaming.lib")
       #pragma comment (lib, "ABM_DeviceConfig.lib")
    #endif
-
-   // PROPRIETARY (EMOTIV)
    #ifdef INCLUDE_DEVICE_EMOTIV
       #pragma comment(lib, "edk.lib")
    #endif
-
-   // PROPRIETARY (EEMAGINE)
-   #ifdef INCLUDE_DEVICE_EEMAGINE
-      #pragma comment(lib, "eego-SDK.lib")
-   #endif
-
-   // PROPRIETARY (EMOTIV)
    #ifdef INCLUDE_DEVICE_BRAINQUIRY
       #pragma comment(lib, "BQPetDLL.lib")
    #endif

@@ -420,7 +420,38 @@ RESO      := $(RESO) Resources/NMStudio.res
 OBJS      := $(OBJS)
 LINKFLAGS := $(LINKFLAGS)
 LINKLIBS  := $(LINKLIBS) \
-             $(LIBDIRDEP)/qt-platform-windows$(SUFFIX)$(EXTLIB)
+             $(LIBDIRDEP)/qt-platform-windows$(SUFFIX)$(EXTLIB) \
+             -lversion.lib \
+             -lbthprops.lib \
+             -lsetupapi.lib \
+             -lvfw32.lib \
+             -lrpcrt4.lib \
+             -lws2_32.lib \
+             -liphlpapi.lib \
+             -limm32.lib \
+             -lwinmm.lib \
+             -lcrypt32.lib \
+             -lnetapi32.lib \
+             -luserenv.lib \
+             -ldwmapi.lib \
+             -lwtsapi32.lib \
+             -lgdi32.lib \
+             -lwindowsapp.lib \
+             -ldxva2.lib \
+             -ld3d9.lib \
+             -levr.lib \
+             -lmf.lib \
+             -lmfplat.lib \
+             -lmfplay.lib \
+             -lmfreadwrite.lib \
+             -lmfuuid.lib \
+             -lwmcodecdspuuid.lib \
+             -lstrmiids.lib \
+             -ladvapi32.lib \
+             -lshell32.lib \
+             -lpdh.lib \
+             -lopengl32.lib \
+             -lglu32.lib
 ifeq ($(MODE),debug)
 LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:CONSOLE
 else
