@@ -67,6 +67,7 @@
    #pragma comment(lib, "strmiids.lib")         // winapi: 
    #pragma comment(lib, "AdvAPI32.lib")         // winapi: 
    #pragma comment(lib, "shell32.lib")          // winapi: 
+   #pragma comment(lib, "pdh.lib")              // winapi: 
    #pragma comment(lib, "opengl32.lib")         // opengl
    #pragma comment(lib, "glu32.lib")            // opengl
 
@@ -108,103 +109,6 @@
       #pragma comment(lib, "BQPetDLL.lib")
    #endif
 
-   // OPENSOURCE / NEUROMORE
-   #if _DEBUG
-      #pragma comment(lib, "DbgHelp.lib")                // winapi: debug
-      #pragma comment(lib, "edflib_d.lib")               // 3rdparty: EDFlib
-      #pragma comment(lib, "kissfft_d.lib")              // 3rdparty: KissFFT
-      #pragma comment(lib, "libpng_d.lib")               // 3rdparty: LibPNG
-      #pragma comment(lib, "libjpeg_d.lib")              // 3rdparty: LibJPEG
-      #pragma comment(lib, "oscpack_d.lib")              // 3rdparty: OSC
-      #pragma comment(lib, "libsvm_d.lib")               // 3rdparty: libsvm
-      #pragma comment(lib, "dspfilters_d.lib")           // 3rdparty: DspFilters
-      #pragma comment(lib, "wavelib_d.lib")              // 3rdparty: wavelib
-      #pragma comment(lib, "brainflow_d.lib")                 // 3rdparty: brainflow
-      #pragma comment(lib, "brainflow-boardcontroller_d.lib") // 3rdparty: brainflow
-      #ifdef OPENCV_SUPPORT
-         #pragma comment(lib, "opencv-core_d.lib")       // 3rdparty: OpenCV Core
-         #pragma comment(lib, "opencv-imgcodecs_d.lib")  // 3rdparty: OpenCV Image Codecs
-         #pragma comment(lib, "opencv-imgproc_d.lib")    // 3rdparty: OpenCV Image Processing
-         #pragma comment(lib, "opencv-videoio_d.lib")    // 3rdparty: OpenCV VideoIO
-      #endif
-      #pragma comment(lib, "tinyaes_d.lib")              // 3rdparty: TinyAES
-      #pragma comment(lib, "tinyobjloader_d.lib")        // 3rdparty: tinyobjloader
-      #pragma comment(lib, "zlib_d.lib")                 // 3rdparty: zlib
-      #pragma comment(lib, "double-conversion_d.lib")    // 3rdparty: double-conversion
-      #pragma comment(lib, "libcrypto_d.lib")            // 3rdparty: openssl libcrypto
-      #pragma comment(lib, "libssl_d.lib")               // 3rdparty: openssl libssl
-      #pragma comment(lib, "pcre2_d.lib")                // 3rdparty: perl c regular expressions
-      #pragma comment(lib, "harfbuzz_d.lib")             // 3rdparty: harfbuzz
-      #pragma comment(lib, "harfbuzz-ng_d.lib")          // 3rdparty: harfbuzz nextgen
-      #pragma comment(lib, "freetype_d.lib")             // 3rdparty: freetype
-      #pragma comment(lib, "singleapplication_d.lib")    // 3rdparty: singleapplication
-      #pragma comment(lib, "qt-bluetooth_d.lib")         // 3rdparty: qt bluetooth
-      #pragma comment(lib, "qt-core_d.lib")              // 3rdparty: qt core
-      #pragma comment(lib, "qt-concurrent_d.lib")        // 3rdparty: qt concurrent
-      #pragma comment(lib, "qt-eventdispatchers_d.lib")  // 3rdparty: qt eventdispatchers
-      #pragma comment(lib, "qt-fontdatabases_d.lib")     // 3rdparty: qt fontdatabases
-      #pragma comment(lib, "qt-gamepad_d.lib")           // 3rdparty: qt gamepad
-      #pragma comment(lib, "qt-gui_d.lib")               // 3rdparty: qt gui
-      #pragma comment(lib, "qt-multimedia_d.lib")        // 3rdparty: qt multimedia
-      #pragma comment(lib, "qt-network_d.lib")           // 3rdparty: qt network
-      #pragma comment(lib, "qt-multimediaplugins_d.lib") // 3rdparty: qt multimedia plugins
-      #pragma comment(lib, "qt-multimediawidgets_d.lib") // 3rdparty: qt multimedia widgets
-      #pragma comment(lib, "qt-widgets_d.lib")           // 3rdparty: qt widgets
-      #pragma comment(lib, "qt-opengl_d.lib")            // 3rdparty: qt opengl
-      #pragma comment(lib, "qt-printsupport_d.lib")      // 3rdparty: qt printsupport
-      #pragma comment(lib, "qt-serialport_d.lib")        // 3rdparty: qt serialport
-      #pragma comment(lib, "qt-xml_d.lib")               // 3rdparty: qt xml
-      #pragma comment(lib, "qt-platform-windows_d.lib")  // 3rdparty: qt xml
-      #pragma comment(lib, "Engine_d.lib")               // neuromore engine
-      #pragma comment(lib, "QtBase_d.lib")               // neuromore qtbase
-   #else
-      #pragma comment(lib, "edflib.lib")
-      #pragma comment(lib, "kissfft.lib")
-      #pragma comment(lib, "libpng.lib")
-      #pragma comment(lib, "libjpeg.lib")
-      #pragma comment(lib, "oscpack.lib")
-      #pragma comment(lib, "libsvm.lib")
-      #pragma comment(lib, "dspfilters.lib")
-      #pragma comment(lib, "wavelib.lib")
-      #pragma comment(lib, "brainflow.lib")
-      #pragma comment(lib, "brainflow-boardcontroller.lib")
-      #ifdef OPENCV_SUPPORT
-         #pragma comment(lib, "opencv-core.lib")
-         #pragma comment(lib, "opencv-imgcodecs.lib")
-         #pragma comment(lib, "opencv-imgproc.lib")
-         #pragma comment(lib, "opencv-videoio.lib")
-      #endif
-      #pragma comment(lib, "tinyaes.lib")
-      #pragma comment(lib, "tinyobjloader.lib")
-      #pragma comment(lib, "zlib.lib")
-      #pragma comment(lib, "double-conversion.lib")
-      #pragma comment(lib, "libcrypto.lib")
-      #pragma comment(lib, "libssl.lib")
-      #pragma comment(lib, "pcre2.lib")
-      #pragma comment(lib, "harfbuzz.lib")
-      #pragma comment(lib, "harfbuzz-ng.lib")
-      #pragma comment(lib, "freetype.lib")
-      #pragma comment(lib, "singleapplication.lib")
-      #pragma comment(lib, "qt-bluetooth.lib")
-      #pragma comment(lib, "qt-core.lib")
-      #pragma comment(lib, "qt-concurrent.lib")
-      #pragma comment(lib, "qt-eventdispatchers.lib")
-      #pragma comment(lib, "qt-fontdatabases.lib")
-      #pragma comment(lib, "qt-gamepad.lib")
-      #pragma comment(lib, "qt-gui.lib")
-      #pragma comment(lib, "qt-multimedia.lib")
-      #pragma comment(lib, "qt-network.lib")
-      #pragma comment(lib, "qt-multimediaplugins.lib")
-      #pragma comment(lib, "qt-multimediawidgets.lib")
-      #pragma comment(lib, "qt-widgets.lib")
-      #pragma comment(lib, "qt-opengl.lib")
-      #pragma comment(lib, "qt-printsupport.lib")
-      #pragma comment(lib, "qt-serialport.lib")
-      #pragma comment(lib, "qt-xml.lib")
-      #pragma comment(lib, "qt-platform-windows.lib")
-      #pragma comment(lib, "Engine.lib")
-      #pragma comment(lib, "QtBase.lib")
-   #endif
 #elif defined(NEUROMORE_PLATFORM_LINUX)
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
