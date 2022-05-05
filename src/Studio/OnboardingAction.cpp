@@ -70,6 +70,7 @@ void OnboardingAction::setActivePlugin(const std::string& pluginName)
 		if (std::string(plugin->GetName()) == pluginName)
 		{
 			mActivePluginIdx = i;
+			return;
 		}
 	}
 }

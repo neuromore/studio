@@ -242,7 +242,7 @@ bool TourManager::InitOnboardingActions()
 		"You can also access the state of the classifier through <i> CustomFeedback </i> "
 		"variables. In this example we measure how long the session is running in the "
 		"classifier and check in the <i> TimerRunning </i> state if the session duration of the training is finished.");
-	stateMachineAction->setActivePlugin("State Machine");;
+	stateMachineAction->setActivePlugin("State Machine");
 	stateMachineAction->setInstructionsTitle("Do this now");
 	stateMachineAction->setInstructionsDescription("<ul><li>Right-click and drag to explore the state machine</li> <li> Double click on the 'Select Duration' node and explore the properties "
 		"on the right of the <i>State Machine</i> window.</li> </ul>");
@@ -469,6 +469,10 @@ bool TourManager::InitOnboardingActions()
 	connect(mainWindow, &MainWindow::minimized, this, &TourManager::OnMinimized);
 	connect(mainWindow, &MainWindow::maximized, this, &TourManager::OnMaximized);
 
+	if (!setSignalViewPluginActive()) {
+		return false;
+	}
+
 	return true;
 }
 
@@ -496,4 +500,29 @@ void TourManager::OnMaximized()
 void TourManager::OnResized()
 {
 	TourManager::CurrentOnboardingAction->OnResized();
+}
+
+bool TourManager::setSignalViewPluginActive()
+{
+	auto mainWindow = GetMainWindow();
+	const uint32 numRegisteredPlugins = GetQtBaseManager()->GetPluginManager()
+		->GetNumActivePlugins();
+	for (uint32 i = 0; i < numRegisteredPlugins; ++i)
+	{
+		Plugin* plugin = GetPluginManager()->GetActivePlugin(i);
+		if (std::string(plugin->GetName()) == "Signal View")
+		{
+			QDockWidget* dockWidget = plugin->GetDockWidget();
+			Q_FOREACH(QTabBar * tabBar, mainWindow->findChildren<QTabBar*>()) {
+				for (int i = 0; i < tabBar->count(); ++i) {
+					if (dockWidget == (QDockWidget*)tabBar->tabData(i).toULongLong())
+					{
+						tabBar->setCurrentIndex(i);
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false;
 }

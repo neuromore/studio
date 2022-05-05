@@ -18,6 +18,8 @@ public:
 
 	void startTour();
 
+	bool setSignalViewPluginActive();
+
 	static OnboardingAction* CurrentOnboardingAction;
 
 public slots: 
