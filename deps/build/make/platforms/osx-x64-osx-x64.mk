@@ -14,7 +14,7 @@ LIBDIR     = lib/osx-x64
 BINDIR     = bin/osx-x64
 TARGET     = x86_64-apple-darwin19.6.0
 MINVER     = -mmacosx-version-min=10.15
-CPUFLAGS   = -march=x86-64-v2 -mtune=generic -mpclmul -maes -mavx
+CPUFLAGS   = -march=x86-64 -mtune=generic -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mpclmul
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
@@ -23,6 +23,8 @@ CC         = clang
 CFLAGS     = $(MINVER) -target $(TARGET) -static
 AR         = ar
 ARFLAGS    = rcs
+STRIP      = strip
+STRIPFLAGS = -S
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET)
 LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/osx/x64
