@@ -75,6 +75,7 @@ ENGINE_OBJS_ALL     = Core/AABB.o \
                       Devices/Audio/AudioNodes.o \
                       Devices/BrainFlow/BrainFlowDevices.o \
                       Devices/BrainFlow/BrainFlowNodes.o \
+                      Devices/BrainMaster/BrainMasterDevices.o \
                       Devices/BrainProducts/ActiChampDevice.o \
                       Devices/Brainquiry/BrainquiryDevice.o \
                       Devices/Emotiv/EmotivEPOCDevice.o \
@@ -763,6 +764,8 @@ STUDIO_OBJS_ALL      = Devices/ABM/AbmDriver.o \
                        Devices/Bluetooth/BluetoothDevice.o \
                        Devices/Bluetooth/BluetoothDriver.o \
                        Devices/Bluetooth/BluetoothService.o \
+                       Devices/BrainMaster/BrainMasterDriver.o \
+                       Devices/BrainMaster/Discovery20.o \
                        Devices/BrainFlow/BrainFlowDriver.o \
                        Devices/BrainProducts/ActiChampDriver.o \
                        Devices/Brainquiry/BrainquiryDriver.o \

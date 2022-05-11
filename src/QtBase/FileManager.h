@@ -216,6 +216,8 @@ class QTBASE_API FileManager : public QObject
 		void OnFileOpenFailed(const char* identifier);	// post-open event
 		// TODO more file signals
 
+		void writeToBackendFinished();
+
 	private:
 		// Note: make array accesses threadsafe?
 		Core::Array<OpenFile*>	mOpenFiles;
@@ -233,6 +235,8 @@ class QTBASE_API FileManager : public QObject
 		bool					mStateMachineLoaded;
 
 		Core::String			mTempString;
+
+		bool  mIsInFileSaving;
 
 		bool Close(OpenFile* file);
 		bool Save(OpenFile* file);
