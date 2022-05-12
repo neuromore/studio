@@ -39,6 +39,7 @@ VisualizationManager::VisualizationManager(QObject* parent) : QObject(parent), m
 	mVisualizationFolders.Add(appDir + "..\\Visualizations\\");
 #else
 	mVisualizationFolders.Add(appDir + "..\\Visualizations\\");
+		mVisualizationFolders.Add(appDir + "..\\share\\neuromore\\Visualizations\\");
 	mVisualizationFolders.Add(appDir + "..\\..\\..\\Visualizations\\");
 #endif
 }
