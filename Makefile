@@ -37,7 +37,7 @@ QtBase-clean:
 	@echo [CLN] QtBase
 	@make -s -C ./build/make/ -f QtBase.mk clean -j $(DETECTED_CORES)
 
-Studio:
+Studio: | QtBase
 	@echo [BLD] Studio
 	@make -s -C ./build/make/ -f Studio.mk -j $(DETECTED_CORES)
 
