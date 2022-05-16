@@ -17,5 +17,6 @@
     
     <file>Layouts/Neurofeedback.layout</file>
     <file>Layouts/NovaTech.layout</file>
+    <file>Layouts/PatientUI.layout</file>
   </qresource>
 </RCC>

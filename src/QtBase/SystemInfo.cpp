@@ -16,10 +16,6 @@
 
 using namespace Core;
 
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-	#pragma comment(lib, "pdh.lib")
-#endif
-
 // constructor
 SystemInfo::SystemInfo()
 {

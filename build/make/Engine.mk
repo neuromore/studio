@@ -68,6 +68,7 @@ OBJS       = Core/AABB.o \
              Devices/Mitsar/MitsarDevices.o \
              Devices/Muse/MuseDevice.o \
              Devices/Neurosity/NotionDevices.o \
+             Devices/Neurosity/CrownDevice.o \
              Devices/NeuroSky/NeuroSkyDevice.o \
              Devices/OpenBCI/OpenBCIDevices.o \
              Devices/Test/TestDevice.o \

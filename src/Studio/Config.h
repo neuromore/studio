@@ -56,11 +56,6 @@
    // OpenCV support
    #define OPENCV_SUPPORT
 
-	// crash reporting system
-	#ifdef NEUROMORE_PLATFORM_WINDOWS
-		//#define USE_CRASHREPORTER				// comment this if we don't want to use the CrashRpt system
-	#endif
-
 	// loreta debug mode
 	#define LORETA_DEBUG
 #endif
@@ -85,10 +80,6 @@
 	// updates
 	//#define USE_AUTOUPDATE
 
-	// crash reporting system
-	#ifdef NEUROMORE_PLATFORM_WINDOWS
-		//#define USE_CRASHREPORTER
-	#endif
 #endif
 
 
