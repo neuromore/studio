@@ -96,12 +96,12 @@ class AppManager : public QObject
 #elif NEUROMORE_BRANDING_STARRBASE
 		const char* GetCompanyName() const								{ return "myneurva"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
-		const char* GetWebsite() const									{ return "https://starrbase.myneurva.com"; }
+		const char* GetWebsite() const									{ return "https://myneurva.com"; }
 		const char* GetDocumentationUrl() const						{ return "https://starrbase.myneurva.com"; }
-		const char* GetAccountUrl() const								{ return "https://account.starrbase.myneurva.com"; }
-		const char* GetStoreUrl() const									{ return "https://starrbase.myneurva.com"; }
-		const char* GetForgotPasswordUrl() const						{ return "https://account.starrbase.myneurva.com/resetrequest"; }
-		const char* GetSupportEMail() const								{ return "support@neuromore.com"; }
+		const char* GetAccountUrl() const								{ return "https://starrbase.myneurva.com"; }
+		const char* GetStoreUrl() const									{ return "https://myneurva.com"; }
+		const char* GetForgotPasswordUrl() const						{ return "https://starrbase.myneurva.com/resetrequest"; }
+		const char* GetSupportEMail() const								{ return "support@myneurva.com"; }
 		const char* GetAppShortName() const								{ return "Starrbase"; }
 		const char* GetMenuStudioName() const							{ return "Starrbase"; }
 		const char* GetLicenseUrl() const								{ return "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md"; }
