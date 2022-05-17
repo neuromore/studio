@@ -121,7 +121,14 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  build-workflow:
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * 2,5"
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - build-linux
       - build-macos
