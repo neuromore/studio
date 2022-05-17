@@ -377,7 +377,7 @@ ifeq ($(BRANDING),starrbase)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_STARRBASE \
              -DAPPNAME="Starrbase" \
-             -DAPPICON="AppIcon-ANT.ico"
+             -DAPPICON="AppIcon-Starrbase.ico"
 endif
 
 ################################################################################################
