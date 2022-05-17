@@ -108,7 +108,7 @@ class AppManager : public QObject
 		const char* GetCloudTermsUrl() const							{ return "https://assets.starrbase.myneurva.com/license/terms-and-conditions.txt"; }
 		const char* GetPrivacyPolicyUrl() const						{ return "https://assets.starrbase.myneurva.com/license/privacy-policy.txt"; }
 		const bool  IsLoginRemberMePrechecked() const				{ return true; }
-		const char* GetLoginImageName() const							{ return ":/Images/Login-BrainStation.png"; }
+		const char* GetLoginImageName() const							{ return ":/Images/Login-Starrbase.png"; }
 #else
 		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }

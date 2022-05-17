@@ -38,7 +38,7 @@
 #ifdef NEUROMORE_BRANDING_ANT
 #define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
 #elif NEUROMORE_BRANDING_STARRBASE
-#define SPLASHIMAGE ":/Images/SplashScreen-BrainStation.png" 
+#define SPLASHIMAGE ":/Images/SplashScreen-Starrbase.png" 
 #else
 #define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
 #endif
