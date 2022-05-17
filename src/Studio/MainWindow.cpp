@@ -1608,6 +1608,8 @@ void MainWindow::OnLoadSettings()
 	// used backend
 #ifdef NEUROMORE_BRANDING_ANT
 	const int defaultPresetIndex = 1;
+#elif NEUROMORE_BRANDING_STARRBASE
+	const int defaultPresetIndex = 2;
 #else
 	const int defaultPresetIndex = 0;
 #endif

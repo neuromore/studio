@@ -37,6 +37,8 @@
 
 #ifdef NEUROMORE_BRANDING_ANT
 #define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
+#elif NEUROMORE_BRANDING_STARRBASE
+#define SPLASHIMAGE ":/Images/SplashScreen-Starrbase.png" 
 #else
 #define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
 #endif
@@ -276,6 +278,13 @@ String AppManager::GetAppName() const
 		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
 		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
 		else name = "eego perform studio";
+#elif NEUROMORE_BRANDING_STARRBASE
+		if (user->FindRule("ROLE_Admin") != NULL) name = "Starrbase - Admin";
+		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Starrbase - Clinic Admin";
+		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Starrbase - Clinician";
+		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Starrbase - Operator";
+		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Starrbase - Patient";
+		else name = "Starrbase";
 #else
 		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
 		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";

@@ -147,6 +147,7 @@ void Discovery20::processQueue()
       stepSync();
       break;
    }
+   default: break;
    }
 }
 

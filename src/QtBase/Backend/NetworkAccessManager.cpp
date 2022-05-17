@@ -28,6 +28,7 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 
 	mPresets.Add(new ServerPreset("neuromore (AWS)", "backend.neuromore.com", "https://backend.neuromore.com/api/", 443, "https://account.neuromore.com"));
 	mPresets.Add(new ServerPreset("eego-perform (AWS)", "backend.eego-perform.com", "https://backend.eego-perform.com/api/", 443, "https://account.eego-perform.com"));
+	mPresets.Add(new ServerPreset("starrbase (AWS)", "backend.starrbase.myneurva.com", "https://backend.starrbase.myneurva.com/api/", 443, "https://starrbase.myneurva.com"));
 
 	// non-prod server presets (always neuromore)
 	#ifndef PRODUCTION_BUILD
@@ -39,6 +40,8 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 	// set default one
 	#ifdef NEUROMORE_BRANDING_ANT
 		mActivePresetIndex = 1;
+	#elif defined(NEUROMORE_BRANDING_STARRBASE)
+		mActivePresetIndex = 2;
 	#else
 		mActivePresetIndex = 0;
 	#endif
