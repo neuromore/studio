@@ -167,7 +167,7 @@ bool Discovery20::find()
    return mPort != 0;
 }
 
-bool Discovery20::connect()
+bool Discovery20::connect(char* codekey, char* serialnumber, char* passkey)
 {
    if (!mSDK.Handle)
       return false;
@@ -204,6 +204,12 @@ bool Discovery20::connect()
       return false;
    }
 
+   // login to the device
+   if (mSDK.BmrLoginDevice(codekey, serialnumber, passkey) != SDK::LoginCodes::WIDEB2E) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
    // set to expected sampling rate
    if (!mSDK.AtlWriteSamplingRate(SAMPLERATE)) {
       mSDK.AtlClosePort(mPort);
@@ -212,6 +218,12 @@ bool Discovery20::connect()
 
    // clear any specials that might be set
    if (!mSDK.AtlClearSpecials()) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
+   // enable specialdata in frame (78 instead of 75 bytes)
+   if (!mSDK.AtlSelectSpecial(0xFF)) {
       mSDK.AtlClosePort(mPort);
       return false;
    }
@@ -280,11 +292,8 @@ bool Discovery20::disconnect()
    const BOOL R1 = mSDK.AtlSetBaudRate(SDK::BR9600);
    const BOOL R2 = mSDK.AtlClosePort(mPort);
 
-   // set to disconnected and reset auth
+   // set to disconnected and raise callback
    mState = State::DISCONNECTED;
-   mAuth  = 0;
-
-   // raise callback
    mCallback.onDeviceDisconnected();
 
    // success

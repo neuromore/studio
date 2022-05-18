@@ -35,7 +35,7 @@ public:
       typedef BOOL  (__cdecl* FuncAtlWriteSamplingRate)   (int32_t samplingrate);
       typedef BOOL  (__cdecl* FuncAtlClearSpecials)       ();
       typedef void  (__cdecl* FuncAtlFlush)               ();
-      typedef int   (__cdecl* FuncAtlLoginDevice)         (char* codekey, char* serialnumber, char* passkey);
+      typedef int   (__cdecl* FuncBmrLoginDevice)         (char* codekey, char* serialnumber, char* passkey);
       typedef BOOL  (__cdecl* FuncDiscStartModule)        ();
       typedef BOOL  (__cdecl* FuncDiscStopModule)         ();
       typedef DWORD (__cdecl* FuncAtlGetBytesInQue)       ();
@@ -53,6 +53,11 @@ public:
          BR115200 = 0x20,
          BR9600   = 0x30
       };
+      enum LoginCodes : int32_t {
+         EARLY2E = 11,
+         READY2E = 12,
+         WIDEB2E = 13
+      };
    public:
       HMODULE                     Handle;
       FuncAtlOpenPort             AtlOpenPort;
@@ -61,7 +66,7 @@ public:
       FuncAtlWriteSamplingRate    AtlWriteSamplingRate;
       FuncAtlClearSpecials        AtlClearSpecials;
       FuncAtlFlush                AtlFlush;
-      FuncAtlLoginDevice          AtlLoginDevice;
+      FuncBmrLoginDevice          BmrLoginDevice;
       FuncDiscStartModule         DiscStartModule;
       FuncDiscStopModule          DiscStopModule;
       FuncAtlGetBytesInQue        AtlGetBytesInQue;
@@ -82,7 +87,7 @@ public:
          AtlWriteSamplingRate   (Handle ? (FuncAtlWriteSamplingRate)    GetProcAddress(Handle, "AtlWriteSamplingRate")    : 0),
          AtlClearSpecials       (Handle ? (FuncAtlClearSpecials)        GetProcAddress(Handle, "AtlClearSpecials")        : 0),
          AtlFlush               (Handle ? (FuncAtlFlush)                GetProcAddress(Handle, "AtlFlush")                : 0),
-         AtlLoginDevice         (Handle ? (FuncAtlLoginDevice)          GetProcAddress(Handle, "AtlLoginDevice")          : 0),
+         BmrLoginDevice         (Handle ? (FuncBmrLoginDevice)          GetProcAddress(Handle, "BmrLoginDevice")          : 0),
          DiscStartModule        (Handle ? (FuncDiscStartModule)         GetProcAddress(Handle, "DiscStartModule")         : 0),
          DiscStopModule         (Handle ? (FuncDiscStopModule)          GetProcAddress(Handle, "DiscStopModule")          : 0),
          AtlGetBytesInQue       (Handle ? (FuncAtlGetBytesInQue)        GetProcAddress(Handle, "AtlGetBytesInQue")        : 0),
@@ -107,7 +112,7 @@ public:
             AtlWriteSamplingRate    = 0;
             AtlClearSpecials        = 0;
             AtlFlush                = 0;
-            AtlLoginDevice          = 0;
+            BmrLoginDevice          = 0;
             DiscStartModule         = 0;
             DiscStopModule          = 0;
             AtlGetBytesInQue        = 0;
@@ -185,15 +190,17 @@ public:
    /// </summary>
    struct Frame
    {
-      static constexpr size_t SIZE = 75;
+      static constexpr size_t SIZE = 78;
       static constexpr float CONVERTUV = 0.01658f;
       union {
          uint8_t data[SIZE];
          struct {
-            uint8_t sync;
-            uint8_t unused1;
-            uint8_t unused2;
-            int24_t channels[Channels::SIZE];
+            uint8_t  sync;
+            uint8_t  unused1;
+            uint8_t  unused2;
+            uint8_t  steering;
+            uint16_t specialdata;
+            int24_t  channels[Channels::SIZE];
          };
       };
       inline void extract(Channels& ch)
@@ -274,7 +281,6 @@ protected:
    uint32_t  mNumSyncs;
    uint32_t  mNumBytes;
    uint8_t   mNextSync;
-   int32_t   mAuth;
    uint64_t  mTickLastData;
    union {
      Frame   mFrame;
@@ -347,7 +353,6 @@ public:
       mNumSyncs(0),
       mNumBytes(0),
       mNextSync(0),
-      mAuth(0),
       mTickLastData(0),
       mBuffer(),
       mChannels(),
@@ -394,27 +399,6 @@ public:
    inline bool isStreaming() const { return mState > State::CONNECTED; }
 
    /// <summary>
-   /// True if currently logged-in on the device.
-   /// </summary>
-   inline bool isLoggedIn() const { return mAuth != 0; }
-
-   /// <summary>
-   /// Tries to login to the device with provided credentials.
-   /// Can only be called while in CONNECTED state.
-   /// </summary>
-   inline bool login(char* codekey, char* serialnumber, char* passkey)
-   {
-      if (!mSDK.Handle)
-         return false;
-
-      if (mState != State::CONNECTED)
-         return false;
-
-      mAuth = mSDK.AtlLoginDevice(codekey, serialnumber, passkey);
-      return mAuth != 0;
-   }
-
-   /// <summary>
    /// Tries to find a connected Discovery 20 device.
    /// Returns true on success.
    /// </summary>
@@ -424,7 +408,7 @@ public:
    /// Try connect to Discovery 20 device.
    /// Returns true on success or if already connected.
    /// </summary>
-   bool connect();
+   bool connect(char* codekey, char* serialnumber, char* passkey);
 
    /// <summary>
    /// Starts data streaming on a connected Discovery 20.
