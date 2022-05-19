@@ -167,7 +167,7 @@ bool Discovery20::find()
    return mPort != 0;
 }
 
-bool Discovery20::connect(char* codekey, char* serialnumber, char* passkey)
+bool Discovery20::connect(const char* codekey, const char* serialnumber, const char* passkey)
 {
    if (!mSDK.Handle)
       return false;
@@ -205,7 +205,7 @@ bool Discovery20::connect(char* codekey, char* serialnumber, char* passkey)
    }
 
    // login to the device
-   if (mSDK.BmrLoginDevice(codekey, serialnumber, passkey) != SDK::LoginCodes::WIDEB2E) {
+   if (mSDK.BmrLoginDevice((char*)codekey, (char*)serialnumber, (char*)passkey) != SDK::LoginCodes::WIDEB2E) {
       mSDK.AtlClosePort(mPort);
       return false;
    }

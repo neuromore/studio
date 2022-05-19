@@ -408,7 +408,7 @@ public:
    /// Try connect to Discovery 20 device.
    /// Returns true on success or if already connected.
    /// </summary>
-   bool connect(char* codekey, char* serialnumber, char* passkey);
+   bool connect(const char* codekey, const char* serialnumber, const char* passkey);
 
    /// <summary>
    /// Starts data streaming on a connected Discovery 20.

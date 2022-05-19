@@ -57,6 +57,13 @@ public:
    bool HasAutoDetectionSupport() const override final { return true; }
    void SetAutoDetectionEnabled(bool enable = true) override;
 
+   inline const std::string& GetCodeKey() const { return mCodeKey; }
+   inline const std::string& GetSerial() const { return mSerial; }
+   inline const std::string& GetPassKey() const { return mPassKey; }
+   inline void SetCodeKey(const std::string& v) { mCodeKey = v; }
+   inline void SetSerial(const std::string& v) { mSerial = v; }
+   inline void SetPassKey(const std::string& v) { mPassKey = v; }
+
 private:
    void Cleanup();
 
@@ -72,6 +79,9 @@ private:
    virtual void onSyncLost() override;
    virtual void onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) override;
 
+   std::string      mCodeKey;
+   std::string      mSerial;
+   std::string      mPassKey;
    Discovery20      mSDK;
    DiscoveryDevice* mDevice;
 };

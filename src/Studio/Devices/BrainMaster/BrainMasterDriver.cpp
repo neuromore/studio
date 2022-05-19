@@ -106,10 +106,13 @@ void BrainMasterDriver::DetectDevices()
 
    if (mSDK.find())
    {
-      if (mSDK.connect())
+      if (!mSerial.empty() && !mCodeKey.empty() && !mPassKey.empty())
       {
-         mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
-         GetDeviceManager()->AddDeviceAsync(mDevice);
+         if (mSDK.connect(mCodeKey.c_str(), mSerial.c_str(), mPassKey.c_str()))
+         {
+            mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
+            GetDeviceManager()->AddDeviceAsync(mDevice);
+         }
       }
    }
 }
