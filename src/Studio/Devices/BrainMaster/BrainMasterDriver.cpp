@@ -38,7 +38,7 @@
 using namespace Core;
 
 // constructor
-BrainMasterDriver::BrainMasterDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mSDK(*this), mDevice(0)
+BrainMasterDriver::BrainMasterDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mSDK(*this), mMode(EMode::MODE_IDLE), mDevice(0)
 {
    LogDetailedInfo("Constructing BrainMaster driver ...");
 
@@ -69,6 +69,43 @@ bool BrainMasterDriver::Init()
    return true;
 }
 
+void BrainMasterDriver::StartTest(Device* device)
+{
+   if (device != mDevice || !mDevice || mMode == EMode::MODE_IMPEDANCE)
+      return;
+
+   // log
+   LogInfo("DISCOVERY20: Switching to Impedance Mode");
+
+   // set mode to impedance
+   mMode = EMode::MODE_IMPEDANCE;
+
+   // reset the device
+   mDevice->Reset();
+}
+
+void BrainMasterDriver::StopTest(Device* device)
+{
+   if (device != mDevice || mMode != EMode::MODE_IMPEDANCE)
+      return;
+
+   // log
+   LogInfo("DISCOVERY20: Switching to Streaming Mode");
+
+   // set mode to idle
+   mMode = EMode::MODE_STREAM;
+
+   // reset the device
+   mDevice->Reset();
+}
+
+bool BrainMasterDriver::IsTestRunning(Device* device)
+{
+   if (device != mDevice)
+      return false;
+
+   return mMode == EMode::MODE_IMPEDANCE;
+}
 
 void BrainMasterDriver::Update(const Time& elapsed, const Time& delta)
 {
@@ -104,17 +141,21 @@ void BrainMasterDriver::DetectDevices()
    if (!mIsEnabled || mDevice)
       return;
 
-   if (mSDK.find())
-   {
-      if (!mSerial.empty() && !mCodeKey.empty() && !mPassKey.empty())
-      {
-         if (mSDK.connect(mCodeKey.c_str(), mSerial.c_str(), mPassKey.c_str()))
-         {
-            mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
-            GetDeviceManager()->AddDeviceAsync(mDevice);
-         }
-      }
-   }
+   // must have according device with drivers installed
+   if (!mSDK.find())
+      return;
+
+   // must have credentials
+   if (mSerial.empty() || mCodeKey.empty() || mPassKey.empty())
+      return;
+
+   // try connect
+   if (!mSDK.connect(mCodeKey.c_str(), mSerial.c_str(), mPassKey.c_str()))
+      return;
+
+   // success, create device and add it
+   mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
+   GetDeviceManager()->AddDeviceAsync(mDevice);
 }
 
 void BrainMasterDriver::OnRemoveDevice(Device* device)
@@ -133,16 +174,21 @@ void BrainMasterDriver::OnDeviceAdded(Device* device)
    if (device != mDevice)
       return;
 
-   // start data streaming, TODO: handle false
+   // start data streaming
    if (!mSDK.start())
    {
-
+      mSDK.disconnect();
+      mMode = EMode::MODE_IDLE;
+      return;
    }
+
+   mMode = EMode::MODE_STREAM;
 }
 
 void BrainMasterDriver::Cleanup()
 {
    mSDK.disconnect();
+   mMode = EMode::MODE_IDLE;
    mDevice = NULL;
 }
 
@@ -201,14 +247,34 @@ void BrainMasterDriver::onFrame(const Discovery20::Frame& f, const Discovery20::
       return;
 
    const uint32 numSensors = mDevice->GetNumInputSensors();
-   if (numSensors > Discovery20::Channels::SIZE)
+   if (numSensors != Discovery20::Channels::SIZE + 1) // + Mode
       return;
 
-   // this requires identical ordering of sensors and frame channels on first 22
-   for (uint32_t i = 0; i < numSensors; i++)
+   if (mMode == EMode::MODE_IMPEDANCE)
    {
-      Sensor* s = mDevice->GetInputSensor(i);
-      s->AddQueuedSample(c.data[i]);
+      // TODO: Use impedance values here instead
+      for (uint32_t i = 0; i < numSensors - 1; i++)
+      {
+         Sensor* s = mDevice->GetInputSensor(i);
+         s->AddQueuedSample(c.data[i]);
+      }
+
+      // output mode (impedance=1.0)
+      if (Sensor* sensor = mDevice->GetSensorMode())
+         sensor->AddQueuedSample(1.0);
+   }
+   else
+   {
+      // channel values
+      for (uint32_t i = 0; i < numSensors - 1; i++)
+      {
+         Sensor* s = mDevice->GetInputSensor(i);
+         s->AddQueuedSample(c.data[i]);
+      }
+
+      // output mode (non-impedance=0.0)
+      if (Sensor* sensor = mDevice->GetSensorMode())
+         sensor->AddQueuedSample(0.0);
    }
 }
 #endif

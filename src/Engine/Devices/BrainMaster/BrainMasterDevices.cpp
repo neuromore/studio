@@ -65,7 +65,7 @@ void DiscoveryDevice::CreateSensors()
 // Discovery with 20 channels
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Discovery20Device::Discovery20Device(DeviceDriver* driver) : DiscoveryDevice(driver)
+Discovery20Device::Discovery20Device(DeviceDriver* driver) : DiscoveryDevice(driver), mSensorMode(0)
 {
    LogDetailedInfo("Constructing Discovery with 20 channels ...");
    CreateSensors();
@@ -115,6 +115,10 @@ void Discovery20Device::CreateElectrodes()
 void Discovery20Device::CreateSensors()
 {
    DiscoveryDevice::CreateSensors();
+
+   // create additional sensors
+   mSensorMode = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "Mode");
+   mSensorMode->SetSampleRate(this->GetSampleRate());
 
    // extend buffers so they can hold up to 60s of samples
    uint32_t numSensors = GetNumSensors();

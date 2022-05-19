@@ -39,6 +39,13 @@ class BrainMasterDriver : public DeviceDriver, Core::EventHandler, Discovery20::
 public:
    enum { TYPE_ID = DeviceTypeIDs::DRIVER_TYPEID_BRAINMASTER };
 
+   enum EMode
+   {
+      MODE_IDLE,        // init/default mode
+      MODE_STREAM,      // normal EEG data stream
+      MODE_IMPEDANCE    // impedance test 
+   };
+
    // constructor & destructor
    BrainMasterDriver();
    virtual ~BrainMasterDriver();
@@ -52,6 +59,11 @@ public:
    Device* CreateDevice(uint32 deviceTypeID) override;
    void OnRemoveDevice(Device* device) override;
    void OnDeviceAdded(Device* device) override;
+
+   // impedance test
+   void StartTest(Device* device) override;
+   void StopTest(Device* device) override;
+   bool IsTestRunning(Device* device) override;
 
    // autodetection of local devices
    bool HasAutoDetectionSupport() const override final { return true; }
@@ -79,11 +91,13 @@ private:
    virtual void onSyncLost() override;
    virtual void onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) override;
 
-   std::string      mCodeKey;
-   std::string      mSerial;
-   std::string      mPassKey;
-   Discovery20      mSDK;
-   DiscoveryDevice* mDevice;
+
+   EMode              mMode;
+   std::string        mCodeKey;
+   std::string        mSerial;
+   std::string        mPassKey;
+   Discovery20        mSDK;
+   Discovery20Device* mDevice;
 };
 
 #endif

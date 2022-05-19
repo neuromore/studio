@@ -73,6 +73,15 @@ public:
 
    void CreateElectrodes() override;
    void CreateSensors() override;
+
+   bool HasTestMode() const override { return true; }
+   void StartTest() override { mDeviceDriver->StartTest(this); }
+   void StopTest() override { mDeviceDriver->StopTest(this); }
+   bool IsTestRunning() override { return mDeviceDriver->IsTestRunning(this); }
+
+   inline Sensor* GetSensorMode() { return mSensorMode; }
+
+   Sensor* mSensorMode;
 };
 
 #endif
