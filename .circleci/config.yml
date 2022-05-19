@@ -65,11 +65,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Set up build tools"
-          command: |
-            brew install make
-            brew install llvm
-      - run:
           name: "Build dependencies"
           command: make -j 4 Dependencies MODE=release
           no_output_timeout: 30m
