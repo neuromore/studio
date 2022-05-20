@@ -144,9 +144,11 @@ void LayoutManager::ReInit()
 	// Qt resource based layouts
 	///////////////////////////////////////////////////////////////////////////////////
 
+	String patientRoleName = "LAYOUT_Default";
+
 	User* user = GetEngine()->GetUser();
 	if (user != nullptr && user->FindRule("ROLE_ClinicPatient") != nullptr) {
-		RegisterLayout(new Layout(Layout::BUILTIN, "Default", ":/Layouts/PatientUI.layout", "LAYOUT_BiofeedbackUser", ""));
+		patientRoleName = "LAYOUT_BiofeedbackUser";
 	}
 	else {
 
@@ -184,6 +186,7 @@ void LayoutManager::ReInit()
 		RegisterLayout(new Layout(Layout::BUILTIN, "EEG", ":/Layouts/OSX_EEG.layout", "LAYOUT_EEG", ""));
 #endif
 	}
+	RegisterLayout(new Layout(Layout::BUILTIN, "Patient Layout", ":/Layouts/PatientUI.layout", patientRoleName, ""));
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// Local layouts
