@@ -79,17 +79,17 @@ public:
 private:
    void Cleanup();
 
-   virtual void onLoadSDKSuccess(HMODULE h) override;
-   virtual void onLoadSDKFail() override;
-   virtual void onDeviceFound(int32_t port)override;
-   virtual void onDeviceConnected() override;
-   virtual void onDeviceDisconnected() override;
-   virtual void onDeviceTimeout() override;
-   virtual void onSyncStart(uint8_t c1, uint8_t c2) override;
-   virtual void onSyncSuccess() override;
-   virtual void onSyncFail(uint8_t expected, uint8_t received) override;
-   virtual void onSyncLost() override;
-   virtual void onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) override;
+   virtual void onLoadSDKSuccess(Discovery20& d, HMODULE h) override;
+   virtual void onLoadSDKFail(Discovery20& d) override;
+   virtual void onDeviceFound(Discovery20& d, int32_t port)override;
+   virtual void onDeviceConnected(Discovery20& d) override;
+   virtual void onDeviceDisconnected(Discovery20& d) override;
+   virtual void onDeviceTimeout(Discovery20& d) override;
+   virtual void onSyncStart(Discovery20& d, uint8_t c1, uint8_t c2) override;
+   virtual void onSyncSuccess(Discovery20& d) override;
+   virtual void onSyncFail(Discovery20& d, uint8_t expected, uint8_t received) override;
+   virtual void onSyncLost(Discovery20& d) override;
+   virtual void onFrame(Discovery20& d, const Discovery20::Frame& f, const Discovery20::Channels& c) override;
 
 
    EMode              mMode;

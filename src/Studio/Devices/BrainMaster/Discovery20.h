@@ -33,6 +33,7 @@ public:
       typedef BOOL  (__cdecl* FuncAtlClosePort)           (int32_t portno);
       typedef BOOL  (__cdecl* FuncAtlSetBaudRate)         (int32_t ratecode);
       typedef BOOL  (__cdecl* FuncAtlWriteSamplingRate)   (int32_t samplingrate);
+      typedef int   (__cdecl* FuncAtlReadSamplingRate)    ();
       typedef BOOL  (__cdecl* FuncAtlClearSpecials)       ();
       typedef void  (__cdecl* FuncAtlFlush)               ();
       typedef int   (__cdecl* FuncBmrLoginDevice)         (char* codekey, char* serialnumber, char* passkey);
@@ -45,7 +46,7 @@ public:
       typedef BOOL  (__cdecl* FuncAtlSetNotchFilters)     (int selectcode);
       typedef int   (__cdecl* FuncAtlPeek)                (uint16_t location);
       typedef int   (__cdecl* FuncAtlPoke)                (uint16_t location, uint16_t data);
-      typedef int   (__cdecl* FuncAtlQueryFirmware)       (int32_t authorization);
+      typedef int   (__cdecl* FuncAtlQueryFirmware)       (int32_t reserved);
 
    public:
       enum BRCodes : int32_t {
@@ -64,6 +65,7 @@ public:
       FuncAtlClosePort            AtlClosePort;
       FuncAtlSetBaudRate          AtlSetBaudRate;
       FuncAtlWriteSamplingRate    AtlWriteSamplingRate;
+      FuncAtlReadSamplingRate     AtlReadSamplingRate;
       FuncAtlClearSpecials        AtlClearSpecials;
       FuncAtlFlush                AtlFlush;
       FuncBmrLoginDevice          BmrLoginDevice;
@@ -85,6 +87,7 @@ public:
          AtlClosePort           (Handle ? (FuncAtlClosePort)            GetProcAddress(Handle, "AtlClosePort")            : 0),
          AtlSetBaudRate         (Handle ? (FuncAtlSetBaudRate)          GetProcAddress(Handle, "AtlSetBaudRate")          : 0),
          AtlWriteSamplingRate   (Handle ? (FuncAtlWriteSamplingRate)    GetProcAddress(Handle, "AtlWriteSamplingRate")    : 0),
+         AtlReadSamplingRate    (Handle ? (FuncAtlReadSamplingRate)     GetProcAddress(Handle, "AtlReadSamplingRate")     : 0),
          AtlClearSpecials       (Handle ? (FuncAtlClearSpecials)        GetProcAddress(Handle, "AtlClearSpecials")        : 0),
          AtlFlush               (Handle ? (FuncAtlFlush)                GetProcAddress(Handle, "AtlFlush")                : 0),
          BmrLoginDevice         (Handle ? (FuncBmrLoginDevice)          GetProcAddress(Handle, "BmrLoginDevice")          : 0),
@@ -110,6 +113,7 @@ public:
             AtlClosePort            = 0;
             AtlSetBaudRate          = 0;
             AtlWriteSamplingRate    = 0;
+            AtlReadSamplingRate     = 0;
             AtlClearSpecials        = 0;
             AtlFlush                = 0;
             BmrLoginDevice          = 0;
@@ -191,22 +195,42 @@ public:
    struct Frame
    {
       static constexpr size_t SIZE = 78;
-      static constexpr float CONVERTUV = 0.01658f;
+      static constexpr float CONVERTUV   = 0.01658f;
+      static constexpr float CONVERTKOHM = 0.005f;
       union {
          uint8_t data[SIZE];
          struct {
-            uint8_t  sync;
-            uint8_t  unused1;
-            uint8_t  unused2;
-            uint8_t  steering;
-            uint16_t specialdata;
-            int24_t  channels[Channels::SIZE];
+            uint8_t sync;
+            uint8_t unused1;
+            uint8_t unused2;
+            uint8_t steering;
+            int16_t specialdata;
+            int24_t channels[Channels::SIZE];
          };
       };
-      inline void extract(Channels& ch)
+      inline void extract(Channels& ch, Channels& impRef, Channels& impAct)
       {
          for (size_t i = 0; i < Channels::SIZE; i++) {
             ch.data[i] = (float)channels[i].get() * CONVERTUV;
+         }
+         if (steering >= 1 && steering <= 28)
+         {
+            const float VALUE = (float)specialdata * CONVERTKOHM;
+            switch (steering)
+            {
+            case 23: impAct.AUX23 = VALUE; break; // AUX23A
+            case 24: impAct.AUX24 = VALUE; break; // AUX24A
+            case 25: impRef.AUX23 = VALUE; break; // AUX23R
+            case 26: impRef.AUX24 = VALUE; break; // AUX24R
+            case 27:                       break; // UNUSED
+            case 28: // A1 REF FOR CH 1-22)
+               for (size_t j = 0; j < 22; j++)
+                  impRef.data[j] = VALUE;
+               break;
+            default: // CH 1-22
+               impAct.data[steering-1] = VALUE;
+               break;
+            }
          }
       }
    };
@@ -228,17 +252,17 @@ public:
    class Callback
    {
    public:
-      inline virtual void onLoadSDKSuccess(HMODULE h)                    { }
-      inline virtual void onLoadSDKFail()                                { }
-      inline virtual void onDeviceFound(int32_t port)                    { }
-      inline virtual void onDeviceConnected()                            { }
-      inline virtual void onDeviceDisconnected()                         { }
-      inline virtual void onDeviceTimeout()                              { }
-      inline virtual void onSyncStart(uint8_t c1, uint8_t c2)            { }
-      inline virtual void onSyncSuccess()                                { }
-      inline virtual void onSyncFail(uint8_t expected, uint8_t received) { }
-      inline virtual void onSyncLost()                                   { }
-      inline virtual void onFrame(const Frame& f, const Channels& c)     { }
+      inline virtual void onLoadSDKSuccess(Discovery20& d, HMODULE h)                    { }
+      inline virtual void onLoadSDKFail(Discovery20& d)                                  { }
+      inline virtual void onDeviceFound(Discovery20& d, int32_t port)                    { }
+      inline virtual void onDeviceConnected(Discovery20& d)                              { }
+      inline virtual void onDeviceDisconnected(Discovery20& d)                           { }
+      inline virtual void onDeviceTimeout(Discovery20& d)                                { }
+      inline virtual void onSyncStart(Discovery20& d, uint8_t c1, uint8_t c2)            { }
+      inline virtual void onSyncSuccess(Discovery20& d)                                  { }
+      inline virtual void onSyncFail(Discovery20& d, uint8_t expected, uint8_t received) { }
+      inline virtual void onSyncLost(Discovery20& d)                                     { }
+      inline virtual void onFrame(Discovery20& d, const Frame& f, const Channels& c)     { }
    };
 
    /// <summary>
@@ -282,12 +306,14 @@ protected:
    uint32_t  mNumBytes;
    uint8_t   mNextSync;
    uint64_t  mTickLastData;
+   Callback& mCallback;
+   Channels  mChannels;
+   Channels  mImpedancesRef;
+   Channels  mImpedancesAct;
    union {
      Frame   mFrame;
      uint8_t mBuffer[Frame::SIZE*2];
    };
-   Channels  mChannels;
-   Callback& mCallback;
 
    /// <summary>
    /// Returns next sync byte for sync byte s
@@ -354,12 +380,19 @@ public:
       mNumBytes(0),
       mNextSync(0),
       mTickLastData(0),
+      mCallback(cb),
       mBuffer(),
       mChannels(),
-      mCallback(cb) 
+      mImpedancesRef(),
+      mImpedancesAct()
    {
-      if (mSDK.Handle) mCallback.onLoadSDKSuccess(mSDK.Handle);
-      else mCallback.onLoadSDKFail();
+      ::memset(&mBuffer,        0, sizeof(mBuffer));
+      ::memset(&mChannels,      0, sizeof(mChannels));
+      ::memset(&mImpedancesRef, 0, sizeof(mImpedancesRef));
+      ::memset(&mImpedancesAct, 0, sizeof(mImpedancesAct));
+
+      if (mSDK.Handle) mCallback.onLoadSDKSuccess(*this, mSDK.Handle);
+      else mCallback.onLoadSDKFail(*this);
    }
 
    /// <summary>
@@ -391,6 +424,18 @@ public:
    /// Meaningless if state is not SYNCED.
    /// </summary>
    inline const Channels& getChannels() const { return mChannels; }
+
+   /// <summary>
+   /// Get current active impedance values.
+   /// Meaningless if state is not SYNCED.
+   /// </summary>
+   inline const Channels& getActiveImpedances()  const { return mImpedancesAct; }
+
+   /// <summary>
+   /// Get current reference impedance values.
+   /// Meaningless if state is not SYNCED.
+   /// </summary>
+   inline const Channels& getReferenceImpedances()  const { return mImpedancesRef; }
 
    /// <summary>
    /// True after successful execution of start() for states

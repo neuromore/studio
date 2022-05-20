@@ -79,6 +79,10 @@ public:
    void StopTest() override { mDeviceDriver->StopTest(this); }
    bool IsTestRunning() override { return mDeviceDriver->IsTestRunning(this); }
 
+   bool HasEegContactQualityIndicator() override { return IsTestRunning(); }
+   double GetImpedance(uint32 neuroSensorIndex) override;
+
+
    inline Sensor* GetSensorMode() { return mSensorMode; }
 
    Sensor* mSensorMode;

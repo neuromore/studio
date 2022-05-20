@@ -101,7 +101,7 @@ void Discovery20::processQueue()
             mState = State::SYNCING;
             mNumSyncs = 0;
             mNextSync = c2;
-            mCallback.onSyncStart(c1, c2);
+            mCallback.onSyncStart(*this, c1, c2);
             return;
          }
       }
@@ -112,13 +112,13 @@ void Discovery20::processQueue()
       if (mFrame.sync != mNextSync) {
          mState = State::UNSYNCED;
          mNumSyncs = 0;
-         mCallback.onSyncFail(mNextSync, mFrame.sync);
+         mCallback.onSyncFail(*this, mNextSync, mFrame.sync);
          break;
       }
       if (mNumSyncs >= MINSYNCS) {
          mState = State::SYNCED;
          stepSync();
-         mCallback.onSyncSuccess();
+         mCallback.onSyncSuccess(*this);
          break;
       }
       if (mSDK.AtlReadData(&mFrame.data[mNumBytes], Frame::SIZE-mNumBytes) != Frame::SIZE-mNumBytes) {
@@ -139,11 +139,11 @@ void Discovery20::processQueue()
       if (mFrame.sync != mNextSync) {
          mState = State::UNSYNCED;
          mNumSyncs = 0;
-         mCallback.onSyncLost();
+         mCallback.onSyncLost(*this);
          break;
       }
-      mFrame.extract(mChannels);
-      mCallback.onFrame(mFrame, mChannels);
+      mFrame.extract(mChannels, mImpedancesRef, mImpedancesAct);
+      mCallback.onFrame(*this, mFrame, mChannels);
       stepSync();
       break;
    }
@@ -161,7 +161,7 @@ bool Discovery20::find()
 
    // raise callback
    if (mPort)
-      mCallback.onDeviceFound(mPort);
+      mCallback.onDeviceFound(*this, mPort);
 
    // found or not
    return mPort != 0;
@@ -204,14 +204,26 @@ bool Discovery20::connect(const char* codekey, const char* serialnumber, const c
       return false;
    }
 
-   // login to the device
+   // login to the device (and validate fw version response)
    if (mSDK.BmrLoginDevice((char*)codekey, (char*)serialnumber, (char*)passkey) != SDK::LoginCodes::WIDEB2E) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
+   // validate impedance support
+   if ((mSDK.AtlPeek(0xb605) & 1) == 0) {
       mSDK.AtlClosePort(mPort);
       return false;
    }
 
    // set to expected sampling rate
    if (!mSDK.AtlWriteSamplingRate(SAMPLERATE)) {
+      mSDK.AtlClosePort(mPort);
+      return false;
+   }
+
+   // and validate it
+   if (mSDK.AtlReadSamplingRate() != SAMPLERATE) {
       mSDK.AtlClosePort(mPort);
       return false;
    }
@@ -228,9 +240,12 @@ bool Discovery20::connect(const char* codekey, const char* serialnumber, const c
       return false;
    }
 
+   // flush
+   mSDK.AtlFlush();
+
    // set state and raise callback
    mState = State::CONNECTED;
-   mCallback.onDeviceConnected();
+   mCallback.onDeviceConnected(*this);
 
    // success
    return true;
@@ -248,6 +263,17 @@ bool Discovery20::start()
    // try to start streaming
    if (!mSDK.DiscStartModule())
       return false;
+
+   // send 'Z' to enable impedance values in special data
+   DWORD nw = 0;
+   BOOL status = ::WriteFile(mHandle, "Z", 1, &nw, NULL);
+   ::FlushFileBuffers(mHandle);
+
+   // reset old buffers and values
+   ::memset(&mBuffer, 0, sizeof(mBuffer));
+   ::memset(&mChannels, 0, sizeof(mChannels));
+   ::memset(&mImpedancesRef, 0, sizeof(mImpedancesRef));
+   ::memset(&mImpedancesAct, 0, sizeof(mImpedancesAct));
 
    // set to unsynced state
    mState = State::UNSYNCED;
@@ -294,7 +320,7 @@ bool Discovery20::disconnect()
 
    // set to disconnected and raise callback
    mState = State::DISCONNECTED;
-   mCallback.onDeviceDisconnected();
+   mCallback.onDeviceDisconnected(*this);
 
    // success
    return R1 && R2;
@@ -331,7 +357,7 @@ void Discovery20::update()
    // check for timeout
    else if (DT > (TIMEOUT * 1000 * 1000))
    {
-      mCallback.onDeviceTimeout();
+      mCallback.onDeviceTimeout(*this);
       disconnect();
    }
 }

@@ -130,4 +130,12 @@ void Discovery20Device::CreateSensors()
    }
 }
 
+double Discovery20Device::GetImpedance(uint32 neuroSensorIndex)
+{
+   if (neuroSensorIndex < GetNumNeuroSensors())
+      return GetNeuroSensor(neuroSensorIndex)->GetChannel()->GetLastSample();
+
+   return 0.0;
+}
+
 #endif

@@ -199,49 +199,49 @@ void BrainMasterDriver::SetAutoDetectionEnabled(bool enable)
 
 // SDK CALLBACKS
 
-void BrainMasterDriver::onLoadSDKSuccess(HMODULE h) 
+void BrainMasterDriver::onLoadSDKSuccess(Discovery20& d, HMODULE h)
 {
    LogInfo("DISCOVERY20: Loaded bmrcm.dll successfully.");
 }
-void BrainMasterDriver::onLoadSDKFail()
+void BrainMasterDriver::onLoadSDKFail(Discovery20& d)
 {
    LogError("DISCOVERY20: Failed to load bmrcm.dll.");
 }
-void BrainMasterDriver::onDeviceFound(int32_t port)
+void BrainMasterDriver::onDeviceFound(Discovery20& d, int32_t port)
 {
    LogInfo("DISCOVERY20: Found device on COM%i.", port);
 }
-void BrainMasterDriver::onDeviceConnected()
+void BrainMasterDriver::onDeviceConnected(Discovery20& d)
 {
    LogInfo("DISCOVERY20: Device connected.");
 }
-void BrainMasterDriver::onDeviceDisconnected()
+void BrainMasterDriver::onDeviceDisconnected(Discovery20& d)
 {
    LogInfo("DISCOVERY20: Device disconnected.");
 }
-void BrainMasterDriver::onDeviceTimeout()
+void BrainMasterDriver::onDeviceTimeout(Discovery20& d)
 {
    LogError("DISCOVERY20: Device timeout.");
    if (mDevice)
       GetDeviceManager()->RemoveDeviceAsync(mDevice);
 }
-void BrainMasterDriver::onSyncStart(uint8_t c1, uint8_t c2)
+void BrainMasterDriver::onSyncStart(Discovery20& d, uint8_t c1, uint8_t c2)
 {
    LogDebug("DISCOVERY20: Sync started on pair (%i, %i)", c1, c2);
 }
-void BrainMasterDriver::onSyncSuccess() 
+void BrainMasterDriver::onSyncSuccess(Discovery20& d)
 {
    LogInfo("DISCOVERY20: Sync successful.");
 }
-void BrainMasterDriver::onSyncFail(uint8_t expected, uint8_t received)
+void BrainMasterDriver::onSyncFail(Discovery20& d, uint8_t expected, uint8_t received)
 {
    LogDebug("DISCOVERY20: Sync fail. Expected: %i Received: %i.", expected, received);
 }
-void BrainMasterDriver::onSyncLost()
+void BrainMasterDriver::onSyncLost(Discovery20& d)
 {
    LogWarning("DISCOVERY20: Sync lost.");
 }
-void BrainMasterDriver::onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) 
+void BrainMasterDriver::onFrame(Discovery20& d, const Discovery20::Frame& f, const Discovery20::Channels& c)
 {
    if (!mDevice)
       return;
@@ -252,11 +252,14 @@ void BrainMasterDriver::onFrame(const Discovery20::Frame& f, const Discovery20::
 
    if (mMode == EMode::MODE_IMPEDANCE)
    {
+      const auto& impAct = d.getActiveImpedances();
+      const auto& impRef = d.getReferenceImpedances();
+
       // TODO: Use impedance values here instead
       for (uint32_t i = 0; i < numSensors - 1; i++)
       {
          Sensor* s = mDevice->GetInputSensor(i);
-         s->AddQueuedSample(c.data[i]);
+         s->AddQueuedSample(impAct.data[i]);
       }
 
       // output mode (impedance=1.0)
