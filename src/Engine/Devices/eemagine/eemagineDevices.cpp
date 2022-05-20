@@ -29,7 +29,7 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_EEMAGINE
+#if !defined(NEUROMORE_PLATFORM_OSX)
 
 #define BUFFERSIZE_IN_SECONDS 60.0
 

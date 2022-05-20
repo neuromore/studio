@@ -28,8 +28,6 @@
 #include "../../Config.h"
 #include "../../Device.h"
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
-
 
 class ENGINE_API eSenseSkinResponseDevice : public Device
 {
@@ -59,7 +57,5 @@ class ENGINE_API eSenseSkinResponseDevice : public Device
 	protected:
 		Sensor* mGsrSensor;
 };
-
-#endif
 
 #endif

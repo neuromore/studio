@@ -29,7 +29,7 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_MITSAR
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
 
 using namespace Core;
 
@@ -392,4 +392,5 @@ void Mitsar201Device::ProcessMessage(OscMessageParser* message)
 //
 //	// TODO add stimulation input channels
 //}
+
 #endif

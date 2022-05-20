@@ -4,8 +4,6 @@
 
 #include "BrainFlowNodes.h"
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
-
 #include "../../EngineManager.h"
 #include <brainflow/utils/brainflow_constants.h>
 #include <brainflow/cpp-package/board_shim.h>
@@ -271,5 +269,3 @@ void BrainFlowCytonNode::Init()
 
 	CreateNewDevice();
 }
-
-#endif

@@ -28,8 +28,6 @@
 #include "VersusSerialHandler.h"
 #include <Devices/Versus/VersusDevice.h>
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-
 using namespace Core;
 
 // constructor
@@ -351,5 +349,3 @@ void VersusSerialHandler::ReadStream()
 	//tmp.Format("Read %i stream packets", numPackets);
 	//LogDetailedInfo(tmp.AsChar());
 }
-
-#endif

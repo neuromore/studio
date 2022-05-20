@@ -38,13 +38,13 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 	#endif
 
 	// set default one
-	#ifdef NEUROMORE_BRANDING_ANT
+	if (brandingName == AntBrandingName) {
 		mActivePresetIndex = 1;
-	#elif defined(NEUROMORE_BRANDING_STARRBASE)
+	} else if (brandingName == StarrbaseBrandingName) {
 		mActivePresetIndex = 2;
-	#else
+	} else {
 		mActivePresetIndex = 0;
-	#endif
+	}
 
 	// create the network access manager
 	mNetworkAccessManager = new QNetworkAccessManager(parent);

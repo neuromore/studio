@@ -28,8 +28,6 @@
 #include "../../BciDevice.h"
 #include "../../DeviceDriver.h"
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-
 // the base class for all OpenBCI devices
 class ENGINE_API OpenBCIDeviceBase : public BciDevice
 {
@@ -112,7 +110,5 @@ class ENGINE_API OpenBCIDaisyDevice : public OpenBCIDeviceBase
 		void CreateElectrodes() override;
 };
 
-
-#endif
 
 #endif

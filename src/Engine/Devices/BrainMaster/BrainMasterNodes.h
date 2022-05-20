@@ -29,8 +29,6 @@
 #include "../../Graph/DeviceInputNode.h"
 #include "BrainMasterDevices.h"
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
-
 class ENGINE_API Discovery20Node : public DeviceInputNode
 {
 public:
@@ -48,7 +46,5 @@ public:
    const char* GetRuleName() const override final { return Discovery20Device::GetRuleName(); }
    GraphObject* Clone(Graph* parentObject) override { Discovery20Node* clone = new Discovery20Node(parentObject); return clone; }
 };
-
-#endif
 
 #endif

@@ -28,7 +28,7 @@
 #include "../../Config.h"
 #include "../../BciDevice.h"
 
-#ifdef INCLUDE_DEVICE_EEMAGINE
+#if !defined(NEUROMORE_PLATFORM_OSX)
 
 // eego amplifier base class
 class ENGINE_API eemagineDevice : public BciDevice

@@ -50,9 +50,9 @@ bool StageControlWidget::Init()
 	// manual mode checkbox
 	mManualStageModeCheckBox = new QCheckBox("Manual Stage Control");
 	mManualStageModeCheckBox->setChecked( mManualStageMode );
-#ifdef NEUROMORE_BRANDING_ANT
-	mManualStageModeCheckBox->setHidden(true);
-#endif
+	if (brandingName == AntBrandingName) {
+		mManualStageModeCheckBox->setHidden(true);
+	}
 	connect( mManualStageModeCheckBox, SIGNAL( stateChanged( int ) ), this, SLOT( OnManualStageModeCheckBoxStateChanged( int ) ) );
 
 	gridLayout->addWidget( mManualStageModeCheckBox, row, 0 );

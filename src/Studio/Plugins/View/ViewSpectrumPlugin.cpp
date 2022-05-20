@@ -116,13 +116,13 @@ void ViewSpectrumPlugin::RegisterAttributes()
 	attributeMaxFrequency->SetMinValue(AttributeFloat::Create(0.0f));
 	attributeMaxFrequency->SetMaxValue(AttributeFloat::Create(FLT_MAX));
 
-#ifdef NEUROMORE_BRANDING_ANT
-	attributeMinFrequency->SetDefaultValue(AttributeFloat::Create(1.0f));
-	attributeMaxFrequency->SetDefaultValue(AttributeFloat::Create(45.0f));
-#else
-	attributeMinFrequency->SetDefaultValue(AttributeFloat::Create(0.0f));
-	attributeMaxFrequency->SetDefaultValue(AttributeFloat::Create(50.0f));
-#endif
+	if (brandingName == AntBrandingName) {
+		attributeMinFrequency->SetDefaultValue(AttributeFloat::Create(1.0f));
+		attributeMaxFrequency->SetDefaultValue(AttributeFloat::Create(45.0f));
+	} else {
+		attributeMinFrequency->SetDefaultValue(AttributeFloat::Create(0.0f));
+		attributeMaxFrequency->SetDefaultValue(AttributeFloat::Create(50.0f));
+	}
 
 	// create default attribute values
 	CreateDefaultAttributeValues();

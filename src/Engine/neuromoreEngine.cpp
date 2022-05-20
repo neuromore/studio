@@ -738,9 +738,7 @@ bool HasDevice(EDevice type)
 		case EDevice::DEVICE_GENERIC_ACCELEROMETER:	internalType = AccelerometerDevice::TYPE_ID;	break;
 		case EDevice::DEVICE_GENERIC_GYROSCOPE:		internalType = GyroscopeDevice::TYPE_ID;		break;
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
 		case EDevice::DEVICE_INTERAXON_MUSE:		internalType = MuseDevice::TYPE_ID;				break;
-#endif
 
 #ifdef INCLUDE_DEVICE_EMOTIV
         // include emotiv devices
@@ -752,13 +750,9 @@ bool HasDevice(EDevice type)
 		case EDevice::DEVICE_NEUROSKY_MINDWAVE:		internalType = NeuroSkyDevice::TYPE_ID;			break;
 #endif
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
 		case EDevice::DEVICE_SENSELABS_VESUS:		internalType = VersusDevice::TYPE_ID;			break;
-#endif
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
 		case EDevice::DEVICE_ESENSE_SKINRESPONSE:	internalType = eSenseSkinResponseDevice::TYPE_ID; break;
-#endif
 
 		default:
 			return false;
@@ -789,9 +783,7 @@ int AddDevice(EDevice type)
 		case EDevice::DEVICE_GENERIC_ACCELEROMETER:	device = new AccelerometerDevice();		break;
 		case EDevice::DEVICE_GENERIC_GYROSCOPE:		device = new GyroscopeDevice();			break;
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
 		case EDevice::DEVICE_INTERAXON_MUSE:		device = new MuseDevice();				break;
-#endif
 
 #ifdef INCLUDE_DEVICE_EMOTIV
         // include emotiv devices
@@ -803,13 +795,9 @@ int AddDevice(EDevice type)
 		case EDevice::DEVICE_NEUROSKY_MINDWAVE:		device = new NeuroSkyDevice();			break;
 #endif
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
 		case EDevice::DEVICE_SENSELABS_VESUS:		device = new VersusDevice();			break;
-#endif
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
 		case EDevice::DEVICE_ESENSE_SKINRESPONSE:	device = new eSenseSkinResponseDevice(); break;
-#endif
 
 		default:
 		{
@@ -881,9 +869,7 @@ EDevice GetDevice(int deviceIndex)
 		case AccelerometerDevice::TYPE_ID:			return EDevice::DEVICE_GENERIC_ACCELEROMETER;
 		case GyroscopeDevice::TYPE_ID:				return EDevice::DEVICE_GENERIC_GYROSCOPE;
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
 		case MuseDevice::TYPE_ID:					return EDevice::DEVICE_INTERAXON_MUSE;
-#endif
 
 #ifdef INCLUDE_DEVICE_EMOTIV
 		// include emotiv devices
@@ -895,13 +881,9 @@ EDevice GetDevice(int deviceIndex)
 		case NeuroSkyDevice::TYPE_ID:				return EDevice::DEVICE_NEUROSKY_MINDWAVE;
 #endif
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
 		case VersusDevice::TYPE_ID:					return EDevice::DEVICE_SENSELABS_VESUS;
-#endif
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
 		case eSenseSkinResponseDevice::TYPE_ID:		return EDevice::DEVICE_ESENSE_SKINRESPONSE;
-#endif
 
 		default:
 			return (EDevice)-1;
@@ -1045,9 +1027,7 @@ bool IsDeviceRequiredByClassifier(EDevice deviceType)
 		case EDevice::DEVICE_GENERIC_ACCELEROMETER:	{ classifier->CollectNodesOfType( AccelerometerNode::TYPE_ID, &nodes );		break; }
 		case EDevice::DEVICE_GENERIC_GYROSCOPE:		{ classifier->CollectNodesOfType( GyroscopeNode::TYPE_ID, &nodes );			break; }
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
 		case EDevice::DEVICE_INTERAXON_MUSE:		{ classifier->CollectNodesOfType( MuseNode::TYPE_ID, &nodes );				break; }
-#endif
 
 #ifdef INCLUDE_DEVICE_EMOTIV
         // include emotiv devices
@@ -1059,13 +1039,9 @@ bool IsDeviceRequiredByClassifier(EDevice deviceType)
 		case EDevice::DEVICE_NEUROSKY_MINDWAVE:		{ classifier->CollectNodesOfType( NeuroSkyNode::TYPE_ID, &nodes );			break; }
 #endif
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
 		case EDevice::DEVICE_SENSELABS_VESUS:		{ classifier->CollectNodesOfType(VersusNode::TYPE_ID, &nodes);				break; }
-#endif
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
 		case EDevice::DEVICE_ESENSE_SKINRESPONSE:		{ classifier->CollectNodesOfType(eSenseSkinResponseNode::TYPE_ID, &nodes); break; }
-#endif
 
 		default:
 			return false;

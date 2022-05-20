@@ -27,8 +27,6 @@
 // include required headers
 #include "../../BciDevice.h"
 
-#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
-
 // forward declaration
 class NotionSystem;
 
@@ -66,7 +64,5 @@ class ENGINE_API CrownDevice : public BciDevice
         void SetDeviceString(const Core::String& deviceString) override;
         void ProcessMessage(OscMessageParser* message) override;
 };
-
-#endif
 
 #endif

@@ -29,8 +29,6 @@
 #include "OpenBCIDevices.h"
 #include "../../Graph/DeviceInputNode.h"
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-
 
 // normal OpenBCI device node
 class ENGINE_API OpenBCINode : public DeviceInputNode
@@ -68,7 +66,5 @@ class OpenBCIDaisyNode : public DeviceInputNode
 		const char* GetRuleName() const override final							{ return OpenBCIDaisyDevice::GetRuleName(); }
 		GraphObject* Clone(Graph* parentGraph) override							{ OpenBCIDaisyNode* clone = new OpenBCIDaisyNode(parentGraph); return clone; }
 };
-
-#endif
 
 #endif

@@ -36,8 +36,6 @@
 #include <QThread>
 #include <QTimer>
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-
 
 // forward decl. of classes at bottom of header
 class VersusAutoDetection;
@@ -134,7 +132,5 @@ class VersusSerialThread : public QThread
 		VersusDevice*	mDevice;
 		Core::String	mPortName;
 };
-
-#endif
 
 #endif

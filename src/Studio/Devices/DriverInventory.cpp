@@ -35,7 +35,7 @@
 	#include "Emotiv/EmotivDriver.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_EEMAGINE
+#if !defined(NEUROMORE_PLATFORM_OSX)
 	#include "eemagine/eemagineDriver.h"
 #endif
 
@@ -43,33 +43,23 @@
 	#include "ABM/ABMDriver.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-    #include "OpenBCI/OpenBCIDriver.h"
-#endif
+#include "OpenBCI/OpenBCIDriver.h"
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-	#include "Versus/VersusDriver.h"
-#endif
+#include "Versus/VersusDriver.h"
 
-#ifdef INCLUDE_DEVICE_MITSAR
-  #include "Mitsar/MitsarDriver.h"
-#endif
+#include "Mitsar/MitsarDriver.h"
 
 #ifdef INCLUDE_DEVICE_BRAINQUIRY
   #include "Brainquiry/BrainquiryDriver.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
 #include "BrainMaster/BrainMasterDriver.h"
-#endif
 
 #ifdef INCLUDE_DEVICE_TOBIIEYEX
 	#include "EyeX\TobiiEyeXDriver.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
 #include "BrainFlow/BrainFlowDriver.h"
-#endif
 
 #include "Bluetooth/BluetoothDriver.h"
 #include "Audio/AudioDriver.h"
@@ -87,16 +77,17 @@ void DriverInventory::RegisterDrivers()
 	User* user = GetEngine()->GetUser();
 	DeviceManager* deviceManager = GetDeviceManager();
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-    // NOTE: somehow destroys the Bluetooth LE driver when activated ... why???
-	if (user->ReadAllowed(VersusDevice::GetRuleName()) == true)
-	{
-		// create and add the Versus system
-        VersusDriver* versusDriver = new VersusDriver();
-		versusDriver->Init();
-		deviceManager->AddDeviceDriver(versusDriver);
+	if (includeDeviceSenselabsVersus) {
+		// NOTE: somehow destroys the Bluetooth LE driver when activated ... why???
+		if (user->ReadAllowed(VersusDevice::GetRuleName()) == true)
+		{
+			// create and add the Versus system
+			VersusDriver* versusDriver = new VersusDriver();
+			versusDriver->Init();
+			deviceManager->AddDeviceDriver(versusDriver);
+		}
 	}
-#endif
+
 
 #ifdef INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
 	if (user->ReadAllowed(AbmX24Device::GetRuleName()) == true || user->ReadAllowed(AbmX10Device::GetRuleName()) == true)
@@ -137,35 +128,50 @@ void DriverInventory::RegisterDrivers()
 	}
 #endif
 
-#ifdef INCLUDE_DEVICE_EEMAGINE
-	if (user->ReadAllowed(eemagineDevice::GetRuleName()) == true)
-	{
-		// create and add the eemagine system
-		eemagineDriver* _eemagineDriver = new eemagineDriver();
-		_eemagineDriver->Init();
-		deviceManager->AddDeviceDriver(_eemagineDriver);
+#if !defined(NEUROMORE_PLATFORM_OSX)
+	if (includeDeviceEEMagine) {
+		if (user->ReadAllowed(eemagineDevice::GetRuleName()) == true)
+		{
+			// create and add the eemagine system
+			eemagineDriver* _eemagineDriver = new eemagineDriver();
+			_eemagineDriver->Init();
+			deviceManager->AddDeviceDriver(_eemagineDriver);
+		}
 	}
 #endif
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-	if (user->ReadAllowed(OpenBCIDevice::GetRuleName()) == true || user->ReadAllowed(OpenBCIDaisyDevice::GetRuleName()) == true)
-	{
-		// create and add the openbci system
-		OpenBCIDriver* openBCIDriver = new OpenBCIDriver();
-		openBCIDriver->Init();
-		deviceManager->AddDeviceDriver(openBCIDriver);
+	if (includeDeviceOpenBCI) {
+		if (user->ReadAllowed(OpenBCIDevice::GetRuleName()) == true || user->ReadAllowed(OpenBCIDaisyDevice::GetRuleName()) == true)
+		{
+			// create and add the openbci system
+			OpenBCIDriver* openBCIDriver = new OpenBCIDriver();
+			openBCIDriver->Init();
+			deviceManager->AddDeviceDriver(openBCIDriver);
+		}
+	}
+
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
+	if (includeDeviceMitsar) {
+		if (user->ReadAllowed(MitsarDevice::GetRuleName()) == true)
+		{
+			// create and add the mitsar system
+			MitsarDriver* mitsarDriver = new MitsarDriver();
+			mitsarDriver->Init();
+			deviceManager->AddDeviceDriver(mitsarDriver);
+		}
+	}
+#ifndef _M_X64
+	if (includeDeviceBrainmaster) {
+		if (user->ReadAllowed(DiscoveryDevice::GetRuleName()) == true)
+		{
+			// create and add the eemagine system
+			BrainMasterDriver* _brainMasterDriver = new BrainMasterDriver();
+			_brainMasterDriver->Init();
+			deviceManager->AddDeviceDriver(_brainMasterDriver);
+		}
 	}
 #endif
 
-
-#ifdef INCLUDE_DEVICE_MITSAR
-	if (user->ReadAllowed(MitsarDevice::GetRuleName()) == true)
-	{
-		// create and add the mitsar system
-		MitsarDriver* mitsarDriver = new MitsarDriver();
-		mitsarDriver->Init();
-		deviceManager->AddDeviceDriver(mitsarDriver);
-	}
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINQUIRY
@@ -177,15 +183,6 @@ void DriverInventory::RegisterDrivers()
 	}
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
-	if (user->ReadAllowed(DiscoveryDevice::GetRuleName()) == true)
-	{
-		// create and add the eemagine system
-		BrainMasterDriver* _brainMasterDriver = new BrainMasterDriver();
-		_brainMasterDriver->Init();
-		deviceManager->AddDeviceDriver(_brainMasterDriver);
-	}
-#endif
 
 #ifdef INCLUDE_DEVICE_TOBIIEYEX
 		TobiiEyeXDriver* tobiiEyeXDriver = new TobiiEyeXDriver();
@@ -215,12 +212,12 @@ void DriverInventory::RegisterDrivers()
 	}
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
-	//if (user->ReadAllowed(BrainFlowDevice::GetRuleName()) == true)
-	{
-		auto* driver = new BrainFlowDriver();
-		driver->Init();
-		deviceManager->AddDeviceDriver(driver);
+	if (includeDeviceBrainflow) {
+		//if (user->ReadAllowed(BrainFlowDevice::GetRuleName()) == true)
+		{
+			auto* driver = new BrainFlowDriver();
+			driver->Init();
+			deviceManager->AddDeviceDriver(driver);
+		}
 	}
-#endif
 }

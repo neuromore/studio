@@ -28,8 +28,6 @@
 #include "../../BciDevice.h"
 #include "../../DeviceDriver.h"
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
-
 #include "brainflow/cpp-package/board_shim.h"
 #include <brainflow/utils/brainflow_constants.h>
 #include <brainflow/board_controller/brainflow_input_params.h>
@@ -89,7 +87,5 @@ private:
 
 };
 
-
-#endif
 
 #endif

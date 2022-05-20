@@ -29,9 +29,6 @@
 #include "../../DSP/ClockGenerator.h"
 #include "../../BciDevice.h"
 
-#ifdef INCLUDE_DEVICE_TEST
-
-
 // the test neuro headset class
 class ENGINE_API TestDevice : public BciDevice
 {
@@ -68,7 +65,5 @@ class ENGINE_API TestDevice : public BciDevice
 		Core::Array<double>		mElectrodeTimeOffsets;		// random offset for each sensor
 		double					mSampleRate;				// output sample rate
 };
-
-#endif
 
 #endif

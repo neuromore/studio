@@ -413,11 +413,11 @@ void EEGElectrodes::Init()
 	mElectrodes.Add( Electrode("Nose", 90.000, -22.500) );
 	mElectrodes.Add( Electrode("EOG", 0.000, 0.000));
 	mElectrodes.Add( Electrode("GND", 90.000, 22.500));
-#ifdef NEUROMORE_BRANDING_ANT
-	mElectrodes.Add( Electrode("REF", 0.000, -22.500));  // for ANT at M2 position
-#else
-	mElectrodes.Add( Electrode("REF", 90.000, 22.500));  // otherwise at GND pos (dummy/unknown)
-#endif
+	if (brandingName == AntBrandingName) {
+		mElectrodes.Add( Electrode("REF", 0.000, -22.500));  // for ANT at M2 position
+	} else {
+		mElectrodes.Add( Electrode("REF", 90.000, 22.500));  // otherwise at GND pos (dummy/unknown)
+	}
 
     // Others
 	// 127 electrodes

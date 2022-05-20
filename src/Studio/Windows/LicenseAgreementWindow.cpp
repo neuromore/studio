@@ -29,13 +29,6 @@
 #include <Backend/UsersAgreementRequest.h>
 #include <Backend/UsersAgreementResponse.h>
 
-#ifdef NEUROMORE_BRANDING_ANT
-#define ABOUTIMAGE ":/Images/About-ANT.png"
-#elif NEUROMORE_BRANDING_STARRBASE
-#define ABOUTIMAGE ":/Images/About-Starrbase.png"
-#else
-#define ABOUTIMAGE ":/Images/About-neuromore.png"
-#endif
 
 using namespace Core;
 
@@ -49,8 +42,14 @@ LicenseAgreementWindow::LicenseAgreementWindow(bool showAgreeAndCancelButtons, Q
 	mainLayout->setMargin(0);
 	setLayout(mainLayout);
 
+	QString aboutImagePath = ":/Images/About-neuromore.png";
+	if (brandingName == AntBrandingName) {
+		aboutImagePath = ":/Images/About-ANT.png";
+	} else if (brandingName == StarrbaseBrandingName) {
+		aboutImagePath = ":/Images/About-Starrbase.png";
+	}
 	// load the about dialog image and add it to the dialog
-	QPixmap aboutImage(ABOUTIMAGE);
+	QPixmap aboutImage(aboutImagePath);
 	const uint32 imageWidth = aboutImage.width();
 	QLabel* aboutImageLabel = new QLabel(this);
 	aboutImageLabel->setPixmap(aboutImage);
@@ -107,14 +106,14 @@ LicenseAgreementWindow::LicenseAgreementWindow(bool showAgreeAndCancelButtons, Q
 	setSizeGripEnabled(false);
 	setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
 
-#if defined(NEUROMORE_BRANDING_ANT)
-	AddLicense("License Terms", GetManager()->GetLicenseUrl());
-	AddLicense("Privacy Policy", GetManager()->GetPrivacyPolicyUrl());
-#else
-	AddLicense("Licensing", GetManager()->GetLicenseUrl());
-	AddLicense("Terms and Conditions", GetManager()->GetCloudTermsUrl());
-	AddLicense("Privacy Policy", GetManager()->GetPrivacyPolicyUrl());
-#endif
+	if (brandingName == AntBrandingName) {
+		AddLicense("License Terms", GetManager()->GetLicenseUrl());
+		AddLicense("Privacy Policy", GetManager()->GetPrivacyPolicyUrl());
+	} else {
+		AddLicense("Licensing", GetManager()->GetLicenseUrl());
+		AddLicense("Terms and Conditions", GetManager()->GetCloudTermsUrl());
+		AddLicense("Privacy Policy", GetManager()->GetPrivacyPolicyUrl());
+	}
 
 	// position window in the screen center
 	GetQtBaseManager()->CenterToScreen(this);

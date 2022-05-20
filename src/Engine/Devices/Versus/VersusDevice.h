@@ -29,8 +29,6 @@
 #include "../../BciDevice.h"
 #include "../../Core/AttributeString.h"
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-
 // forward declaration
 class VersusSystem;
 
@@ -61,7 +59,5 @@ class ENGINE_API VersusDevice : public BciDevice
 
 
 };
-
-#endif
 
 #endif

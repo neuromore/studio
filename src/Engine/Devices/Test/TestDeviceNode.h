@@ -28,8 +28,6 @@
 #include "../../Config.h"
 #include "../../Graph/DeviceInputNode.h"
 
-#ifdef INCLUDE_DEVICE_TEST
-
 class ENGINE_API TestDeviceNode : public DeviceInputNode
 {
 	public:
@@ -50,7 +48,5 @@ class ENGINE_API TestDeviceNode : public DeviceInputNode
 		bool IsTimeIndependent() const override									{ return true; }
 
 };
-
-#endif
 
 #endif

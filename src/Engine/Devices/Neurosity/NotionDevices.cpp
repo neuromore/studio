@@ -29,8 +29,6 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
-
 #define BUFFERSIZE_IN_SECONDS 60.0
 
 using namespace Core;
@@ -206,5 +204,3 @@ Core::String NotionDevice::GetOscPathDeviceString(const Core::String& address) c
     const Array<String> elements = address.Split(StringCharacter::forwardSlash);
     return (elements.Size() >= 4) ? elements[3] : "";
 }
-
-#endif

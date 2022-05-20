@@ -29,7 +29,7 @@
 #include "../../Graph/DeviceInputNode.h"
 #include "eemagineDevices.h"
 
-#ifdef INCLUDE_DEVICE_EEMAGINE
+#if !defined(NEUROMORE_PLATFORM_OSX)
 
 class ENGINE_API eemagine8Node : public DeviceInputNode
 {

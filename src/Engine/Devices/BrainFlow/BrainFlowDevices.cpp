@@ -29,8 +29,6 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
-
 using namespace Core;
 
 namespace
@@ -226,5 +224,3 @@ double BrainFlowDeviceBase::GetSampleRate() const {
 		return 250.0;
 	}
 };
-
-#endif

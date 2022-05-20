@@ -160,13 +160,13 @@ void LayoutManager::ReInit()
 		RegisterLayout(new Layout(Layout::BUILTIN, "State Machine Designer", ":/Layouts/StateMachineDesigner.layout", "LAYOUT_StateMachineDesigner", ""));
 		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Designer", ":/Layouts/ExperienceDesigner.layout", "LAYOUT_ExperienceDesigner", ""));
 		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Selection", ":/Layouts/ExperienceSelection.layout", "LAYOUT_ExperienceSelection", ""));
-  #ifdef NEUROMORE_BRANDING_ANT
+	if (brandingName == AntBrandingName) {
 		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Trainer", ":/Layouts/ANT_ExperiencePlayer.layout", "LAYOUT_ExperiencePlayer", ""));
 		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Signal", ":/Layouts/EEG.layout", "LAYOUT_EEG", ""));
-  #else
+	} else {
 		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Player", ":/Layouts/ExperiencePlayer.layout", "LAYOUT_ExperiencePlayer", ""));
 		RegisterLayout(new Layout(Layout::BUILTIN, "EEG", ":/Layouts/EEG.layout", "LAYOUT_EEG", ""));
-  #endif
+	}
 #endif
 
 

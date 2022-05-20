@@ -36,8 +36,6 @@
 #include <QTimer>
 
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-
 // forward decl. of classes at bottom of header
 class OpenBCIAutoDetection;
 class OpenBCISerialThread;
@@ -134,7 +132,5 @@ class OpenBCISerialThread : public QThread
 		OpenBCIDeviceBase*	mDevice;
 		Core::String	mPortName;
 };
-
-#endif
 
 #endif

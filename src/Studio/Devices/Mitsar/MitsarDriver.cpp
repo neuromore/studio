@@ -28,7 +28,7 @@
 #include "MitsarDriver.h"
 #include <Core/ThreadHandler.h>
 
-#ifdef INCLUDE_DEVICE_MITSAR
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
 
 using namespace Core;
 
