@@ -22,6 +22,8 @@ CC         = clang
 CFLAGS     = -target $(TARGET) -static
 AR         = llvm-ar
 ARFLAGS    = rcs
+STRIP      = llvm-strip
+STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -Xlinker /MACHINE:X86
 LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/x86

@@ -123,6 +123,8 @@
 #ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
 	#include "Neurosity/NotionDevices.h"
 	#include "Neurosity/NotionNode.h"
+	#include "Neurosity/CrownDevice.h"
+	#include "Neurosity/CrownNode.h"
 #endif
 
 
@@ -288,7 +290,9 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
 	{
 		GetDeviceManager()->RegisterDeviceType(new NotionDevice());
+		GetDeviceManager()->RegisterDeviceType(new CrownDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new NotionNode(NULL));
+		GetGraphObjectFactory()->RegisterObjectType(new CrownNode(NULL));
 	}
 #endif 
 

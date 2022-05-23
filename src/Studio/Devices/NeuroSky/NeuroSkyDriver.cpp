@@ -30,9 +30,6 @@
 
 #ifdef INCLUDE_DEVICE_NEUROSKY_MINDWAVE
 
-// link to the EDK libraries
-//#pragma comment(lib, "thinkgear64.lib")
-
 using namespace Core;
 
 // constructor

@@ -31,6 +31,8 @@ CFLAGS     = -static \
              -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET)
 AR         = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)-ar.exe
 ARFLAGS    = rcs
+STRIP      = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)-strip.exe
+STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc --sysroot=$(ANDROID_SYSROOT)
 LINKPATH   = -L$(LIBDIR) \
