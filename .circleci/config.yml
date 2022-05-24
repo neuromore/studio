@@ -118,12 +118,9 @@ jobs:
 workflows:
   build-workflow:
     jobs:
-      - build-linux:
-          type: approval
-      - build-macos:
-          type: approval
-      - build-windows:
-          type: approval
+      - build-linux
+      - build-macos
+      - build-windows
   nightly:
     triggers:
       - schedule:
