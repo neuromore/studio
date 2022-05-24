@@ -1,0 +1,130 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  build-linux:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    machine:
+      image: ubuntu-2004:current
+    resource_class: large
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: "Set up build tools"
+          command: |
+            sudo apt-get update 
+            sudo apt-get install -y make clang llvm lld
+            sudo apt-get install -y \
+                  libgstreamer1.0-dev \
+                  libgstreamer-plugins-base1.0-dev \
+                  libgstreamer-plugins-good1.0-dev \
+                  libglib2.0-dev \
+                  libgl1-mesa-dev \
+                  libglu1-mesa-dev \
+                  libsm-dev \
+                  libx11-dev \
+                  libx11-xcb-dev \
+                  libexpat-dev \
+                  libxkbcommon-dev \
+                  libxcb1-dev \
+                  libxcb-glx0-dev \
+                  libxcb-icccm4-dev \
+                  libxcb-image0-dev \
+                  libxcb-keysyms1-dev \
+                  libxcb-randr0-dev \
+                  libxcb-render0-dev \
+                  libxcb-render-util0-dev \
+                  libxcb-shape0-dev \
+                  libxcb-shm0-dev \
+                  libxcb-sync-dev \
+                  libxcb-xfixes0-dev \
+                  libxcb-xinerama0-dev \
+                  libxcb-xkb-dev \
+                  libxcb-util-dev
+      - run:
+          name: "Build dependencies"
+          command: make Dependencies MODE=release
+          no_output_timeout: 30m
+      - run:
+          name: "Build"
+          command: make MODE=release
+          no_output_timeout: 30m
+      - store_artifacts:
+          path: ~/project/build/make/bin/linux-x64/Studio
+          destination: Studio
+
+  build-macos:
+    macos:
+      xcode: 13.3.1
+    steps:
+      - checkout
+      - run:
+          name: "Build dependencies"
+          command: make Dependencies MODE=release
+          no_output_timeout: 30m
+      - run:
+          name: "Build"
+          command: make MODE=release
+          no_output_timeout: 30m
+      - store_artifacts:
+          path: ~/project/build/make/bin/osx-x64/Studio
+          destination: Studio
+
+  build-windows:
+    machine:
+      image: windows-server-2019-vs2019:stable
+    resource_class: windows.large
+    steps:
+      - checkout
+      - run:
+          name: "Download llvm and make"
+          shell: bash.exe
+          command: |
+            curl -sSJOL https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.3/LLVM-14.0.3-win64.exe
+            curl -sSJOL https://netix.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81.exe
+      - run:
+          name: "Install llvm and GNUMake"
+          shell: powershell.exe
+          command: |
+            Start-Process -Wait -FilePath "C:\Users\circleci\project\LLVM-14.0.3-win64.exe" -ArgumentList "/S" -PassThru
+            Start-Process -Wait -FilePath "C:\Users\circleci\project\make-3.81.exe" -ArgumentList "/silent" -PassThru
+      - run:
+          name: "Build Dependencies"
+          shell: powershell.exe
+          command: $env:PATH='C:\Program Files\LLVM\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\\Extensions\Microsoft\IntelliCode\CLI;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x86;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\VCPackages;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\bin\Roslyn;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Team Tools\Performance Tools\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Team Tools\Performance Tools;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\\x64;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\devinit;C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86;C:\Program Files (x86)\Windows Kits\10\bin\x86;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\\MSBuild\Current\Bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\Llvm\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja';
+            ; cd C:\Users\circleci\project
+            ; make Dependencies MODE=release
+          no_output_timeout: 30m
+      - run:
+          name: "Build"
+          shell: powershell.exe
+          command: $env:PATH='C:\Program Files\LLVM\bin;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\\Extensions\Microsoft\IntelliCode\CLI;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x86;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\VCPackages;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\bin\Roslyn;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Team Tools\Performance Tools\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Team Tools\Performance Tools;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\\x64;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\devinit;C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86;C:\Program Files (x86)\Windows Kits\10\bin\x86;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\\MSBuild\Current\Bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\Llvm\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja';
+            ; cd C:\Users\circleci\project
+            ; make MODE=release
+          no_output_timeout: 30m
+      - store_artifacts:
+          path: ~/project/build/make/bin/win-x64/Studio.exe
+          destination: Studio.exe
+
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * 2,5"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build-linux
+      - build-macos
+      - build-windows
