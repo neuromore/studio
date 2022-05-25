@@ -259,8 +259,11 @@ OBJS       = Devices/ABM/AbmDriver.o \
              Plugins/Development/HeatmapPlugin/HeatmapWidget.o \
              Plugins/Development/LatencyTestPlugin/LatencyTestPlugin.o \
              Plugins/Development/LatencyTestPlugin/LatencyTestWidget.o \
+             Plugins/Development/Loreta/Loreta.o \
              Plugins/Development/Loreta/LoretaPlugin.o \
+             Plugins/Development/Loreta/LoretaThreadHandler.o \
              Plugins/Development/Loreta/LoretaWidget.o \
+             Plugins/Development/Loreta/Voxel.o \
              Plugins/Devices/BciDeviceWidget.o \
              Plugins/Devices/DevicesPlugin.o \
              Plugins/Devices/DevicesWidget.o \

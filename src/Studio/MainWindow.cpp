@@ -83,7 +83,7 @@
 #include "Plugins/Development/HeatmapPlugin/HeatmapPlugin.h"
 
 #ifdef OPENCV_SUPPORT
-#include "Plugins/Development/LORETA/LoretaPlugin.h"
+#include "Plugins/Development/Loreta/LoretaPlugin.h"
 #endif
 
 using namespace Core;

@@ -41,7 +41,6 @@ OBJS       = Core/AABB.o \
              Core/Math.o \
              Core/MemoryFile.o \
              Core/Mutex.o \
-             Core/Plane.o \
              Core/Ray.o \
              Core/String.o \
              Core/StringCharacter.o \
