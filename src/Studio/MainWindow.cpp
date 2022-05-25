@@ -21,12 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "MainWindow.h"
-#include <Core/LogManager.h>
 #include <License.h>
-#include "AppManager.h"
-#include <PluginSystem/PluginManager.h>
 #include <Graph/GraphImporter.h>
 #include "Windows/AboutWindow.h"
 #include "Windows/UpgradeWindow.h"
@@ -34,7 +34,6 @@
 #include "Windows/LicenseAgreementWindow.h"
 #include "Windows/EnterLabelWindow.h"
 #include "Windows/SelectUserWindow.h"
-#include <EngineManager.h>
 #include <AutoUpdate/AutoUpdate.h>
 #include <LayoutManager.h>
 #include <LayoutComboBox.h>
@@ -86,28 +85,6 @@
 #ifdef OPENCV_SUPPORT
 #include "Plugins/Development/LORETA/LoretaPlugin.h"
 #endif
-
-// include Qt related
-#include <QMenu>
-#include <QMenuBar>
-#include <QVariant>
-#include <QSignalMapper>
-#include <QTextEdit>
-#include <QDir>
-#include <QMessageBox>
-#include <QToolBar>
-#include <QLineEdit>
-#include <QLabel>
-#include <QFileDialog>
-#include <QApplication>
-#include <QDesktopServices>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QHBoxLayout>
-#include <QTimer>
-#include <QSettings>
-#include <QProcess>
-
 
 using namespace Core;
 
@@ -245,14 +222,6 @@ void MainWindow::Init()
 	spacerWidget->setMaximumWidth(5);
 	menuLayout->addWidget(spacerWidget);
 
-	// layout combo box
-	QLabel* layoutLabel = new QLabel("Layout: ");
-	menuLayout->addWidget(layoutLabel);
-	
-	mLayoutComboBox = new LayoutComboBox();
-	menuLayout->addWidget(mLayoutComboBox);
-	GetLayoutManager()->SetComboBox( mLayoutComboBox );
-	
 	// spacer
 	spacerWidget = new QWidget();
 	spacerWidget->setMinimumWidth(5);
@@ -523,12 +492,27 @@ void MainWindow::OnPostAuthenticationInit()
 
 	// from extern repo:
 	DriverInventory::RegisterDrivers(); 
+
+	User* user = GetUser();
 	
 	// studio built in:
 	#ifdef INCLUDE_DEVICE_TEST
-	if (GetUser()->ReadAllowed(TestDevice::GetRuleName()))
+	if (user->ReadAllowed(TestDevice::GetRuleName()))
 		GetDeviceManager()->AddDeviceDriver(new TestDeviceDriver());
 	#endif
+
+	if (user->FindRule("ROLE_ClinicPatient") == nullptr) {
+		// layout combo box
+		QLabel* layoutLabel = new QLabel("Layout: ");
+		auto menuWdg = menuWidget();
+		auto menuLayout = menuWdg->layout();
+
+		menuLayout->addWidget(layoutLabel);
+
+		mLayoutComboBox = new LayoutComboBox();
+		menuLayout->addWidget(mLayoutComboBox);
+		GetLayoutManager()->SetComboBox(mLayoutComboBox);
+	}
 
 	// load device configs (requires all devices to be present)
 	GetManager()->SetSplashScreenMessage("Loading device definitions...");
@@ -597,7 +581,6 @@ void MainWindow::OnPostAuthenticationInit()
 	LogDetailedInfo("Searching for available layouts ...");
 
 	// update layouts menu
-	User* user = GetUser();
 
 	bool uiCustomization = false;
 	if (user != NULL && user->FindRule("STUDIO_SETTING_CustomLayouts") != NULL)
@@ -1625,6 +1608,8 @@ void MainWindow::OnLoadSettings()
 	// used backend
 #ifdef NEUROMORE_BRANDING_ANT
 	const int defaultPresetIndex = 1;
+#elif NEUROMORE_BRANDING_STARRBASE
+	const int defaultPresetIndex = 2;
 #else
 	const int defaultPresetIndex = 0;
 #endif

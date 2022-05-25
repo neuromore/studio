@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "LoretaPlugin.h"
 #ifdef OPENCV_SUPPORT

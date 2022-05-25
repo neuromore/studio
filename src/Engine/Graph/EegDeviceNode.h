@@ -65,7 +65,7 @@ class ENGINE_API EegDeviceNode : public DeviceInputNode
 
 		uint32 GetNumSensors() const override;
 		Sensor* GetSensor(uint32 index) override;
-		virtual bool IsSensorUsed(uint32 index);
+		virtual bool IsSensorUsed(uint32 index) override;
 };
 
 #endif

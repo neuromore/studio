@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+ // include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required headers
 #include "NetworkClient.h"
 #include "NetworkMessageData.h"

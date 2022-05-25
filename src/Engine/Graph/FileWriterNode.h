@@ -77,6 +77,8 @@ class ENGINE_API FileWriterNode : public SPNode
 		const char* GetRuleName() const override final							{ return "NODE_FileWriter"; }
 		GraphObject* Clone(Graph* graph) override								{ FileWriterNode* clone = new FileWriterNode(graph); return clone; }
 
+		bool closeFile();
+
 	private:
 		ClockGenerator					mClock;				// clock for regular writing
 
@@ -89,16 +91,17 @@ class ENGINE_API FileWriterNode : public SPNode
 		ChannelFileWriter				mFileWriter;		// writes channels to files
 		ChannelFileWriter::EFormat		mFileFormat;		// the selected file format
 
+		int								mHandle;			// the handle of the edf plus file
+
 		bool							mHasWriteError;		// remember file write errors
 		bool							mIsWriting;			// file write state (true after header was written)
-
 
 		enum EWriteMode
 		{
 			WRITEMODE_KEEP = 0, 
-			WRITEMODE_OVERWRITE_ALWAYS,
-			WRITEMODE_OVERWRITE_SESSION,
-			WRITEMODE_APPEND
+			// WRITEMODE_OVERWRITE_ALWAYS,
+			WRITEMODE_OVERWRITE
+			// WRITEMODE_APPEND
 		};
 
 		EWriteMode					mWriteMode;			// overwrite/append modes

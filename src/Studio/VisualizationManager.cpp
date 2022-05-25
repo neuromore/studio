@@ -21,12 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "VisualizationManager.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QDir>
-
 
 using namespace Core;
 
@@ -40,6 +39,7 @@ VisualizationManager::VisualizationManager(QObject* parent) : QObject(parent), m
 	mVisualizationFolders.Add(appDir + "..\\Visualizations\\");
 #else
 	mVisualizationFolders.Add(appDir + "..\\Visualizations\\");
+		mVisualizationFolders.Add(appDir + "..\\share\\neuromore\\Visualizations\\");
 	mVisualizationFolders.Add(appDir + "..\\..\\..\\Visualizations\\");
 #endif
 }

@@ -21,24 +21,18 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "LicenseAgreementWindow.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
 #include <Backend/UsersAgreementRequest.h>
 #include <Backend/UsersAgreementResponse.h>
-#include <QtBaseManager.h>
-#include <EngineManager.h>
-#include <QLabel>
-#include <QSizePolicy>
-#include <QPixmap>
-#include <QMessageBox>
-#include <QTextEdit>
-#include <QPushButton>
-#include <QVBoxLayout>
 
 #ifdef NEUROMORE_BRANDING_ANT
 #define ABOUTIMAGE ":/Images/About-ANT.png"
+#elif NEUROMORE_BRANDING_STARRBASE
+#define ABOUTIMAGE ":/Images/About-Starrbase.png"
 #else
 #define ABOUTIMAGE ":/Images/About-neuromore.png"
 #endif

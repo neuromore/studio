@@ -302,7 +302,6 @@
     <ClCompile Include="..\..\src\QtBase\Gamepad.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\GamepadManager.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\ImageButton.moc.cpp" />
-    <ClCompile Include="..\..\src\QtBase\ImageManipulation.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Layout.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\LayoutComboBox.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\LayoutManager.moc.cpp" />
@@ -310,24 +309,13 @@
     <ClCompile Include="..\..\src\QtBase\LinkWidget.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\MainWindowBase.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\PainterStaticTextCache.moc.cpp" />
-    <ClCompile Include="..\..\src\QtBase\QtBaseConfig.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\QtBaseManager.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Slider.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Spinbox.moc.cpp" />
-    <ClCompile Include="..\..\src\QtBase\SystemInfo.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.moc.cpp">
       <Filter>AttributeWidgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetCreators.moc.cpp">
-      <Filter>AttributeWidgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetFactory.moc.cpp">
-      <Filter>AttributeWidgets</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgets.moc.cpp">
-      <Filter>AttributeWidgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\Property.moc.cpp">
       <Filter>AttributeWidgets</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\AttributeWidgets\PropertyManager.moc.cpp">
@@ -338,9 +326,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Audio\MediaContent.moc.cpp">
       <Filter>Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\AutoUpdate\AutoUpdate.moc.cpp">
-      <Filter>AutoUpdate</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Backend\BackendFileSystem.moc.cpp">
       <Filter>Backend</Filter>
@@ -417,6 +402,7 @@
     <ClCompile Include="..\..\src\QtBase\Windows\StatusPopupWindow.moc.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Precompiled.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.h">
@@ -700,6 +686,7 @@
     <ClInclude Include="..\..\src\QtBase\Spinbox.h" />
     <ClInclude Include="..\..\src\QtBase\SystemInfo.h" />
     <ClInclude Include="..\..\src\QtBase\Version.h" />
+    <ClInclude Include="..\..\src\QtBase\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

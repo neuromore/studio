@@ -21,13 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "StateMachinePlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include "../../MainWindow.h"
-#include "../../AppManager.h"
-
 
 using namespace Core;
 

@@ -45,8 +45,8 @@ public:
 
 	void DetectDevices() override;
 
-	const char* GetName() const;
-	uint32 GetType() const;
+	const char* GetName() const override;
+	uint32 GetType() const override;
 	bool HasAutoDetectionSupport() const override { return false; }
 	bool Init() override;
 	void Update(const Core::Time& delta, const Core::Time& elapsed) override {};

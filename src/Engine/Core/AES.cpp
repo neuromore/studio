@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 #include "AES.h"
 #include <tinyaes/aes.h>
 #include "LogManager.h"

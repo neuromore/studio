@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include the Core headers
 #include "LogManager.h"
 #include "../EngineManager.h"

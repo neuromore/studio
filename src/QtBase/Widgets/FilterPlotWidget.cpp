@@ -3,7 +3,10 @@
  * Copyright (c) 2012-2016 neuromore Inc.
  * All Rights Reserved.
  */
-/*
+
+// include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required headers
 #include "FilterPlotWidget.h"
 #include <Core/LogManager.h>
@@ -11,7 +14,7 @@
 #include <QPainter>
 #include <QPen>
 
-
+/*
 using namespace Core;
 
 // constructor

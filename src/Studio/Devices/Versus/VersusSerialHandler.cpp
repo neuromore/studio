@@ -21,12 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "VersusSerialHandler.h"
-#include <EngineManager.h>
 #include <Devices/Versus/VersusDevice.h>
-#include <QCoreApplication>
-#include <QTimer>
 
 #ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
 

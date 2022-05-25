@@ -21,10 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "DriverInventory.h"
-#include <Config.h>
-
 
 #ifdef INCLUDE_DEVICE_NEUROSKY_MINDWAVE
   #include "NeuroSky/NeuroSkyDriver.h"
@@ -58,6 +59,10 @@
   #include "Brainquiry/BrainquiryDriver.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+#include "BrainMaster/BrainMasterDriver.h"
+#endif
+
 #ifdef INCLUDE_DEVICE_TOBIIEYEX
 	#include "EyeX\TobiiEyeXDriver.h"
 #endif
@@ -68,10 +73,6 @@
 
 #include "Bluetooth/BluetoothDriver.h"
 #include "Audio/AudioDriver.h"
-
-
-#include <EngineManager.h>
-#include <Core/LogManager.h>
 
 using namespace Core;
 
@@ -173,6 +174,16 @@ void DriverInventory::RegisterDrivers()
 		BrainquiryDriver* brainquiryDriver = new BrainquiryDriver();
 		brainquiryDriver->Init();
 		deviceManager->AddDeviceDriver(brainquiryDriver);
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	if (user->ReadAllowed(DiscoveryDevice::GetRuleName()) == true)
+	{
+		// create and add the eemagine system
+		BrainMasterDriver* _brainMasterDriver = new BrainMasterDriver();
+		_brainMasterDriver->Init();
+		deviceManager->AddDeviceDriver(_brainMasterDriver);
 	}
 #endif
 

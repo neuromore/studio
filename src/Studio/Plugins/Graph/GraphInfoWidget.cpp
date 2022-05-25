@@ -21,12 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "GraphInfoWidget.h"
-#include <EngineManager.h>
-#include <QVBoxLayout>
-#include <QHeaderView>
-#include <QTableWidget>
 
 using namespace Core;
 

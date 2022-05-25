@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "TestDeviceDriver.h"
 #include "../../EngineManager.h"
@@ -28,7 +31,7 @@
 
 #ifdef INCLUDE_DEVICE_TEST
 
-#ifdef NEUROMORE_BRANDING_ANT
+#if defined(NEUROMORE_BRANDING_ANT) || defined(NEUROMORE_BRANDING_STARRBASE)
 #define DEFAULT_DRIVER_ENABLED false
 #else
 #define DEFAULT_DRIVER_ENABLED true

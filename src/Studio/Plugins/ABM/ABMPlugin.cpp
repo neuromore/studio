@@ -21,11 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "ABMPlugin.h"
-#include <Core/LogManager.h>
-#include <AttributeWidgets/AttributeSetGridWidget.h>
-
 
 using namespace Core;
 

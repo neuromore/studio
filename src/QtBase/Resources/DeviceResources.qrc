@@ -24,5 +24,7 @@
         <file>Images/Devices/HeartRate.png</file>
         <file>Images/Devices/eSense Skin Response.png</file>
         <file>Images/Devices/Neurosity Notion.png</file>
+        <file>Images/Devices/Discovery 20.png</file>
+        <file>Images/Devices/Neurosity Crown.png</file>
     </qresource>
 </RCC>

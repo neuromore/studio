@@ -21,17 +21,14 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "NeuroSkyDriver.h"
 #include "NeuroSkySerialHandler.h"
-#include <EngineManager.h>
-#include <System/BluetoothHelpers.h>
-#include <QApplication>
 
 #ifdef INCLUDE_DEVICE_NEUROSKY_MINDWAVE
-
-// link to the EDK libraries
-//#pragma comment(lib, "thinkgear64.lib")
 
 using namespace Core;
 

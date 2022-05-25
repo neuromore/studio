@@ -130,8 +130,11 @@
     <Filter Include="Devices\BrainFlow">
       <UniqueIdentifier>{658f9836-5ef0-4179-9ab9-f45901c63157}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Devices\BrainMaster">
+      <UniqueIdentifier>{4fe9b200-c172-45b0-98da-aa7e3e34ae5d}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Plugins\Development\Loreta">
-      <UniqueIdentifier>{394baf59-7b81-4e47-9768-a1d852fd9ce8}</UniqueIdentifier>
+      <UniqueIdentifier>{94baeda6-9ce5-436f-9331-5159b83a79ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +203,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\AppManager.cpp" />
     <ClCompile Include="..\..\src\Studio\AuthenticationCenter.cpp" />
-    <ClCompile Include="..\..\src\Studio\CrashReporter.cpp" />
     <ClCompile Include="..\..\src\Studio\DocumentationExporter.cpp" />
     <ClCompile Include="..\..\src\Studio\main.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
@@ -666,9 +668,6 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
@@ -676,12 +675,6 @@
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.moc.cpp">
@@ -830,6 +823,13 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.cpp">
+      <Filter>Devices\BrainMaster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.cpp">
+      <Filter>Devices\BrainMaster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Precompiled.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\Loreta.cpp">
       <Filter>Plugins\Development\Loreta</Filter>
     </ClCompile>
@@ -845,10 +845,10 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\Voxel.cpp">
       <Filter>Plugins\Development\Loreta</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaWidget.moc.cpp">
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaPlugin.moc.cpp">
       <Filter>Plugins\Development\Loreta</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaPlugin.moc.cpp">
+    <ClCompile Include="..\..\src\Studio\Plugins\Development\Loreta\LoretaWidget.moc.cpp">
       <Filter>Plugins\Development\Loreta</Filter>
     </ClCompile>
   </ItemGroup>
@@ -925,7 +925,6 @@
     <ClInclude Include="..\..\src\Studio\AppManager.h" />
     <ClInclude Include="..\..\src\Studio\AuthenticationCenter.h" />
     <ClInclude Include="..\..\src\Studio\Config.h" />
-    <ClInclude Include="..\..\src\Studio\CrashReporter.h" />
     <ClInclude Include="..\..\src\Studio\DocumentationExporter.h" />
     <ClInclude Include="..\..\src\Studio\MainWindow.h" />
     <ClInclude Include="..\..\src\Studio\Version.h" />
@@ -1235,6 +1234,13 @@
     <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h">
       <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.h">
+      <Filter>Devices\BrainMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.h">
+      <Filter>Devices\BrainMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Precompiled.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Development\Loreta\Loreta.h">
       <Filter>Plugins\Development\Loreta</Filter>
     </ClInclude>

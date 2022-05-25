@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
  // include required files
 #include "ChannelFileReader.h"
 #include "../Core/LogManager.h"

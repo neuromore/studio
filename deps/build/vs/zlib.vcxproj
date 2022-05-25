@@ -109,7 +109,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;X86_WINDOWS;INFLATE_CHUNK_SIMD_SSE2;DDEFLATE_FILL_WINDOW_SSE2;WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -149,7 +149,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;X86_WINDOWS;INFLATE_CHUNK_SIMD_SSE2;DDEFLATE_FILL_WINDOW_SSE2;WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -207,7 +207,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;X86_WINDOWS;INFLATE_CHUNK_SIMD_SSE2;DEFLATE_FILL_WINDOW_SSE2;ADLER32_SIMD_SSSE3;CRC32_SIMD_SSE42_PCLMUL;INFLATE_CHUNK_READ_64LE;WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -248,7 +248,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <PreprocessorDefinitions>WIN32;_LIB;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;X86_WINDOWS;INFLATE_CHUNK_SIMD_SSE2;DEFLATE_FILL_WINDOW_SSE2;ADLER32_SIMD_SSSE3;CRC32_SIMD_SSE42_PCLMUL;INFLATE_CHUNK_READ_64LE;WIN32;_LIB;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -320,9 +320,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\zlib\adler32.c" />
+    <ClCompile Include="..\..\src\zlib\adler32_simd.c" />
     <ClCompile Include="..\..\src\zlib\compress.c" />
+    <ClCompile Include="..\..\src\zlib\cpu_features.c" />
     <ClCompile Include="..\..\src\zlib\crc32.c" />
+    <ClCompile Include="..\..\src\zlib\crc32_simd.c" />
+    <ClCompile Include="..\..\src\zlib\crc_folding.c" />
     <ClCompile Include="..\..\src\zlib\deflate.c" />
+    <ClCompile Include="..\..\src\zlib\fill_window_sse.c" />
     <ClCompile Include="..\..\src\zlib\gzclose.c" />
     <ClCompile Include="..\..\src\zlib\gzlib.c" />
     <ClCompile Include="..\..\src\zlib\gzread.c" />
@@ -336,7 +341,10 @@
     <ClCompile Include="..\..\src\zlib\zutil.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\zlib\adler32_simd.h" />
+    <ClInclude Include="..\..\include\zlib\cpu_features.h" />
     <ClInclude Include="..\..\include\zlib\crc32.h" />
+    <ClInclude Include="..\..\include\zlib\crc32_simd.h" />
     <ClInclude Include="..\..\include\zlib\deflate.h" />
     <ClInclude Include="..\..\include\zlib\gzguts.h" />
     <ClInclude Include="..\..\include\zlib\inffast.h" />

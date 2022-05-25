@@ -21,22 +21,13 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "GraphPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
 #include "GraphPaletteWidget.h"
 #include <Graph/GraphExporter.h>
-#include "../../MainWindow.h"
-#include "../../AppManager.h"
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QIcon>
-#include <QSplitter>
-#include <QFileDialog>
-#include <QToolTip>
-
 
 using namespace Core;
 

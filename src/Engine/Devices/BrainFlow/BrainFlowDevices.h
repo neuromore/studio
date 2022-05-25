@@ -57,7 +57,7 @@ public:
 
 	
 protected:
-	void CreateElectrodes();
+	void CreateElectrodes() override;
 	bool DoesConnectingFinished() const;
 	bool InitAfterConnected();
 

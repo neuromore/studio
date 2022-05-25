@@ -21,12 +21,14 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "BciDevice.h"
 #include "EngineManager.h"
 #include "Core/LogManager.h"
 #include "Core/Timer.h"
-
 
 using namespace Core;
 

@@ -39,7 +39,6 @@
     <ClCompile Include="..\..\src\Studio\AppManager.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\AuthenticationCenter.cpp" />
     <ClCompile Include="..\..\src\Studio\AuthenticationCenter.moc.cpp" />
-    <ClCompile Include="..\..\src\Studio\CrashReporter.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\ABM\AbmDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\ABM\AbmThreadHandler.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Audio\AudioDriver.cpp" />
@@ -51,6 +50,8 @@
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.cpp" />
+    <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.moc.cpp">
@@ -58,6 +59,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.moc.cpp">
@@ -65,6 +70,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\DeviceHelpers.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\DriverInventory.cpp" />
@@ -76,11 +85,27 @@
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.moc.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.moc.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.moc.cpp">
@@ -119,9 +144,27 @@
     <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFolderWindow.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\BackendFileSystem\CreateFolderWindow.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.moc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.moc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Development\EEGElectrodePlacementPlugin\EEGElectrodePlacementPlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Development\EEGElectrodePlacementPlugin\EEGElectrodePlacementPlugin.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Development\HeatmapPlugin\HeatmapPlugin.cpp" />
@@ -172,7 +215,6 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPaletteWidget.cpp" />
@@ -180,9 +222,7 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphTextPixmapCache.cpp" />
@@ -220,12 +260,48 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram2D\Spectrogram2DWidget.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.moc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.moc.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPluginCollection.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.moc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPluginCollection.moc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.cpp" />
-    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.moc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsPlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsPlugin.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\SpectrumAnalyzerSettings\SpectrumAnalyzerSettingsWidget.cpp" />
@@ -238,6 +314,16 @@
     <ClCompile Include="..\..\src\Studio\Plugins\View\ViewSpectrumWidget.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\View\ViewWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\View\ViewWidget.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Rendering\Mesh.cpp" />
     <ClCompile Include="..\..\src\Studio\Rendering\OpenGLManager.cpp" />
     <ClCompile Include="..\..\src\Studio\Rendering\OpenGLManager.moc.cpp" />
@@ -246,7 +332,16 @@
     <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidget2DHelpers.cpp" />
     <ClCompile Include="..\..\src\Studio\Rendering\OpenGLWidgetCallback.cpp" />
     <ClCompile Include="..\..\src\Studio\Rendering\TextureManager.cpp" />
-    <ClCompile Include="..\..\src\Studio\Resources\StudioResources.rcc.cpp" />
+    <ClCompile Include="..\..\src\Studio\Resources\StudioResources.rcc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\UnitTests\StudioTestFacility.cpp" />
     <ClCompile Include="..\..\src\Studio\VideoPlayer.cpp" />
     <ClCompile Include="..\..\src\Studio\VideoPlayer.moc.cpp" />
@@ -316,7 +411,6 @@
     <ClInclude Include="..\..\src\Studio\AppManager.h" />
     <ClInclude Include="..\..\src\Studio\AuthenticationCenter.h" />
     <ClInclude Include="..\..\src\Studio\Config.h" />
-    <ClInclude Include="..\..\src\Studio\CrashReporter.h" />
     <ClInclude Include="..\..\src\Studio\Devices\ABM\AbmDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\ABM\AbmThreadHandler.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Audio\AudioDriver.h" />
@@ -325,6 +419,8 @@
     <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Bluetooth\BluetoothService.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainFlow\BrainFlowDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\BrainMasterDriver.h" />
+    <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.h" />
     <ClInclude Include="..\..\src\Studio\Devices\BrainProducts\ActiChampDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquiryDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Brainquiry\BrainquirySerialHandler.h" />
@@ -412,6 +508,7 @@
     <ClInclude Include="..\..\src\Studio\Plugins\View\ViewSpectrumPlugin.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\View\ViewSpectrumWidget.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\View\ViewWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Precompiled.h" />
     <ClInclude Include="..\..\src\Studio\Rendering\Mesh.h" />
     <ClInclude Include="..\..\src\Studio\Rendering\OpenGLManager.h" />
     <ClInclude Include="..\..\src\Studio\Rendering\OpenGLWidget.h" />
@@ -548,7 +645,7 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">bin\x86\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\x86\$(TargetName)_d\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\x86\$(TargetName)\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_d</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_d</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
@@ -586,7 +683,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>bin\x64\</OutDir>
-    <IntDir>obj\x64\$(TargetName)_d\</IntDir>
+    <IntDir>obj\x64\$(TargetName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -597,7 +694,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <Optimization>Disabled</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT=64;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;PCRE2_STATIC;QT_STATIC;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -605,6 +702,8 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=neuromore Studio;APPICON=AppIcon-neuromore.ico;WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -626,6 +725,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;DbgHelp.lib;Engine_d.lib;QtBase_d.lib;edflib_d.lib;kissfft_d.lib;libpng_d.lib;libjpeg_d.lib;oscpack_d.lib;libsvm_d.lib;dspfilters_d.lib;wavelib_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;opencv-core_d.lib;opencv-imgcodecs_d.lib;opencv-imgproc_d.lib;opencv-videoio_d.lib;tinyaes_d.lib;tinyobjloader_d.lib;zlib_d.lib;double-conversion_d.lib;libcrypto_d.lib;libssl_d.lib;pcre2_d.lib;harfbuzz_d.lib;harfbuzz-ng_d.lib;freetype_d.lib;singleapplication_d.lib;qt-bluetooth_d.lib;qt-core_d.lib;qt-concurrent_d.lib;qt-eventdispatchers_d.lib;qt-fontdatabases_d.lib;qt-gamepad_d.lib;qt-gui_d.lib;qt-multimedia_d.lib;qt-network_d.lib;qt-multimediaplugins_d.lib;qt-multimediawidgets_d.lib;qt-widgets_d.lib;qt-opengl_d.lib;qt-printsupport_d.lib;qt-serialport_d.lib;qt-xml_d.lib;qt-platform-windows_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -653,7 +753,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <Optimization>Disabled</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>QT_LARGEFILE_SUPPORT=64;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;QT_STATIC;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -663,6 +763,8 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=neuromore Studio;APPICON=AppIcon-neuromore.ico;WIN32;_WINDOWS;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -684,6 +786,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
       <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;DbgHelp.lib;Engine_d.lib;QtBase_d.lib;edflib_d.lib;kissfft_d.lib;libpng_d.lib;libjpeg_d.lib;oscpack_d.lib;libsvm_d.lib;dspfilters_d.lib;wavelib_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;opencv-core_d.lib;opencv-imgcodecs_d.lib;opencv-imgproc_d.lib;opencv-videoio_d.lib;tinyaes_d.lib;tinyobjloader_d.lib;zlib_d.lib;double-conversion_d.lib;libcrypto_d.lib;libssl_d.lib;pcre2_d.lib;harfbuzz_d.lib;harfbuzz-ng_d.lib;freetype_d.lib;singleapplication_d.lib;qt-bluetooth_d.lib;qt-core_d.lib;qt-concurrent_d.lib;qt-eventdispatchers_d.lib;qt-fontdatabases_d.lib;qt-gamepad_d.lib;qt-gui_d.lib;qt-multimedia_d.lib;qt-network_d.lib;qt-multimediaplugins_d.lib;qt-multimediawidgets_d.lib;qt-widgets_d.lib;qt-opengl_d.lib;qt-printsupport_d.lib;qt-serialport_d.lib;qt-xml_d.lib;qt-platform-windows_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -709,7 +812,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -727,6 +830,8 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <StringPooling>true</StringPooling>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=neuromore Studio;APPICON=AppIcon-neuromore.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -752,6 +857,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;Engine.lib;QtBase.lib;edflib.lib;kissfft.lib;libpng.lib;libjpeg.lib;oscpack.lib;libsvm.lib;dspfilters.lib;wavelib.lib;brainflow.lib;brainflow-boardcontroller.lib;opencv-core.lib;opencv-imgcodecs.lib;opencv-imgproc.lib;opencv-videoio.lib;tinyaes.lib;tinyobjloader.lib;zlib.lib;double-conversion.lib;libcrypto.lib;libssl.lib;pcre2.lib;harfbuzz.lib;harfbuzz-ng.lib;freetype.lib;singleapplication.lib;qt-bluetooth.lib;qt-core.lib;qt-concurrent.lib;qt-eventdispatchers.lib;qt-fontdatabases.lib;qt-gamepad.lib;qt-gui.lib;qt-multimedia.lib;qt-network.lib;qt-multimediaplugins.lib;qt-multimediawidgets.lib;qt-widgets.lib;qt-opengl.lib;qt-printsupport.lib;qt-serialport.lib;qt-xml.lib;qt-platform-windows.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -778,7 +884,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -796,6 +902,8 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <StringPooling>true</StringPooling>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=neuromore Studio;APPICON=AppIcon-neuromore.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -821,6 +929,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;Engine.lib;QtBase.lib;edflib.lib;kissfft.lib;libpng.lib;libjpeg.lib;oscpack.lib;libsvm.lib;dspfilters.lib;wavelib.lib;brainflow.lib;brainflow-boardcontroller.lib;opencv-core.lib;opencv-imgcodecs.lib;opencv-imgproc.lib;opencv-videoio.lib;tinyaes.lib;tinyobjloader.lib;zlib.lib;double-conversion.lib;libcrypto.lib;libssl.lib;pcre2.lib;harfbuzz.lib;harfbuzz-ng.lib;freetype.lib;singleapplication.lib;qt-bluetooth.lib;qt-core.lib;qt-concurrent.lib;qt-eventdispatchers.lib;qt-fontdatabases.lib;qt-gamepad.lib;qt-gui.lib;qt-multimedia.lib;qt-network.lib;qt-multimediaplugins.lib;qt-multimediawidgets.lib;qt-widgets.lib;qt-opengl.lib;qt-printsupport.lib;qt-serialport.lib;qt-xml.lib;qt-platform-windows.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -847,7 +956,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -865,6 +974,8 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <StringPooling>true</StringPooling>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=eego perform studio;APPICON=AppIcon-ANT.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -890,6 +1001,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;Engine.lib;QtBase.lib;edflib.lib;kissfft.lib;libpng.lib;libjpeg.lib;oscpack.lib;libsvm.lib;dspfilters.lib;wavelib.lib;brainflow.lib;brainflow-boardcontroller.lib;opencv-core.lib;opencv-imgcodecs.lib;opencv-imgproc.lib;opencv-videoio.lib;tinyaes.lib;tinyobjloader.lib;zlib.lib;double-conversion.lib;libcrypto.lib;libssl.lib;pcre2.lib;harfbuzz.lib;harfbuzz-ng.lib;freetype.lib;singleapplication.lib;qt-bluetooth.lib;qt-core.lib;qt-concurrent.lib;qt-eventdispatchers.lib;qt-fontdatabases.lib;qt-gamepad.lib;qt-gui.lib;qt-multimedia.lib;qt-network.lib;qt-multimediaplugins.lib;qt-multimediawidgets.lib;qt-widgets.lib;qt-opengl.lib;qt-printsupport.lib;qt-serialport.lib;qt-xml.lib;qt-platform-windows.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -916,7 +1028,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -936,6 +1048,8 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=neuromore Studio;APPICON=AppIcon-neuromore.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -961,6 +1075,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;Engine.lib;QtBase.lib;edflib.lib;kissfft.lib;libpng.lib;libjpeg.lib;oscpack.lib;libsvm.lib;dspfilters.lib;wavelib.lib;brainflow.lib;brainflow-boardcontroller.lib;opencv-core.lib;opencv-imgcodecs.lib;opencv-imgproc.lib;opencv-videoio.lib;tinyaes.lib;tinyobjloader.lib;zlib.lib;double-conversion.lib;libcrypto.lib;libssl.lib;pcre2.lib;harfbuzz.lib;harfbuzz-ng.lib;freetype.lib;singleapplication.lib;qt-bluetooth.lib;qt-core.lib;qt-concurrent.lib;qt-eventdispatchers.lib;qt-fontdatabases.lib;qt-gamepad.lib;qt-gui.lib;qt-multimedia.lib;qt-network.lib;qt-multimediaplugins.lib;qt-multimediawidgets.lib;qt-widgets.lib;qt-opengl.lib;qt-printsupport.lib;qt-serialport.lib;qt-xml.lib;qt-platform-windows.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -986,7 +1101,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -1006,6 +1121,8 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=neuromore Studio;APPICON=AppIcon-neuromore.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -1031,6 +1148,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;Engine.lib;QtBase.lib;edflib.lib;kissfft.lib;libpng.lib;libjpeg.lib;oscpack.lib;libsvm.lib;dspfilters.lib;wavelib.lib;brainflow.lib;brainflow-boardcontroller.lib;opencv-core.lib;opencv-imgcodecs.lib;opencv-imgproc.lib;opencv-videoio.lib;tinyaes.lib;tinyobjloader.lib;zlib.lib;double-conversion.lib;libcrypto.lib;libssl.lib;pcre2.lib;harfbuzz.lib;harfbuzz-ng.lib;freetype.lib;singleapplication.lib;qt-bluetooth.lib;qt-core.lib;qt-concurrent.lib;qt-eventdispatchers.lib;qt-fontdatabases.lib;qt-gamepad.lib;qt-gui.lib;qt-multimedia.lib;qt-network.lib;qt-multimediaplugins.lib;qt-multimediawidgets.lib;qt-widgets.lib;qt-opengl.lib;qt-printsupport.lib;qt-serialport.lib;qt-xml.lib;qt-platform-windows.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>setlocal
@@ -1056,7 +1174,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <ExceptionHandling>false</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -1076,6 +1194,8 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=eego perform studio;APPICON=AppIcon-ANT.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -1101,6 +1221,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;Engine.lib;QtBase.lib;edflib.lib;kissfft.lib;libpng.lib;libjpeg.lib;oscpack.lib;libsvm.lib;dspfilters.lib;wavelib.lib;brainflow.lib;brainflow-boardcontroller.lib;opencv-core.lib;opencv-imgcodecs.lib;opencv-imgproc.lib;opencv-videoio.lib;tinyaes.lib;tinyobjloader.lib;zlib.lib;double-conversion.lib;libcrypto.lib;libssl.lib;pcre2.lib;harfbuzz.lib;harfbuzz-ng.lib;freetype.lib;singleapplication.lib;qt-bluetooth.lib;qt-core.lib;qt-concurrent.lib;qt-eventdispatchers.lib;qt-fontdatabases.lib;qt-gamepad.lib;qt-gui.lib;qt-multimedia.lib;qt-network.lib;qt-multimediaplugins.lib;qt-multimediawidgets.lib;qt-widgets.lib;qt-opengl.lib;qt-printsupport.lib;qt-serialport.lib;qt-xml.lib;qt-platform-windows.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>setlocal

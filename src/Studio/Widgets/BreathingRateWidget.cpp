@@ -21,15 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "BreathingRateWidget.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QHBoxLayout>
-#include <QPainter>
-#include <QPen>
-#include <QLabel>
-
 
 using namespace Core;
 

@@ -540,16 +540,20 @@
     <ClCompile Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.cpp">
       <Filter>Devices\Neurosity</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Neurosity\CrownDevice.cpp">
+      <Filter>Devices\Neurosity</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\Core\Ray.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterDevices.cpp">
+      <Filter>Devices\BrainMaster</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\Core\Plane.cpp">
+    <ClCompile Include="..\..\src\Engine\Precompiled.cpp" />
+    <ClCompile Include="..\..\src\Engine\Core\Ray.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1238,16 +1242,23 @@
     <ClInclude Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.h">
       <Filter>Devices\Neurosity</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Neurosity\CrownDevice.h">
+      <Filter>Devices\Neurosity</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h">
       <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h">
       <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Engine\Core\Ray.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterDevices.h">
+      <Filter>Devices\BrainMaster</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Engine\Core\Plane.h">
+    <ClInclude Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterNodes.h">
+      <Filter>Devices\BrainMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Precompiled.h" />
+    <ClInclude Include="..\..\src\Engine\Core\Ray.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1323,6 +1334,9 @@
     </Filter>
     <Filter Include="Devices\BrainFlow">
       <UniqueIdentifier>{897190e5-b568-494b-b0b2-f6c9120d6f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainMaster">
+      <UniqueIdentifier>{dff5d1c2-5460-4d5f-893c-d66f7671b140}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

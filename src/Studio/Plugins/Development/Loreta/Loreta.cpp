@@ -21,7 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include "Loreta.h"
+
 #ifdef OPENCV_SUPPORT
 
 using namespace Core;

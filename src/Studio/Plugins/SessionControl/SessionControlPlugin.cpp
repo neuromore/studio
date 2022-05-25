@@ -21,31 +21,16 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "SessionControlPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <Notifications.h>
 #include <SessionExporter.h>
-#include <Core/EventManager.h>
-#include <Core/Thread.h>
-#include <Core/String.h>
-#include <QtBaseManager.h>
-#include <Backend/BackendHelpers.h>
 #include "../../Windows/ReportWindow.h"
-#include "../../AppManager.h"
-#include "../../MainWindow.h"
 #include "../../Windows/VisualizationSelectWindow.h"
 #include <Backend/DataChunksCreateRequest.h>
 #include <Backend/DataChunksCreateResponse.h>
-
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QApplication>
-#include <QDesktopWidget>
-#include <QMessageBox>
-#include <QDesktopServices>
-
 
 using namespace Core;
 
@@ -497,6 +482,7 @@ void SessionControlPlugin::OnStart()
 
 	// load parameters
 	GetBackendInterface()->GetParameters()->Load(true, *GetSessionUser(), activeExperience, activeClassifier);
+
 }
 
 
@@ -613,6 +599,8 @@ void SessionControlPlugin::OnStop()
 	const Time& stopTime  = GetSession()->GetStopTime();
 	const bool isValid = true;
 
+	// disable active classifier data updating.
+	activeClassifier->Stop();
 
 	// 1. construct /datachunks/create request
 	DataChunksCreateRequest request( token.AsChar(), userId.AsChar(), supervisorId.AsChar(), paymentRecipientId.AsChar(), classifierUUID, classifierRevision, statemachineUUID, statemachineRevision, experienceUUID, experienceRevision, startTime, stopTime, isValid );

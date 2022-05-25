@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "ChannelFileWriter.h"
 #include "../Core/LogManager.h"
@@ -72,7 +75,7 @@ bool ChannelFileWriter::WriteHeader(EFormat format, const Core::Array<Channel<do
 
 
 // appends the last N sampels to the file
-bool ChannelFileWriter::WriteSamples(EFormat format, const Core::Array<Channel<double>*>& channels, uint64 numSamples, FILE* file, const char* fileName)
+bool ChannelFileWriter::WriteSamples(EFormat format, const Core::Array<Channel<double>*>& channels, uint64 numSamples, FILE* file, const int handle)
 {
 	// call the right write method
 	switch (format)
@@ -87,7 +90,7 @@ bool ChannelFileWriter::WriteSamples(EFormat format, const Core::Array<Channel<d
 		}	
 		case FORMAT_EDF_PLUS:
 		{
-			return WriteSamplesEDF(channels, numSamples, fileName);
+			return WriteSamplesEDF(channels, numSamples, handle);
 		}
 		// RAW
 		//case FORMAT_RAW_DOUBLE:
@@ -242,33 +245,20 @@ bool ChannelFileWriter::WriteSamplesRawDouble(const Core::Array<Channel<double>*
 	return false;
 }
 
-
-bool ChannelFileWriter::WriteSamplesEDF(const Core::Array<Channel<double>*>& inChannels, uint64 numSamples, const char* fileName)
+bool ChannelFileWriter::WriteSamplesEDF(const Core::Array<Channel<double>*>& inChannels, uint64 numSamples, const int handle)
 {
 	const uint32 numChannels = inChannels.Size();
 	bool success = true;
-	// open file
-	const int handle = edfopen_file_writeonly(fileName, EDFLIB_FILETYPE_EDFPLUS, numChannels);
+
 	if (handle < 0)
 		success = false;
 
-	// set required recording metadata
-	for (uint32 i=0;i<numChannels;++i)
-	{
-		success = success && edf_set_samplefrequency(handle, i, inChannels[i]->GetSampleRate()) == 0;
-		success = success && edf_set_physical_minimum(handle, i, inChannels[i]->GetMinValue()) == 0;
-		success = success && edf_set_physical_maximum(handle, i, inChannels[i]->GetMaxValue()) == 0;
-		success = success && edf_set_label(handle, i, inChannels[i]->GetName()) == 0;
-		success = success && edf_set_digital_minimum(handle, i, -32768) == 0;
-		success = success && edf_set_digital_maximum(handle, i,  32767) == 0;
-		success = success && edf_set_physical_dimension(handle, i, "uV") == 0;
-
+	for (uint32 i=0;i<numChannels;++i) {
 		Array<double>& sampleValues = inChannels[i]->GetRawArray();
 		success = success && edfwrite_physical_samples(handle, sampleValues.GetPtr()) == 0;
 	}
 
 	// close file
-	success = success && edfclose_file(handle) == -1;
 	return success;
 }
 

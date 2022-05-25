@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "DeviceInventory.h"
 #include "../Config.h"
@@ -79,6 +82,11 @@
 	#include "Brainquiry/BrainquiryNode.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	#include "BrainMaster/BrainMasterDevices.h"
+	#include "BrainMaster/BrainMasterNodes.h"
+#endif
+
 #ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
 	#include "eSense/eSenseSkinResponseDevice.h"
 	#include "eSense/eSenseSkinResponseNode.h"
@@ -115,6 +123,8 @@
 #ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
 	#include "Neurosity/NotionDevices.h"
 	#include "Neurosity/NotionNode.h"
+	#include "Neurosity/CrownDevice.h"
+	#include "Neurosity/CrownNode.h"
 #endif
 
 
@@ -250,6 +260,13 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	}
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	if (disablePermissionCheck || user->ReadAllowed(DiscoveryDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new Discovery20Device());
+		GetGraphObjectFactory()->RegisterObjectType(new Discovery20Node(NULL));
+	}
+#endif
 
 #ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
 	if (disablePermissionCheck || user->ReadAllowed(eSenseSkinResponseDevice::GetRuleName()))
@@ -273,7 +290,9 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
 	{
 		GetDeviceManager()->RegisterDeviceType(new NotionDevice());
+		GetDeviceManager()->RegisterDeviceType(new CrownDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new NotionNode(NULL));
+		GetGraphObjectFactory()->RegisterObjectType(new CrownNode(NULL));
 	}
 #endif 
 

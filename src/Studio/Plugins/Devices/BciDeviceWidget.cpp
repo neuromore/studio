@@ -21,9 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "BciDeviceWidget.h"
-
 
 using namespace Core;
 

@@ -21,12 +21,10 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include "ActiChampDriver.h"
-#include <Core/LogManager.h>
-#include <Core/ThreadHandler.h>
-#include <QMessageBox>
-#include <QtBaseConfig.h>
-#include <QtBaseManager.h>
 
 #ifdef INCLUDE_DEVICE_ACTICHAMP
 

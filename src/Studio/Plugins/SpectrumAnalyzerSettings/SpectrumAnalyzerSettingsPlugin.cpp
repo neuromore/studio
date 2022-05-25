@@ -21,17 +21,13 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "SpectrumAnalyzerSettingsPlugin.h"
-#include "../../MainWindow.h"
-#include "../../AppManager.h"
-#include <Core/LogManager.h>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QIcon>
 
 using namespace Core;
-
 
 // constructor
 SpectrumAnalyzerSettingsPlugin::SpectrumAnalyzerSettingsPlugin() : Plugin(GetStaticTypeUuid())

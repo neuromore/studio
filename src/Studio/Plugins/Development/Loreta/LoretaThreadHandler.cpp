@@ -20,6 +20,10 @@
 ** https://neuromore.com/npl
 **
 ****************************************************************************/
+
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include "LoretaThreadHandler.h"
 #ifdef OPENCV_SUPPORT
 using namespace Core;

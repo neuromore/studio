@@ -21,30 +21,14 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "AppManager.h"
 #include "MainWindow.h"
-#include "CrashReporter.h"
 #include "Version.h"
 #include "VisualizationManager.h"
-
-// include required headers related
-#include <Core/LogManager.h>
-
-// include Qt related things
-#include <QPushButton>
-#include <QApplication>
-#include <QFile>
-#include <QTextStream>
-#include <QComboBox>
-#include <QUuid>
-#include <QSplashScreen>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QLabel>
-#include <QFontDatabase>
-#include <QPalette>
-#include <QSysInfo>
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 #include <windows.h>
@@ -53,6 +37,8 @@
 
 #ifdef NEUROMORE_BRANDING_ANT
 #define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
+#elif NEUROMORE_BRANDING_STARRBASE
+#define SPLASHIMAGE ":/Images/SplashScreen-Starrbase.png" 
 #else
 #define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
 #endif
@@ -111,10 +97,6 @@ AppManager::AppManager(int argc, char* argv[])
 	// log header
 	LogInfo();
 	LogDetailedInfo("Log file '%s' created ...", logFilename.AsChar());
-
-#ifdef USE_CRASHREPORTER
-	CrashReporterAddFile( logFilename.AsChar(), "neuromore Studio log file" );
-#endif
 
 	// show splash screen
 	LogDetailedInfo("Initializing splash screen ...");
@@ -260,10 +242,6 @@ bool AppManager::ExecuteApp()
 	LogDetailedInfo( "Load application settings (after all plugins successfully loaded) ..." );
 	mMainWindow->OnLoadSettings();
 
-#ifdef USE_CRASHREPORTER
-	CrashReporterAddFile( FromQtString( GetMainWindow()->GetSettingsFilename() ).AsChar(), "neuromore Studio settings file" );
-#endif
-
 	// tell everything that we fully loaded everything and that we are about to start the event loop
 	emit AppStartPrepared();
 
@@ -300,6 +278,13 @@ String AppManager::GetAppName() const
 		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
 		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
 		else name = "eego perform studio";
+#elif NEUROMORE_BRANDING_STARRBASE
+		if (user->FindRule("ROLE_Admin") != NULL) name = "Starrbase - Admin";
+		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Starrbase - Clinic Admin";
+		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Starrbase - Clinician";
+		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Starrbase - Operator";
+		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Starrbase - Patient";
+		else name = "Starrbase";
 #else
 		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
 		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
