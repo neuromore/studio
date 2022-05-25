@@ -72,6 +72,7 @@ OBJS       = Core/AABB.o \
              Devices/NeuroSky/NeuroSkyDevice.o \
              Devices/OpenBCI/OpenBCIDevices.o \
              Devices/BrainAlive/BrainAliveDevices.o \
+             Devices/BrainAlive/BrainAliveNodes.o \
              Devices/Test/TestDevice.o \
              Devices/Test/TestDeviceDriver.o \
              Devices/Versus/VersusDevice.o \
