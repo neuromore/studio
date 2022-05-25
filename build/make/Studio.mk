@@ -117,6 +117,9 @@ MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
              Devices/NeuroSky/NeuroSkySerialHandler.cpp \
              Devices/OpenBCI/OpenBCIDriver.cpp \
              Devices/OpenBCI/OpenBCISerialHandler.cpp \
+             Devices/BrainAlive/BrainAliveDriver.cpp \
+             Devices/BrainAlive/BrainAliveSerialHandler.cpp \
+             Devices/BrainAlive/BrainAliveBluetooth.cpp \
              Devices/Versus/VersusDriver.cpp \
              Devices/Versus/VersusSerialHandler.cpp \
              Plugins/ABM/ABMPlugin.cpp \
@@ -242,6 +245,9 @@ OBJS       = Devices/ABM/AbmDriver.o \
              Devices/NeuroSky/NeuroSkySerialHandler.o \
              Devices/OpenBCI/OpenBCIDriver.o \
              Devices/OpenBCI/OpenBCISerialHandler.o \
+             Devices/BrainAlive/BrainAliveDriver.o \
+             Devices/BrainAlive/BrainAliveSerialHandler.o \
+             Devices/BrainAlive/BrainAliveBluetooth.o \
              Devices/Versus/VersusDriver.o \
              Devices/Versus/VersusSerialHandler.o \
              Devices/DeviceHelpers.o \

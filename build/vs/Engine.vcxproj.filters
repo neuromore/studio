@@ -553,6 +553,12 @@
       <Filter>Devices\BrainMaster</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\Precompiled.cpp" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveDevices.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveNodes.cpp">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1255,6 +1261,15 @@
       <Filter>Devices\BrainMaster</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Precompiled.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveConstant.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveDevices.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveNodes.h">
+      <Filter>Devices\BrainAlive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -1331,6 +1346,9 @@
     </Filter>
     <Filter Include="Devices\BrainMaster">
       <UniqueIdentifier>{dff5d1c2-5460-4d5f-893c-d66f7671b140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\BrainAlive">
+      <UniqueIdentifier>{ef2eefb7-611a-4fa6-aa5a-7c3072b89559}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

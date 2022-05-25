@@ -624,11 +624,16 @@
     <ClInclude Include="..\..\src\Engine\Core\Version.h" />
     <ClCompile Include="..\..\src\Engine\Creud.cpp" />
     <ClInclude Include="..\..\src\Engine\Creud.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveDevices.cpp" />
+    <ClCompile Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveNodes.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\Devices\eemagine\eemagineDevices.cpp" />
     <ClCompile Include="..\..\src\Engine\DSP\AttributeChannels.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveConstant.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveDevices.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\BrainAlive\BrainAliveNodes.h" />
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h" />
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowNodes.h" />
     <ClInclude Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterDevices.h" />

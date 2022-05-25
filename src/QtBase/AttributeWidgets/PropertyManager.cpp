@@ -82,7 +82,7 @@ Property* PropertyManager::FindProperty(AttributeWidget* attributeWidget) const
 
 
 // called when a value of a attribute widget got changed
-void PropertyManager::OnValueChanged()
+ void PropertyManager::OnValueChanged()
 {
 	// get the attribute widget that fired the value change signal
 	AttributeWidget* attributeWidget = static_cast<AttributeWidget*>( sender() );
@@ -135,6 +135,18 @@ Property* PropertyManager::AddComboBoxProperty(const char* groupName, const char
 
 	// create and return the property
 	return AddProperty(groupName, valueName, attributeValue, attributeSettings, readOnly );
+}
+Property* PropertyManager::AddButtonProperty(const char* groupName, const char* valueName, const char* Value, bool readOnly)
+{
+	Core::AttributeInt32* attributeValue_1 = Core::AttributeInt32::Create();
+	Core::AttributeSettings* attributeSettings_1 = new Core::AttributeSettings();
+
+	attributeSettings_1->SetInternalName(valueName);
+	attributeSettings_1->SetName(Value);
+	attributeSettings_1->SetInterfaceType(Core::ATTRIBUTE_INTERFACETYPE_BUTTON);
+	AttributeWidget* attributeWidget = GetQtBaseManager()->GetAttributeWidgetFactory()->CreateAttributeWidget(attributeValue_1, attributeSettings_1, NULL, readOnly);
+	// create and return the property
+	return AddProperty(groupName, valueName, attributeWidget, attributeValue_1, attributeSettings_1, false, readOnly);
 }
 
 

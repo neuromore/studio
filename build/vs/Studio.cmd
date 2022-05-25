@@ -23,6 +23,9 @@ set VAR=--no-notes -DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG
 %MOC% %INC% %VAR% %DIR%/Devices/NeuroSky/NeuroSkySerialHandler.h -b %PCH% -o %DIR%/Devices/NeuroSky/NeuroSkySerialHandler.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/OpenBCI/OpenBCIDriver.h -b %PCH% -o %DIR%/Devices/OpenBCI/OpenBCIDriver.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/OpenBCI/OpenBCISerialHandler.h -b %PCH% -o %DIR%/Devices/OpenBCI/OpenBCISerialHandler.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Devices/BrainAlive/BrainAliveDriver.h -b %PCH% -o %DIR%/Devices/BrainAlive/BrainAliveDriver.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Devices/BrainAlive/BrainAliveSerialHandler.h -b %PCH% -o %DIR%/Devices/BrainAlive/BrainAliveSerialHandler.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Devices/BrainAlive/BrainAliveBluetooth.h -b %PCH% -o %DIR%/Devices/BrainAlive/BrainAliveBluetooth.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Versus/VersusDriver.h -b %PCH% -o %DIR%/Devices/Versus/VersusDriver.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Devices/Versus/VersusSerialHandler.h -b %PCH% -o %DIR%/Devices/Versus/VersusSerialHandler.moc.cpp
 
