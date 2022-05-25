@@ -82,7 +82,7 @@ Property* PropertyManager::FindProperty(AttributeWidget* attributeWidget) const
 
 
 // called when a value of a attribute widget got changed
- void PropertyManager::OnValueChanged()
+void PropertyManager::OnValueChanged()
 {
 	// get the attribute widget that fired the value change signal
 	AttributeWidget* attributeWidget = static_cast<AttributeWidget*>( sender() );

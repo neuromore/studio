@@ -13,10 +13,10 @@
 **
 ** neuromore Public License Usage
 ** Alternatively, this file may be used under the terms of the neuromore
-** Public License version 1 as published by neuromore co with exceptions as
-** appearing in the file neuromore-class-exception.md included in the
-** packaging of this file. Please review the following information to
-** ensure the neuromore Public License requirements will be met:
+** Public License version 1 as published by neuromore co with exceptions as 
+** appearing in the file neuromore-class-exception.md included in the 
+** packaging of this file. Please review the following information to 
+** ensure the neuromore Public License requirements will be met: 
 ** https://neuromore.com/npl
 **
 ****************************************************************************/
@@ -35,72 +35,72 @@
 class ChannelMultiSelectionWidget : public QWidget
 {
 	Q_OBJECT
-public:
-	// device-change behaviour
-	enum AutoSelectType {
-		SELECT_NONE,
-		SELECT_FIRST,
-		SELECT_ALL
-	};
+	public:
+		// device-change behaviour
+		enum AutoSelectType { 
+			SELECT_NONE, 
+			SELECT_FIRST, 
+			SELECT_ALL 
+		};
 
-	// constructor & destructor
-	ChannelMultiSelectionWidget(QWidget* parent = NULL);
-	virtual ~ChannelMultiSelectionWidget();
+		// constructor & destructor
+		ChannelMultiSelectionWidget(QWidget* parent=NULL);
+		virtual ~ChannelMultiSelectionWidget();
 
-	// initialize
-	void Init();
-	void ReInit(Device* device = NULL);
+		// initialize
+		void Init();
+		void ReInit(Device* device = NULL);
 
-	// TODO: replace with transparent accessors (GetNumAvailableChannels(), GetAvailableChannel(uint32 index) etc.)
-	const Core::Array<Channel<double>*>& GetAvailableChannels() const { return mAvailableChannels; }
-	const Core::Array<Channel<double>*>& GetSelectedChannels() const { return mSelectedChannels; }
+		// TODO: replace with transparent accessors (GetNumAvailableChannels(), GetAvailableChannel(uint32 index) etc.)
+		const Core::Array<Channel<double>*>& GetAvailableChannels() const	{ return mAvailableChannels; }
+		const Core::Array<Channel<double>*>& GetSelectedChannels() const	{ return mSelectedChannels; }
 
-	uint32 GetNumSelectedChannels() const { return mSelectedChannels.Size(); }
-	bool IsChannelSelected(Channel<double>* channel) const { return mSelectedChannels.Contains(channel); }
-	void SetChannelAsUsed(Channel<double>* channel, bool used);
-	void ClearUsedChannels();
-	bool IsChannelUsed(Channel<double>* channel) const { return mUsedChannels.Contains(channel); }
+		uint32 GetNumSelectedChannels() const								{ return mSelectedChannels.Size(); }
+		bool IsChannelSelected(Channel<double>* channel) const				{ return mSelectedChannels.Contains(channel); }
+		void SetChannelAsUsed(Channel<double>* channel, bool used);
+		void ClearUsedChannels();
+		bool IsChannelUsed(Channel<double>* channel) const					{ return mUsedChannels.Contains(channel); }
 
-	Device* GetSelectedDevice() const { return mDeviceSelectionWidget->GetSelectedDevice(); }
+		Device* GetSelectedDevice() const									{ return mDeviceSelectionWidget->GetSelectedDevice(); }
 
-	// what channels to select when switching to a new device
-	void SetAutoSelectType(AutoSelectType type) { mAutoSelectType = type; }
+		// what channels to select when switching to a new device
+		void SetAutoSelectType(AutoSelectType type)							{ mAutoSelectType = type; }
 
-	uint32 GetHighlightedIndex() const { return mChannelMultiCheckbox->GetHighlightedIndex(); }
+		uint32 GetHighlightedIndex() const									{ return mChannelMultiCheckbox->GetHighlightedIndex(); }
 
-	// show only neuro channels 
-	void SetShowNeuroChannelsOnly(bool enabled) { mShowOnlyEEGChannels = enabled; }
+		// show only neuro channels 
+		void SetShowNeuroChannelsOnly(bool enabled)							{ mShowOnlyEEGChannels = enabled; }
 
-	void SetChecked(Channel<double>* channel, bool checked);
-	void SetChecked(uint32 index, bool checked);
-	void SetVisible(uint32 index, bool checked);
+		void SetChecked(Channel<double>* channel, bool checked);
+		void SetChecked(uint32 index, bool checked);
+		void SetVisible(uint32 index, bool checked);
 
-	bool IsShowUsedChecked() { return mShowUsedCheckbox->isChecked(); }
-	void SetShowUsedChecked(bool checked) { mShowUsedCheckbox->setChecked(checked); }
+		bool IsShowUsedChecked()											{ return mShowUsedCheckbox->isChecked(); }
+		void SetShowUsedChecked(bool checked)								{ mShowUsedCheckbox->setChecked(checked); }
 
-	bool IsShowUsedVisible() { return mShowUsedCheckbox->isVisible(); }
-	void SetShowUsedVisible(bool visible) { mShowUsedCheckbox->setVisible(visible); }
+		bool IsShowUsedVisible()											{ return mShowUsedCheckbox->isVisible(); }
+		void SetShowUsedVisible(bool visible)								{ mShowUsedCheckbox->setVisible(visible); }
 
-private slots:
-	void OnDeviceSelectionChanged(Device* device);
-	void OnChannelSelectionChanged();
-	void OnShowUsedCheckboxToggled(int state);
+	private slots:
+		void OnDeviceSelectionChanged(Device* device);
+		void OnChannelSelectionChanged();
+		void OnShowUsedCheckboxToggled(int state);
 
-signals:
-	void ChannelSelectionChanged();
-	void ShowUsedCheckboxToggled(int state);
+	signals:
+		void ChannelSelectionChanged();
+		void ShowUsedCheckboxToggled(int state);
 
-private:
-	DeviceSelectionWidget* mDeviceSelectionWidget;
-	QCheckBox* mShowUsedCheckbox;
-	HMultiCheckboxWidget* mChannelMultiCheckbox;
+	private:
+		DeviceSelectionWidget*				mDeviceSelectionWidget;
+		QCheckBox*							mShowUsedCheckbox;
+		HMultiCheckboxWidget*				mChannelMultiCheckbox;
 
-	Core::Array<Channel<double>*>		mAvailableChannels;
-	Core::Array<Channel<double>*>		mSelectedChannels;
-	Core::Array<Channel<double>*>		mUsedChannels;
+		Core::Array<Channel<double>*>		mAvailableChannels;
+		Core::Array<Channel<double>*>		mSelectedChannels;
+		Core::Array<Channel<double>*>		mUsedChannels;
 
-	AutoSelectType						mAutoSelectType;
-	bool								mShowOnlyEEGChannels;
+		AutoSelectType						mAutoSelectType;
+		bool								mShowOnlyEEGChannels;
 };
 
 
