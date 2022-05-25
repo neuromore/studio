@@ -848,11 +848,44 @@ void DeviceManager::ProcessMessage(OscMessageParser* message)
 	//	return;
 	//}
 
+	String messageAddress = message->GetAddress();
+	if (messageAddress.Contains("/neurosity/notion/") &&  !messageAddress.Contains("/info"))
+	{
+		// if the message was sent from a neurosity device, wait for the info message to determine which model is connected(notion or crown).
+		return;
+	}
+
+	const char* modelName = 0;
+	if (messageAddress.Contains("/neurosity/notion/"))
+	{
+		// copies the message and works with copy so as not to spoil the original message
+		osc::ReceivedMessage fullMessage = message->GetOscMessage();
+		OscMessageParser parseNow(fullMessage);
+
+		if (strcmp(message->GetTypeTags(), "ssssssiis") != 0)
+		{
+			return;
+		}
+
+		const char* deviceId       = 0; (parseNow) >> deviceId;
+		const char* deviceNickname = 0; (parseNow) >> deviceNickname;
+		const char* model          = 0; (parseNow) >> model;
+		modelName                  = 0; (parseNow) >> modelName;
+	}
+
 	const uint32 numRegistered = mRegisteredDeviceTypes.Size();
 	for (uint32 i=0; i<numRegistered; ++i)
 	{
 		Device* prototype = mRegisteredDeviceTypes[i];
 		const uint32 deviceType = prototype->GetType();
+
+		if (messageAddress.Contains("/neurosity/notion/"))
+		{
+			if (prototype->GetTypeName() != String(modelName).ToLower())
+			{
+				continue;
+			}
+		}
 
 		// check if address matches the address pattern of the device
 		if (message->MatchAddress(prototype->GetOscPathPattern().AsChar()))

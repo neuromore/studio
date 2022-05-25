@@ -13,7 +13,7 @@ OBJDIR     = obj/win-x64-$(MODE)
 LIBDIR     = lib/win-x64
 BINDIR     = bin/win-x64
 TARGET     = x86_64-pc-windows-msvc
-CPUFLAGS   = -march=x86-64-v2 -mtune=generic -mpclmul -maes -mavx
+CPUFLAGS   = -march=x86-64 -mtune=generic -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mpclmul
 DEFINES    = -DWIN32 -DWIN64 -D_MT
 INCLUDES   = 
 CXX        = clang++
@@ -22,6 +22,8 @@ CC         = clang
 CFLAGS     = -target $(TARGET) -static
 AR         = llvm-ar
 ARFLAGS    = rcs
+STRIP      = llvm-strip
+STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -Xlinker /MACHINE:X64
 LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/x64

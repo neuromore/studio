@@ -30,9 +30,6 @@
 
 #ifdef INCLUDE_DEVICE_BRAINQUIRY
 
-// link to the PET libraries
-#pragma comment(lib, "BQPetDLL.lib")
-
 using namespace Core;
 
 // constructor

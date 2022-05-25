@@ -930,6 +930,11 @@ QListWidget::item:disabled
 /* QTabBar																											   */
 /*---------------------------------------------------------------------------------------------------------------------*/
 
+QTabBar
+{
+    qproperty-drawBase: 0;
+}
+
 QTabBar::tab
 {					
 	border-radius: 							0px;

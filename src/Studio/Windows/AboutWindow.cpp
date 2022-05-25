@@ -29,6 +29,8 @@
 
 #ifdef NEUROMORE_BRANDING_ANT
 #define ABOUTIMAGE ":/Images/About-ANT.png"
+#elif NEUROMORE_BRANDING_STARRBASE
+#define ABOUTIMAGE ":/Images/About-Starrbase.png" 
 #else
 #define ABOUTIMAGE ":/Images/About-neuromore.png"
 #endif

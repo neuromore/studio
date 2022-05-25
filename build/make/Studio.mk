@@ -3,6 +3,7 @@ include ../../deps/build/make/platforms/detect-host.mk
 include ../../deps/build/make/platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = Studio
+TARGET     = $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
 INCDIR     = ../../deps/include
 SRCDIR     = ../../src/$(NAME)
 INCDIRQT   = $(SRCDIR)
@@ -231,6 +232,7 @@ OBJS       = Devices/ABM/AbmDriver.o \
              Devices/Bluetooth/BluetoothService.o \
              Devices/BrainFlow/BrainFlowDriver.o \
              Devices/BrainMaster/BrainMasterDriver.o \
+             Devices/BrainMaster/Discovery20.o \
              Devices/BrainProducts/ActiChampDriver.o \
              Devices/Brainquiry/BrainquiryDriver.o \
              Devices/Brainquiry/BrainquirySerialHandler.o \
@@ -346,7 +348,6 @@ OBJS       = Devices/ABM/AbmDriver.o \
              Windows/VisualizationSelectWindow.o \
              AppManager.o \
              AuthenticationCenter.o \
-             CrashReporter.o \
              DocumentationExporter.o \
              main.o \
              MainWindow.o \
@@ -380,7 +381,7 @@ ifeq ($(BRANDING),starrbase)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_STARRBASE \
              -DAPPNAME="Starrbase" \
-             -DAPPICON="AppIcon-ANT.ico"
+             -DAPPICON="AppIcon-Starrbase.ico"
 endif
 
 ################################################################################################
@@ -424,7 +425,38 @@ RESO      := $(RESO) Resources/NMStudio.res
 OBJS      := $(OBJS)
 LINKFLAGS := $(LINKFLAGS)
 LINKLIBS  := $(LINKLIBS) \
-             $(LIBDIRDEP)/qt-platform-windows$(SUFFIX)$(EXTLIB)
+             $(LIBDIRDEP)/qt-platform-windows$(SUFFIX)$(EXTLIB) \
+             -lversion.lib \
+             -lbthprops.lib \
+             -lsetupapi.lib \
+             -lvfw32.lib \
+             -lrpcrt4.lib \
+             -lws2_32.lib \
+             -liphlpapi.lib \
+             -limm32.lib \
+             -lwinmm.lib \
+             -lcrypt32.lib \
+             -lnetapi32.lib \
+             -luserenv.lib \
+             -ldwmapi.lib \
+             -lwtsapi32.lib \
+             -lgdi32.lib \
+             -lwindowsapp.lib \
+             -ldxva2.lib \
+             -ld3d9.lib \
+             -levr.lib \
+             -lmf.lib \
+             -lmfplat.lib \
+             -lmfplay.lib \
+             -lmfreadwrite.lib \
+             -lmfuuid.lib \
+             -lwmcodecdspuuid.lib \
+             -lstrmiids.lib \
+             -ladvapi32.lib \
+             -lshell32.lib \
+             -lpdh.lib \
+             -lopengl32.lib \
+             -lglu32.lib
 ifeq ($(MODE),debug)
 LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:CONSOLE
 else
@@ -701,16 +733,20 @@ OBLS := $(OBJS) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
 $(RESO) : $(PRES)
- 
+
 build: pch $(PRES) $(OBLS) $(RESO)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
-	@echo [LNK] $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
-	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
+	@echo [LNK] $(TARGET)
+	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
 	@echo [CPY] Prebuilt Libraries
 	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR)/)
 	@echo [CPY] Built Libraries
 	$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR)/)
+ifeq ($(MODE),release)
+	@echo [STR] $(TARGET)
+	$(STRIP) $(STRIPFLAGS) $(TARGET)
+endif
 
 clean:
 	$(call deletefiles,$(MOCDIR),*.cpp)

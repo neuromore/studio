@@ -95,7 +95,22 @@ class AppManager : public QObject
 
 		const bool IsLoginRemberMePrechecked() const { return false; }
 		const char* GetLoginImageName() const							{ return ":/Images/Login-ANT.png"; }
-
+#elif NEUROMORE_BRANDING_STARRBASE
+		const char* GetCompanyName() const								{ return "myneurva"; } // do not put Inc. behind this as this is also used as folder name
+		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
+		const char* GetWebsite() const									{ return "https://myneurva.com"; }
+		const char* GetDocumentationUrl() const						{ return "https://doc.neuromore.com"; }
+		const char* GetAccountUrl() const								{ return "https://starrbase.myneurva.com"; }
+		const char* GetStoreUrl() const									{ return "https://myneurva.com"; }
+		const char* GetForgotPasswordUrl() const						{ return "https://starrbase.myneurva.com/resetrequest"; }
+		const char* GetSupportEMail() const								{ return "support@myneurva.com"; }
+		const char* GetAppShortName() const								{ return "Starrbase"; }
+		const char* GetMenuStudioName() const							{ return "Starrbase"; }
+		const char* GetLicenseUrl() const								{ return "https://assets.starrbase.myneurva.com/license/license.txt"; }
+		const char* GetCloudTermsUrl() const							{ return "https://assets.starrbase.myneurva.com/license/terms-and-conditions.txt"; }
+		const char* GetPrivacyPolicyUrl() const						{ return "https://assets.starrbase.myneurva.com/license/privacy-policy.txt"; }
+		const bool  IsLoginRemberMePrechecked() const				{ return true; }
+		const char* GetLoginImageName() const							{ return ":/Images/Login-Starrbase.png"; }
 #else
 		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
