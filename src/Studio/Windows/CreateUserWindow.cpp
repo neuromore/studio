@@ -53,9 +53,9 @@ CreateUserWindow::CreateUserWindow(QWidget* parent, const Core::String& email) :
 
 
 	// helper
-#ifndef NEUROMORE_BRANDING_ANT
-	mainLayout->addWidget( new QLabel("When providing an email address, a personal neuromore account will be created for the user.") );
-#endif
+	if (brandingName != AntBrandingName) {
+		mainLayout->addWidget( new QLabel("When providing an email address, a personal neuromore account will be created for the user.") );
+	}
 	// spacing widget
 	mainLayout->addWidget( new QLabel("", this) );
 

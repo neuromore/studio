@@ -28,8 +28,6 @@
 #include "../../Config.h"
 #include "../../BciDevice.h"
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
-
 // discovery amplifier base class
 class ENGINE_API DiscoveryDevice : public BciDevice
 {
@@ -74,7 +72,5 @@ public:
    void CreateElectrodes() override;
    void CreateSensors() override;
 };
-
-#endif
 
 #endif

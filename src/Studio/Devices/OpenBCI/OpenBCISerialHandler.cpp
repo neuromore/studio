@@ -28,8 +28,6 @@
 #include "OpenBCISerialHandler.h"
 #include <Devices/OpenBCI/OpenBCIDevices.h>
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-
 using namespace Core;
 
 // constructor
@@ -721,5 +719,3 @@ void OpenBCISerialHandler::ReadStream()
 
 	
 }
-
-#endif

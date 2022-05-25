@@ -29,8 +29,6 @@
 #include "../../Graph/DeviceInputNode.h"
 #include "eSenseSkinResponseDevice.h"
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
-
 
 class ENGINE_API eSenseSkinResponseNode : public DeviceInputNode
 {
@@ -50,7 +48,5 @@ class ENGINE_API eSenseSkinResponseNode : public DeviceInputNode
 		GraphObject* Clone(Graph* parentObject) override						{ eSenseSkinResponseNode* clone = new eSenseSkinResponseNode(parentObject); return clone; }
 };
 
-
-#endif
 
 #endif

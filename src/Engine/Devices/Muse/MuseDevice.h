@@ -27,8 +27,6 @@
 // include required headers
 #include "../../BciDevice.h"
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
-
 // forward declaration
 class MuseSystem;
 
@@ -100,7 +98,5 @@ class ENGINE_API MuseDevice : public BciDevice
 		// for parsing muse-io osc packets
 		int32					mRawEEGMultiplier[4];
 };
-
-#endif
 
 #endif

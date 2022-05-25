@@ -29,18 +29,10 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_TEST
-
-#if defined(NEUROMORE_BRANDING_ANT) || defined(NEUROMORE_BRANDING_STARRBASE)
-#define DEFAULT_DRIVER_ENABLED false
-#else
-#define DEFAULT_DRIVER_ENABLED true
-#endif
-
 using namespace Core;
 
 // constructor
-TestDeviceDriver::TestDeviceDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED)
+TestDeviceDriver::TestDeviceDriver() : DeviceDriver((brandingName == AntBrandingName || brandingName == StarrbaseBrandingName))
 {
 	AddSupportedDevice(TestDevice::TYPE_ID);
 
@@ -101,5 +93,3 @@ void TestDeviceDriver::Update(const Time& elapsed, const Time& delta)
 		mTimeSinceDeviceCheck = 0.0;
 	}
 }
-
-#endif

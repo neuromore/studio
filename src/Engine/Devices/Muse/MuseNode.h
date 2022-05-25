@@ -28,8 +28,6 @@
 #include "../../Config.h"
 #include "../../Graph/DeviceInputNode.h"
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
-
 class ENGINE_API MuseNode : public DeviceInputNode
 {
 	public:
@@ -47,7 +45,5 @@ class ENGINE_API MuseNode : public DeviceInputNode
 		const char* GetRuleName() const override final							{ return MuseDevice::GetRuleName(); }
 		GraphObject* Clone(Graph* parentObject) override						{ MuseNode* clone = new MuseNode(parentObject); return clone; }
 };
-
-#endif
 
 #endif

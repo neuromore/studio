@@ -27,8 +27,6 @@
 // include the required headers
 #include "../../Config.h"
 #include "../../Graph/DeviceInputNode.h"
-#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
-
 
 // Crown device node
 class ENGINE_API CrownNode : public DeviceInputNode
@@ -48,7 +46,5 @@ class ENGINE_API CrownNode : public DeviceInputNode
         const char* GetRuleName() const override final          { return CrownDevice::GetRuleName(); }
         GraphObject* Clone(Graph* parentObject) override        { CrownNode* clone = new CrownNode(parentObject); return clone; }
 };
-
-#endif
 
 #endif

@@ -29,8 +29,6 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
-
 using namespace Core;
 
 
@@ -58,5 +56,3 @@ void eSenseSkinResponseDevice::CreateSensors()
 
 	mGsrSensor = AddSensor(SENSOR_INPUT, "GSR", sampleRate, true, 0.0, CORE_FLOAT_MAX, "uSiemens" );
 }
-
-#endif

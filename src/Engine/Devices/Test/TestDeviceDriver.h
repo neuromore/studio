@@ -29,8 +29,6 @@
 #include "TestDevice.h"
 #include "../../EngineManager.h"
 
-#ifdef INCLUDE_DEVICE_TEST
-
 // the driver for test devices
 class ENGINE_API TestDeviceDriver : public DeviceDriver
 {
@@ -58,7 +56,5 @@ class ENGINE_API TestDeviceDriver : public DeviceDriver
 	private:
 		double		mTimeSinceDeviceCheck;
 };
-
-#endif
 
 #endif

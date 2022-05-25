@@ -29,7 +29,8 @@
 #include <EngineManager.h>
 #include <Devices/BrainMaster/BrainMasterDevices.h>
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
+#ifndef _M_X64
 
 #include "Discovery20.h"
 
@@ -75,6 +76,8 @@ private:
    Discovery20      mSDK;
    DiscoveryDevice* mDevice;
 };
+
+#endif
 
 #endif
 

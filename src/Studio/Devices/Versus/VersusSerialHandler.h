@@ -36,8 +36,6 @@
 
 #include <Core/Timer.h>
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-
 class VersusDevice;
 
 // separate QObject class, just for handling the data (due to virtual function pointer table bullshit)
@@ -77,7 +75,5 @@ private:
 	bool ReadStreamPacket(VersusStreamPacket* inOutPacket);			// read one stream data packet
 
 };
-
-#endif
 
 #endif

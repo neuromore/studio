@@ -29,8 +29,6 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-
 using namespace Core;
 
 // base class commons
@@ -140,6 +138,3 @@ void OpenBCIDaisyDevice::CreateElectrodes()
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));
 }
-
-
-#endif

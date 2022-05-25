@@ -27,18 +27,12 @@
 // include required files
 #include "BrainMasterDriver.h"
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
-
-#ifdef NEUROMORE_BRANDING_STARRBASE
-#define DEFAULT_DRIVER_ENABLED true
-#else
-#define DEFAULT_DRIVER_ENABLED false
-#endif
-
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
+#ifndef _M_X64
 using namespace Core;
 
 // constructor
-BrainMasterDriver::BrainMasterDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mSDK(*this), mDevice(0)
+BrainMasterDriver::BrainMasterDriver() : DeviceDriver((brandingName == StarrbaseBrandingName)), mSDK(*this), mDevice(0)
 {
    LogDetailedInfo("Constructing BrainMaster driver ...");
 
@@ -208,4 +202,7 @@ void BrainMasterDriver::onFrame(const Discovery20::Frame& f, const Discovery20::
       s->AddQueuedSample(c.data[i]);
    }
 }
+
+#endif
+
 #endif

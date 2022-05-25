@@ -32,8 +32,6 @@
 
 #include <limits>
 
-#ifdef INCLUDE_DEVICE_TEST
-	
 using namespace Core;
 
 // constructor
@@ -273,5 +271,3 @@ void TestDevice::Sync(const Core::Time& time, bool usePadding)
 	mClock.Reset();
 	mClock.SetStartTime(time);
 }
-
-#endif

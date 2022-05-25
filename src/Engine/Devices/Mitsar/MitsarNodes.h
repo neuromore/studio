@@ -29,7 +29,7 @@
 #include "../../Graph/DeviceInputNode.h"
 #include "MitsarDevices.h"
 
-#ifdef INCLUDE_DEVICE_MITSAR
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
 
 class ENGINE_API Mitsar201Node : public DeviceInputNode
 {

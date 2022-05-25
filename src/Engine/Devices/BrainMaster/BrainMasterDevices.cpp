@@ -29,8 +29,6 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
-
 using namespace Core;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,5 +123,3 @@ void Discovery20Device::CreateSensors()
       sensor->GetOutput()->SetBufferSizeInSeconds(60.0);
    }
 }
-
-#endif

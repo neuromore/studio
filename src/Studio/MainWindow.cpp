@@ -375,22 +375,21 @@ void MainWindow::Init()
 
 	mToolsMenu = mMenuBar->addMenu( tr("&Tools") );
 	
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
+	if (includeDeviceInteraxonMuse) {
 	
 #ifdef NEUROMORE_PLATFORM_WINDOWS
-	const bool showMuseMenue = QFile( GetQtBaseManager()->GetAppDir() + "\\Muse\\muse-io.exe").exists();
+		const bool showMuseMenue = QFile( GetQtBaseManager()->GetAppDir() + "\\Muse\\muse-io.exe").exists();
 #else
-	const bool showMuseMenue = true;
+		const bool showMuseMenue = true;
 #endif
 
-	if (showMuseMenue == true)
-	{
-		// start muse io
-		QAction* startMuseIOAction = mToolsMenu->addAction( tr("Start MuseIO"), this, &MainWindow::OnStartMuseIO );
-		startMuseIOAction->setIcon( GetQtBaseManager()->FindIcon("Images/Devices/InteraXon Muse.png") );
+		if (showMuseMenue == true)
+		{
+			// start muse io
+			QAction* startMuseIOAction = mToolsMenu->addAction( tr("Start MuseIO"), this, &MainWindow::OnStartMuseIO );
+			startMuseIOAction->setIcon( GetQtBaseManager()->FindIcon("Images/Devices/InteraXon Muse.png") );
+		}
 	}
-
-#endif
 
 	// tools/information menu
 
@@ -456,10 +455,10 @@ void MainWindow::Init()
 	QAction* visitHelpCenterAction = helpMenu->addAction( tr("Account"), this, &MainWindow::OnVisitAccount );
 	visitHelpCenterAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Internet.png") );
 
-#ifndef NEUROMORE_BRANDING_ANT
-	QAction* visitDocsAction = helpMenu->addAction( tr("Documentation"), this, &MainWindow::OnVisitDocumentation );
-	visitDocsAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Internet.png") );
-#endif
+	if (brandingName != AntBrandingName) {
+		QAction* visitDocsAction = helpMenu->addAction( tr("Documentation"), this, &MainWindow::OnVisitDocumentation );
+		visitDocsAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Internet.png") );
+	}
 
 	QAction* feedbackAction = helpMenu->addAction( tr("Support"), this, &MainWindow::OnVisitSupport );
 	feedbackAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Support.png") );
@@ -496,10 +495,10 @@ void MainWindow::OnPostAuthenticationInit()
 	User* user = GetUser();
 	
 	// studio built in:
-	#ifdef INCLUDE_DEVICE_TEST
-	if (user->ReadAllowed(TestDevice::GetRuleName()))
-		GetDeviceManager()->AddDeviceDriver(new TestDeviceDriver());
-	#endif
+	if (includeDeviceTest) {
+		if (user->ReadAllowed(TestDevice::GetRuleName()))
+			GetDeviceManager()->AddDeviceDriver(new TestDeviceDriver());
+	}
 
 	if (user->FindRule("ROLE_ClinicPatient") == nullptr) {
 		// layout combo box
@@ -598,19 +597,19 @@ void MainWindow::OnPostAuthenticationInit()
 	LogDetailedInfo("Switching to first layout ...");
 	GetLayoutManager()->SwitchToLayoutByIndex( 0 );
 
-#ifdef NEUROMORE_BRANDING_ANT
-	const bool isAdminOrClinicAdmin = 
-		user->FindRule("ROLE_Admin") != NULL || 
-		user->FindRule("ROLE_ClinicAdmin")  != NULL;
+	if (brandingName == AntBrandingName) {
+		const bool isAdminOrClinicAdmin =
+			user->FindRule("ROLE_Admin") != NULL ||
+			user->FindRule("ROLE_ClinicAdmin")  != NULL;
 
-	// hide the Tools menu for non-admins
-	if (mToolsMenu && !isAdminOrClinicAdmin)
-		mToolsMenu->menuAction()->setVisible(false);
+		// hide the Tools menu for non-admins
+		if (mToolsMenu && !isAdminOrClinicAdmin)
+			mToolsMenu->menuAction()->setVisible(false);
 
-	// hide the Settings menu for non admins
-	if (mSettingsAction && !isAdminOrClinicAdmin)
-		mSettingsAction->setVisible(false);
-#endif
+		// hide the Settings menu for non admins
+		if (mSettingsAction && !isAdminOrClinicAdmin)
+			mSettingsAction->setVisible(false);
+	}
 
 	// select user button
 	const bool allowSelectUser = (user->FindRule("STUDIO_SETTING_SelectUser") != NULL);
@@ -1164,24 +1163,16 @@ void MainWindow::OnActiveExperienceChanged(Experience* experience)
 	const bool hasWriteableExperience = hasExperience && experience->GetCreud().Update();
 	const bool isAdminOrClinicAdmin =
 		GetUser() && (GetUser()->FindRule("ROLE_Admin") != NULL || GetUser()->FindRule("ROLE_ClinicAdmin") != NULL);
-
-#ifdef NEUROMORE_BRANDING_ANT
-	// show these only for admins/clinc-admins, even if the user has update rights
-	const bool isVisibleClose = hasExperience && isAdminOrClinicAdmin;
-	const bool isVisibleSave = hasWriteableExperience && isAdminOrClinicAdmin;
-	const bool isVisibleDesign = hasWriteableExperience && isAdminOrClinicAdmin;
-#else
-	const bool isVisibleClose = hasExperience;
-	const bool isVisibleSave = hasWriteableExperience;
-	const bool isVisibleDesign = hasWriteableExperience;
-#endif
 	
+	const bool isVisibleClose = (brandingName == AntBrandingName) ? hasExperience : hasExperience && isAdminOrClinicAdmin;
+	const bool isVisibleSaveAndDisign = (brandingName == AntBrandingName) ? hasWriteableExperience : hasWriteableExperience && isAdminOrClinicAdmin;;
+
 	// actions that are only shown if a design is loaded (and writeable in some cases)
 	mCloseAction->setVisible(isVisibleClose);
-	mSaveAction->setVisible(isVisibleSave);
+	mSaveAction->setVisible(isVisibleSaveAndDisign);
 
 	// show design menu only if its writeable
-	mDesignMenu->menuAction()->setVisible(isVisibleDesign);
+	mDesignMenu->menuAction()->setVisible(isVisibleSaveAndDisign);
 
 	// reuse the enable-settings code
 	if (hasExperience == true)
@@ -1560,12 +1551,11 @@ void MainWindow::OnLoadSettings()
 	const float realtimeInterfaceUpdateRate = settings.value("realtimeInterfaceUpdateRate", GetRealtimeUIUpdateRate()).toFloat();
 	SetRealtimeUIUpdateRate(realtimeInterfaceUpdateRate);
 
+	bool default_autodetection = GetEngine()->GetAutoDetectionSetting();
 	// device detection
-#ifdef NEUROMORE_BRANDING_ANT
-	const bool default_autodetection = true;
-#else
-	const bool default_autodetection = GetEngine()->GetAutoDetectionSetting();
-#endif
+	if (brandingName == AntBrandingName) {
+		default_autodetection = true;
+	}
 	const bool enableAutoDetection = settings.value("deviceAutoDetectionEnabled", default_autodetection).toBool();
 	GetEngine()->SetAutoDetectionSetting(enableAutoDetection);
 
@@ -1606,13 +1596,13 @@ void MainWindow::OnLoadSettings()
 #endif
 
 	// used backend
-#ifdef NEUROMORE_BRANDING_ANT
-	const int defaultPresetIndex = 1;
-#elif NEUROMORE_BRANDING_STARRBASE
-	const int defaultPresetIndex = 2;
-#else
-	const int defaultPresetIndex = 0;
-#endif
+	int defaultPresetIndex = 0;
+	if (brandingName == AntBrandingName) {
+		defaultPresetIndex = 1;
+	} else if (brandingName == StarrbaseBrandingName) {
+		defaultPresetIndex = 2;
+	}
+
 	int32 cloudServerPreset = settings.value("cloudServerPreset", defaultPresetIndex).toInt();
 	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(cloudServerPreset);
 

@@ -26,8 +26,6 @@
 
 #include "../../Config.h"
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
-
 #include "BrainFlowDevices.h"
 #include "../../Graph/DeviceInputNode.h"
 #include <brainflow/board_controller/brainflow_input_params.h>
@@ -112,7 +110,5 @@ public:
 
 };
 
-
-#endif
 
 #endif

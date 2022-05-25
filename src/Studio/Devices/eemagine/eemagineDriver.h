@@ -29,8 +29,7 @@
 #include <EngineManager.h>
 #include <Devices/eemagine/eemagineDevices.h>
 
-#ifdef INCLUDE_DEVICE_EEMAGINE
-
+#if !defined(NEUROMORE_PLATFORM_OSX)
 // Select between linking their dynamic lib at compile time (EEGO_SDK_BIND_STATIC)
 // and loading their dynamic lib at runtime (EEGO_SDK_BIND_DYNAMIC).
 #define EEGO_SDK_BIND_DYNAMIC

@@ -29,7 +29,7 @@
 #include <EngineManager.h>
 #include <Devices/Mitsar/MitsarDevices.h>
 
-#ifdef INCLUDE_DEVICE_MITSAR
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
 
 // forward decl. of classes at bottom of header
 class MitsarConnectorHandler;

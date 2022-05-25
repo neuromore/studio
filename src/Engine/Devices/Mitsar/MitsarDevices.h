@@ -28,7 +28,7 @@
 #include "../../Config.h"
 #include "../../BciDevice.h"
 
-#ifdef INCLUDE_DEVICE_MITSAR
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
 
 // Mitsar base class
 class ENGINE_API MitsarDevice : public BciDevice

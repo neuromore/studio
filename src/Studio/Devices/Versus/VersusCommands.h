@@ -24,8 +24,6 @@
 #ifndef __NEUROMORE_VERSUSCOMMANDS_H
 #define __NEUROMORE_VERSUSCOMMANDS_H
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-
 #include <Core/String.h>
 
 // versus commands
@@ -276,7 +274,5 @@ struct VersusStreamPacket
 	}
 };
 
-
-#endif
 
 #endif

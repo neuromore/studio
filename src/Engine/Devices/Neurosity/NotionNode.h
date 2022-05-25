@@ -28,8 +28,6 @@
 #include "../../Config.h"
 #include "../../Graph/DeviceInputNode.h"
 
-#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
-
 
 // Notion device node
 class ENGINE_API NotionNode : public DeviceInputNode
@@ -49,7 +47,5 @@ class ENGINE_API NotionNode : public DeviceInputNode
         const char* GetRuleName() const override final          { return NotionDevice::GetRuleName(); }
         GraphObject* Clone(Graph* parentObject) override        { NotionNode* clone = new NotionNode(parentObject); return clone; }
 };
-
-#endif
 
 #endif

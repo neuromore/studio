@@ -36,8 +36,6 @@
 
 #include <Core/Timer.h>
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-
 class OpenBCIDevice;
 
 // separate QObject class, just for handling the data (due to virtual function pointer table bullshit)
@@ -87,7 +85,5 @@ class OpenBCISerialHandler : public QObject
 		uint32					mNumPackets;
 
 };
-
-#endif
 
 #endif

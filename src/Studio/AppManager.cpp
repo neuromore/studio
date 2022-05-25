@@ -35,15 +35,19 @@
 #include <winuser.h>
 #endif
 
-#ifdef NEUROMORE_BRANDING_ANT
-#define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
-#elif NEUROMORE_BRANDING_STARRBASE
-#define SPLASHIMAGE ":/Images/SplashScreen-Starrbase.png" 
-#else
-#define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
-#endif
-
 using namespace Core;
+
+String brandingName;
+bool includeDeviceTest = false;
+bool includeDeviceEEMagine = false;
+bool includeDeviceNeurosityNotion = false;
+bool includeDeviceBrainmaster = false;
+bool includeDeviceInteraxonMuse = false;
+bool includeDeviceSenselabsVersus = false;
+bool includeDeviceOpenBCI = false;
+bool includeDeviceEsenseskinResponse = false;
+bool includeDeviceMitsar = false;
+bool includeDeviceBrainflow = false;
 
 //--------------------------------------------------------------------------
 // globals
@@ -80,6 +84,19 @@ AppManager::AppManager(int argc, char* argv[])
     // create a single or normal (multiple) instance(s) application
 	mApp = new SingleApplication(argc, argv);
 
+	QCommandLineParser parser;
+    QCommandLineOption brandOption(QStringList() << "branding",
+            QCoreApplication::translate("main", "Choose branding version."),
+            QCoreApplication::translate("main", "branding"));
+    parser.addOption(brandOption);
+    parser.process(*mApp);
+
+	if (!parser.values(brandOption).isEmpty()) {
+		brandingName = parser.values(brandOption).first().toLocal8Bit().data();
+	}
+
+	updateAllowedDevices();
+
 	// get the application directory
 	QString appDir = qApp->applicationDirPath();
 	appDir	+= '/';
@@ -100,7 +117,16 @@ AppManager::AppManager(int argc, char* argv[])
 
 	// show splash screen
 	LogDetailedInfo("Initializing splash screen ...");
-	QPixmap pixmap(SPLASHIMAGE);
+
+	QString splashImagePath = ":/Images/SplashScreen-neuromore.png";
+
+	if (brandingName == AntBrandingName) {
+		splashImagePath = ":/Images/SplashScreen-ANT.png";
+	} else if (brandingName == StarrbaseBrandingName) {
+		splashImagePath = ":/Images/SplashScreen-Starrbase.png";
+	}
+
+	QPixmap pixmap(splashImagePath);
 	mSplashScreen = new QSplashScreen(pixmap);
 
 	// force taskbar entry for splashscreen on windows (otherwise it can get stuck in a state where the user cannot reach it anymore.. happened multiple times)
@@ -271,34 +297,162 @@ String AppManager::GetAppName() const
 	User* user = GetUser();
 	if (user != NULL)
 	{
-#ifdef NEUROMORE_BRANDING_ANT
-		if (user->FindRule("ROLE_ResellerAdmin") != NULL) name = "eego perform studio - Reseller Admin";
-		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "eego perform studio - Clinic Admin";
-		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "eego perform studio - Clinician";
-		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
-		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
-		else name = "eego perform studio";
-#elif NEUROMORE_BRANDING_STARRBASE
-		if (user->FindRule("ROLE_Admin") != NULL) name = "Starrbase - Admin";
-		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Starrbase - Clinic Admin";
-		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Starrbase - Clinician";
-		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Starrbase - Operator";
-		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Starrbase - Patient";
-		else name = "Starrbase";
-#else
-		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
-		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
-		else if (user->FindRule("ROLE_Professional") != NULL)			name = "neuromore Studio Professional";
-		else if (user->FindRule("ROLE_Community") != NULL)				name = "neuromore Studio Community";
-		else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = "neuromore Studio";
-		else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = "neuromore Studio";
-		else															name = "neuromore Studio";
-#endif
+		if (brandingName == AntBrandingName) {
+			if (user->FindRule("ROLE_ResellerAdmin") != NULL) name = "eego perform studio - Reseller Admin";
+			else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "eego perform studio - Clinic Admin";
+			else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "eego perform studio - Clinician";
+			else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
+			else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
+			else name = "eego perform studio";
+		} else if (brandingName == StarrbaseBrandingName) {
+			if (user->FindRule("ROLE_Admin") != NULL) name = "Starrbase - Admin";
+			else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Starrbase - Clinic Admin";
+			else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Starrbase - Clinician";
+			else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Starrbase - Operator";
+			else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Starrbase - Patient";
+			else name = "Starrbase";
+		} else {
+			if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
+			else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
+			else if (user->FindRule("ROLE_Professional") != NULL)			name = "neuromore Studio Professional";
+			else if (user->FindRule("ROLE_Community") != NULL)				name = "neuromore Studio Community";
+			else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = "neuromore Studio";
+			else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = "neuromore Studio";
+			else															name = "neuromore Studio";
+		}
 	}
 
 	return name;
 }
 
+const char* AppManager::GetCompanyName() const
+{
+	const char* companyName = "neuromore";
+	if (brandingName == AntBrandingName) {
+		companyName = "eemagine";
+	} else if (brandingName == StarrbaseBrandingName) {
+		companyName = "myneurva";
+	}
+	return companyName;
+}
+const char* AppManager::GetWebsite() const
+{
+	const char* website = "https://www.neuromore.com";
+	if (brandingName == AntBrandingName) {
+		website = "https://eego-perform.com";
+	} else if (brandingName == StarrbaseBrandingName) {
+		website = "https://myneurva.com";
+	}
+	return website;
+}
+const char* AppManager::GetAccountUrl() const
+{
+	const char* accountUrl = "https://account.neuromore.com";
+	if (brandingName == AntBrandingName) {
+		accountUrl = "https://account.eego-perform.com";
+	} else if (brandingName == StarrbaseBrandingName) {
+		accountUrl = "https://starrbase.myneurva.com";
+	}
+	return accountUrl;
+}
+const char* AppManager::GetStoreUrl() const
+{
+	const char* storeUrl = "https://www.neuromore.com";
+	if (brandingName == AntBrandingName) {
+		storeUrl = "https://eego-perform.com";
+	} else if (brandingName == StarrbaseBrandingName) {
+		storeUrl = "https://myneurva.com";
+	}
+	return storeUrl;
+}
+const char* AppManager::GetForgotPasswordUrl() const
+{
+	const char* forgotPasswordUrl = "https://account.neuromore.com/#/resetrequest";
+	if (brandingName == AntBrandingName) {
+		forgotPasswordUrl = "https://account.eego-perform.com/resetrequest";
+	} else if (brandingName == StarrbaseBrandingName) {
+		forgotPasswordUrl = "https://starrbase.myneurva.com/resetrequest";
+	}
+	return forgotPasswordUrl;
+}
+const char* AppManager::GetSupportEMail() const
+{
+	const char* supportEMail = "support@neuromore.com";
+	if (brandingName == AntBrandingName) {
+		supportEMail = "support@eemagine.com";
+	} else if (brandingName == StarrbaseBrandingName) {
+		supportEMail = "support@myneurva.com";
+	}
+	return supportEMail;
+}
+const char* AppManager::GetAppShortName() const
+{
+	const char* appShortName = "NMStudio";
+	if (brandingName == AntBrandingName) {
+		appShortName = "eego-perform-studio";
+	} else if (brandingName == StarrbaseBrandingName) {
+		appShortName = "Starrbase";
+	}
+	return appShortName;
+}
+const char* AppManager::GetMenuStudioName() const
+{
+	const char* appShortName = "NMStudio";
+	if (brandingName == AntBrandingName) {
+		appShortName = "EPStudio";
+	} else if (brandingName == StarrbaseBrandingName) {
+		appShortName = "Starrbase";
+	}
+	return appShortName;
+}
+const char* AppManager::GetLicenseUrl() const
+{
+	const char* licenseUrl = "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md";
+	if (brandingName == AntBrandingName) {
+		licenseUrl = "https://assets.eego-perform.com/license/license.txt";
+	} else if (brandingName == StarrbaseBrandingName) {
+		licenseUrl = "https://assets.starrbase.myneurva.com/license/license.txt";
+	}
+	return licenseUrl;
+}
+const char* AppManager::GetCloudTermsUrl() const
+{
+	const char* cloudTermsUrl = "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md";
+	if (brandingName == AntBrandingName) {
+		cloudTermsUrl = "https://assets.eego-perform.com/license/terms-and-conditions.txt";
+	} else if (brandingName == StarrbaseBrandingName) {
+		cloudTermsUrl = "https://assets.starrbase.myneurva.com/license/terms-and-conditions.txt";
+	}
+	return cloudTermsUrl;
+}
+const char* AppManager::GetPrivacyPolicyUrl() const
+{
+	const char* privacyPolicyUrl = "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md";
+	if (brandingName == AntBrandingName) {
+		privacyPolicyUrl = "https://assets.eego-perform.com/license/privacy-policy.txt";
+	} else if (brandingName == StarrbaseBrandingName) {
+		privacyPolicyUrl = "https://assets.starrbase.myneurva.com/license/privacy-policy.txt";
+	}
+	return privacyPolicyUrl;
+}
+const bool AppManager::IsLoginRemberMePrechecked() const
+{
+	bool isLoginRemberMePrechecked = true;
+	if (brandingName == AntBrandingName) {
+		isLoginRemberMePrechecked = false;
+	}
+	return isLoginRemberMePrechecked;
+}
+const char* AppManager::GetLoginImageName() const
+{
+	const char* loginImageName = ":/Images/Login-neuromore.png";
+	if (brandingName == AntBrandingName) {
+		loginImageName = ":/Images/Login-ANT.png";
+	} else if (brandingName == StarrbaseBrandingName) {
+		loginImageName = ":/Images/Login-Starrbase.png";
+	}
+	return loginImageName;
+}
 
 const char* AppManager::GetBackendSystemName() const
 {
@@ -311,6 +465,40 @@ const char* AppManager::GetBackendSystemName() const
 #ifdef NEUROMORE_PLATFORM_LINUX
 	return "win_studio"; // TODO linux backend system name
 #endif
+}
+
+void AppManager::updateAllowedDevices()
+{
+	if (brandingName == AntBrandingName) {
+		includeDeviceTest = true;
+#if !defined(NEUROMORE_PLATFORM_OSX)
+		includeDeviceEEMagine = true;
+#endif
+	} else if (brandingName == StarrbaseBrandingName) {
+		includeDeviceTest = true;
+		includeDeviceNeurosityNotion = true;
+		#ifndef _M_X64
+			includeDeviceBrainmaster = true;
+		#endif
+	} else {
+		includeDeviceTest = true;
+		includeDeviceInteraxonMuse = true;
+		includeDeviceSenselabsVersus = true;
+		includeDeviceOpenBCI = true;
+		includeDeviceEsenseskinResponse = true;
+		includeDeviceNeurosityNotion = true;
+		includeDeviceBrainflow = true;
+#if !defined(NEUROMORE_PLATFORM_OSX)
+		includeDeviceEEMagine = true;
+#endif
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
+		includeDeviceEEMagine = true;
+		includeDeviceMitsar = true;
+		#ifndef _M_X64
+			includeDeviceBrainmaster = true;
+		#endif
+#endif
+	}
 }
 
 //--------------------------------------------------------------------------

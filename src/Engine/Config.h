@@ -27,39 +27,16 @@
 #include "Core/Config.h"
 #include "Core/StandardHeaders.h"
 
-// ENABLED DEVICES
-#if defined(NEUROMORE_BRANDING_ANT)
-  #define INCLUDE_DEVICE_TEST
-  #define INCLUDE_DEVICE_EEMAGINE
-#elif defined(NEUROMORE_BRANDING_STARRBASE)
-  #define INCLUDE_DEVICE_TEST
-  #define INCLUDE_DEVICE_NEUROSITY_NOTION
-  #ifndef _M_X64
-    #define INCLUDE_DEVICE_BRAINMASTER
-  #endif
-#else // NEUROMORE STUDIO
-  #define INCLUDE_DEVICE_TEST
-  #define INCLUDE_DEVICE_INTERAXON_MUSE
-  #define INCLUDE_DEVICE_SENSELABS_VERSUS
-  #define INCLUDE_DEVICE_OPENBCI
-  #define INCLUDE_DEVICE_ESENSESKINRESPONSE
-  #define INCLUDE_DEVICE_NEUROSITY_NOTION
-  #define INCLUDE_DEVICE_BRAINFLOW
-  #if defined(NEUROMORE_PLATFORM_WINDOWS)
-    #define INCLUDE_DEVICE_EEMAGINE
-    #define INCLUDE_DEVICE_MITSAR
+
+ #if defined(NEUROMORE_PLATFORM_WINDOWS)
     //#define INCLUDE_DEVICE_EMOTIV
     //#define INCLUDE_DEVICE_NEUROSKY_MINDWAVE
     //#define INCLUDE_DEVICE_TOBIIEYEX
     //#define INCLUDE_DEVICE_ACTICHAMP
     #ifndef _M_X64 // X86 ONLY
-      #define INCLUDE_DEVICE_BRAINMASTER
       //#define INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
       //#define INCLUDE_DEVICE_BRAINQUIRY
     #endif
-  #elif defined(NEUROMORE_PLATFORM_LINUX)
-    #define INCLUDE_DEVICE_EEMAGINE
-  #endif
 #endif
 
 // generic devices
@@ -165,5 +142,20 @@ enum
 	// neuromore Engine API
 	MEMCATEGORY_NEUROMOREENGINE_API				= 901	
 };
+
+extern Core::String brandingName;
+extern bool includeDeviceTest;
+extern bool includeDeviceEEMagine;
+extern bool includeDeviceNeurosityNotion;
+extern bool includeDeviceBrainmaster;
+extern bool includeDeviceInteraxonMuse;
+extern bool includeDeviceSenselabsVersus;
+extern bool includeDeviceOpenBCI;
+extern bool includeDeviceEsenseskinResponse;
+extern bool includeDeviceBrainflow;
+extern bool includeDeviceMitsar;
+
+const Core::String AntBrandingName = "ant";
+const Core::String StarrbaseBrandingName = "starrbase";
 
 #endif

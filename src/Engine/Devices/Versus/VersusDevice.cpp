@@ -29,8 +29,6 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-
 using namespace Core;
 
 
@@ -66,5 +64,3 @@ void VersusDevice::CreateElectrodes()
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
 }
-
-#endif

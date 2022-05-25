@@ -445,13 +445,13 @@ bool ExperienceSelectionWidget::HasParent() const
 
 void ExperienceSelectionWidget::OnAssetDownloadFinished()
 {
-#ifdef NEUROMORE_BRANDING_ANT
-	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
-		GetLayoutManager()->SwitchToLayoutByName("Experience Trainer");
-#else
-	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
-		GetLayoutManager()->SwitchToLayoutByName("Experience Player");
-#endif
+	if (brandingName == AntBrandingName) {
+		if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
+			GetLayoutManager()->SwitchToLayoutByName("Experience Trainer");
+	} else {
+		if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
+			GetLayoutManager()->SwitchToLayoutByName("Experience Player");
+	}
 }
 
 

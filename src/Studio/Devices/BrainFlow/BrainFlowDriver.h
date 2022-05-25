@@ -33,8 +33,6 @@
 
 #include <QObject>
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
-
 #include <brainflow/cpp-package/board_shim.h>
 
 class BrainFlowDriver : public QObject, public DeviceDriver, public Core::EventHandler
@@ -60,7 +58,5 @@ public:
 private:
 	Device* CreateDevice(uint32 deviceTypeID) override { return nullptr; };
 };
-
-#endif
 
 #endif

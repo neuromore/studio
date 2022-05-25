@@ -29,8 +29,6 @@
 #include "VersusDriver.h"
 #include "VersusSerialHandler.h"
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-
 using namespace Core;
 
 // constructor
@@ -343,5 +341,3 @@ void VersusSerialThread::run()
 		exec();
 	}
 }
-
-#endif

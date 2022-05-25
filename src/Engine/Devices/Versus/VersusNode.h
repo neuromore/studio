@@ -28,8 +28,6 @@
 #include "../../Config.h"
 #include "../../Graph/DeviceInputNode.h"
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-
 // the SenseLabs Versus graph node
 class ENGINE_API VersusNode : public DeviceInputNode
 {
@@ -47,7 +45,5 @@ class ENGINE_API VersusNode : public DeviceInputNode
 		const char* GetRuleName() const override final							{ return VersusDevice::GetRuleName(); }
 		GraphObject* Clone(Graph* parentGraph) override							{ VersusNode* clone = new VersusNode(parentGraph); return clone; }
 };
-
-#endif
 
 #endif

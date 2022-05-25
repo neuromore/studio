@@ -27,8 +27,6 @@
 // include required headers
 #include "../../BciDevice.h"
 
-#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
-
 // forward declaration
 class NotionSystem;
 
@@ -79,7 +77,5 @@ class ENGINE_API NotionDevice : public BciDevice
    protected:
       SubType mSubType;
 };
-
-#endif
 
 #endif

@@ -30,20 +30,14 @@
 #include "../DeviceManager.h"
 
 
-#ifdef INCLUDE_DEVICE_TEST
-	#include "Test/TestDevice.h"
-	#include "Test/TestDeviceNode.h"
-#endif
+#include "Test/TestDevice.h"
+#include "Test/TestDeviceNode.h"
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
-	#include "Muse/MuseDevice.h"
-	#include "Muse/MuseNode.h"
-#endif
+#include "Muse/MuseDevice.h"
+#include "Muse/MuseNode.h"
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-	#include "Versus/VersusDevice.h"
-	#include "Versus/VersusNode.h"
-#endif
+#include "Versus/VersusDevice.h"
+#include "Versus/VersusNode.h"
 
 #ifdef INCLUDE_DEVICE_NEUROSKY_MINDWAVE
   #include "NeuroSky/NeuroSkyDevice.h"
@@ -62,19 +56,17 @@
 	#include "ABM/AbmNodes.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_OPENBCI
-    #include "OpenBCI/OpenBCIDevices.h"
-    #include "OpenBCI/OpenBCINodes.h"
-#endif
+#include "OpenBCI/OpenBCIDevices.h"
+#include "OpenBCI/OpenBCINodes.h"
 
-#ifdef INCLUDE_DEVICE_MITSAR
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
 	#include "Mitsar/MitsarDevices.h"
 	#include "Mitsar/MitsarNodes.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_EEMAGINE
-  #include "eemagine/eemagineDevices.h"
-  #include "eemagine/eemagineNodes.h"
+#if !defined(NEUROMORE_PLATFORM_OSX)
+	#include "eemagine/eemagineDevices.h"
+	#include "eemagine/eemagineNodes.h"
 #endif
 
 #ifdef INCLUDE_DEVICE_BRAINQUIRY
@@ -82,25 +74,19 @@
 	#include "Brainquiry/BrainquiryNode.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
-	#include "BrainMaster/BrainMasterDevices.h"
-	#include "BrainMaster/BrainMasterNodes.h"
-#endif
+#include "BrainMaster/BrainMasterDevices.h"
+#include "BrainMaster/BrainMasterNodes.h"
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
-	#include "eSense/eSenseSkinResponseDevice.h"
-	#include "eSense/eSenseSkinResponseNode.h"
-#endif
+#include "eSense/eSenseSkinResponseDevice.h"
+#include "eSense/eSenseSkinResponseNode.h"
 
 #ifdef INCLUDE_DEVICE_ACTICHAMP
 	#include "BrainProducts/ActiChampDevice.h"
 	#include "BrainProducts/ActiChampNode.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
 #include "BrainFlow/BrainFlowDevices.h"
 #include "BrainFlow/BrainFlowNodes.h"
-#endif
 
 #include "Generic/GenericDevices.h"
 #include "Generic/GenericDeviceNodes.h"
@@ -120,12 +106,10 @@
 	#include "EyeX/TobiiEyeXNode.h"
 #endif
 
-#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
-	#include "Neurosity/NotionDevices.h"
-	#include "Neurosity/NotionNode.h"
-	#include "Neurosity/CrownDevice.h"
-	#include "Neurosity/CrownNode.h"
-#endif
+#include "Neurosity/NotionDevices.h"
+#include "Neurosity/NotionNode.h"
+#include "Neurosity/CrownDevice.h"
+#include "Neurosity/CrownNode.h"
 
 
 
@@ -145,29 +129,30 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	// backend plugin security check
 	User* user = GetEngine()->GetUser();
 
-#ifdef INCLUDE_DEVICE_TEST
-	if (disablePermissionCheck || user->ReadAllowed(TestDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new TestDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new TestDeviceNode(NULL));
+	if (includeDeviceTest) {
+		if (disablePermissionCheck || user->ReadAllowed(TestDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new TestDevice());
+			GetGraphObjectFactory()->RegisterObjectType(new TestDeviceNode(NULL));
+		}
 	}
-#endif
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
-	if (disablePermissionCheck || user->ReadAllowed(MuseDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new MuseDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new MuseNode(NULL));
+	if (includeDeviceInteraxonMuse) {
+		if (disablePermissionCheck || user->ReadAllowed(MuseDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new MuseDevice());
+			GetGraphObjectFactory()->RegisterObjectType(new MuseNode(NULL));
+		}
 	}
-#endif
 
-#ifdef INCLUDE_DEVICE_SENSELABS_VERSUS
-	if (disablePermissionCheck || user->ReadAllowed(VersusDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new VersusDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new VersusNode(NULL));
+
+	if (includeDeviceSenselabsVersus) {
+		if (disablePermissionCheck || user->ReadAllowed(VersusDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new VersusDevice());
+			GetGraphObjectFactory()->RegisterObjectType(new VersusNode(NULL));
+		}
 	}
-#endif
 
 #ifdef INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
 	// X10
@@ -214,43 +199,45 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	}
 #endif
 
-#ifdef INCLUDE_DEVICE_EEMAGINE
-   if (disablePermissionCheck || user->ReadAllowed(eemagineDevice::GetRuleName()))
-   {
-      GetDeviceManager()->RegisterDeviceType(new eemagine8Device());
-      GetGraphObjectFactory()->RegisterObjectType(new eemagine8Node(NULL));
+#if !defined(NEUROMORE_PLATFORM_OSX)
+	if (includeDeviceEEMagine) {
+		if (disablePermissionCheck || user->ReadAllowed(eemagineDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new eemagine8Device());
+			GetGraphObjectFactory()->RegisterObjectType(new eemagine8Node(NULL));
 
-      GetDeviceManager()->RegisterDeviceType(new eemagine32Device());
-      GetGraphObjectFactory()->RegisterObjectType(new eemagine32Node(NULL));
+			GetDeviceManager()->RegisterDeviceType(new eemagine32Device());
+			GetGraphObjectFactory()->RegisterObjectType(new eemagine32Node(NULL));
 
-      GetDeviceManager()->RegisterDeviceType(new eemagine64Device());
-      GetGraphObjectFactory()->RegisterObjectType(new eemagine64Node(NULL));
-   }
-#endif
-
-#ifdef INCLUDE_DEVICE_OPENBCI
-	if (disablePermissionCheck || user->ReadAllowed(OpenBCIDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new OpenBCIDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new OpenBCINode(NULL));
-	}
-
-	if (disablePermissionCheck || user->ReadAllowed(OpenBCIDaisyDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new OpenBCIDaisyDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new OpenBCIDaisyNode(NULL));
+			GetDeviceManager()->RegisterDeviceType(new eemagine64Device());
+			GetGraphObjectFactory()->RegisterObjectType(new eemagine64Node(NULL));
+		}
 	}
 #endif
 
+	if (includeDeviceOpenBCI) {
+		if (disablePermissionCheck || user->ReadAllowed(OpenBCIDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new OpenBCIDevice());
+			GetGraphObjectFactory()->RegisterObjectType(new OpenBCINode(NULL));
+		}
 
-#ifdef INCLUDE_DEVICE_MITSAR
-	if (disablePermissionCheck || user->ReadAllowed(MitsarDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new Mitsar201Device());
-		GetGraphObjectFactory()->RegisterObjectType(new Mitsar201Node(NULL));
+		if (disablePermissionCheck || user->ReadAllowed(OpenBCIDaisyDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new OpenBCIDaisyDevice());
+			GetGraphObjectFactory()->RegisterObjectType(new OpenBCIDaisyNode(NULL));
+		}
+	}
+
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
+	if (includeDeviceMitsar) {
+		if (disablePermissionCheck || user->ReadAllowed(MitsarDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new Mitsar201Device());
+			GetGraphObjectFactory()->RegisterObjectType(new Mitsar201Node(NULL));
+		}
 	}
 #endif
-
 
 #ifdef INCLUDE_DEVICE_BRAINQUIRY
 	if (disablePermissionCheck || user->ReadAllowed(BrainquiryDevice::GetRuleName()))
@@ -260,21 +247,21 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	}
 #endif
 
-#ifdef INCLUDE_DEVICE_BRAINMASTER
-	if (disablePermissionCheck || user->ReadAllowed(DiscoveryDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new Discovery20Device());
-		GetGraphObjectFactory()->RegisterObjectType(new Discovery20Node(NULL));
+	if (includeDeviceBrainmaster) {
+		if (disablePermissionCheck || user->ReadAllowed(DiscoveryDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new Discovery20Device());
+			GetGraphObjectFactory()->RegisterObjectType(new Discovery20Node(NULL));
+		}
 	}
-#endif
 
-#ifdef INCLUDE_DEVICE_ESENSESKINRESPONSE
-	if (disablePermissionCheck || user->ReadAllowed(eSenseSkinResponseDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new eSenseSkinResponseDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new eSenseSkinResponseNode(NULL));
+	if (includeDeviceEsenseskinResponse) {
+		if (disablePermissionCheck || user->ReadAllowed(eSenseSkinResponseDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new eSenseSkinResponseDevice());
+			GetGraphObjectFactory()->RegisterObjectType(new eSenseSkinResponseNode(NULL));
+		}
 	}
-#endif
 
 
 #ifdef INCLUDE_DEVICE_ACTICHAMP
@@ -286,24 +273,24 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 #endif
 
 
-#ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
-	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new NotionDevice());
-		GetDeviceManager()->RegisterDeviceType(new CrownDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new NotionNode(NULL));
-		GetGraphObjectFactory()->RegisterObjectType(new CrownNode(NULL));
+	if (includeDeviceNeurosityNotion) {
+		if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new NotionDevice());
+			GetDeviceManager()->RegisterDeviceType(new CrownDevice());
+			GetGraphObjectFactory()->RegisterObjectType(new NotionNode(NULL));
+			GetGraphObjectFactory()->RegisterObjectType(new CrownNode(NULL));
+		}
 	}
-#endif 
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
-	//if (disablePermissionCheck || user->ReadAllowed(BrainFlowDeviceCyton::GetRuleName()))
-	{
-		GetDeviceManager()->RegisterDeviceType(new BrainFlowDevice());
-		GetGraphObjectFactory()->RegisterObjectType(new BrainFlowNode(NULL));
-		GetGraphObjectFactory()->RegisterObjectType(new BrainFlowCytonNode(NULL));
+	if (includeDeviceBrainflow) {
+		//if (disablePermissionCheck || user->ReadAllowed(BrainFlowDeviceCyton::GetRuleName()))
+		{
+			GetDeviceManager()->RegisterDeviceType(new BrainFlowDevice());
+			GetGraphObjectFactory()->RegisterObjectType(new BrainFlowNode(NULL));
+			GetGraphObjectFactory()->RegisterObjectType(new BrainFlowCytonNode(NULL));
+		}
 	}
-#endif
 
 	/////////////////////////
 	// Generic Devices

@@ -29,8 +29,6 @@
 #include <Devices/BrainFlow/BrainFlowDevices.h>
 #include <Devices/BrainFlow/BrainFlowNodes.h>
 
-#ifdef INCLUDE_DEVICE_BRAINFLOW
-
 using namespace Core;
 
 BrainFlowDriver::BrainFlowDriver() : DeviceDriver(true) 
@@ -91,4 +89,3 @@ Device* BrainFlowDriver::CreateDevice(BoardIds boardId, BrainFlowInputParams par
 {
 	return new BrainFlowDevice(boardId, std::move(params), this);
 }
-#endif

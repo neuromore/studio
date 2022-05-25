@@ -29,8 +29,6 @@
 #include "../../EngineManager.h"
 #include "../../Core/LogManager.h"
 
-#ifdef INCLUDE_DEVICE_INTERAXON_MUSE
-
 using namespace Core;
 
 // constructor
@@ -353,6 +351,3 @@ void MuseDevice::ProcessMessage(OscMessageParser* message)
 	}
 
 }
-
-
-#endif
