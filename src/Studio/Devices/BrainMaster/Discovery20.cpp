@@ -167,77 +167,87 @@ bool Discovery20::find()
    return mPort != 0;
 }
 
-bool Discovery20::connect(const char* codekey, const char* serialnumber, const char* passkey)
+Discovery20::ConnectResult Discovery20::connect(const char* codekey, const char* serialnumber, const char* passkey)
 {
    if (!mSDK.Handle)
-      return false;
+      return ConnectResult::SDK_NOT_LOADED;
 
    // must be disconnected to connect
    if (mState != State::DISCONNECTED)
-      return true;
+      return ConnectResult::STATE_NOT_DISCONNECTED;
 
    // no device discovered or found
    if (!mPort)
-      return false;
+      return ConnectResult::NO_DEVICE_DISCOVERED;
 
    // connect at 9600 baud first
    if (!mSDK.AtlOpenPort(mPort, 9600, &mHandle))
-      return false;
+      return ConnectResult::OPEN_PORT_FAILED;
 
    // set to 460800 baud
    if (!mSDK.AtlSetBaudRate(SDK::BR460800)) {
       mSDK.AtlClosePort(mPort);
-      return false;
+      return ConnectResult::SET_BAUD_RATE_FAILED;
    }
 
    // close port
    if (!mSDK.AtlClosePort(mPort))
-      return false;
+      return ConnectResult::CLOSE_PORT_FAILED;
 
    // now open at 460800 baud
    if (!mSDK.AtlOpenPort(mPort, 460800, &mHandle))
-      return false;
+      return ConnectResult::OPEN_PORT_FAILED;
 
    // setup serial port buffers
    if (!::SetupComm(mHandle, BUFFERSIZE, BUFFERSIZE)) {
       mSDK.AtlClosePort(mPort);
-      return false;
+      return ConnectResult::BUFFER_INCREASE_FAILED;
    }
 
    // login to the device (and validate fw version response)
-   if (mSDK.BmrLoginDevice((char*)codekey, (char*)serialnumber, (char*)passkey) != SDK::LoginCodes::WIDEB2E) {
+   const int32_t LOGINRETURN = mSDK.BmrLoginDevice(
+      (char*)codekey, (char*)serialnumber, (char*)passkey);
+
+   // validate successful login
+   if (!LOGINRETURN) {
       mSDK.AtlClosePort(mPort);
-      return false;
+      return ConnectResult::CREDENTIALS_WRONG;
+   }
+
+   // validate fw
+   if (LOGINRETURN != SDK::LoginCodes::WIDEB2E) {
+      mSDK.AtlClosePort(mPort);
+      return ConnectResult::UNSUPPORTED_FIRMWARE;
    }
 
    // validate impedance support
    if ((mSDK.AtlPeek(0xb605) & 1) == 0) {
       mSDK.AtlClosePort(mPort);
-      return false;
+      return ConnectResult::IMPEDANCE_NOT_SUPPORTED;
    }
 
    // set to expected sampling rate
    if (!mSDK.AtlWriteSamplingRate(SAMPLERATE)) {
       mSDK.AtlClosePort(mPort);
-      return false;
+      return ConnectResult::SET_SAMPLERATE_FAILED;
    }
 
    // and validate it
    if (mSDK.AtlReadSamplingRate() != SAMPLERATE) {
       mSDK.AtlClosePort(mPort);
-      return false;
+      return ConnectResult::READ_SAMPLERATE_FAILED;
    }
 
    // clear any specials that might be set
    if (!mSDK.AtlClearSpecials()) {
       mSDK.AtlClosePort(mPort);
-      return false;
+      return ConnectResult::CLEAR_SPECIALS_FAILED;
    }
 
    // enable specialdata in frame (78 instead of 75 bytes)
    if (!mSDK.AtlSelectSpecial(0xFF)) {
       mSDK.AtlClosePort(mPort);
-      return false;
+      return ConnectResult::ENABLE_IMPEDANCE_FAILED;
    }
 
    // flush
@@ -248,7 +258,7 @@ bool Discovery20::connect(const char* codekey, const char* serialnumber, const c
    mCallback.onDeviceConnected(*this);
 
    // success
-   return true;
+   return ConnectResult::SUCCESS;
 }
 
 bool Discovery20::start()

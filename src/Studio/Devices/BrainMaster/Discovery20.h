@@ -277,6 +277,27 @@ public:
    };
 
    /// <summary>
+   /// Result Codes for connect() 
+   /// </summary>
+   enum class ConnectResult {
+      SUCCESS                 = 0,  // all went good
+      SDK_NOT_LOADED          = 1,  // SDK not loaded, bmrcm.dll likely missing
+      STATE_NOT_DISCONNECTED  = 2,  // tried to call connect but not disconnected
+      NO_DEVICE_DISCOVERED    = 3,  // no device found or find() not executed
+      OPEN_PORT_FAILED        = 4,  // failed to open com port
+      SET_BAUD_RATE_FAILED    = 5,  // failed to set baud rate
+      CLOSE_PORT_FAILED       = 6,  // failed to close port
+      BUFFER_INCREASE_FAILED  = 7,  // failed to increase windows com port buffer
+      CREDENTIALS_WRONG       = 8,  // credentials for login not correct
+      UNSUPPORTED_FIRMWARE    = 9,  // incorrect firmware detected
+      IMPEDANCE_NOT_SUPPORTED = 10,  // impedance not supported on device
+      SET_SAMPLERATE_FAILED   = 11, // failed to set samplerate
+      READ_SAMPLERATE_FAILED  = 12, // failed to read samplerate
+      CLEAR_SPECIALS_FAILED   = 13, // failed to clear all specials
+      ENABLE_IMPEDANCE_FAILED = 14  // failed to enable specialdata
+   };
+
+   /// <summary>
    /// Required successful sync byte iterations before frames
    /// are assumed to be safe enough for propagation.
    /// </summary>
@@ -451,9 +472,9 @@ public:
 
    /// <summary>
    /// Try connect to Discovery 20 device.
-   /// Returns true on success or if already connected.
+   /// Returns true on success.
    /// </summary>
-   bool connect(const char* codekey, const char* serialnumber, const char* passkey);
+   ConnectResult connect(const char* codekey, const char* serialnumber, const char* passkey);
 
    /// <summary>
    /// Starts data streaming on a connected Discovery 20.

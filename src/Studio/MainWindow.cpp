@@ -1587,7 +1587,7 @@ void MainWindow::OnLoadSettings()
 	SetRealtimeUIUpdateRate(realtimeInterfaceUpdateRate);
 
 	// device detection
-#ifdef NEUROMORE_BRANDING_ANT
+#if defined(NEUROMORE_BRANDING_ANT) || defined(NEUROMORE_BRANDING_STARRBASE)
 	const bool default_autodetection = true;
 #else
 	const bool default_autodetection = GetEngine()->GetAutoDetectionSetting();

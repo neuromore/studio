@@ -98,6 +98,7 @@ private:
    std::string        mPassKey;
    Discovery20        mSDK;
    Discovery20Device* mDevice;
+   Core::Time         mLastDetect;
 };
 
 #endif

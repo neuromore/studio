@@ -38,7 +38,7 @@
 using namespace Core;
 
 // constructor
-BrainMasterDriver::BrainMasterDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mSDK(*this), mMode(EMode::MODE_IDLE), mDevice(0)
+BrainMasterDriver::BrainMasterDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mSDK(*this), mMode(EMode::MODE_IDLE), mDevice(0), mLastDetect(0)
 {
    LogDetailedInfo("Constructing BrainMaster driver ...");
 
@@ -113,11 +113,15 @@ void BrainMasterDriver::Update(const Time& elapsed, const Time& delta)
    if (!mIsEnabled)
       return;
 
+   // try find device regularly if got none and autodetect is enabled
+   if (!mDevice && IsAutoDetectionEnabled() && (Core::Time::Now() - mLastDetect) > Core::Time(3.0))
+      DetectDevices();
+
    // no device available/found
    if (!mDevice)
       return;
 
-   //WIP
+   // update on SDK
    mSDK.update();
 }
 
@@ -137,6 +141,9 @@ Device* BrainMasterDriver::CreateDevice(uint32 deviceTypeID)
 
 void BrainMasterDriver::DetectDevices()
 {
+   // remember when last detection was
+   mLastDetect = Core::Time::Now();
+
    // not enabled or already got one
    if (!mIsEnabled || mDevice)
       return;
@@ -150,12 +157,57 @@ void BrainMasterDriver::DetectDevices()
       return;
 
    // try connect
-   if (!mSDK.connect(mCodeKey.c_str(), mSerial.c_str(), mPassKey.c_str()))
-      return;
+   Discovery20::ConnectResult CR = mSDK.connect(mCodeKey.c_str(), mSerial.c_str(), mPassKey.c_str());
 
    // success, create device and add it
-   mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
-   GetDeviceManager()->AddDeviceAsync(mDevice);
+   if (CR == Discovery20::ConnectResult::SUCCESS)
+   {
+      mDevice = static_cast<Discovery20Device*>(CreateDevice(Discovery20Device::TYPE_ID));
+      GetDeviceManager()->AddDeviceAsync(mDevice);
+   }
+   // error
+   else
+   {
+      switch (CR)
+      {
+      case Discovery20::ConnectResult::OPEN_PORT_FAILED:
+         LogError("DISCOVERY20: Failed to open COM port.");
+         break;
+      case Discovery20::ConnectResult::SET_BAUD_RATE_FAILED:
+         LogError("DISCOVERY20: Failed to set baud rate on port.");
+         break;
+      case Discovery20::ConnectResult::CLOSE_PORT_FAILED:
+         LogError("DISCOVERY20: Failed to close COM port.");
+         break;
+      case Discovery20::ConnectResult::BUFFER_INCREASE_FAILED:
+         LogError("DISCOVERY20: Failed to increase COM port buffer.");
+         break;
+      case Discovery20::ConnectResult::CREDENTIALS_WRONG:
+         LogError("DISCOVERY20: Credentials are wrong.");
+         break;
+      case Discovery20::ConnectResult::UNSUPPORTED_FIRMWARE:
+         LogError("DISCOVERY20: Unsupported firmware on device.");
+         break;
+      case Discovery20::ConnectResult::IMPEDANCE_NOT_SUPPORTED:
+         LogError("DISCOVERY20: Impedance not supported on this device.");
+         break;
+      case Discovery20::ConnectResult::SET_SAMPLERATE_FAILED:
+         LogError("DISCOVERY20: Failed to set samplerate on device.");
+         break;
+      case Discovery20::ConnectResult::READ_SAMPLERATE_FAILED:
+         LogError("DISCOVERY20: Failed to read samplerate from device.");
+         break;
+      case Discovery20::ConnectResult::CLEAR_SPECIALS_FAILED:
+         LogError("DISCOVERY20: Failed to clear specials on device.");
+         break;
+      case Discovery20::ConnectResult::ENABLE_IMPEDANCE_FAILED:
+         LogError("DISCOVERY20: Failed to enable impedance on device.");
+         break;
+      default:
+         LogError("DISCOVERY20: Error while connecting to device.");
+         break;
+      }
+   }
 }
 
 void BrainMasterDriver::OnRemoveDevice(Device* device)
