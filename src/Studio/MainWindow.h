@@ -130,6 +130,11 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		Property*					mDriftCorrectionMaxForwardDriftProperty;
 		Property*					mDriftCorrectionMaxBackwardDriftProperty;
 
+		// brainmaster credentials
+		Property*					mBrainMasterCodeKey;
+		Property*					mBrainMasterSerial;
+		Property*					mBrainMasterPassKey;
+
 		// audio
 #ifdef INCLUDE_DEVICE_GENERIC_AUDIO
 		Property*					mAudioInputUpdateRateProperty;

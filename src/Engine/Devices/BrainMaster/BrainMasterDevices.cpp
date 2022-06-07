@@ -65,7 +65,7 @@ void DiscoveryDevice::CreateSensors()
 // Discovery with 20 channels
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Discovery20Device::Discovery20Device(DeviceDriver* driver) : DiscoveryDevice(driver)
+Discovery20Device::Discovery20Device(DeviceDriver* driver) : DiscoveryDevice(driver), mSensorMode(0)
 {
    LogDetailedInfo("Constructing Discovery with 20 channels ...");
    CreateSensors();
@@ -116,6 +116,10 @@ void Discovery20Device::CreateSensors()
 {
    DiscoveryDevice::CreateSensors();
 
+   // create additional sensors
+   mSensorMode = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "Mode");
+   mSensorMode->SetSampleRate(this->GetSampleRate());
+
    // extend buffers so they can hold up to 60s of samples
    uint32_t numSensors = GetNumSensors();
    for (uint32_t i = 0; i < numSensors; i++)
@@ -124,6 +128,14 @@ void Discovery20Device::CreateSensors()
       sensor->GetInput()->SetBufferSizeInSeconds(60.0);
       sensor->GetOutput()->SetBufferSizeInSeconds(60.0);
    }
+}
+
+double Discovery20Device::GetImpedance(uint32 neuroSensorIndex)
+{
+   if (neuroSensorIndex < GetNumNeuroSensors())
+      return GetNeuroSensor(neuroSensorIndex)->GetChannel()->GetLastSample();
+
+   return 0.0;
 }
 
 #endif

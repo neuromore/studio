@@ -49,6 +49,7 @@
 #include <Devices/Test/TestDeviceDriver.h>
 #include <Devices/Muse/MuseDevice.h>
 #include "Devices/Audio/AudioDriver.h"
+#include "Devices/BrainMaster/BrainMasterDriver.h"
 
 #include <System/SerialPort.h>
 #include <System/BluetoothHelpers.h>
@@ -1287,6 +1288,17 @@ void MainWindow::OnSettings()
 		}
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+		DeviceDriver* brainMasterDriverBase = GetDeviceManager()->FindDeviceDriverByType(BrainMasterDriver::TYPE_ID);
+		if (brainMasterDriverBase != NULL)
+		{
+			BrainMasterDriver* brainMasterDriver = static_cast<BrainMasterDriver*>(brainMasterDriverBase);
+			mBrainMasterCodeKey = devicePropertyWidget->GetPropertyManager()->AddStringProperty("BrainMaster", "Code Key", brainMasterDriver->GetCodeKey().c_str(), "");
+			mBrainMasterSerial = devicePropertyWidget->GetPropertyManager()->AddStringProperty("BrainMaster", "Serial Number", brainMasterDriver->GetSerial().c_str(), "");
+			mBrainMasterPassKey = devicePropertyWidget->GetPropertyManager()->AddStringProperty("BrainMaster", "Pass Key", brainMasterDriver->GetPassKey().c_str(), "");
+		}
+#endif
+
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// neuromore Cloud category
 
@@ -1419,6 +1431,20 @@ void MainWindow::OnValueChanged(Property* property)
 			audioDriver->SetOutputBufferSize(property->AsFloat());
 		if (property == mAudioOutputDelayProperty)
 			audioDriver->SetOutputDelay(property->AsFloat());
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	DeviceDriver* brainMasterDriverBase = GetDeviceManager()->FindDeviceDriverByType(BrainMasterDriver::TYPE_ID);
+	if (brainMasterDriverBase != NULL)
+	{
+		BrainMasterDriver* brainMasterDriver = static_cast<BrainMasterDriver*>(brainMasterDriverBase);
+		if (property == mBrainMasterCodeKey)
+			brainMasterDriver->SetCodeKey(std::string(property->AsString().AsChar()));
+		if (property == mBrainMasterSerial)
+			brainMasterDriver->SetSerial(std::string(property->AsString().AsChar()));
+		if (property == mBrainMasterPassKey)
+			brainMasterDriver->SetPassKey(std::string(property->AsString().AsChar()));
 	}
 #endif
 
@@ -1561,7 +1587,7 @@ void MainWindow::OnLoadSettings()
 	SetRealtimeUIUpdateRate(realtimeInterfaceUpdateRate);
 
 	// device detection
-#ifdef NEUROMORE_BRANDING_ANT
+#if defined(NEUROMORE_BRANDING_ANT) || defined(NEUROMORE_BRANDING_STARRBASE)
 	const bool default_autodetection = true;
 #else
 	const bool default_autodetection = GetEngine()->GetAutoDetectionSetting();
@@ -1602,6 +1628,17 @@ void MainWindow::OnLoadSettings()
 		audioDriver->SetOutputUpdateRate(settings.value("audioOutputUpdateRate", audioDriver->GetOutputUpdateRate()).toFloat());
 		audioDriver->SetOutputBufferSize(settings.value("audioOutputBufferSize", audioDriver->GetOutputBufferSize()).toFloat());
 		audioDriver->SetOutputDelay		(settings.value("audioOutputDelay", audioDriver->GetOutputDelay()).toFloat());
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	DeviceDriver* brainMasterDriverBase = GetDeviceManager()->FindDeviceDriverByType(BrainMasterDriver::TYPE_ID);
+	if (brainMasterDriverBase != NULL)
+	{
+		BrainMasterDriver* brainMasterDriver = static_cast<BrainMasterDriver*>(brainMasterDriverBase);
+		brainMasterDriver->SetCodeKey(settings.value("discovery20CodeKey", "").toString().toStdString());
+		brainMasterDriver->SetSerial(settings.value("discovery20SerialNumber", "").toString().toStdString());
+		brainMasterDriver->SetPassKey(settings.value("discovery20PassKey", "").toString().toStdString());
 	}
 #endif
 
@@ -1708,6 +1745,17 @@ void MainWindow::OnSaveSettings()
 		settings.setValue("audioOutputUpdateRate", audioDriver->GetOutputUpdateRate());
 		settings.setValue("audioOutputBufferSize", audioDriver->GetOutputBufferSize());
 		settings.setValue("audioOutputDelay", audioDriver->GetOutputDelay());
+	}
+#endif
+
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	DeviceDriver* brainMasterDriverBase = GetDeviceManager()->FindDeviceDriverByType(BrainMasterDriver::TYPE_ID);
+	if (brainMasterDriverBase != NULL)
+	{
+		BrainMasterDriver* brainMasterDriver = static_cast<BrainMasterDriver*>(brainMasterDriverBase);
+		settings.setValue("discovery20CodeKey", QString(brainMasterDriver->GetCodeKey().c_str()));
+		settings.setValue("discovery20SerialNumber", QString(brainMasterDriver->GetSerial().c_str()));
+		settings.setValue("discovery20PassKey", QString(brainMasterDriver->GetPassKey().c_str()));
 	}
 #endif
 
