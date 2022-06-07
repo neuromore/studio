@@ -37,6 +37,8 @@ set VAR=--no-notes -DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG
 %MOC% %INC% %VAR% %DIR%/Plugins/Development/HeatmapPlugin/HeatmapWidget.h -b %PCH% -o %DIR%/Plugins/Development/HeatmapPlugin/HeatmapWidget.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/Development/LatencyTestPlugin/LatencyTestPlugin.h -b %PCH% -o %DIR%/Plugins/Development/LatencyTestPlugin/LatencyTestPlugin.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/Development/LatencyTestPlugin/LatencyTestWidget.h -b %PCH% -o %DIR%/Plugins/Development/LatencyTestPlugin/LatencyTestWidget.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Plugins/Development/Loreta/LoretaPlugin.h -b %PCH% -o %DIR%/Plugins/Development/Loreta/LoretaPlugin.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Plugins/Development/Loreta/LoretaWidget.h -b %PCH% -o %DIR%/Plugins/Development/Loreta/LoretaWidget.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/Devices/BciDeviceWidget.h -b %PCH% -o %DIR%/Plugins/Devices/BciDeviceWidget.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/Devices/DevicesPlugin.h -b %PCH% -o %DIR%/Plugins/Devices/DevicesPlugin.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/Devices/DevicesWidget.h -b %PCH% -o %DIR%/Plugins/Devices/DevicesWidget.moc.cpp

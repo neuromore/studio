@@ -20,6 +20,10 @@
 ** https://neuromore.com/npl
 **
 ****************************************************************************/
+
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include "LoretaThreadHandler.h"
 #ifdef OPENCV_SUPPORT
 using namespace Core;
@@ -135,8 +139,8 @@ void LoretaThreadHandler::CreateVoxels()
 				// create the bounding box and fill it into an array
 				AABB voxelBox;
 				voxelBox.Init();
-				voxelBox.Encapsulate(voxelCenter + Vector3(halfVoxelSize, halfVoxelSize, halfVoxelSize));
-				voxelBox.Encapsulate(voxelCenter - Vector3(halfVoxelSize, halfVoxelSize, halfVoxelSize));
+				voxelBox.Add(voxelCenter + Vector3(halfVoxelSize, halfVoxelSize, halfVoxelSize));
+				voxelBox.Add(voxelCenter - Vector3(halfVoxelSize, halfVoxelSize, halfVoxelSize));
 				mVoxels[voxelIndex] = Voxel(voxelBox, Vector4(1.0f, 0.0f, 0.0f, 0.1f));
 				Vector3 voxelBoxMiddle = voxelBox.GetCenter();
 
@@ -269,5 +273,6 @@ bool LoretaThreadHandler::CheckIfMeshIsInside(Mesh* mesh, Ray* rayUp, Ray* rayDo
 	}
 	return false;
 }
+
 
 #endif

@@ -21,13 +21,15 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "LoretaPlugin.h"
 #ifdef OPENCV_SUPPORT
 #include <Core/LogManager.h>
 #include <AttributeWidgets/AttributeSetGridWidget.h>
 #include <QtBaseManager.h>
-#include <DialogStack.h>
 
 // include OpenCV
 #include <opencv2/opencv.hpp>
@@ -80,15 +82,11 @@ bool LoretaPlugin::Init()
 	// Settings
 	///////////////////////////////////////////////////////////////////////////
 
-	// add the dialog stack to the right side
-	DialogStack* settingsDialogStack = CreateSettingsDialogStack(mainWidget);
-
 	// create the attribute set grid widget
-	AttributeSetGridWidget* attributeSetGridWidget = new AttributeSetGridWidget(settingsDialogStack);
+	AttributeSetGridWidget* attributeSetGridWidget = new AttributeSetGridWidget();
 	attributeSetGridWidget->ReInit(this);
-
-	// add the new attribute set grid widget as settings dialog stack entry
-	settingsDialogStack->Add(attributeSetGridWidget, "Settings", false, false, false);
+	// add the dialog stack to the right side
+	SetSettingsWidget(attributeSetGridWidget);
 
 	///////////////////////////////////////////////////////////////////////////
 	// Add render widget at the end

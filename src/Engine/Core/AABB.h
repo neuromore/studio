@@ -42,6 +42,7 @@ class ENGINE_API AABB
 
 		// initialization
 		void Init();
+		void Add(const AABB& box);
 		void Add(const Vector3& point);
 		bool IsValid() const;
 

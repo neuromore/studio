@@ -20,6 +20,10 @@
 ** https://neuromore.com/npl
 **
 ****************************************************************************/
+
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "LoretaWidget.h"
 #include <QOpenGLFunctions>

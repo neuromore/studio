@@ -130,6 +130,8 @@ MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
              Plugins/Development/HeatmapPlugin/HeatmapWidget.cpp \
              Plugins/Development/LatencyTestPlugin/LatencyTestPlugin.cpp \
              Plugins/Development/LatencyTestPlugin/LatencyTestWidget.cpp \
+             Plugins/Development/Loreta/LoretaPlugin.cpp \
+             Plugins/Development/Loreta/LoretaWidget.cpp \
              Plugins/Devices/BciDeviceWidget.cpp \
              Plugins/Devices/DevicesPlugin.cpp \
              Plugins/Devices/DevicesWidget.cpp \
@@ -257,6 +259,11 @@ OBJS       = Devices/ABM/AbmDriver.o \
              Plugins/Development/HeatmapPlugin/HeatmapWidget.o \
              Plugins/Development/LatencyTestPlugin/LatencyTestPlugin.o \
              Plugins/Development/LatencyTestPlugin/LatencyTestWidget.o \
+             Plugins/Development/Loreta/Loreta.o \
+             Plugins/Development/Loreta/LoretaPlugin.o \
+             Plugins/Development/Loreta/LoretaThreadHandler.o \
+             Plugins/Development/Loreta/LoretaWidget.o \
+             Plugins/Development/Loreta/Voxel.o \
              Plugins/Devices/BciDeviceWidget.o \
              Plugins/Devices/DevicesPlugin.o \
              Plugins/Devices/DevicesWidget.o \

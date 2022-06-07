@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 #include "Voxel.h"
 
 using namespace Core;

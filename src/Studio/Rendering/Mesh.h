@@ -28,6 +28,7 @@
 #include "../Config.h"
 #include <Core/Array.h>
 #include <Core/AABB.h>
+#include <Core/Ray.h>
 #include <Core/Vector.h>
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
@@ -59,6 +60,8 @@ class Mesh
 
 		// getter
 		inline const Core::Array<Core::Vector3>& GetVertices()     { return mVertices; }
+
+		const bool CheckRayIntersection(Core::Ray* ray, Core::Vector3 p1, Core::Vector3 p2, Core::Vector3 p3) const;
 
 	private:
 		/*struct Vertex
