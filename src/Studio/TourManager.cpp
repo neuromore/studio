@@ -149,10 +149,6 @@ bool TourManager::InitOnboardingActions()
 			"are read-only. To edit them you can copy them to your personal folder "
 			"by right-clicking on them. ");
 	fileHandlingAction->setActivePlugin("Back-End File System");
-	fileHandlingAction->setInstructionsTitle("Do this now");
-	fileHandlingAction->setInstructionsDescription("<ul> <li> Copy the <i> GettingStartedClassifier </i> and the"
-		" <i> GettingStartedStateMachine </i> from the <i> examples -> GettingStarted -> FocusTrainer </i> folder to your"
-		" personal folder </li> <li> Go to your personal folder (the top-most folder in the file system) and open both files by double clicking them </li> </ul>");
 	auto backendFileSystemWidget = fileHandlingAction->getDockWidget();
 
 	if (nullptr == backendFileSystemWidget)
@@ -162,7 +158,7 @@ bool TourManager::InitOnboardingActions()
 
 	fileHandlingAction->getWindowPosition = [](QDockWidget * backendFileSystemWidget, int titleBarHeight, OnboardingAction*)
 	{ return  QRect(backendFileSystemWidget->x() + backendFileSystemWidget->width() + 38,
-		backendFileSystemWidget->y() + backendFileSystemWidget->height() / 4 - titleBarHeight, 711, 560);
+		backendFileSystemWidget->y() + backendFileSystemWidget->height() / 4 - titleBarHeight, 711, 410);
 	};
 	fileHandlingAction->getArrowPosition = [](QDockWidget* backendFileSystemWidget, int titleBarHeight, OnboardingAction*)
 	{
@@ -189,11 +185,7 @@ bool TourManager::InitOnboardingActions()
 	classifierAction->setActivePlugin("Classifier");
 	classifierAction->setInstructionsTitle("Do this now");
 	classifierAction->setInstructionsDescription("<ul><li> Explore the graph by right-clicking and dragging in the classifier window </li>"
-	  	"<li>Zoom by pressing alt/option and turning the mouse wheel</li>"
-		"<li> Drag a View node from the <i> Output </i> section"
-		" of the toolbox on the right into the classifier and connect it the the <i> Alpha Band </i> node </li>"
-		"<li>Look at the <i> Signal View </i> below the classifier to see the Alpha amplitude for each "
-		"electrode of the simulated EEG headset.</li></ul>");
+	  	"<li>Zoom by pressing alt/option and turning the mouse wheel</li></ul>");
 
 	auto classifierWidget = classifierAction->getDockWidget();
 
@@ -213,7 +205,7 @@ bool TourManager::InitOnboardingActions()
 	{	
 		auto classifierTabRect = classifierAction->getTabRect(classifierWidget);
 		return  QRect(10, classifierWidget->y() + 3 * classifierTabRect.height() / 2 + 29 - titleBarHeight,
-			520, 780);
+			520, 580);
 	};
 	classifierAction->getArrowPosition = [](QDockWidget* classifierWidget, int titleBarHeight, OnboardingAction* classifierAction)
 	{
