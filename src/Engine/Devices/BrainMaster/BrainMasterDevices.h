@@ -47,6 +47,8 @@ public:
    void CreateSensors() override;
 
 protected:
+   Sensor* mFpz;
+   Sensor* mOz;
    Sensor* mAUX23;
    Sensor* mAUX24;
 };
