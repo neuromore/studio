@@ -71,7 +71,7 @@ void BciDeviceWidget::Init()
 
 	// set minimuim size and expanding
 	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
-	mEEGElectrodeWidget->setFixedSize(180,180);
+	mEEGElectrodeWidget->setFixedSize(256,256);
 
 	// add it to primary layout
 	QVBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();
