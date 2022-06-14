@@ -1,0 +1,29 @@
+name: Build Windows
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      MODE: release
+      TARGET_OS: win
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2019,windows-2022]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build (X64)
+      shell: cmd
+      run: |
+        make TARGET_ARCH=x64 Dependencies
+        make TARGET_ARCH=x64
+
+    - name: Build (X86)
+      shell: cmd
+      run: |
+        make TARGET_ARCH=x86 Dependencies
+        make TARGET_ARCH=x86
