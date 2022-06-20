@@ -59,6 +59,7 @@ class ENGINE_API DeviceTypeIDs
 			DEVICE_TYPEID_NEUROSITY_CROWN			= 0x0951,	// 095X = neurosity crown
 			DEVICE_TYPEID_BRAINFLOW					= 0x1001,   // 10XX = BrainFlow
 			DEVICE_TYPEID_BRAINFLOW_CYTON			= 0x1002,
+			DEVICE_TYPEID_BRAINALIVE				= 0x2001,	// 20XX = BrainAlive
 
 			// A0XX = Generic Vital Sensor (Sub)Devices
 			DEVICE_TYPEID_GENERIC_HEARTRATE			= 0xA001,	// Heartrate sensors (Pulse + RR)
@@ -101,6 +102,7 @@ class ENGINE_API DeviceTypeIDs
 			DRIVER_TYPEID_EEMAGINE					= 0x0A00,	// 0AXX = eemagine
 			DRIVER_TYPEID_BRAINMASTER				= 0x0B00,	// 0BXX = BrainMaster
 			DRIVER_TYPEID_BRAINFLOW					= 0x1000,	// 1000 = BrainFlow Driver
+			DRIVER_TYPEID_BRAINALIVE			    = 0x2000,	// 2000 = BrainALive Driver
 			DRIVER_TYPEID_AUDIO						= 0xC000,	// C000 = Audio Driver
 			DRIVER_TYPEID_CAMERA					= 0xD000,	// D000 = Camera Driver
 			DRIVER_TYPEID_BLUETOOTH					= 0xE000,	// E000 = Bluetooth Driver
