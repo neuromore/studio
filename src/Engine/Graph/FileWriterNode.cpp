@@ -162,9 +162,14 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 		mFileName.Replace(StringCharacter::backSlash, StringCharacter::forwardSlash);
 		SetStringAttribute("File", mFileName);
 
+		// build ISO 8601 date
+		Core::String timestr = GetSession()->GetStartTime().AsUtcString();
+		timestr.Replace(":", "");
+		timestr.Remove(timestr.Find("Z")+1, 4);
+
 		// format string
-		mTempString = Time::Now().Format(mFileName);
-		mTempString.Replace("$starttime", GetSession()->GetStartTime().AsUtcString());
+		mTempString = mFileName;
+		mTempString.Replace("$starttime", timestr);
 		mTempString.Trim();
 		mTempString.ConvertToNativePath();
 
