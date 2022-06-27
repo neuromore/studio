@@ -149,6 +149,9 @@ class BackendFileSystemWidget : public QWidget
 		void keyPressEvent(QKeyEvent* event);
 		void keyReleaseEvent(QKeyEvent* event);
 
+		// expand item by path, e.g. { "examples", "GettingStarted", "FocusTrainer"}
+		bool ExpandByPath(const QStringList& itemPath);
+
 	public slots:
 		void Refresh();
 		void OnCreateFile();

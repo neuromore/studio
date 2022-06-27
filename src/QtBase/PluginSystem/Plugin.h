@@ -99,6 +99,8 @@ class QTBASE_API Plugin : public QObject, public Core::AttributeSet
 		void SetTitle(const char* title);
 		void SetTitleBarVisible(bool visible = true);
 
+		QRect GetGeometry() const;
+
 	signals:
 		void RemovePlugin();
 		

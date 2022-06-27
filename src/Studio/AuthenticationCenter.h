@@ -64,6 +64,7 @@ class AuthenticationCenter : public QObject
 
 		inline bool IsInterfaceAllowed() const												{ return (mUserLoggedIn == true); }
 		void UpdateInterface();
+		bool IsUserInputLogIn() const														{ return mUserInputLogIn; }
 
 		static bool RemoveLoginInfoFromLicense();
 		static bool RemoveLicenseFromDisk();
@@ -74,6 +75,7 @@ class AuthenticationCenter : public QObject
 		Core::String	mLastPassword;
 		bool			mLastLoginFailed;
 		bool			mUserLoggedIn;
+		bool			mUserInputLogIn;
 };
 
 
