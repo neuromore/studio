@@ -279,12 +279,12 @@ String AppManager::GetAppName() const
 		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
 		else name = "eego perform studio";
 #elif NEUROMORE_BRANDING_STARRBASE
-		if (user->FindRule("ROLE_Admin") != NULL) name = "Starrbase - Admin";
-		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Starrbase - Clinic Admin";
-		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Starrbase - Clinician";
-		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Starrbase - Operator";
-		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Starrbase - Patient";
-		else name = "Starrbase";
+		if (user->FindRule("ROLE_Admin") != NULL) name = "Brainstation - Admin";
+		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Brainstation - Clinic Admin";
+		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Brainstation - Clinician";
+		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Brainstation - Operator";
+		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Brainstation - Patient";
+		else name = "Brainstation";
 #else
 		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
 		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
