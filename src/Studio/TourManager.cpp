@@ -363,7 +363,7 @@ bool TourManager::InitOnboardingActions()
 	customParametersAction->setTitle("Using Parameters");
 	customParametersAction->setDescription("You can parameterize the experience and adjust those parameters "
 		"either before or during a session. Here you find the 'Duration' parameter again "
-		"that you can also set in the experience by clicking on one of the buttons.");
+		"that we previously set in the experience window after starting a session.");
 	customParametersAction->setActivePlugin("Parameters");
 
 	auto customParametersWidget = customParametersAction->getDockWidget();
