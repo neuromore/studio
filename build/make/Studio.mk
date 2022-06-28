@@ -214,7 +214,9 @@ MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
              AuthenticationCenter.cpp \
              MainWindow.cpp \
              VideoPlayer.cpp \
-             VisualizationManager.cpp
+             VisualizationManager.cpp \
+             OnboardingAction.cpp \
+             TourManager.cpp
 MOCC       =
 MOCO       = $(patsubst %.cpp,%.omoc,$(MOCH))
 RCCH       = Resources/StudioResources.cpp
@@ -351,7 +353,9 @@ OBJS       = Devices/ABM/AbmDriver.o \
              MainWindow.o \
              VideoPlayer.o \
              Visualization.o \
-             VisualizationManager.o
+             VisualizationManager.o \
+             OnboardingAction.o \
+             TourManager.o
 
 ################################################################################################
 # BRANDINGS

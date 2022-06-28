@@ -1,0 +1,82 @@
+name: Build Linux
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      MODE: release
+      TARGET_OS: linux
+      ARCH: ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        arch: [amd64]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Cross-Compile Support
+      uses: cyberjunk/gha-ubuntu-cross@v1
+      if: matrix.arch != 'amd64'
+      with:
+        arch: ${{ matrix.arch }}
+
+    - name: Ubuntu Packages
+      run: |
+        sudo apt-get install \
+          llvm \
+          libgstreamer1.0-dev:$ARCH \
+          libgstreamer-plugins-base1.0-dev:$ARCH \
+          libgstreamer-plugins-good1.0-dev:$ARCH \
+          libglib2.0-dev:$ARCH \
+          libgl1-mesa-dev:$ARCH \
+          libglu1-mesa-dev:$ARCH \
+          libsm-dev:$ARCH \
+          libx11-dev:$ARCH \
+          libx11-xcb-dev:$ARCH \
+          libexpat-dev:$ARCH \
+          libxkbcommon-dev:$ARCH \
+          libxcb1-dev:$ARCH \
+          libxcb-glx0-dev:$ARCH \
+          libxcb-icccm4-dev:$ARCH \
+          libxcb-image0-dev:$ARCH \
+          libxcb-keysyms1-dev:$ARCH \
+          libxcb-randr0-dev:$ARCH \
+          libxcb-render0-dev:$ARCH \
+          libxcb-render-util0-dev:$ARCH \
+          libxcb-shape0-dev:$ARCH \
+          libxcb-shm0-dev:$ARCH \
+          libxcb-sync-dev:$ARCH \
+          libxcb-xfixes0-dev:$ARCH \
+          libxcb-xinerama0-dev:$ARCH \
+          libxcb-xkb-dev:$ARCH \
+          libxcb-util-dev:$ARCH
+
+    - name: QEMU (ARM64/ARMHF)
+      if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
+      run: sudo apt-get install qemu-user qemu-user-static
+
+    - name: Build
+      run: |
+        if [ $ARCH == amd64 ]; then \
+          export TARGET_ARCH=x64; \
+          export TARGET=x86_64-linux-gnu; \
+        fi
+        if [ $ARCH == i386 ]; then \
+          export TARGET_ARCH=x86; \
+          export TARGET=i686-linux-gnu; \
+        fi
+        if [ $ARCH == arm64 ]; then \
+          export TARGET_ARCH=arm64; \
+          export TARGET=aarch64-linux-gnu; \
+        fi
+        if [ $ARCH == armhf ]; then \
+          export TARGET_ARCH=arm; \
+          export TARGET=arm-linux-gnueabihf; \
+        fi
+        clang++ --target=$TARGET -v
+        make Dependencies
+        make

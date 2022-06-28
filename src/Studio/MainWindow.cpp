@@ -448,7 +448,6 @@ void MainWindow::Init()
 	updateAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Refresh.png") );
 #endif
 
-
 	helpMenu->addSeparator();
 
 	QAction* visitWebsiteAction = helpMenu->addAction( tr("Website"), this, &MainWindow::OnVisitWebsite );
@@ -684,6 +683,32 @@ void MainWindow::OnPostAuthenticationInit()
 	//if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)
 		//QMessageBox::warning(this, "WARNING", "You are using the Production (AWS) backend with a development version of neuromore Studio.\n\nPlease switch back to the Test (AWS) backend." );
 #endif
+	if (user->FindRule("ROLE_Community") != nullptr)
+	{
+		QList<QMenu*> allMenus = mMenuBar->findChildren<QMenu*>();
+		for (const auto helpMenu: allMenus)
+		{
+			if (helpMenu != nullptr && helpMenu->title() == "&Help")
+			{
+				auto actions = helpMenu->actions();
+				for (const auto action: actions)
+				{
+					if (action != nullptr && action->text() == "Website")
+					{
+						QAction* productTourAction = new QAction(GetQtBaseManager()->FindIcon("Images/Icons/Info.png"), "Product tour", mMenuBar);
+						connect(productTourAction, &QAction::triggered, GetManager(), &AppManager::LoadTourManager);
+						helpMenu->insertAction(action, productTourAction);
+						helpMenu->insertSeparator(action);
+					}
+				}
+			}
+		}
+
+		if (GetAuthenticationCenter()->IsUserInputLogIn())
+		{
+			emit postAuthenticationInitSucceed();
+		}
+	}
 }
 
 
@@ -986,6 +1011,9 @@ void MainWindow::OnVisitSupport()
 // user wants to close the window: ask to save dirty files
 void MainWindow::closeEvent(QCloseEvent* event)
 {
+	auto appManager = GetManager();
+	appManager->CloseTour();
+
 	String message;
 
 	// session is running
@@ -1059,6 +1087,41 @@ void MainWindow::closeEvent(QCloseEvent* event)
 	event->accept();
 }
 
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+	QMainWindow::resizeEvent(event);
+	emit resized();
+}
+
+
+void MainWindow::moveEvent(QMoveEvent* event)
+{
+	QMainWindow::moveEvent(event);
+	emit resized();
+}
+
+
+void MainWindow::changeEvent(QEvent* event)
+{
+	QMainWindow::changeEvent(event);
+	if (event->type() == QEvent::WindowStateChange)
+	{
+		QWindowStateChangeEvent* stateEvent = static_cast<QWindowStateChangeEvent*>(event);
+		if (isMinimized())
+		{
+			emit minimized();
+		}
+		else if (stateEvent->oldState() & Qt::WindowMinimized)
+		{
+			emit maximized();
+		}
+		else
+		{
+			emit resized();
+		}
+	}
+}
 
 // key pressed
 void MainWindow::keyPressEvent(QKeyEvent* event)
