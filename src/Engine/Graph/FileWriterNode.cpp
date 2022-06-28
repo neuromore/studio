@@ -158,6 +158,7 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 		}
 		// generate filename
 		mFileName = GetStringAttribute(ATTRIB_FILE);
+
 		// HACKFIX backslash escape sequences are interpreted somewhere in the attribute stack 
 		mFileName.Replace(StringCharacter::backSlash, StringCharacter::forwardSlash);
 		SetStringAttribute("File", mFileName);
@@ -171,8 +172,17 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 		mTempString = mFileName;
 		mTempString.Replace("$starttime", timestr);
 		mTempString.Trim();
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
+		// map homefolder '~' to %userprofile% on win
+		if (mTempString.Find("~") == 0) {
+			char* userprof = ::getenv("userprofile");
+			if (userprof) {
+				mTempString.TrimLeft(Core::StringCharacter::StringCharacter('~'));
+				mTempString = Core::String(userprof) + mTempString;
+			}
+		}
+#endif
 		mTempString.ConvertToNativePath();
-
 		LogDebug("FileWriterNode: Final filename is %s", mTempString.AsChar());
 
 		// check if the file exists already
