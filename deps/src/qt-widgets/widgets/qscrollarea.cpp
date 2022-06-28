@@ -470,7 +470,7 @@ void QScrollArea::ensureWidgetVisible(QWidget *childWidget, int xmargin, int yma
 {
     Q_D(QScrollArea);
 
-    if (!d->widget->isAncestorOf(childWidget))
+    if (!d->widget || !d->widget->isAncestorOf(childWidget))
         return;
 
     const QRect microFocus = childWidget->inputMethodQuery(Qt::ImCursorRectangle).toRect();
