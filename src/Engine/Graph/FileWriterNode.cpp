@@ -177,7 +177,7 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 		if (mTempString.Find("~") == 0) {
 			char* userprof = ::getenv("userprofile");
 			if (userprof) {
-				mTempString.TrimLeft(Core::StringCharacter::StringCharacter('~'));
+				mTempString.TrimLeft(Core::StringCharacter('~'));
 				mTempString = Core::String(userprof) + mTempString;
 			}
 		}
