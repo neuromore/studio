@@ -60,8 +60,10 @@ void ExperienceAssetCache::PreloadAssets()
 		stateMachine->CollectAssets();
 		Core::Array<StateMachine::Asset> assets = stateMachine->GetAssets();
 		const uint32 numAssets = assets.Size();
-		for (uint32 i=0; i<numAssets; ++i)
-			assetUrls.Add( assets[i].mLocation );
+		for (uint32 i=0; i<numAssets; ++i) {
+			if (!assets[i].mAllowStreaming)
+				assetUrls.Add( assets[i].mLocation );
+		}
 	}
 
 	mCache->Download(assetUrls);

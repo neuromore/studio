@@ -42,8 +42,8 @@ FileWriterNode::FileWriterNode(Graph* graph) : SPNode(graph)
 	mWriteMode = WRITEMODE_KEEP;
 	mHandle = -1;
 
-	// configure write clock
-	mClock.SetFrequency(0.5);	//write every 2 seconds
+	// write to files at 10Hz (every 100ms)
+	mClock.SetFrequency(10.0);	
 }
 
 
@@ -93,6 +93,18 @@ void FileWriterNode::Init()
 	// attributeWriteMode->AddComboValue("Overwrite during Session");
 	// attributeWriteMode->AddComboValue("Append");
 	attributeWriteMode->SetDefaultValue(Core::AttributeInt32::Create(1));
+
+	// edf+ phyiscal min
+	Core::AttributeSettings* attributeEdfMin = RegisterAttribute("EDF+ Min.", "EdfMin", "Physical Minimum in EDF+ Format.", Core::ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
+	attributeEdfMin->SetMinValue(Core::AttributeFloat::Create(-10000.0));
+	attributeEdfMin->SetMaxValue(Core::AttributeFloat::Create(-1.0));
+	attributeEdfMin->SetDefaultValue(Core::AttributeFloat::Create(-100.0));
+
+	// edf+ phyiscal max
+	Core::AttributeSettings* attributeEdfMax = RegisterAttribute("EDF+ Max.", "EdfMax", "Physical Maximum in EDF+ Format.", Core::ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
+	attributeEdfMax->SetMinValue(Core::AttributeFloat::Create(1.0));
+	attributeEdfMax->SetMaxValue(Core::AttributeFloat::Create(10000.0));
+	attributeEdfMax->SetDefaultValue(Core::AttributeFloat::Create(100.0));
 }
 
 void FileWriterNode::Reset()
@@ -146,16 +158,31 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 		}
 		// generate filename
 		mFileName = GetStringAttribute(ATTRIB_FILE);
+
 		// HACKFIX backslash escape sequences are interpreted somewhere in the attribute stack 
 		mFileName.Replace(StringCharacter::backSlash, StringCharacter::forwardSlash);
 		SetStringAttribute("File", mFileName);
 
-		// format string
-		mTempString = Time::Now().Format(mFileName);
-		mTempString.Replace("$starttime", GetSession()->GetStartTime().AsUtcString());
-		mTempString.Trim();
-		mTempString.ConvertToNativePath();
+		// build ISO 8601 date
+		Core::String timestr = GetSession()->GetStartTime().AsUtcString();
+		timestr.Replace(":", "");
+		timestr.Remove(timestr.Find("Z")+1, 4);
 
+		// format string
+		mTempString = mFileName;
+		mTempString.Replace("$starttime", timestr);
+		mTempString.Trim();
+#if defined(NEUROMORE_PLATFORM_WINDOWS)
+		// map homefolder '~' to %userprofile% on win
+		if (mTempString.Find("~") == 0) {
+			char* userprof = ::getenv("userprofile");
+			if (userprof) {
+				mTempString.TrimLeft(Core::StringCharacter('~'));
+				mTempString = Core::String(userprof) + mTempString;
+			}
+		}
+#endif
+		mTempString.ConvertToNativePath();
 		LogDebug("FileWriterNode: Final filename is %s", mTempString.AsChar());
 
 		// check if the file exists already
@@ -192,7 +219,7 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 							mIsInitialized = false;
 						}
 						// try to write file header
-						else if (mFileWriter.WriteHeader(mFileFormat, mWriteChannels, mFile) == false)
+						else if (mFileWriter.WriteHeader(mFileFormat, mWriteChannels, mFile, 0, 0.0, 0.0) == false)
 						{
 							// could not write
 							SetError(ERROR_FILE_NOT_WRITEABLE, "Cannot write to file.");
@@ -213,26 +240,17 @@ void FileWriterNode::ReInit(const Time& elapsed, const Time& delta)
 						if (channelsSize > 0) {
 							int handle = edfopen_file_writeonly(mTempString.AsChar(), EDFLIB_FILETYPE_EDFPLUS, channelsSize);
 							if (handle >= 0) {
-								bool success = true;
-								for (uint32 i = 0; i < channelsSize; ++i) {
-									success = success && edf_set_samplefrequency(handle, i, mWriteChannels[i]->GetSampleRate()) == 0;
-									success = success && edf_set_physical_minimum(handle, i, mWriteChannels[i]->GetMinValue()) == 0;
-									success = success && edf_set_physical_maximum(handle, i, mWriteChannels[i]->GetMaxValue()) == 0;
-									success = success && edf_set_label(handle, i, mWriteChannels[i]->GetName()) == 0;
-									success = success && edf_set_digital_minimum(handle, i, -32768) == 0;
-									success = success && edf_set_digital_maximum(handle, i, 32767) == 0;
-									success = success && edf_set_physical_dimension(handle, i, "uV") == 0;
-									if (!success) {
-										SetError(ERROR_FILE_NOT_WRITEABLE, "Cannot configure the file.");
-										if (edfclose_file(handle) != 0) {
-											SetError(ERROR_FILE_NOT_WRITEABLE, "Cannot close the file.");
-										}
-										break;
+
+								bool success = mFileWriter.WriteHeader(mFileFormat, mWriteChannels, 0, handle, 
+									GetFloatAttribute(ATTRIB_EDFMIN), GetFloatAttribute(ATTRIB_EDFMAX));
+								if (!success) {
+									SetError(ERROR_FILE_NOT_WRITEABLE, "Cannot configure the file.");
+									if (edfclose_file(handle) != 0) {
+										SetError(ERROR_FILE_NOT_WRITEABLE, "Cannot close the file.");
 									}
 								}
-								if (success) {
+								else {
 									mHandle = handle;
-									// init successfull
 									mIsWriting = true;
 								}
 							} else if (handle == EDFLIB_NO_SUCH_FILE_OR_DIRECTORY) {

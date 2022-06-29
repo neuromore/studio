@@ -37,7 +37,7 @@ using namespace Core;
 // base class
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-DiscoveryDevice::DiscoveryDevice(DeviceDriver* driver) : BciDevice(driver)
+DiscoveryDevice::DiscoveryDevice(DeviceDriver* driver) : BciDevice(driver), mFpz(0), mOz(0), mAUX23(0), mAUX24(0)
 {
    // start in connected state
    mState = STATE_IDLE;
@@ -52,11 +52,15 @@ void DiscoveryDevice::CreateSensors()
    // create EEG electrode sensors first
    BciDevice::CreateSensors();
 
-   // add custom aux inputs
+   // add four invisible/custom ones (20+4)
+   mFpz   = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "Fpz");
+   mOz    = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "Oz");
    mAUX23 = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "AUX23");
    mAUX24 = AddSensor(Device::ESensorDirection::SENSOR_INPUT, "AUX24");
 
    // use device default samplerate on them
+   mFpz->SetSampleRate(GetSampleRate());
+   mOz->SetSampleRate(GetSampleRate());
    mAUX23->SetSampleRate(GetSampleRate());
    mAUX24->SetSampleRate(GetSampleRate());
 }
@@ -67,7 +71,7 @@ void DiscoveryDevice::CreateSensors()
 
 Discovery20Device::Discovery20Device(DeviceDriver* driver) : DiscoveryDevice(driver), mSensorMode(0)
 {
-   LogDetailedInfo("Constructing Discovery with 20 channels ...");
+   LogDetailedInfo("Constructing Discovery with 20+4 channels ...");
    CreateSensors();
 
    // set powersupplytype to line
@@ -76,7 +80,7 @@ Discovery20Device::Discovery20Device(DeviceDriver* driver) : DiscoveryDevice(dri
 
 Discovery20Device::~Discovery20Device()
 {
-   LogDetailedInfo("Destructing Discovery with 20 channels ...");
+   LogDetailedInfo("Destructing Discovery with 20+4 channels ...");
 }
 
 void Discovery20Device::CreateElectrodes()
@@ -105,9 +109,10 @@ void Discovery20Device::CreateElectrodes()
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));  // ch18
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));  // ch19
    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("A2"));  // ch20 rather:A2-A1
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz")); // ch21
-   mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));  // ch22
 
+   // these don't have a connector but an amplifier channel..
+   //mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fpz"));   // ch21
+   //mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));    // ch22
    //mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AUX23")); // ch23
    //mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("AUX24")); // ch24
 }

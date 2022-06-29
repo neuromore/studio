@@ -104,8 +104,8 @@ class AppManager : public QObject
 		const char* GetStoreUrl() const									{ return "https://myneurva.com"; }
 		const char* GetForgotPasswordUrl() const						{ return "https://starrbase.myneurva.com/resetrequest"; }
 		const char* GetSupportEMail() const								{ return "support@myneurva.com"; }
-		const char* GetAppShortName() const								{ return "Starrbase"; }
-		const char* GetMenuStudioName() const							{ return "Starrbase"; }
+		const char* GetAppShortName() const								{ return "Brainstation"; }
+		const char* GetMenuStudioName() const							{ return "Brainstation"; }
 		const char* GetLicenseUrl() const								{ return "https://assets.starrbase.myneurva.com/license/license.txt"; }
 		const char* GetCloudTermsUrl() const							{ return "https://assets.starrbase.myneurva.com/license/terms-and-conditions.txt"; }
 		const char* GetPrivacyPolicyUrl() const						{ return "https://assets.starrbase.myneurva.com/license/privacy-policy.txt"; }

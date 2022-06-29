@@ -307,7 +307,7 @@ void BrainMasterDriver::onFrame(Discovery20& d, const Discovery20::Frame& f, con
       const auto& impAct = d.getActiveImpedances();
       const auto& impRef = d.getReferenceImpedances();
 
-      // TODO: Use impedance values here instead
+      // channel impedances
       for (uint32_t i = 0; i < numSensors - 1; i++)
       {
          Sensor* s = mDevice->GetInputSensor(i);
