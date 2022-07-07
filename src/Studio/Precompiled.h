@@ -107,6 +107,8 @@
 #include <QLowEnergyController>
 #include <QLowEnergyService>
 #include <QApplication>
+#include <QTextDocument>
+#include <QTextOption>
 
 // From QtBase
 #include <QtBase/QtBaseConfig.h>
