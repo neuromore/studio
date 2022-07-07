@@ -61,6 +61,9 @@ AppManager::AppManager(int argc, char* argv[])
 {
 	LogDetailedInfo("Constructing application manager object ...");
 
+	// init tourmanager
+	mTourManager = NULL;
+
 	// set version
 	mVersion = Version( NEUROMORE_STUDIO_VERSION_MAJOR, NEUROMORE_STUDIO_VERSION_MINOR, NEUROMORE_STUDIO_VERSION_PATCH );
 
