@@ -75,6 +75,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/qt-fontdatabases$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/qt-printsupport$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/qt-serialport$(SUFFIX)$(EXTLIB) \
+             $(LIBDIRDEP)/qt-websockets$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/qt-widgets$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/qt-gui$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/qt-xml$(SUFFIX)$(EXTLIB) \
