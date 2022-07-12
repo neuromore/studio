@@ -37,7 +37,11 @@ MOCH       = private/qsslserver_p.cpp \
              qwebsocket.cpp \
              qwebsocketserver.cpp
 MOCC       =
-MOCO       =
+MOCO       = qsslserver_p.omoc \
+             qwebsocketdataprocessor_p.omoc \
+             qwebsockethandshakeresponse_p.omoc \
+             qwebsocket.omoc \
+             qwebsocketserver.omoc
 RCCH       =
 RCCO       =
 UICH       =
