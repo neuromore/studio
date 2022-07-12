@@ -267,6 +267,12 @@ qt-uic: zlib qt-bootstrap
 qt-uic-clean: zlib-clean qt-bootstrap-clean
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f qt-uic.mk clean -j $(DETECTED_CORES)
 
+qt-websockets: qt-moc qt-rcc qt-uic
+	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f qt-websockets.mk -j $(DETECTED_CORES)
+
+qt-websockets-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
+	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f qt-websockets.mk clean -j $(DETECTED_CORES)
+
 qt-widgets: qt-moc qt-rcc qt-uic
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f qt-widgets.mk -j $(DETECTED_CORES)
 
@@ -358,6 +364,7 @@ zlib-clean:
   qt-rcc \
   qt-serialport \
   qt-uic \
+  qt-websockets \
   qt-widgets \
   qt-xml \
   singleapplication \
@@ -409,6 +416,7 @@ zlib-clean:
   qt-rcc-clean \
   qt-serialport-clean \
   qt-uic-clean \
+  qt-websockets-clean \
   qt-widgets-clean \
   qt-xml-clean \
   singleapplication-clean \
