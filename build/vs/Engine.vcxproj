@@ -912,7 +912,13 @@
     <ClInclude Include="..\..\src\Engine\Graph\StateTransition.h" />
     <ClCompile Include="..\..\src\Engine\Graph\StateTransitionAudioCondition.cpp" />
     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionAudioCondition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerPausedCondition.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStartedCondition.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.cpp" />
     <ClCompile Include="..\..\src\Engine\Graph\StateTransitionButtonCondition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerPausedCondition.h" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStartedCondition.h" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.h" />
     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionButtonCondition.h" />
     <ClCompile Include="..\..\src\Engine\Graph\StateTransitionCondition.cpp" />
     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionCondition.h" />
@@ -920,7 +926,9 @@
     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionFeedbackCondition.h" />
     <ClCompile Include="..\..\src\Engine\Graph\StateTransitionTimeCondition.cpp" />
     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionTimeCondition.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionUrlOpenedCondition.cpp" />
     <ClCompile Include="..\..\src\Engine\Graph\StateTransitionVideoCondition.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionUrlOpenedCondition.h" />
     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionVideoCondition.h" />
     <ClCompile Include="..\..\src\Engine\Graph\StatisticsNode.cpp" />
     <ClInclude Include="..\..\src\Engine\Graph\StatisticsNode.h" />
@@ -955,6 +963,7 @@
     <ClCompile Include="..\..\src\Engine\Networking\OscPacketPool.cpp" />
     <ClInclude Include="..\..\src\Engine\Networking\OscPacketPool.h" />
     <ClInclude Include="..\..\src\Engine\Networking\OscReceiver.h" />
+    <ClInclude Include="..\..\src\Engine\Networking\WebsocketProtocol.h" />
     <ClInclude Include="..\..\src\Engine\Notifications.h" />
     <ClCompile Include="..\..\src\Engine\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

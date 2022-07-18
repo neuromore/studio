@@ -403,6 +403,12 @@
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Precompiled.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Networking\WebsocketServer.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\WebsocketServer.moc.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.h">
@@ -687,6 +693,9 @@
     <ClInclude Include="..\..\src\QtBase\SystemInfo.h" />
     <ClInclude Include="..\..\src\QtBase\Version.h" />
     <ClInclude Include="..\..\src\QtBase\Precompiled.h" />
+    <ClInclude Include="..\..\src\QtBase\Networking\WebsocketServer.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

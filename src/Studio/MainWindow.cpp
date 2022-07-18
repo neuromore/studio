@@ -147,6 +147,10 @@ void MainWindow::Init()
 	// create the osc listener
 	mOscServer = new OscServer(STUDIO_OSCLISTENER_UDP_PORT, STUDIO_OSCREMOTE_UDP_PORT);
 
+	// create the websocket server
+	mWebsocketServer = new WebsocketServer(1234, true);
+	QObject::connect(mWebsocketServer, &WebsocketServer::closed, this, &QCoreApplication::quit);
+
 #ifdef BACKEND_LOGGING
 	// enable back-end logging
 	GetBackendInterface()->SetIsLogEnabled(true);

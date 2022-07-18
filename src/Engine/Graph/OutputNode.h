@@ -113,6 +113,8 @@ class ENGINE_API OutputNode : public SPNode
 
 		virtual Core::String& GetDebugString(Core::String& inout) override;
 
+		double GetSampleRate(SignalResolution resolution, ChannelBase* reference);
+
 	protected:
 		// channel for storing all input samples
 		Core::Array< Channel<double>* > mChannels;
@@ -127,7 +129,6 @@ class ENGINE_API OutputNode : public SPNode
 		
 		// signal resolution 
 		const char* GetResolutionString(SignalResolution resolution);
-		double GetSampleRate(SignalResolution resolution, ChannelBase* reference);
 		SignalResolution mCurrentResolution;
 
 };

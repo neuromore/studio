@@ -564,4 +564,114 @@ class ENGINE_API ClearButtonsAction : public Action
 };
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// open url action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class ENGINE_API OpenUrlAction : public Action
+{
+	public:
+		enum { TYPE_ID = 0x00716 };
+		static const char* Uuid ()																{ return "3b4bc810-78d4-42bf-87ec-0e661dd09eb0"; }
+
+		enum
+		{
+			ATTRIBUTE_URL = 0,
+		};
+
+		// constructor & destructor
+		OpenUrlAction(Graph* graph) : Action(graph)											{}
+		~OpenUrlAction()																		{}
+
+		void Init() override;
+		void Execute() override;
+		void Update(const Core::Time& elapsed, const Core::Time& delta) override				{}
+
+		// overloaded
+		virtual const char* GetReadableType() const override final								{ return "Open URL Action"; }
+		uint32 GetType() const override															{ return TYPE_ID; }
+		const char* GetTypeUuid() const override final											{ return Uuid(); }
+		GraphObject* Clone(Graph* graph) override												{ OpenUrlAction* clone = new OpenUrlAction(graph); return clone; }
+};
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// browser start player
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class ENGINE_API BrowserStartPlayerAction : public Action
+{
+	public:
+		enum { TYPE_ID = 0x00717 };
+		static const char* Uuid ()																{ return "ab9fafc1-ab5e-45b3-890f-32d807ee67c3"; }
+
+		enum
+		{
+			ATTRIBUTE_PROGRESS   = 0,
+			ATTRIBUTE_FULLSCREEN = 1
+		};
+
+		// constructor & destructor
+		BrowserStartPlayerAction(Graph* graph) : Action(graph)											{}
+		~BrowserStartPlayerAction()																		{}
+
+		void Init() override;
+		void Execute() override;
+		void Update(const Core::Time& elapsed, const Core::Time& delta) override				{}
+
+		// overloaded
+		virtual const char* GetReadableType() const override final								{ return "Start Browser Player"; }
+		uint32 GetType() const override															{ return TYPE_ID; }
+		const char* GetTypeUuid() const override final											{ return Uuid(); }
+		GraphObject* Clone(Graph* graph) override												{ BrowserStartPlayerAction* clone = new BrowserStartPlayerAction(graph); return clone; }
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// browser stop player
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class ENGINE_API BrowserStopPlayerAction : public Action
+{
+	public:
+		enum { TYPE_ID = 0x00718 };
+		static const char* Uuid ()																{ return "96e47cbd-9679-4753-9843-00cd2fdd54dc"; }
+
+		// constructor & destructor
+		BrowserStopPlayerAction(Graph* graph) : Action(graph)											{}
+		~BrowserStopPlayerAction()																		{}
+
+		void Init() override;
+		void Execute() override;
+		void Update(const Core::Time& elapsed, const Core::Time& delta) override				{}
+
+		// overloaded
+		virtual const char* GetReadableType() const override final								{ return "Stop Browser Player"; }
+		uint32 GetType() const override															{ return TYPE_ID; }
+		const char* GetTypeUuid() const override final											{ return Uuid(); }
+		GraphObject* Clone(Graph* graph) override												{ BrowserStopPlayerAction* clone = new BrowserStopPlayerAction(graph); return clone; }
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// browser pause player
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class ENGINE_API BrowserPausePlayerAction : public Action
+{
+	public:
+		enum { TYPE_ID = 0x00719 };
+		static const char* Uuid ()																{ return "191365a1-0763-4fec-bc77-863745ac6f9b"; }
+
+		// constructor & destructor
+		BrowserPausePlayerAction(Graph* graph) : Action(graph)											{}
+		~BrowserPausePlayerAction()																		{}
+
+		void Init() override;
+		void Execute() override;
+		void Update(const Core::Time& elapsed, const Core::Time& delta) override				{}
+
+		// overloaded
+		virtual const char* GetReadableType() const override final								{ return "Pause Browser Player"; }
+		uint32 GetType() const override															{ return TYPE_ID; }
+		const char* GetTypeUuid() const override final											{ return Uuid(); }
+		GraphObject* Clone(Graph* graph) override												{ BrowserPausePlayerAction* clone = new BrowserPausePlayerAction(graph); return clone; }
+};
+
+
+
 #endif
