@@ -159,6 +159,12 @@ pcre2:
 pcre2-clean:
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f pcre2.mk clean -j $(DETECTED_CORES)
 
+protobuf:
+	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f protobuf.mk -j $(DETECTED_CORES)
+
+protobuf-clean:
+	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f protobuf.mk clean -j $(DETECTED_CORES)
+
 qt-bluetooth: qt-moc qt-rcc qt-uic
 	@make -s -C ./build/make/ TARGET_OS=$(TARGET_OS) TARGET_ARCH=$(TARGET_ARCH) -f qt-bluetooth.mk -j $(DETECTED_CORES)
 
@@ -346,6 +352,7 @@ zlib-clean:
   opencv-videoio \
   oscpack \
   pcre2 \
+  protobuf \
   qt-bluetooth \
   qt-bootstrap \
   qt-concurrent \
@@ -398,6 +405,7 @@ zlib-clean:
   opencv-videoio-clean \
   oscpack-clean \
   pcre2-clean \
+  protobuf-clean \
   qt-bluetooth-clean \
   qt-bootstrap-clean \
   qt-concurrent-clean \

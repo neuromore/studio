@@ -40,6 +40,7 @@ Open-Source Third Party Software included in this repository.
 | oscpack             | 1.1.0    | http://www.rossbencina.com/code/oscpack               | OSC protocol                            |
 | oscpp               | ?.?.?    |                                                       |                                         |
 | pcre2               | 10.33    | https://www.pcre.org/                                 | Perl Compatible Regular Expressions     |
+| protobuf            | 21.5     | https://github.com/protocolbuffers/protobuf           | Google Protocol Buffers                 |
 | qt                  | 5.12.4   | https://www.qt.io/                                    | Qt Framework (only partial)             |
 | rapidjson           | 1.1.0    | https://rapidjson.org/                                | JSON Support                            |
 | rfc6234             | ?.?.?    |                                                       | RFC6234 Implementation                  |

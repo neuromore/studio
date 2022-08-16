@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="io">
+      <UniqueIdentifier>{4c8504e6-f8be-47a9-bd84-6d0b384427d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{50354f0f-d01a-47c5-9229-b114f1c72f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stubs">
+      <UniqueIdentifier>{d72959d1-a085-4f1e-aa7f-b607a9fdcd84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util\internal">
+      <UniqueIdentifier>{83b7ec3d-dee8-45e0-9bf8-8ae79715b638}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\protobuf\io\coded_stream.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\io\gzip_stream.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\io\io_win32.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\io\printer.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\io\strtod.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\io\tokenizer.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\io\zero_copy_stream.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\io\zero_copy_stream_impl.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\io\zero_copy_stream_impl_lite.cc">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\bytestream.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\common.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\int128.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\status.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\statusor.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\stringpiece.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\stringprintf.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\structurally_valid.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\strutil.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\substitute.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\stubs\time.cc">
+      <Filter>stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\delimited_message_util.cc">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\field_comparator.cc">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\field_mask_util.cc">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\json_util.cc">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\message_differencer.cc">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\time_util.cc">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\type_resolver_util.cc">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\datapiece.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\default_value_objectwriter.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\error_listener.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\field_mask_utility.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\json_escaping.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\json_objectwriter.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\json_stream_parser.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\object_writer.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\proto_writer.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\protostream_objectsource.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\protostream_objectwriter.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\type_info.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\protobuf\util\internal\utility.cc">
+      <Filter>util\internal</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
