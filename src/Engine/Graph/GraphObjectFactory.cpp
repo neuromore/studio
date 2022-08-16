@@ -116,6 +116,10 @@
 #include "StateTransitionButtonCondition.h"
 #include "StateTransitionAudioCondition.h"
 #include "StateTransitionVideoCondition.h"
+#include "StateTransitionUrlOpenedCondition.h"
+#include "StateTransitionBrowserPlayerStartedCondition.h"
+#include "StateTransitionBrowserPlayerStoppedCondition.h"
+#include "StateTransitionBrowserPlayerPausedCondition.h"
 
 // actions
 #include "Actions.h"
@@ -233,6 +237,10 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new StateTransitionButtonCondition(NULL) );
 		RegisterObjectType( new StateTransitionAudioCondition(NULL) );
 		RegisterObjectType( new StateTransitionVideoCondition(NULL) );
+		RegisterObjectType( new StateTransitionUrlOpenedCondition(NULL) );
+		RegisterObjectType( new StateTransitionBrowserPlayerStartedCondition(NULL) );
+		RegisterObjectType( new StateTransitionBrowserPlayerStoppedCondition(NULL) );
+		RegisterObjectType( new StateTransitionBrowserPlayerPausedCondition(NULL) );
 
 		// actions
 		RegisterObjectType( new PlayAudioAction(NULL) );
@@ -256,6 +264,10 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new CommandAction(NULL) );
 		RegisterObjectType( new ParameterAction(NULL) );
 		RegisterObjectType( new ClearButtonsAction(NULL) );
+		RegisterObjectType( new OpenUrlAction(NULL) );
+		RegisterObjectType( new BrowserStartPlayerAction(NULL) );
+		RegisterObjectType( new BrowserStopPlayerAction(NULL) );
+		RegisterObjectType( new BrowserPausePlayerAction(NULL) );
 
 #ifndef PRODUCTION_BUILD
 		// LORETA

@@ -553,6 +553,18 @@
       <Filter>Devices\BrainMaster</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\Precompiled.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionUrlOpenedCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerPausedCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStartedCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1255,6 +1267,21 @@
       <Filter>Devices\BrainMaster</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Precompiled.h" />
+    <ClInclude Include="..\..\src\Engine\Networking\WebsocketProtocol.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionUrlOpenedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerPausedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStartedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

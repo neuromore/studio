@@ -144,6 +144,11 @@ class ENGINE_API EventHandler
 		virtual void OnClearButtons()																	{}
 		
 		virtual void OnCommand(const char* command)														{}
+
+		virtual void OnOpenUrl(const char* url) {}
+		virtual void OnBrowserStartPlayer(double progress, bool fullscreen) { }
+		virtual void OnBrowserStopPlayer() { }
+		virtual void OnBrowserPausePlayer() { }
 	
 	private:
 

@@ -177,10 +177,14 @@ OBJS       = Core/AABB.o \
              Graph/StateMachine.o \
              Graph/StateTransition.o \
              Graph/StateTransitionAudioCondition.o \
+             Graph/StateTransitionBrowserPlayerPausedCondition.o \
+             Graph/StateTransitionBrowserPlayerStartedCondition.o \
+             Graph/StateTransitionBrowserPlayerStoppedCondition.o \
              Graph/StateTransitionButtonCondition.o \
              Graph/StateTransitionCondition.o \
              Graph/StateTransitionFeedbackCondition.o \
              Graph/StateTransitionTimeCondition.o \
+             Graph/StateTransitionUrlOpenedCondition.o \
              Graph/StateTransitionVideoCondition.o \
              Graph/StatisticsNode.o \
              Graph/SwitchNode.o \

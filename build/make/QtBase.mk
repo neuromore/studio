@@ -59,6 +59,7 @@ MOCH       = AttributeWidgets/AttributeSetGridWidget.cpp \
              Networking/NetworkServer.cpp \
              Networking/NetworkServerClient.cpp \
              Networking/OscServer.cpp \
+             Networking/WebsocketServer.cpp \
              PluginSystem/Plugin.cpp \
              PluginSystem/PluginManager.cpp \
              PluginSystem/PluginMenu.cpp \
@@ -174,6 +175,7 @@ OBJS       = AttributeWidgets/AttributeSetGridWidget.o \
              Networking/NetworkServer.o \
              Networking/NetworkServerClient.o \
              Networking/OscServer.o \
+             Networking/WebsocketServer.o \
              PluginSystem/Plugin.o \
              PluginSystem/PluginManager.o \
              PluginSystem/PluginMenu.o \

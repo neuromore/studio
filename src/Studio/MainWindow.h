@@ -48,6 +48,7 @@
 #include <FileManager.h>
 #include <Networking/NetworkServer.h>
 #include <Networking/OscServer.h>
+#include <Networking/WebsocketServer.h>
 #include "Windows/LoginWindow.h"
 #include "Windows/SelectUserWindow.h"
 #include "Windows/ExperienceWizardWindow.h"
@@ -94,6 +95,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		// core components
 		NetworkServer*		  GetNetworkServer()					{ return mNetworkServer; }
 		OscServer*			  GetOscServer()						{ return mOscServer; }
+		WebsocketServer*	  GetWebsockerServer()					{ return mWebsocketServer; }
 		AuthenticationCenter* GetAuthenticationCenter()				{ return mAuthenticationCenter; }
 
 	private:
@@ -213,6 +215,8 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		// networking
 		NetworkServer*				mNetworkServer;
 		OscServer*					mOscServer;
+		WebsocketServer*				mWebsocketServer;
+
 		// authentication center
 		AuthenticationCenter*		mAuthenticationCenter;
 		

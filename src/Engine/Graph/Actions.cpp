@@ -750,3 +750,79 @@ void ClearButtonsAction::Execute()
 	EMIT_EVENT(OnClearButtons());
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// open url action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// initialize attributes
+void OpenUrlAction::Init()
+{
+	// register url attribute
+	AttributeSettings* urlAttribute = RegisterAttribute("URL", "url", "The URL to navigate to in browser.", ATTRIBUTE_INTERFACETYPE_STRING);
+	urlAttribute->SetDefaultValue(AttributeString::Create(""));
+}
+
+// execute action
+void OpenUrlAction::Execute()
+{
+	EMIT_EVENT(OnOpenUrl(GetStringAttribute(ATTRIBUTE_URL)));
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Browser Start Player Action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// initialize attributes
+void BrowserStartPlayerAction::Init()
+{
+	// register progress attribute
+	AttributeSettings* positionAttribute = RegisterAttribute("Progress (s)", "progress", "The relative position to seek to [0.0-1.0].", ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
+	positionAttribute->SetDefaultValue(AttributeFloat::Create(1.0));
+	positionAttribute->SetMinValue(AttributeFloat::Create(0.0));
+	positionAttribute->SetMaxValue(AttributeFloat::Create(1.0));
+
+	// register fullscreen attribute
+	AttributeSettings* urlAttribute = RegisterAttribute("Fullscreen", "fullscreen", "Check if playback should start in fullscreen.", ATTRIBUTE_INTERFACETYPE_CHECKBOX);
+	urlAttribute->SetDefaultValue(AttributeBool::Create(false));
+}
+
+// execute action
+void BrowserStartPlayerAction::Execute()
+{
+	const double progress = GetFloatAttribute(ATTRIBUTE_PROGRESS);
+	const bool fullscreen = GetBoolAttribute(ATTRIBUTE_FULLSCREEN);
+
+	EMIT_EVENT(OnBrowserStartPlayer(progress, fullscreen));
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Browser Stop Player Action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// initialize attributes
+void BrowserStopPlayerAction::Init()
+{
+}
+
+// execute action
+void BrowserStopPlayerAction::Execute()
+{
+	EMIT_EVENT(OnBrowserStopPlayer());
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Browser Pause Player Action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// initialize attributes
+void BrowserPausePlayerAction::Init()
+{
+}
+
+// execute action
+void BrowserPausePlayerAction::Execute()
+{
+	EMIT_EVENT(OnBrowserPausePlayer());
+}

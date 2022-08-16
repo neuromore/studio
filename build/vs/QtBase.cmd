@@ -48,6 +48,7 @@ set PCH=QtBase/Precompiled.h
 %MOC% %DIR%/Networking/NetworkServer.h -b %PCH% -o %DIR%/Networking/NetworkServer.moc.cpp
 %MOC% %DIR%/Networking/NetworkServerClient.h -b %PCH% -o %DIR%/Networking/NetworkServerClient.moc.cpp
 %MOC% %DIR%/Networking/OscServer.h -b %PCH% -o %DIR%/Networking/OscServer.moc.cpp
+%MOC% %DIR%/Networking/WebsocketServer.h -b %PCH% -o %DIR%/Networking/WebsocketServer.moc.cpp
 
 %MOC% %DIR%/PluginSystem/Plugin.h -b %PCH% -o %DIR%/PluginSystem/Plugin.moc.cpp
 %MOC% %DIR%/PluginSystem/PluginManager.h -b %PCH% -o %DIR%/PluginSystem/PluginManager.moc.cpp

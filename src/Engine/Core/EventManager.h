@@ -155,6 +155,11 @@ class ENGINE_API EventManager
 
 		EVENT_CREATE_NOTIFY_FUNCTION_1( OnCommand, const char*, command );
 
+		EVENT_CREATE_NOTIFY_FUNCTION_1(OnOpenUrl, const char*, url);
+		EVENT_CREATE_NOTIFY_FUNCTION_2(OnBrowserStartPlayer, double, progress, bool, fullscreen);
+		EVENT_CREATE_NOTIFY_FUNCTION_0(OnBrowserStopPlayer);
+		EVENT_CREATE_NOTIFY_FUNCTION_0(OnBrowserPausePlayer);
+
 	private:
 		Core::Array<EventHandler*>			mEventHandlers;
 		EventLogger*						mEventLogger;
