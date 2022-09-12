@@ -1,33 +1,28 @@
-# Platforms directory
-PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
-
-# Include shared for host os
-include $(PLATDIR)/osx-all.mk
-
 # Generic
 EXTBIN     = 
 EXTLIB     = .a
 EXTDLL     = .dylib
 EXTPDB     = .pdb
-OBJDIR     = obj/osx-arm64-$(MODE)
-LIBDIR     = lib/osx-arm64
-BINDIR     = bin/osx-arm64
+OBJDIR     = obj/ios-arm64-$(MODE)
+LIBDIR     = lib/ios-arm64
+BINDIR     = bin/ios-arm64
+DISTDIR    = ../../dist/ios-13.0
 TARGET     = arm64-apple-darwin19.6.0
-MINVER     = -mmacosx-version-min=10.15
-CPUFLAGS   = -march=armv8-a -mtune=apple-m1
+MINVER     = -miphoneos-version-min=13.0
+CPUFLAGS   = -march=armv8-a -mtune=generic
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
-CXXFLAGS   = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path) -static
+CXXFLAGS   = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk iphoneos --show-sdk-path) -static
 CC         = clang
-CFLAGS     = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path) -static
+CFLAGS     = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk iphoneos --show-sdk-path) -static
 AR         = ar
 ARFLAGS    = rcs
 STRIP      = strip
 STRIPFLAGS = -S
 LINK       = $(CXX)
-LINKFLAGS  = -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path)
-LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/osx/arm64
+LINKFLAGS  = -target $(TARGET) -isysroot $(shell xcrun --sdk iphoneos --show-sdk-path)
+LINKPATH   =
 LINKLIBS   = 
 
 # Debug vs. Release

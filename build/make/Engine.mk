@@ -1,6 +1,5 @@
 
 include ../../deps/build/make/platforms/detect-host.mk
-include ../../deps/build/make/platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = Engine
 INCDIR     = ../../deps/include/

@@ -1,21 +1,15 @@
-# Platforms directory
-PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
-
-# Include shared for host os
-include $(PLATDIR)/linux-all.mk
-
 # Generic
 EXTBIN     = 
 EXTLIB     = .a
 EXTDLL     = .so
 EXTPDB     = .pdb
-OBJDIR     = obj/linux-x64-$(MODE)
-LIBDIR     = lib/linux-x64
-BINDIR     = bin/linux-x64
-TARGET     = x86_64-linux-gnu
-CPUFLAGS   = -march=x86-64 -mtune=generic -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mpclmul
+OBJDIR     = obj/linux-x86-$(MODE)
+LIBDIR     = lib/linux-x86
+BINDIR     = bin/linux-x86
+TARGET     = i686-linux-gnu
+CPUFLAGS   = -march=i686 -mtune=generic
 DEFINES    = 
-INCLUDES   = 
+INCLUDES   = -I/usr/$(TARGET)/include
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -fPIC -static
 CC         = clang
@@ -26,8 +20,11 @@ STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
-LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/x64
+LINKPATH   =
 LINKLIBS   = 
+DEBARCH    = i386
+LSBREL     = $(shell lsb_release -r -s)
+DISTDIR    = ../../dist/ubuntu-$(LSBREL)
 
 # Debug vs. Release
 ifeq ($(MODE),release)

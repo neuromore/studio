@@ -1,6 +1,5 @@
 
 include platforms/detect-host.mk
-include platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = opencv-imgproc
 INCDIR     = ../../include

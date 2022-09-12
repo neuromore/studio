@@ -1,12 +1,7 @@
-# Platforms directory
-PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
-
-# Include shared for host os
-include $(PLATDIR)/win-all.mk
+# Requires NDK 22b or later
 
 # Android Specific
 ANDROID_API         = 21
-ANDROID_SYSROOT     = $(ANDROID_NDK_HOME)/platforms/android-$(ANDROID_API)/arch-x86
 ANDROID_TOOLCHAIN   = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64
 
 # Generic
@@ -17,27 +12,28 @@ EXTPDB     = .pdb
 OBJDIR     = obj/android-x86-$(MODE)
 LIBDIR     = lib/android-x86
 BINDIR     = bin/android-x86
+DISTDIR    = ../../dist/android-21
 TARGET     = i686-linux-android
-CPUFLAGS   = -msse -msse2 -msse3
+CPUFLAGS   = -march=i686 -mtune=generic
 DEFINES    = -DANDROID -D__ANDROID_API__=$(ANDROID_API)
 INCLUDES   = -I$(ANDROID_NDK_HOME)/sources/android/cpufeatures
 CXX        = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)$(ANDROID_API)-clang++.cmd
-CXXFLAGS   = -static \
+CXXFLAGS   = -static -fPIC \
              -target $(TARGET) \
-             -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET)
+             -isystem $(ANDROID_TOOLCHAIN)/sysroot/usr/include/$(TARGET)
 CC         = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)$(ANDROID_API)-clang.cmd
-CFLAGS     = -static \
+CFLAGS     = -static -fPIC \
              -target $(TARGET) \
-             -isystem $(ANDROID_NDK_HOME)/sysroot/usr/include/$(TARGET)
-AR         = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)-ar.exe
+             -isystem $(ANDROID_TOOLCHAIN)/sysroot/usr/include/$(TARGET)
+AR         = $(ANDROID_TOOLCHAIN)/bin/llvm-ar.exe
 ARFLAGS    = rcs
-STRIP      = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)-strip.exe
+STRIP      = $(ANDROID_TOOLCHAIN)/bin/llvm-strip.exe
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
-LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc --sysroot=$(ANDROID_SYSROOT)
-LINKPATH   = -L$(LIBDIR) \
-             -L$(ANDROID_SYSROOT)/usr/lib \
-             -L$(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)/$(ANDROID_API) \
+LINKFLAGS  = -target $(TARGET) -fPIC -fuse-ld=lld -static-libstdc++ -static-libgcc -nostartfiles \
+             $(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)/$(ANDROID_API)/crtbegin_dynamic.o \
+             $(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)/$(ANDROID_API)/crtend_android.o
+LINKPATH   = -L$(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)/$(ANDROID_API) \
              -L$(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)
 LINKLIBS   = 
 
