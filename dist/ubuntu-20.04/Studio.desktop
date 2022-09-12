@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Studio
+Comment=neuromore Studio
+Exec=/usr/bin/Studio
+Icon=/usr/share/pixmaps/Studio.png
+Terminal=true
+Type=Application
+Categories=Development;
+StartupNotify=true
+NoDisplay=false
