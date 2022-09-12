@@ -340,6 +340,25 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+################################################################################################
+# iOS
+ifeq ($(TARGET_OS),ios)
+DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_IOS
+CXXFLAGS  := $(CXXFLAGS)
+OBJS      := $(OBJS)
+ifeq ($(TARGET_ARCH),x86)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),x64)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+endif
+endif
 
 ################################################################################################
 # MODE
