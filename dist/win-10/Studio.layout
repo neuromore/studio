@@ -1,0 +1,36 @@
+<PackagingLayout xmlns="http://schemas.microsoft.com/appx/makeappx/2017">
+  <PackageFamily 
+    ID="Studio" 
+    FlatBundle="false"
+    ManifestPath="../../dist/win-10/Studio/AppxManifest.xml"
+    ResourceManager="false">
+    
+    <Package ID="Studio-x64" ProcessorArchitecture="x64">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-x64/Studio.exe"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/app.png"/>
+      </Files>
+    </Package>
+	
+    <Package ID="Studio-x86" ProcessorArchitecture="x86">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-x86/Studio.exe"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/app.png"/>
+      </Files>
+    </Package>
+	
+    <Package ID="Studio-arm64" ProcessorArchitecture="arm64">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-arm64/Studio.exe"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/app.png"/>
+      </Files>
+    </Package>
+	
+    <AssetPackage ID="CppCore.Example.UI-res">
+      <Files>
+        <File DestinationPath="resources\**" SourcePath="../../resources/**"/>
+      </Files>
+    </AssetPackage>
+
+  </PackageFamily>
+</PackagingLayout>
