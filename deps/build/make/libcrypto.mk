@@ -226,6 +226,25 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+ifeq ($(TARGET_OS),ios)
+DEFINES   := $(DEFINES) \
+             -DOPENSSLDIR=\"/etc/ssl\" \
+             -DENGINESDIR=\".\" 
+CFLAGS    := $(CFLAGS)
+ifeq ($(TARGET_ARCH),x86)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),x64)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+endif
+endif
+
 OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
