@@ -21,7 +21,7 @@ STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -Xlinker /MACHINE:ARM64
-LINKPATH   =
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/arm64
 LINKLIBS   = 
 
 # MSVC Resource Compiler

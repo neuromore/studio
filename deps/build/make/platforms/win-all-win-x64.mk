@@ -8,7 +8,7 @@ LIBDIR     = lib/win-x64
 BINDIR     = bin/win-x64
 DISTDIR    = ../../dist/win-10
 TARGET     = x86_64-pc-windows-msvc
-CPUFLAGS   = -march=x86-64-v2 -mtune=generic
+CPUFLAGS   = -march=x86-64-v2 -mtune=generic -mpclmul
 DEFINES    = -DWIN32 -DWIN64 -D_MT
 INCLUDES   = 
 CXX        = clang++
@@ -21,7 +21,7 @@ STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -Xlinker /MACHINE:X64
-LINKPATH   =
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/x64
 LINKLIBS   = 
 
 # MSVC Resource Compiler

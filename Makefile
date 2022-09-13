@@ -7,43 +7,43 @@ include ./deps/build/make/platforms/detect-host.mk
 
 Dependencies:
 	@echo [BLD] Dependencies
-	@make -s -C ./deps/ -f Makefile
+	+@make -s -C ./deps/ -f Makefile -j $(DETECTED_CORES)
 
 Dependencies-clean:
 	@echo [CLN] Dependencies
-	@make -s -C ./deps/ -f Makefile clean
+	+@make -s -C ./deps/ -f Makefile clean -j $(DETECTED_CORES)
 
 Engine:
 	@echo [BLD] Engine
-	@make -s -C ./build/make/ -f Engine.mk -j $(DETECTED_CORES)
+	+@make -s -C ./build/make/ -f Engine.mk -j $(DETECTED_CORES)
 
 Engine-clean:
 	@echo [CLN] Engine
-	@make -s -C ./build/make/ -f Engine.mk clean -j $(DETECTED_CORES)
+	+@make -s -C ./build/make/ -f Engine.mk clean -j $(DETECTED_CORES)
 
 EngineJNI:
 	@echo [BLD] EngineJNI
-	@make -s -C ./build/make/ -f EngineJNI.mk -j $(DETECTED_CORES)
+	+@make -s -C ./build/make/ -f EngineJNI.mk -j $(DETECTED_CORES)
 
 EngineJNI-clean:
 	@echo [CLN] EngineJNI
-	@make -s -C ./build/make/ -f EngineJNI.mk clean -j $(DETECTED_CORES)
+	+@make -s -C ./build/make/ -f EngineJNI.mk clean -j $(DETECTED_CORES)
 
 QtBase:
 	@echo [BLD] QtBase
-	@make -s -C ./build/make/ -f QtBase.mk -j $(DETECTED_CORES)
+	+@make -s -C ./build/make/ -f QtBase.mk -j $(DETECTED_CORES)
 
 QtBase-clean:
 	@echo [CLN] QtBase
-	@make -s -C ./build/make/ -f QtBase.mk clean -j $(DETECTED_CORES)
+	+@make -s -C ./build/make/ -f QtBase.mk clean -j $(DETECTED_CORES)
 
 Studio:
 	@echo [BLD] Studio
-	@make -s -C ./build/make/ -f Studio.mk -j $(DETECTED_CORES)
+	+@make -s -C ./build/make/ -f Studio.mk -j $(DETECTED_CORES)
 
 Studio-clean:
 	@echo [CLN] Studio
-	@make -s -C ./build/make/ -f Studio.mk clean -j $(DETECTED_CORES)
+	+@make -s -C ./build/make/ -f Studio.mk clean -j $(DETECTED_CORES)
 
 ##################################################################################
 

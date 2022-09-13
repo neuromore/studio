@@ -7,7 +7,7 @@ OBJDIR     = obj/linux-x64-$(MODE)
 LIBDIR     = lib/linux-x64
 BINDIR     = bin/linux-x64
 TARGET     = x86_64-linux-gnu
-CPUFLAGS   = -march=x86-64 -mtune=generic
+CPUFLAGS   = -march=x86-64 -mtune=generic -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mpclmul
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
@@ -20,7 +20,7 @@ STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
-LINKPATH   =
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/x64
 LINKLIBS   = 
 DEBARCH    = amd64
 LSBREL     = $(shell lsb_release -r -s)

@@ -20,7 +20,7 @@ STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
-LINKPATH   = 
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/arm64
 LINKLIBS   = 
 DEBARCH    = arm64
 LSBREL     = $(shell lsb_release -r -s)

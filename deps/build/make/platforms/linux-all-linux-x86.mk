@@ -7,7 +7,7 @@ OBJDIR     = obj/linux-x86-$(MODE)
 LIBDIR     = lib/linux-x86
 BINDIR     = bin/linux-x86
 TARGET     = i686-linux-gnu
-CPUFLAGS   = -march=i686 -mtune=generic
+CPUFLAGS   = -march=i686 -mtune=generic -mmmx -msse -msse2
 DEFINES    = 
 INCLUDES   = -I/usr/$(TARGET)/include
 CXX        = clang++
@@ -20,7 +20,7 @@ STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
-LINKPATH   =
+LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/x86
 LINKLIBS   = 
 DEBARCH    = i386
 LSBREL     = $(shell lsb_release -r -s)
