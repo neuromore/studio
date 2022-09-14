@@ -45,6 +45,7 @@
 #  include <type_traits>
 #  include <cstddef>
 #  include <utility>
+#  include <limits>
 #endif
 #ifndef __ASSEMBLER__
 #  include <assert.h>
