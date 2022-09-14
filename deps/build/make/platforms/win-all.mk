@@ -27,7 +27,7 @@ endef
 
 # Create APPX unencrypted
 define makepkg
-	cmd.exe /C "MakeAppx.exe build /o /h SHA256 /f $(subst /,\,$(1)) /op $(subst /,\,$(2)) >nul 2>&1"
+	cmd.exe /C "MakeAppx.exe build /o /h SHA256 /f $(subst /,\,$(1)) /op $(subst /,\,$(2))"
 endef
 
 # Create APPXBUNDLE

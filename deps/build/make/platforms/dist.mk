@@ -1,12 +1,12 @@
 
 # default publisher common name if not specified
 ifeq ($(PUBLISHERCN),)
-PUBLISHERCN = CppCore Developer
+PUBLISHERCN = neuromore Developer
 endif
 
 # default full publisher if not specified
 ifeq ($(PUBLISHER),)
-PUBLISHER = CN=CppCore Developer
+PUBLISHER = CN=neuromore Developer, C=US
 endif
 
 # default key if not specified
@@ -201,7 +201,7 @@ dist-%: dist-prep
 	cp $(DISTDIR)/$(NAME).control $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	sed -i 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
-	cp $(SRCDIR)/app.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
+	cp $(SRCDIR)/Resources/AppIcon-neuromore-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
 	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
 	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)	
 	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE) > /dev/null 2>&1

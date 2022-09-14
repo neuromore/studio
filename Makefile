@@ -53,6 +53,7 @@ Studio-dist:
 
 all: Engine QtBase Studio 
 clean: Engine-clean QtBase-clean Studio-clean 
+dist: Studio-dist
 
 ##################################################################################
 
