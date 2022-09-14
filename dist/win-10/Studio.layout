@@ -8,25 +8,25 @@
     <Package ID="Studio-x64" ProcessorArchitecture="x64">
       <Files>
         <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-x64/Studio.exe"/>
-        <File DestinationPath="app.png" SourcePath="../../src/Studio/app.png"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/Resources/AppIcon-neuromore-256x256.png"/>
       </Files>
     </Package>
 	
     <Package ID="Studio-x86" ProcessorArchitecture="x86">
       <Files>
         <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-x86/Studio.exe"/>
-        <File DestinationPath="app.png" SourcePath="../../src/Studio/app.png"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/Resources/AppIcon-neuromore-256x256.png"/>
       </Files>
     </Package>
 	
     <Package ID="Studio-arm64" ProcessorArchitecture="arm64">
       <Files>
         <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-arm64/Studio.exe"/>
-        <File DestinationPath="app.png" SourcePath="../../src/Studio/app.png"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/Resources/AppIcon-neuromore-256x256.png"/>
       </Files>
     </Package>
 	
-    <AssetPackage ID="CppCore.Example.UI-res">
+    <AssetPackage ID="Studio-res">
       <Files>
         <File DestinationPath="resources\**" SourcePath="../../resources/**"/>
       </Files>

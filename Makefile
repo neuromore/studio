@@ -45,6 +45,10 @@ Studio-clean:
 	@echo [CLN] Studio
 	+@make -s -C ./build/make/ -f Studio.mk clean -j $(DETECTED_CORES)
 
+Studio-dist:
+	@echo [DST] Studio
+	+@make -s -C ./build/make/ -f Studio.mk dist
+
 ##################################################################################
 
 all: Engine QtBase Studio 

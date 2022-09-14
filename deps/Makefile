@@ -16,310 +16,310 @@ endif
 ##################################################################################
 
 brainflow:
-	+@make -s -C ./build/make/ -f brainflow.mk
+	+@make -s -C ./build/make/ -f brainflow.mk -j $(DETECTED_CORES)
 
 brainflow-clean:
-	+@make -s -C ./build/make/ -f brainflow.mk clean
+	+@make -s -C ./build/make/ -f brainflow.mk clean -j $(DETECTED_CORES)
 
 brainflow-boardcontroller:
-	+@make -s -C ./build/make/ -f brainflow-boardcontroller.mk
+	+@make -s -C ./build/make/ -f brainflow-boardcontroller.mk -j $(DETECTED_CORES)
 
 brainflow-boardcontroller-clean:
-	+@make -s -C ./build/make/ -f brainflow-boardcontroller.mk clean
+	+@make -s -C ./build/make/ -f brainflow-boardcontroller.mk clean -j $(DETECTED_CORES)
 
 brainflow-datahandler:
-	+@make -s -C ./build/make/ -f brainflow-datahandler.mk
+	+@make -s -C ./build/make/ -f brainflow-datahandler.mk -j $(DETECTED_CORES)
 
 brainflow-datahandler-clean:
-	+@make -s -C ./build/make/ -f brainflow-datahandler.mk clean
+	+@make -s -C ./build/make/ -f brainflow-datahandler.mk clean -j $(DETECTED_CORES)
 
 brainflow-ganglion-bglib: brainflow
-	+@make -s -C ./build/make/ -f brainflow-ganglion-bglib.mk
+	+@make -s -C ./build/make/ -f brainflow-ganglion-bglib.mk -j $(DETECTED_CORES)
 
 brainflow-ganglion-bglib-clean: brainflow-clean
-	+@make -s -C ./build/make/ -f brainflow-ganglion-bglib.mk clean
+	+@make -s -C ./build/make/ -f brainflow-ganglion-bglib.mk clean -j $(DETECTED_CORES)
 
 brainflow-ml:
-	+@make -s -C ./build/make/ -f brainflow-ml.mk
+	+@make -s -C ./build/make/ -f brainflow-ml.mk -j $(DETECTED_CORES)
 
 brainflow-ml-clean:
-	+@make -s -C ./build/make/ -f brainflow-ml.mk clean
+	+@make -s -C ./build/make/ -f brainflow-ml.mk clean -j $(DETECTED_CORES)
 
 double-conversion:
-	+@make -s -C ./build/make/ -f double-conversion.mk
+	+@make -s -C ./build/make/ -f double-conversion.mk -j $(DETECTED_CORES)
 
 double-conversion-clean:
-	+@make -s -C ./build/make/ -f double-conversion.mk clean
+	+@make -s -C ./build/make/ -f double-conversion.mk clean -j $(DETECTED_CORES)
 
 dspfilters:
-	+@make -s -C ./build/make/ -f dspfilters.mk
+	+@make -s -C ./build/make/ -f dspfilters.mk -j $(DETECTED_CORES)
 
 dspfilters-clean:
-	+@make -s -C ./build/make/ -f dspfilters.mk clean
+	+@make -s -C ./build/make/ -f dspfilters.mk clean -j $(DETECTED_CORES)
 
 edflib:
-	+@make -s -C ./build/make/ -f edflib.mk
+	+@make -s -C ./build/make/ -f edflib.mk -j $(DETECTED_CORES)
 
 edflib-clean:
-	+@make -s -C ./build/make/ -f edflib.mk clean
+	+@make -s -C ./build/make/ -f edflib.mk clean -j $(DETECTED_CORES)
 
 freetype:
-	+@make -s -C ./build/make/ -f freetype.mk
+	+@make -s -C ./build/make/ -f freetype.mk -j $(DETECTED_CORES)
 
 freetype-clean:
-	+@make -s -C ./build/make/ -f freetype.mk clean
+	+@make -s -C ./build/make/ -f freetype.mk clean -j $(DETECTED_CORES)
 
 harfbuzz:
-	+@make -s -C ./build/make/ -f harfbuzz.mk
+	+@make -s -C ./build/make/ -f harfbuzz.mk -j $(DETECTED_CORES)
 
 harfbuzz-clean:
-	+@make -s -C ./build/make/ -f harfbuzz.mk clean
+	+@make -s -C ./build/make/ -f harfbuzz.mk clean -j $(DETECTED_CORES)
 
 harfbuzz-ng:
-	+@make -s -C ./build/make/ -f harfbuzz-ng.mk
+	+@make -s -C ./build/make/ -f harfbuzz-ng.mk -j $(DETECTED_CORES)
 
 harfbuzz-ng-clean:
-	+@make -s -C ./build/make/ -f harfbuzz-ng.mk clean
+	+@make -s -C ./build/make/ -f harfbuzz-ng.mk clean -j $(DETECTED_CORES)
 
 kissfft:
-	+@make -s -C ./build/make/ -f kissfft.mk
+	+@make -s -C ./build/make/ -f kissfft.mk -j $(DETECTED_CORES)
 
 kissfft-clean:
-	+@make -s -C ./build/make/ -f kissfft.mk clean
+	+@make -s -C ./build/make/ -f kissfft.mk clean -j $(DETECTED_CORES)
 
 libcrypto:
-	+@make -s -C ./build/make/ -f libcrypto.mk
+	+@make -s -C ./build/make/ -f libcrypto.mk -j $(DETECTED_CORES)
 
 libcrypto-clean:
-	+@make -s -C ./build/make/ -f libcrypto.mk clean
+	+@make -s -C ./build/make/ -f libcrypto.mk clean -j $(DETECTED_CORES)
 
 libjpeg:
-	+@make -s -C ./build/make/ -f libjpeg.mk
+	+@make -s -C ./build/make/ -f libjpeg.mk -j $(DETECTED_CORES)
 
 libjpeg-clean:
-	+@make -s -C ./build/make/ -f libjpeg.mk clean
+	+@make -s -C ./build/make/ -f libjpeg.mk clean -j $(DETECTED_CORES)
 
 libpng:
-	+@make -s -C ./build/make/ -f libpng.mk
+	+@make -s -C ./build/make/ -f libpng.mk -j $(DETECTED_CORES)
 
 libpng-clean:
-	+@make -s -C ./build/make/ -f libpng.mk clean
+	+@make -s -C ./build/make/ -f libpng.mk clean -j $(DETECTED_CORES)
 
 libssl:
-	+@make -s -C ./build/make/ -f libssl.mk
+	+@make -s -C ./build/make/ -f libssl.mk -j $(DETECTED_CORES)
 
 libssl-clean:
-	+@make -s -C ./build/make/ -f libssl.mk clean
+	+@make -s -C ./build/make/ -f libssl.mk clean -j $(DETECTED_CORES)
 
 libsvm:
-	+@make -s -C ./build/make/ -f libsvm.mk
+	+@make -s -C ./build/make/ -f libsvm.mk -j $(DETECTED_CORES)
 
 libsvm-clean:
-	+@make -s -C ./build/make/ -f libsvm.mk clean
+	+@make -s -C ./build/make/ -f libsvm.mk clean -j $(DETECTED_CORES)
 
 minizip:
-	+@make -s -C ./build/make/ -f minizip.mk
+	+@make -s -C ./build/make/ -f minizip.mk -j $(DETECTED_CORES)
 
 minizip-clean:
-	+@make -s -C ./build/make/ -f minizip.mk clean
+	+@make -s -C ./build/make/ -f minizip.mk clean -j $(DETECTED_CORES)
 
 opencv-core:
-	+@make -s -C ./build/make/ -f opencv-core.mk
+	+@make -s -C ./build/make/ -f opencv-core.mk -j $(DETECTED_CORES)
 
 opencv-core-clean:
-	+@make -s -C ./build/make/ -f opencv-core.mk clean
+	+@make -s -C ./build/make/ -f opencv-core.mk clean -j $(DETECTED_CORES)
 
 opencv-imgcodecs:
-	+@make -s -C ./build/make/ -f opencv-imgcodecs.mk
+	+@make -s -C ./build/make/ -f opencv-imgcodecs.mk -j $(DETECTED_CORES)
 
 opencv-imgcodecs-clean:
-	+@make -s -C ./build/make/ -f opencv-imgcodecs.mk clean
+	+@make -s -C ./build/make/ -f opencv-imgcodecs.mk clean -j $(DETECTED_CORES)
 
 opencv-imgproc:
-	+@make -s -C ./build/make/ -f opencv-imgproc.mk
+	+@make -s -C ./build/make/ -f opencv-imgproc.mk -j $(DETECTED_CORES)
 
 opencv-imgproc-clean:
-	+@make -s -C ./build/make/ -f opencv-imgproc.mk clean
+	+@make -s -C ./build/make/ -f opencv-imgproc.mk clean -j $(DETECTED_CORES)
 
 opencv-videoio:
-	+@make -s -C ./build/make/ -f opencv-videoio.mk
+	+@make -s -C ./build/make/ -f opencv-videoio.mk -j $(DETECTED_CORES)
 
 opencv-videoio-clean:
-	+@make -s -C ./build/make/ -f opencv-videoio.mk clean
+	+@make -s -C ./build/make/ -f opencv-videoio.mk clean -j $(DETECTED_CORES)
 
 oscpack:
-	+@make -s -C ./build/make/ -f oscpack.mk
+	+@make -s -C ./build/make/ -f oscpack.mk -j $(DETECTED_CORES)
 
 oscpack-clean:
-	+@make -s -C ./build/make/ -f oscpack.mk clean
+	+@make -s -C ./build/make/ -f oscpack.mk clean -j $(DETECTED_CORES)
 
 pcre2:
-	+@make -s -C ./build/make/ -f pcre2.mk
+	+@make -s -C ./build/make/ -f pcre2.mk -j $(DETECTED_CORES)
 
 pcre2-clean:
-	+@make -s -C ./build/make/ -f pcre2.mk clean
+	+@make -s -C ./build/make/ -f pcre2.mk clean -j $(DETECTED_CORES)
 
 qt-bluetooth: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-bluetooth.mk
+	+@make -s -C ./build/make/ -f qt-bluetooth.mk -j $(DETECTED_CORES)
 
 qt-bluetooth-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-bluetooth.mk clean
+	+@make -s -C ./build/make/ -f qt-bluetooth.mk clean -j $(DETECTED_CORES)
 
 qt-bootstrap:
-	+@make -s -C ./build/make/ -f qt-bootstrap.mk
+	+@make -s -C ./build/make/ -f qt-bootstrap.mk -j $(DETECTED_CORES)
 
 qt-bootstrap-clean:
-	+@make -s -C ./build/make/ -f qt-bootstrap.mk clean
+	+@make -s -C ./build/make/ -f qt-bootstrap.mk clean -j $(DETECTED_CORES)
 
 qt-concurrent: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-concurrent.mk
+	+@make -s -C ./build/make/ -f qt-concurrent.mk -j $(DETECTED_CORES)
 
 qt-concurrent-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-concurrent.mk clean
+	+@make -s -C ./build/make/ -f qt-concurrent.mk clean -j $(DETECTED_CORES)
 
 qt-core: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-core.mk
+	+@make -s -C ./build/make/ -f qt-core.mk -j $(DETECTED_CORES)
 
 qt-core-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-core.mk clean
+	+@make -s -C ./build/make/ -f qt-core.mk clean -j $(DETECTED_CORES)
 
 qt-eventdispatchers: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-eventdispatchers.mk
+	+@make -s -C ./build/make/ -f qt-eventdispatchers.mk -j $(DETECTED_CORES)
 
 qt-eventdispatchers-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-eventdispatchers.mk clean
+	+@make -s -C ./build/make/ -f qt-eventdispatchers.mk clean -j $(DETECTED_CORES)
 
 qt-fontdatabases: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-fontdatabases.mk
+	+@make -s -C ./build/make/ -f qt-fontdatabases.mk -j $(DETECTED_CORES)
 
 qt-fontdatabases-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-fontdatabases.mk clean
+	+@make -s -C ./build/make/ -f qt-fontdatabases.mk clean -j $(DETECTED_CORES)
 
 qt-gamepad: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-gamepad.mk
+	+@make -s -C ./build/make/ -f qt-gamepad.mk -j $(DETECTED_CORES)
 
 qt-gamepad-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-gamepad.mk clean
+	+@make -s -C ./build/make/ -f qt-gamepad.mk clean -j $(DETECTED_CORES)
 
 qt-gui: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-gui.mk
+	+@make -s -C ./build/make/ -f qt-gui.mk -j $(DETECTED_CORES)
 
 qt-gui-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-gui.mk clean
+	+@make -s -C ./build/make/ -f qt-gui.mk clean -j $(DETECTED_CORES)
 
 qt-moc: zlib qt-bootstrap
-	+@make -s -C ./build/make/ -f qt-moc.mk
+	+@make -s -C ./build/make/ -f qt-moc.mk -j $(DETECTED_CORES)
 
 qt-moc-clean: zlib-clean qt-bootstrap-clean
-	+@make -s -C ./build/make/ -f qt-moc.mk clean
+	+@make -s -C ./build/make/ -f qt-moc.mk clean -j $(DETECTED_CORES)
 
 qt-multimedia: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-multimedia.mk
+	+@make -s -C ./build/make/ -f qt-multimedia.mk -j $(DETECTED_CORES)
 
 qt-multimedia-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-multimedia.mk clean
+	+@make -s -C ./build/make/ -f qt-multimedia.mk clean -j $(DETECTED_CORES)
 
 qt-multimediaplugins: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-multimediaplugins.mk
+	+@make -s -C ./build/make/ -f qt-multimediaplugins.mk -j $(DETECTED_CORES)
 
 qt-multimediaplugins-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-multimediaplugins.mk clean
+	+@make -s -C ./build/make/ -f qt-multimediaplugins.mk clean -j $(DETECTED_CORES)
 
 qt-multimediawidgets: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-multimediawidgets.mk
+	+@make -s -C ./build/make/ -f qt-multimediawidgets.mk -j $(DETECTED_CORES)
 
 qt-multimediawidgets-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-multimediawidgets.mk clean
+	+@make -s -C ./build/make/ -f qt-multimediawidgets.mk clean -j $(DETECTED_CORES)
 
 qt-network: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-network.mk
+	+@make -s -C ./build/make/ -f qt-network.mk -j $(DETECTED_CORES)
 
 qt-network-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-network.mk clean
+	+@make -s -C ./build/make/ -f qt-network.mk clean -j $(DETECTED_CORES)
 
 qt-opengl: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-opengl.mk
+	+@make -s -C ./build/make/ -f qt-opengl.mk -j $(DETECTED_CORES)
 
 qt-opengl-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-opengl.mk clean
+	+@make -s -C ./build/make/ -f qt-opengl.mk clean -j $(DETECTED_CORES)
 
 qt-printsupport: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-printsupport.mk
+	+@make -s -C ./build/make/ -f qt-printsupport.mk -j $(DETECTED_CORES)
 
 qt-printsupport-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-printsupport.mk clean
+	+@make -s -C ./build/make/ -f qt-printsupport.mk clean -j $(DETECTED_CORES)
 
 qt-rcc: zlib qt-bootstrap
-	+@make -s -C ./build/make/ -f qt-rcc.mk
+	+@make -s -C ./build/make/ -f qt-rcc.mk -j $(DETECTED_CORES)
 
 qt-rcc-clean: zlib-clean qt-bootstrap-clean
-	+@make -s -C ./build/make/ -f qt-rcc.mk clean
+	+@make -s -C ./build/make/ -f qt-rcc.mk clean -j $(DETECTED_CORES)
 
 qt-serialport: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-serialport.mk
+	+@make -s -C ./build/make/ -f qt-serialport.mk -j $(DETECTED_CORES)
 
 qt-serialport-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-serialport.mk clean
+	+@make -s -C ./build/make/ -f qt-serialport.mk clean -j $(DETECTED_CORES)
 
 qt-uic: zlib qt-bootstrap
-	+@make -s -C ./build/make/ -f qt-uic.mk
+	+@make -s -C ./build/make/ -f qt-uic.mk -j $(DETECTED_CORES)
 
 qt-uic-clean: zlib-clean qt-bootstrap-clean
-	+@make -s -C ./build/make/ -f qt-uic.mk clean
+	+@make -s -C ./build/make/ -f qt-uic.mk clean -j $(DETECTED_CORES)
 
 qt-websockets: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-websockets.mk
+	+@make -s -C ./build/make/ -f qt-websockets.mk -j $(DETECTED_CORES)
 
 qt-websockets-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-websockets.mk clean
+	+@make -s -C ./build/make/ -f qt-websockets.mk clean -j $(DETECTED_CORES)
 
 qt-widgets: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-widgets.mk
+	+@make -s -C ./build/make/ -f qt-widgets.mk -j $(DETECTED_CORES)
 
 qt-widgets-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-widgets.mk clean
+	+@make -s -C ./build/make/ -f qt-widgets.mk clean -j $(DETECTED_CORES)
 
 qt-xml: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-xml.mk
+	+@make -s -C ./build/make/ -f qt-xml.mk -j $(DETECTED_CORES)
 
 qt-xml-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-xml.mk clean
+	+@make -s -C ./build/make/ -f qt-xml.mk clean -j $(DETECTED_CORES)
 
 singleapplication: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f singleapplication.mk
+	+@make -s -C ./build/make/ -f singleapplication.mk -j $(DETECTED_CORES)
 
 singleapplication-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f singleapplication.mk clean
+	+@make -s -C ./build/make/ -f singleapplication.mk clean -j $(DETECTED_CORES)
 
 tinyaes:
-	+@make -s -C ./build/make/ -f tinyaes.mk
+	+@make -s -C ./build/make/ -f tinyaes.mk -j $(DETECTED_CORES)
 
 tinyaes-clean:
-	+@make -s -C ./build/make/ -f tinyaes.mk clean
+	+@make -s -C ./build/make/ -f tinyaes.mk clean -j $(DETECTED_CORES)
 
 tinyobjloader:
-	+@make -s -C ./build/make/ -f tinyobjloader.mk
+	+@make -s -C ./build/make/ -f tinyobjloader.mk -j $(DETECTED_CORES)
 
 tinyobjloader-clean:
-	+@make -s -C ./build/make/ -f tinyobjloader.mk clean
+	+@make -s -C ./build/make/ -f tinyobjloader.mk clean -j $(DETECTED_CORES)
 
 tinyxml:
-	+@make -s -C ./build/make/ -f tinyxml.mk
+	+@make -s -C ./build/make/ -f tinyxml.mk -j $(DETECTED_CORES)
 
 tinyxml-clean:
-	+@make -s -C ./build/make/ -f tinyxml.mk clean
+	+@make -s -C ./build/make/ -f tinyxml.mk clean -j $(DETECTED_CORES)
 
 wavelib:
-	+@make -s -C ./build/make/ -f wavelib.mk
+	+@make -s -C ./build/make/ -f wavelib.mk -j $(DETECTED_CORES)
 
 wavelib-clean:
-	+@make -s -C ./build/make/ -f wavelib.mk clean
+	+@make -s -C ./build/make/ -f wavelib.mk clean -j $(DETECTED_CORES)
 
 zlib:
-	+@make -s -C ./build/make/ -f zlib.mk
+	+@make -s -C ./build/make/ -f zlib.mk -j $(DETECTED_CORES)
 
 zlib-clean:
-	+@make -s -C ./build/make/ -f zlib.mk clean
+	+@make -s -C ./build/make/ -f zlib.mk clean -j $(DETECTED_CORES)
 
 # combined
 --base: brainflow \
@@ -432,16 +432,16 @@ zlib-clean:
 ifeq ($(TARGET_OS),win)
 
 brainflow-gforcesdkcxx-wrapper: brainflow
-	+@make -s -C ./build/make/ -f brainflow-gforcesdkcxx-wrapper.mk
+	+@make -s -C ./build/make/ -f brainflow-gforcesdkcxx-wrapper.mk -j $(DETECTED_CORES)
 
 brainflow-gforcesdkcxx-wrapper-clean: brainflow-clean
-	+@make -s -C ./build/make/ -f brainflow-gforcesdkcxx-wrapper.mk clean
+	+@make -s -C ./build/make/ -f brainflow-gforcesdkcxx-wrapper.mk clean -j $(DETECTED_CORES)
 
 qt-platform-windows: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-platform-windows.mk
+	+@make -s -C ./build/make/ -f qt-platform-windows.mk -j $(DETECTED_CORES)
 
 qt-platform-windows-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-platform-windows.mk clean
+	+@make -s -C ./build/make/ -f qt-platform-windows.mk clean -j $(DETECTED_CORES)
 
 all: --base brainflow-gforcesdkcxx-wrapper qt-platform-windows
 clean: --base-clean brainflow-gforcesdkcxx-wrapper-clean qt-platform-windows-clean
@@ -454,10 +454,10 @@ endif
 ifeq ($(TARGET_OS),osx)
 
 qt-platform-cocoa: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-platform-cocoa.mk
+	+@make -s -C ./build/make/ -f qt-platform-cocoa.mk -j $(DETECTED_CORES)
 
 qt-platform-cocoa-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-platform-cocoa.mk clean
+	+@make -s -C ./build/make/ -f qt-platform-cocoa.mk clean -j $(DETECTED_CORES)
 
 all: --base qt-platform-cocoa
 clean: --base-clean qt-platform-cocoa-clean
@@ -470,22 +470,22 @@ endif
 ifeq ($(TARGET_OS),linux)
 
 fontconfig:
-	+@make -s -C ./build/make/ -f fontconfig.mk
+	+@make -s -C ./build/make/ -f fontconfig.mk -j $(DETECTED_CORES)
 
 fontconfig-clean:
-	+@make -s -C ./build/make/ -f fontconfig.mk clean
+	+@make -s -C ./build/make/ -f fontconfig.mk clean -j $(DETECTED_CORES)
 
 qt-dbus: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-dbus.mk
+	+@make -s -C ./build/make/ -f qt-dbus.mk -j $(DETECTED_CORES)
 
 qt-dbus-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-dbus.mk clean
+	+@make -s -C ./build/make/ -f qt-dbus.mk clean -j $(DETECTED_CORES)
 
 qt-platform-xcb: qt-moc qt-rcc qt-uic
-	+@make -s -C ./build/make/ -f qt-platform-xcb.mk
+	+@make -s -C ./build/make/ -f qt-platform-xcb.mk -j $(DETECTED_CORES)
 
 qt-platform-xcb-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
-	+@make -s -C ./build/make/ -f qt-platform-xcb.mk clean
+	+@make -s -C ./build/make/ -f qt-platform-xcb.mk clean -j $(DETECTED_CORES)
 
 all: --base fontconfig qt-dbus qt-platform-xcb
 clean: --base-clean fontconfig-clean qt-dbus-clean qt-platform-xcb-clean

@@ -37,10 +37,10 @@
       Id="App" 
       Executable="Studio.exe"
       EntryPoint="Studio.App"
-      desktop4:Subsystem="console" 
-      desktop4:SupportsMultipleInstances="true"
-      iot2:Subsystem="console"
-      iot2:SupportsMultipleInstances="true">
+      desktop4:Subsystem="windows" 
+      desktop4:SupportsMultipleInstances="false"
+      iot2:Subsystem="windows"
+      iot2:SupportsMultipleInstances="false">
 	  
       <uap:VisualElements 
         DisplayName="Studio" 
@@ -61,5 +61,6 @@
   </Applications>
   
   <Capabilities>
+    <rescap:Capability Name="runFullTrust"/>
   </Capabilities> 
 </Package>

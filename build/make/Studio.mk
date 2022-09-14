@@ -358,6 +358,14 @@ OBJS       = Devices/ABM/AbmDriver.o \
              TourManager.o
 
 ################################################################################################
+# Version
+
+VERSIONFILE       = $(SRCDIR)/Version.h
+VERSIONMACROMAJOR = NEUROMORE_STUDIO_VERSION_MAJOR
+VERSIONMACROMINOR = NEUROMORE_STUDIO_VERSION_MINOR
+VERSIONMACROPATCH = NEUROMORE_STUDIO_VERSION_PATCH
+
+################################################################################################
 # BRANDINGS
 
 ifeq ($(BRANDING),)
@@ -766,3 +774,8 @@ clean:
 	$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTBIN))
 	$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTPDB))
 	$(call deletefiles,$(BINDIR),*.$(EXTDLL))
+	
+################################################################################################
+
+include ../../deps/build/make/platforms/dist.mk
+
