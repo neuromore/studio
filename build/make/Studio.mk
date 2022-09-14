@@ -414,6 +414,7 @@ endif
 ################################################################################################
 # WINDOWS
 ifeq ($(TARGET_OS),win)
+OUTDIST   := $(DISTDIR)/$(NAME)-$(TARGET_ARCH)/$(NAME)$(EXTBIN)
 QTMOC     := $(QTMOC) -DQ_OS_WIN
 DEFINES   := $(DEFINES) \
              -D_CRT_SECURE_NO_WARNINGS \
@@ -487,6 +488,7 @@ endif
 ################################################################################################
 # OSX
 ifeq ($(TARGET_OS),osx)
+OUTDIST   := $(DISTDIR)/$(NAME).app/Contents/MacOS/$(NAME)$(EXTBIN)
 QTMOC     := $(QTMOC) -DQ_OS_MAC
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_PLATFORM_OSX \
@@ -536,6 +538,7 @@ endif
 ################################################################################################
 # LINUX
 ifeq ($(TARGET_OS),linux)
+OUTDIST   := $(DISTDIR)/$(NAME)-$(TARGET_ARCH)/usr/bin/$(NAME)$(EXTBIN)
 QTMOC     := $(QTMOC) -DQ_OS_LINUX
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_PLATFORM_LINUX \

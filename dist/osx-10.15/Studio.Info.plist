@@ -11,15 +11,15 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleVersion</key>
-	<string>Version 1.6.0</string>
+	<string>Version {VERSION}</string>
 	<key>CFBundleExecutable</key>
 	<string>Studio</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Copyright 2021 neuromore co</string>
+	<string>Copyright 2022 neuromore co</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleIconFile</key>
-	<string>Studio</string>
+	<string>Icon</string>
 	<key>CFBundleSignature</key>
 	<string>Studio</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -27,6 +27,6 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>10.15.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.6.0</string>
+	<string>{VERSION}</string>
 </dict>
 </plist>

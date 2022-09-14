@@ -13,7 +13,7 @@ endif
 ifeq ($(SIGN_PFX_FILE),)
 SIGN_PFX_FILE = ../../certs/DevCert.pfx
 ifeq ($(SIGN_PFX_PASS),)
-SIGN_PFX_PASS = CppCore
+SIGN_PFX_PASS = neuromore
 endif
 endif
 
@@ -119,14 +119,17 @@ dist-%: dist-prep
 dist: dist-prep dist-x64 dist-arm64
 	@echo [MKD] $(NAME).app/Contents/MacOS
 	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/MacOS
-	@echo [LIP] $(NAME)$(EXTBIN)
-	@lipo -create -output $(OUTDIST) \
+# TODO: Fix ARM-64 build and create universal binary
+	echo $(OUTDIST)
+	cp ./bin/osx-x64/$(NAME)$(EXTBIN) $(OUTDIST)
+#	@echo [LIP] $(NAME)$(EXTBIN)
+#	@lipo -create -output $(OUTDIST) \
 	  ./bin/osx-x64/$(NAME)$(EXTBIN) \
 	  ./bin/osx-arm64/$(NAME)$(EXTBIN)
 	@echo [MKD] $(NAME).app/Contents/Resources
 	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/Resources
 	@echo [ICO] $(NAME).icns
-	@cp $(SRCDIR)/app.icns $(DISTDIR)/$(NAME).app/Contents/Resources/Icon.icns
+	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIR)/$(NAME).app/Contents/Resources/Icon.icns
 	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIR)/$(NAME).app/Contents/Info.plist
 	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME).app/Contents/Info.plist
 	@rm $(DISTDIR)/$(NAME).app/Contents/Info.plist.orig
