@@ -5,6 +5,10 @@ include ./deps/build/make/platforms/detect-host.mk
 # ALL PLATFORMS
 ##################################################################################
 
+QtTools:
+	@echo [BLD] QtTools
+	+@make -s -C ./deps/ -f Makefile qt-tools
+
 Dependencies:
 	@echo [BLD] Dependencies
 	+@make -s -C ./deps/ -f Makefile
