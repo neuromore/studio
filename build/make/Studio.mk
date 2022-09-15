@@ -430,7 +430,7 @@ MOCO      := $(MOCO)
 RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
-RESO      := $(RESO) Resources/NMStudio.res
+RESO      := Resources/NMStudio.res
 OBJS      := $(OBJS)
 LINKFLAGS := $(LINKFLAGS)
 LINKLIBS  := $(LINKLIBS) \
@@ -730,9 +730,8 @@ RESO := $(patsubst %,$(OBJDIR)/%,$(RESO))
 
 $(OBJDIR)/%.res:
 	@echo [RC]  $@
-	@echo [RES] $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
-	cmd.exe /C "$(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /fo  $(subst /,\,$@)  $(subst /,\,$(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc))"
-	$(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /fo $@ $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
+	echo $(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /FO $@ $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
+	$(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /FO $@ $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
 
 ################################################################################################
 
