@@ -53,7 +53,8 @@ jobs:
       run: |
         sudo apt-get install \
           llvm \
-          libgl-dev:$ARCH
+          libgl-dev:$ARCH \
+          libgstreamer1.0-dev:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
