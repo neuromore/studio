@@ -730,6 +730,8 @@ RESO := $(patsubst %,$(OBJDIR)/%,$(RESO))
 
 $(OBJDIR)/%.res:
 	@echo [RC]  $@
+	@echo [RES] $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
+	cmd.exe /C "$(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /fo  $(subst /,\,$@)  $(subst /,\,$(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc))"
 	$(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /fo $@ $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
 
 ################################################################################################
