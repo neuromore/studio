@@ -1,23 +1,62 @@
 name: Build MacOS
 on:
   workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - 'master'
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 360
     env:
       MODE: release
       TARGET_OS: osx
+      JOBS: 4
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11]
+        os: [macos-11,macos-12]
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Versions
+      run: |
+        make -v
+        clang++ -v
+
+    # X64
     - name: Build Dependencies (X64)
-      run: make TARGET_ARCH=x64 Dependencies
+      run: make TARGET_ARCH=x64 Dependencies -j${{ env.JOBS }}
 
     - name: Build (X64)
-      run: make TARGET_ARCH=x64
+      run: make TARGET_ARCH=x64 -j${{ env.JOBS }}
+
+    # ARM64
+#    - name: Build Dependencies (ARM64)
+#      run: make TARGET_ARCH=arm64 Dependencies -j${{ env.JOBS }}
+
+#    - name: Build (ARM64)
+#      run: make TARGET_ARCH=arm64 -j${{ env.JOBS }}
+      
+    - name: Load Code Signing Certificate
+      env:
+        PFX_BASE64: ${{ secrets.SIGN_PFX_FILE }}
+      run: |
+        echo $PFX_BASE64 > ./certs/TrueCert.pfx.base64
+        base64 --decode -i ./certs/TrueCert.pfx.base64 -o ./certs/TrueCert.pfx
+
+    - name: Distribution Packages
+      env:
+        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
+        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
+        PUBLISHERCN: neuromore co
+        PUBLISHER: CN=neuromore co, O=neuromore co, STREET=382 NE 191st St, L=Miami, S = Florida, PostalCode=33179, C=US
+      run: make dist
+      
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages (${{ matrix.os }})
+        path: ./dist/osx-10.15/*.pkg
