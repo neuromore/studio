@@ -6,7 +6,7 @@ endif
 
 # default full publisher if not specified
 ifeq ($(PUBLISHER),)
-PUBLISHER = CN=neuromore Developer, C=US
+PUBLISHER = CN=neuromore Developer
 endif
 
 # default key if not specified
