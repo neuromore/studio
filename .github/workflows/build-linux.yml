@@ -46,9 +46,13 @@ jobs:
       with:
         arch: ${{ matrix.arch }}
 
-    - name: Ubuntu Packages
+    - name: Ubuntu Package Update
+      run: sudo apt-get update && sudo apt-get upgrade -f -y
+
+    - name: Ubuntu Packages (AMD64)
+      if: matrix.arch == 'amd64'
       run: |
-        sudo apt-get update && sudo apt-get install \
+        sudo apt-get install \
           llvm \
           libgstreamer1.0-dev:$ARCH \
           libgstreamer-plugins-base1.0-dev:$ARCH \
