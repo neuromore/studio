@@ -49,6 +49,9 @@ jobs:
     - name: Ubuntu Package Update
       run: sudo apt-get update && sudo apt-get upgrade -f -y
 
+    - name: Debug 1
+      run: cat /etc/apt/sources.list
+
     - name: Ubuntu Packages
       run: |
         sudo apt-get install \
