@@ -37,10 +37,8 @@
       Id="App" 
       Executable="Studio.exe"
       EntryPoint="Studio.App"
-      desktop4:Subsystem="windows" 
-      desktop4:SupportsMultipleInstances="false"
-      iot2:Subsystem="windows"
-      iot2:SupportsMultipleInstances="false">
+      desktop4:Subsystem="console" 
+      desktop4:SupportsMultipleInstances="true">
 	  
       <uap:VisualElements 
         DisplayName="Studio" 
@@ -61,6 +59,8 @@
   </Applications>
   
   <Capabilities>
+    <Capability Name="internetClient" />
+    <Capability Name="privateNetworkClientServer" />
     <rescap:Capability Name="runFullTrust"/>
   </Capabilities> 
 </Package>
