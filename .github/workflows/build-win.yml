@@ -29,9 +29,9 @@ jobs:
       with:
         arch: amd64
 
-#    - name: Build Dependencies (X64)
-#      shell: cmd
-#      run: make TARGET_ARCH=x64 Dependencies -j${{ env.JOBS }}
+    - name: Build Dependencies (X64)
+      shell: cmd
+      run: make TARGET_ARCH=x64 Dependencies -j${{ env.JOBS }}
 
     - name: Build (X64)
       shell: cmd

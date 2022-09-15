@@ -49,8 +49,7 @@ jobs:
     - name: Ubuntu Package Update
       run: sudo apt-get update && sudo apt-get upgrade -f -y
 
-    - name: Ubuntu Packages (AMD64)
-      if: matrix.arch == 'amd64'
+    - name: Ubuntu Packages
       run: |
         sudo apt-get install \
           llvm
