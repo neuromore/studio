@@ -53,7 +53,7 @@ jobs:
       run: |
         sudo apt-get install \
           llvm \
-          libgl-dev
+          libgl-dev:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
@@ -91,7 +91,10 @@ jobs:
         clang++ --target=$TARGET -v
         make -v
 
-    - name: Build Dependencies
+    - name: Build QtTools for AMD64 Host
+      run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
+
+    - name: Build Dependencies for Target
       run: make Dependencies -j${{ env.JOBS }}
 
     - name: Build
