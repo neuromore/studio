@@ -61,6 +61,18 @@ ifeq ($(TARGET_ARCH),)
 TARGET_ARCH = $(DETECTED_ARCH)
 endif
 
+# Folder of platform .mk files
+PLATDIR = $(dir $(lastword $(MAKEFILE_LIST)))
+
+# Include shared file for all host and target arch
+-include $(PLATDIR)/$(DETECTED_OS)-all.mk
+
+# Include shared file for all host arch
+-include $(PLATDIR)/$(DETECTED_OS)-all-$(TARGET_OS)-$(TARGET_ARCH).mk
+
+# Include file for this target arch
+-include $(PLATDIR)/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
+
 # Debug by default
 ifeq ($(MODE),)
 MODE = debug

@@ -1,19 +1,41 @@
 name: Build Linux
 on:
   workflow_dispatch:
+    inputs:
+      cpuflags-x64:
+        description: 'CPUFLAGS for X64'
+        type: string
+        required: false
+      cpuflags-x86:
+        description: 'CPUFLAGS for X86'
+        type: string
+        required: false
+      cpuflags-arm64:
+        description: 'CPUFLAGS for ARM64'
+        type: string
+        required: false
+      cpuflags-arm:
+        description: 'CPUFLAGS for ARM'
+        type: string
+        required: false
+  workflow_call:
+  push:
+    branches:
+      - 'master'
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 360
     env:
       MODE: release
       TARGET_OS: linux
       ARCH: ${{ matrix.arch }}
+      JOBS: 4
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
-        arch: [amd64]
+        os: [ubuntu-20.04, ubuntu-22.04]
+        arch: [amd64, i386, arm64, armhf]
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -59,24 +81,49 @@ jobs:
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
       run: sudo apt-get install qemu-user qemu-user-static
 
-    - name: Build
+    - name: Set Environment Vars
       run: |
         if [ $ARCH == amd64 ]; then \
-          export TARGET_ARCH=x64; \
-          export TARGET=x86_64-linux-gnu; \
+          echo "TARGET_ARCH=x64" >> $GITHUB_ENV; \
+          echo "TARGET=x86_64-linux-gnu" >> $GITHUB_ENV; \
+          echo "${{ inputs.cpuflags-x64 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == i386 ]; then \
-          export TARGET_ARCH=x86; \
-          export TARGET=i686-linux-gnu; \
+          echo "TARGET_ARCH=x86" >> $GITHUB_ENV; \
+          echo "TARGET=i686-linux-gnu" >> $GITHUB_ENV; \
+          echo "${{ inputs.cpuflags-x86 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == arm64 ]; then \
-          export TARGET_ARCH=arm64; \
-          export TARGET=aarch64-linux-gnu; \
+          echo "TARGET_ARCH=arm64" >> $GITHUB_ENV; \
+          echo "TARGET=aarch64-linux-gnu" >> $GITHUB_ENV; \
+          echo "${{ inputs.cpuflags-arm64 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == armhf ]; then \
-          export TARGET_ARCH=arm; \
-          export TARGET=arm-linux-gnueabihf; \
+          echo "TARGET_ARCH=arm" >> $GITHUB_ENV; \
+          echo "TARGET=arm-linux-gnueabihf" >> $GITHUB_ENV; \
+          echo "${{ inputs.cpuflags-arm }}" >> $GITHUB_ENV; \
         fi
+      
+    - name: Version
+      run: |
+        echo MODE: $MODE
+        echo ARCH: $ARCH
+        echo TARGET: $TARGET
+        echo TARGET_ARCH: $TARGET_ARCH
         clang++ --target=$TARGET -v
-        make Dependencies
-        make
+        make -v
+
+    - name: Build Dependencies
+      run: make Dependencies -j${{ env.JOBS }}
+
+    - name: Build
+      run: make -j${{ env.JOBS }}
+        
+    - name: Make (dist)
+      run: make dist
+      
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages (${{ matrix.os }}-${{ matrix.arch }})
+        path: ./dist/${{ matrix.os }}/*.deb

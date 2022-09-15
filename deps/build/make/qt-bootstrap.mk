@@ -1,6 +1,5 @@
 
 include platforms/detect-host.mk
-include platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = qt-bootstrap
 INCDIR     = ../../include
@@ -227,6 +226,26 @@ OBJS      := $(OBJS) \
              qt-core/io/qfsfileengine_unix.o \
              qt-core/io/qstandardpaths_unix.o \
              qt-core/kernel/qcore_unix.o
+ifeq ($(TARGET_ARCH),x86)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),x64)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+endif
+endif
+
+# iOS
+ifeq ($(TARGET_OS),ios)
+DEFINES   := $(DEFINES)
+CXXFLAGS  := $(CXXFLAGS)
+INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-ios-clang
+OBJS      := $(OBJS)
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif

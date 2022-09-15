@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package 
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" 
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" 
+  xmlns:uap6="http://schemas.microsoft.com/appx/manifest/uap/windows10/6" 
+  xmlns:desktop2="http://schemas.microsoft.com/appx/manifest/desktop/windows10/2" 
+  xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4" 
+  xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2" 
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:build="http://schemas.microsoft.com/developer/appx/2015/build"
+  IgnorableNamespaces="uap uap4 uap5 uap6 iot2 desktop2 desktop4 rescap build" >
+
+  <Identity 
+    Name="Studio" 
+	Publisher="{PUBLISHER}" 
+	Version="{VERSION}"
+	ProcessorArchitecture="neutral"	/>
+
+  <Properties>
+    <DisplayName>Studio</DisplayName>
+    <PublisherDisplayName>neuromore co</PublisherDisplayName>
+    <Logo>app.png</Logo>
+  </Properties>
+  
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17134.0" MaxVersionTested="10.0.20348.0" />
+  </Dependencies>
+  
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  
+  <Applications>
+    <Application 
+      Id="App" 
+      Executable="Studio.exe"
+      EntryPoint="Studio.App"
+      desktop4:Subsystem="console" 
+      desktop4:SupportsMultipleInstances="true">
+	  
+      <uap:VisualElements 
+        DisplayName="Studio" 
+        Square150x150Logo="app.png" 
+        Square44x44Logo="app.png"
+        Description="Studio"
+        BackgroundColor="transparent">		
+        <uap:DefaultTile Wide310x150Logo="app.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square150x150Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>        
+        <uap:SplashScreen Image="app.png" />
+      </uap:VisualElements>
+	  
+    </Application>
+  </Applications>
+  
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <Capability Name="privateNetworkClientServer" />
+    <rescap:Capability Name="runFullTrust"/>
+  </Capabilities> 
+</Package>

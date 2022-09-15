@@ -52,7 +52,8 @@
     //#define INCLUDE_DEVICE_NEUROSKY_MINDWAVE
     //#define INCLUDE_DEVICE_TOBIIEYEX
     //#define INCLUDE_DEVICE_ACTICHAMP
-    #ifndef _M_X64 // X86 ONLY
+    // X86 ONLY
+    #if (defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i686__))
       #define INCLUDE_DEVICE_BRAINMASTER
       //#define INCLUDE_DEVICE_ADVANCEDBRAINMONITORING
       //#define INCLUDE_DEVICE_BRAINQUIRY

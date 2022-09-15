@@ -1,0 +1,37 @@
+<PackagingLayout xmlns="http://schemas.microsoft.com/appx/makeappx/2017">
+  <PackageFamily 
+    ID="Studio" 
+    FlatBundle="false"
+    ManifestPath="../../dist/win-10/Studio/AppxManifest.xml"
+    ResourceManager="false">
+    
+    <Package ID="Studio-x64" ProcessorArchitecture="x64">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-x64/Studio.exe"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/Resources/AppIcon-neuromore-256x256.png"/>
+        <File DestinationPath="eego-SDK.dll" SourcePath="../../deps/prebuilt/win/x64/eego-SDK.dll"/>
+        <File DestinationPath="gforce64.dll" SourcePath="../../deps/prebuilt/win/x64/gforce64.dll"/>
+        <File DestinationPath="neurosdk-x64.dll" SourcePath="../../deps/prebuilt/win/x64/neurosdk-x64.dll"/>
+        <File DestinationPath="Unicorn.dll" SourcePath="../../deps/prebuilt/win/x64/Unicorn.dll"/>
+      </Files>
+    </Package>
+	
+    <Package ID="Studio-x86" ProcessorArchitecture="x86">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-x86/Studio.exe"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/Resources/AppIcon-neuromore-256x256.png"/>
+        <File DestinationPath="eego-SDK.dll" SourcePath="../../deps/prebuilt/win/x86/eego-SDK.dll"/>
+        <File DestinationPath="gforce32.dll" SourcePath="../../deps/prebuilt/win/x86/gforce32.dll"/>
+        <File DestinationPath="neurosdk-x86.dll" SourcePath="../../deps/prebuilt/win/x86/neurosdk-x86.dll"/>
+      </Files>
+    </Package>
+	
+    <Package ID="Studio-arm64" ProcessorArchitecture="arm64">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../build/make/bin/win-arm64/Studio.exe"/>
+        <File DestinationPath="app.png" SourcePath="../../src/Studio/Resources/AppIcon-neuromore-256x256.png"/>
+      </Files>
+    </Package>
+	
+  </PackageFamily>
+</PackagingLayout>

@@ -1,6 +1,5 @@
 
 include ../../deps/build/make/platforms/detect-host.mk
-include ../../deps/build/make/platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = Studio
 TARGET     = $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
@@ -359,6 +358,14 @@ OBJS       = Devices/ABM/AbmDriver.o \
              TourManager.o
 
 ################################################################################################
+# Version
+
+VERSIONFILE       = $(SRCDIR)/Version.h
+VERSIONMACROMAJOR = NEUROMORE_STUDIO_VERSION_MAJOR
+VERSIONMACROMINOR = NEUROMORE_STUDIO_VERSION_MINOR
+VERSIONMACROPATCH = NEUROMORE_STUDIO_VERSION_PATCH
+
+################################################################################################
 # BRANDINGS
 
 ifeq ($(BRANDING),)
@@ -407,6 +414,7 @@ endif
 ################################################################################################
 # WINDOWS
 ifeq ($(TARGET_OS),win)
+OUTDIST   := $(DISTDIR)/$(NAME)-$(TARGET_ARCH)/$(NAME)$(EXTBIN)
 QTMOC     := $(QTMOC) -DQ_OS_WIN
 DEFINES   := $(DEFINES) \
              -D_CRT_SECURE_NO_WARNINGS \
@@ -459,9 +467,9 @@ LINKLIBS  := $(LINKLIBS) \
              -lopengl32.lib \
              -lglu32.lib
 ifeq ($(MODE),debug)
-LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:CONSOLE
+LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:CONSOLE",10.00"
 else
-LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:WINDOWS
+LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:WINDOWS",10.00"
 endif
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
@@ -480,6 +488,7 @@ endif
 ################################################################################################
 # OSX
 ifeq ($(TARGET_OS),osx)
+OUTDIST   := $(DISTDIR)/$(NAME).app/Contents/MacOS/$(NAME)$(EXTBIN)
 QTMOC     := $(QTMOC) -DQ_OS_MAC
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_PLATFORM_OSX \
@@ -529,6 +538,7 @@ endif
 ################################################################################################
 # LINUX
 ifeq ($(TARGET_OS),linux)
+OUTDIST   := $(DISTDIR)/$(NAME)-$(TARGET_ARCH)/usr/bin/$(NAME)$(EXTBIN)
 QTMOC     := $(QTMOC) -DQ_OS_LINUX
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_PLATFORM_LINUX \
@@ -667,11 +677,11 @@ $(MOCDIR)/%.mocmm:
 
 $(OBJDIR)/%.omoc:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omoc=$(MOCDIR)/moc_$(@F:.omoc=.cpp)) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omoc=$(MOCDIR)/moc_$(@F:.omoc=.cpp)) -o $@
 
 $(OBJDIR)/%.omocmm:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omocmm=$(MOCDIR)/moc_%.mm) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omocmm=$(MOCDIR)/moc_%.mm) -o $@
 
 ################################################################################################
 # RCC
@@ -703,15 +713,15 @@ OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
 
 $(OBJDIR)/%.oc:
 	@echo [CC]  $@
-	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.oc=$(SRCDIR)%.c) -o $@
+	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.oc=$(SRCDIR)%.c) -o $@
 
 $(OBJDIR)/%.omm:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
 
 ################################################################################################
 # RES
@@ -767,3 +777,8 @@ clean:
 	$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTBIN))
 	$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTPDB))
 	$(call deletefiles,$(BINDIR),*.$(EXTDLL))
+	
+################################################################################################
+
+include ../../deps/build/make/platforms/dist.mk
+

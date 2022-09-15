@@ -1,0 +1,28 @@
+name: Build iOS
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - 'master'
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      MODE: release
+      TARGET_OS: ios
+      TARGET_ARCH: arm64
+      JOBS: 4
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-11,macos-12]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Make (build)
+      run: |
+        make -v
+        make Engine -j4

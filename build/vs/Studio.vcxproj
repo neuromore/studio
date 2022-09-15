@@ -726,7 +726,7 @@
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
       <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;DbgHelp.lib;Engine_d.lib;QtBase_d.lib;edflib_d.lib;kissfft_d.lib;libpng_d.lib;libjpeg_d.lib;oscpack_d.lib;libsvm_d.lib;dspfilters_d.lib;wavelib_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;opencv-core_d.lib;opencv-imgcodecs_d.lib;opencv-imgproc_d.lib;opencv-videoio_d.lib;tinyaes_d.lib;tinyobjloader_d.lib;zlib_d.lib;double-conversion_d.lib;libcrypto_d.lib;libssl_d.lib;pcre2_d.lib;harfbuzz_d.lib;harfbuzz-ng_d.lib;freetype_d.lib;singleapplication_d.lib;qt-bluetooth_d.lib;qt-core_d.lib;qt-concurrent_d.lib;qt-eventdispatchers_d.lib;qt-fontdatabases_d.lib;qt-gamepad_d.lib;qt-gui_d.lib;qt-multimedia_d.lib;qt-network_d.lib;qt-multimediaplugins_d.lib;qt-multimediawidgets_d.lib;qt-websockets_d.lib;qt-widgets_d.lib;qt-opengl_d.lib;qt-printsupport_d.lib;qt-serialport_d.lib;qt-xml_d.lib;qt-platform-windows_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
@@ -787,7 +787,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
       <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;DbgHelp.lib;Engine_d.lib;QtBase_d.lib;edflib_d.lib;kissfft_d.lib;libpng_d.lib;libjpeg_d.lib;oscpack_d.lib;libsvm_d.lib;dspfilters_d.lib;wavelib_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;opencv-core_d.lib;opencv-imgcodecs_d.lib;opencv-imgproc_d.lib;opencv-videoio_d.lib;tinyaes_d.lib;tinyobjloader_d.lib;zlib_d.lib;double-conversion_d.lib;libcrypto_d.lib;libssl_d.lib;pcre2_d.lib;harfbuzz_d.lib;harfbuzz-ng_d.lib;freetype_d.lib;singleapplication_d.lib;qt-bluetooth_d.lib;qt-core_d.lib;qt-concurrent_d.lib;qt-eventdispatchers_d.lib;qt-fontdatabases_d.lib;qt-gamepad_d.lib;qt-gui_d.lib;qt-multimedia_d.lib;qt-network_d.lib;qt-multimediaplugins_d.lib;qt-multimediawidgets_d.lib;qt-websockets_d.lib;qt-widgets_d.lib;qt-opengl_d.lib;qt-printsupport_d.lib;qt-serialport_d.lib;qt-xml_d.lib;qt-platform-windows_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
@@ -855,7 +855,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -927,7 +927,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -999,7 +999,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -1073,7 +1073,7 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -1146,7 +1146,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
@@ -1219,7 +1219,7 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
       <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>

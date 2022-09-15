@@ -1,0 +1,38 @@
+name: Build Android
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - 'master'
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      MODE: release
+      TARGET_OS: android
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest,macos-latest]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Android NDK
+      uses: nttld/setup-ndk@v1
+      id: setup-ndk
+      timeout-minutes: 10
+      with:
+        ndk-version: r25b
+
+    - name: Build
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+      run: |
+        make -v
+        make TARGET_ARCH=x64 Engine -j4
+        make TARGET_ARCH=x86 Engine -j4
+        make TARGET_ARCH=arm64 Engine -j4
+        make TARGET_ARCH=arm Engine -j4

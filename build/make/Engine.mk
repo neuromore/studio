@@ -1,6 +1,5 @@
 
 include ../../deps/build/make/platforms/detect-host.mk
-include ../../deps/build/make/platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = Engine
 INCDIR     = ../../deps/include/
@@ -341,6 +340,25 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+################################################################################################
+# iOS
+ifeq ($(TARGET_OS),ios)
+DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_IOS
+CXXFLAGS  := $(CXXFLAGS)
+OBJS      := $(OBJS)
+ifeq ($(TARGET_ARCH),x86)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),x64)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+endif
+endif
 
 ################################################################################################
 # MODE
@@ -361,7 +379,7 @@ OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
 
 $(OBJS) : pch
 

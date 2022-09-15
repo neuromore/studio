@@ -1,6 +1,5 @@
 
 include platforms/detect-host.mk
-include platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = libpng
 INCDIR     = ../../include
@@ -34,19 +33,19 @@ OBJS      := $(OBJS) \
 endif
 
 ifeq ($(TARGET_ARCH),arm)
-DEFINES   := $(DEFINES)
-OBJS      := $(OBJS) \
-             arm/arm_init.o \
-             arm/filter_neon_intrinsics.o \
-             arm/palette_neon_intrinsics.o
+DEFINES   := $(DEFINES) -DPNG_ARM_NEON_OPT=0
+#OBJS      := $(OBJS) \
+#             arm/arm_init.o \
+#             arm/filter_neon_intrinsics.o \
+#             arm/palette_neon_intrinsics.o
 endif
 
 ifeq ($(TARGET_ARCH),arm64)
-DEFINES   := $(DEFINES)
-OBJS      := $(OBJS) \
-             arm/arm_init.o \
-             arm/filter_neon_intrinsics.o \
-             arm/palette_neon_intrinsics.o
+DEFINES   := $(DEFINES) -DPNG_ARM_NEON_OPT=0
+#OBJS      := $(OBJS) \
+#             arm/arm_init.o \
+#             arm/filter_neon_intrinsics.o \
+#             arm/palette_neon_intrinsics.o
 endif
 
 ################################################################################################

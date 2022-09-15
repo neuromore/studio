@@ -1,6 +1,5 @@
 
 include ../../deps/build/make/platforms/detect-host.mk
-include ../../deps/build/make/platforms/$(DETECTED_OS)-$(DETECTED_ARCH)-$(TARGET_OS)-$(TARGET_ARCH).mk
 
 NAME       = QtBase
 INCDIR     = ../../deps/include
@@ -379,6 +378,35 @@ endif
 endif
 
 ################################################################################################
+# iOS
+ifeq ($(TARGET_OS),ios)
+QTMOC     := $(QTMOC) -DQ_OS_IPHONE
+DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_IOS
+CXXFLAGS  := $(CXXFLAGS)
+CFLAGS    := $(CFLAGS)
+INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-ios-clang
+MOCH      := $(MOCH)
+MOCC      := $(MOCC)
+MOCO      := $(MOCO)
+RCCH      := $(RCCH)
+RCCO      := $(RCCO)
+UICH      := $(UICH)
+OBJS      := $(OBJS)
+ifeq ($(TARGET_ARCH),x86)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),x64)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+endif
+endif
+
+################################################################################################
 # MODE
 
 ifeq ($(MODE),debug)
@@ -419,11 +447,11 @@ $(MOCDIR)/%.mocmm:
 
 $(OBJDIR)/%.omoc:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omoc=$(MOCDIR)/moc_$(@F:.omoc=.cpp)) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omoc=$(MOCDIR)/moc_$(@F:.omoc=.cpp)) -o $@
 
 $(OBJDIR)/%.omocmm:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omocmm=$(MOCDIR)/moc_%.mm) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)/%.omocmm=$(MOCDIR)/moc_%.mm) -o $@
 
 ################################################################################################
 # RCC
@@ -455,15 +483,15 @@ OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
 
 $(OBJDIR)/%.oc:
 	@echo [CC]  $@
-	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.oc=$(SRCDIR)%.c) -o $@
+	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.oc=$(SRCDIR)%.c) -o $@
 
 $(OBJDIR)/%.omm:
 	@echo [CXX] $@
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -Xclang -include-pch -Xclang $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
 
 ################################################################################################
 

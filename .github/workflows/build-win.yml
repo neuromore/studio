@@ -4,30 +4,88 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 480
     env:
       MODE: release
       TARGET_OS: win
+      JOBS: 4
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2019]
+        os: [windows-2019,windows-2022]
     steps:
+    
+    # Checkout
     - name: Checkout
       uses: actions/checkout@v3
 
+    # X64
+    - name: MSVC Developer Console (X64)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64
+
     - name: Build Dependencies (X64)
       shell: cmd
-      run: make TARGET_ARCH=x64 Dependencies
+      run: make TARGET_ARCH=x64 Dependencies -j${{ env.JOBS }}
 
     - name: Build (X64)
       shell: cmd
-      run: make TARGET_ARCH=x64
+      run: make TARGET_ARCH=x64 -j${{ env.JOBS }}
+
+    # X86
+    - name: MSVC Developer Console (X86)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64_x86
 
     - name: Build Dependencies (X86)
       shell: cmd
-      run: make TARGET_ARCH=x86 Dependencies
+      run: make TARGET_ARCH=x86 Dependencies -j${{ env.JOBS }}
 
     - name: Build (X86)
       shell: cmd
-      run: make TARGET_ARCH=x86
+      run: make TARGET_ARCH=x86 -j${{ env.JOBS }}
+
+    # ARM64
+    - name: MSVC Developer Console (ARM64)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64_arm64
+
+    - name: Build Dependencies (ARM64)
+      shell: cmd
+      run: make TARGET_ARCH=arm64 Dependencies -j${{ env.JOBS }}
+
+    - name: Build (ARM64)
+      shell: cmd
+      run: make TARGET_ARCH=arm64 -j${{ env.JOBS }}
+
+    # Load Code Signing Certificate
+    - name: Load Code Signing Certificate
+      shell: pwsh
+      env:
+        PFX_BASE64: ${{ secrets.SIGN_PFX_FILE }}
+      run: |
+        echo $env:PFX_BASE64 > ./certs/TrueCert.pfx.base64
+        certutil -decode ./certs/TrueCert.pfx.base64 ./certs/TrueCert.pfx
+
+    # Pack
+    - name: Make (dist)
+      env:
+        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
+        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
+        PUBLISHERCN: neuromore co
+        PUBLISHER: CN=neuromore co, O=neuromore co, STREET=382 NE 191st St, L=Miami, S = Florida, PostalCode=33179, C=US
+      run: |
+        make dist
+
+    # Upload
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages (${{ matrix.os }})
+        path: |
+          ./dist/win-10/**/
+          ./dist/win-10/*.appx
+          ./dist/win-10/*.appxbundle
