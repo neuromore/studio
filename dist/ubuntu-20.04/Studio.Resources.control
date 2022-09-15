@@ -1,9 +1,0 @@
-Package: studio.resources
-Version: {VERSION}-1
-Section: base
-Priority: optional
-Architecture: all
-Maintainer: neuromore <contact@neuromore.com>
-Description: neuromore Studio Resources
-  Resources shared across platforms.
-

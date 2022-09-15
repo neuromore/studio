@@ -33,11 +33,5 @@
       </Files>
     </Package>
 	
-    <AssetPackage ID="Studio-res">
-      <Files>
-        <File DestinationPath="resources\**" SourcePath="../../resources/**"/>
-      </Files>
-    </AssetPackage>
-
   </PackageFamily>
 </PackagingLayout>

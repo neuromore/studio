@@ -70,13 +70,11 @@ ifeq ($(SIGN_PFX_PASS),)
 	$(call sign,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE))
 	$(call sign,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE))
 	$(call sign,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE))
-	$(call sign,$(DISTDIR)/$(NAME)-res.appx,$(SIGN_PFX_FILE))
 else
 	$(call signp,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 	$(call signp,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 	$(call signp,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 	$(call signp,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-	$(call signp,$(DISTDIR)/$(NAME)-res.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 
 endif
@@ -178,14 +176,6 @@ VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
 dist-prep:
 	echo [VER] $(VERSION3)
-	echo [DEB] $(NAME).Resources-$(VERSION3)-1-ubuntu-$(LSBREL)-all.deb
-	mkdir -p $(DISTDIR)/$(NAME).Resources/DEBIAN
-	mkdir -p $(DISTDIR)/$(NAME).Resources/usr/share/$(NAME)
-	cp $(DISTDIR)/$(NAME).Resources.control $(DISTDIR)/$(NAME).Resources/DEBIAN/control
-	sed -i 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME).Resources/DEBIAN/control
-	cp -r ../../resources/* $(DISTDIR)/$(NAME).Resources/usr/share/$(NAME)
-	dpkg-deb --build $(DISTDIR)/$(NAME).Resources \
-	  $(DISTDIR)/$(NAME).Resources-$(VERSION3)-1-ubuntu-$(LSBREL)-all.deb > /dev/null 2>&1
 dist-%: dist-prep
 	echo [DST] $(NAME)-$*
 	$(eval DISTDEBARCH:=$(shell \
@@ -199,14 +189,16 @@ dist-%: dist-prep
 	echo [DEB] $(DEBFILE)
 	mkdir -p $(DISTDIR)/$(NAME)-$*/DEBIAN
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/bin
+	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/lib
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/share/applications
-	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps
+	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps	
 	cp $(DISTDIR)/$(NAME).control $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	sed -i 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	cp $(SRCDIR)/Resources/AppIcon-neuromore-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
 	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
 	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)	
+	cp ./../../deps/prebuilt/linux/$*/*.so $(DISTDIR)/$(NAME)-$*/usr/lib/
 	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE) > /dev/null 2>&1
 		
 #dist: dist-prep dist-x64 dist-x86 dist-arm64 dist-arm
