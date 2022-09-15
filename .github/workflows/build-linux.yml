@@ -92,6 +92,7 @@ jobs:
         make -v
 
     - name: Build QtTools for AMD64 Host
+      if: matrix.arch != 'amd64'
       run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
     - name: Build Dependencies for Target
