@@ -374,7 +374,7 @@ endif
 
 ifeq ($(BRANDING),neuromore)
 DEFINES   := $(DEFINES) \
-             -DAPPNAME="neuromore Studio" \
+             -DAPPNAME="neuromoreStudio" \
              -DAPPICON="AppIcon-neuromore.ico"
 endif
 
@@ -730,6 +730,7 @@ RESO := $(patsubst %,$(OBJDIR)/%,$(RESO))
 
 $(OBJDIR)/%.res:
 	@echo [RC]  $@
+	echo $(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /fo $@ $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
 	$(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /fo $@ $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
 
 ################################################################################################
