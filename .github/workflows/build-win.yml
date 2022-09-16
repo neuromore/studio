@@ -22,7 +22,11 @@ jobs:
     # System Info
     - name: System Info
       run: systeminfo
-    
+
+    # Task List
+    - name: Task List
+      run: tasklist
+ 
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
