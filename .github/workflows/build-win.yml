@@ -26,15 +26,18 @@ jobs:
     # Task List
     - name: Task List
       run: tasklist
- 
+
     # Running Service List
     - name: Running Service List
       shell: cmd
       run: sc queryex type=service | find /i "SERVICE_NAME:"
 
-    - name: Stopping unused services
+    - name: Stopping Unused Processes
       shell: cmd
       run: |
+        taskkill /F /IM explorer.exe
+        taskkill /F /IM SearchUI.exe
+        taskkill /F /IM TSVNCache.exe
         sc stop CertPropSvc
         sc stop docker
         sc stop Spooler
