@@ -19,6 +19,14 @@ jobs:
         os: [windows-2019,windows-2022]
     steps:
 
+    - name: test
+      shell: pwsh
+      run: |
+        $Pagefile = Get-WmiObject Win32_PagefileSetting | Where-Object {$_.name -eq “D:\pagefile.sys”}
+        $Pagefile.InitialSize = 10000
+        $Pagefile.MaximumSize = 10000
+        $Pagefile.put() 
+
     # System Info
     - name: System Info
       run: systeminfo
