@@ -31,8 +31,8 @@ jobs:
         fsutil volume diskfree d:
 
     - name: Swap File Info
-      run: |
-        Get-WmiObject WIN32_Pagefile | Select-Object Name, InitialSize, MaximumSize, FileSize
+      shell: pwsh
+      run: Get-WmiObject WIN32_Pagefile
 
     # Task List
     - name: Task List
