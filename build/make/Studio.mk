@@ -11,11 +11,11 @@ RCCDIR     = $(SRCDIR)/.rcc
 UICDIR     = $(SRCDIR)/.uic
 OBJDIR    := $(OBJDIR)/$(NAME)
 QTMOC     := "../../deps/build/make/$(QTMOC)" --no-notes
-QTRCC     := "../../deps/build/make/$(QTRCC)" 
+QTRCC     := "../../deps/build/make/$(QTRCC)"
 QTUIC     := "../../deps/build/make/$(QTUIC)"
-BINDIRDEP  = "../../deps/build/make/$(BINDIR)"
-LIBDIRDEP  = "../../deps/build/make/$(LIBDIR)"
-LIBDIRPRE  = "../../deps/prebuilt/$(TARGET_OS)/$(TARGET_ARCH)"
+BINDIRDEP  = ../../deps/build/make/$(BINDIR)
+LIBDIRDEP  = ../../deps/build/make/$(LIBDIR)
+LIBDIRPRE  = ../../deps/prebuilt/$(TARGET_OS)/$(TARGET_ARCH)
 DEFINES   := $(DEFINES) \
              -DCHROMIUM_ZLIB_NO_CHROMECONF \
              -DQT_STATIC \
@@ -747,10 +747,12 @@ $(RESO) : $(PRES)
 
 build: pch $(PRES) $(OBLS) $(RESO)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
-	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
+#	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
 	@echo [LNK] $(TARGET)
-	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
+#	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
 	@echo [CPY] Prebuilt Libraries
+	echo From $(LIBDIRPRE)/*$(EXTDLL)
+	echo To $(BINDIR)
 	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
 	@echo [CPY] Built Libraries
 	$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR))
