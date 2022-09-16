@@ -18,6 +18,10 @@ jobs:
       matrix:
         os: [windows-2019,windows-2022]
     steps:
+
+    # System Info
+    - name: System Info
+      run: systeminfo
     
     # Checkout
     - name: Checkout
