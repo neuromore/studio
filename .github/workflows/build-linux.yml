@@ -61,7 +61,8 @@ jobs:
         else \
           sudo sed -i 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list; \
         fi
-        sudo apt-get update
+        sudo apt-get update \
+        sudo apt-get upgrade \
         sudo apt-get install \
             llvm \
             libstdc++6-$ARCH-cross \
@@ -101,7 +102,29 @@ jobs:
             libstdc++-11-dev:$ARCH; \
         fi
         clang++ --target=$ARCHGCC -v
-
+        llvm-ar --version
+        sudo apt-get install \
+          debconf:$ARCH \
+          pkg-config:$ARCH \
+          libgl-dev:$ARCH \
+          libpcre2-8-0:$ARCH \
+          libpcre2-dev:$ARCH \
+          libmount1:$ARCH \
+          libmount-dev:$ARCH \
+          libselinux1:$ARCH \
+          libselinux1-dev:$ARCH \
+          libglib2.0-0:$ARCH \
+          libglib2.0-dev:$ARCH \
+          libgstreamer1.0-0:$ARCH \
+          libgstreamer1.0-dev:$ARCH \
+          libgstreamer-plugins-base1.0-0:$ARCH \
+          libgstreamer-plugins-base1.0-dev:$ARCH \
+          libgstreamer-plugins-good1.0-0:$ARCH \
+          libgstreamer-plugins-good1.0-dev:$ARCH \
+          gir1.2-glib-2.0:$ARCH \
+          gir1.2-gst-plugins-base-1.0:$ARCH \
+          gir1.2-gstreamer-1.0:$ARCH
+          
 #    - name: Cross-Compile Support
 #      uses: cyberjunk/gha-ubuntu-cross@v1
 #      if: matrix.arch != 'amd64'
@@ -123,30 +146,30 @@ jobs:
     - name: Debug 3
       run: sudo dpkg --configure -a
 
-    - name: Ubuntu Packages
-      run: |
-        sudo apt-get install -f -y \
-          llvm \
-          debconf:$ARCH \
-          pkg-config:$ARCH \
-          libgl-dev:$ARCH \
-          libpcre2-8-0:$ARCH \
-          libpcre2-dev:$ARCH \
-          libmount1:$ARCH \
-          libmount-dev:$ARCH \
-          libselinux1:$ARCH \
-          libselinux1-dev:$ARCH \
-          libglib2.0-0:$ARCH \
-          libglib2.0-dev:$ARCH \
-          libgstreamer1.0-0:$ARCH \
-          libgstreamer1.0-dev:$ARCH \
-          libgstreamer-plugins-base1.0-0:$ARCH \
-          libgstreamer-plugins-base1.0-dev:$ARCH \
-          libgstreamer-plugins-good1.0-0:$ARCH \
-          libgstreamer-plugins-good1.0-dev:$ARCH \
-          gir1.2-glib-2.0:$ARCH \
-          gir1.2-gst-plugins-base-1.0:$ARCH \
-          gir1.2-gstreamer-1.0:$ARCH
+#    - name: Ubuntu Packages
+#      run: |
+#        sudo apt-get install -f -y \
+#          llvm \
+#          debconf:$ARCH \
+#          pkg-config:$ARCH \
+#          libgl-dev:$ARCH \
+#          libpcre2-8-0:$ARCH \
+#          libpcre2-dev:$ARCH \
+#          libmount1:$ARCH \
+#          libmount-dev:$ARCH \
+#          libselinux1:$ARCH \
+#          libselinux1-dev:$ARCH \
+#          libglib2.0-0:$ARCH \
+#          libglib2.0-dev:$ARCH \
+#          libgstreamer1.0-0:$ARCH \
+#          libgstreamer1.0-dev:$ARCH \
+#          libgstreamer-plugins-base1.0-0:$ARCH \
+#          libgstreamer-plugins-base1.0-dev:$ARCH \
+#          libgstreamer-plugins-good1.0-0:$ARCH \
+#          libgstreamer-plugins-good1.0-dev:$ARCH \
+#          gir1.2-glib-2.0:$ARCH \
+#          gir1.2-gst-plugins-base-1.0:$ARCH \
+#          gir1.2-gstreamer-1.0:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
