@@ -33,7 +33,7 @@ jobs:
       run: make TARGET_ARCH=x64 Dependencies -j${{ env.JOBS }}
 
     - name: Build (X64)
-      run: make TARGET_ARCH=x64 Studio -j${{ env.JOBS }}
+      run: make TARGET_ARCH=x64 -j${{ env.JOBS }}
 
     # X86
     - name: MSVC Developer Console (X86)
