@@ -19,10 +19,6 @@ jobs:
         os: [windows-2019,windows-2022]
     steps:
 
-    - name: test
-      shell: cmd
-      run: wmic pagefileset where name="D:\\pagefile.sys" set InitialSize=2048,MaximumSize=2048
-
     # System Info
     - name: System Info
       run: systeminfo
@@ -38,6 +34,11 @@ jobs:
       shell: cmd
       run: |
         fsutil volume diskfree d:
+
+    # Adjust Swap Space
+    - name: Adjust Swap Space
+      shell: cmd
+      run: wmic pagefileset where name="D:\\pagefile.sys" set InitialSize=8192,MaximumSize=8192
 
     # Task List
     - name: Task List
