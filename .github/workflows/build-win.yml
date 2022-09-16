@@ -38,7 +38,10 @@ jobs:
         sc stop docker
         sc stop Spooler
         sc stop W3SVC
- 
+        sc stop CDPSvc
+        sc stop UsoSvc
+        sc stop WinDefend
+
     # Task List
     - name: Task List
       run: tasklist
