@@ -60,6 +60,10 @@ jobs:
         sudo apt-get install \
           llvm \
           libgl-dev:$ARCH \
+          libmount1:$ARCH \
+          libmount-dev:$ARCH \
+          libselinux1:$ARCH \
+          libselinux1-dev:$ARCH \
           libglib2.0-0:$ARCH \
           libglib2.0-dev:$ARCH \
           libgstreamer1.0-0:$ARCH \
