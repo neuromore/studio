@@ -30,6 +30,10 @@ jobs:
         fsutil volume diskfree c:
         fsutil volume diskfree d:
 
+    - name: Swap File Info
+      run: |
+        Get-WmiObject WIN32_Pagefile | Select-Object Name, InitialSize, MaximumSize, FileSize
+
     # Task List
     - name: Task List
       run: tasklist
