@@ -20,12 +20,15 @@ jobs:
     - name: System Info
       run: systeminfo
 
-    # Free Disk Space
-    - name: Free Disk Space
+    # Free Disk Space (C)
+    - name: Free Disk Space (C)
       shell: cmd
-      run: |
-        fsutil volume diskfree c:
-        fsutil volume diskfree d:
+      run: fsutil volume diskfree c:
+
+    # Free Disk Space (D)
+    - name: Free Disk Space (D)
+      shell: cmd
+      run: fsutil volume diskfree d:
 
     # Task List
     - name: Task List
@@ -36,6 +39,7 @@ jobs:
       shell: cmd
       run: sc queryex type=service | find /i "SERVICE_NAME:"
 
+    # Free Memory
     - name: Free Memory (ALL)
       shell: cmd
       run: |
