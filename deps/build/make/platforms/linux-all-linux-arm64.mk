@@ -9,7 +9,9 @@ BINDIR     = bin/linux-arm64
 TARGET     = aarch64-linux-gnu
 CPUFLAGS   = -march=armv8-a -mtune=generic
 DEFINES    = 
-INCLUDES   = -I/usr/$(TARGET)/include
+SYSINCDIR  = /usr/$(TARGET)/include
+SYSLIBDIR  = /usr/lib/$(TARGET)
+INCLUDES   = -I$(SYSINCDIR)
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -fPIC -static
 CC         = clang
@@ -19,8 +21,8 @@ ARFLAGS    = rcs
 STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
-LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
-LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/arm64
+LINKFLAGS  = -v -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
+LINKPATH   = -L$(SYSLIBDIR) -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/arm64
 LINKLIBS   = 
 DEBARCH    = arm64
 LSBREL     = $(shell lsb_release -r -s)

@@ -9,7 +9,9 @@ BINDIR     = bin/linux-arm
 TARGET     = arm-linux-gnueabihf
 CPUFLAGS   = -march=armv7-a -mfloat-abi=hard -mfpu=neon-fp16
 DEFINES    = 
-INCLUDES   = -I/usr/$(TARGET)/include
+SYSINCDIR  = /usr/$(TARGET)/include
+SYSLIBDIR  = /usr/lib/$(TARGET)
+INCLUDES   = -I$(SYSINCDIR)
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -fPIC -static
 CC         = clang
@@ -20,7 +22,7 @@ STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
-LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/arm
+LINKPATH   = -L$(SYSLIBDIR) -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/arm
 LINKLIBS   = 
 DEBARCH    = armhf
 LSBREL     = $(shell lsb_release -r -s)

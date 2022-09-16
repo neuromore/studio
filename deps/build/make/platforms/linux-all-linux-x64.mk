@@ -9,6 +9,9 @@ BINDIR     = bin/linux-x64
 TARGET     = x86_64-linux-gnu
 CPUFLAGS   = -march=x86-64 -mtune=generic -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mpclmul
 DEFINES    = 
+SYSINCDIR  = /usr/include
+SYSLIBDIR  = /usr/lib
+INCLUDES   = -I$(SYSINCDIR)
 INCLUDES   = 
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -fPIC -static
