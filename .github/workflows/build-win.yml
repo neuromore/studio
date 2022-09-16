@@ -41,14 +41,15 @@ jobs:
         sc stop W3SVC
         sc stop CDPSvc
         sc stop UsoSvc
-        sc stop IpOverUsbSvc
         sc stop LanmanServer
-        sc stop TabletInputService
-        sc stop TermService
 
     # Task List
     - name: Task List
       run: tasklist
+
+    # System Info
+    - name: System Info
+      run: systeminfo
  
     # Checkout
     - name: Checkout
