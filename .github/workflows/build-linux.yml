@@ -61,8 +61,8 @@ jobs:
         else \
           sudo sed -i 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list; \
         fi
-        sudo apt-get update \
-        sudo apt-get upgrade \
+        sudo apt-get update
+        sudo apt-get upgrade
         sudo apt-get install \
             llvm \
             libstdc++6-$ARCH-cross \
