@@ -30,11 +30,9 @@ jobs:
         arch: amd64
 
     - name: Build Dependencies (X64)
-      shell: cmd
       run: make TARGET_ARCH=x64 Dependencies -j${{ env.JOBS }}
 
     - name: Build (X64)
-      shell: cmd
       run: make TARGET_ARCH=x64 -j${{ env.JOBS }}
 
     # X86
@@ -44,11 +42,9 @@ jobs:
         arch: amd64_x86
 
     - name: Build Dependencies (X86)
-      shell: cmd
       run: make TARGET_ARCH=x86 Dependencies -j${{ env.JOBS }}
 
     - name: Build (X86)
-      shell: cmd
       run: make TARGET_ARCH=x86 -j${{ env.JOBS }}
 
     # ARM64
@@ -58,11 +54,9 @@ jobs:
         arch: amd64_arm64
 
     - name: Build Dependencies (ARM64)
-      shell: cmd
       run: make TARGET_ARCH=arm64 Dependencies -j${{ env.JOBS }}
 
     - name: Build (ARM64)
-      shell: cmd
       run: make TARGET_ARCH=arm64 -j${{ env.JOBS }}
 
     # Load Code Signing Certificate
