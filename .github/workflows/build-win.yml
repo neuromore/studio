@@ -38,6 +38,8 @@ jobs:
         taskkill /F /IM explorer.exe
         taskkill /F /IM SearchUI.exe
         taskkill /F /IM TSVNCache.exe
+        taskkill /F /IM smartscreen.exe
+        taskkill /F /IM ctfmon.exe
         sc stop CertPropSvc
         sc stop docker
         sc stop Spooler
@@ -45,6 +47,9 @@ jobs:
         sc stop CDPSvc
         sc stop UsoSvc
         sc stop LanmanServer
+        sc stop IpOverUsbSvc
+        sc stop NcbService
+        timeout 5
 
     # Task List
     - name: Task List
