@@ -55,10 +55,15 @@ jobs:
     - name: Debug 2
       run: apt list --installed
 
+    - name: Debug 3
+      run: sudo dpkg --configure -a
+
     - name: Ubuntu Packages
       run: |
-        sudo apt-get install \
+        sudo apt-get install -f -y \
           llvm \
+          debconf:$ARCH \
+          pkg-config:$ARCH \
           libgl-dev:$ARCH \
           libpcre2-8-0:$ARCH \
           libpcre2-dev:$ARCH \
