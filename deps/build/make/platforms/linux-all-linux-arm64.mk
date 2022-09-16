@@ -21,7 +21,7 @@ ARFLAGS    = rcs
 STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
-LINKFLAGS  = -v -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
+LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
 LINKPATH   = -L$(SYSLIBDIR) -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/arm64
 LINKLIBS   = 
 DEBARCH    = arm64
