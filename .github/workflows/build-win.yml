@@ -20,12 +20,8 @@ jobs:
     steps:
 
     - name: test
-      shell: pwsh
-      run: |
-        $Pagefile = Get-WmiObject Win32_PagefileSetting | Where-Object {$_.name -eq “D:\pagefile.sys”}
-        $Pagefile.InitialSize = 10000
-        $Pagefile.MaximumSize = 10000
-        $Pagefile.put() 
+      shell: cmd
+      run: wmic pagefileset where name="D:\\pagefile.sys" set InitialSize=2048,MaximumSize=2048
 
     # System Info
     - name: System Info
