@@ -32,6 +32,17 @@ jobs:
       shell: cmd
       run: sc queryex type=service | find /i "SERVICE_NAME:"
 
+    - name: Stopping unused services
+      shell: cmd
+      run: |
+        sc stop docker
+        sc stop Spooler
+        sc stop W3SVC
+ 
+    # Task List
+    - name: Task List
+      run: tasklist
+ 
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
