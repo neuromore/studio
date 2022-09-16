@@ -26,7 +26,7 @@ LINKLIBS   =
 
 # MSVC Resource Compiler
 RC         = llvm-rc
-RCFLAGS    = /l 0x0409 /nologo
+RCFLAGS    = -L0x0409 -NOLOGO
 
 # Debug vs. Release
 ifeq ($(MODE),release)
