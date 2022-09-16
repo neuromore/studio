@@ -40,8 +40,10 @@ jobs:
         sc stop W3SVC
         sc stop CDPSvc
         sc stop UsoSvc
-        sc stop WinDefend
-
+        sc stop IpOverUsbSvc
+        sc stop LanmanServer
+        sc stop LanmanWorkstation
+        
     # Task List
     - name: Task List
       run: tasklist
