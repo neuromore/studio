@@ -60,6 +60,8 @@ jobs:
         sudo apt-get install \
           llvm \
           libgl-dev:$ARCH \
+          libpcre2-8-0:$ARCH \
+          libpcre2-dev:$ARCH \
           libmount1:$ARCH \
           libmount-dev:$ARCH \
           libselinux1:$ARCH \
