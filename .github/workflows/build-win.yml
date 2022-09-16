@@ -35,6 +35,7 @@ jobs:
     - name: Stopping unused services
       shell: cmd
       run: |
+        sc stop CertPropSvc
         sc stop docker
         sc stop Spooler
         sc stop W3SVC
@@ -42,8 +43,9 @@ jobs:
         sc stop UsoSvc
         sc stop IpOverUsbSvc
         sc stop LanmanServer
-        sc stop LanmanWorkstation
-        
+        sc stop TabletInputService
+        sc stop TermService
+
     # Task List
     - name: Task List
       run: tasklist
