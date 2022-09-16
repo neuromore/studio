@@ -52,6 +52,9 @@ jobs:
     - name: Debug 1
       run: cat /etc/apt/sources.list
 
+    - name: Debug 1.1
+      run: ls -la /etc/apt/sources.list.d/
+
     - name: Debug 2
       run: apt list --installed
 
@@ -77,6 +80,8 @@ jobs:
           libgstreamer1.0-dev:$ARCH \
           libgstreamer-plugins-base1.0-0:$ARCH \
           libgstreamer-plugins-base1.0-dev:$ARCH \
+          libgstreamer-plugins-good1.0-0:$ARCH \
+          libgstreamer-plugins-good1.0-dev:$ARCH \
           gir1.2-glib-2.0:$ARCH \
           gir1.2-gst-plugins-base-1.0:$ARCH \
           gir1.2-gstreamer-1.0:$ARCH
