@@ -20,7 +20,7 @@ ARFLAGS    = rcs
 STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
-LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -Xlinker /MACHINE:X86
+LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -DLLVM_PARALLEL_LINK_JOBS=1 -Xlinker /MACHINE:X86
 LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/x86
 LINKLIBS   = 
 

@@ -20,7 +20,7 @@ ARFLAGS    = rcs
 STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
-LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -Xlinker /MACHINE:X64
+LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -DLLVM_PARALLEL_LINK_JOBS=1 -Xlinker /MACHINE:X64
 LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/x64
 LINKLIBS   = 
 
@@ -33,7 +33,7 @@ ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
 CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections -Xclang -MT
 CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections -Xclang -MT
-LINKFLAGS := $(LINKFLAGS) -DLLVM_PARALLEL_LINK_JOBS=1 -flto -g -Xlinker /OPT:ref -Xlinker /OPT:icf -RELEASE
+LINKFLAGS := $(LINKFLAGS) -flto -g -Xlinker /OPT:ref -Xlinker /OPT:icf -RELEASE
 LINKLIBS  := $(LINKLIBS) -llibcmt.lib
 else
 DEFINES   := $(DEFINES) -D_DEBUG
