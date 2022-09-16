@@ -374,8 +374,7 @@ endif
 
 ifeq ($(BRANDING),neuromore)
 DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING_NEUROMORE \
-             -DAPPNAME="neuromoreStudio" \
+             -DAPPNAME="neuromore Studio" \
              -DAPPICON="AppIcon-neuromore.ico"
 endif
 

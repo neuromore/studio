@@ -23,6 +23,13 @@ jobs:
     - name: System Info
       run: systeminfo
 
+    # Free Disk Space
+    - name: Free Disk Space
+      shell: cmd
+      run: |
+        fsutil volume diskfree c:
+        fsutil volume diskfree d:
+
     # Task List
     - name: Task List
       run: tasklist
