@@ -29,6 +29,7 @@ jobs:
  
     # Running Service List
     - name: Running Service List
+      shell: cmd
       run: sc queryex type=service | find /i "SERVICE_NAME:"
 
     # Checkout
