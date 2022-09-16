@@ -27,6 +27,10 @@ jobs:
     - name: Task List
       run: tasklist
  
+    # Running Service List
+    - name: Running Service List
+      run: sc queryex type=service | find /i "SERVICE_NAME:"
+
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
