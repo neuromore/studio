@@ -744,8 +744,8 @@ OBLS := $(OBJS) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
 $(RESO) : $(PRES)
-
-build: pch $(PRES) $(OBLS) $(RESO)
+#pch $(PRES) $(OBLS) $(RESO)
+build: 
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 #	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
 	@echo [LNK] $(TARGET)
