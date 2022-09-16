@@ -744,17 +744,19 @@ OBLS := $(OBJS) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
 $(RESO) : $(PRES)
-#pch $(PRES) $(OBLS) $(RESO)
-build: 
+
+build: pch $(PRES) $(OBLS) $(RESO)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
-#	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
+	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
 	@echo [LNK] $(TARGET)
-#	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
+	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
 	@echo [CPY] Prebuilt Libraries
 	echo From $(LIBDIRPRE)/*$(EXTDLL)
 	echo To $(BINDIR)
 	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
 	@echo [CPY] Built Libraries
+	echo From $(BINDIRDEP)/*$(EXTDLL)
+	echo To $(BINDIR)
 	$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR))
 ifeq ($(MODE),release)
 	@echo [STR] $(TARGET)
