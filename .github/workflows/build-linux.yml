@@ -57,10 +57,14 @@ jobs:
         sudo apt-get install \
           llvm \
           libgl-dev:$ARCH \
+          libglib2.0-0:$ARCH \
+          libglib2.0-dev:$ARCH \
           libgstreamer1.0-0:$ARCH \
           libgstreamer1.0-dev:$ARCH \
           libgstreamer-plugins-base1.0-0:$ARCH \
           libgstreamer-plugins-base1.0-dev:$ARCH \
+          gir1.2-glib-2.0:$ARCH \
+          gir1.2-gst-plugins-base-1.0:$ARCH \
           gir1.2-gstreamer-1.0:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
