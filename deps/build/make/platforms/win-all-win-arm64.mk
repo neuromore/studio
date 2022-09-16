@@ -20,7 +20,7 @@ ARFLAGS    = rcs
 STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
-LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -DLLVM_PARALLEL_LINK_JOBS=1 -Xlinker /MACHINE:ARM64
+LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -Xlinker /MACHINE:ARM64
 LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/win/arm64
 LINKLIBS   = 
 
@@ -31,9 +31,9 @@ RCFLAGS    = -L0x0409 -NOLOGO
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
-CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections -Xclang -MT
-CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections -Xclang -MT
-LINKFLAGS := $(LINKFLAGS) -flto -g -Xlinker /OPT:ref -Xlinker /OPT:icf -RELEASE
+CXXFLAGS  := $(CXXFLAGS) -flto -O3 -ffunction-sections -fdata-sections -Xclang -MT
+CFLAGS    := $(CFLAGS) -flto -O3 -ffunction-sections -fdata-sections -Xclang -MT
+LINKFLAGS := $(LINKFLAGS) -flto -Xlinker /OPT:ref -Xlinker /OPT:icf -RELEASE
 LINKLIBS  := $(LINKLIBS) -llibcmt.lib
 else
 DEFINES   := $(DEFINES) -D_DEBUG

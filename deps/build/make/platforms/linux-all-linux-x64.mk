@@ -12,7 +12,6 @@ DEFINES    =
 SYSINCDIR  = /usr/include
 SYSLIBDIR  = /usr/lib
 INCLUDES   = -I$(SYSINCDIR)
-INCLUDES   = 
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -fPIC -static
 CC         = clang
@@ -32,9 +31,9 @@ DISTDIR    = ../../dist/ubuntu-$(LSBREL)
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
-CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-LINKFLAGS := $(LINKFLAGS) -flto -g -Wl,--gc-sections
+CXXFLAGS  := $(CXXFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+CFLAGS    := $(CFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+LINKFLAGS := $(LINKFLAGS) -flto -Wl,--gc-sections
 else
 DEFINES   := $(DEFINES) -D_DEBUG
 CXXFLAGS  := $(CXXFLAGS) -Og -g3

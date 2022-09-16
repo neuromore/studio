@@ -55,7 +55,7 @@ CXXFLAGS  := $(CXXFLAGS) \
              -Wno-unknown-warning-option \
              -std=c++17
 CFLAGS    := $(CFLAGS)
-LINKFLAGS := $(LINKFLAGS)
+LINKFLAGS := $(LINKFLAGS) -DLLVM_PARALLEL_LINK_JOBS=1
 LINKPATH  := $(LINKPATH) \
              -L$(LIBDIRDEP) \
              -L$(LIBDIRPRE)
