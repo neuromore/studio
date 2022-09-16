@@ -502,17 +502,19 @@ OBJS      := $(OBJS) \
              gstreamer/mediaplayer/qgstreamerstreamscontrol.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
-INCLUDES  := $(INCLUDES) -I /usr/lib/i386-linux-gnu/glib-2.0/include
+INCLUDES  := $(INCLUDES) -I/usr/lib/i386-linux-gnu/glib-2.0/include
 endif
 ifeq ($(TARGET_ARCH),x64)
 DEFINES   := $(DEFINES)
-INCLUDES  := $(INCLUDES) -I /usr/lib/x86_64-linux-gnu/glib-2.0/include
+INCLUDES  := $(INCLUDES) -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 endif
 ifeq ($(TARGET_ARCH),arm)
 DEFINES   := $(DEFINES)
+INCLUDES  := $(INCLUDES) -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include
 endif
 ifeq ($(TARGET_ARCH),arm64)
 DEFINES   := $(DEFINES)
+INCLUDES  := $(INCLUDES) -I/usr/lib/aarch64-linux-gnu/glib-2.0/include
 endif
 endif
 

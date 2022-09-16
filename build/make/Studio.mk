@@ -11,11 +11,11 @@ RCCDIR     = $(SRCDIR)/.rcc
 UICDIR     = $(SRCDIR)/.uic
 OBJDIR    := $(OBJDIR)/$(NAME)
 QTMOC     := "../../deps/build/make/$(QTMOC)" --no-notes
-QTRCC     := "../../deps/build/make/$(QTRCC)" 
+QTRCC     := "../../deps/build/make/$(QTRCC)"
 QTUIC     := "../../deps/build/make/$(QTUIC)"
-BINDIRDEP  = "../../deps/build/make/$(BINDIR)"
-LIBDIRDEP  = "../../deps/build/make/$(LIBDIR)"
-LIBDIRPRE  = "../../deps/prebuilt/$(TARGET_OS)/$(TARGET_ARCH)"
+BINDIRDEP  = ../../deps/build/make/$(BINDIR)
+LIBDIRDEP  = ../../deps/build/make/$(LIBDIR)
+LIBDIRPRE  = ../../deps/prebuilt/$(TARGET_OS)/$(TARGET_ARCH)
 DEFINES   := $(DEFINES) \
              -DCHROMIUM_ZLIB_NO_CHROMECONF \
              -DQT_STATIC \
@@ -55,7 +55,7 @@ CXXFLAGS  := $(CXXFLAGS) \
              -Wno-unknown-warning-option \
              -std=c++17
 CFLAGS    := $(CFLAGS)
-LINKFLAGS := $(LINKFLAGS)
+LINKFLAGS := $(LINKFLAGS) -DLLVM_PARALLEL_LINK_JOBS=1
 LINKPATH  := $(LINKPATH) \
              -L$(LIBDIRDEP) \
              -L$(LIBDIRPRE)
@@ -730,7 +730,7 @@ RESO := $(patsubst %,$(OBJDIR)/%,$(RESO))
 
 $(OBJDIR)/%.res:
 	@echo [RC]  $@
-	$(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) /fo $@ $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
+	$(RC) $(RCFLAGS) $(DEFINES) $(INCLUDES) -FO$@ $(@:$(OBJDIR)/%.res=$(SRCDIR)/%.rc)
 
 ################################################################################################
 
@@ -751,9 +751,9 @@ build: pch $(PRES) $(OBLS) $(RESO)
 	@echo [LNK] $(TARGET)
 	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
 	@echo [CPY] Prebuilt Libraries
-	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR)/)
+	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
 	@echo [CPY] Built Libraries
-	$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR)/)
+	$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR))
 ifeq ($(MODE),release)
 	@echo [STR] $(TARGET)
 	$(STRIP) $(STRIPFLAGS) $(TARGET)

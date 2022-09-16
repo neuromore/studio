@@ -12,59 +12,99 @@ jobs:
     env:
       MODE: release
       TARGET_OS: win
+      TARGET_ARCH: ${{ matrix.arch }}
       JOBS: 4
     strategy:
       fail-fast: false
       matrix:
         os: [windows-2019,windows-2022]
+        arch: [x64,x86,arm64]
     steps:
     
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
 
-    # X64
+    # Developer Console (X64)
     - name: MSVC Developer Console (X64)
       uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: amd64
 
-    - name: Build Dependencies (X64)
-      shell: cmd
-      run: make TARGET_ARCH=x64 Dependencies -j${{ env.JOBS }}
+    # Build QtTools (X64)
+    - name: Build QtTools (X64)
+      run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
-    - name: Build (X64)
-      shell: cmd
-      run: make TARGET_ARCH=x64 -j${{ env.JOBS }}
-
-    # X86
+    # Developer Console (X86)
     - name: MSVC Developer Console (X86)
+      if: matrix.arch == 'x86'
       uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: amd64_x86
 
-    - name: Build Dependencies (X86)
-      shell: cmd
-      run: make TARGET_ARCH=x86 Dependencies -j${{ env.JOBS }}
-
-    - name: Build (X86)
-      shell: cmd
-      run: make TARGET_ARCH=x86 -j${{ env.JOBS }}
-
-    # ARM64
+    # Developer Console (ARM64)
     - name: MSVC Developer Console (ARM64)
+      if: matrix.arch == 'arm64'
       uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: amd64_arm64
 
-    - name: Build Dependencies (ARM64)
-      shell: cmd
-      run: make TARGET_ARCH=arm64 Dependencies -j${{ env.JOBS }}
+    # Build Dependencies
+    - name: Build Dependencies
+      run: make Dependencies -j${{ env.JOBS }}
 
-    - name: Build (ARM64)
-      shell: cmd
-      run: make TARGET_ARCH=arm64 -j${{ env.JOBS }}
+    # Build
+    - name: Build
+      run: make -j${{ env.JOBS }}
 
+    # Upload
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-${{ matrix.arch }})
+        path: |
+          ./build/make/bin/win-${{ matrix.arch }}/*.exe
+          ./build/make/bin/win-${{ matrix.arch }}/*.dll
+
+###########################################################################         
+  dist:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2019,windows-2022]
+    steps:
+      
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Download X64 Build
+    - uses: actions/download-artifact@v2
+      with:
+        name: Binaries (${{ matrix.os }}-x64)
+        path: ./build/make/bin/win-x64/
+
+    # Download X86 Build
+    - uses: actions/download-artifact@v2
+      with:
+        name: Binaries (${{ matrix.os }}-x86)
+        path: ./build/make/bin/win-x86/
+
+    # Download ARM64 Build
+    - uses: actions/download-artifact@v2
+      with:
+        name: Binaries (${{ matrix.os }}-arm64)
+        path: ./build/make/bin/win-arm64/
+
+    # Developer Console (X64)
+    - name: MSVC Developer Console (X64)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64
+    
     # Load Code Signing Certificate
     - name: Load Code Signing Certificate
       shell: pwsh
@@ -82,7 +122,7 @@ jobs:
         PUBLISHERCN: neuromore co
         PUBLISHER: CN=neuromore co, O=neuromore co, STREET=382 NE 191st St, L=Miami, S=Florida, PostalCode=33179, C=US
       run: make dist
-
+    
     # Upload
     - name: Upload
       uses: actions/upload-artifact@v3

@@ -9,7 +9,9 @@ BINDIR     = bin/linux-x86
 TARGET     = i686-linux-gnu
 CPUFLAGS   = -march=i686 -mtune=generic -mmmx -msse -msse2
 DEFINES    = 
-INCLUDES   = -I/usr/$(TARGET)/include
+SYSINCDIR  = /usr/include/i386-linux-gnu
+SYSLIBDIR  = /usr/lib/i386-linux-gnu
+INCLUDES   = -I$(SYSINCDIR)
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -fPIC -static
 CC         = clang
@@ -20,7 +22,7 @@ STRIP      = llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fuse-ld=lld -static-libstdc++ -static-libgcc
-LINKPATH   = -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/x86
+LINKPATH   = -L$(SYSLIBDIR) -L$(LIBDIR) -L$(PLATDIR)/../../../prebuilt/linux/x86
 LINKLIBS   = 
 DEBARCH    = i386
 LSBREL     = $(shell lsb_release -r -s)
@@ -29,9 +31,9 @@ DISTDIR    = ../../dist/ubuntu-$(LSBREL)
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
-CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-LINKFLAGS := $(LINKFLAGS) -flto -g -Wl,--gc-sections
+CXXFLAGS  := $(CXXFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+CFLAGS    := $(CFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+LINKFLAGS := $(LINKFLAGS) -flto -Wl,--gc-sections
 else
 DEFINES   := $(DEFINES) -D_DEBUG
 CXXFLAGS  := $(CXXFLAGS) -Og -g3

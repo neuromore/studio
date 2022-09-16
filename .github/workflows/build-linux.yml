@@ -34,8 +34,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04]
-        arch: [amd64, i386, arm64, armhf]
+        os: [ubuntu-20.04]
+        arch: [amd64]
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -117,7 +117,11 @@ jobs:
         clang++ --target=$TARGET -v
         make -v
 
-    - name: Build Dependencies
+    - name: Build QtTools for AMD64 Host
+      if: matrix.arch != 'amd64'
+      run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
+
+    - name: Build Dependencies for Target
       run: make Dependencies -j${{ env.JOBS }}
 
     - name: Build

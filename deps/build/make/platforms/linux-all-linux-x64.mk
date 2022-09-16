@@ -9,7 +9,9 @@ BINDIR     = bin/linux-x64
 TARGET     = x86_64-linux-gnu
 CPUFLAGS   = -march=x86-64 -mtune=generic -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mpclmul
 DEFINES    = 
-INCLUDES   = 
+SYSINCDIR  = /usr/include
+SYSLIBDIR  = /usr/lib
+INCLUDES   = -I$(SYSINCDIR)
 CXX        = clang++
 CXXFLAGS   = -target $(TARGET) -fPIC -static
 CC         = clang
@@ -29,9 +31,9 @@ DISTDIR    = ../../dist/ubuntu-$(LSBREL)
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
-CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-LINKFLAGS := $(LINKFLAGS) -flto -g -Wl,--gc-sections
+CXXFLAGS  := $(CXXFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+CFLAGS    := $(CFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+LINKFLAGS := $(LINKFLAGS) -flto -Wl,--gc-sections
 else
 DEFINES   := $(DEFINES) -D_DEBUG
 CXXFLAGS  := $(CXXFLAGS) -Og -g3

@@ -81,16 +81,16 @@ OBJS      := $(OBJS) \
              fcname.o fcobjs.o fcpat.o fcptrlist.o fcrange.o fcserialize.o \
              fcstat.o fcstr.o fcweight.o fcxml.o ftglue.o
 ifeq ($(TARGET_ARCH),x86)
-DEFINES   := $(DEFINES)
+DEFINES   := $(DEFINES) -DSIZEOF_VOID_P=4 -DALIGNOF_DOUBLE=4 -DALIGNOF_VOID_P=4
 endif
 ifeq ($(TARGET_ARCH),x64)
-DEFINES   := $(DEFINES)
+DEFINES   := $(DEFINES) -DSIZEOF_VOID_P=8 -DALIGNOF_DOUBLE=8 -DALIGNOF_VOID_P=8
 endif
 ifeq ($(TARGET_ARCH),arm)
-DEFINES   := $(DEFINES)
+DEFINES   := $(DEFINES) -DSIZEOF_VOID_P=4 -DALIGNOF_DOUBLE=8 -DALIGNOF_VOID_P=4
 endif
 ifeq ($(TARGET_ARCH),arm64)
-DEFINES   := $(DEFINES)
+DEFINES   := $(DEFINES) -DSIZEOF_VOID_P=8 -DALIGNOF_DOUBLE=8 -DALIGNOF_VOID_P=8
 endif
 endif
 

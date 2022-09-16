@@ -321,6 +321,9 @@ zlib:
 zlib-clean:
 	+@make -s -C ./build/make/ -f zlib.mk clean
 
+# qt-tools
+qt-tools: qt-moc qt-rcc qt-uic
+
 # combined
 --base: brainflow \
   brainflow-boardcontroller \
