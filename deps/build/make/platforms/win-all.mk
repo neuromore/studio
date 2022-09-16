@@ -7,7 +7,7 @@ endef
 
 # Copy Files between Folders by Pattern
 define copyfiles
-	cmd.exe /C "copy /Y $(subst /,\,$(1)) $(subst /,\,$(2)) >nul 2>&1"
+	cmd.exe /C "copy /Y $(subst /,\,$(1)) $(subst /,\,$(2))"
 endef
 
 # Recursively remove folder
