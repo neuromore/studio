@@ -21,13 +21,15 @@ jobs:
         arch: [amd64,i386,arm64,armhf]
     steps:
 
-    - name: Purge Packages (20.04)
+    # Remove Packages (20.04)
+    - name: Remove Packages (20.04)
       if: matrix.os == 'ubuntu-20.04'
       run: |
         sudo apt-get install -f -y --allow-downgrades libpcre2-8-0=10.34-7
         sudo apt-get autoremove -y
 
-    - name: Purge Packages (22.04)
+    # Remove Packages (22.04)
+    - name: Remove Packages (22.04)
       if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt-get remove -f -y libunwind-14-dev
@@ -40,20 +42,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y ppa-purge aptitude
         sudo ppa-purge -y ppa:ubuntu-toolchain-r/test
-
-    # Purge APT Sources (20.04)
-#    - name: Purge APT Sources (20.04)
-#      if: matrix.os == 'ubuntu-20.04'
-#      run: |
-#        sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
-#        sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-focal.*
-
-    # Purge APT Sources (22.04)
-#    - name: Purge APT Sources (22.04)
-#      if: matrix.os == 'ubuntu-22.04'
-#      run: |
-#        sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
-#        sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.*
 
     # Ubuntu Update
     - name: Update Ubuntu
