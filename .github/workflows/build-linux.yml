@@ -44,6 +44,7 @@ jobs:
           php \
           nginx \
           libpcre2-dev \
+          libunwind-14-dev \
           libunwind-dev
         sudo apt-get install -f -y \
           llvm \
