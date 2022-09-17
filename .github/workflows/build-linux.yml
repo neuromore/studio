@@ -51,6 +51,7 @@ jobs:
 
     - name: Ubuntu Packages
       run: |
+        sudo dpkg --add-architecture $ARCH
         sudo apt-get install \
           llvm \
           libglib2.0-dev:$ARCH \
