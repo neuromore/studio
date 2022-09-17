@@ -41,7 +41,6 @@ jobs:
           nginx \
           libpcre2-dev \
           libpcre2-posix2 \
-          libpcre2-8-0-udeb \
           libunwind-dev
         sudo apt-get install -f -y \
           llvm \
