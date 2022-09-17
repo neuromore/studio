@@ -54,6 +54,7 @@ jobs:
       run: |
         sudo apt-get install \
           llvm \
+          libgstreamer1.0-dev:$ARCH \
           libglib2.0-dev:$ARCH \
           libgl1-mesa-dev:$ARCH \
           libglu1-mesa-dev:$ARCH \
