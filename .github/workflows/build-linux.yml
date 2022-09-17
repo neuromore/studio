@@ -1,23 +1,6 @@
 name: Build Linux
 on:
   workflow_dispatch:
-    inputs:
-      cpuflags-x64:
-        description: 'CPUFLAGS for X64'
-        type: string
-        required: false
-      cpuflags-x86:
-        description: 'CPUFLAGS for X86'
-        type: string
-        required: false
-      cpuflags-arm64:
-        description: 'CPUFLAGS for ARM64'
-        type: string
-        required: false
-      cpuflags-arm:
-        description: 'CPUFLAGS for ARM'
-        type: string
-        required: false
   workflow_call:
   push:
     branches:
@@ -120,25 +103,20 @@ jobs:
           libxcb-xkb-dev:$ARCH \
           libxcb-util-dev:$ARCH
 
-    - name: Installed AMD64 Packages
-      run: apt list --installed | { grep amd64 || true; }
+#    - name: Installed AMD64 Packages
+#      run: apt list --installed | { grep amd64 || true; }
+#    - name: Installed X86 Packages
+#      run: apt list --installed | { grep i386 || true; }
+#    - name: Installed ARM64 Packages
+#      run: apt list --installed | { grep arm64 || true; }
+#    - name: Installed ARMHF Packages
+#      run: apt list --installed | { grep armhf || true; }
 
-    - name: Installed X86 Packages
-      run: apt list --installed | { grep i386 || true; }
-
-    - name: Installed ARM64 Packages
-      run: apt list --installed | { grep arm64 || true; }
-
-    - name: Installed ARMHF Packages
-      run: apt list --installed | { grep armhf || true; }
-
-    - name: Ubuntu Package Update
-      run: sudo apt-get update && sudo apt-get upgrade -f -y
-      
     - name: Ubuntu Packages Problematic
       run: |
         sudo aptitude install -f -y \
-          libglib2.0-dev:$ARCH
+          libglib2.0-dev:$ARCH \
+          libgstreamer1.0-dev:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
