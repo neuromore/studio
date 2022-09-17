@@ -140,7 +140,7 @@ jobs:
       
     - name: Ubuntu Packages Problematic
       run: |
-        sudo apt-get install \
+        sudo aptitude install -y \
           libglib2.0-dev:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
