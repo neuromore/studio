@@ -42,19 +42,18 @@ jobs:
         sudo ppa-purge -y ppa:ubuntu-toolchain-r/test
 
     # Purge APT Sources (20.04)
-    - name: Purge APT Sources (20.04)
-      if: matrix.os == 'ubuntu-20.04'
-      run: |
-        sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
-        sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-focal.*
-        ls -la /etc/apt/sources.list.d
+#    - name: Purge APT Sources (20.04)
+#      if: matrix.os == 'ubuntu-20.04'
+#      run: |
+#        sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
+#        sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-focal.*
 
     # Purge APT Sources (22.04)
-    - name: Purge APT Sources (22.04)
-      if: matrix.os == 'ubuntu-22.04'
-      run: |
-        sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
-        sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.*
+#    - name: Purge APT Sources (22.04)
+#      if: matrix.os == 'ubuntu-22.04'
+#      run: |
+#        sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
+#        sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.*
 
     # Ubuntu Update
     - name: Update Ubuntu
