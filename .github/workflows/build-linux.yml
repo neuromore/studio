@@ -38,17 +38,7 @@ jobs:
     - name: Purge Packages (22.04)
       if: matrix.os == 'ubuntu-22.04'
       run: |
-        sudo apt-get remove -f -y \
-          clang-12 \
-          clang-13 \
-          cpp-10 \
-          cpp-9 \
-          g++-10 \
-          g++-9 \
-          gcc-10 \
-          gcc-9 \
-          libpcre2-dev \
-          libunwind-14-dev
+        sudo apt-get remove -f -y libunwind-14-dev
         sudo apt-get install -f -y libunwind-dev
         sudo apt-get autoremove -y
 
