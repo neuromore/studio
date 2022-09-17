@@ -41,7 +41,7 @@ QtBase-clean:
 	@echo [CLN] QtBase
 	+@make -s -C ./build/make/ -f QtBase.mk clean
 
-Studio:
+Studio: Engine QtBase
 	@echo [BLD] Studio
 	+@make -s -C ./build/make/ -f Studio.mk
 

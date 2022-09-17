@@ -1,23 +1,6 @@
 name: Build Linux
 on:
   workflow_dispatch:
-    inputs:
-      cpuflags-x64:
-        description: 'CPUFLAGS for X64'
-        type: string
-        required: false
-      cpuflags-x86:
-        description: 'CPUFLAGS for X86'
-        type: string
-        required: false
-      cpuflags-arm64:
-        description: 'CPUFLAGS for ARM64'
-        type: string
-        required: false
-      cpuflags-arm:
-        description: 'CPUFLAGS for ARM'
-        type: string
-        required: false
   workflow_call:
   push:
     branches:
@@ -34,30 +17,61 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
-        arch: [amd64]
+        os: [ubuntu-20.04,ubuntu-22.04]
+        arch: [amd64,i386,arm64,armhf]
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
 
+    # Remove Packages (20.04)
+    - name: Remove Packages (20.04)
+      if: matrix.os == 'ubuntu-20.04'
+      run: |
+        sudo apt-get install -f -y --allow-downgrades libpcre2-8-0=10.34-7
+        sudo apt-get autoremove -y
+
+    # Remove Packages (22.04)
+    - name: Remove Packages (22.04)
+      if: matrix.os == 'ubuntu-22.04'
+      run: |
+        sudo apt-get remove -f -y libunwind-14-dev
+        sudo apt-get install -f -y libunwind-dev
+        sudo apt-get autoremove -y
+
+    # Purge PPA
+    - name: Purge PPA
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ppa-purge aptitude
+        sudo ppa-purge -y ppa:ubuntu-toolchain-r/test
+
+    # Ubuntu Update
+    - name: Update Ubuntu
+      run: |
+        sudo apt-get update -y 
+        sudo apt-get upgrade -f -y
+        sudo apt-get dist-upgrade -f -y
+
+    # Ubuntu Version
+    - name: Ubuntu Version
+      run: lsb_release -a
+
+    # LLVM + CLANG (amd64)
+    - name: LLVM + CLANG (amd64)
+      run: sudo apt-get install -y llvm clang
+
+    # Cross-Compile Support
     - name: Cross-Compile Support
       uses: cyberjunk/gha-ubuntu-cross@v1
       if: matrix.arch != 'amd64'
       with:
         arch: ${{ matrix.arch }}
 
-    - name: Ubuntu Package Update
-      run: sudo apt-get update && sudo apt-get upgrade -f -y
-
-    - name: Ubuntu Packages (AMD64)
-      if: matrix.arch == 'amd64'
+    # Ubuntu Packages
+    - name: Ubuntu Packages
       run: |
-        sudo apt-get install \
-          llvm \
-          libgstreamer1.0-dev:$ARCH \
-          libgstreamer-plugins-base1.0-dev:$ARCH \
-          libgstreamer-plugins-good1.0-dev:$ARCH \
-          libglib2.0-dev:$ARCH \
+        sudo apt-get install -y \
+          libopengl-dev:$ARCH \
+          libglx-dev:$ARCH \
+          libgles-dev:$ARCH \
           libgl1-mesa-dev:$ARCH \
           libglu1-mesa-dev:$ARCH \
           libsm-dev:$ARCH \
@@ -79,35 +93,44 @@ jobs:
           libxcb-xfixes0-dev:$ARCH \
           libxcb-xinerama0-dev:$ARCH \
           libxcb-xkb-dev:$ARCH \
-          libxcb-util-dev:$ARCH
+          libxcb-util-dev:$ARCH \
+          libglib2.0-dev:$ARCH \
+          libgstreamer1.0-dev:$ARCH \
+          libgstreamer-plugins-base1.0-dev:$ARCH \
+          libgstreamer-plugins-good1.0-dev:$ARCH
 
+    # QEMU (ARM64/ARMHF)
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
       run: sudo apt-get install qemu-user qemu-user-static
 
+    ############################################################
+    
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Set Environment Vars
     - name: Set Environment Vars
       run: |
         if [ $ARCH == amd64 ]; then \
           echo "TARGET_ARCH=x64" >> $GITHUB_ENV; \
           echo "TARGET=x86_64-linux-gnu" >> $GITHUB_ENV; \
-          echo "${{ inputs.cpuflags-x64 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == i386 ]; then \
           echo "TARGET_ARCH=x86" >> $GITHUB_ENV; \
           echo "TARGET=i686-linux-gnu" >> $GITHUB_ENV; \
-          echo "${{ inputs.cpuflags-x86 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == arm64 ]; then \
           echo "TARGET_ARCH=arm64" >> $GITHUB_ENV; \
           echo "TARGET=aarch64-linux-gnu" >> $GITHUB_ENV; \
-          echo "${{ inputs.cpuflags-arm64 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == armhf ]; then \
           echo "TARGET_ARCH=arm" >> $GITHUB_ENV; \
           echo "TARGET=arm-linux-gnueabihf" >> $GITHUB_ENV; \
-          echo "${{ inputs.cpuflags-arm }}" >> $GITHUB_ENV; \
         fi
       
+    # Version
     - name: Version
       run: |
         echo MODE: $MODE
@@ -117,19 +140,24 @@ jobs:
         clang++ --target=$TARGET -v
         make -v
 
-    - name: Build QtTools for AMD64 Host
+    # Build QtTools (amd64)
+    - name: Build QtTools (amd64)
       if: matrix.arch != 'amd64'
       run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
-    - name: Build Dependencies for Target
+    # Build Dependencies
+    - name: Build Dependencies
       run: make Dependencies -j${{ env.JOBS }}
 
+    # Build
     - name: Build
       run: make -j${{ env.JOBS }}
-        
+
+    # Make (dist)        
     - name: Make (dist)
       run: make dist
-      
+
+    # Upload
     - name: Upload
       uses: actions/upload-artifact@v3
       with:

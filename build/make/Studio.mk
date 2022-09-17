@@ -751,9 +751,9 @@ build: pch $(PRES) $(OBLS) $(RESO)
 	@echo [LNK] $(TARGET)
 	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
 	@echo [CPY] Prebuilt Libraries
-	$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
+	@-$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
 	@echo [CPY] Built Libraries
-	$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR))
+	@-$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR))
 ifeq ($(MODE),release)
 	@echo [STR] $(TARGET)
 	$(STRIP) $(STRIPFLAGS) $(TARGET)
