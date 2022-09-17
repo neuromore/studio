@@ -42,7 +42,7 @@ jobs:
           libpcre2-dev \
           libpcre2-posix2 \
           libunwind-dev
-        sudo apt-get install -f -y \
+        sudo apt-get install -f -y --allow-downgrades \
           llvm \
           clang \
           libunwind-dev \
