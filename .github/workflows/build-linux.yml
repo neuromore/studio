@@ -42,9 +42,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Ubuntu Version
-      run: lsb_release -a
-
     # Purge PPA
     - name: Purge PPA
       run: |
@@ -53,11 +50,11 @@ jobs:
         sudo ppa-purge -y ppa:ubuntu-toolchain-r/test
 
     # Ubuntu Update
-    - name: Ubuntu Update
+    - name: Update Ubuntu
       run: |
-        sudo apt-get update 
-        sudo apt-get upgrade -f -y
-        sudo apt-get dist-upgrade -f -y
+        sudo aptitude update -y 
+        sudo aptitude upgrade -f -y
+        sudo aptitude dist-upgrade -f -y
 
     # Ubuntu Version
     - name: Ubuntu Version
@@ -96,7 +93,7 @@ jobs:
 
     - name: Ubuntu Packages
       run: |
-        sudo apt-get install -y \
+        sudo aptitude install -f -y \
           libopengl-dev:$ARCH \
           libglx-dev:$ARCH \
           libgles-dev:$ARCH \
@@ -140,7 +137,7 @@ jobs:
       
     - name: Ubuntu Packages Problematic
       run: |
-        sudo aptitude install -y \
+        sudo aptitude install -f -y \
           libglib2.0-dev:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
