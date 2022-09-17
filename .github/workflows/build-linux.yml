@@ -117,6 +117,9 @@ jobs:
 
     - name: Ubuntu Package Update
       run: sudo apt-get update && sudo apt-get upgrade -f -y
+      
+    - name: Ubuntu Dist Upgrade
+      run: sudo apt-get dist-upgrade -f -y
 
     - name: LLVM
       run: sudo apt-get install -y llvm
