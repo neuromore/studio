@@ -132,17 +132,21 @@ jobs:
 
     - name: Ubuntu Packages
       run: |
-        sudo apt-get install \
-          llvm \
-          libglib2.0-dev:$ARCH \
-          libgl1-mesa-dev:$ARCH \
-          libglu1-mesa-dev:$ARCH \
+        sudo apt-get install -y \
           libsm-dev:$ARCH \
           libx11-dev:$ARCH \
           libx11-xcb-dev:$ARCH \
           libexpat1-dev:$ARCH \
           libxkbcommon-dev:$ARCH \
-          libxcb1-dev:$ARCH \
+          libxcb1-dev:$ARCH
+
+    - name: Ubuntu Packages
+      run: |
+        sudo apt-get install \
+          llvm \
+          libglib2.0-dev:$ARCH \
+          libgl1-mesa-dev:$ARCH \
+          libglu1-mesa-dev:$ARCH \
           libxcb-glx0-dev:$ARCH \
           libxcb-icccm4-dev:$ARCH \
           libxcb-image0-dev:$ARCH \
