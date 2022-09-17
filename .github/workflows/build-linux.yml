@@ -127,6 +127,8 @@ jobs:
           libopengl-dev:$ARCH \
           libglx-dev:$ARCH \
           libgles-dev:$ARCH \
+          libgl1-mesa-dev:$ARCH \
+          libglu1-mesa-dev:$ARCH \
           libsm-dev:$ARCH \
           libx11-dev:$ARCH \
           libx11-xcb-dev:$ARCH \
@@ -163,9 +165,7 @@ jobs:
     - name: Ubuntu Packages Problematic
       run: |
         sudo apt-get install \
-          libglib2.0-dev:$ARCH \
-          libgl1-mesa-dev:$ARCH \
-          libglu1-mesa-dev:$ARCH
+          libglib2.0-dev:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
