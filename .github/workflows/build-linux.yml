@@ -38,12 +38,17 @@ jobs:
           cpp-9 \
           g++-10 \
           g++-9 \
+          gcc-10 \
+          gcc-9 \
           aspnetcore-runtime-6.0 \
           php \
           nginx \
-          libpcre2-dev
+          libpcre2-dev \
+          libunwind-dev
+        sudo apt-get install -f -y \
+          llvm \
+          clang
         sudo apt-get autoremove -y
-
 
     # Purge PPA
     - name: Purge PPA
