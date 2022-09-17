@@ -127,11 +127,6 @@ jobs:
     - name: Ubuntu Packages
       run: |
         sudo apt-get install -y \
-          libpcre2-posix2:$ARCH \
-          libpcre2-8-0:$ARCH \
-          libpcre2-dev:$ARCH \
-          libselinux1-dev:$ARCH \
-          libselinux1:$ARCH \
           libopengl-dev:$ARCH \
           libglx-dev:$ARCH \
           libgles-dev:$ARCH \
