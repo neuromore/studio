@@ -42,6 +42,27 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Ubuntu Version
+      run: lsb_release -a
+
+    # Purge PPA
+    - name: Purge PPA
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ppa-purge aptitude
+        sudo ppa-purge -y ppa:ubuntu-toolchain-r/test
+
+    # Ubuntu Update
+    - name: Ubuntu Update
+      run: |
+        sudo apt-get update 
+        sudo apt-get upgrade -f -y
+        sudo apt-get dist-upgrade -f -y
+
+    # Ubuntu Version
+    - name: Ubuntu Version
+      run: lsb_release -a
+
     # Cross-Compile Support
     - name: Cross-Compile Support
       uses: cyberjunk/gha-ubuntu-cross@v1
@@ -69,17 +90,6 @@ jobs:
 
     - name: Foreign Architectures
       run: dpkg --print-foreign-architectures
-
-    - name: Ubuntu Package Update
-      run: sudo apt-get update && sudo apt-get upgrade -f -y
-      
-    - name: Ubuntu Dist Upgrade
-      run: sudo apt-get dist-upgrade -f -y
-
-    - name: test
-      run: |
-        sudo apt-get install ppa-purge aptitude
-        sudo ppa-purge -y ppa:ubuntu-toolchain-r/test
 
     - name: LLVM
       run: sudo apt-get install -y llvm
