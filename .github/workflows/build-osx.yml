@@ -42,7 +42,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Binaries (${{ matrix.os }}-${{ matrix.arch }})
-        path: ./build/make/bin/osx-${{ matrix.arch }}/*
+        path: |
+          ./build/make/bin/osx-${{ matrix.arch }}/*
+          !./build/make/bin/osx-${{ matrix.arch }}/.gitignore
 
 ###########################################################################         
   dist:
