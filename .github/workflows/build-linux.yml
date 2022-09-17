@@ -25,11 +25,6 @@ jobs:
       if: matrix.os == 'ubuntu-20.04'
       run: |
         sudo apt-get remove -f -y \
-          clang-10 \
-          clang-11 \
-          cpp-9 \
-          g++-9 \
-          gcc-9 \
           libpcre2-dev \
           libpcre2-posix2
         sudo apt-get install -f -y --allow-downgrades libpcre2-8-0=10.34-7
