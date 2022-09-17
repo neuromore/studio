@@ -232,7 +232,7 @@ class ComplexMath
 
 		static inline bool IsNaN(const Complex& z)
 		{
-			return isnan(z.mReal) || std::isinf(z.mImag);
+			return std::isnan(z.mReal) || std::isinf(z.mImag);
 			return false;
 		}
 
