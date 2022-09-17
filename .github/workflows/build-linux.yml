@@ -67,9 +67,9 @@ jobs:
     # Ubuntu Update
     - name: Update Ubuntu
       run: |
-        sudo aptitude update -y 
-        sudo aptitude upgrade -f -y
-        sudo aptitude dist-upgrade -f -y
+        sudo apt-get update -y 
+        sudo apt-get upgrade -f -y
+        sudo apt-get dist-upgrade -f -y
 
     # Ubuntu Version
     - name: Ubuntu Version
