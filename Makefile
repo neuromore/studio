@@ -29,7 +29,7 @@ Engine-clean:
 	@echo [CLN] Engine
 	+@make -s -C ./build/make/ -f Engine.mk clean
 
-EngineJNI:
+EngineJNI: Engine
 	@echo [BLD] EngineJNI
 	+@make -s -C ./build/make/ -f EngineJNI.mk
 
