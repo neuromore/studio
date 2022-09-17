@@ -28,8 +28,6 @@ jobs:
     - name: Test
       run: |
         sudo apt-get remove -f -y \
-          aspnetcore-runtime-3.1 \
-          aspnetcore-runtime-5.0 \
           aspnetcore-runtime-6.0 \
           php
           
