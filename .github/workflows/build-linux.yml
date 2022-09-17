@@ -103,33 +103,39 @@ jobs:
             libstdc++-11-dev:$ARCH; \
         fi
         clang++ --target=$ARCHGCC -v
-        ls -la /etc/apt/sources.list.d
 
     - name: Debug
       run: |
         ls -la /etc/apt/sources.list.d
         cat /etc/apt/sources.list
-        dpkg --print-architecture
-        dpkg --print-foreign-architectures
 
-    - name: Installed AMD64 Packages
-      run: apt list --installed | grep amd64
+    - name: Host Architecture
+      run: dpkg --print-architecture
 
-    - name: Installed X86 Packages
-      run: apt list --installed | grep i386
-
-    - name: Installed ARM64 Packages
-      run: apt list --installed | grep arm64
-
-    - name: Installed ARMHF Packages
-      run: apt list --installed | grep armhf
+    - name: Foreign Architectures
+      run: dpkg --print-foreign-architectures
 
     - name: Ubuntu Package Update
       run: sudo apt-get update && sudo apt-get upgrade -f -y
 
+    - name: Installed AMD64 Packages
+      run: |
+        apt list --installed | grep amd64
+
+    - name: Installed X86 Packages
+      run: |
+        apt list --installed | grep i386
+
+    - name: Installed ARM64 Packages
+      run: |
+        apt list --installed | grep arm64
+
+    - name: Installed ARMHF Packages
+      run: |
+        apt list --installed | grep armhf
+
     - name: Ubuntu Packages
       run: |
-        sudo dpkg --add-architecture $ARCH
         sudo apt-get install \
           llvm \
           libglib2.0-dev:$ARCH \
