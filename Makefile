@@ -13,6 +13,10 @@ Dependencies:
 	@echo [BLD] Dependencies
 	+@make -s -C ./deps/ -f Makefile
 
+Dependencies-engine:
+	@echo [BLD] Dependencies Engine
+	+@make -s -C ./deps/ -f Makefile engine-dependencies
+
 Dependencies-clean:
 	@echo [CLN] Dependencies
 	+@make -s -C ./deps/ -f Makefile clean
@@ -21,15 +25,11 @@ Engine:
 	@echo [BLD] Engine
 	+@make -s -C ./build/make/ -f Engine.mk
 
-Engine-deps:
-	@echo [BLD] Engine Dependencies
-	+@make -s -C ./deps/ -f Makefile engine-dependencies
-
 Engine-clean:
 	@echo [CLN] Engine
 	+@make -s -C ./build/make/ -f Engine.mk clean
 
-EngineJNI: Engine
+EngineJNI:
 	@echo [BLD] EngineJNI
 	+@make -s -C ./build/make/ -f EngineJNI.mk
 
@@ -45,7 +45,7 @@ QtBase-clean:
 	@echo [CLN] QtBase
 	+@make -s -C ./build/make/ -f QtBase.mk clean
 
-Studio: Engine QtBase
+Studio:
 	@echo [BLD] Studio
 	+@make -s -C ./build/make/ -f Studio.mk
 
