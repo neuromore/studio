@@ -25,6 +25,32 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Purge Packages (20.04)
+      if: matrix.os == 'ubuntu-20.04'
+      run: |
+        sudo apt-get remove -f -y \
+          apache2-bin \
+          apache2-utils \
+          apache2 \
+          clang-10 \
+          clang-11 \
+          cpp-9 \
+          g++-9 \
+          gcc-9 \
+          php \
+          nginx \
+          libpcre2-dev \
+          libpcre2-8-0 \
+          libpcre2-16-0 \
+          libpcre2-32-0 \
+          libunwind-dev
+        sudo apt-get install -f -y \
+          llvm \
+          clang \
+          libunwind-dev \
+          libpcre2-dev
+        sudo apt-get autoremove -y
+
     - name: Purge Packages (22.04)
       if: matrix.os == 'ubuntu-22.04'
       run: |
@@ -40,10 +66,12 @@ jobs:
           g++-9 \
           gcc-10 \
           gcc-9 \
-          aspnetcore-runtime-6.0 \
           php \
           nginx \
           libpcre2-dev \
+          libpcre2-8-0 \
+          libpcre2-16-0 \
+          libpcre2-32-0 \
           libunwind-14-dev \
           libunwind-dev
         sudo apt-get install -f -y \
