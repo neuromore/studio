@@ -34,20 +34,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
+        os: [ubuntu-20.04,ubuntu-22.04]
         arch: [amd64]
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Cross-Compile Support
-      uses: cyberjunk/gha-ubuntu-cross@v1
-      if: matrix.arch != 'amd64'
-      with:
-        arch: ${{ matrix.arch }}
+#    - name: Cross-Compile Support
+#      uses: cyberjunk/gha-ubuntu-cross@v1
+#      if: matrix.arch != 'amd64'
+#      with:
+#        arch: ${{ matrix.arch }}
 
-    - name: Ubuntu Package Update
-      run: sudo apt-get update && sudo apt-get upgrade -f -y
+#    - name: Ubuntu Package Update
+#      run: sudo apt-get update && sudo apt-get upgrade -f -y
 
     - name: Ubuntu Packages (AMD64)
       if: matrix.arch == 'amd64'
