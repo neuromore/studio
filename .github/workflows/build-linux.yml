@@ -40,8 +40,7 @@ jobs:
           g++-9 \
           aspnetcore-runtime-6.0 \
           php \
-          libpcre2-8-0 \
-          libpcre2-16-0 \
+          nginx \
           libpcre2-dev
         sudo apt-get autoremove -y
 
