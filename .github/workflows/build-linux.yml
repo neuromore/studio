@@ -25,12 +25,14 @@ jobs:
       if: matrix.os == 'ubuntu-20.04'
       run: |
         sudo apt-get install -f -y --allow-downgrades libpcre2-8-0=10.34-7
+        sudo apt-get autoremove -y
 
     - name: Purge Packages (22.04)
       if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt-get remove -f -y libunwind-14-dev
         sudo apt-get install -f -y libunwind-dev
+        sudo apt-get autoremove -y
 
     # Purge PPA
     - name: Purge PPA
