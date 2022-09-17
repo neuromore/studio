@@ -49,10 +49,20 @@ jobs:
       with:
         arch: ${{ matrix.arch }}
 
-    - name: Debug
+    - name: Debug 20.04
+      if: matrix.os == 'ubuntu-20.04'
       run: |
         ls -la /etc/apt/sources.list.d
         cat /etc/apt/sources.list
+        cat /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-focal.list
+        cat /etc/apt/sources.list.d/git-core-ubuntu-ppa-focal.list
+
+    - name: Debug 22.04
+      if: matrix.os == 'ubuntu-22.04'
+      run: |
+        ls -la /etc/apt/sources.list.d
+        cat /etc/apt/sources.list
+        cat /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.list
 
     - name: Host Architecture
       run: dpkg --print-architecture
