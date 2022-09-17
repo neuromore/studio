@@ -20,28 +20,18 @@ jobs:
         os: [ubuntu-20.04,ubuntu-22.04]
         arch: [amd64,i386,arm64,armhf]
     steps:
-    
-    # Checkout
-    - name: Checkout
-      uses: actions/checkout@v3
 
     - name: Purge Packages (20.04)
       if: matrix.os == 'ubuntu-20.04'
       run: |
         sudo apt-get remove -f -y \
-          apache2-bin \
-          apache2-utils \
-          apache2 \
           clang-10 \
           clang-11 \
           cpp-9 \
           g++-9 \
           gcc-9 \
-          php \
-          nginx \
           libpcre2-dev \
-          libpcre2-posix2 \
-          libunwind-dev
+          libpcre2-posix2
         sudo apt-get install -f -y --allow-downgrades \
           libunwind-dev \
           libpcre2-8-0=10.34-7
@@ -51,9 +41,6 @@ jobs:
       if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt-get remove -f -y \
-          apache2-bin \
-          apache2-utils \
-          apache2 \
           clang-12 \
           clang-13 \
           cpp-10 \
@@ -62,11 +49,8 @@ jobs:
           g++-9 \
           gcc-10 \
           gcc-9 \
-          php \
-          nginx \
           libpcre2-dev \
-          libunwind-14-dev \
-          libunwind-dev
+          libunwind-14-dev
         sudo apt-get install -f -y \
           libunwind-dev
         sudo apt-get autoremove -y
@@ -126,7 +110,7 @@ jobs:
     # Ubuntu Packages
     - name: Ubuntu Packages
       run: |
-        sudo aptitude install -f -y \
+        sudo apt-get install -y \
           libopengl-dev:$ARCH \
           libglx-dev:$ARCH \
           libgles-dev:$ARCH \
@@ -151,11 +135,7 @@ jobs:
           libxcb-xfixes0-dev:$ARCH \
           libxcb-xinerama0-dev:$ARCH \
           libxcb-xkb-dev:$ARCH \
-          libxcb-util-dev:$ARCH
-
-    - name: Ubuntu Packages Problematic
-      run: |
-        sudo aptitude install -f -y \
+          libxcb-util-dev:$ARCH \
           libglib2.0-dev:$ARCH \
           libgstreamer1.0-dev:$ARCH \
           libgstreamer-plugins-base1.0-dev:$ARCH \
@@ -184,6 +164,12 @@ jobs:
     - name: Installed Packages (armhf)
       if: matrix.arch == 'armhf'
       run: apt list --installed | { grep armhf || true; }
+
+    ############################################################
+    
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
 
     # Set Environment Vars
     - name: Set Environment Vars
