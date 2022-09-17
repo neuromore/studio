@@ -35,26 +35,25 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04,ubuntu-22.04]
-        arch: [amd64]
+        arch: [amd64,i386,arm64,armhf]
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
-#    - name: Cross-Compile Support
-#      uses: cyberjunk/gha-ubuntu-cross@v1
-#      if: matrix.arch != 'amd64'
-#      with:
-#        arch: ${{ matrix.arch }}
+    - name: Cross-Compile Support
+      uses: cyberjunk/gha-ubuntu-cross@v1
+      if: matrix.arch != 'amd64'
+      with:
+        arch: ${{ matrix.arch }}
 
-#    - name: Ubuntu Package Update
-#      run: sudo apt-get update && sudo apt-get upgrade -f -y
+    - name: Ubuntu Package Update
+      run: sudo apt-get update && sudo apt-get upgrade -f -y
 
     - name: Ubuntu Packages (AMD64)
       if: matrix.arch == 'amd64'
       run: |
         sudo apt-get install \
           llvm \
-          libgstreamer1.0-dev:$ARCH \
           libglib2.0-dev:$ARCH \
           libgl1-mesa-dev:$ARCH \
           libglu1-mesa-dev:$ARCH \
