@@ -32,6 +32,23 @@ jobs:
         sudo apt-get install -y ppa-purge aptitude
         sudo ppa-purge -y ppa:ubuntu-toolchain-r/test
 
+
+    - name: Debug 20.04
+      if: matrix.os == 'ubuntu-20.04'
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
+        sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-focal.*
+        ls -la /etc/apt/sources.list.d
+
+    - name: Debug 22.04
+      if: matrix.os == 'ubuntu-22.04'
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
+        sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.*
+        ls -la /etc/apt/sources.list.d
+
+
+
     # Ubuntu Update
     - name: Update Ubuntu
       run: |
@@ -49,19 +66,6 @@ jobs:
       if: matrix.arch != 'amd64'
       with:
         arch: ${{ matrix.arch }}
-
-    - name: Debug 20.04
-      if: matrix.os == 'ubuntu-20.04'
-      run: |
-        ls -la /etc/apt/sources.list.d
-        cat /etc/apt/sources.list
-        cat /etc/apt/sources.list.d/microsoft-prod.list
-
-    - name: Debug 22.04
-      if: matrix.os == 'ubuntu-22.04'
-      run: |
-        ls -la /etc/apt/sources.list.d
-        cat /etc/apt/sources.list.d/microsoft-prod.list
 
     - name: Host Architecture
       run: dpkg --print-architecture
