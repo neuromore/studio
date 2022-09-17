@@ -31,6 +31,15 @@ jobs:
       with:
         arch: amd64
 
+
+    # Build EngineJNI
+    - name: Build Engine-deps
+      run: make Engine-deps -j${{ env.JOBS }}
+    # Build EngineJNI
+    - name: Build EngineJNI
+      run: make EngineJNI -j${{ env.JOBS }}
+
+
     # Build QtTools (X64)
     - name: Build QtTools (X64)
       run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}

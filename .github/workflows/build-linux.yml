@@ -140,6 +140,14 @@ jobs:
         clang++ --target=$TARGET -v
         make -v
 
+    # Build EngineJNI
+    - name: Build Engine-deps
+      run: make Engine-deps -j${{ env.JOBS }}
+    # Build EngineJNI
+    - name: Build EngineJNI
+      run: make EngineJNI -j${{ env.JOBS }}
+
+
     # Build QtTools (amd64)
     - name: Build QtTools (amd64)
       if: matrix.arch != 'amd64'

@@ -21,6 +21,10 @@ Engine:
 	@echo [BLD] Engine
 	+@make -s -C ./build/make/ -f Engine.mk
 
+Engine-deps:
+	@echo [BLD] Engine Dependencies
+	+@make -s -C ./deps/ -f Makefile engine-dependencies
+
 Engine-clean:
 	@echo [CLN] Engine
 	+@make -s -C ./build/make/ -f Engine.mk clean
