@@ -117,11 +117,8 @@ dist-%: dist-prep
 dist: dist-prep dist-x64 dist-arm64
 	@echo [MKD] $(NAME).app/Contents/MacOS
 	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/MacOS
-# TODO: Fix ARM-64 build and create universal binary
-	echo $(OUTDIST)
-	cp ./bin/osx-x64/$(NAME)$(EXTBIN) $(OUTDIST)
-#	@echo [LIP] $(NAME)$(EXTBIN)
-#	@lipo -create -output $(OUTDIST) \
+	@echo [LIP] $(NAME)$(EXTBIN)
+	@lipo -create -output $(OUTDIST) \
 	  ./bin/osx-x64/$(NAME)$(EXTBIN) \
 	  ./bin/osx-arm64/$(NAME)$(EXTBIN)
 	@echo [MKD] $(NAME).app/Contents/Resources
