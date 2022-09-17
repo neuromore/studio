@@ -124,6 +124,9 @@ jobs:
     - name: Ubuntu Packages
       run: |
         sudo apt-get install -y \
+          libopengl-dev:$ARCH \
+          libglx-dev:$ARCH \
+          libgles-dev:$ARCH \
           libsm-dev:$ARCH \
           libx11-dev:$ARCH \
           libx11-xcb-dev:$ARCH \
