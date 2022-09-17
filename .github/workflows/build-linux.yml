@@ -47,7 +47,8 @@ jobs:
           libunwind-dev
         sudo apt-get install -f -y \
           llvm \
-          clang
+          clang \
+          libunwind-14-dev
         sudo apt-get autoremove -y
 
     # Purge PPA
