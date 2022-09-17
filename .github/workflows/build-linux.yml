@@ -32,9 +32,7 @@ jobs:
           gcc-9 \
           libpcre2-dev \
           libpcre2-posix2
-        sudo apt-get install -f -y --allow-downgrades \
-          libunwind-dev \
-          libpcre2-8-0=10.34-7
+        sudo apt-get install -f -y --allow-downgrades libpcre2-8-0=10.34-7
         sudo apt-get autoremove -y
 
     - name: Purge Packages (22.04)
@@ -51,8 +49,7 @@ jobs:
           gcc-9 \
           libpcre2-dev \
           libunwind-14-dev
-        sudo apt-get install -f -y \
-          libunwind-dev
+        sudo apt-get install -f -y libunwind-dev
         sudo apt-get autoremove -y
 
     # Purge PPA
@@ -99,14 +96,6 @@ jobs:
       with:
         arch: ${{ matrix.arch }}
 
-    # Host Architecture
-    - name: Host Architecture
-      run: dpkg --print-architecture
-
-    # Foreign Architectures
-    - name: Foreign Architectures
-      run: dpkg --print-foreign-architectures
-
     # Ubuntu Packages
     - name: Ubuntu Packages
       run: |
@@ -145,25 +134,6 @@ jobs:
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
       run: sudo apt-get install qemu-user qemu-user-static
-
-    # Installed Packages (amd64)
-    - name: Installed Packages (amd64)
-      run: apt list --installed | { grep amd64 || true; }
- 
-    # Installed Packages (i386)
-    - name: Installed Packages (i386)
-      if: matrix.arch == 'i386'
-      run: apt list --installed | { grep i386 || true; }
-
-    # Installed Packages (arm64)
-    - name: Installed Packages (arm64)
-      if: matrix.arch == 'arm64'
-      run: apt list --installed | { grep arm64 || true; }
-
-    # Installed Packages (armhf)
-    - name: Installed Packages (armhf)
-      if: matrix.arch == 'armhf'
-      run: apt list --installed | { grep armhf || true; }
 
     ############################################################
     
