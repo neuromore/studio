@@ -40,11 +40,13 @@ jobs:
           php \
           nginx \
           libpcre2-dev \
+          libpcre2-posix2 \
           libunwind-dev
         sudo apt-get install -f -y \
           llvm \
           clang \
-          libunwind-dev
+          libunwind-dev \
+          libpcre2-8-0
         sudo apt-get autoremove -y
 
     - name: Purge Packages (22.04)
