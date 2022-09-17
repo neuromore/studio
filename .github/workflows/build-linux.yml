@@ -55,15 +55,13 @@ jobs:
       run: |
         ls -la /etc/apt/sources.list.d
         cat /etc/apt/sources.list
-        cat /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-focal.list
-        cat /etc/apt/sources.list.d/git-core-ubuntu-ppa-focal.list
+        cat /etc/apt/sources.list.d/microsoft-prod.list
 
     - name: Debug 22.04
       if: matrix.os == 'ubuntu-22.04'
       run: |
         ls -la /etc/apt/sources.list.d
-        cat /etc/apt/sources.list
-        cat /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.list
+        cat /etc/apt/sources.list.d/microsoft-prod.list
 
     - name: Host Architecture
       run: dpkg --print-architecture
@@ -103,14 +101,14 @@ jobs:
           libxcb-xkb-dev:$ARCH \
           libxcb-util-dev:$ARCH
 
-#    - name: Installed AMD64 Packages
-#      run: apt list --installed | { grep amd64 || true; }
-#    - name: Installed X86 Packages
-#      run: apt list --installed | { grep i386 || true; }
-#    - name: Installed ARM64 Packages
-#      run: apt list --installed | { grep arm64 || true; }
-#    - name: Installed ARMHF Packages
-#      run: apt list --installed | { grep armhf || true; }
+    - name: Installed AMD64 Packages
+      run: apt list --installed | { grep amd64 || true; }
+    - name: Installed X86 Packages
+      run: apt list --installed | { grep i386 || true; }
+    - name: Installed ARM64 Packages
+      run: apt list --installed | { grep arm64 || true; }
+    - name: Installed ARMHF Packages
+      run: apt list --installed | { grep armhf || true; }
 
     - name: Ubuntu Packages Problematic
       run: |
@@ -123,7 +121,7 @@ jobs:
 
     - name: Debug GST
       run: |
-        ls -la /usr/include/gst*
+        ls -la /usr/include
 
 
     - name: QEMU (ARM64/ARMHF)
