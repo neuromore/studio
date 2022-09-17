@@ -116,7 +116,15 @@ jobs:
       run: |
         sudo aptitude install -f -y \
           libglib2.0-dev:$ARCH \
-          libgstreamer1.0-dev:$ARCH
+          libgstreamer1.0-dev:$ARCH \
+          libgstreamer-plugins-base1.0-dev:$ARCH \
+          libgstreamer-plugins-good1.0-dev:$ARCH
+
+
+    - name: Debug GST
+      run: |
+        ls -la /usr/include/gst*
+
 
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
