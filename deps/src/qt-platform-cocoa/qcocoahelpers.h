@@ -178,10 +178,6 @@ T qt_mac_resolveOption(const T &fallback, QWindow *window, const QByteArray &pro
 
 // -------------------------------------------------------------------------
 
-#if !defined(Q_PROCESSOR_X86_64)
-#error "32-bit builds are not supported"
-#endif
-
 class QMacVersion
 {
 public:
@@ -254,14 +250,16 @@ template <typename T>
 struct objc_msgsend_requires_stret
 { static const bool value =
 #if defined(Q_PROCESSOR_X86)
+    #define PLATFORM_USES_SEND_SUPER_STRET 1
     // Any return value larger than two registers on i386/x86_64
     sizeof(T) > sizeof(void*) * 2;
 #elif defined(Q_PROCESSOR_ARM_32)
+    #define PLATFORM_USES_SEND_SUPER_STRET 1
     // Any return value larger than a single register on arm
     sizeof(T) >  sizeof(void*);
 #elif defined(Q_PROCESSOR_ARM_64)
-    // Stret not used on arm64
-    false;
+    #define PLATFORM_USES_SEND_SUPER_STRET 0
+    false; // Stret not used on arm64
 #endif
 };
 
@@ -281,6 +279,7 @@ ReturnType qt_msgSendSuper(id receiver, SEL selector, Args... args)
     return superFn(&sup, selector, args...);
 }
 
+#if PLATFORM_USES_SEND_SUPER_STRET
 template <typename ReturnType, typename... Args>
 ReturnType qt_msgSendSuper_stret(id receiver, SEL selector, Args... args)
 {
@@ -295,6 +294,7 @@ ReturnType qt_msgSendSuper_stret(id receiver, SEL selector, Args... args)
     superStretFn(&ret, &sup, selector, args...);
     return ret;
 }
+#endif
 
 template<typename... Args>
 class QSendSuperHelper {
@@ -335,11 +335,13 @@ private:
         return qt_msgSendSuper<ReturnType>(m_receiver, m_selector, std::get<Is>(args)...);
     }
 
+#if PLATFORM_USES_SEND_SUPER_STRET
     template <typename ReturnType, int... Is>
     if_requires_stret<ReturnType, true> msgSendSuper(std::tuple<Args...>& args, QtPrivate::IndexesList<Is...>)
     {
         return qt_msgSendSuper_stret<ReturnType>(m_receiver, m_selector, std::get<Is>(args)...);
     }
+#endif
 
     template <typename ReturnType>
     ReturnType msgSendSuper(std::tuple<Args...>& args)
