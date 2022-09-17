@@ -24,9 +24,6 @@ jobs:
     - name: Purge Packages (20.04)
       if: matrix.os == 'ubuntu-20.04'
       run: |
-        sudo apt-get remove -f -y \
-          libpcre2-dev \
-          libpcre2-posix2
         sudo apt-get install -f -y --allow-downgrades libpcre2-8-0=10.34-7
         sudo apt-get autoremove -y
 
@@ -132,22 +129,18 @@ jobs:
         if [ $ARCH == amd64 ]; then \
           echo "TARGET_ARCH=x64" >> $GITHUB_ENV; \
           echo "TARGET=x86_64-linux-gnu" >> $GITHUB_ENV; \
-          echo "${{ inputs.cpuflags-x64 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == i386 ]; then \
           echo "TARGET_ARCH=x86" >> $GITHUB_ENV; \
           echo "TARGET=i686-linux-gnu" >> $GITHUB_ENV; \
-          echo "${{ inputs.cpuflags-x86 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == arm64 ]; then \
           echo "TARGET_ARCH=arm64" >> $GITHUB_ENV; \
           echo "TARGET=aarch64-linux-gnu" >> $GITHUB_ENV; \
-          echo "${{ inputs.cpuflags-arm64 }}" >> $GITHUB_ENV; \
         fi
         if [ $ARCH == armhf ]; then \
           echo "TARGET_ARCH=arm" >> $GITHUB_ENV; \
           echo "TARGET=arm-linux-gnueabihf" >> $GITHUB_ENV; \
-          echo "${{ inputs.cpuflags-arm }}" >> $GITHUB_ENV; \
         fi
       
     # Version
