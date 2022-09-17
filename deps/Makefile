@@ -325,7 +325,12 @@ zlib-clean:
 qt-tools: qt-moc qt-rcc qt-uic
 
 # engine-dependencies
-engine-dependencies: brainflow-boardcontroller edflib oscpack kissfft zlib
+engine-dependencies: brainflow \
+  brainflow-boardcontroller \
+  edflib \
+  oscpack \
+  kissfft \
+  zlib
 
 # combined
 --base: brainflow \
