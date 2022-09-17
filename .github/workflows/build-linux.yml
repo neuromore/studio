@@ -25,12 +25,24 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Test
+    - name: Purge Packages (22.04)
+      if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt-get remove -f -y \
+          apache2-bin \
+          apache2-utils \
+          apache2 \
+          clang-12 \
+          clang-13 \
+          cpp-10 \
+          cpp-9 \
+          g++-10 \
+          g++-9 \
           aspnetcore-runtime-6.0 \
           php
-          
+        sudo apt-get autoremove -y
+
+
     # Purge PPA
     - name: Purge PPA
       run: |
