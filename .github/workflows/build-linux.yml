@@ -25,6 +25,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Test
+      run: |
+        sudo apt-get remove -f -y \
+          aspnetcore-runtime-3.1 \
+          aspnetcore-runtime-5.0 \
+          aspnetcore-runtime-6.0 \
+          php
+          
     # Purge PPA
     - name: Purge PPA
       run: |
@@ -46,8 +54,6 @@ jobs:
         sudo rm -rf /etc/apt/sources.list.d/microsoft-prod.*
         sudo rm -rf /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.*
         ls -la /etc/apt/sources.list.d
-
-
 
     # Ubuntu Update
     - name: Update Ubuntu
