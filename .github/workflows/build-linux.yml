@@ -118,17 +118,8 @@ jobs:
     - name: Ubuntu Package Update
       run: sudo apt-get update && sudo apt-get upgrade -f -y
 
-    - name: Installed AMD64 Packages
-      run: apt list --installed | { grep amd64 || true; }
-
-    - name: Installed X86 Packages
-      run: apt list --installed | { grep i386 || true; }
-
-    - name: Installed ARM64 Packages
-      run: apt list --installed | { grep arm64 || true; }
-
-    - name: Installed ARMHF Packages
-      run: apt list --installed | { grep armhf || true; }
+    - name: LLVM
+      run: sudo apt-get install -y llvm
 
     - name: Ubuntu Packages
       run: |
@@ -138,15 +129,7 @@ jobs:
           libx11-xcb-dev:$ARCH \
           libexpat1-dev:$ARCH \
           libxkbcommon-dev:$ARCH \
-          libxcb1-dev:$ARCH
-
-    - name: Ubuntu Packages
-      run: |
-        sudo apt-get install \
-          llvm \
-          libglib2.0-dev:$ARCH \
-          libgl1-mesa-dev:$ARCH \
-          libglu1-mesa-dev:$ARCH \
+          libxcb1-dev:$ARCH \
           libxcb-glx0-dev:$ARCH \
           libxcb-icccm4-dev:$ARCH \
           libxcb-image0-dev:$ARCH \
@@ -161,6 +144,25 @@ jobs:
           libxcb-xinerama0-dev:$ARCH \
           libxcb-xkb-dev:$ARCH \
           libxcb-util-dev:$ARCH
+
+    - name: Installed AMD64 Packages
+      run: apt list --installed | { grep amd64 || true; }
+
+    - name: Installed X86 Packages
+      run: apt list --installed | { grep i386 || true; }
+
+    - name: Installed ARM64 Packages
+      run: apt list --installed | { grep arm64 || true; }
+
+    - name: Installed ARMHF Packages
+      run: apt list --installed | { grep armhf || true; }
+
+    - name: Ubuntu Packages Problematic
+      run: |
+        sudo apt-get install \
+          libglib2.0-dev:$ARCH \
+          libgl1-mesa-dev:$ARCH \
+          libglu1-mesa-dev:$ARCH
 
     - name: QEMU (ARM64/ARMHF)
       if: matrix.arch == 'arm64' || matrix.arch == 'armhf' || matrix.arch == 'armel' 
