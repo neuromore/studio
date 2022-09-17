@@ -119,20 +119,16 @@ jobs:
       run: sudo apt-get update && sudo apt-get upgrade -f -y
 
     - name: Installed AMD64 Packages
-      run: |
-        apt list --installed | grep amd64
+      run: apt list --installed | { grep amd64 || true; }
 
     - name: Installed X86 Packages
-      run: |
-        apt list --installed | grep i386
+      run: apt list --installed | { grep i386 || true; }
 
     - name: Installed ARM64 Packages
-      run: |
-        apt list --installed | grep arm64
+      run: apt list --installed | { grep arm64 || true; }
 
     - name: Installed ARMHF Packages
-      run: |
-        apt list --installed | grep armhf
+      run: apt list --installed | { grep armhf || true; }
 
     - name: Ubuntu Packages
       run: |
