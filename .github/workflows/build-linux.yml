@@ -103,23 +103,23 @@ jobs:
         fi
         clang++ --target=$ARCHGCC -v
 
-    - name Debug
+    - name: Debug
       run: |
         ls -la /etc/apt/sources.list.d
         cat /etc/apt/sources.list
         dpkg --print-architecture
         dpkg --print-foreign-architectures
 
-    - name Installed AMD64 Packages
+    - name: Installed AMD64 Packages
       run: apt list --installed | grep amd64
 
-    - name Installed X86 Packages
+    - name: Installed X86 Packages
       run: apt list --installed | grep i386
 
-    - name Installed ARM64 Packages
+    - name: Installed ARM64 Packages
       run: apt list --installed | grep arm64
 
-    - name Installed ARMHF Packages
+    - name: Installed ARMHF Packages
       run: apt list --installed | grep armhf
 
     - name: Ubuntu Package Update
