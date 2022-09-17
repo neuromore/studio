@@ -37,72 +37,17 @@ jobs:
         os: [ubuntu-20.04,ubuntu-22.04]
         arch: [amd64,i386,arm64,armhf]
     steps:
+    
+    # Checkout
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Cross
+    # Cross-Compile Support
+    - name: Cross-Compile Support
+      uses: cyberjunk/gha-ubuntu-cross@v1
       if: matrix.arch != 'amd64'
-      shell: bash
-      run: |
-        dpkg --print-architecture
-        dpkg --print-foreign-architectures
-        export CODENAME=$(lsb_release -c -s)
-        export APTFILE=/etc/apt/sources.list.d/$ARCH-cross-compile-sources.list
-        sudo dpkg --add-architecture $ARCH
-        if [ $ARCH != amd64 ] && [ $ARCH != i386 ]; then \
-          sudo bash -c "echo -e '\
-            deb [arch=$ARCH] http://ports.ubuntu.com/ $CODENAME main restricted \n\
-            deb [arch=$ARCH] http://ports.ubuntu.com/ $CODENAME-updates main restricted \n\
-            deb [arch=$ARCH] http://ports.ubuntu.com/ $CODENAME universe \n\
-            deb [arch=$ARCH] http://ports.ubuntu.com/ $CODENAME-updates universe \n\
-            deb [arch=$ARCH] http://ports.ubuntu.com/ $CODENAME multiverse \n\
-            deb [arch=$ARCH] http://ports.ubuntu.com/ $CODENAME-updates multiverse \n\
-            deb [arch=$ARCH] http://ports.ubuntu.com/ $CODENAME-backports main restricted universe multiverse \n' > $APTFILE"; fi
-        if [ $ARCH == i386 ]; then \
-          sudo sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list; \
-        else \
-          sudo sed -i 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list; \
-        fi
-        sudo apt-get update
-        sudo apt-get install \
-            llvm \
-            libstdc++6-$ARCH-cross \
-            libc6-dev-$ARCH-cross \
-            libc6-dev:$ARCH \
-            linux-libc-dev-$ARCH-cross
-        if [ $ARCH != amd64 ] && [ $ARCH != i386 ]; then \
-          sudo apt-get install crossbuild-essential-$ARCH; \
-        fi        
-        if [ $ARCH == amd64 ]; then export ARCHGCC=x86-64-linux-gnu; fi
-        if [ $ARCH == i386 ]; then export ARCHGCC=i686-linux-gnu; fi
-        if [ $ARCH == arm64 ]; then export ARCHGCC=aarch64-linux-gnu; fi
-        if [ $ARCH == armhf ]; then export ARCHGCC=arm-linux-gnueabihf; fi
-        if [ $ARCH == armel ]; then export ARCHGCC=arm-linux-gnueabi; fi 
-        if [ $CODENAME == bionic ]; then \
-          sudo apt-get install \
-            clang-10 \
-            gcc-8-$ARCHGCC \
-            g++-8-$ARCHGCC \
-            libstdc++-8-dev-$ARCH-cross \
-            libstdc++-8-dev:$ARCH; \
-        fi       
-        if [ $CODENAME == focal ]; then \
-          sudo apt-get install \
-            clang-12 \
-            gcc-10-$ARCHGCC \
-            g++-10-$ARCHGCC \
-            libstdc++-10-dev-$ARCH-cross \
-            libstdc++-10-dev:$ARCH; \
-        fi
-        if [ $CODENAME == jammy ]; then \
-          sudo apt-get install \
-            clang-14 \
-            gcc-11-$ARCHGCC \
-            g++-11-$ARCHGCC \
-            libstdc++-11-dev-$ARCH-cross \
-            libstdc++-11-dev:$ARCH; \
-        fi
-        clang++ --target=$ARCHGCC -v
+      with:
+        arch: ${{ matrix.arch }}
 
     - name: Debug
       run: |
