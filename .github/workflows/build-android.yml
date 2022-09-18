@@ -51,6 +51,13 @@ jobs:
       with:
         ndk-version: ${{ matrix.ndk }}
 
+    # Build Dependencies
+    - name: Build Dependencies
+      shell: pwsh
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+      run: make Dependencies -j${{ env.JOBS }}
+
     # Build Engine
     - name: Build Engine
       shell: pwsh
@@ -58,10 +65,10 @@ jobs:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Engine -j${{ env.JOBS }}
  
-    # Build Dependencies
-    - name: Build Dependencies
+    # Build QtBase
+    - name: Build QtBase
       shell: pwsh
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-      run: make Dependencies -j${{ env.JOBS }}
+      run: make QtBase -j${{ env.JOBS }}
  
