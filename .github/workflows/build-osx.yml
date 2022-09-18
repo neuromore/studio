@@ -35,9 +35,21 @@ jobs:
     - name: Build Dependencies
       run: make Dependencies -j${{ env.JOBS }}
 
-    # Build
-    - name: Build (X64)
-      run: make -j${{ env.JOBS }}
+    # Build Engine
+    - name: Build Engine
+      run: make Engine -j${{ env.JOBS }}
+
+    # Build QtBase
+    - name: Build QtBase
+      run: make QtBase -j${{ env.JOBS }}
+
+    # Build Studio
+    - name: Build Studio
+      run: make Studio -j${{ env.JOBS }}
+
+    # Build EngineJNI
+    - name: Build EngineJNI
+      run: make EngineJNI -j${{ env.JOBS }}
 
     # Upload
     - name: Upload
