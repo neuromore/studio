@@ -8,31 +8,58 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 360
     env:
       MODE: release
       TARGET_OS: android
+      TARGET_ARCH: ${{ matrix.arch }}
+      JOBS: 4
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest,macos-latest]
+        os: [windows-2019,windows-2022,macos-11,macos-12]
+        arch: [x64,x86,arm64,arm]
+        ndk: [r25b]
     steps:
+
+    # Checkout
     - name: Checkout
       uses: actions/checkout@v3
 
+    # Developer Console (WIN-X64)
+    - name: MSVC Developer Console (X64)
+      if: matrix.os == 'windows-2019' || matrix.os == 'windows-2022'
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64
+
+    # Build QtTools (WIN-X64)
+    - name: Build QtTools (X64)
+      if: matrix.os == 'windows-2019' || matrix.os == 'windows-2022'
+      run: make TARGET_OS=win TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
+
+    # Build QtTools (OSX-X64)
+    - name: Build QtTools (X64)
+      if: matrix.os == 'macos-11' || matrix.os == 'macos-12'
+      run: make TARGET_OS=osx TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
+
+    # Android NDK
     - name: Android NDK
       uses: nttld/setup-ndk@v1
       id: setup-ndk
       timeout-minutes: 10
       with:
-        ndk-version: r25b
+        ndk-version: ${{ matrix.ndk }}
 
-    - name: Build
+    # Build Engine
+    - name: Build Engine
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-      run: |
-        make -v
-        make TARGET_ARCH=x64 Engine -j4
-        make TARGET_ARCH=x86 Engine -j4
-        make TARGET_ARCH=arm64 Engine -j4
-        make TARGET_ARCH=arm Engine -j4
+      run: make Engine -j${{ env.JOBS }}
+ 
+    # Build Dependencies
+    - name: Build Dependencies
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+      run: make Dependencies -j${{ env.JOBS }}
+ 
