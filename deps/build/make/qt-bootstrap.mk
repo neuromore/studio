@@ -268,6 +268,7 @@ endif
 
 OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
+
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
 	echo $(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
@@ -279,7 +280,12 @@ $(OBJDIR)/%.omm:
 
 .DEFAULT_GOAL := build
 
-build: $(OBJS)
+pretest:
+	echo $(ANDROID_NDK_HOME)
+
+OBJS : pretest
+
+build: pretest
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS)
 
