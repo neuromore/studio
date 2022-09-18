@@ -26,6 +26,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+
+    - name: test
+      run: |
+        ls -la ./deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap
+        ls -la ./deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap/qt-core
+        ls -la ./deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap/qt-core/codecs
+
+
     # Developer Console (WIN-X64)
     - name: MSVC Developer Console (X64)
       if: matrix.os == 'windows-2019' || matrix.os == 'windows-2022'
