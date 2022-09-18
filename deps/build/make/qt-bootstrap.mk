@@ -285,7 +285,7 @@ pretest:
 
 OBJS : pretest
 
-build: pretest
+build: pretest $(OBJS)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS)
 
