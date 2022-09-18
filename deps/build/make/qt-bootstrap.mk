@@ -270,8 +270,8 @@ OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
-	echo $(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(subst /,\,$(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp)) -o $(subst /,\,$@)
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(subst /,\,$(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp)) -o $(subst /,\,$@)
+	echo $(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(subst /,\\,$(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp)) -o $(subst /,\\,$@)
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(subst /,\\,$(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp)) -o $(subst /,\\,$@)
 
 $(OBJDIR)/%.omm:
 	@echo [CXX] $@
