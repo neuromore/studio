@@ -279,7 +279,12 @@ $(OBJDIR)/%.omm:
 
 .DEFAULT_GOAL := build
 
-build: $(OBJS)
+pretest:
+	dir
+	dir $(SRCDIR)
+	dir $(OBJDIR)
+	
+build: pretest $(OBJS)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS)
 
