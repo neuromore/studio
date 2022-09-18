@@ -109,6 +109,12 @@
 #  endif
 #endif
 
+#ifdef Q_OS_ANDROID
+#ifdef QLOGGING_HAVE_BACKTRACE
+#undef QLOGGING_HAVE_BACKTRACE
+#endif
+#endif
+
 #if QT_CONFIG(slog2)
 extern char *__progname;
 #endif
