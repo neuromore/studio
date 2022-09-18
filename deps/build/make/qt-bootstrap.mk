@@ -3,7 +3,7 @@ include platforms/detect-host.mk
 
 NAME       = qt-bootstrap
 INCDIR     = ../../include
-SRCDIR     = ../../src/
+SRCDIR     = ../../src
 OBJDIR    := $(OBJDIR)/$(NAME)
 DEFINES   := $(DEFINES) \
              -DCHROMIUM_ZLIB_NO_CHROMECONF \
