@@ -26,14 +26,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-
-    - name: test
-      run: |
-        dir deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap
-        dir deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap/qt-core
-        dir deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap/qt-core/codecs
-
-
     # Developer Console (WIN-X64)
     - name: MSVC Developer Console (X64)
       if: matrix.os == 'windows-2019' || matrix.os == 'windows-2022'
@@ -61,12 +53,14 @@ jobs:
 
     # Build Engine
     - name: Build Engine
+      shell: pwsh
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Engine -j${{ env.JOBS }}
  
     # Build Dependencies
     - name: Build Dependencies
+      shell: pwsh
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Dependencies -j${{ env.JOBS }}

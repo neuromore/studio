@@ -270,8 +270,8 @@ OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
-	echo $(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(subst /,\\,$(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp)) -o $(subst /,\\,$@)
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(subst /,\\,$(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp)) -o $(subst /,\\,$@)
+	echo $(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -c $(@:$(OBJDIR)%.o=$(SRCDIR)%.cpp) -o $@
 
 $(OBJDIR)/%.omm:
 	@echo [CXX] $@
@@ -279,12 +279,7 @@ $(OBJDIR)/%.omm:
 
 .DEFAULT_GOAL := build
 
-pretest:
-	dir
-	dir $(subst /,\,$(SRCDIR))
-	dir $(subst /,\,$(OBJDIR))
-
-build: pretest $(OBJS)
+build: $(OBJS)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS)
 
