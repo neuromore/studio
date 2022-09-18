@@ -29,9 +29,9 @@ jobs:
 
     - name: test
       run: |
-        ls -la ./deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap
-        ls -la ./deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap/qt-core
-        ls -la ./deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap/qt-core/codecs
+        dir deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap
+        dir deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap/qt-core
+        dir deps/build/make/obj/android-${{ matrix.arch }}-release/qt-bootstrap/qt-core/codecs
 
 
     # Developer Console (WIN-X64)
