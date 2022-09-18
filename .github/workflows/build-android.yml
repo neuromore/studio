@@ -34,12 +34,12 @@ jobs:
         arch: amd64
 
     # Build QtTools (WIN-X64)
-    - name: Build QtTools (X64)
+    - name: Build QtTools (WIN-X64)
       if: matrix.os == 'windows-2019' || matrix.os == 'windows-2022'
       run: make TARGET_OS=win TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
     # Build QtTools (OSX-X64)
-    - name: Build QtTools (X64)
+    - name: Build QtTools (OSX-X64)
       if: matrix.os == 'macos-11' || matrix.os == 'macos-12'
       run: make TARGET_OS=osx TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
