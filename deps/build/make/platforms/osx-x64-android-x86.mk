@@ -14,7 +14,7 @@ LIBDIR     = lib/android-x86
 BINDIR     = bin/android-x86
 DISTDIR    = ../../dist/android-21
 TARGET     = i686-linux-android
-CPUFLAGS   = -march=i686 -mtune=generic
+CPUFLAGS   = -march=i686 -mtune=generic -mmmx -msse -msse2
 DEFINES    = -DANDROID -D__ANDROID_API__=$(ANDROID_API)
 INCLUDES   = -I$(ANDROID_NDK_HOME)/sources/android/cpufeatures
 CXX        = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)$(ANDROID_API)-clang++
@@ -40,9 +40,9 @@ LINKLIBS   =
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
-CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-LINKFLAGS := $(LINKFLAGS) -flto -g -Wl,--gc-sections
+CXXFLAGS  := $(CXXFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+CFLAGS    := $(CFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+LINKFLAGS := $(LINKFLAGS) -flto -Wl,--gc-sections
 else
 DEFINES   := $(DEFINES) -D_DEBUG
 CXXFLAGS  := $(CXXFLAGS) -Og -g3

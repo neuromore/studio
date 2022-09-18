@@ -14,7 +14,7 @@ LIBDIR     = lib/android-x86
 BINDIR     = bin/android-x86
 DISTDIR    = ../../dist/android-21
 TARGET     = i686-linux-android
-CPUFLAGS   = -march=i686 -mtune=generic
+CPUFLAGS   = -march=i686 -mtune=generic -mmmx -msse -msse2
 DEFINES    = -DANDROID -D__ANDROID_API__=$(ANDROID_API)
 INCLUDES   = -I$(ANDROID_NDK_HOME)/sources/android/cpufeatures
 CXX        = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)$(ANDROID_API)-clang++.cmd
