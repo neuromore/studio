@@ -1,7 +1,7 @@
 #define QT_FEATURE_accessibility 1
 #define QT_NO_ACCESSIBILITY_ATSPI_BRIDGE 
 #define QT_FEATURE_action 1
-#define QT_FEATURE_opengles2 1
+#define QT_FEATURE_opengles2 -1
 #define QT_FEATURE_dynamicgl 1
 #define QT_OPENGL_DYNAMIC true
 #define QT_FEATURE_angle 1
@@ -28,7 +28,7 @@
 #define QT_FEATURE_movie 1
 #define QT_FEATURE_opengles3 1
 #define QT_FEATURE_opengles31 1
-#define QT_FEATURE_opengles32 1
+#define QT_FEATURE_opengles32 -1
 #define QT_FEATURE_openvg -1
 #define QT_FEATURE_pdf 1
 #define QT_FEATURE_picture 1
@@ -47,10 +47,10 @@
 // Use OpenGL ES for Android (ES 3.1 = API 21 = 5.0)
 //#ifdef ANDROID
 #ifndef QT_OPENGL_ES
-  #define QT_OPENGL_ES
+//  #define QT_OPENGL_ES
 #endif
 #ifndef QT_OPENGL_ES_2
-  #define QT_OPENGL_ES_2
+//  #define QT_OPENGL_ES_2
 #endif
 #ifndef QT_OPENGL_ES_3
   #define QT_OPENGL_ES_3
