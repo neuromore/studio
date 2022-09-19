@@ -53,28 +53,24 @@ jobs:
 
     # Build Dependencies
     - name: Build Dependencies
-      shell: pwsh
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Dependencies -j${{ env.JOBS }}
 
     # Build Engine
     - name: Build Engine
-      shell: pwsh
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Engine -j${{ env.JOBS }}
 
     # Build EngineJNI
     - name: Build EngineJNI
-      shell: pwsh
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make EngineJNI -j${{ env.JOBS }}
  
     # Build QtBase
     - name: Build QtBase
-      shell: pwsh
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make QtBase -j${{ env.JOBS }}
