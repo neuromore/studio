@@ -136,6 +136,30 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+# iOS
+ifeq ($(TARGET_OS),ios)
+DEFINES   := $(DEFINES)
+CXXFLAGS  := $(CXXFLAGS)
+INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-ios-clang
+LINKLIBS  := $(LINKLIBS) \
+             -framework CoreFoundation \
+             -framework Foundation \
+             -framework MobileCoreServices
+OBJS      := $(OBJS)
+ifeq ($(TARGET_ARCH),x86)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),x64)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+endif
+endif
+
 ifeq ($(MODE),debug)
 DEFINES   := $(DEFINES) -DQT_DEBUG
 else

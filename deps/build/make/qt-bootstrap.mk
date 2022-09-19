@@ -245,7 +245,23 @@ ifeq ($(TARGET_OS),ios)
 DEFINES   := $(DEFINES)
 CXXFLAGS  := $(CXXFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-ios-clang
-OBJS      := $(OBJS)
+OBJS      := $(OBJS) \
+             qt-core/global/qoperatingsystemversion_darwin.omm \
+             qt-core/io/qfilesystemengine_unix.o \
+             qt-core/io/qfilesystemiterator_unix.o \
+             qt-core/io/qfsfileengine_unix.o \
+             qt-core/io/qipaddress.o \
+             qt-core/io/qstandardpaths_mac.omm \
+             qt-core/io/qurl.o \
+             qt-core/io/qurlquery.o \
+             qt-core/io/qurlrecode.o \
+             qt-core/io/qurlidna.o \
+             qt-core/kernel/qcore_unix.o \
+             qt-core/kernel/qcore_foundation.omm \
+             qt-core/kernel/qcore_mac_objc.omm \
+             qt-core/kernel/qcore_mac.o \
+             qt-core/kernel/qcoreapplication_mac.o
+
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif

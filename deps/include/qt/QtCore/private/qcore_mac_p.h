@@ -59,7 +59,7 @@
 
 // --------------------------------------------------------------------------
 
-#if defined(QT_BOOTSTRAPPED)
+#if defined(QT_BOOTSTRAPPED) && !defined(Q_OS_IOS)
 #include <ApplicationServices/ApplicationServices.h>
 #else
 #include <CoreFoundation/CoreFoundation.h>

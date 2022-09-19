@@ -36,3 +36,7 @@ jobs:
     # Build Dependencies
     - name: Build Dependencies
       run: make Dependencies -j${{ env.JOBS }}
+
+    # Build QtBase
+    - name: Build QtBase
+      run: make QtBase -j${{ env.JOBS }}
