@@ -178,13 +178,13 @@ QTMOC     := $(QTMOC) -DQ_OS_IOS
 DEFINES   := $(DEFINES)
 CXXFLAGS  := $(CXXFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-ios-clang
-MOCH      := $(MOCH)
+MOCH      := $(MOCH) private/qunixeventdispatcher_qpa_p.cpp
 MOCC      := $(MOCC)
 MOCO      := $(MOCO)
 RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
-OBJS      := $(OBJS)
+OBJS      := $(OBJS) qunixeventdispatcher.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
