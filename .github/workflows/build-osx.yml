@@ -96,12 +96,6 @@ jobs:
         name: Binaries (${{ matrix.os }}-arm64)
         path: ./build/make/bin/osx-arm64/
 
-    # Test
-    - name: Test
-      run: ls -la ./build/make/bin/osx-x64/
-    - name: Test
-      run: ls -la ./build/make/bin/osx-arm64/
-      
     # Load Code Signing Certificate
     - name: Load Code Signing Certificate
       env:
