@@ -465,7 +465,9 @@ endif
 # iOS
 ifeq ($(TARGET_OS),ios)
 QTMOC     := $(QTMOC) -DQ_OS_IOS
-DEFINES   := $(DEFINES)
+DEFINES   := $(DEFINES) \
+             -DQT_FEATURE_bluez=-1 \
+             -DQT_FEATURE_dbus=-1
 CXXFLAGS  := $(CXXFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-ios-clang
 MOCH      := $(MOCH)
