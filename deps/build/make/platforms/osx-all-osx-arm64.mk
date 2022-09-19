@@ -21,7 +21,7 @@ ARFLAGS    = rcs
 STRIP      = strip
 STRIPFLAGS = -S
 LINK       = $(CXX)
-LINKFLAGS  = -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path)
+LINKFLAGS  = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path)
 LINKPATH   =
 LINKLIBS   = 
 
