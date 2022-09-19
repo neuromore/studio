@@ -164,6 +164,15 @@ jobs:
     - name: Build EngineJNI
       run: make EngineJNI -j${{ env.JOBS }}
 
+    # Binary Info
+    - name: Binary Info
+      if: matrix.arch == 'amd64' || matrix.arch == 'i386'
+      run: |
+        echo Studio
+        ldd ./build/make/bin/linux-${{ env.TARGET_ARCH }}/Studio
+        echo EngineJNI
+        ldd ./build/make/lib/linux-${{ env.TARGET_ARCH }}/EngineJNI.so
+
     # Make (dist)        
     - name: Make (dist)
       run: make dist

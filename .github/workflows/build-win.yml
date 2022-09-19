@@ -69,6 +69,12 @@ jobs:
     - name: Build EngineJNI
       run: make EngineJNI -j${{ env.JOBS }}
 
+    # Binary Info
+    - name: Binary Info
+      run: |
+        dumpbin /dependents ./build/make/bin/win-${{ env.TARGET_ARCH }}/Studio.exe
+        dumpbin /dependents ./build/make/lib/win-${{ env.TARGET_ARCH }}/EngineJNI.dll
+
     # Upload
     - name: Upload
       uses: actions/upload-artifact@v3
