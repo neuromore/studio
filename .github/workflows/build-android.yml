@@ -64,6 +64,13 @@ jobs:
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Engine -j${{ env.JOBS }}
+
+    # Build EngineJNI
+    - name: Build EngineJNI
+      shell: pwsh
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+      run: make EngineJNI -j${{ env.JOBS }}
  
     # Build QtBase
     - name: Build QtBase
@@ -71,4 +78,3 @@ jobs:
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make QtBase -j${{ env.JOBS }}
- 
