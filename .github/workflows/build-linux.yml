@@ -173,13 +173,6 @@ jobs:
         echo EngineJNI
         ldd ./build/make/lib/linux-${{ env.TARGET_ARCH }}/EngineJNI.so
 
-    # Test
-    - name: Test
-      run: ls -la ./build/make/bin/linux-x64/
-    - name: Test
-      run: ls -la ./build/make/bin/linux-arm64/
-      
-
     # Make (dist)        
     - name: Make (dist)
       run: make dist
