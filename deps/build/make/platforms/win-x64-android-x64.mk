@@ -1,5 +1,8 @@
 # Requires NDK 22b or later
 
+# Replace any backlash in NDK home
+ANDROID_NDK_HOME := $(subst \,/,$(ANDROID_NDK_HOME))
+
 # Android Specific
 ANDROID_API         = 21
 ANDROID_TOOLCHAIN   = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64
@@ -14,7 +17,7 @@ LIBDIR     = lib/android-x64
 BINDIR     = bin/android-x64
 DISTDIR    = ../../dist/android-21
 TARGET     = x86_64-linux-android
-CPUFLAGS   = -march=x86-64 -mtune=generic
+CPUFLAGS   = -march=x86-64-v2 -mtune=generic -mpclmul
 DEFINES    = -DANDROID -D__ANDROID_API__=$(ANDROID_API)
 INCLUDES   = -I$(ANDROID_NDK_HOME)/sources/android/cpufeatures
 CXX        = $(ANDROID_TOOLCHAIN)/bin/$(TARGET)$(ANDROID_API)-clang++.cmd
@@ -40,9 +43,9 @@ LINKLIBS   =
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
-CXXFLAGS  := $(CXXFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-CFLAGS    := $(CFLAGS) -flto -O3 -g -ffunction-sections -fdata-sections
-LINKFLAGS := $(LINKFLAGS) -flto -g -Wl,--gc-sections
+CXXFLAGS  := $(CXXFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+CFLAGS    := $(CFLAGS) -flto -O3 -ffunction-sections -fdata-sections
+LINKFLAGS := $(LINKFLAGS) -flto -Wl,--gc-sections
 else
 DEFINES   := $(DEFINES) -D_DEBUG
 CXXFLAGS  := $(CXXFLAGS) -Og -g3
