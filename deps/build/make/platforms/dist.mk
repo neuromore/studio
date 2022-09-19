@@ -121,6 +121,8 @@ dist: dist-prep dist-x64 dist-arm64
 	@lipo -create -output $(OUTDIST) \
 	  ./bin/osx-x64/$(NAME)$(EXTBIN) \
 	  ./bin/osx-arm64/$(NAME)$(EXTBIN)
+    @ls -la $(OUTDIST)
+	@chmod +x $(OUTDIST)
 	@echo [MKD] $(NAME).app/Contents/Resources
 	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/Resources
 	@echo [ICO] $(NAME).icns
@@ -194,7 +196,9 @@ dist-%: dist-prep
 	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	cp $(SRCDIR)/Resources/AppIcon-neuromore-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
 	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
-	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)	
+	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
+    @ls -la $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
+	@chmod +x $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
 	-cp ./../../deps/prebuilt/linux/$*/*.so $(DISTDIR)/$(NAME)-$*/usr/lib/
 	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE) > /dev/null 2>&1
 		
