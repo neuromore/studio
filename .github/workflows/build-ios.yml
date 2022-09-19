@@ -8,21 +8,35 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 360
     env:
       MODE: release
       TARGET_OS: ios
-      TARGET_ARCH: arm64
+      TARGET_ARCH: ${{ matrix.arch }}
       JOBS: 4
     strategy:
       fail-fast: false
       matrix:
         os: [macos-11,macos-12]
+        arch: [arm64]
     steps:
+
+    # Checkout
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Make (build)
-      run: |
-        make -v
-        make Engine -j4
+    # Build Engine
+    - name: Build Engine
+      run: make Engine -j${{ env.JOBS }}
+
+    # Build QtTools (OSX-X64)
+    - name: Build QtTools (OSX-X64)
+      run: make TARGET_OS=osx TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
+
+    # Build Dependencies
+    - name: Build Dependencies
+      run: make Dependencies -j${{ env.JOBS }}
+
+    # Build QtBase
+    - name: Build QtBase
+      run: make QtBase -j${{ env.JOBS }}

@@ -47,7 +47,7 @@ ARFLAGS    = rcs
 STRIP      = strip
 STRIPFLAGS = -S
 LINK       = $(CXX)
-LINKFLAGS  = -target $(TARGET)
+LINKFLAGS  = $(MINVER) -target $(TARGET)
 LINKPATH   =
 LINKLIBS   = 
 

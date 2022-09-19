@@ -51,6 +51,12 @@ jobs:
     - name: Build EngineJNI
       run: make EngineJNI -j${{ env.JOBS }}
 
+    # Binary Info
+    - name: Binary Info
+      run: |
+        otool -L ./build/make/bin/osx-${{ matrix.arch }}/Studio
+        otool -L ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
+
     # Upload
     - name: Upload
       uses: actions/upload-artifact@v3

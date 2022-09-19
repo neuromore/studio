@@ -584,6 +584,34 @@ endif
 endif
 
 ################################################################################################
+# iOS
+ifeq ($(TARGET_OS),ios)
+QTMOC     := $(QTMOC) -DQ_OS_IOS
+DEFINES   := $(DEFINES)
+CXXFLAGS  := $(CXXFLAGS)
+INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-ios-clang
+MOCH      := $(MOCH)
+MOCC      := $(MOCC)
+MOCO      := $(MOCO)
+RCCH      := $(RCCH)
+RCCO      := $(RCCO)
+UICH      := $(UICH)
+OBJS      := $(OBJS)
+ifeq ($(TARGET_ARCH),x86)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),x64)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+endif
+endif
+
+################################################################################################
 
 ifeq ($(MODE),debug)
 DEFINES   := $(DEFINES) -DQT_DEBUG
