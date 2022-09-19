@@ -560,7 +560,8 @@ MOCO      := $(MOCO)
 RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
-OBJS      := $(OBJS)
+OBJS      := $(OBJS) \
+             avfoundation/camera/avfaudioencodersettingscontrol.omm
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
