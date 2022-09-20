@@ -22,8 +22,7 @@ DEFINES   := $(DEFINES) \
              -DQT_NO_CAST_TO_ASCII \
              -DHAVE_CONFIG_H \
              -DUNICODE \
-             -D_ENABLE_EXTENDED_ALIGNED_STORAGE \
-             -Wno-deprecated-declarations
+             -D_ENABLE_EXTENDED_ALIGNED_STORAGE
 INCLUDES  := $(INCLUDES) \
              -I$(INCDIR) \
              -I$(SRCDIR) \
