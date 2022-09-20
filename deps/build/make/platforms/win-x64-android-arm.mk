@@ -23,11 +23,11 @@ INCLUDES   = -I$(ANDROID_NDK_HOME)/sources/android/cpufeatures
 CXX        = $(ANDROID_TOOLCHAIN)/bin/armv7a-linux-androideabi$(ANDROID_API)-clang++.cmd
 CXXFLAGS   = -static -fPIC \
              -target $(TARGET) \
-             -isystem $(ANDROID_TOOLCHAIN)/sysroot/usr/include/$(TARGET)
+             -isystem $(ANDROID_TOOLCHAIN)/sysroot/usr/include/$(TARGET) -Werror
 CC         = $(ANDROID_TOOLCHAIN)/bin/armv7a-linux-androideabi$(ANDROID_API)-clang.cmd
 CFLAGS     = -static -fPIC \
              -target $(TARGET) \
-             -isystem $(ANDROID_TOOLCHAIN)/sysroot/usr/include/$(TARGET)
+             -isystem $(ANDROID_TOOLCHAIN)/sysroot/usr/include/$(TARGET) -Werror
 AR         = $(ANDROID_TOOLCHAIN)/bin/llvm-ar.exe
 ARFLAGS    = rcs
 STRIP      = $(ANDROID_TOOLCHAIN)/bin/llvm-strip.exe

@@ -13,9 +13,9 @@ CPUFLAGS   = -march=armv8-a -mtune=generic
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
-CXXFLAGS   = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path) -static
+CXXFLAGS   = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path) -static -Werror
 CC         = clang
-CFLAGS     = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path) -static
+CFLAGS     = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk macosx --show-sdk-path) -static -Werror
 AR         = ar
 ARFLAGS    = rcs
 STRIP      = strip

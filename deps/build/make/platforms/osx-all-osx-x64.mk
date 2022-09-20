@@ -39,9 +39,9 @@ MINVER     = -mmacosx-version-min=$(OSXMINVERSION)
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
-CXXFLAGS   = $(MINVER) -target $(TARGET) -static
+CXXFLAGS   = $(MINVER) -target $(TARGET) -static -Werror
 CC         = clang
-CFLAGS     = $(MINVER) -target $(TARGET) -static
+CFLAGS     = $(MINVER) -target $(TARGET) -static -Werror
 AR         = ar
 ARFLAGS    = rcs
 STRIP      = strip

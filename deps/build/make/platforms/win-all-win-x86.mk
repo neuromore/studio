@@ -12,9 +12,9 @@ CPUFLAGS   = -march=i686 -mtune=generic -mmmx -msse -msse2
 DEFINES    = -DWIN32 -D_MT
 INCLUDES   = 
 CXX        = clang++
-CXXFLAGS   = -target $(TARGET) -static
+CXXFLAGS   = -target $(TARGET) -static -Werror
 CC         = clang
-CFLAGS     = -target $(TARGET) -static
+CFLAGS     = -target $(TARGET) -static -Werror
 AR         = llvm-ar
 ARFLAGS    = rcs
 STRIP      = llvm-strip
