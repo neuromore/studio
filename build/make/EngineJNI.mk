@@ -19,6 +19,7 @@ CXXFLAGS  := $(CXXFLAGS) \
              -Wno-deprecated-declarations \
              -Wno-enum-compare-switch \
              -Wno-format-security \
+             -Wno-ignored-attributes \
              -std=c++17
 LINKFLAGS := $(LINKFLAGS) -shared
 LINKPATH  := $(LINKPATH)
