@@ -17,7 +17,8 @@ DEFINES   := $(DEFINES) \
              -DHAVE_CONFIG_H \
              -DUNICODE \
              -D_ENABLE_EXTENDED_ALIGNED_STORAGE \
-             -DPCRE2_STATIC
+             -DPCRE2_STATIC \
+             -Wno-deprecated-declarations
 INCLUDES  := $(INCLUDES) \
              -I../../src \
              -I$(INCDIR) \
