@@ -5,8 +5,7 @@ NAME       = minizip
 INCDIR     = ../../include/
 SRCDIR     = ../../src/$(NAME)
 OBJDIR    := $(OBJDIR)/$(NAME)
-DEFINES   := $(DEFINES) \
-             -DCHROMIUM_ZLIB_NO_CHROMECONF
+DEFINES   := $(DEFINES) -DCHROMIUM_ZLIB_NO_CHROMECONF
 INCLUDES  := $(INCLUDES) -I$(INCDIR) -I$(INCDIR)/$(NAME) -I$(INCDIR)/zlib
 CFLAGS    := $(CFLAGS)
 LINKFLAGS := $(LINKFLAGS)
