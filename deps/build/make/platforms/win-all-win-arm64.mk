@@ -12,9 +12,9 @@ CPUFLAGS   = -march=armv8-a -mtune=generic
 DEFINES    = -DWIN32 -DWIN64 -D_MT
 INCLUDES   = 
 CXX        = clang++
-CXXFLAGS   = -target $(TARGET) -static -Werror
+CXXFLAGS   = -target $(TARGET) -static
 CC         = clang
-CFLAGS     = -target $(TARGET) -static -Werror
+CFLAGS     = -target $(TARGET) -static
 AR         = llvm-ar
 ARFLAGS    = rcs
 STRIP      = llvm-strip
