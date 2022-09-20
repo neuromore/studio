@@ -21,5 +21,28 @@
     <ClCompile Include="..\..\src\qt-websockets\.moc\moc_qwebsockethandshakeresponse_p.cpp">
       <Filter>.moc</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\qt-websockets\qdefaultmaskgenerator_p.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qmaskgenerator.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qsslserver.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocket.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketcorsauthenticator.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketdataprocessor.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketframe.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsockethandshakerequest.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsockethandshakeresponse.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketprotocol.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketserver.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketserver_p.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocket_p.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocket_wasm_p.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qmaskgenerator.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qtwebsocketsversion.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsocket.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsocketcorsauthenticator.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsocketprotocol.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsocketserver.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsockets_global.h" />
   </ItemGroup>
 </Project>
