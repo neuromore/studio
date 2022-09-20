@@ -192,7 +192,7 @@ ifeq ($(TARGET_OS),linux)
 DEFINES   := $(DEFINES) \
              -DOPENSSLDIR=\"/etc/ssl\" \
              -DENGINESDIR=\".\"
-CFLAGS    := $(CFLAGS)
+CFLAGS    := $(CFLAGS) -Wno-incomplete-setjmp-declaration
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
