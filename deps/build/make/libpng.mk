@@ -63,11 +63,11 @@ endif
 
 ifeq ($(TARGET_OS),linux)
 DEFINES   := $(DEFINES)
-CFLAGS    := $(CFLAGS)
+CFLAGS    := $(CFLAGS) -Wno-incomplete-setjmp-declaration
 endif
 
 ifeq ($(TARGET_OS),android)
-DEFINES   := $(DEFINES) -Wno-incomplete-setjmp-declaration
+DEFINES   := $(DEFINES)
 CFLAGS    := $(CFLAGS)
 endif
 
