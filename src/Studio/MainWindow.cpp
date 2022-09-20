@@ -34,7 +34,6 @@
 #include "Windows/LicenseAgreementWindow.h"
 #include "Windows/EnterLabelWindow.h"
 #include "Windows/SelectUserWindow.h"
-#include <AutoUpdate/AutoUpdate.h>
 #include <LayoutManager.h>
 #include <LayoutComboBox.h>
 #include <LayoutMenu.h>
@@ -446,11 +445,6 @@ void MainWindow::Init()
 	// HELP menu
 	//
 	QMenu* helpMenu = mMenuBar->addMenu( tr("&Help") );
-
-#ifdef USE_AUTOUPDATE
-	QAction* updateAction = helpMenu->addAction( tr("Check For Updates"), this, &MainWindow::OnCheckForUpdates );
-	updateAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Refresh.png") );
-#endif
 
 	helpMenu->addSeparator();
 
@@ -938,21 +932,6 @@ void MainWindow::OnExit()
 // called when we want to check for updates
 void MainWindow::OnCheckForUpdates()
 {
-#ifdef USE_AUTOUPDATE
-	if (AutoUpdate::IsUpdateAvailable() == true)
-	{
-		if (QMessageBox::question(NULL, "Update Available", "Would you like to install the available update? Click yes to install the update or no to go back.", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
-		//if (MessageBox( NULL, L"Would you like to install the available update? Click Yes to install the update or no to skip updating this time.", L"Update Available", MB_YESNO | MB_ICONQUESTION|MB_TOPMOST) == IDYES)
-		{
-			// start the auto updater and quit directly
-			close();
-			AutoUpdate::StartUpdateTool();
-
-		}
-	}
-	else
-		QMessageBox::information(NULL, "No Updates Available", "There are no updates available.", QMessageBox::Ok);
-#endif
 }
 
 

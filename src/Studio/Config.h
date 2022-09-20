@@ -41,9 +41,6 @@
 	// backend
 	#define BACKEND_LOGGING
 
-	// updates
-	//#define USE_AUTOUPDATE					// comment this if we don't want to use myBuild's auto updater anymore
-
 	// disable memory manager in debug
 	//#define CORE_DISABLE_MEMORYINFO
 
@@ -76,9 +73,6 @@
 
    // OpenCV support
    #define OPENCV_SUPPORT
-
-	// updates
-	//#define USE_AUTOUPDATE
 
 #endif
 

@@ -124,27 +124,6 @@ int main(int argc, char *argv[])
 		EngineInitializer::Shutdown();			// shutdown Core system
 		return -1;
 	}
-    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // auto updater
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef USE_AUTOUPDATE
-	// start with ignoreErrors=true so that in case something isn't working with the update tool the user is not bothered
-	if (AutoUpdate::IsUpdateAvailable(true) == true)
-    {
-		//if (QMessageBox::question(NULL, "Update Available", "Would you like to install the available update? Click Yes to install the update or no to skip updating this time.", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
-		//if (MessageBox( NULL, L"Would you like to install the available update? Click Yes to install the update or no to skip updating this time.", L"Update Available", MB_YESNO | MB_ICONQUESTION|MB_TOPMOST) == IDYES)
-		{
-            // start the auto updater and quit directly
-            AutoUpdate::StartUpdateTool();
-            
-			// DON'T destruct memory here, the AutoUpdate automatically closes the application
-
-            
-            return -1;
-        }
-    }
-#endif
 
     // show the main window
 	int returnCode = GetManager()->ExecuteApp();
