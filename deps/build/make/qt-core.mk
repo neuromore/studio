@@ -39,7 +39,7 @@ INCLUDES  := $(INCLUDES) \
              -I$(INCDIR)/qt/testlib \
              -I$(INCDIR)/qt/QtXml \
              -I$(INCDIR)/qt/QtXml/private 
-CXXFLAGS  := $(CXXFLAGS) -std=c++17
+CXXFLAGS  := $(CXXFLAGS) -std=c++17 -Wno-deprecated
 LINKFLAGS := $(LINKFLAGS)
 LINKPATH  := $(LINKPATH)
 LINKLIBS  := $(LINKLIBS)
