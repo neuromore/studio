@@ -5,7 +5,10 @@ NAME       = minizip
 INCDIR     = ../../include/
 SRCDIR     = ../../src/$(NAME)
 OBJDIR    := $(OBJDIR)/$(NAME)
-DEFINES   := $(DEFINES) -DCHROMIUM_ZLIB_NO_CHROMECONF
+DEFINES   := $(DEFINES) \
+             -DCHROMIUM_ZLIB_NO_CHROMECONF \
+             -D_LARGEFILE64_SOURCE \
+             -D_LARGEFILE_SOURCE
 INCLUDES  := $(INCLUDES) -I$(INCDIR) -I$(INCDIR)/$(NAME) -I$(INCDIR)/zlib
 CFLAGS    := $(CFLAGS)
 LINKFLAGS := $(LINKFLAGS)
@@ -82,9 +85,7 @@ endif
 
 ifeq ($(TARGET_OS),android)
 DEFINES   := $(DEFINES)
-CFLAGS    := $(CFLAGS)  \
-             -D_LARGEFILE64_SOURCE \
-             -D_LARGEFILE_SOURCE
+CFLAGS    := $(CFLAGS)
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif

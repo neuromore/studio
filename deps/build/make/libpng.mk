@@ -67,7 +67,7 @@ CFLAGS    := $(CFLAGS)
 endif
 
 ifeq ($(TARGET_OS),android)
-DEFINES   := $(DEFINES)
+DEFINES   := $(DEFINES) -Wno-incomplete-setjmp-declaration
 CFLAGS    := $(CFLAGS)
 endif
 
