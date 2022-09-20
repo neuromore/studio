@@ -476,7 +476,7 @@ QTMOC     := $(QTMOC) -DQ_OS_LINUX
 DEFINES   := $(DEFINES) \
              -DQT_UNIX_SEMAPHORE \
              -DQT_FEATURE_dbus=1
-CXXFLAGS  := $(CXXFLAGS)
+CXXFLAGS  := $(CXXFLAGS) -Wno-macro-redefined
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/linux-clang
 MOCH      := $(MOCH) \
              private/qeventdispatcher_unix_p.cpp \
