@@ -8,10 +8,15 @@
 #include "cpu_features.h"
 #include "zutil.h"
 
+#if defined(_M_X64) || defined(__amd64__) || defined(__x86_64__) || \
+    defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i686__)
+#define INTEL_CPU
+#endif
+
 #include <stdint.h>
 #if defined(_MSC_VER)
 #include <intrin.h>
-#elif defined(ADLER32_SIMD_SSSE3)
+#elif defined(INTEL_CPU) 
 #include <cpuid.h>
 #endif
 

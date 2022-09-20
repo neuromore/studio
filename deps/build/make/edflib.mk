@@ -5,7 +5,9 @@ NAME       = edflib
 INCDIR     = ../../include
 SRCDIR     = ../../src/$(NAME)
 OBJDIR    := $(OBJDIR)/$(NAME)
-DEFINES   := $(DEFINES)
+DEFINES   := $(DEFINES) \
+             -D_LARGEFILE64_SOURCE \
+             -D_LARGEFILE_SOURCE
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/ -I$(INCDIR)/$(NAME)
 CFLAGS    := $(CFLAGS)
 LINKFLAGS := $(LINKFLAGS)
