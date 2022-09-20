@@ -82,7 +82,9 @@ endif
 
 ifeq ($(TARGET_OS),android)
 DEFINES   := $(DEFINES)
-CFLAGS    := $(CFLAGS)
+CFLAGS    := $(CFLAGS)  \
+             -D_LARGEFILE64_SOURCE \
+             -D_LARGEFILE_SOURCE
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
