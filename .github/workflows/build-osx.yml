@@ -109,9 +109,9 @@ jobs:
       env:
         SIGN_PFX_FILE: ../../certs/TrueCert.pfx
         SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS_OSX }}
-        PUBLISHER: "CN=Developer ID Application: Clint Banzhaf (43RQ46H6CR)"
-        PUBLISHERCN: "Developer ID Application: Clint Banzhaf (43RQ46H6CR)"
-        PRODUCTSIGNCN: "Developer ID Installer: Clint Banzhaf (43RQ46H6CR)"
+        PUBLISHER: "CN=Developer ID Application: neuromore co (QFSQ5DFX96)"
+        PUBLISHERCN: "Developer ID Application: neuromore co (QFSQ5DFX96)"
+        PRODUCTSIGNCN: "Developer ID Installer: neuromore co (QFSQ5DFX96)"
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
