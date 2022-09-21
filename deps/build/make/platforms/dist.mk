@@ -174,7 +174,7 @@ ifneq ($(PRODUCTSIGNCN),)
 ifneq ($(APPLE_ID),)
 ifeq ($(APPLE_DIST_STORE),true)
 	@xcrun altool --validate-app \
-	  -f file $(DISTDIR)/$(NAME)-sig.pkg \
+	  -f $(DISTDIR)/$(NAME)-sig.pkg \
 	  -t macOS \
 	  -u $(APPLE_ID) \
 	  -p $(APPLE_APPSPEC_PASS)
