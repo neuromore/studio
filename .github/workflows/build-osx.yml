@@ -168,6 +168,10 @@ jobs:
         SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS_OSX }}
         PUBLISHERCN: "3rd Party Mac Developer Application: neuromore co (QFSQ5DFX96)"
         PRODUCTSIGNCN: "3rd Party Mac Developer Installer: neuromore co (QFSQ5DFX96)"
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
+        APPLE_DIST_STORE: true
       run: make dist
 
     # Upload

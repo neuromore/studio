@@ -13,9 +13,10 @@ endif
 #PRODUCTSIGNCN =
 
 # set this from ENV to enable notarization of signed PKG on OSX
-#APPLE_ID           =
-#APPLE_TEAM_ID      =
-#APPLE_APPSPEC_PASS =
+#APPLE_ID           = someone@somewhere.com
+#APPLE_TEAM_ID      = see https://developer.apple.com/account/#!/membership/
+#APPLE_APPSPEC_PASS = app-specific-password-for someone@somwhere.com
+#APPLE_DIST_STORE   = true if building packages for macOS store
 
 # default key if not specified
 ifeq ($(SIGN_PFX_FILE),)
@@ -171,11 +172,19 @@ ifneq ($(PRODUCTSIGNCN),)
 	  $(DISTDIR)/$(NAME).pkg \
 	  $(DISTDIR)/$(NAME)-sig.pkg
 ifneq ($(APPLE_ID),)
+ifeq ($(APPLE_DIST_STORE),true)
+	@xcrun altool --validate-app \
+	  -f file $(DISTDIR)/$(NAME)-sig.pkg \
+	  -t macOS \
+	  -u $(APPLE_ID) \
+	  -p $(APPLE_APPSPEC_PASS)
+else
 	@xcrun notarytool submit $(DISTDIR)/$(NAME)-sig.pkg \
 	  --apple-id=$(APPLE_ID) \
 	  --team-id=$(APPLE_TEAM_ID) \
 	  --password=$(APPLE_APPSPEC_PASS) \
 	  --wait
+endif
 endif
 endif
 endif
