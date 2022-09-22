@@ -195,6 +195,7 @@ ifneq ($(PRODUCTSIGNCN),)
 	@productsign \
 	  --sign "$(PRODUCTSIGNCN)" \
 	  --keychain $(KEYCHAIN) \
+	  --timestamp \
 	  $(DISTDIR)/$(NAME).pkg \
 	  $(DISTDIR)/$(NAME)-sig.pkg
 ifneq ($(APPLE_ID),)
