@@ -126,19 +126,20 @@ dist-%: dist-prep
 .SECONDEXPANSION:
 dist: dist-prep dist-x64 dist-arm64
 	@echo [MKD] $(NAME).app/Contents/MacOS
-	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/MacOS
+	@mkdir -p $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS
 	@echo [LIP] $(NAME)$(EXTBIN)
-	@lipo -create -output $(OUTDIST) \
+	@lipo -create -output $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME) \
 	  ./bin/osx-x64/$(NAME)$(EXTBIN) \
 	  ./bin/osx-arm64/$(NAME)$(EXTBIN)
-	@chmod +x $(OUTDIST)
+	@chmod +x $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
 	@echo [MKD] $(NAME).app/Contents/Resources
-	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/Resources
+	@mkdir -p $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Resources
 	@echo [ICO] $(NAME).icns
-	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIR)/$(NAME).app/Contents/Resources/Icon.icns
-	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIR)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME).app/Contents/Info.plist
-	@rm $(DISTDIR)/$(NAME).app/Contents/Info.plist.orig
+	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Resources/Icon.icns
+	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIR)/$(NAME)/$(NAME).app/Contents/embedded.provisionprofile
+	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@rm $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist.orig
 ifeq ($(APPLE_DIST_STORE),true)
 	@echo [SIG] $(NAME).app
 	@codesign --verbose \
@@ -147,14 +148,14 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  --timestamp \
 	  --options runtime \
 	  --entitlements $(DISTDIR)/$(NAME).Entitlements.plist \
-	  $(DISTDIR)/$(NAME).app
+	  $(DISTDIR)/$(NAME)/$(NAME).app
 	@echo [VFY] $(NAME).app
-	@codesign -vvvd $(DISTDIR)/$(NAME).app
+	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
 	@echo [PKG] $(NAME).pkg
 	@productbuild \
 	  --version $(VERSION3) \
 	  --product $(DISTDIR)/$(NAME).Requirements.plist \
-	  --component $(DISTDIR)/$(NAME).app /Applications \
+	  --component $(DISTDIR)/$(NAME)/$(NAME).app /Applications \
 	  $(DISTDIR)/$(NAME).pkg
 else
 	@echo [SIG] $(NAME).app
@@ -163,31 +164,21 @@ else
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
 	  --options runtime \
-	  $(DISTDIR)/$(NAME).app
+	  $(DISTDIR)/$(NAME)/$(NAME).app
 	@echo [VFY] $(NAME).app
-	@codesign -vvvd $(DISTDIR)/$(NAME).app
+	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
 	@pkgbuild \
 	  --analyze \
 	  --root $(DISTDIR)/$(NAME).app \
 	  $(DISTDIR)/$(NAME).auto-component.plist
+	@echo [PKG] $(NAME).pkg
 	@pkgbuild \
-	  --identifier $(PKGID) \
 	  --version $(VERSION3) \
-	  --root $(DISTDIR)/$(NAME).app \
-	  --install-location /Applications/$(NAME).app  \
-	  --component-plist $(DISTDIR)/$(NAME).auto-component.plist \
-	  $(DISTDIR)/$(NAME).pkg
-endif
-#	@pkgbuild \
-	  --version $(VERSION3) \
-	  --root $(DISTDIR)/$(NAME).dst \
+	  --root $(DISTDIR)/$(NAME) \
 	  --install-location /Applications \
 	  --component-plist $(DISTDIR)/$(NAME).Component.plist \
-	  $(DISTDIR)/$(NAME)-component.pkg
-#	@productbuild\
-	  --product $(DISTDIR)/$(NAME).Requirements.plist \
-	  --package $(DISTDIR)/$(NAME)-component.pkg \
 	  $(DISTDIR)/$(NAME).pkg
+endif
 	@echo [FIL] $(NAME).pkg
 	@pkgutil --payload-files $(DISTDIR)/$(NAME).pkg
 ifneq ($(PRODUCTSIGNCN),)
