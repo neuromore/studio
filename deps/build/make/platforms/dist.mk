@@ -139,8 +139,9 @@ dist: dist-prep dist-x64 dist-arm64
 	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIR)/$(NAME).app/Contents/Info.plist
 	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME).app/Contents/Info.plist
 	@rm $(DISTDIR)/$(NAME).app/Contents/Info.plist.orig
+ifeq ($(APPLE_DIST_STORE),true)
 	@echo [SIG] $(NAME).app
-	@codesign -v \
+	@codesign --verbose \
 	  --sign "$(PUBLISHERCN)" \
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
@@ -150,13 +151,21 @@ dist: dist-prep dist-x64 dist-arm64
 	@echo [VFY] $(NAME).app
 	@codesign -vvvd $(DISTDIR)/$(NAME).app
 	@echo [PKG] $(NAME).pkg
-ifeq ($(APPLE_DIST_STORE),true)
 	@productbuild \
 	  --version $(VERSION3) \
 	  --product $(DISTDIR)/$(NAME).Requirements.plist \
 	  --component $(DISTDIR)/$(NAME).app /Applications \
 	  $(DISTDIR)/$(NAME).pkg
 else
+	@echo [SIG] $(NAME).app
+	@codesign --verbose \
+	  --sign "$(PUBLISHERCN)" \
+	  --keychain $(KEYCHAIN) \
+	  --timestamp \
+	  --options runtime \
+	  $(DISTDIR)/$(NAME).app
+	@echo [VFY] $(NAME).app
+	@codesign -vvvd $(DISTDIR)/$(NAME).app
 	@pkgbuild \
 	  --analyze \
 	  --root $(DISTDIR)/$(NAME).app \

@@ -3,6 +3,14 @@
 <plist version="1.0">
 <dict>
     <key>com.apple.security.app-sandbox</key>
-    <false/>
+    <true/> 
+    <key>com.apple.security.network.server</key>
+    <true/>
+    <key>com.apple.security.network.client</key>
+    <true/>
+    <key>com.apple.security.device.usb</key>
+    <true/>
+    <key>com.apple.security.device.bluetooth</key>
+    <true/>
 </dict>
 </plist>
