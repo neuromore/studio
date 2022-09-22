@@ -123,6 +123,7 @@ dist-prep:
 	@security show-keychain-info $(KEYCHAIN)
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
+.SECONDEXPANSION:
 dist: dist-prep dist-x64 dist-arm64
 	@echo [MKD] $(NAME).app/Contents/MacOS
 	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/MacOS
@@ -144,23 +145,39 @@ dist: dist-prep dist-x64 dist-arm64
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
 	  --options runtime \
+	  --entitlements $(DISTDIR)/$(NAME).Entitlements.plist \
 	  $(DISTDIR)/$(NAME).app
 	@echo [VFY] $(NAME).app
 	@codesign -vvvd $(DISTDIR)/$(NAME).app
 	@echo [PKG] $(NAME).pkg
+ifeq ($(APPLE_DIST_STORE),true)
+	@productbuild \
+	  --version $(VERSION3) \
+	  --product $(DISTDIR)/$(NAME).Requirements.plist \
+	  --component $(DISTDIR)/$(NAME).app /Applications \
+	  $(DISTDIR)/$(NAME).pkg
+else
 	@pkgbuild \
 	  --analyze \
 	  --root $(DISTDIR)/$(NAME).app \
-	  $(DISTDIR)/$(NAME).component.plist
+	  $(DISTDIR)/$(NAME).auto-component.plist
 	@pkgbuild \
-	  --identifier $(NAME).app \
+	  --identifier $(PKGID) \
+	  --version $(VERSION3) \
 	  --root $(DISTDIR)/$(NAME).app \
-	  --install-location /Applications/$(NAME).app \
-	  --component-plist $(DISTDIR)/$(NAME).component.plist \
+	  --install-location /Applications/$(NAME).app  \
+	  --component-plist $(DISTDIR)/$(NAME).auto-component.plist \
 	  $(DISTDIR)/$(NAME).pkg
-#	@productbuild --component \
-	  $(DISTDIR)/$(NAME).app \
-	  /Applications/$(NAME).app \
+endif
+#	@pkgbuild \
+	  --version $(VERSION3) \
+	  --root $(DISTDIR)/$(NAME).dst \
+	  --install-location /Applications \
+	  --component-plist $(DISTDIR)/$(NAME).Component.plist \
+	  $(DISTDIR)/$(NAME)-component.pkg
+#	@productbuild\
+	  --product $(DISTDIR)/$(NAME).Requirements.plist \
+	  --package $(DISTDIR)/$(NAME)-component.pkg \
 	  $(DISTDIR)/$(NAME).pkg
 	@echo [FIL] $(NAME).pkg
 	@pkgutil --payload-files $(DISTDIR)/$(NAME).pkg
@@ -179,11 +196,21 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  -u $(APPLE_ID) \
 	  -p $(APPLE_APPSPEC_PASS)
 else
+	@echo [NTT] $(NAME)-sig.pkg
 	@xcrun notarytool submit $(DISTDIR)/$(NAME)-sig.pkg \
 	  --apple-id=$(APPLE_ID) \
 	  --team-id=$(APPLE_TEAM_ID) \
 	  --password=$(APPLE_APPSPEC_PASS) \
-	  --wait
+	  --wait | tee $(DISTDIR)/$(NAME).notary.log
+	@cat $(DISTDIR)/$(NAME).notary.log | \
+	  grep -E -o -m1 'id: .{36}' | \
+	  sed 's/id: //g' > $(DISTDIR)/$(NAME).notary.id
+	@bash -c "\
+	  export NOTARYID=\$$(cat $(DISTDIR)/$(NAME).notary.id);\
+	  xcrun notarytool log \$$NOTARYID \
+	    --apple-id=$(APPLE_ID) \
+	    --team-id=$(APPLE_TEAM_ID) \
+	    --password=$(APPLE_APPSPEC_PASS)"
 endif
 endif
 endif

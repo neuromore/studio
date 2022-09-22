@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleVersion</key>
-	<string>Version {VERSION}</string>
+	<string>{VERSION}</string>
 	<key>CFBundleExecutable</key>
 	<string>Studio</string>
 	<key>CFBundleGetInfoString</key>
