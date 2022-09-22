@@ -167,10 +167,6 @@ else
 	  $(DISTDIR)/$(NAME)/$(NAME).app
 	@echo [VFY] $(NAME).app
 	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
-	@pkgbuild \
-	  --analyze \
-	  --root $(DISTDIR)/$(NAME).app \
-	  $(DISTDIR)/$(NAME).auto-component.plist
 	@echo [PKG] $(NAME).pkg
 	@pkgbuild \
 	  --version $(VERSION3) \
