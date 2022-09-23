@@ -10,7 +10,6 @@ MOCDIR     = $(SRCDIR)/.moc
 RCCDIR     = $(SRCDIR)/.rcc
 UICDIR     = $(SRCDIR)/.uic
 OBJDIR    := $(OBJDIR)/$(NAME)
-PKGID      = com.neuromore.studio
 QTMOC     := "../../deps/build/make/$(QTMOC)" --no-notes
 QTRCC     := "../../deps/build/make/$(QTRCC)"
 QTUIC     := "../../deps/build/make/$(QTUIC)"
