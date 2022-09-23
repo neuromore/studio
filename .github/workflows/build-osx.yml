@@ -54,8 +54,8 @@ jobs:
     # Binary Info
     - name: Binary Info
       run: |
-        otool -L ./build/make/bin/osx-${{ matrix.arch }}/Studio
-        otool -L ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
+        otool -l ./build/make/bin/osx-${{ matrix.arch }}/Studio
+        otool -l ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
 
     # Upload
     - name: Upload
