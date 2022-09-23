@@ -145,8 +145,13 @@ dist: dist-prep dist-x64 dist-arm64
 	@dsymutil \
 	  -out $(DISTDIR)/$(NAME).dSYM \
 	  $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
-	@xcrun symbols -arch all \
-	  -symbolsPackageDir $(DISTDIR)/$(NAME) \
+	@echo [INF] $(NAME).dSYM
+	@dwarfdump --uuid $(DISTDIR)/$(NAME).dSYM
+	@echo [VFY] $(NAME).dSYM
+	@dwarfdump --verify $(DISTDIR)/$(NAME).dSYM
+	@mkdir -p $(DISTDIR)/$(NAME).symbols
+	@xcrun symbols -noTextInSOD -noDaemon -arch all \
+	  -symbolsPackageDir $(DISTDIR)/$(NAME).symbols \
 	  $(DISTDIR)/$(NAME).dSYM
 	@echo [STR] $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
 	@$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
@@ -177,6 +182,7 @@ ifeq ($(APPLE_DIST_STORE),true)
 	@echo [PKG] $(NAME).pkg
 	@productbuild \
 	  --version $(VERSION3) \
+	  --symbolication $(DISTDIR)/$(NAME).symbols \
 	  --product $(DISTDIR)/$(NAME).Requirements.plist \
 	  --component $(DISTDIR)/$(NAME)/$(NAME).app /Applications \
 	  $(DISTDIR)/$(NAME).pkg
@@ -208,6 +214,8 @@ ifneq ($(PRODUCTSIGNCN),)
 	  --timestamp \
 	  $(DISTDIR)/$(NAME).pkg \
 	  $(DISTDIR)/$(NAME)-sig.pkg
+	@echo [VFY] $(NAME)-sig.pkg
+	@pkgutil --check-signature $(DISTDIR)/$(NAME)-sig.pkg
 ifneq ($(APPLE_ID),)
 ifeq ($(APPLE_DIST_STORE),true)
 	@xcrun altool --validate-app \
