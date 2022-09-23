@@ -44,5 +44,7 @@
 	<string>{XCODEBUILDV}</string>
 	<key>DTXcodeBuild</key>
 	<string>{XCODEBUILDV}</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
