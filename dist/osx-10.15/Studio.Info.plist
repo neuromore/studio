@@ -28,5 +28,11 @@
 	<string>10.15.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>{VERSION}</string>
+<!-- TODO
+	<key>DTSDKBuild</key>
+	<string></string>
+	<key>DTSDKName</key>
+	<string></string>
+-->
 </dict>
 </plist>
