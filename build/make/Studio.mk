@@ -757,10 +757,6 @@ build: pch $(PRES) $(OBLS) $(RESO)
 	@-$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
 	@echo [CPY] Built Libraries
 	@-$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR))
-ifeq ($(MODE),release)
-	@echo [STR] $(TARGET)
-	$(STRIP) $(STRIPFLAGS) $(TARGET)
-endif
 
 clean:
 	$(call deletefiles,$(MOCDIR),*.cpp)
