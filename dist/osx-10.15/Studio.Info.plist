@@ -40,5 +40,9 @@
 	<array>
 		<string>MacOSX</string>
 	</array>
+	<key>DTPlatformBuild</key>
+	<string>{XCODEBUILDV}</string>
+	<key>DTXcodeBuild</key>
+	<string>{XCODEBUILDV}</string>
 </dict>
 </plist>

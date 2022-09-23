@@ -103,10 +103,13 @@ OSXVER       = $(shell sw_vers -productVersion)
 OSXBUILDV    = $(shell sw_vers -buildVersion)
 OSXSDKVER    = $(shell xcrun --show-sdk-version)
 OSXSDKBUILDV = $(shell xcrun --show-sdk-build-version)
+XCODEVER     = $(shell xcodebuild -version | grep -E -m1 'Xcode' | sed 's/Xcode //g')
+XCODEBUILDV  = $(shell xcodebuild -version | grep -E -m1 'Build version' | sed 's/Build version //g')
 dist-prep:
 	@echo [VER] $(VERSION3)
 	@echo [OSX] $(OSXVER) - ${OSXBUILDV}
 	@echo [SDK] $(OSXSDKVER) - ${OSXSDKBUILDV}
+	@echo [XCO] $(XCODEVER) - ${XCODEBUILDV}
 	@echo [KCH] $(KEYCHAIN)
 	@-security delete-keychain $(KEYCHAIN)
 	@security create-keychain -p "$(SIGN_PFX_PASS)" $(KEYCHAIN)
@@ -147,6 +150,7 @@ dist: dist-prep dist-x64 dist-arm64
 	@sed -i'.orig' -e 's/{OSXSDKVER}/${OSXSDKVER}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
 	@sed -i'.orig' -e 's/{OSXSDKBUILDV}/${OSXSDKBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
 	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@sed -i'.orig' -e 's/{XCODEBUILDV}/${XCODEBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
 	@rm $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist.orig
 ifeq ($(APPLE_DIST_STORE),true)
 	@echo [SIG] $(NAME).app
