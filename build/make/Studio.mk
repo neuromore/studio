@@ -751,8 +751,6 @@ build: pch $(PRES) $(OBLS) $(RESO)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
 	@echo [LNK] $(TARGET)
 	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
-	@echo [PDB] $(TARGET)
-	$(PDBGEN) $(TARGET)
 	@echo [CPY] Prebuilt Libraries
 	@-$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
 	@echo [CPY] Built Libraries
