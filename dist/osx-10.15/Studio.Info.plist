@@ -30,9 +30,15 @@
 	<string>{VERSION}</string>
 	<key>DTSDKName</key>
 	<string>macosx{OSXSDKVER}</string>
-<!-- TODO
 	<key>DTSDKBuild</key>
-	<string></string>
--->
+	<string>{OSXSDKBUILDV}</string>
+	<key>BuildMachineOSBuild</key>
+	<string>{OSXBUILDV}</string>
+	<key>DTPlatformName</key>
+	<string>macosx</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
 </dict>
 </plist>
