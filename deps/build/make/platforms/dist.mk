@@ -99,8 +99,10 @@ VERSIONMINOR = $(shell sed -n 's/^\#define $(VERSIONMACROMINOR) //p' $(VERSIONFI
 VERSIONPATCH = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFILE))
 VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+OSXSDKVER    = $(shell xcrun --show-sdk-version)
 dist-prep:
 	@echo [VER] $(VERSION3)
+	@echo [SDK] $(OSXSDKVER)
 	@echo [KCH] $(KEYCHAIN)
 	@-security delete-keychain $(KEYCHAIN)
 	@security create-keychain -p "$(SIGN_PFX_PASS)" $(KEYCHAIN)
