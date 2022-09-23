@@ -505,6 +505,7 @@ RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
 OBJS      := $(OBJS)
+LINKFLAGS := $(LINKFLAGS) -Wl,-object_path_lto,$(OBJDIR)/lto.o
 LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/qt-platform-cocoa$(SUFFIX)$(EXTLIB) \
              -lcups \
@@ -751,6 +752,8 @@ build: pch $(PRES) $(OBLS) $(RESO)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBLS)
 	@echo [LNK] $(TARGET)
 	$(LINK) $(LINKFLAGS) $(LINKPATH) $(RESO) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(LINKLIBS) -o $(TARGET)
+	@echo [PDB] $(OUT)
+	$(PDBGEN) $(OUT)
 	@echo [CPY] Prebuilt Libraries
 	@-$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
 	@echo [CPY] Built Libraries
