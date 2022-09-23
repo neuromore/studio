@@ -24,7 +24,6 @@ LINK       = $(CXX)
 LINKFLAGS  = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk iphoneos --show-sdk-path)
 LINKPATH   =
 LINKLIBS   = 
-PDBGEN     = dsymutil
 
 # Debug vs. Release
 ifeq ($(MODE),release)

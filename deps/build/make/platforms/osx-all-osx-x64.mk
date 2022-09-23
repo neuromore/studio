@@ -50,7 +50,6 @@ LINK       = $(CXX)
 LINKFLAGS  = $(MINVER) -target $(TARGET)
 LINKPATH   =
 LINKLIBS   = 
-PDBGEN     = dsymutil
 
 # Debug vs. Release
 ifeq ($(MODE),release)
