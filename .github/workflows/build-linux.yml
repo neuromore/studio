@@ -140,12 +140,24 @@ jobs:
         clang++ --target=$TARGET -v
         make -v
 
+
+    - name: Cache Dependencies
+      id: cache-dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          deps/build/make/bin/linux-*
+          deps/build/make/lib/linux-*
+        key: Dependencies-${{ matrix.os }}-${{ matrix.arch }}
+
     # Build QtTools (amd64)
     - name: Build QtTools (amd64)
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
     # Build Dependencies
     - name: Build Dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       run: make Dependencies -j${{ env.JOBS }}
 
     # Build Engine
