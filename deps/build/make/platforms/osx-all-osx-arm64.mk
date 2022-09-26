@@ -28,9 +28,9 @@ LINKLIBS   =
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
-CXXFLAGS  := $(CXXFLAGS) -flto -O3 -ffunction-sections -fdata-sections
-CFLAGS    := $(CFLAGS) -flto -O3 -ffunction-sections -fdata-sections
-LINKFLAGS := $(LINKFLAGS) -flto -dead_strip
+CXXFLAGS  := $(CXXFLAGS) -flto=thin -O3 -g -ffunction-sections -fdata-sections
+CFLAGS    := $(CFLAGS) -flto=thin -O3 -g -ffunction-sections -fdata-sections
+LINKFLAGS := $(LINKFLAGS) -flto=thin -g -dead_strip
 else
 DEFINES   := $(DEFINES) -D_DEBUG
 CXXFLAGS  := $(CXXFLAGS) -Og -g3

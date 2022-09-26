@@ -54,8 +54,8 @@ jobs:
     # Binary Info
     - name: Binary Info
       run: |
-        otool -L ./build/make/bin/osx-${{ matrix.arch }}/Studio
-        otool -L ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
+        otool -l ./build/make/bin/osx-${{ matrix.arch }}/Studio
+        otool -l ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
 
     # Upload
     - name: Upload
@@ -65,6 +65,14 @@ jobs:
         path: |
           ./build/make/bin/osx-${{ matrix.arch }}/*
           !./build/make/bin/osx-${{ matrix.arch }}/.gitignore
+
+    # Upload lto.o
+    - name: Upload lto.o
+      uses: actions/upload-artifact@v3
+      with:
+        retention-days: 1
+        name: lto.o (${{ matrix.os }}-${{ matrix.arch }})
+        path: ./build/make/obj/osx-${{ matrix.arch }}-release/**/lto.o
 
 ###########################################################################
 
@@ -89,6 +97,13 @@ jobs:
         name: Binaries (${{ matrix.os }}-x64)
         path: ./build/make/bin/osx-x64/
 
+    # Download X64 lto.o
+    - name: Download X64 lto.o
+      uses: actions/download-artifact@v2
+      with:
+        name: lto.o (${{ matrix.os }}-x64)
+        path: ./build/make/obj/osx-x64-release/
+
     # Download ARM64 Build
     - name: Download ARM64 Build
       uses: actions/download-artifact@v2
@@ -96,10 +111,17 @@ jobs:
         name: Binaries (${{ matrix.os }}-arm64)
         path: ./build/make/bin/osx-arm64/
 
+    # Download ARM64 lto.o
+    - name: Download ARM64 lto.o
+      uses: actions/download-artifact@v2
+      with:
+        name: lto.o (${{ matrix.os }}-arm64)
+        path: ./build/make/obj/osx-arm64-release/
+
     # Load Code Signing Certificate
     - name: Load Code Signing Certificate
       env:
-        PFX_BASE64: ${{ secrets.SIGN_PFX_FILE }}
+        PFX_BASE64: ${{ secrets.SIGN_PFX_FILE_OSX }}
       run: |
         echo $PFX_BASE64 > ./certs/TrueCert.pfx.base64
         base64 --decode -i ./certs/TrueCert.pfx.base64 -o ./certs/TrueCert.pfx
@@ -108,9 +130,12 @@ jobs:
     - name: Distribution Packages
       env:
         SIGN_PFX_FILE: ../../certs/TrueCert.pfx
-        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
-        PUBLISHERCN: neuromore co
-        PUBLISHER: CN=neuromore co, O=neuromore co, STREET=382 NE 191st St, L=Miami, S=Florida, PostalCode=33179, C=US
+        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS_OSX }}
+        PUBLISHERCN: "Developer ID Application: neuromore co (QFSQ5DFX96)"
+        PRODUCTSIGNCN: "Developer ID Installer: neuromore co (QFSQ5DFX96)"
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
       run: make dist
 
     # Upload
@@ -119,3 +144,75 @@ jobs:
       with:
         name: Packages (${{ matrix.os }})
         path: ./dist/osx-10.15/*.pkg
+
+###########################################################################
+ 
+  dist-store:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-11,macos-12]
+    steps:
+
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Download X64 Build
+    - name: Download X64 Build
+      uses: actions/download-artifact@v2
+      with:
+        name: Binaries (${{ matrix.os }}-x64)
+        path: ./build/make/bin/osx-x64/
+
+    # Download X64 lto.o
+    - name: Download X64 lto.o
+      uses: actions/download-artifact@v2
+      with:
+        name: lto.o (${{ matrix.os }}-x64)
+        path: ./build/make/obj/osx-x64-release/
+
+    # Download ARM64 Build
+    - name: Download ARM64 Build
+      uses: actions/download-artifact@v2
+      with:
+        name: Binaries (${{ matrix.os }}-arm64)
+        path: ./build/make/bin/osx-arm64/
+
+    # Download ARM64 lto.o
+    - name: Download ARM64 lto.o
+      uses: actions/download-artifact@v2
+      with:
+        name: lto.o (${{ matrix.os }}-arm64)
+        path: ./build/make/obj/osx-arm64-release/
+
+    # Load Code Signing Certificate
+    - name: Load Code Signing Certificate
+      env:
+        PFX_BASE64: ${{ secrets.SIGN_PFX_FILE_OSX }}
+      run: |
+        echo $PFX_BASE64 > ./certs/TrueCert.pfx.base64
+        base64 --decode -i ./certs/TrueCert.pfx.base64 -o ./certs/TrueCert.pfx
+
+    # Pack
+    - name: Distribution Packages
+      env:
+        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
+        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS_OSX }}
+        PUBLISHERCN: "3rd Party Mac Developer Application: neuromore co (QFSQ5DFX96)"
+        PRODUCTSIGNCN: "3rd Party Mac Developer Installer: neuromore co (QFSQ5DFX96)"
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
+        APPLE_DIST_STORE: true
+      run: make dist
+
+    # Upload
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages Store (${{ matrix.os }})
+        path: ./dist/osx-10.15/*-sig.pkg

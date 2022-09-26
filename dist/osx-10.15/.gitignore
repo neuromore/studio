@@ -4,4 +4,7 @@
 **/Contents/Resources/
 **/Contents/Info.plist
 **/.icns
-*.component.plist
+**/
+*.auto-component.plist
+*.notary.log
+*.notary.id

@@ -504,6 +504,7 @@ RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
 OBJS      := $(OBJS)
+LINKFLAGS := $(LINKFLAGS) -Wl,-object_path_lto,$(OBJDIR)/lto.o
 LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/qt-platform-cocoa$(SUFFIX)$(EXTLIB) \
              -lcups \
@@ -754,10 +755,6 @@ build: pch $(PRES) $(OBLS) $(RESO)
 	@-$(call copyfiles,$(LIBDIRPRE)/*$(EXTDLL),$(BINDIR))
 	@echo [CPY] Built Libraries
 	@-$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR))
-ifeq ($(MODE),release)
-	@echo [STR] $(TARGET)
-	$(STRIP) $(STRIPFLAGS) $(TARGET)
-endif
 
 clean:
 	$(call deletefiles,$(MOCDIR),*.cpp)

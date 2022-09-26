@@ -5,13 +5,13 @@
 	<key>CFBundleName</key>
 	<string>Studio</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.neuromore.Studio</string>
+	<string>com.neuromore.studio</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleVersion</key>
-	<string>Version {VERSION}</string>
+	<string>{VERSION}</string>
 	<key>CFBundleExecutable</key>
 	<string>Studio</string>
 	<key>CFBundleGetInfoString</key>
@@ -28,5 +28,23 @@
 	<string>10.15.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>{VERSION}</string>
+	<key>DTSDKName</key>
+	<string>macosx{OSXSDKVER}</string>
+	<key>DTSDKBuild</key>
+	<string>{OSXSDKBUILDV}</string>
+	<key>BuildMachineOSBuild</key>
+	<string>{OSXBUILDV}</string>
+	<key>DTPlatformName</key>
+	<string>macosx</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
+	<key>DTPlatformBuild</key>
+	<string>{XCODEBUILDV}</string>
+	<key>DTXcodeBuild</key>
+	<string>{XCODEBUILDV}</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

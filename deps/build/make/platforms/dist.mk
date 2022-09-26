@@ -9,6 +9,15 @@ ifeq ($(PUBLISHER),)
 PUBLISHER = CN=neuromore Developer
 endif
 
+# set this from ENV to enable PKG signing on OSX
+#PRODUCTSIGNCN =
+
+# set this from ENV to enable notarization of signed PKG on OSX
+#APPLE_ID           = someone@somewhere.com
+#APPLE_TEAM_ID      = see https://developer.apple.com/account/#!/membership/
+#APPLE_APPSPEC_PASS = app-specific-password-for someone@somwhere.com
+#APPLE_DIST_STORE   = true if building packages for macOS store
+
 # default key if not specified
 ifeq ($(SIGN_PFX_FILE),)
 SIGN_PFX_FILE = ../../certs/DevCert.pfx
@@ -55,6 +64,8 @@ dist-prep:
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{VERSION},$(VERSION4),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
 dist-%: dist-prep
+	echo [STR] ./bin/win-$*/$(NAME)$(EXTBIN)
+	$(STRIP) $(STRIPFLAGS) ./bin/win-$*/$(NAME)$(EXTBIN)
 	echo [SIG] ./bin/win-$*/$(NAME)$(EXTBIN)
 ifeq ($(SIGN_PFX_PASS),)
 	$(call sign,./bin/win-$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE))
@@ -90,8 +101,17 @@ VERSIONMINOR = $(shell sed -n 's/^\#define $(VERSIONMACROMINOR) //p' $(VERSIONFI
 VERSIONPATCH = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFILE))
 VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+OSXVER       = $(shell sw_vers -productVersion)
+OSXBUILDV    = $(shell sw_vers -buildVersion)
+OSXSDKVER    = $(shell xcrun --show-sdk-version)
+OSXSDKBUILDV = $(shell xcrun --show-sdk-build-version)
+XCODEVER     = $(shell xcodebuild -version | grep -E -m1 'Xcode' | sed 's/Xcode //g')
+XCODEBUILDV  = $(shell xcodebuild -version | grep -E -m1 'Build version' | sed 's/Build version //g')
 dist-prep:
 	@echo [VER] $(VERSION3)
+	@echo [OSX] $(OSXVER) - ${OSXBUILDV}
+	@echo [SDK] $(OSXSDKVER) - ${OSXSDKBUILDV}
+	@echo [XCO] $(XCODEVER) - ${XCODEBUILDV}
 	@echo [KCH] $(KEYCHAIN)
 	@-security delete-keychain $(KEYCHAIN)
 	@security create-keychain -p "$(SIGN_PFX_PASS)" $(KEYCHAIN)
@@ -116,50 +136,113 @@ dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
 dist: dist-prep dist-x64 dist-arm64
 	@echo [MKD] $(NAME).app/Contents/MacOS
-	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/MacOS
+	@mkdir -p $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS
 	@echo [LIP] $(NAME)$(EXTBIN)
-	@lipo -create -output $(OUTDIST) \
+	@lipo -create -output $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME) \
 	  ./bin/osx-x64/$(NAME)$(EXTBIN) \
 	  ./bin/osx-arm64/$(NAME)$(EXTBIN)
-	@chmod +x $(OUTDIST)
+	@echo [SYM] $(NAME).dSYM
+	@dsymutil \
+	  -out $(DISTDIR)/$(NAME).dSYM \
+	  $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
+	@echo [INF] $(NAME).dSYM
+	@dwarfdump --uuid $(DISTDIR)/$(NAME).dSYM
+	@echo [VFY] $(NAME).dSYM
+	@dwarfdump --verify $(DISTDIR)/$(NAME).dSYM
+	@mkdir -p $(DISTDIR)/$(NAME).symbols
+	@xcrun symbols -noTextInSOD -noDaemon -arch all \
+	  -symbolsPackageDir $(DISTDIR)/$(NAME).symbols \
+	  $(DISTDIR)/$(NAME).dSYM
+	@echo [STR] $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
+	@$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
+	@chmod +x $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
 	@echo [MKD] $(NAME).app/Contents/Resources
-	@mkdir -p $(DISTDIR)/$(NAME).app/Contents/Resources
+	@mkdir -p $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Resources
 	@echo [ICO] $(NAME).icns
-	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIR)/$(NAME).app/Contents/Resources/Icon.icns
-	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIR)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME).app/Contents/Info.plist
-	@rm $(DISTDIR)/$(NAME).app/Contents/Info.plist.orig
+	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Resources/Icon.icns
+	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIR)/$(NAME)/$(NAME).app/Contents/embedded.provisionprofile
+	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXSDKVER}/${OSXSDKVER}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXSDKBUILDV}/${OSXSDKBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@sed -i'.orig' -e 's/{XCODEBUILDV}/${XCODEBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
+	@rm $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist.orig
+ifeq ($(APPLE_DIST_STORE),true)
 	@echo [SIG] $(NAME).app
-	@codesign -v \
+	@codesign --verbose \
 	  --sign "$(PUBLISHERCN)" \
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
-	  $(DISTDIR)/$(NAME).app
+	  --options runtime \
+	  --entitlements $(DISTDIR)/$(NAME).Entitlements.Store.plist \
+	  $(DISTDIR)/$(NAME)/$(NAME).app
 	@echo [VFY] $(NAME).app
-	@codesign -vvvd $(DISTDIR)/$(NAME).app
+	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
 	@echo [PKG] $(NAME).pkg
-	@pkgbuild \
-	  --analyze \
-	  --root $(DISTDIR)/$(NAME).app \
-	  $(DISTDIR)/$(NAME).component.plist
-	@pkgbuild \
-	  --identifier $(NAME).app \
-	  --root $(DISTDIR)/$(NAME).app \
-	  --install-location /Applications/$(NAME).app \
-	  --component-plist $(DISTDIR)/$(NAME).component.plist \
+	@productbuild \
+	  --version $(VERSION3) \
+	  --symbolication $(DISTDIR)/$(NAME).symbols \
+	  --product $(DISTDIR)/$(NAME).Requirements.plist \
+	  --component $(DISTDIR)/$(NAME)/$(NAME).app /Applications \
 	  $(DISTDIR)/$(NAME).pkg
-#	@productbuild --component \
-	  $(DISTDIR)/$(NAME).app \
-	  /Applications/$(NAME).app \
-	  $(DISTDIR)/$(NAME).pkg
-	@echo [FIL] $(NAME).pkg
-	@pkgutil --payload-files $(DISTDIR)/$(NAME).pkg
-	@echo [SIG] $(NAME).pkg
-#	@productsign \
+else
+	@echo [SIG] $(NAME).app
+	@codesign --verbose \
 	  --sign "$(PUBLISHERCN)" \
 	  --keychain $(KEYCHAIN) \
+	  --timestamp \
+	  --options runtime \
+	  --entitlements $(DISTDIR)/$(NAME).Entitlements.Local.plist \
+	  $(DISTDIR)/$(NAME)/$(NAME).app
+	@echo [VFY] $(NAME).app
+	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
+	@echo [PKG] $(NAME).pkg
+	@pkgbuild \
+	  --version $(VERSION3) \
+	  --root $(DISTDIR)/$(NAME) \
+	  --install-location /Applications \
+	  --component-plist $(DISTDIR)/$(NAME).Component.plist \
+	  $(DISTDIR)/$(NAME).pkg
+endif
+	@echo [FIL] $(NAME).pkg
+	@pkgutil --payload-files $(DISTDIR)/$(NAME).pkg
+ifneq ($(PRODUCTSIGNCN),)
+	@echo [SIG] $(NAME).pkg
+	@productsign \
+	  --sign "$(PRODUCTSIGNCN)" \
+	  --keychain $(KEYCHAIN) \
+	  --timestamp \
 	  $(DISTDIR)/$(NAME).pkg \
 	  $(DISTDIR)/$(NAME)-sig.pkg
+	@echo [VFY] $(NAME)-sig.pkg
+	@pkgutil --check-signature $(DISTDIR)/$(NAME)-sig.pkg
+ifneq ($(APPLE_ID),)
+ifeq ($(APPLE_DIST_STORE),true)
+	@xcrun altool --validate-app \
+	  -f $(DISTDIR)/$(NAME)-sig.pkg \
+	  -t macOS \
+	  -u $(APPLE_ID) \
+	  -p $(APPLE_APPSPEC_PASS)
+else
+	@echo [NTT] $(NAME)-sig.pkg
+	@xcrun notarytool submit $(DISTDIR)/$(NAME)-sig.pkg \
+	  --apple-id=$(APPLE_ID) \
+	  --team-id=$(APPLE_TEAM_ID) \
+	  --password=$(APPLE_APPSPEC_PASS) \
+	  --wait | tee $(DISTDIR)/$(NAME).notary.log
+	@cat $(DISTDIR)/$(NAME).notary.log | \
+	  grep -E -o -m1 'id: .{36}' | \
+	  sed 's/id: //g' > $(DISTDIR)/$(NAME).notary.id
+	@bash -c "\
+	  export NOTARYID=\$$(cat $(DISTDIR)/$(NAME).notary.id);\
+	  xcrun notarytool log \$$NOTARYID \
+	    --apple-id=$(APPLE_ID) \
+	    --team-id=$(APPLE_TEAM_ID) \
+	    --password=$(APPLE_APPSPEC_PASS)"
+endif
+endif
+endif
 endif
 
 ##############################################################################################################
