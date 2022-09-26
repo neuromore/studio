@@ -161,7 +161,7 @@ class AppManager : public QObject
 		Core::Array<Core::String>			mCommandLineArguments;
 		QSplashScreen*						mSplashScreen;
 		MainWindow*							mMainWindow;
-		QApplication*					mApp;
+		SingleApplication*					mApp;
 		PluginManager*						mPluginManager;
 		FileManager*						mFileManager;
 		OpenGLManager*						mOpenGLManager;

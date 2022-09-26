@@ -37,7 +37,7 @@ MOCO       = singleapplication.omoc singleapplication_p.omoc
 RCCH       =
 RCCO       =
 UICH       =
-OBJS       = singleapplication.o 
+OBJS       = singleapplication.o singleapplication_p.o
 
 ################################################################################################
 
