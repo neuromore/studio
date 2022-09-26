@@ -62,6 +62,12 @@ class AppManager : public QObject
 {
 	Q_OBJECT
 
+#if defined(NEUROMORE_PLATFORM_OSX)
+		using Application = QApplication;
+#else
+		using Application = SingleApplication;
+#endif
+
 	public:
 		// constructor and destructor
 		AppManager(int argc, char* argv[]);
@@ -161,7 +167,7 @@ class AppManager : public QObject
 		Core::Array<Core::String>			mCommandLineArguments;
 		QSplashScreen*						mSplashScreen;
 		MainWindow*							mMainWindow;
-		SingleApplication*					mApp;
+		Application*						mApp;
 		PluginManager*						mPluginManager;
 		FileManager*						mFileManager;
 		OpenGLManager*						mOpenGLManager;

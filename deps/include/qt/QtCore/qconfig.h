@@ -1,8 +1,8 @@
 #define QT_FEATURE_cross_compile -1
 #define QT_FEATURE_framework -1
 #define QT_FEATURE_rpath -1
-#define QT_FEATURE_shared 1
-#define QT_FEATURE_appstore_compliant -1
+#define QT_FEATURE_shared -1
+#define QT_FEATURE_appstore_compliant 1
 #define QT_FEATURE_debug_and_release 1
 #define QT_FEATURE_build_all 1
 #define QT_FEATURE_c__11 1
