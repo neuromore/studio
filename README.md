@@ -35,7 +35,7 @@ Create audio or visual experiences within neuromore Studio or make your applicat
 | -------- | ------------------------------------------------ |
 | WIN      | %LOCALAPPDATA%\neuromore\NMStudio                |
 | LINUX    | ~/.local/share/neuromore/NMStudio                |
-| OSX      | ~/Library/Application Support/neuromore/NMStudio |
+| OSX      | ~/Library/Containers/com.neuromore.studio/Library/Application Support/neuromore/NMStudio |
 
 ## Building
 
