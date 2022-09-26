@@ -74,7 +74,7 @@ AppManager::AppManager(int argc, char* argv[])
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     // create a single or normal (multiple) instance(s) application
-	mApp = new SingleApplication(argc, argv);
+	mApp = new Application(argc, argv);
 
 	// get the application directory
 	QString appDir = qApp->applicationDirPath();
@@ -137,7 +137,7 @@ AppManager::AppManager(int argc, char* argv[])
 	// set the window icon
 	LogDetailedInfo("Setting application icon ...");
 	QIcon icon( ":/Images/Icons/WindowIcon.png" );
-	//mApp->setWindowIcon(icon);
+	mApp->setWindowIcon(icon);
 
 	// set the color palette
 	LogDetailedInfo("Setting color palette ...");
@@ -189,7 +189,13 @@ bool AppManager::ExecuteApp()
 
 	LogDetailedInfo("Constructing main window ...");
 	mMainWindow = new MainWindow();
-	connect( mApp, &SingleApplication::instanceStarted, mMainWindow, &MainWindow::OnRaise );
+
+#if defined(NEUROMORE_PLATFORM_OSX)
+	mMainWindow->OnRaise();
+#else
+	connect(mApp, &SingleApplication::instanceStarted, mMainWindow, &MainWindow::OnRaise);
+#endif
+
 	connect( mMainWindow, &MainWindow::postAuthenticationInitSucceed, this, &AppManager::LoadTourManager);
 
 	SetSplashScreenMessage("Initializing windows ...");
