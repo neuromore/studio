@@ -70,20 +70,12 @@ AppManager::AppManager(int argc, char* argv[])
 	mOpenGLManager	= NULL;
 	gAppManager		= this;
 
-#ifdef NEUROMORE_PLATFORM_OSX
-    // needed for mac package
-    QDir dir(argv[0]);
-    if(dir.cd("../../PlugIns"))
-    {
-        QCoreApplication::setLibraryPaths(QStringList(dir.absolutePath()));
-    }
-#endif
-
 	// enable high-dpi support
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     // create a single or normal (multiple) instance(s) application
-	mApp = new SingleApplication(argc, argv);
+	mApp = new QApplication(argc, argv); //SingleApplication(argc, argv);
+	mApp->processEvents();
 
 	// get the application directory
 	QString appDir = qApp->applicationDirPath();
@@ -146,7 +138,7 @@ AppManager::AppManager(int argc, char* argv[])
 	// set the window icon
 	LogDetailedInfo("Setting application icon ...");
 	QIcon icon( ":/Images/Icons/WindowIcon.png" );
-	mApp->setWindowIcon(icon);
+	//mApp->setWindowIcon(icon);
 
 	// set the color palette
 	LogDetailedInfo("Setting color palette ...");
@@ -198,7 +190,8 @@ bool AppManager::ExecuteApp()
 
 	LogDetailedInfo("Constructing main window ...");
 	mMainWindow = new MainWindow();
-	connect( mApp, &SingleApplication::instanceStarted, mMainWindow, &MainWindow::OnRaise );
+	//connect( mApp, &SingleApplication::instanceStarted, mMainWindow, &MainWindow::OnRaise );
+	mMainWindow->OnRaise();
 	connect( mMainWindow, &MainWindow::postAuthenticationInitSucceed, this, &AppManager::LoadTourManager);
 
 	SetSplashScreenMessage("Initializing windows ...");
