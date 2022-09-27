@@ -31,9 +31,9 @@ RCFLAGS    = -L0x0409 -NOLOGO
 # Debug vs. Release
 ifeq ($(MODE),release)
 DEFINES   := $(DEFINES) -DNDEBUG
-CXXFLAGS  := $(CXXFLAGS) -flto -O3 -ffunction-sections -fdata-sections -Xclang -MT
-CFLAGS    := $(CFLAGS) -flto -O3 -ffunction-sections -fdata-sections -Xclang -MT
-LINKFLAGS := $(LINKFLAGS) -flto -Xlinker /OPT:ref -Xlinker /OPT:icf -RELEASE
+CXXFLAGS  := $(CXXFLAGS) -flto=thin -O3 -g -ffunction-sections -fdata-sections -Xclang -MT
+CFLAGS    := $(CFLAGS) -flto=thin -O3 -g -ffunction-sections -fdata-sections -Xclang -MT
+LINKFLAGS := $(LINKFLAGS) -flto=thin -g -Xlinker /OPT:ref -Xlinker /OPT:icf -RELEASE
 LINKLIBS  := $(LINKLIBS) -llibcmt.lib
 else
 DEFINES   := $(DEFINES) -D_DEBUG
