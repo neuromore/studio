@@ -35,7 +35,7 @@ jobs:
         path: |
           deps/build/make/bin/osx-*
           deps/build/make/lib/osx-*
-        key: dependencies-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
+        key: dependencies-${{ env.GITHUB_REF_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
 
     # Build QtTools (X64)
     - name: Build QtTools (X64)

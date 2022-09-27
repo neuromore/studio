@@ -33,7 +33,7 @@ jobs:
         path: |
           deps/build/make/bin/win-*
           deps/build/make/lib/win-*
-        key: dependencies-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
+        key: dependencies-${{ env.GITHUB_REF_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
 
     # Developer Console (X64)
     - name: MSVC Developer Console (X64)
