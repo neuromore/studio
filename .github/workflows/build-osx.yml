@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'release'
 jobs:
 ###########################################################################
 
@@ -12,6 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 360
     env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
       MODE: release
       TARGET_OS: osx
       TARGET_ARCH: ${{ matrix.arch }}
@@ -27,12 +29,24 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    # Load Dependencies from Cache
+    - name: Cache Dependencies
+      id: cache-dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          deps/build/make/bin/osx-*
+          deps/build/make/lib/osx-*
+        key: dependencies-${{ env.BRANCH_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
+
     # Build QtTools (X64)
     - name: Build QtTools (X64)
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
     # Build Dependencies
     - name: Build Dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       run: make Dependencies -j${{ env.JOBS }}
 
     # Build Engine

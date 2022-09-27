@@ -5,11 +5,13 @@ on:
   push:
     branches:
       - 'master'
+      - 'release'
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 360
     env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
       MODE: release
       TARGET_OS: android
       TARGET_ARCH: ${{ matrix.arch }}
@@ -26,21 +28,34 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    # Load Dependencies from Cache
+    - name: Cache Dependencies
+      id: cache-dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          deps/build/make/bin/osx-x64
+          deps/build/make/bin/win-x64
+          deps/build/make/bin/linux-x64
+          deps/build/make/bin/android-*
+          deps/build/make/lib/android-*
+        key: dependencies-${{ env.BRANCH_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ matrix.ndk }}-${{ hashFiles('deps/VERSION') }}
+
     # Developer Console (WIN-X64)
     - name: MSVC Developer Console (X64)
-      if: matrix.os == 'windows-2019' || matrix.os == 'windows-2022'
+      if: (matrix.os == 'windows-2019' || matrix.os == 'windows-2022') && steps.cache-dependencies.outputs.cache-hit != 'true'
       uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: amd64
 
     # Build QtTools (WIN-X64)
     - name: Build QtTools (WIN-X64)
-      if: matrix.os == 'windows-2019' || matrix.os == 'windows-2022'
+      if: (matrix.os == 'windows-2019' || matrix.os == 'windows-2022') && steps.cache-dependencies.outputs.cache-hit != 'true'
       run: make TARGET_OS=win TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
     # Build QtTools (OSX-X64)
     - name: Build QtTools (OSX-X64)
-      if: matrix.os == 'macos-11' || matrix.os == 'macos-12'
+      if: (matrix.os == 'macos-11' || matrix.os == 'macos-12') && steps.cache-dependencies.outputs.cache-hit != 'true'
       run: make TARGET_OS=osx TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
     # Android NDK
@@ -53,6 +68,7 @@ jobs:
 
     # Build Dependencies
     - name: Build Dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Dependencies -j${{ env.JOBS }}
