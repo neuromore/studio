@@ -105,6 +105,7 @@ VERSIONMINOR = $(shell sed -n 's/^\#define $(VERSIONMACROMINOR) //p' $(VERSIONFI
 VERSIONPATCH = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFILE))
 VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+DISTDIRAPP   = "$(DISTDIR)/$(NAME)/$(APPNAME).app"
 OSXVER       = $(shell sw_vers -productVersion)
 OSXBUILDV    = $(shell sw_vers -buildVersion)
 OSXSDKVER    = $(shell xcrun --show-sdk-version)
@@ -139,16 +140,17 @@ dist-prep:
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
 dist: dist-prep dist-x64 dist-arm64
-	@echo [MKD] $(NAME).app/Contents/MacOS
-	@mkdir -p $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS
+	@echo [MKD] $(APPNAME).app/Contents/MacOS
+	@mkdir -p $(DISTDIRAPP)/Contents/MacOS
 	@echo [LIP] $(NAME)$(EXTBIN)
-	@lipo -create -output $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME) \
+	@lipo -create -output $(DISTDIRAPP)/Contents/MacOS/$(NAME) \
 	  ./bin/osx-x64/$(NAME)$(EXTBIN) \
 	  ./bin/osx-arm64/$(NAME)$(EXTBIN)
 	@echo [SYM] $(NAME).dSYM
+	@-rm -rf $(DISTDIR)/$(NAME).dSYM
 	@dsymutil \
 	  -out $(DISTDIR)/$(NAME).dSYM \
-	  $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
+	  $(DISTDIRAPP)/Contents/MacOS/$(NAME)
 	@echo [INF] $(NAME).dSYM
 	@dwarfdump --uuid $(DISTDIR)/$(NAME).dSYM
 	@echo [VFY] $(NAME).dSYM
@@ -157,21 +159,22 @@ dist: dist-prep dist-x64 dist-arm64
 	@xcrun symbols -noTextInSOD -noDaemon -arch all \
 	  -symbolsPackageDir $(DISTDIR)/$(NAME).symbols \
 	  $(DISTDIR)/$(NAME).dSYM
-	@echo [STR] $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
-	@$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
-	@chmod +x $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
-	@echo [MKD] $(NAME).app/Contents/Resources
-	@mkdir -p $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Resources
+	@echo [STR] $(APPNAME).app/Contents/MacOS/$(NAME)
+	@$(STRIP) $(STRIPFLAGS) $(DISTDIRAPP)/Contents/MacOS/$(NAME)
+	@chmod +x $(DISTDIRAPP)/Contents/MacOS/$(NAME)
+	@echo [MKD] $(APPNAME).app/Contents/Resources
+	@mkdir -p $(DISTDIRAPP)/Contents/Resources
 	@echo [ICO] $(NAME).icns
-	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Resources/Icon.icns
-	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIR)/$(NAME)/$(NAME).app/Contents/embedded.provisionprofile
-	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{OSXSDKVER}/${OSXSDKVER}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{OSXSDKBUILDV}/${OSXSDKBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{XCODEBUILDV}/${XCODEBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@rm $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist.orig
+	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIRAPP)/Contents/Resources/Icon.icns
+	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIRAPP)/Contents/Info.plist
+	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIRAPP)/Contents/embedded.provisionprofile
+	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXSDKVER}/${OSXSDKVER}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXSDKBUILDV}/${OSXSDKBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{XCODEBUILDV}/${XCODEBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@rm $(DISTDIRAPP)/Contents/Info.plist.orig
 ifeq ($(APPLE_DIST_STORE),true)
 	@echo [SIG] $(NAME).app
 	@codesign --verbose \
@@ -180,27 +183,27 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  --timestamp \
 	  --options runtime \
 	  --entitlements $(DISTDIR)/$(NAME).Entitlements.Store.plist \
-	  $(DISTDIR)/$(NAME)/$(NAME).app
-	@echo [VFY] $(NAME).app
-	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
+	  $(DISTDIRAPP)
+	@echo [VFY] $(APPNAME).app
+	@codesign --verify -vvvd $(DISTDIRAPP)
 	@echo [PKG] $(NAME).pkg
 	@productbuild \
 	  --version $(VERSION3) \
 	  --symbolication $(DISTDIR)/$(NAME).symbols \
 	  --product $(DISTDIR)/$(NAME).Requirements.plist \
-	  --component $(DISTDIR)/$(NAME)/$(NAME).app /Applications \
+	  --component $(DISTDIRAPP) /Applications \
 	  $(DISTDIR)/$(NAME).pkg
 else
-	@echo [SIG] $(NAME).app
+	@echo [SIG] $(APPNAME).app
 	@codesign --verbose \
 	  --sign "$(PUBLISHERCN)" \
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
 	  --options runtime \
 	  --entitlements $(DISTDIR)/$(NAME).Entitlements.Local.plist \
-	  $(DISTDIR)/$(NAME)/$(NAME).app
-	@echo [VFY] $(NAME).app
-	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
+	  $(DISTDIRAPP)
+	@echo [VFY] $(APPNAME).app
+	@codesign --verify -vvvd $(DISTDIRAPP)
 	@echo [PKG] $(NAME).pkg
 	@pkgbuild \
 	  --version $(VERSION3) \
