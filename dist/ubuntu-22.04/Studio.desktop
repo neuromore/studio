@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Studio
+Name={DISPLAYNAME}
 Comment=neuromore Studio
 Exec=/usr/bin/Studio
 Icon=/usr/share/pixmaps/Studio.png
