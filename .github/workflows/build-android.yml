@@ -37,7 +37,7 @@ jobs:
           deps/build/make/bin/linux-x64
           deps/build/make/bin/android-*
           deps/build/make/lib/android-*
-        key: Dependencies-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('deps/VERSION') }}
+        key: dependencies-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
 
     # Developer Console (WIN-X64)
     - name: MSVC Developer Console (X64)

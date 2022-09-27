@@ -148,7 +148,7 @@ jobs:
         path: |
           deps/build/make/bin/linux-*
           deps/build/make/lib/linux-*
-        key: Dependencies-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('deps/VERSION') }}
+        key: dependencies-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
 
     # Build QtTools (amd64)
     - name: Build QtTools (amd64)
