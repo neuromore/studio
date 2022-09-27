@@ -373,22 +373,25 @@ BRANDING = neuromore
 endif
 
 ifeq ($(BRANDING),neuromore)
+APPNAME    = neuromore Studio
 DEFINES   := $(DEFINES) \
-             -DAPPNAME="neuromore Studio" \
+             -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-neuromore.ico"
 endif
 
 ifeq ($(BRANDING),ant)
+APPNAME    = eego perform studio
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_ANT \
-             -DAPPNAME="eego perform studio" \
+             -DAPPNAME="$(APPNAME)"
              -DAPPICON="AppIcon-ANT.ico"
 endif
 
 ifeq ($(BRANDING),starrbase)
+APPNAME    = Starrbase
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_STARRBASE \
-             -DAPPNAME="Starrbase" \
+             -DAPPNAME="$(APPNAME)"
              -DAPPICON="AppIcon-Starrbase.ico"
 endif
 

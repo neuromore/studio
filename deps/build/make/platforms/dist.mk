@@ -62,15 +62,19 @@ dist-prep:
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{VERSION},$(VERSION4),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{DISPLAYNAME},$(APPNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
 dist-%: dist-prep
-	echo [STR] ./bin/win-$*/$(NAME)$(EXTBIN)
-	$(STRIP) $(STRIPFLAGS) ./bin/win-$*/$(NAME)$(EXTBIN)
-	echo [SIG] ./bin/win-$*/$(NAME)$(EXTBIN)
+	$(call rmdir,$(DISTDIR)/$(NAME)/$*)
+	$(call mkdir,$(DISTDIR)/$(NAME)/$*)
+	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTBIN),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN))
+	echo [STR] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
+	$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
+	echo [SIG] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,./bin/win-$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE))
 else
-	$(call signp,./bin/win-$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 dist: dist-prep dist-x64 dist-x86 dist-arm64
 	echo [BDL] $(NAME).appxbundle

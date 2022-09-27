@@ -19,7 +19,7 @@
 	ProcessorArchitecture="neutral"	/>
 
   <Properties>
-    <DisplayName>Studio</DisplayName>
+    <DisplayName>{DISPLAYNAME}</DisplayName>
     <PublisherDisplayName>neuromore co</PublisherDisplayName>
     <Logo>app.png</Logo>
   </Properties>
@@ -41,10 +41,10 @@
       desktop4:SupportsMultipleInstances="true">
 	  
       <uap:VisualElements 
-        DisplayName="Studio" 
+        DisplayName="{DISPLAYNAME}" 
         Square150x150Logo="app.png" 
         Square44x44Logo="app.png"
-        Description="Studio"
+        Description="neuromore Studio"
         BackgroundColor="transparent">		
         <uap:DefaultTile Wide310x150Logo="app.png">
           <uap:ShowNameOnTiles>
