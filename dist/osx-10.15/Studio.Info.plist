@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>Studio</string>
+	<string>NMStudio</string>
+	<key>CFBundleDisplayName</key>
+	<string>neuromore Studio</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.neuromore.studio</string>
 	<key>LSApplicationCategoryType</key>
