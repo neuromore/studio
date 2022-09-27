@@ -10,6 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 480
     env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
       MODE: release
       TARGET_OS: win
       TARGET_ARCH: ${{ matrix.arch }}
@@ -33,7 +34,7 @@ jobs:
         path: |
           deps/build/make/bin/win-*
           deps/build/make/lib/win-*
-        key: dependencies-${{ env.GITHUB_REF_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
+        key: dependencies-${{ env.BRANCH_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
 
     # Developer Console (X64)
     - name: MSVC Developer Console (X64)

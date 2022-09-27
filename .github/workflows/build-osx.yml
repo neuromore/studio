@@ -12,6 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 360
     env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
       MODE: release
       TARGET_OS: osx
       TARGET_ARCH: ${{ matrix.arch }}
@@ -35,7 +36,7 @@ jobs:
         path: |
           deps/build/make/bin/osx-*
           deps/build/make/lib/osx-*
-        key: dependencies-${{ env.GITHUB_REF_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
+        key: dependencies-${{ env.BRANCH_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
 
     # Build QtTools (X64)
     - name: Build QtTools (X64)
