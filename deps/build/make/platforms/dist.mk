@@ -141,6 +141,10 @@ dist-prep:
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
 dist: dist-prep dist-x64 dist-arm64
+	@-rm -rf $(DISTDIRAPP)
+	@-rm -rf $(DISTDIR)/$(NAME).dSYM
+	@-rm -rf $(DISTDIR)/$(NAME).symbols
+	@-rm -rf $(DISTDIR)/*.pkg
 	@echo [MKD] $(APPNAME).app/Contents/MacOS
 	@mkdir -p $(DISTDIRAPP)/Contents/MacOS
 	@echo [LIP] $(NAME)$(EXTBIN)
@@ -148,14 +152,13 @@ dist: dist-prep dist-x64 dist-arm64
 	  ./bin/osx-x64/$(NAME)$(EXTBIN) \
 	  ./bin/osx-arm64/$(NAME)$(EXTBIN)
 	@echo [SYM] $(NAME).dSYM
-	@-rm -rf $(DISTDIR)/$(NAME).dSYM
 	@dsymutil \
 	  -out $(DISTDIR)/$(NAME).dSYM \
 	  $(DISTDIRAPP)/Contents/MacOS/$(NAME)
 	@echo [INF] $(NAME).dSYM
 	@dwarfdump --uuid $(DISTDIR)/$(NAME).dSYM
-	@echo [VFY] $(NAME).dSYM
-	@dwarfdump --verify $(DISTDIR)/$(NAME).dSYM
+#	@echo [VFY] $(NAME).dSYM
+#	@dwarfdump --verify $(DISTDIR)/$(NAME).dSYM
 	@mkdir -p $(DISTDIR)/$(NAME).symbols
 	@xcrun symbols -noTextInSOD -noDaemon -arch all \
 	  -symbolsPackageDir $(DISTDIR)/$(NAME).symbols \
@@ -187,13 +190,13 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  $(DISTDIRAPP)
 	@echo [VFY] $(APPNAME).app
 	@codesign --verify -vvvd $(DISTDIRAPP)
-	@echo [PKG] $(NAME).pkg
+	@echo [PKG] $(NAME)-$(VERSION3)-unsigned.pkg
 	@productbuild \
 	  --version $(VERSION3) \
 	  --symbolication $(DISTDIR)/$(NAME).symbols \
 	  --product $(DISTDIR)/$(NAME).Requirements.plist \
 	  --component $(DISTDIRAPP) /Applications \
-	  $(DISTDIR)/$(NAME).pkg
+	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
 else
 	@echo [SIG] $(APPNAME).app
 	@codesign --verbose \
@@ -205,36 +208,37 @@ else
 	  $(DISTDIRAPP)
 	@echo [VFY] $(APPNAME).app
 	@codesign --verify -vvvd $(DISTDIRAPP)
-	@echo [PKG] $(NAME).pkg
+	@echo [PKG] $(NAME)-$(VERSION3)-unsigned.pkg
 	@pkgbuild \
 	  --version $(VERSION3) \
 	  --root $(DISTDIR)/$(NAME) \
 	  --install-location /Applications \
 	  --component-plist $(DISTDIR)/$(NAME).Component.plist \
-	  $(DISTDIR)/$(NAME).pkg
+	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
 endif
-	@echo [FIL] $(NAME).pkg
-	@pkgutil --payload-files $(DISTDIR)/$(NAME).pkg
+	@echo [FIL] $(NAME)-$(VERSION3)-unsigned.pkg
+	@pkgutil --payload-files $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
 ifneq ($(PRODUCTSIGNCN),)
-	@echo [SIG] $(NAME).pkg
+	@echo [SIG] $(NAME)-$(VERSION3).pkg
 	@productsign \
 	  --sign "$(PRODUCTSIGNCN)" \
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
-	  $(DISTDIR)/$(NAME).pkg \
-	  $(DISTDIR)/$(NAME)-sig.pkg
-	@echo [VFY] $(NAME)-sig.pkg
-	@pkgutil --check-signature $(DISTDIR)/$(NAME)-sig.pkg
+	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg \
+	  $(DISTDIR)/$(NAME)-$(VERSION3).pkg
+	@echo [VFY] $(NAME)-$(VERSION3).pkg
+	@pkgutil --check-signature $(DISTDIR)/$(NAME)-$(VERSION3).pkg
 ifneq ($(APPLE_ID),)
 ifeq ($(APPLE_DIST_STORE),true)
+	@echo [VAL] $(NAME)-$(VERSION3).pkg
 	@xcrun altool --validate-app \
-	  -f $(DISTDIR)/$(NAME)-sig.pkg \
+	  -f $(DISTDIR)/$(NAME)-$(VERSION3).pkg \
 	  -t macOS \
 	  -u $(APPLE_ID) \
 	  -p $(APPLE_APPSPEC_PASS)
 else
-	@echo [NTT] $(NAME)-sig.pkg
-	@xcrun notarytool submit $(DISTDIR)/$(NAME)-sig.pkg \
+	@echo [VAL] $(NAME)-$(VERSION3).pkg
+	@xcrun notarytool submit $(DISTDIR)/$(NAME)-$(VERSION3).pkg \
 	  --apple-id=$(APPLE_ID) \
 	  --team-id=$(APPLE_TEAM_ID) \
 	  --password=$(APPLE_APPSPEC_PASS) \
