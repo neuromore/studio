@@ -229,4 +229,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Packages Store (${{ matrix.os }})
-        path: ./dist/osx-10.15/*-sig.pkg
+        path: ./dist/osx-10.15/*.pkg
