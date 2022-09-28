@@ -44,7 +44,7 @@
         DisplayName="{DISPLAYNAME}" 
         Square150x150Logo="app.png" 
         Square44x44Logo="app.png"
-        Description="neuromore Studio"
+        Description="Your IDE for neuro-tech apps"
         BackgroundColor="transparent">		
         <uap:DefaultTile Wide310x150Logo="app.png">
           <uap:ShowNameOnTiles>
