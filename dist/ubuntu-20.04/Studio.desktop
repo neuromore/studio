@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Studio
-Comment=neuromore Studio
+Name={DISPLAYNAME}
+Comment=Your IDE for neuro-tech apps
 Exec=/usr/bin/Studio
 Icon=/usr/share/pixmaps/Studio.png
 Terminal=true

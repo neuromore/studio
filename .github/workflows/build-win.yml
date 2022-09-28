@@ -97,6 +97,7 @@ jobs:
         path: |
           ./build/make/bin/win-${{ matrix.arch }}/*.exe
           ./build/make/bin/win-${{ matrix.arch }}/*.dll
+          ./build/make/bin/win-${{ matrix.arch }}/*.pdb
 
 ###########################################################################         
   dist:
@@ -114,19 +115,22 @@ jobs:
       uses: actions/checkout@v3
 
     # Download X64 Build
-    - uses: actions/download-artifact@v2
+    - name: Download X64 Build
+      uses: actions/download-artifact@v2
       with:
         name: Binaries (${{ matrix.os }}-x64)
         path: ./build/make/bin/win-x64/
 
     # Download X86 Build
-    - uses: actions/download-artifact@v2
+    - name: Download X86 Build
+      uses: actions/download-artifact@v2
       with:
         name: Binaries (${{ matrix.os }}-x86)
         path: ./build/make/bin/win-x86/
 
     # Download ARM64 Build
-    - uses: actions/download-artifact@v2
+    - name: Download ARM64 Build
+      uses: actions/download-artifact@v2
       with:
         name: Binaries (${{ matrix.os }}-arm64)
         path: ./build/make/bin/win-arm64/

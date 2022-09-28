@@ -62,30 +62,35 @@ dist-prep:
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{VERSION},$(VERSION4),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{DISPLAYNAME},$(APPNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/Layout.xml,{VERSION},$(VERSION3),$(DISTDIR)/$(NAME)/Layout.xml)
 dist-%: dist-prep
-	echo [STR] ./bin/win-$*/$(NAME)$(EXTBIN)
-	$(STRIP) $(STRIPFLAGS) ./bin/win-$*/$(NAME)$(EXTBIN)
-	echo [SIG] ./bin/win-$*/$(NAME)$(EXTBIN)
+	$(call rmdir,$(DISTDIR)/$(NAME)/$*)
+	$(call mkdir,$(DISTDIR)/$(NAME)/$*)
+	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTBIN),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN))
+	echo [STR] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
+	$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
+	echo [SIG] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,./bin/win-$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE))
 else
-	$(call signp,./bin/win-$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 dist: dist-prep dist-x64 dist-x86 dist-arm64
-	echo [BDL] $(NAME).appxbundle
+	echo [BDL] $(NAME)-$(VERSION3).appxbundle
 	$(call makepkg,$(DISTDIR)/$(NAME)/Layout.xml,$(DISTDIR))
-	echo [SIG] $(DISTDIR)/$(NAME).appxbundle
+	echo [SIG] $(DISTDIR)/$(NAME)-$(VERSION3).appxbundle
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE))
-	$(call sign,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE))
-	$(call sign,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE))
-	$(call sign,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3).appxbundle,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-x64.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-x86.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-arm64.appx,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-	$(call signp,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-	$(call signp,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-	$(call signp,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3).appxbundle,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-x64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-x86.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-arm64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 
 endif
@@ -101,6 +106,7 @@ VERSIONMINOR = $(shell sed -n 's/^\#define $(VERSIONMACROMINOR) //p' $(VERSIONFI
 VERSIONPATCH = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFILE))
 VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+DISTDIRAPP   = "$(DISTDIR)/$(NAME)/$(APPNAME).app"
 OSXVER       = $(shell sw_vers -productVersion)
 OSXBUILDV    = $(shell sw_vers -buildVersion)
 OSXSDKVER    = $(shell xcrun --show-sdk-version)
@@ -135,39 +141,44 @@ dist-prep:
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
 dist: dist-prep dist-x64 dist-arm64
-	@echo [MKD] $(NAME).app/Contents/MacOS
-	@mkdir -p $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS
+	@-rm -rf $(DISTDIRAPP)
+	@-rm -rf $(DISTDIR)/$(NAME).dSYM
+	@-rm -rf $(DISTDIR)/$(NAME).symbols
+	@-rm -rf $(DISTDIR)/*.pkg
+	@echo [MKD] $(APPNAME).app/Contents/MacOS
+	@mkdir -p $(DISTDIRAPP)/Contents/MacOS
 	@echo [LIP] $(NAME)$(EXTBIN)
-	@lipo -create -output $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME) \
+	@lipo -create -output $(DISTDIRAPP)/Contents/MacOS/$(NAME) \
 	  ./bin/osx-x64/$(NAME)$(EXTBIN) \
 	  ./bin/osx-arm64/$(NAME)$(EXTBIN)
 	@echo [SYM] $(NAME).dSYM
 	@dsymutil \
 	  -out $(DISTDIR)/$(NAME).dSYM \
-	  $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
+	  $(DISTDIRAPP)/Contents/MacOS/$(NAME)
 	@echo [INF] $(NAME).dSYM
 	@dwarfdump --uuid $(DISTDIR)/$(NAME).dSYM
-	@echo [VFY] $(NAME).dSYM
-	@dwarfdump --verify $(DISTDIR)/$(NAME).dSYM
+#	@echo [VFY] $(NAME).dSYM
+#	@dwarfdump --verify $(DISTDIR)/$(NAME).dSYM
 	@mkdir -p $(DISTDIR)/$(NAME).symbols
 	@xcrun symbols -noTextInSOD -noDaemon -arch all \
 	  -symbolsPackageDir $(DISTDIR)/$(NAME).symbols \
 	  $(DISTDIR)/$(NAME).dSYM
-	@echo [STR] $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
-	@$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
-	@chmod +x $(DISTDIR)/$(NAME)/$(NAME).app/Contents/MacOS/$(NAME)
-	@echo [MKD] $(NAME).app/Contents/Resources
-	@mkdir -p $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Resources
+	@echo [STR] $(APPNAME).app/Contents/MacOS/$(NAME)
+	@$(STRIP) $(STRIPFLAGS) $(DISTDIRAPP)/Contents/MacOS/$(NAME)
+	@chmod +x $(DISTDIRAPP)/Contents/MacOS/$(NAME)
+	@echo [MKD] $(APPNAME).app/Contents/Resources
+	@mkdir -p $(DISTDIRAPP)/Contents/Resources
 	@echo [ICO] $(NAME).icns
-	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Resources/Icon.icns
-	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIR)/$(NAME)/$(NAME).app/Contents/embedded.provisionprofile
-	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{OSXSDKVER}/${OSXSDKVER}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{OSXSDKBUILDV}/${OSXSDKBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@sed -i'.orig' -e 's/{XCODEBUILDV}/${XCODEBUILDV}/g' $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist
-	@rm $(DISTDIR)/$(NAME)/$(NAME).app/Contents/Info.plist.orig
+	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIRAPP)/Contents/Resources/Icon.icns
+	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIRAPP)/Contents/Info.plist
+	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIRAPP)/Contents/embedded.provisionprofile
+	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXSDKVER}/${OSXSDKVER}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXSDKBUILDV}/${OSXSDKBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{XCODEBUILDV}/${XCODEBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@rm $(DISTDIRAPP)/Contents/Info.plist.orig
 ifeq ($(APPLE_DIST_STORE),true)
 	@echo [SIG] $(NAME).app
 	@codesign --verbose \
@@ -176,57 +187,58 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  --timestamp \
 	  --options runtime \
 	  --entitlements $(DISTDIR)/$(NAME).Entitlements.Store.plist \
-	  $(DISTDIR)/$(NAME)/$(NAME).app
-	@echo [VFY] $(NAME).app
-	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
-	@echo [PKG] $(NAME).pkg
+	  $(DISTDIRAPP)
+	@echo [VFY] $(APPNAME).app
+	@codesign --verify -vvvd $(DISTDIRAPP)
+	@echo [PKG] $(NAME)-$(VERSION3)-unsigned.pkg
 	@productbuild \
 	  --version $(VERSION3) \
 	  --symbolication $(DISTDIR)/$(NAME).symbols \
 	  --product $(DISTDIR)/$(NAME).Requirements.plist \
-	  --component $(DISTDIR)/$(NAME)/$(NAME).app /Applications \
-	  $(DISTDIR)/$(NAME).pkg
+	  --component $(DISTDIRAPP) /Applications \
+	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
 else
-	@echo [SIG] $(NAME).app
+	@echo [SIG] $(APPNAME).app
 	@codesign --verbose \
 	  --sign "$(PUBLISHERCN)" \
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
 	  --options runtime \
 	  --entitlements $(DISTDIR)/$(NAME).Entitlements.Local.plist \
-	  $(DISTDIR)/$(NAME)/$(NAME).app
-	@echo [VFY] $(NAME).app
-	@codesign --verify -vvvd $(DISTDIR)/$(NAME)/$(NAME).app
-	@echo [PKG] $(NAME).pkg
+	  $(DISTDIRAPP)
+	@echo [VFY] $(APPNAME).app
+	@codesign --verify -vvvd $(DISTDIRAPP)
+	@echo [PKG] $(NAME)-$(VERSION3)-unsigned.pkg
 	@pkgbuild \
 	  --version $(VERSION3) \
 	  --root $(DISTDIR)/$(NAME) \
 	  --install-location /Applications \
 	  --component-plist $(DISTDIR)/$(NAME).Component.plist \
-	  $(DISTDIR)/$(NAME).pkg
+	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
 endif
-	@echo [FIL] $(NAME).pkg
-	@pkgutil --payload-files $(DISTDIR)/$(NAME).pkg
+	@echo [FIL] $(NAME)-$(VERSION3)-unsigned.pkg
+	@pkgutil --payload-files $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
 ifneq ($(PRODUCTSIGNCN),)
-	@echo [SIG] $(NAME).pkg
+	@echo [SIG] $(NAME)-$(VERSION3).pkg
 	@productsign \
 	  --sign "$(PRODUCTSIGNCN)" \
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
-	  $(DISTDIR)/$(NAME).pkg \
-	  $(DISTDIR)/$(NAME)-sig.pkg
-	@echo [VFY] $(NAME)-sig.pkg
-	@pkgutil --check-signature $(DISTDIR)/$(NAME)-sig.pkg
+	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg \
+	  $(DISTDIR)/$(NAME)-$(VERSION3).pkg
+	@echo [VFY] $(NAME)-$(VERSION3).pkg
+	@pkgutil --check-signature $(DISTDIR)/$(NAME)-$(VERSION3).pkg
 ifneq ($(APPLE_ID),)
 ifeq ($(APPLE_DIST_STORE),true)
+	@echo [VAL] $(NAME)-$(VERSION3).pkg
 	@xcrun altool --validate-app \
-	  -f $(DISTDIR)/$(NAME)-sig.pkg \
+	  -f $(DISTDIR)/$(NAME)-$(VERSION3).pkg \
 	  -t macOS \
 	  -u $(APPLE_ID) \
 	  -p $(APPLE_APPSPEC_PASS)
 else
-	@echo [NTT] $(NAME)-sig.pkg
-	@xcrun notarytool submit $(DISTDIR)/$(NAME)-sig.pkg \
+	@echo [VAL] $(NAME)-$(VERSION3).pkg
+	@xcrun notarytool submit $(DISTDIR)/$(NAME)-$(VERSION3).pkg \
 	  --apple-id=$(APPLE_ID) \
 	  --team-id=$(APPLE_TEAM_ID) \
 	  --password=$(APPLE_APPSPEC_PASS) \
@@ -278,6 +290,7 @@ dist-%: dist-prep
 	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	cp $(SRCDIR)/Resources/AppIcon-neuromore-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
 	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
+	sed -i 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
 	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
 	@chmod +x $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
 	-cp ./../../deps/prebuilt/linux/$*/*.so $(DISTDIR)/$(NAME)-$*/usr/lib/
