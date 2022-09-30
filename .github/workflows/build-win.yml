@@ -89,6 +89,10 @@ jobs:
         dumpbin /dependents /exports ./build/make/bin/win-${{ env.TARGET_ARCH }}/Studio.exe
         dumpbin /dependents /exports ./build/make/lib/win-${{ env.TARGET_ARCH }}/EngineJNI.dll
 
+    # PDB Info
+    - name: PDB Info
+      run: llvm-pdbutil dump --summary ./build/make/bin/win-${{ env.TARGET_ARCH }}/Studio.pdb
+
     # Upload
     - name: Upload
       uses: actions/upload-artifact@v3

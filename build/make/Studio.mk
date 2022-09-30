@@ -470,9 +470,13 @@ LINKLIBS  := $(LINKLIBS) \
              -lopengl32.lib \
              -lglu32.lib
 ifeq ($(MODE),debug)
-LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:CONSOLE",10.00"
+LINKFLAGS := $(LINKFLAGS) \
+             -Xlinker /SUBSYSTEM:CONSOLE",10.00" \
+             -Xlinker /PDBALTPATH:$(NAME)$(SUFFIX)$(EXTPDB)
 else
-LINKFLAGS := $(LINKFLAGS) -Xlinker /SUBSYSTEM:WINDOWS",10.00"
+LINKFLAGS := $(LINKFLAGS) \
+             -Xlinker /SUBSYSTEM:WINDOWS",10.00" \
+             -Xlinker /PDBALTPATH:$(NAME)$(SUFFIX)$(EXTPDB)
 endif
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
