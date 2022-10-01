@@ -56,8 +56,11 @@ dist-prep:
 	chcp 1252
 	echo [PUB] $(PUBLISHER)
 	echo [PFX] $(SIGN_PFX_FILE)
+	echo [MKD] $(DISTDIR)/$(NAME)
 	$(call rmdir,$(DISTDIR)/$(NAME))
 	$(call mkdir,$(DISTDIR)/$(NAME))
+	$(call mkdir,$(DISTDIR)/$(NAME)/resources)
+	$(call mkdir,$(DISTDIR)/$(NAME)/upload)
 	$(call copyfiles,$(DISTDIR)/$(NAME).appxmanifest,$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
@@ -65,10 +68,16 @@ dist-prep:
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{DISPLAYNAME},$(APPNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/Layout.xml,{VERSION},$(VERSION3),$(DISTDIR)/$(NAME)/Layout.xml)
+	echo [CPY] Icons
+	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-neuromore-44x44.png,$(DISTDIR)/$(NAME)/resources/app-44x44.png)
+	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-neuromore-50x50.png,$(DISTDIR)/$(NAME)/resources/app-50x50.png)
+	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-neuromore-150x150.png,$(DISTDIR)/$(NAME)/resources/app-150x150.png)
 dist-%: dist-prep
+	echo [MKD] $(DISTDIR)/$(NAME)/$*
 	$(call rmdir,$(DISTDIR)/$(NAME)/$*)
 	$(call mkdir,$(DISTDIR)/$(NAME)/$*)
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTBIN),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN))
+	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTPDB),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB))
 	echo [STR] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
 	$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
 	echo [SIG] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
@@ -77,22 +86,28 @@ ifeq ($(SIGN_PFX_PASS),)
 else
 	$(call signp,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
+	echo [SYM] $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym
+	$(call makezip,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB),$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip)
+	$(call move,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym)
 dist: dist-prep dist-x64 dist-x86 dist-arm64
-	echo [BDL] $(NAME)-$(VERSION3).appxbundle
+	echo [BDL] $(DISTDIR)/$(NAME).appxbundle
 	$(call makepkg,$(DISTDIR)/$(NAME)/Layout.xml,$(DISTDIR))
-	echo [SIG] $(DISTDIR)/$(NAME)-$(VERSION3).appxbundle
+	echo [SIG] $(DISTDIR)/$(NAME).appxbundle
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3).appxbundle,$(SIGN_PFX_FILE))
-	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-x64.appx,$(SIGN_PFX_FILE))
-	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-x86.appx,$(SIGN_PFX_FILE))
-	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-arm64.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3).appxbundle,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-x64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-x86.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-arm64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
-
+	echo [APU] $(DISTDIR)/$(NAME).appxupload
+	$(call copyfiles,$(DISTDIR)/$(NAME).appxbundle,$(DISTDIR)/$(NAME)/upload/$(NAME).appxbundle)
+	$(call makezip,$(DISTDIR)/$(NAME)/upload/*,$(DISTDIR)/$(NAME).appxupload.zip)
+	$(call move,$(DISTDIR)/$(NAME).appxupload.zip,$(DISTDIR)/$(NAME).appxupload)
 endif
 
 ##############################################################################################################

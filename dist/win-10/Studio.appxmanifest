@@ -21,7 +21,7 @@
   <Properties>
     <DisplayName>{DISPLAYNAME}</DisplayName>
     <PublisherDisplayName>neuromore co</PublisherDisplayName>
-    <Logo>app.png</Logo>
+    <Logo>app-50x50.png</Logo>
   </Properties>
   
   <Dependencies>
@@ -29,7 +29,7 @@
   </Dependencies>
   
   <Resources>
-    <Resource Language="en-us" />
+    <Resource Language="en-US" />
   </Resources>
   
   <Applications>
@@ -42,19 +42,11 @@
 	  
       <uap:VisualElements 
         DisplayName="{DISPLAYNAME}" 
-        Square150x150Logo="app.png" 
-        Square44x44Logo="app.png"
+        Square150x150Logo="app-150x150.png" 
+        Square44x44Logo="app-44x44.png"
         Description="Your IDE for neuro-tech apps"
         BackgroundColor="transparent">		
-        <uap:DefaultTile Wide310x150Logo="app.png">
-          <uap:ShowNameOnTiles>
-            <uap:ShowOn Tile="wide310x150Logo" />
-            <uap:ShowOn Tile="square150x150Logo" />
-          </uap:ShowNameOnTiles>
-        </uap:DefaultTile>        
-        <uap:SplashScreen Image="app.png" />
       </uap:VisualElements>
-	  
     </Application>
   </Applications>
   
