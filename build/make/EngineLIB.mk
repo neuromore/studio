@@ -76,7 +76,9 @@ ifeq ($(TARGET_OS),osx)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_OSX
 INCLUDES  := $(INCLUDES)
 CXXFLAGS  := $(CXXFLAGS)
-LINKFLAGS := $(LINKFLAGS)
+LINKFLAGS := $(LINKFLAGS) \
+             -dynamiclib \
+             -install_name @rpath/$(NAME)$(EXTDLL)
 LINKLIBS  := $(LINKLIBS)
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
@@ -134,7 +136,9 @@ endif
 ifeq ($(TARGET_OS),ios)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_IOS
 CXXFLAGS  := $(CXXFLAGS)
-LINKFLAGS := $(LINKFLAGS)
+LINKFLAGS := $(LINKFLAGS) \
+             -dynamiclib \
+             -install_name @rpath/$(NAME)$(EXTDLL)
 LINKLIBS  := $(LINKLIBS)
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
