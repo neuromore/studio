@@ -137,7 +137,7 @@ JOBJS := $(patsubst %,$(OBJDIR)/%,$(JOBJS))
 $(OBJDIR)/neuromoreEngine.o:
 	@echo [CXX] $(OBJDIR)/neuromoreEngine.o
 	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) \
-	  -c $(SRCDIR)/../Engine/neuromoreEngine.cpp \
+	  -c ../../src/Engine/neuromoreEngine.cpp \
 	  -o $(OBJDIR)/neuromoreEngine.o
 
 $(OBJDIR)/%.o:
