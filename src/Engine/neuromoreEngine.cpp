@@ -174,35 +174,35 @@ class NMEngineData
 class NMEngineEventHandler : public Core::EventHandler
 {
 	public:
-		NMEngineEventHandler() : EventHandler()																				{}
+		NMEngineEventHandler() : EventHandler()																			{}
 		virtual ~NMEngineEventHandler()																						{}
 
-		void OnPlayAudio(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override final			{ if (gCallback != NULL) gCallback->OnPlayAudio(url, numLoops, beginAt, volume); }
-		void OnStopAudio(const char* url) override final																			{ if (gCallback != NULL) gCallback->OnStopAudio(url); }
-		void OnPauseAudio(const char* url, bool unPause) override final																{ if (gCallback != NULL) gCallback->OnPauseAudio(url, unPause); }
-		void OnSetAudioVolume(const char* url, double volume) override final														{ if (gCallback != NULL) gCallback->OnSetAudioVolume(url, volume); }
-		void OnSeekAudio(const char* url, uint32 millisecs) override final															{ if (gCallback != NULL) gCallback->OnSeekAudio(url, millisecs); }
+		void OnPlayAudio(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override final	{ if (gCallback) gCallback->OnPlayAudio(url, numLoops, beginAt, volume); }
+		void OnStopAudio(const char* url) override final																						{ if (gCallback) gCallback->OnStopAudio(url); }
+		void OnPauseAudio(const char* url, bool unPause) override final																	{ if (gCallback) gCallback->OnPauseAudio(url, unPause); }
+		void OnSetAudioVolume(const char* url, double volume) override final																{ if (gCallback) gCallback->OnSetAudioVolume(url, volume); }
+		void OnSeekAudio(const char* url, uint32 millisecs) override final																{ if (gCallback) gCallback->OnSeekAudio(url, millisecs); }
 
-		void OnPlayVideo(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override final			{ if (gCallback != NULL) gCallback->OnPlayVideo(url, numLoops, beginAt, volume); }
-		void OnStopVideo() override final																							{ if (gCallback != NULL) gCallback->OnStopVideo(); }
-		void OnPauseVideo(const char* url, bool unPause) override final																{ if (gCallback != NULL) gCallback->OnPauseVideo(url, unPause); }
-		void OnSetVideoVolume(const char* url, double volume) override final														{ if (gCallback != NULL) gCallback->OnSetVideoVolume(url, volume); }
-		void OnSeekVideo(const char* url, uint32 millisecs) override final															{ if (gCallback != NULL) gCallback->OnSeekVideo(url, millisecs); }
+		void OnPlayVideo(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override final	{ if (gCallback) gCallback->OnPlayVideo(url, numLoops, beginAt, volume); }
+		void OnStopVideo() override final																											{ if (gCallback) gCallback->OnStopVideo(); }
+		void OnPauseVideo(const char* url, bool unPause) override final																	{ if (gCallback) gCallback->OnPauseVideo(url, unPause); }
+		void OnSetVideoVolume(const char* url, double volume) override final																{ if (gCallback) gCallback->OnSetVideoVolume(url, volume); }
+		void OnSeekVideo(const char* url, uint32 millisecs) override final																{ if (gCallback) gCallback->OnSeekVideo(url, millisecs); }
 
-		void OnShowImage(const char* url) override final																			{ if (gCallback != NULL) gCallback->OnShowImage(url); }
-		void OnHideImage() override final																							{ if (gCallback != NULL) gCallback->OnHideImage(); }
+		void OnShowImage(const char* url) override final																						{ if (gCallback) gCallback->OnShowImage(url); }
+		void OnHideImage() override final																											{ if (gCallback) gCallback->OnHideImage(); }
 
-		void OnShowText(const char* text, const Core::Color& color) override final													{ if (gCallback != NULL) gCallback->OnShowText(text, color.r, color.g, color.b, color.a); }
-		void OnHideText() override final																							{ if (gCallback != NULL) gCallback->OnHideText(); }
+		void OnShowText(const char* text, const Core::Color& color) override final														{ if (gCallback) gCallback->OnShowText(text, color.r, color.g, color.b, color.a); }
+		void OnHideText() override final																												{ if (gCallback) gCallback->OnHideText(); }
 
-		void OnSetFourZoneAVEColors(const float* red, const float* green, const float* blue, const float* alpha) override final		{ if (gCallback != NULL) gCallback->OnSetFourZoneAVEColors(red, green, blue, alpha); }
-		void OnHideFourZoneAVE() override final																						{ if (gCallback != NULL) gCallback->OnHideFourZoneAVE(); }
+		void OnSetFourZoneAVEColors(const float* red, const float* green, const float* blue, const float* alpha) override final	{ if (gCallback) gCallback->OnSetFourZoneAVEColors(red, green, blue, alpha); }
+		void OnHideFourZoneAVE() override final																											{ if (gCallback) gCallback->OnHideFourZoneAVE(); }
 
-		void OnShowButton(const char* text, uint32 buttonId) override final															{ if (gCallback != NULL) gCallback->OnShowButton(text, buttonId); }
-		void OnClearButtons() override final																						{ if (gCallback != NULL) gCallback->OnClearButtons(); }
+		void OnShowButton(const char* text, uint32 buttonId) override final																		{ if (gCallback) gCallback->OnShowButton(text, buttonId); }
+		void OnClearButtons() override final																												{ if (gCallback) gCallback->OnClearButtons(); }
 
-		void OnCommand(const char* command) override final																			{ if (gCallback != NULL) gCallback->OnCommand(command); }
-		void OnExitStateReached(uint32 exitStatus) override final																	{ if (gCallback != NULL) gCallback->OnStop((EStatus)exitStatus);  }
+		void OnCommand(const char* command) override final																								{ if (gCallback) gCallback->OnCommand(command); }
+		void OnExitStateReached(uint32 exitStatus) override final																					{ if (gCallback) gCallback->OnStop((EStatus)exitStatus); }
 };
 
 
@@ -660,7 +660,13 @@ void Shutdown()
 
 	// destroy the callback
 	LogInfo("Destructing callback ...");
+	// TODO: change this once the CPP one is gone
+	// this is also bad coding, should not release foreign allocated mem here
+#if defined(NEUROMORE_ENGINE_CPP_CALLBACK)
 	delete gCallback;
+#else
+	free(gCallback);
+#endif
 	gCallback = NULL;
 	LogDetailedInfo("Callback destructed");
 
@@ -1707,8 +1713,13 @@ void SetCallback(Callback* callback)
 	// check if there already is a callback assigned
 	if (gCallback != NULL)
 	{
-		// destroy the callback
-		delete gCallback; // TODO: This only works with the C++ class
+		// TODO: change this once the CPP one is gone
+		// this is also bad coding, should not release foreign allocated mem here
+#if defined(NEUROMORE_ENGINE_CPP_CALLBACK)
+		delete gCallback;
+#else
+		free(gCallback);
+#endif
 		gCallback = NULL;
 	}
 

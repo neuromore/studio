@@ -546,7 +546,7 @@ namespace neuromoreEngine
 		STATUS_ENGINE_ERROR = 3,		// aborted due to internal engine error (thats the worst case)	-> app/engine fault
 	};
 
-#if defined(__cplusplus)
+#if defined(NEUROMORE_ENGINE_CPP_CALLBACK)
 	/**
 	 * Async event callback interface for C++.
 	 * Derive from this class and customize your event responses.
@@ -628,6 +628,13 @@ namespace neuromoreEngine
 																															  		
 			//... more actions here...																							  		
 	};
+
+	/**
+	 * Set the active callback.
+	 * Callback will be automatically destroyed by Shutdown().
+	 */
+	NEUROMORE_EXPORT void SetCallback(Callback* callback);
+
 #else
 
 	/**
@@ -636,7 +643,7 @@ namespace neuromoreEngine
 	struct NEUROMORE_EXPORT Callback
 	{
 		// called as soon as the session must stop (either session has reached the end or an unrecoverable error has happened either in the experience or the engine)
-		void (*OnStop)(EStatus status);
+		void (*OnStop)(enum EStatus status);
 
 		// backend logging: log this to backend. if it can't be sent immediately during a session: copy the values (or the final json) into a queue and push them after it finished
 		void (*OnLogBackend)(const char* message, const char* logLevel, const char* logTime);
@@ -671,7 +678,7 @@ namespace neuromoreEngine
 		// stop audio playback of this asset
 		void (*OnStopAudio)(const char* url);
 		// pause or unpause the audio
-		void (*OnPauseAudio)(const char* url, bool unPause);
+		void (*OnPauseAudio)(const char* url, BOOL unPause);
 		void (*OnSetAudioVolume)(const char* url, double volume);
 		// seek audio file to specified position (in milliseconds)
 		void (*OnSeekAudio)(const char* url, int millisecs);
@@ -684,7 +691,7 @@ namespace neuromoreEngine
 		// stop the playing video (there can be only one)
 		void (*OnStopVideo)();
 		// pause or unpause the video playback
-		void (*OnPauseVideo)(const char* url, bool unPause);
+		void (*OnPauseVideo)(const char* url, BOOL unPause);
 		void (*OnSetVideoVolume)(const char* url, double volume);
 		// seek video to specified position (in milliseconds)
 		void (*OnSeekVideo)(const char* url, int millisecs);
@@ -717,13 +724,14 @@ namespace neuromoreEngine
 		// command
 		void (*OnCommand)(const char* command);
     };
+
+	/**
+	* Set the active callback.
+	* Callback will be automatically destroyed by Shutdown().
+	*/
+	NEUROMORE_EXPORT void SetCallback(struct Callback* callback);
+
 #endif
-    
-    /**
-     * Set the active callback.
-     * Callback will be automatically destroyed by Shutdown().
-     */
-    NEUROMORE_EXPORT void SetCallback(struct Callback* callback);
 
 #ifdef __cplusplus
 	}

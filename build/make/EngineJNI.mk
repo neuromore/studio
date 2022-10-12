@@ -9,6 +9,7 @@ LIBDIRDEP  = ../../deps/build/make/$(LIBDIR)
 LIBDIRPRE  = ../../deps/prebuilt/$(TARGET_OS)/$(TARGET_ARCH)
 DEFINES   := $(DEFINES) \
              -DUNICODE \
+             -DNEUROMORE_ENGINE_CPP_CALLBACK \
              -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 INCLUDES  := $(INCLUDES) \
              -I../../src/Engine \
