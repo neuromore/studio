@@ -75,16 +75,29 @@ jobs:
     - name: Build Engine
       run: make Engine -j${{ env.JOBS }}
 
+    # Build EngineLIB
+    - name: Build EngineLIB
+      run: make EngineLIB -j${{ env.JOBS }}
+
     # Build EngineJNI
     - name: Build EngineJNI
       run: make EngineJNI -j${{ env.JOBS }}
- 
+
     # Build QtBase
     - name: Build QtBase
       run: make QtBase -j${{ env.JOBS }}
 
-    # Upload
-    - name: Upload
+    # Upload EngineLIB
+    - name: Upload EngineLIB
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineLIB-${{ matrix.arch }} (${{ matrix.os }})
+        path: |
+          ./src/Engine/neuromoreEngine.h
+          ./build/make/lib/android-${{ matrix.arch }}/EngineLIB.so
+
+    # Upload EngineJNI
+    - name: Upload EngineJNI
       uses: actions/upload-artifact@v3
       with:
         name: EngineJNI-${{ matrix.arch }} (${{ matrix.os }})

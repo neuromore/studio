@@ -79,6 +79,10 @@ jobs:
     - name: Build Studio
       run: make Studio -j${{ env.JOBS }}
 
+    # Build EngineLIB
+    - name: Build EngineLIB
+      run: make EngineLIB -j${{ env.JOBS }}
+
     # Build EngineJNI
     - name: Build EngineJNI
       run: make EngineJNI -j${{ env.JOBS }}
@@ -87,6 +91,7 @@ jobs:
     - name: Binary Info
       run: |
         dumpbin /dependents /exports ./build/make/bin/win-${{ env.TARGET_ARCH }}/Studio.exe
+        dumpbin /dependents /exports ./build/make/lib/win-${{ env.TARGET_ARCH }}/EngineLIB.dll
         dumpbin /dependents /exports ./build/make/lib/win-${{ env.TARGET_ARCH }}/EngineJNI.dll
 
     # PDB Info
@@ -102,6 +107,26 @@ jobs:
           ./build/make/bin/win-${{ matrix.arch }}/*.exe
           ./build/make/bin/win-${{ matrix.arch }}/*.dll
           ./build/make/bin/win-${{ matrix.arch }}/*.pdb
+
+    # Upload EngineLIB
+    - name: Upload EngineLIB
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }})
+        path: |
+          ./src/Engine/neuromoreEngine.h
+          ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.dll
+          ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.pdb
+
+    # Upload EngineJNI
+    - name: Upload EngineJNI
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }})
+        path: |
+          ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.dll
+          ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.pdb
+          ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.jar
 
 ###########################################################################         
   dist:

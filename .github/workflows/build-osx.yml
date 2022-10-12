@@ -61,6 +61,10 @@ jobs:
     - name: Build Studio
       run: make Studio -j${{ env.JOBS }}
 
+    # Build EngineLIB
+    - name: Build EngineLIB
+      run: make EngineLIB -j${{ env.JOBS }}
+
     # Build EngineJNI
     - name: Build EngineJNI
       run: make EngineJNI -j${{ env.JOBS }}
@@ -69,6 +73,7 @@ jobs:
     - name: Binary Info
       run: |
         otool -l ./build/make/bin/osx-${{ matrix.arch }}/Studio
+        otool -l ./build/make/lib/osx-${{ matrix.arch }}/EngineLIB.dylib
         otool -l ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
 
     # Upload
@@ -87,6 +92,24 @@ jobs:
         retention-days: 1
         name: lto.o (${{ matrix.os }}-${{ matrix.arch }})
         path: ./build/make/obj/osx-${{ matrix.arch }}-release/**/lto.o
+
+    # Upload EngineLIB
+    - name: Upload EngineLIB
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }})
+        path: |
+          ./src/Engine/neuromoreEngine.h
+          ./build/make/lib/osx-${{ matrix.arch }}/EngineLIB.dylib
+
+    # Upload EngineJNI
+    - name: Upload EngineJNI
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }})
+        path: |
+          ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
+          ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.jar
 
 ###########################################################################
 

@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-11,macos-12]
-        arch: [arm64]
+        arch: [arm64,x64]
     steps:
 
     # Checkout
@@ -52,21 +52,19 @@ jobs:
     - name: Build Engine
       run: make Engine -j${{ env.JOBS }}
 
+    # Build EngineLIB
+    - name: Build EngineLIB
+      run: make EngineLIB -j${{ env.JOBS }}
+
     # Build QtBase
     - name: Build QtBase
       run: make QtBase -j${{ env.JOBS }}
 
-    # Upload
-    - name: Upload
+    # Upload EngineLIB
+    - name: Upload EngineLIB
       uses: actions/upload-artifact@v3
       with:
-        name: Engine-${{ matrix.arch }} (${{ matrix.os }})
+        name: EngineLIB-${{ matrix.arch }} (${{ matrix.os }})
         path: |
           ./src/Engine/neuromoreEngine.h
-          ./build/make/lib/ios-${{ matrix.arch }}/Engine.a
-          ./build/make/lib/ios-${{ matrix.arch }}/brainflow.a
-          ./build/make/lib/ios-${{ matrix.arch }}/brainflow_boardcontroller.a
-          ./build/make/lib/ios-${{ matrix.arch }}/edflib.a
-          ./build/make/lib/ios-${{ matrix.arch }}/kissfft.a
-          ./build/make/lib/ios-${{ matrix.arch }}/oscpack.a
-          ./build/make/lib/ios-${{ matrix.arch }}/zlib.a
+          ./build/make/lib/ios-${{ matrix.arch }}/EngineLIB.so
