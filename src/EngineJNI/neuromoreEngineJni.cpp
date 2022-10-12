@@ -160,7 +160,7 @@ public:
    {
    }
 
-   virtual void OnStop(EStatus status) override
+   virtual void OnStop(neuromoreEngine::EStatus status) override
    {
       JNIEnv* env;
 
