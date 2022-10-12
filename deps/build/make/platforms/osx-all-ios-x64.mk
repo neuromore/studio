@@ -9,7 +9,7 @@ BINDIR     = bin/ios-x64
 DISTDIR    = ../../dist/ios-13.0
 TARGET     = x86_64-apple-ios13.0-simulator
 MINVER     = -miphoneos-version-min=13.0
-CPUFLAGS   = -march=x86-64 -mtune=generic
+CPUFLAGS   = -march=x86-64-v2 -mtune=generic -mpclmul
 SDKROOT    = $(shell xcrun --sdk iphonesimulator --show-sdk-path)
 DEFINES    = 
 INCLUDES   = 
