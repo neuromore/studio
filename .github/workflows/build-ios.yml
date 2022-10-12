@@ -55,3 +55,18 @@ jobs:
     # Build QtBase
     - name: Build QtBase
       run: make QtBase -j${{ env.JOBS }}
+
+    # Upload
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Engine-${{ matrix.arch }} (${{ matrix.os }})
+        path: |
+          ./src/Engine/neuromoreEngine.h
+          ./build/make/lib/ios-${{ matrix.arch }}/Engine.a
+          ./build/make/lib/ios-${{ matrix.arch }}/brainflow.a
+          ./build/make/lib/ios-${{ matrix.arch }}/brainflow_boardcontroller.a
+          ./build/make/lib/ios-${{ matrix.arch }}/edflib.a
+          ./build/make/lib/ios-${{ matrix.arch }}/kissfft.a
+          ./build/make/lib/ios-${{ matrix.arch }}/oscpack.a
+          ./build/make/lib/ios-${{ matrix.arch }}/zlib.a
