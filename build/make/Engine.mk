@@ -344,7 +344,7 @@ endif
 ifeq ($(TARGET_OS),ios)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_IOS
 CXXFLAGS  := $(CXXFLAGS)
-OBJS      := $(OBJS)
+OBJS      := $(OBJS) Core/TimeriOS.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
