@@ -3,14 +3,14 @@ EXTBIN     =
 EXTLIB     = .a
 EXTDLL     = .dylib
 EXTPDB     = .pdb
-OBJDIR     = obj/ios-arm64-$(MODE)
-LIBDIR     = lib/ios-arm64
-BINDIR     = bin/ios-arm64
+OBJDIR     = obj/ios-x64-$(MODE)
+LIBDIR     = lib/ios-x64
+BINDIR     = bin/ios-x64
 DISTDIR    = ../../dist/ios-13.0
-TARGET     = arm64-apple-ios13.0
+TARGET     = x86_64-apple-ios13.0-simulator
 MINVER     = -miphoneos-version-min=13.0
-CPUFLAGS   = -march=armv8-a -mtune=generic
-SDKROOT    = $(shell xcrun --sdk iphoneos --show-sdk-path)
+CPUFLAGS   = -march=x86-64 -mtune=generic
+SDKROOT    = $(shell xcrun --sdk iphonesimulator --show-sdk-path)
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
