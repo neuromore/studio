@@ -34,6 +34,10 @@
 #define NEUROMORE_EXPORT
 #endif
 
+#ifndef __cplusplus
+#define bool int
+#endif
+
 #ifdef __cplusplus
 namespace neuromoreEngine
 {
@@ -62,7 +66,7 @@ namespace neuromoreEngine
 	 * Set the power line frequency.
 	 * @param[in] powerLineFrequency The power line frequency for the current location of the device.
 	 */
-	NEUROMORE_EXPORT bool SetPowerLineFrequencyType(EPowerLineFrequencyType powerLineFrequencyType);
+	NEUROMORE_EXPORT bool SetPowerLineFrequencyType(enum EPowerLineFrequencyType powerLineFrequencyType);
 	NEUROMORE_EXPORT double GetPowerLineFrequency();
 
 	/**
@@ -236,7 +240,7 @@ namespace neuromoreEngine
 	 * Add a device of a certain type.
 	 * @return The index of the device in the internal device manager. -1 in case something failed.
 	 */
-	NEUROMORE_EXPORT int AddDevice(EDevice type);
+	NEUROMORE_EXPORT int AddDevice(enum EDevice type);
 
 	/**
 	* Get the number of active devices.
@@ -255,13 +259,13 @@ namespace neuromoreEngine
 	* Get the type of the active device with the given index
 	* @return the number of devices that were added to the engine
 	*/
-	NEUROMORE_EXPORT EDevice GetDevice(int deviceIndex);
+	NEUROMORE_EXPORT enum EDevice GetDevice(int deviceIndex);
 
 	/**
 	* If as at least one device was added to the engine
 	* @return true if the device was added successfully
 	*/
-	NEUROMORE_EXPORT bool HasDevice(EDevice type);
+	NEUROMORE_EXPORT bool HasDevice(enum EDevice type);
 
 	NEUROMORE_EXPORT bool ConnectDevice(int deviceIndex);
 	NEUROMORE_EXPORT bool DisonnectDevice(int deviceIndex);
@@ -310,7 +314,7 @@ namespace neuromoreEngine
 	 * Do not allow to Start() in case a device is missing. Show and wait for all required devices on the sensor waiting screen before allowing the user to start a session.
 	 * @return true if the device was added successfully
 	 */
-	NEUROMORE_EXPORT bool IsDeviceRequiredByClassifier(EDevice deviceType);
+	NEUROMORE_EXPORT bool IsDeviceRequiredByClassifier(enum EDevice deviceType);
 
 	/**
 	* Get the number of feedback nodes from the currently active classifier.
@@ -483,9 +487,9 @@ namespace neuromoreEngine
 		ASSET_IMAGE		= 3
 	};
 
-	NEUROMORE_EXPORT int GetNumAssetsOfType(AssetType type);
-	NEUROMORE_EXPORT const char* GetAssetLocationOfType(AssetType type, int index);
-	NEUROMORE_EXPORT bool GetAssetAllowStreamingOfType(AssetType type, int index);
+	NEUROMORE_EXPORT int GetNumAssetsOfType(enum AssetType type);
+	NEUROMORE_EXPORT const char* GetAssetLocationOfType(enum AssetType type, int index);
+	NEUROMORE_EXPORT bool GetAssetAllowStreamingOfType(enum AssetType type, int index);
 
 	NEUROMORE_EXPORT int GetNumAssets();
 	NEUROMORE_EXPORT const char* GetAssetLocation(int index);
