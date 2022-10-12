@@ -29,6 +29,14 @@ Engine-clean:
 	@echo [CLN] Engine
 	+@make -s -C ./build/make/ -f Engine.mk clean
 
+EngineLIB:
+	@echo [BLD] EngineLIB
+	+@make -s -C ./build/make/ -f EngineLIB.mk
+
+EngineLIB-clean:
+	@echo [CLN] EngineLIB
+	+@make -s -C ./build/make/ -f EngineLIB.mk clean
+
 EngineJNI:
 	@echo [BLD] EngineJNI
 	+@make -s -C ./build/make/ -f EngineJNI.mk
@@ -59,8 +67,8 @@ Studio-dist:
 
 ##################################################################################
 
-all: Engine QtBase Studio 
-clean: Engine-clean QtBase-clean Studio-clean 
+all: Engine EngineLIB QtBase Studio 
+clean: Engine-clean EngineLIB-clean QtBase-clean Studio-clean 
 dist: Studio-dist
 
 ##################################################################################

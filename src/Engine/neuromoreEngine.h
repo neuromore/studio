@@ -24,7 +24,15 @@
 #ifndef __NEUROMOREENGINE_H
 #define __NEUROMOREENGINE_H
 
-
+#if defined(NEUROMORE_ENGINE_SHARED)
+#if defined(_WIN32)
+#define NEUROMORE_EXPORT __declspec(dllexport)
+#else
+#define NEUROMORE_EXPORT __attribute__((visibility("default")))
+#endif
+#else
+#define NEUROMORE_EXPORT
+#endif
 
 namespace neuromoreEngine
 {
@@ -38,7 +46,7 @@ namespace neuromoreEngine
 	 * Use this to adjust the buffer size of the engine. If you update the engine not often enough, or if you push too many samples in the devices at once,
 	 * the buffers will overflow and OnError() will be called and the engine will stop. Default value is 5 seconds.
 	 */
-	bool SetBufferLength(double seconds);
+	NEUROMORE_EXPORT bool SetBufferLength(double seconds);
 
 	enum EPowerLineFrequencyType
 	{
@@ -51,27 +59,27 @@ namespace neuromoreEngine
 	 * Set the power line frequency.
 	 * @param[in] powerLineFrequency The power line frequency for the current location of the device.
 	 */
-	bool SetPowerLineFrequencyType(EPowerLineFrequencyType powerLineFrequencyType);
-	double GetPowerLineFrequency();
+	NEUROMORE_EXPORT bool SetPowerLineFrequencyType(EPowerLineFrequencyType powerLineFrequencyType);
+	NEUROMORE_EXPORT double GetPowerLineFrequency();
 
 	/**
 	 * Initialize the neuromore Engine.
 	 * Call this before calling any other function from the engine.
 	 * @result True in case everything got initialized correctly, false in case something failed.
 	 */
-	bool Init();
+	NEUROMORE_EXPORT bool Init();
 
 	/*
 	 * Check if neuromore Engine is initialized and ready. You can call Start() only if this method returns true.
 	 * @return True in case the engine is ready for action, false in case an error happened or Init() wasn't called yet.
 	 */
-	bool IsInitialized();
+	NEUROMORE_EXPORT bool IsInitialized();
 
 	/**
 	 * Shutdown the neuromore Engine.
 	 * Call this after the last engine function call inside your application. This will destruct all used objects and cleanup memory.
 	 */
-	void Shutdown();
+	NEUROMORE_EXPORT void Shutdown();
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Engine basics: Start, Stop, Cleanup, Update etc
@@ -81,13 +89,13 @@ namespace neuromoreEngine
 	 * Check if the engine is ready to start
 	 * This requires: 1) classifier/statemachine is loaded 2) required devices were added
 	 */
-	bool IsReady();
+	NEUROMORE_EXPORT bool IsReady();
 
 	/**
 	* Set the maximum duration a single session should be running.
 	* It will stop execution if the time is reached, but can also be stopped by the Statemachine (if there is one)
 	*/
-	void SetSessionLength(double seconds);
+	NEUROMORE_EXPORT void SetSessionLength(double seconds);
 
 	/**
 	 * Begin processing data.
@@ -97,37 +105,37 @@ namespace neuromoreEngine
 	 * Make sure that you clear all device sample buffers before starting, samples must NOT be older than the time where Start() was called.
 	 * @return true if engine could be started, false if not (same return value as IsInitialized())
 	 */
-	bool Start();
-	bool StartThreaded();
+	NEUROMORE_EXPORT bool Start();
+	NEUROMORE_EXPORT bool StartThreaded();
 
 	/**
 	 * Update the neuromore Engine.
 	 * The engine needs to be update regularily and close to real-time. Call this function inside your application real-time loop. Call this function as often as possible so that the time deltas are small.
 	 */
-	bool Update();
+	NEUROMORE_EXPORT bool Update();
 
 	/*
 	 **/
-	bool GetPerformanceStatistics(double* outFps, double* outTheoreticalFps, double* outAveragedTiming, double* outBestCaseTiming, double* outWorstCaseTiming);
+	NEUROMORE_EXPORT bool GetPerformanceStatistics(double* outFps, double* outTheoreticalFps, double* outAveragedTiming, double* outBestCaseTiming, double* outWorstCaseTiming);
 
 	/**
 	 * Check if the engine is currently running. 
 	 * Note that you cannot modify the engine in any way during runtime.
 	 * @return true if the engine is currently processing data
 	 */
-	bool IsRunning();
+	NEUROMORE_EXPORT bool IsRunning();
 
 	/**
 	 * Stops the engine if it is currently running. 
 	 * Also resets the classifier, statemachine and devices. If you call Start() it will run from the beginning again and not continue where you left of.
 	 */
-	bool Stop();
-	bool StopThreaded();
+	NEUROMORE_EXPORT bool Stop();
+	NEUROMORE_EXPORT bool StopThreaded();
 
 	/**
 	* Resets the classifier, statemachine and clears devices inputs (but does not remove devices)
 	*/
-	void Reset();
+	NEUROMORE_EXPORT void Reset();
 
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,13 +146,13 @@ namespace neuromoreEngine
 	 * Enable debug logging.
 	 * Only do this for development builds and never call this for production. This might spawn your console.
 	 */
-	void EnableDebugLogging();
+	NEUROMORE_EXPORT void EnableDebugLogging();
 
 	/**
 	 * Asset streaming option.
 	 * Enable this in case the internet connection is stable enough for audio and video streaming.
 	 */
-	void SetAllowAssetStreaming(bool allow);
+	NEUROMORE_EXPORT void SetAllowAssetStreaming(bool allow);
 
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -225,54 +233,54 @@ namespace neuromoreEngine
 	 * Add a device of a certain type.
 	 * @return The index of the device in the internal device manager. -1 in case something failed.
 	 */
-	int AddDevice(EDevice type);
+	NEUROMORE_EXPORT int AddDevice(EDevice type);
 
 	/**
 	* Get the number of active devices.
 	* @return the number of devices that were added to the engine
 	*/
-	int GetNumDevices();
+	NEUROMORE_EXPORT int GetNumDevices();
 
 	/**
 	* Remove a device.
 	* This is only possible if the device exists and the engine is not running.
 	* @return true if the device was removed successfully
 	*/
-	bool RemoveDevice(int deviceIndex);
+	NEUROMORE_EXPORT bool RemoveDevice(int deviceIndex);
 
 	/**
 	* Get the type of the active device with the given index
 	* @return the number of devices that were added to the engine
 	*/
-	EDevice GetDevice(int deviceIndex);
+	NEUROMORE_EXPORT EDevice GetDevice(int deviceIndex);
 
 	/**
 	* If as at least one device was added to the engine
 	* @return true if the device was added successfully
 	*/
-	bool HasDevice(EDevice type);
+	NEUROMORE_EXPORT bool HasDevice(EDevice type);
 
-    bool ConnectDevice(int deviceIndex);
-    bool DisonnectDevice(int deviceIndex);
+	NEUROMORE_EXPORT bool ConnectDevice(int deviceIndex);
+	NEUROMORE_EXPORT bool DisonnectDevice(int deviceIndex);
 
 	/**
 	* Get the number of inputs of a device.
 	* @return the number of inputs of the device. -1 will be returned if the device does not exist.
 	*/
-	int GetNumInputs(int deviceIndex);
+	NEUROMORE_EXPORT int GetNumInputs(int deviceIndex);
 
 	/**
 	* Push a value into a device input.
 	* Use this method to forward samples from input devices to the engine. It can be called concurrent to the update loop. 
 	* Best practice: forward the input data as soon as possible and keep the latency as low as possible (especially if the sensor has high sample rates)
 	*/
-	bool AddInputSample(int deviceIndex, int inputIndex, double value);
+	NEUROMORE_EXPORT bool AddInputSample(int deviceIndex, int inputIndex, double value);
 
 	/**
 	* Set the battery charge level of a device.
 	* Forward the battery charge so it can be monitored by the engine. The engine will not start if the battery charge is too low.
 	*/
-	bool SetBatteryChargeLevel(int deviceIndex, double normalizedCharge);
+	NEUROMORE_EXPORT bool SetBatteryChargeLevel(int deviceIndex, double normalizedCharge);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Classifier
@@ -285,13 +293,13 @@ namespace neuromoreEngine
 	* @param[in] revision The classifier file revision as delivered from the back-end.
 	* @return True in case the classifier got loaded correctly, false in case an error happened.
 	*/
-	bool LoadClassifier(const char* jsonContent, const char* uuid, int revision);
+	NEUROMORE_EXPORT bool LoadClassifier(const char* jsonContent, const char* uuid, int revision);
 
 	/*
 	* Check if a classifier is present.
 	* @return True in case a classifier was loaded, false if an error happened during loading OR if the engine is not initialized OR in case no classifier is declared as active
 	*/
-	bool HasClassifier();
+	NEUROMORE_EXPORT bool HasClassifier();
 
 	/**
 	 * Check if the active classifier requires the given device.
@@ -299,28 +307,28 @@ namespace neuromoreEngine
 	 * Do not allow to Start() in case a device is missing. Show and wait for all required devices on the sensor waiting screen before allowing the user to start a session.
 	 * @return true if the device was added successfully
 	 */
-	bool IsDeviceRequiredByClassifier(EDevice deviceType);
+	NEUROMORE_EXPORT bool IsDeviceRequiredByClassifier(EDevice deviceType);
 
 	/**
 	* Get the number of feedback nodes from the currently active classifier.
 	* @result The number of custom feedback nodes in the classifier. -1 will be returned in case there is no active classifier.
 	*/
-	int GetNumFeedbacks();
+	NEUROMORE_EXPORT int GetNumFeedbacks();
 
 	/**
 	* Get the name of a feedback node
 	* @result The name of the node. It can be empty.
 	*/
-	const char* GetFeedbackName(int index);
+	NEUROMORE_EXPORT const char* GetFeedbackName(int index);
 
-	int FindFeedbackIndexByName(const char* name);
+	NEUROMORE_EXPORT int FindFeedbackIndexByName(const char* name);
 
 	/**
 	* Get the current value from the given feedback node.
 	* @param[in] The index of the custom feedback node from which we want to extract data. The index has to be in range of [0, GetNumFeedbackss()].
 	* @return The current feedback value. In case no classifier is active or the index is invalid 0.0 will be returned.
 	*/
-	double GetCurrentFeedbackValue(int index);
+	NEUROMORE_EXPORT double GetCurrentFeedbackValue(int index);
 
 	/**
 	* Get the value range of a feedback
@@ -328,7 +336,7 @@ namespace neuromoreEngine
 	* @param[out] outMinValue The minimum value set in the node. In case no classifier is active or the index is invalid 0.0 will be filled.
 	* @param[out] outMaxValue The maximum value set in the node. In case no classifier is active or the index is invalid 0.0 will be filled.
 	*/
-	void GetFeedbackRange(int index, double* outMinValue, double* outMaxValue);
+	NEUROMORE_EXPORT void GetFeedbackRange(int index, double* outMinValue, double* outMaxValue);
 
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -356,22 +364,22 @@ namespace neuromoreEngine
 	 * @param experienceRevision The revision number of the experience that just got stopped.
 	 * @result The ready json string for POST /api/datachunks/create.
 	 */
-	const char* GetCreateDataChunkJson(const char* userId, const char* experienceUuid, int experienceRevision);
+	NEUROMORE_EXPORT const char* GetCreateDataChunkJson(const char* userId, const char* experienceUuid, int experienceRevision);
 
 	/**
 	 * Get the number of data chunk channels for all feedback nodes that have data upload enabled.
 	 * @result The number of data chunk channels.
 	 */
-	int GetNumDataChunkChannels();
+	NEUROMORE_EXPORT int GetNumDataChunkChannels();
 
 	// get the data chunk channel json for POST /api/datachunks/upload
-	const char* GetDataChunkChannelJson(const char* userId, const char* dataChunkUuid, int channelIndex);
+	NEUROMORE_EXPORT const char* GetDataChunkChannelJson(const char* userId, const char* dataChunkUuid, int channelIndex);
 
-	bool GenerateDataChunkChannelData(int channelIndex);
-	const char* GetDataChunkChannelData(int channelIndex);
-	int GetDataChunkChannelDataSize(int channelIndex);
+	NEUROMORE_EXPORT bool GenerateDataChunkChannelData(int channelIndex);
+	NEUROMORE_EXPORT const char* GetDataChunkChannelData(int channelIndex);
+	NEUROMORE_EXPORT int GetDataChunkChannelDataSize(int channelIndex);
 
-	void ClearDataChunkChannelData();
+	NEUROMORE_EXPORT void ClearDataChunkChannelData();
 
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -422,7 +430,7 @@ namespace neuromoreEngine
 	* @param[in]	userId	The user ID string.
 	* @return the JSON string or an empty string. Data is valid until a CreateJSONRequest method is called again.
 	*/
-	const char* CreateJSONRequestFindParameters(const char* userId);
+	NEUROMORE_EXPORT const char* CreateJSONRequestFindParameters(const char* userId);
 	
 	/**
 	* Handle the reply of a find parameters JSON request.
@@ -430,14 +438,14 @@ namespace neuromoreEngine
 	* @param[in]	jsonString	The JSON reply from a find parameters request.
 	* @return True if the JSON was parsed successfully.
 	*/
-	bool HandleJSONReplyFindParameters(const char* jsonString, const char* userId);
+	NEUROMORE_EXPORT bool HandleJSONReplyFindParameters(const char* jsonString, const char* userId);
 
 	/**
 	* Create the JSON request string for updating the parameters in the backend via (POST /api/users/<id>/parameters/set)
 	* Parameters must be send to the backend after a session has completed successfully.  If there are no parameters, an empty string is returned and nothing has to be done.
 	* @return the JSON string (valid until a CreateJSONRequest method is called again)
 	*/
-	const char* CreateJSONRequestSetParameters();
+	NEUROMORE_EXPORT const char* CreateJSONRequestSetParameters();
 
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -451,13 +459,13 @@ namespace neuromoreEngine
 	* @param[in] revision The state machine file revision as delivered from the back-end.
 	* @return True in case the state machine got loaded correctly, false in case an error happened.
 	*/
-	bool LoadStateMachine(const char* jsonContent, const char* uuid, int revision);
+	NEUROMORE_EXPORT bool LoadStateMachine(const char* jsonContent, const char* uuid, int revision);
 
 	/**
 	* Check if a state machine is present.
 	* @return True in case a state machine was loaded, false in case an error happened during loading or in case no state machine is declared as active.
 	*/
-	bool HasStateMachine();
+	NEUROMORE_EXPORT bool HasStateMachine();
 
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -472,13 +480,13 @@ namespace neuromoreEngine
 		ASSET_IMAGE		= 3
 	};
 
-	int GetNumAssetsOfType(AssetType type);
-	const char* GetAssetLocationOfType(AssetType type, int index);
-	bool GetAssetAllowStreamingOfType(AssetType type, int index);
+	NEUROMORE_EXPORT int GetNumAssetsOfType(AssetType type);
+	NEUROMORE_EXPORT const char* GetAssetLocationOfType(AssetType type, int index);
+	NEUROMORE_EXPORT bool GetAssetAllowStreamingOfType(AssetType type, int index);
 
-	int GetNumAssets();
-	const char* GetAssetLocation(int index);
-	bool GetAssetAllowStreaming(int index);
+	NEUROMORE_EXPORT int GetNumAssets();
+	NEUROMORE_EXPORT const char* GetAssetLocation(int index);
+	NEUROMORE_EXPORT bool GetAssetAllowStreaming(int index);
 
 	/**
 	* Signal the engine that a video asset has finished playback.
@@ -503,7 +511,7 @@ namespace neuromoreEngine
 	 * Buttons created via Callback::OnShowButton() deliver a buttonId with the callback. Please feed back the button id to this input event when the given button got clicked.
 	 * @param[in] buttonId The button id of the button that got clicked.
 	 */
-	bool ButtonClicked(int buttonId);
+	NEUROMORE_EXPORT bool ButtonClicked(int buttonId);
 
 	/**
 	 * Call this when an audio file looped.
@@ -511,7 +519,7 @@ namespace neuromoreEngine
 	 * This is important for all audio files played via Callback::OnPlayAudio(). Please feed back the same audio url that got delivered for the OnPlayAudio() event.
 	 * @param[in] url The audio location of the audio file that looped.
 	 */
-	bool AudioLooped(const char* url);
+	NEUROMORE_EXPORT bool AudioLooped(const char* url);
 
 	/**
 	 * Call this when an video file looped.
@@ -519,7 +527,7 @@ namespace neuromoreEngine
 	 * This is important for all video files played via Callback::OnPlayVideo(). Please feed back the same audio url that got delivered for the OnPlayVideo() event.
 	 * @param[in] url The videolocation of the audio file that looped.
 	 */
-	bool VideoLooped(const char* url);
+	NEUROMORE_EXPORT bool VideoLooped(const char* url);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Callback
@@ -529,7 +537,7 @@ namespace neuromoreEngine
 	 * Async event callback interface.
 	 * Derive from this class and customize your event responses.
 	 */
-	class Callback
+	class NEUROMORE_EXPORT Callback
 	{
 		public:
             // constructor & destructor
@@ -619,8 +627,7 @@ namespace neuromoreEngine
 	 * Derive the Callback class and respond to the given events.
 	 * Callback will be automatically destroyed by Shutdown().
 	 */
-	void SetCallback(Callback* callback);
+	NEUROMORE_EXPORT void SetCallback(Callback* callback);
 };
-
 
 #endif

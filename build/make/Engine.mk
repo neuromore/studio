@@ -211,7 +211,6 @@ OBJS       = Core/AABB.o \
              EngineManager.o \
              Experience.o \
              License.o \
-             neuromoreEngine.o \
              Sensor.o \
              SerialPortManager.o \
              Session.o \
