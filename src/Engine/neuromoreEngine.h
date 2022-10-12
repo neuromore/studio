@@ -536,6 +536,7 @@ namespace neuromoreEngine
 	// Callback - TODO: This is still C++
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifdef __cplusplus
 	/**
 	 * Async event callback interface.
 	 * Derive from this class and customize your event responses.
@@ -631,6 +632,7 @@ namespace neuromoreEngine
 	 * Callback will be automatically destroyed by Shutdown().
 	 */
 	NEUROMORE_EXPORT void SetCallback(Callback* callback);
+#endif
 
 #ifdef __cplusplus
 	}
