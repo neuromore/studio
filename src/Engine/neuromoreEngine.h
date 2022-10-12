@@ -542,7 +542,7 @@ namespace neuromoreEngine
 
 #ifdef __cplusplus
 	/**
-	 * Async event callback interface.
+	 * Async event callback interface for C++.
 	 * Derive from this class and customize your event responses.
 	 */
 	class NEUROMORE_EXPORT Callback
@@ -629,14 +629,22 @@ namespace neuromoreEngine
 																															  		
 			//... more actions here...																							  		
 	};
-
-	/**
-	 * Register and active callback.
-	 * Derive the Callback class and respond to the given events.
-	 * Callback will be automatically destroyed by Shutdown().
-	 */
-	NEUROMORE_EXPORT void SetCallback(Callback* callback);
+#else
+    /**
+     * Async event callback interface for C
+     */
+    struct NEUROMORE_EXPORT Callback
+    {
+        void (*OnLog)(const char* message);
+        //TODO: Many missing here, see C++ above
+    };
 #endif
+    
+    /**
+     * Set the active callback.
+     * Callback will be automatically destroyed by Shutdown().
+     */
+    NEUROMORE_EXPORT void SetCallback(struct Callback* callback);
 
 #ifdef __cplusplus
 	}
