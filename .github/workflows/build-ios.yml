@@ -67,4 +67,4 @@ jobs:
         name: EngineLIB-${{ matrix.arch }} (${{ matrix.os }})
         path: |
           ./src/Engine/neuromoreEngine.h
-          ./build/make/lib/ios-${{ matrix.arch }}/EngineLIB.so
+          ./build/make/lib/ios-${{ matrix.arch }}/EngineLIB.dylib
