@@ -116,6 +116,7 @@ jobs:
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.dll
+          ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.lib
           ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.pdb
 
     # Upload EngineJNI
