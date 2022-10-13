@@ -211,7 +211,7 @@ jobs:
         name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }})
         path: |
           ./src/Engine/neuromoreEngine.h
-          ./build/make/lib/linux-${{ matrix.arch }}/EngineLIB.so
+          ./build/make/lib/linux-${{ env.TARGET_ARCH }}/EngineLIB.so
 
     # Upload EngineJNI
     - name: Upload EngineJNI
@@ -219,5 +219,5 @@ jobs:
       with:
         name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }})
         path: |
-          ./build/make/lib/linux-${{ matrix.arch }}/EngineJNI.so
-          ./build/make/lib/linux-${{ matrix.arch }}/EngineJNI.jar
+          ./build/make/lib/linux-${{ env.TARGET_ARCH }}/EngineJNI.so
+          ./build/make/lib/linux-${{ env.TARGET_ARCH }}/EngineJNI.jar
