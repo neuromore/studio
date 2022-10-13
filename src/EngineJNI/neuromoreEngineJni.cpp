@@ -443,11 +443,12 @@ extern "C"
       if (!neuromoreEngine::IsInitialized())
          return;
 
-      // this is going to be destroyed by shutdown,
-      // so make sure we forget it
-      callback = NULL;
-
+      // shutdown engine
       neuromoreEngine::Shutdown();
+
+      // delete our callback
+      delete callback;
+      callback = NULL;
    }
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

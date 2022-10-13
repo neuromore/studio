@@ -658,17 +658,9 @@ void Shutdown()
 	gEventHandler = NULL;
 	LogDetailedInfo("Event handler destructed");
 
-	// destroy the callback
-	LogInfo("Destructing callback ...");
-	// TODO: change this once the CPP one is gone
-	// this is also bad coding, should not release foreign allocated mem here
-#if defined(NEUROMORE_ENGINE_CPP_CALLBACK)
-	delete gCallback;
-#else
-	free(gCallback);
-#endif
+	// forget the callback
+	LogInfo("Forgetting external callback ...");
 	gCallback = NULL;
-	LogDetailedInfo("Callback destructed");
 
 	// shutdown the example
 	Core::LogInfo( "Shutting down neuromore Engine ..." );
