@@ -33,9 +33,9 @@
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "neuromoreEngine", __VA_ARGS__))
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "neuromoreEngine", __VA_ARGS__))
 #else
-#define LOGI(...) 
-#define LOGW(...) 
-#define LOGE(...) 
+#define LOGI(...) printf("INFO: %s\n", __VA_ARGS__)
+#define LOGW(...) printf("WARN: %s\n", __VA_ARGS__)
+#define LOGE(...) printf("ERROR: %s\n", __VA_ARGS__)
 #endif
 
 #ifdef ANDROID

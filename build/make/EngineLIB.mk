@@ -32,7 +32,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/kissfft$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/zlib$(SUFFIX)$(EXTLIB) \
              $(LIBDIR)/Engine$(SUFFIX)$(EXTLIB)
-OBJS       =
+OBJS       = main.o
 
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES) -DNEUROMORE_ARCHITECTURE_X86

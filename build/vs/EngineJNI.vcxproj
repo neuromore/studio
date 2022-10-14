@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\EngineJNI\main.cpp" />
     <ClCompile Include="..\..\src\EngineJNI\neuromoreEngineJni.cpp" />
     <ClCompile Include="..\..\src\Engine\neuromoreEngine.cpp" />
   </ItemGroup>

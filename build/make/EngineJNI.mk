@@ -32,7 +32,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/kissfft$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/zlib$(SUFFIX)$(EXTLIB) \
              $(LIBDIR)/Engine$(SUFFIX)$(EXTLIB)
-OBJS       = neuromoreEngineJni.o
+OBJS       = neuromoreEngineJni.o main.o
 JOBJS      = Java/com/neuromore/engine/ICallback.class \
              Java/com/neuromore/engine/Wrapper.class \
              Java/com/neuromore/engine/enums/EAssetType.class \
