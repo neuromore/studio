@@ -1,7 +1,7 @@
 # Requires NDK 22b or later
 
 # Android Specific
-ANDROID_API         = 21
+ANDROID_API         = 23
 ANDROID_TOOLCHAIN   = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/darwin-x86_64
 
 # Generic
@@ -12,7 +12,7 @@ EXTPDB     = .pdb
 OBJDIR     = obj/android-x86-$(MODE)
 LIBDIR     = lib/android-x86
 BINDIR     = bin/android-x86
-DISTDIR    = ../../dist/android-21
+DISTDIR    = ../../dist/android-$(ANDROID_API)
 TARGET     = i686-linux-android
 CPUFLAGS   = -march=i686 -mtune=generic -mmmx -msse -msse2
 DEFINES    = -DANDROID -D__ANDROID_API__=$(ANDROID_API)
@@ -31,11 +31,11 @@ STRIP      = $(ANDROID_TOOLCHAIN)/bin/llvm-strip
 STRIPFLAGS = --strip-all
 LINK       = $(CXX)
 LINKFLAGS  = -target $(TARGET) -fPIC -fuse-ld=lld -static-libstdc++ -static-libgcc -nostartfiles \
-             $(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)/$(ANDROID_API)/crtbegin_dynamic.o \
+             $(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)/$(ANDROID_API)/crtbegin_static.o \
              $(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)/$(ANDROID_API)/crtend_android.o
 LINKPATH   = -L$(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)/$(ANDROID_API) \
              -L$(ANDROID_TOOLCHAIN)/sysroot/usr/lib/$(TARGET)
-LINKLIBS   = 
+LINKLIBS   = -landroid
 
 # Debug vs. Release
 ifeq ($(MODE),release)

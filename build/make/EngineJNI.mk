@@ -9,6 +9,7 @@ LIBDIRDEP  = ../../deps/build/make/$(LIBDIR)
 LIBDIRPRE  = ../../deps/prebuilt/$(TARGET_OS)/$(TARGET_ARCH)
 DEFINES   := $(DEFINES) \
              -DUNICODE \
+             -DNEUROMORE_ENGINE_CPP_CALLBACK \
              -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 INCLUDES  := $(INCLUDES) \
              -I../../src/Engine \
@@ -31,7 +32,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/kissfft$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/zlib$(SUFFIX)$(EXTLIB) \
              $(LIBDIR)/Engine$(SUFFIX)$(EXTLIB)
-OBJS       = neuromoreEngineJni.o
+OBJS       = neuromoreEngineJni.o main.o
 JOBJS      = Java/com/neuromore/engine/ICallback.class \
              Java/com/neuromore/engine/Wrapper.class \
              Java/com/neuromore/engine/enums/EAssetType.class \
@@ -145,8 +146,33 @@ DEFINES   := $(DEFINES)
 endif
 endif
 
+ifeq ($(TARGET_OS),ios)
+DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_IOS
+CXXFLAGS  := $(CXXFLAGS)
+LINKFLAGS := $(LINKFLAGS)
+LINKLIBS  := $(LINKLIBS)
+ifeq ($(TARGET_ARCH),x86)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),x64)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm)
+DEFINES   := $(DEFINES)
+endif
+ifeq ($(TARGET_ARCH),arm64)
+DEFINES   := $(DEFINES)
+endif
+endif
+
 OBJS  := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 JOBJS := $(patsubst %,$(OBJDIR)/%,$(JOBJS))
+
+$(OBJDIR)/neuromoreEngine.o:
+	@echo [CXX] $(OBJDIR)/neuromoreEngine.o
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) \
+	  -c $(SRCDIR)/../Engine/neuromoreEngine.cpp \
+	  -o $(OBJDIR)/neuromoreEngine.o
 
 $(OBJDIR)/%.o:
 	@echo [CXX] $@
@@ -158,9 +184,9 @@ $(OBJDIR)/%.class:
 
 .DEFAULT_GOAL := build
 
-build: $(OBJS) $(JOBJS)
+build: $(OBJDIR)/neuromoreEngine.o $(OBJS) $(JOBJS) 
 	@echo [LNK] $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTDLL)
-	$(LINK) $(LINKFLAGS) $(LINKPATH) $(OBJS) $(LINKLIBS) -o $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTDLL)
+	$(LINK) $(LINKFLAGS) $(LINKPATH) $(OBJDIR)/neuromoreEngine.o $(OBJS) $(LINKLIBS) -o $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTDLL)
 	@echo [JAR] $(LIBDIR)/$(NAME)$(SUFFIX).jar
 	$(JAR) cf $(LIBDIR)/$(NAME)$(SUFFIX).jar -C $(OBJDIR)/Java .
 

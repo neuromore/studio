@@ -10,18 +10,19 @@ DISTDIR    = ../../dist/ios-13.0
 TARGET     = arm64-apple-ios13.0
 MINVER     = -miphoneos-version-min=13.0
 CPUFLAGS   = -march=armv8-a -mtune=generic
+SDKROOT    = $(shell xcrun --sdk iphoneos --show-sdk-path)
 DEFINES    = 
 INCLUDES   = 
 CXX        = clang++
-CXXFLAGS   = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk iphoneos --show-sdk-path) -static
+CXXFLAGS   = $(MINVER) -target $(TARGET) -isysroot $(SDKROOT) -static
 CC         = clang
-CFLAGS     = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk iphoneos --show-sdk-path) -static
+CFLAGS     = $(MINVER) -target $(TARGET) -isysroot $(SDKROOT) -static
 AR         = ar
 ARFLAGS    = rcs
 STRIP      = strip
 STRIPFLAGS = -S
 LINK       = $(CXX)
-LINKFLAGS  = $(MINVER) -target $(TARGET) -isysroot $(shell xcrun --sdk iphoneos --show-sdk-path)
+LINKFLAGS  = $(MINVER) -target $(TARGET) -isysroot $(SDKROOT)
 LINKPATH   =
 LINKLIBS   = 
 

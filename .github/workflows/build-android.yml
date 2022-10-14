@@ -21,7 +21,6 @@ jobs:
       matrix:
         os: [windows-2019,windows-2022,macos-11,macos-12]
         arch: [x64,x86,arm64,arm]
-        ndk: [r25b]
     steps:
 
     # Checkout
@@ -58,35 +57,41 @@ jobs:
       if: (matrix.os == 'macos-11' || matrix.os == 'macos-12') && steps.cache-dependencies.outputs.cache-hit != 'true'
       run: make TARGET_OS=osx TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
 
-    # Android NDK
-    - name: Android NDK
-      uses: nttld/setup-ndk@v1
-      id: setup-ndk
-      timeout-minutes: 10
-      with:
-        ndk-version: ${{ matrix.ndk }}
-
     # Build Dependencies
     - name: Build Dependencies
       if: steps.cache-dependencies.outputs.cache-hit != 'true'
-      env:
-        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Dependencies -j${{ env.JOBS }}
 
     # Build Engine
     - name: Build Engine
-      env:
-        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make Engine -j${{ env.JOBS }}
+
+    # Build EngineLIB
+    - name: Build EngineLIB
+      run: make EngineLIB -j${{ env.JOBS }}
 
     # Build EngineJNI
     - name: Build EngineJNI
-      env:
-        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make EngineJNI -j${{ env.JOBS }}
- 
+
     # Build QtBase
     - name: Build QtBase
-      env:
-        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: make QtBase -j${{ env.JOBS }}
+
+    # Upload EngineLIB
+    - name: Upload EngineLIB
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineLIB-${{ matrix.arch }} (${{ matrix.os }})
+        path: |
+          ./src/Engine/neuromoreEngine.h
+          ./build/make/lib/android-${{ matrix.arch }}/EngineLIB.so
+
+    # Upload EngineJNI
+    - name: Upload EngineJNI
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineJNI-${{ matrix.arch }} (${{ matrix.os }})
+        path: |
+          ./build/make/lib/android-${{ matrix.arch }}/EngineJNI.jar
+          ./build/make/lib/android-${{ matrix.arch }}/EngineJNI.so

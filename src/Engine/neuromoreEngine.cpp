@@ -21,9 +21,6 @@
 **
 ****************************************************************************/
 
-// include precompiled header
-#include <Engine/Precompiled.h>
-
 // include required headers
 #include "Config.h"
 #include "neuromoreEngine.h"
@@ -62,8 +59,8 @@ using namespace Core;
 
 namespace neuromoreEngine
 {
-    
-Callback*				gCallback		= NULL;
+
+Callback* gCallback = NULL;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // neuromore Engine Data Storage
@@ -177,35 +174,35 @@ class NMEngineData
 class NMEngineEventHandler : public Core::EventHandler
 {
 	public:
-		NMEngineEventHandler() : EventHandler()																				{}
+		NMEngineEventHandler() : EventHandler()																			{}
 		virtual ~NMEngineEventHandler()																						{}
 
-		void OnPlayAudio(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override final			{ if (gCallback != NULL) gCallback->OnPlayAudio(url, numLoops, beginAt, volume); }
-		void OnStopAudio(const char* url) override final																			{ if (gCallback != NULL) gCallback->OnStopAudio(url); }
-		void OnPauseAudio(const char* url, bool unPause) override final																{ if (gCallback != NULL) gCallback->OnPauseAudio(url, unPause); }
-		void OnSetAudioVolume(const char* url, double volume) override final														{ if (gCallback != NULL) gCallback->OnSetAudioVolume(url, volume); }
-		void OnSeekAudio(const char* url, uint32 millisecs) override final															{ if (gCallback != NULL) gCallback->OnSeekAudio(url, millisecs); }
+		void OnPlayAudio(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override final	{ if (gCallback) gCallback->OnPlayAudio(url, numLoops, beginAt, volume); }
+		void OnStopAudio(const char* url) override final																						{ if (gCallback) gCallback->OnStopAudio(url); }
+		void OnPauseAudio(const char* url, bool unPause) override final																	{ if (gCallback) gCallback->OnPauseAudio(url, unPause); }
+		void OnSetAudioVolume(const char* url, double volume) override final																{ if (gCallback) gCallback->OnSetAudioVolume(url, volume); }
+		void OnSeekAudio(const char* url, uint32 millisecs) override final																{ if (gCallback) gCallback->OnSeekAudio(url, millisecs); }
 
-		void OnPlayVideo(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override final			{ if (gCallback != NULL) gCallback->OnPlayVideo(url, numLoops, beginAt, volume); }
-		void OnStopVideo() override final																							{ if (gCallback != NULL) gCallback->OnStopVideo(); }
-		void OnPauseVideo(const char* url, bool unPause) override final																{ if (gCallback != NULL) gCallback->OnPauseVideo(url, unPause); }
-		void OnSetVideoVolume(const char* url, double volume) override final														{ if (gCallback != NULL) gCallback->OnSetVideoVolume(url, volume); }
-		void OnSeekVideo(const char* url, uint32 millisecs) override final															{ if (gCallback != NULL) gCallback->OnSeekVideo(url, millisecs); }
+		void OnPlayVideo(const char* url, int32 numLoops, double beginAt, double volume, bool allowStream) override final	{ if (gCallback) gCallback->OnPlayVideo(url, numLoops, beginAt, volume); }
+		void OnStopVideo() override final																											{ if (gCallback) gCallback->OnStopVideo(); }
+		void OnPauseVideo(const char* url, bool unPause) override final																	{ if (gCallback) gCallback->OnPauseVideo(url, unPause); }
+		void OnSetVideoVolume(const char* url, double volume) override final																{ if (gCallback) gCallback->OnSetVideoVolume(url, volume); }
+		void OnSeekVideo(const char* url, uint32 millisecs) override final																{ if (gCallback) gCallback->OnSeekVideo(url, millisecs); }
 
-		void OnShowImage(const char* url) override final																			{ if (gCallback != NULL) gCallback->OnShowImage(url); }
-		void OnHideImage() override final																							{ if (gCallback != NULL) gCallback->OnHideImage(); }
+		void OnShowImage(const char* url) override final																						{ if (gCallback) gCallback->OnShowImage(url); }
+		void OnHideImage() override final																											{ if (gCallback) gCallback->OnHideImage(); }
 
-		void OnShowText(const char* text, const Core::Color& color) override final													{ if (gCallback != NULL) gCallback->OnShowText(text, color.r, color.g, color.b, color.a); }
-		void OnHideText() override final																							{ if (gCallback != NULL) gCallback->OnHideText(); }
+		void OnShowText(const char* text, const Core::Color& color) override final														{ if (gCallback) gCallback->OnShowText(text, color.r, color.g, color.b, color.a); }
+		void OnHideText() override final																												{ if (gCallback) gCallback->OnHideText(); }
 
-		void OnSetFourZoneAVEColors(const float* red, const float* green, const float* blue, const float* alpha) override final		{ if (gCallback != NULL) gCallback->OnSetFourZoneAVEColors(red, green, blue, alpha); }
-		void OnHideFourZoneAVE() override final																						{ if (gCallback != NULL) gCallback->OnHideFourZoneAVE(); }
+		void OnSetFourZoneAVEColors(const float* red, const float* green, const float* blue, const float* alpha) override final	{ if (gCallback) gCallback->OnSetFourZoneAVEColors(red, green, blue, alpha); }
+		void OnHideFourZoneAVE() override final																											{ if (gCallback) gCallback->OnHideFourZoneAVE(); }
 
-		void OnShowButton(const char* text, uint32 buttonId) override final															{ if (gCallback != NULL) gCallback->OnShowButton(text, buttonId); }
-		void OnClearButtons() override final																						{ if (gCallback != NULL) gCallback->OnClearButtons(); }
+		void OnShowButton(const char* text, uint32 buttonId) override final																		{ if (gCallback) gCallback->OnShowButton(text, buttonId); }
+		void OnClearButtons() override final																												{ if (gCallback) gCallback->OnClearButtons(); }
 
-		void OnCommand(const char* command) override final																			{ if (gCallback != NULL) gCallback->OnCommand(command); }
-		void OnExitStateReached(uint32 exitStatus) override final																	{ if (gCallback != NULL) gCallback->OnStop((Callback::EStatus)exitStatus);  }
+		void OnCommand(const char* command) override final																								{ if (gCallback) gCallback->OnCommand(command); }
+		void OnExitStateReached(uint32 exitStatus) override final																					{ if (gCallback) gCallback->OnStop((EStatus)exitStatus); }
 };
 
 
@@ -261,7 +258,7 @@ void UpdateFeedbackData()
 
 
 // update the engine
-bool Update(const Time& timeDelta)
+BOOL Update(const Time& timeDelta)
 {
 	EngineManager* engine = GetEngine();
 	if (engine == NULL)
@@ -273,11 +270,11 @@ bool Update(const Time& timeDelta)
 	// update feedback data
 	UpdateFeedbackData();
 
-	return true;
+	return TRUE;
 }
 
 
-bool Update()
+BOOL Update()
 {
 	return Update( GetTimeDelta() );
 }
@@ -407,7 +404,7 @@ class neuromoreEngineLogCallback : public LogCallback
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // initialization
-bool Init()
+BOOL Init()
 {
 	// initialize core helper system
 	if (EngineInitializer::Init() == false)
@@ -439,12 +436,12 @@ bool Init()
 	gEventHandler = new NMEngineEventHandler();
 	CORE_EVENTMANAGER.AddEventHandler( gEventHandler );
 
-	return true;
+	return TRUE;
 }
 
 
 // is initialized?
-bool IsInitialized()
+BOOL IsInitialized()
 {
 	EngineManager* engine = GetEngine();
 	return (engine != NULL);
@@ -462,30 +459,30 @@ void SetSessionLength(double seconds)
 
 
 // set classifier buffer size
-bool SetBufferLength(double seconds)
+BOOL SetBufferLength(double seconds)
 {
-	if (IsRunning() == true)
-		return false;
+	if (IsRunning())
+		return FALSE;
 	
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
-	if (classifier != NULL)
-		return false;
+	if (!classifier)
+		return FALSE;
 
 	// resize classifier buffers
 	classifier->SetBufferDuration(seconds);
 
-	return true;
+	return TRUE;
 }
 
 
 // set the power line frequency type
-bool SetPowerLineFrequencyType(EPowerLineFrequencyType powerLineFrequencyType)
+BOOL SetPowerLineFrequencyType(EPowerLineFrequencyType powerLineFrequencyType)
 {
-	if (IsRunning() == true)
+	if (IsRunning() == TRUE)
 		return false;
 
 	GetEngine()->SetPowerLineFrequencyType( (EngineManager::EPowerLineFrequencyType)powerLineFrequencyType );
-	return true;
+	return TRUE;
 }
 
 
@@ -499,15 +496,15 @@ double GetPowerLineFrequency()
 
 
 // Check if the engine is ready to start
-bool IsReady()
+BOOL IsReady()
 {
 	// an running engine is not ready to start
-	if (IsRunning() == true)
-		return false;
+	if (IsRunning())
+		return FALSE;
 
 	// no classifier loaded
-	if (HasClassifier() == false)
-		return false;
+	if (!HasClassifier())
+		return FALSE;
 
 	//Classifier* classifier = GetEngine()->GetActiveClassifier();
 
@@ -525,24 +522,24 @@ bool IsReady()
 	//if (classifier->HasError() == true)
 	//	return false;
 		
-	return true;
+	return TRUE;
 }
 
 
 // Begin processing data.
-bool Start()
+BOOL Start()
 {
 	// do nothing if not ready
-	if (IsReady() == false)
+	if (!IsReady())
 	{
 		LogError("neuromoreEngine::Start(): Cannot start as engine is not ready.");
-		return false;
+		return FALSE;
 	}
 
 	// Note: don't reset classifier here, as it would reset the parameters
 
 	// reset start state machine
-	if (HasStateMachine() == true)
+	if (HasStateMachine())
 	{
 		GetEngine()->GetActiveStateMachine()->Start();
 		GetEngine()->GetActiveStateMachine()->Reset();
@@ -555,24 +552,24 @@ bool Start()
 	GetSession()->Start();
 
 	LogInfo("neuromoreEngine::Start(): Starting engine.");
-	return true;
+	return TRUE;
 }
 
 
 // Stop the engine if it is currently running.
-bool Stop()
+BOOL Stop()
 {
-	if (IsRunning() == false)
+	if (!IsRunning())
 	{
 		LogWarning("neuromoreEngine::Stop(): Can't stop engine. Engine was not running.");
-		return false;
+		return FALSE;
 	}
 
 	// stop session first and then stop the engine
 	GetSession()->Stop();
 
 	// pause the start state machine
-	if (HasStateMachine() == true)
+	if (HasStateMachine())
 	{
 		// FIXME this will be obsolete
 		// NOTE: this is needed so that Reset() calls don't fire actions from the entry states
@@ -583,16 +580,16 @@ bool Stop()
 	GetTimeDelta();
 
 	LogInfo("neuromoreEngine::Stop(): Stopping engine.");
-	return true;
+	return TRUE;
 }
 
 
 // Begin processing data.
-bool StartThreaded()
+BOOL StartThreaded()
 {
 	// start engine, skip post processing if starting engine fails already
-	if (Start() == false)
-		return false;
+	if (!Start())
+		return FALSE;
 
 	// init thread
 	gNMEngineData->mThreadHandler = new EngineThreadHandler();
@@ -601,14 +598,14 @@ bool StartThreaded()
 	// start thread if not already running
 	gNMEngineData->mThread->Start();
 
-	return true;
+	return TRUE;
 }
 
 
 // Stop the engine if it is currently running.
-bool StopThreaded()
+BOOL StopThreaded()
 {
-	if (IsRunning() == false)
+	if (!IsRunning())
 	{
 		LogWarning("neuromoreEngine::Stop(): Can't stop engine. Engine was not running.");
 		return false;
@@ -625,7 +622,7 @@ bool StopThreaded()
 	LogInfo( "Stopping engine thread took: %.1f ms.", stopThreadTiming );
 
 	Stop();
-	return true;
+	return TRUE;
 }
 
 
@@ -638,7 +635,7 @@ void Reset()
 
 
 // Check if the engine is currently running.
-bool IsRunning()
+BOOL IsRunning()
 {
 	return GetSession()->IsRunning();
 }
@@ -661,11 +658,9 @@ void Shutdown()
 	gEventHandler = NULL;
 	LogDetailedInfo("Event handler destructed");
 
-	// destroy the callback
-	LogInfo("Destructing callback ...");
-	delete gCallback;
+	// forget the callback
+	LogInfo("Forgetting external callback ...");
 	gCallback = NULL;
-	LogDetailedInfo("Callback destructed");
 
 	// shutdown the example
 	Core::LogInfo( "Shutting down neuromore Engine ..." );
@@ -674,7 +669,7 @@ void Shutdown()
 
 
 // gather performance statistics from engine thread
-bool GetPerformanceStatistics(double* outFps, double* outTheoreticalFps, double* outAveragedTiming, double* outBestCaseTiming, double* outWorstCaseTiming)
+BOOL GetPerformanceStatistics(double* outFps, double* outTheoreticalFps, double* outAveragedTiming, double* outBestCaseTiming, double* outWorstCaseTiming)
 {
 	*outFps				= 0.0;
 	*outTheoreticalFps	= 0.0;
@@ -682,14 +677,14 @@ bool GetPerformanceStatistics(double* outFps, double* outTheoreticalFps, double*
 	*outBestCaseTiming	= 0.0;
 	*outWorstCaseTiming	= 0.0;
 
-	if (IsRunning() == false)
+	if (!IsRunning())
 	{
 		LogWarning("Can't get performance statistics. Engine is not running.");
-		return false;
+		return FALSE;
 	}
 
 	if (gNMEngineData == NULL)
-		return false;
+		return FALSE;
 
 	PerformanceStatistics perfStats = gNMEngineData->GetPerformanceStatistics();
 
@@ -699,7 +694,7 @@ bool GetPerformanceStatistics(double* outFps, double* outTheoreticalFps, double*
 	*outBestCaseTiming	= perfStats.mBestCaseTiming;
 	*outWorstCaseTiming	= perfStats.mWorstCaseTiming;
 
-	return true;
+	return TRUE;
 }
 
 
@@ -715,7 +710,7 @@ void EnableDebugLogging()
 }
 
 
-void SetAllowAssetStreaming(bool allow)
+void SetAllowAssetStreaming(BOOL allow)
 {
 	EngineManager* engine = GetEngine();
 	if (engine != NULL)
@@ -728,7 +723,7 @@ void SetAllowAssetStreaming(bool allow)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // check if there is a device with the given type
-bool HasDevice(EDevice type)
+BOOL HasDevice(EDevice type)
 {
 	uint32 internalType = CORE_INVALIDINDEX32;
 
@@ -761,7 +756,7 @@ bool HasDevice(EDevice type)
 #endif
 
 		default:
-			return false;
+			return FALSE;
 	}
 
 	// find device by internal type id
@@ -774,7 +769,7 @@ bool HasDevice(EDevice type)
 int AddDevice(EDevice type)
 {
 	// not available while running
-	if (IsRunning() == true)
+	if (IsRunning())
 	{
 		LogError("neuromoreEngine::AddDevice(): Cannot add new device. Engine is running.");
 		return -1;
@@ -842,20 +837,20 @@ int GetNumDevices()
 
 
 // remove a device 
-bool RemoveDevice(int deviceIndex)
+BOOL RemoveDevice(int deviceIndex)
 {
 	// not available while running
-	if (IsRunning() == true)
+	if (IsRunning())
 	{
 		LogError( "neuromoreEngine::RemoveDevice(): Cannot remove device at position %i. Engine is running.", deviceIndex );
-		return false;
+		return FALSE;
 	}
 
 	// invalid device index
 	if (deviceIndex < 0 || deviceIndex >= (int)GetDeviceManager()->GetNumDevices())
 	{
 		LogError( "neuromoreEngine::RemoveDevice(): Cannot remove device at position %i. Device is not in range of valid devices. Current number of devices is %i.", deviceIndex, GetDeviceManager()->GetNumDevices() );
-		return false;
+		return FALSE;
 	}
 
 	// remove device
@@ -863,7 +858,7 @@ bool RemoveDevice(int deviceIndex)
 	GetDeviceManager()->RemoveDevice(device);
 	LogInfo( "neuromoreEngine::RemoveDevice(): Device at position %i successfully removed.", deviceIndex );
 
-	return true;
+	return TRUE;
 }
 
 
@@ -910,22 +905,22 @@ EDevice GetDevice(int deviceIndex)
 }
 
 
-bool ConnectDevice(int deviceIndex)
+BOOL ConnectDevice(int deviceIndex)
 {
     // invalid device index
     if (deviceIndex < 0 || deviceIndex >= (int)GetDeviceManager()->GetNumDevices())
-        return false;
+        return FALSE;
     
     Device* device = GetDeviceManager()->GetDevice(deviceIndex);
     return device->Connect();
 }
 
 
-bool DisonnectDevice(int deviceIndex)
+BOOL DisonnectDevice(int deviceIndex)
 {
     // invalid device index
     if (deviceIndex < 0 || deviceIndex >= (int)GetDeviceManager()->GetNumDevices())
-        return false;
+        return FALSE;
     
     Device* device = GetDeviceManager()->GetDevice(deviceIndex);
     return device->Disconnect();
@@ -946,41 +941,41 @@ int GetNumInputs(int deviceIndex)
 
 
 // Push a value into a device input.
-bool AddInputSample(int deviceIndex, int inputIndex, double sampleValue)
+BOOL AddInputSample(int deviceIndex, int inputIndex, double sampleValue)
 {
 	// return directly in case the engine is not running
 	if (IsRunning() == false)
-		return false;
+		return FALSE;
 
 	// invalid device index
 	if (deviceIndex < 0 || deviceIndex >= (int)GetDeviceManager()->GetNumDevices())
-		return false;
+		return FALSE;
 
 	Device* device = GetDeviceManager()->GetDevice(deviceIndex);
 
 	// invalid input index
 	if (inputIndex < 0 || inputIndex >= (int)device->GetNumSensors())
-		return false;
+		return FALSE;
 
 	// add input sample
 	device->GetSensor(inputIndex)->AddQueuedSample(sampleValue);
 
-	return true;
+	return TRUE;
 }
 
 
 // Set the battery charge level of a device.
-bool SetBatteryChargeLevel(int deviceIndex, double normalizedCharge)
+BOOL SetBatteryChargeLevel(int deviceIndex, double normalizedCharge)
 {
 	// invalid device index
 	if (deviceIndex < 0 || deviceIndex >= (int)GetDeviceManager()->GetNumDevices())
-		return false;
+		return FALSE;
 
 	Device* device = GetDeviceManager()->GetDevice(deviceIndex);
 
 	// update device battery charge
 	device->SetBatteryChargeLevel(normalizedCharge);
-	return true;
+	return TRUE;
 }
 
 
@@ -989,13 +984,13 @@ bool SetBatteryChargeLevel(int deviceIndex, double normalizedCharge)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // load the given classifier from json
-bool LoadClassifier(const char* jsonContent, const char* uuid, int revision)
+BOOL LoadClassifier(const char* jsonContent, const char* uuid, int revision)
 {
 	// make sure the engine got initialized and is not running
 	if (GetEngine() == NULL)
-		return false;
-	if (IsRunning() == true)
-		return false;
+		return FALSE;
+	if (IsRunning())
+		return FALSE;
 
 	// try to load new classifier
 	Classifier* classifier = new Classifier();
@@ -1003,7 +998,7 @@ bool LoadClassifier(const char* jsonContent, const char* uuid, int revision)
 	{
 		delete classifier;
 		classifier = NULL;
-		return false;
+		return FALSE;
 	}
 
 	classifier->SetUuid( uuid );
@@ -1015,15 +1010,15 @@ bool LoadClassifier(const char* jsonContent, const char* uuid, int revision)
 	Reset();
 	UpdateFeedbackData();
 
-	return true;
+	return TRUE;
 }
 
 
-bool HasClassifier()
+BOOL HasClassifier()
 {
 	// make sure the engine got initialized
 	if (GetEngine() == NULL)
-		return false;
+		return FALSE;
 
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
 	return (classifier != NULL);
@@ -1031,10 +1026,10 @@ bool HasClassifier()
 
 
 // check if the given device type is required by the classifier
-bool IsDeviceRequiredByClassifier(EDevice deviceType)
+BOOL IsDeviceRequiredByClassifier(EDevice deviceType)
 {
-	if (HasClassifier() == false)
-		return false;
+	if (!HasClassifier())
+		return FALSE;
 
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
 
@@ -1068,13 +1063,13 @@ bool IsDeviceRequiredByClassifier(EDevice deviceType)
 #endif
 
 		default:
-			return false;
+			return FALSE;
 	}
 
 	if (nodes.IsEmpty() == true)
-		return false;
+		return FALSE;
 	else
-		return true;
+		return TRUE;
 }
 
 
@@ -1166,7 +1161,7 @@ int FindFeedbackIndexByName(const char* name)
 // construct json request string for retreiving cloud input parameters
 const char* CreateJSONRequestFindParameters(const char* userId)
 {
-	if (HasClassifier() == false)
+	if (!HasClassifier())
 		return "";
 
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
@@ -1192,8 +1187,8 @@ const char* CreateJSONRequestFindParameters(const char* userId)
 const char* CreateJSONRequestSetParameters()
 {
 	// no classifier: return NULL 
-	if (HasClassifier() == false)
-		return 0; // NOTE: why not use NULL here? 
+	if (!HasClassifier())
+		return 0;
 
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
 
@@ -1217,16 +1212,16 @@ const char* CreateJSONRequestSetParameters()
 }
 
 
-bool HandleJSONReplyFindParameters(const char* jsonString, const char* userId)
+BOOL HandleJSONReplyFindParameters(const char* jsonString, const char* userId)
 {
-	if (HasClassifier() == false)
-		return 0;
+	if (!HasClassifier())
+		return FALSE;
 
 	Json jsonParser;
-	if (jsonParser.Parse(jsonString) == false)
+	if (!jsonParser.Parse(jsonString))
 	{
 		LogError("HandleJSONReplyFindParameters: Cannot parse JSON.");
-		return false;
+		return FALSE;
 	}
 
 	// get the data
@@ -1242,21 +1237,21 @@ bool HandleJSONReplyFindParameters(const char* jsonString, const char* userId)
 			if (parameters.Load(parametersItem) == false)
 			{
 				LogError("HandleJSONReplyFindParameters::Error parsing FindParameter JSON Reply");
-				return false;
+				return FALSE;
 			}
 
 		} 
 		else
 		{
 			LogError("HandleJSONReplyFindParameters: Cannot find 'parameters' item in json.");
-			return false;
+			return FALSE;
 		}
 
 	}
 	else
 	{
 		LogError("HandleJSONReplyFindParameters: Cannot find 'data' item in json.");
-		return false;
+		return FALSE;
 	}
 
 	// load parameters
@@ -1266,7 +1261,7 @@ bool HandleJSONReplyFindParameters(const char* jsonString, const char* userId)
 		// return false; // not sure if returning false here is good or bad ..
 	}
 
-	return true;
+	return TRUE;
 }
 
 
@@ -1313,7 +1308,7 @@ int GetNumDataChunkChannels()
 
 
 // get the correct feedback node and channel for the given data chunk channel index
-bool GetFeedbackNodeChannel(uint32 channelIndex, FeedbackNode** outFeedbackNode, Channel<double>** outChannel)
+BOOL GetFeedbackNodeChannel(uint32 channelIndex, FeedbackNode** outFeedbackNode, Channel<double>** outChannel)
 {
 	*outFeedbackNode = NULL;
 	*outChannel = NULL;
@@ -1321,7 +1316,7 @@ bool GetFeedbackNodeChannel(uint32 channelIndex, FeedbackNode** outFeedbackNode,
 	// get the active classifier
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
 	if (classifier == NULL)
-		return false;
+		return FALSE;
 
 	uint32 currentIndex = 0;
 
@@ -1346,7 +1341,7 @@ bool GetFeedbackNodeChannel(uint32 channelIndex, FeedbackNode** outFeedbackNode,
 			{
 				*outFeedbackNode = feedbackNode;
 				*outChannel = channel;
-				return true;
+				return TRUE;
 			}
 
 			// increase our current index
@@ -1354,24 +1349,24 @@ bool GetFeedbackNodeChannel(uint32 channelIndex, FeedbackNode** outFeedbackNode,
 		}
 	}
 
-	return false;
+	return FALSE;
 }
 
 
-bool CheckClassifierPrerequisites(const char* functionName, bool shallEngineRun)
+BOOL CheckClassifierPrerequisites(const char* functionName, BOOL shallEngineRun)
 {
 	// make sure the engine got initialized
 	if (GetEngine() == NULL)
 	{
 		LogError( "%s: Engine is not initialized.", functionName );
-		return false;
+		return FALSE;
 	}
 
 	// make sure the engine is in the right state
 	if (IsRunning() != shallEngineRun)
 	{
 		LogError( "%s: Engine is still running.", functionName );
-		return false;
+		return FALSE;
 	}
 
 	// get the active classifier and make sure it is valid
@@ -1379,10 +1374,10 @@ bool CheckClassifierPrerequisites(const char* functionName, bool shallEngineRun)
 	if (classifier == NULL)
 	{
 		LogError( "%s: No active classifier.", functionName );
-		return false;
+		return FALSE;
 	}
 
-	return true;
+	return TRUE;
 }
 
 
@@ -1456,11 +1451,11 @@ const char* GetDataChunkChannelJson(const char* userId, const char* dataChunkUui
 
 
 // export the data chunk channel 
-bool GenerateDataChunkChannelData(int channelIndex)
+BOOL GenerateDataChunkChannelData(int channelIndex)
 {
 	// check if the engine is in the correct state, if the classifier is valid etc.
 	if (CheckClassifierPrerequisites("GenerateDataChunkChannelData", false) == false)
-		return false;
+		return FALSE;
 
 	// find the feedback node and the given channel
 	FeedbackNode* feedbackNode;
@@ -1469,17 +1464,17 @@ bool GenerateDataChunkChannelData(int channelIndex)
 	if (foundChannel == false || feedbackNode == NULL || channel == NULL)
 	{
 		LogError( "GenerateDataChunkChannelData: Cannot find node or channel for data chunk channel index %i.", channelIndex );
-		return false;
+		return FALSE;
 	}
 
 	// save samples to memory file
 	if (SessionExporter::SaveSamplesToMemoryFile(&gNMEngineData->mTempMemoryFile, channel) == false)
 	{
 		LogError( "GenerateDataChunkChannelData: Something went wrong with serializing the channel." );
-		return false;
+		return FALSE;
 	}
 
-	return true;
+	return TRUE;
 }
 
 
@@ -1515,13 +1510,13 @@ void ClearDataChunkChannelData()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // load the given state machine from json
-bool LoadStateMachine(const char* jsonContent, const char* uuid, int revision)
+BOOL LoadStateMachine(const char* jsonContent, const char* uuid, int revision)
 {
 	// make sure the engine got initialized and is not already running
 	if (GetEngine() == NULL)
-		return false;
-	if (IsRunning() == true)
-		return false;
+		return FALSE;
+	if (IsRunning())
+		return FALSE;
 
 	// load statemachine
 	StateMachine* stateMachine = new StateMachine();
@@ -1529,7 +1524,7 @@ bool LoadStateMachine(const char* jsonContent, const char* uuid, int revision)
 	{
 		delete stateMachine;
 		stateMachine = NULL;
-		return false;
+		return FALSE;
 	}
 
 	stateMachine->SetUuid( uuid );
@@ -1543,15 +1538,15 @@ bool LoadStateMachine(const char* jsonContent, const char* uuid, int revision)
 	// load the statemachine into the engine
 	GetEngine()->LoadGraph(stateMachine);
 
-	return true;
+	return TRUE;
 }
 
 
-bool HasStateMachine()
+BOOL HasStateMachine()
 {
 	// make sure the engine got initialized
 	if (GetEngine() == NULL)
-		return false;
+		return FALSE;
 
 	StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
 	return (stateMachine != NULL);
@@ -1605,16 +1600,16 @@ const char* GetAssetLocationOfType(AssetType type, int index)
 }
 
 
-bool GetAssetAllowStreamingOfType(AssetType type, int index)
+BOOL GetAssetAllowStreamingOfType(AssetType type, int index)
 {
 	// make sure the engine got initialized
 	if (GetEngine() == NULL)
-		return 0;
+		return FALSE;
 
 	// get the active state machine and make sure it is valid
 	StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
 	if (stateMachine == NULL)
-		return 0;
+		return FALSE;
 
 	return stateMachine->GetAssetAllowStreamingOfType( ConvertAssetType(type), index );
 }
@@ -1650,16 +1645,16 @@ const char* GetAssetLocation(int index)
 }
 
 
-bool GetAssetAllowStreaming(int index)
+BOOL GetAssetAllowStreaming(int index)
 {
 	// make sure the engine got initialized
 	if (GetEngine() == NULL)
-		return 0;
+		return FALSE;
 
 	// get the active state machine and make sure it is valid
 	StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
 	if (stateMachine == NULL)
-		return 0;
+		return FALSE;
 
 	return stateMachine->GetAssets()[index].mAllowStreaming;
 }
@@ -1669,13 +1664,13 @@ bool GetAssetAllowStreaming(int index)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // load the given classifier from json
-bool LoadExperience(const char* jsonContent, const char* uuid, int revision)
+BOOL LoadExperience(const char* jsonContent, const char* uuid, int revision)
 {
 	// make sure the engine got initialized and is not running
 	if (GetEngine() == NULL)
-		return false;
-	if (IsRunning() == true)
-		return false;
+		return FALSE;
+	if (IsRunning())
+		return FALSE;
 
 	// try to load new classifier
 	Json jsonParser;
@@ -1686,7 +1681,7 @@ bool LoadExperience(const char* jsonContent, const char* uuid, int revision)
 	{
 		delete experience;
 		experience = NULL;
-		return false;
+		return FALSE;
 	}
 
 	experience->SetUuid( uuid );
@@ -1697,7 +1692,7 @@ bool LoadExperience(const char* jsonContent, const char* uuid, int revision)
 	Reset();
 	UpdateFeedbackData();
 
-	return true;
+	return TRUE;
 }
 
 
@@ -1710,8 +1705,13 @@ void SetCallback(Callback* callback)
 	// check if there already is a callback assigned
 	if (gCallback != NULL)
 	{
-		// destroy the callback
+		// TODO: change this once the CPP one is gone
+		// this is also bad coding, should not release foreign allocated mem here
+#if defined(NEUROMORE_ENGINE_CPP_CALLBACK)
 		delete gCallback;
+#else
+		free(gCallback);
+#endif
 		gCallback = NULL;
 	}
 
@@ -1723,20 +1723,20 @@ void SetCallback(Callback* callback)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // called when a button got clicked
-bool ButtonClicked(int buttonId)
+BOOL ButtonClicked(int buttonId)
 {
 	// skip directly in case the engine is not running
-	if (IsRunning() == false)
-		return false;
+	if (IsRunning())
+		return FALSE;
 
 	// no state machine loaded
-	if (HasStateMachine() == false)
-		return false;
+	if (!HasStateMachine())
+		return FALSE;
 
 	// get the active state machine
 	StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
 	if (stateMachine == NULL)
-		return false;
+		return FALSE;
 
 	// get the number of transitions and iterate through them
 	const uint32 numTransitions = stateMachine->GetNumConnections();
@@ -1762,31 +1762,31 @@ bool ButtonClicked(int buttonId)
 					buttonCondition->ButtonClicked();
 
 					//LogInfo( "Button '%s' clicked.", button->text().toLatin1().data() );
-					return true;
+					return TRUE;
 				}
 			}
 		}
 	}
 
-	return false;
+	return FALSE;
 }
 
 
 // call this when an audio file looped
-bool AudioLooped(const char* url)
+BOOL AudioLooped(const char* url)
 {
 	// skip directly in case the engine is not running
-	if (IsRunning() == false)
-		return false;
+	if (!IsRunning())
+		return FALSE;
 
 	// no state machine loaded
-	if (HasStateMachine() == false)
-		return false;
+	if (!HasStateMachine())
+		return FALSE;
 
 	// get the active state machine
 	StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
 	if (stateMachine == NULL)
-		return false;
+		return FALSE;
 
 	String urlString = url;
 
@@ -1814,31 +1814,31 @@ bool AudioLooped(const char* url)
 					audioCondition->Looped();
 
 					//LogInfo( "AudioCondition increased loop counter '%i'.", audioCondition->GetLoops() );
-					return true;
+					return TRUE;
 				}
 			}
 		}
 	}
 
-	return true;
+	return TRUE; // TODO: Why is this true, should be false?
 }
 
 
 // call this when an video file looped
-bool VideoLooped(const char* url)
+BOOL VideoLooped(const char* url)
 {
 	// skip directly in case the engine is not running
-	if (IsRunning() == false)
-		return false;
+	if (!IsRunning())
+		return FALSE;
 
 	// no state machine loaded
-	if (HasStateMachine() == false)
-		return false;
+	if (!HasStateMachine())
+		return FALSE;
 
 	// get the active state machine
 	StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
 	if (stateMachine == NULL)
-		return false;
+		return FALSE;
 
 	String urlString = url;
 
@@ -1866,13 +1866,13 @@ bool VideoLooped(const char* url)
 					videoCondition->Looped();
 
 					//LogInfo( "VideoCondition increased loop counter '%i'.", videoCondition->GetLoops() );
-					return true;
+					return TRUE;
 				}
 			}
 		}
 	}
 
-	return true;
+	return TRUE; // TODO: Why is this true, should be false?
 }
 
 }; // namespace neuromoreEngine
