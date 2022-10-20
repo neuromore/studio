@@ -58,22 +58,11 @@ String LayoutManager::GetLocalCustomLayoutsFolder() const
 {
 	QString result = GetQtBaseManager()->GetAppDataFolder().AsChar();
 	result += "Layouts";
-
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-	result += "\\";
-#endif
-#ifdef NEUROMORE_PLATFORM_OSX
-    result += "/";
-#endif
-#ifdef NEUROMORE_PLATFORM_LINUX
-	result += "/";
-#endif
-
-	result = QDir::toNativeSeparators( result );
+	result += '/';
+	result = QDir::toNativeSeparators(result);
 
 	// make sure our physiological data folder exists
-	QDir appDataFolder(result);
-	appDataFolder.mkpath(result);
+	std::filesystem::create_directories(result.toStdString());
 
 	return FromQtString(result);
 }

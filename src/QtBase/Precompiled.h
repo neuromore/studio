@@ -1,5 +1,8 @@
 #pragma once
 
+// C++ Framework
+#include <filesystem>
+
 // From Engine
 #include <Engine/Core/StandardHeaders.h>
 #include <Engine/Core/String.h>
