@@ -54,11 +54,11 @@
     <rescap:Capability Name="runFullTrust"/>
     <Capability Name="internetClient" />
     <Capability Name="privateNetworkClientServer" />
-	<DeviceCapability Name="serialcommunication">
-	  <Device Id="any">
+    <DeviceCapability Name="serialcommunication">
+      <Device Id="any">
         <Function Type="name:serialPort"/>
       </Device>
-	</DeviceCapability>
+    </DeviceCapability>
     <DeviceCapability Name="usb">
       <Device Id="any">
         <Function Type="name:vendorSpecific"/>
