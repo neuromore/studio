@@ -15,12 +15,14 @@ jobs:
       MODE: release
       TARGET_OS: ios
       TARGET_ARCH: ${{ matrix.arch }}
+      BRANDING: ${{ matrix.branding }}
       JOBS: 4
     strategy:
       fail-fast: false
       matrix:
         os: [macos-11,macos-12]
         arch: [arm64,x64]
+        branding: [neuromore]
     steps:
 
     # Checkout
@@ -64,7 +66,7 @@ jobs:
     - name: Upload EngineLIB
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB-${{ matrix.arch }} (${{ matrix.os }})
+        name: EngineLIB-${{ matrix.arch }}-${{ matrix.branding }} (${{ matrix.os }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/ios-${{ matrix.arch }}/EngineLIB.dylib

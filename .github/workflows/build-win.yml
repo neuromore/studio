@@ -15,12 +15,14 @@ jobs:
       MODE: release
       TARGET_OS: win
       TARGET_ARCH: ${{ matrix.arch }}
+      BRANDING: ${{ matrix.branding }}
       JOBS: 4
     strategy:
       fail-fast: false
       matrix:
         os: [windows-2019,windows-2022]
         arch: [x64,x86,arm64]
+        branding: [neuromore]
     steps:
     
     # Checkout
@@ -102,7 +104,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: Binaries (${{ matrix.os }}-${{ matrix.arch }})
+        name: Binaries (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./build/make/bin/win-${{ matrix.arch }}/*.exe
           ./build/make/bin/win-${{ matrix.arch }}/*.dll
@@ -112,7 +114,7 @@ jobs:
     - name: Upload EngineLIB
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }})
+        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.dll
@@ -123,7 +125,7 @@ jobs:
     - name: Upload EngineJNI
       uses: actions/upload-artifact@v3
       with:
-        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }})
+        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.dll
           ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.pdb
@@ -138,6 +140,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-2019,windows-2022]
+        branding: [neuromore]
     steps:
       
     # Checkout
@@ -148,21 +151,21 @@ jobs:
     - name: Download X64 Build
       uses: actions/download-artifact@v2
       with:
-        name: Binaries (${{ matrix.os }}-x64)
+        name: Binaries (${{ matrix.os }}-x64-${{ matrix.branding }})
         path: ./build/make/bin/win-x64/
 
     # Download X86 Build
     - name: Download X86 Build
       uses: actions/download-artifact@v2
       with:
-        name: Binaries (${{ matrix.os }}-x86)
+        name: Binaries (${{ matrix.os }}-x86-${{ matrix.branding }})
         path: ./build/make/bin/win-x86/
 
     # Download ARM64 Build
     - name: Download ARM64 Build
       uses: actions/download-artifact@v2
       with:
-        name: Binaries (${{ matrix.os }}-arm64)
+        name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/bin/win-arm64/
 
     # Developer Console (X64)
@@ -193,7 +196,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: Packages (${{ matrix.os }})
+        name: Packages (${{ matrix.os }}-${{ matrix.branding }})
         path: |
           ./dist/win-10/*.appx
           ./dist/win-10/*.appxbundle

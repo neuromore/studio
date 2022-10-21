@@ -17,12 +17,14 @@ jobs:
       MODE: release
       TARGET_OS: osx
       TARGET_ARCH: ${{ matrix.arch }}
+      BRANDING: ${{ matrix.branding }}
       JOBS: 4
     strategy:
       fail-fast: false
       matrix:
         os: [macos-11,macos-12]
         arch: [x64,arm64]
+        branding: [neuromore]
     steps:
 
     # Checkout
@@ -80,7 +82,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: Binaries (${{ matrix.os }}-${{ matrix.arch }})
+        name: Binaries (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./build/make/bin/osx-${{ matrix.arch }}/*
           !./build/make/bin/osx-${{ matrix.arch }}/.gitignore
@@ -90,14 +92,14 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         retention-days: 1
-        name: lto.o (${{ matrix.os }}-${{ matrix.arch }})
+        name: lto.o (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: ./build/make/obj/osx-${{ matrix.arch }}-release/**/lto.o
 
     # Upload EngineLIB
     - name: Upload EngineLIB
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }})
+        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/osx-${{ matrix.arch }}/EngineLIB.dylib
@@ -106,7 +108,7 @@ jobs:
     - name: Upload EngineJNI
       uses: actions/upload-artifact@v3
       with:
-        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }})
+        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
           ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.jar
@@ -121,6 +123,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-11,macos-12]
+        branding: [neuromore]
     steps:
 
     # Checkout
@@ -131,28 +134,28 @@ jobs:
     - name: Download X64 Build
       uses: actions/download-artifact@v2
       with:
-        name: Binaries (${{ matrix.os }}-x64)
+        name: Binaries (${{ matrix.os }}-x64-${{ matrix.branding }})
         path: ./build/make/bin/osx-x64/
 
     # Download X64 lto.o
     - name: Download X64 lto.o
       uses: actions/download-artifact@v2
       with:
-        name: lto.o (${{ matrix.os }}-x64)
+        name: lto.o (${{ matrix.os }}-x64-${{ matrix.branding }})
         path: ./build/make/obj/osx-x64-release/
 
     # Download ARM64 Build
     - name: Download ARM64 Build
       uses: actions/download-artifact@v2
       with:
-        name: Binaries (${{ matrix.os }}-arm64)
+        name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/bin/osx-arm64/
 
     # Download ARM64 lto.o
     - name: Download ARM64 lto.o
       uses: actions/download-artifact@v2
       with:
-        name: lto.o (${{ matrix.os }}-arm64)
+        name: lto.o (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/obj/osx-arm64-release/
 
     # Load Code Signing Certificate
@@ -179,7 +182,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: Packages (${{ matrix.os }})
+        name: Packages (${{ matrix.os }}-${{ matrix.branding }})
         path: ./dist/osx-10.15/*.pkg
 
 ###########################################################################
@@ -192,6 +195,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-11,macos-12]
+        branding: [neuromore]
     steps:
 
     # Checkout
@@ -202,28 +206,28 @@ jobs:
     - name: Download X64 Build
       uses: actions/download-artifact@v2
       with:
-        name: Binaries (${{ matrix.os }}-x64)
+        name: Binaries (${{ matrix.os }}-x64-${{ matrix.branding }})
         path: ./build/make/bin/osx-x64/
 
     # Download X64 lto.o
     - name: Download X64 lto.o
       uses: actions/download-artifact@v2
       with:
-        name: lto.o (${{ matrix.os }}-x64)
+        name: lto.o (${{ matrix.os }}-x64-${{ matrix.branding }})
         path: ./build/make/obj/osx-x64-release/
 
     # Download ARM64 Build
     - name: Download ARM64 Build
       uses: actions/download-artifact@v2
       with:
-        name: Binaries (${{ matrix.os }}-arm64)
+        name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/bin/osx-arm64/
 
     # Download ARM64 lto.o
     - name: Download ARM64 lto.o
       uses: actions/download-artifact@v2
       with:
-        name: lto.o (${{ matrix.os }}-arm64)
+        name: lto.o (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/obj/osx-arm64-release/
 
     # Load Code Signing Certificate
@@ -251,5 +255,5 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: Packages Store (${{ matrix.os }})
+        name: Packages Store (${{ matrix.os }}-${{ matrix.branding }})
         path: ./dist/osx-10.15/*.pkg

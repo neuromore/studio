@@ -15,12 +15,14 @@ jobs:
       MODE: release
       TARGET_OS: android
       TARGET_ARCH: ${{ matrix.arch }}
+      BRANDING: ${{ matrix.branding }}
       JOBS: 4
     strategy:
       fail-fast: false
       matrix:
         os: [windows-2019,windows-2022,macos-11,macos-12]
         arch: [x64,x86,arm64,arm]
+        branding: [neuromore]
     steps:
 
     # Checkout
@@ -82,7 +84,7 @@ jobs:
     - name: Upload EngineLIB
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB-${{ matrix.arch }} (${{ matrix.os }})
+        name: EngineLIB-${{ matrix.arch }}-${{ matrix.branding }} (${{ matrix.os }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/android-${{ matrix.arch }}/EngineLIB.so
@@ -91,7 +93,7 @@ jobs:
     - name: Upload EngineJNI
       uses: actions/upload-artifact@v3
       with:
-        name: EngineJNI-${{ matrix.arch }} (${{ matrix.os }})
+        name: EngineJNI-${{ matrix.arch }}-${{ matrix.branding }} (${{ matrix.os }})
         path: |
           ./build/make/lib/android-${{ matrix.arch }}/EngineJNI.jar
           ./build/make/lib/android-${{ matrix.arch }}/EngineJNI.so

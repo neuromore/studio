@@ -15,12 +15,14 @@ jobs:
       MODE: release
       TARGET_OS: linux
       ARCH: ${{ matrix.arch }}
+      BRANDING: ${{ matrix.branding }}
       JOBS: 4
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04,ubuntu-22.04]
         arch: [amd64,i386,arm64,armhf]
+        branding: [neuromore]
     steps:
 
     # Remove Packages (20.04)
@@ -201,14 +203,14 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: Packages (${{ matrix.os }}-${{ matrix.arch }})
+        name: Packages (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: ./dist/${{ matrix.os }}/*.deb
 
     # Upload EngineLIB
     - name: Upload EngineLIB
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }})
+        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/linux-${{ env.TARGET_ARCH }}/EngineLIB.so
@@ -217,7 +219,7 @@ jobs:
     - name: Upload EngineJNI
       uses: actions/upload-artifact@v3
       with:
-        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }})
+        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./build/make/lib/linux-${{ env.TARGET_ARCH }}/EngineJNI.so
           ./build/make/lib/linux-${{ env.TARGET_ARCH }}/EngineJNI.jar
