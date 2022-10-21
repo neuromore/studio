@@ -51,8 +51,18 @@
   </Applications>
   
   <Capabilities>
+    <rescap:Capability Name="runFullTrust"/>
     <Capability Name="internetClient" />
     <Capability Name="privateNetworkClientServer" />
-    <rescap:Capability Name="runFullTrust"/>
-  </Capabilities> 
+    <DeviceCapability Name="serialcommunication">
+      <Device Id="any">
+        <Function Type="name:serialPort"/>
+      </Device>
+    </DeviceCapability>
+    <DeviceCapability Name="usb">
+      <Device Id="any">
+        <Function Type="name:vendorSpecific"/>
+      </Device>
+    </DeviceCapability>
+  </Capabilities>
 </Package>

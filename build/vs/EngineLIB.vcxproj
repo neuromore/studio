@@ -147,6 +147,7 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <DisableSpecificWarnings>4189</DisableSpecificWarnings>
       <OmitFramePointers>true</OmitFramePointers>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -196,6 +197,7 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <DisableSpecificWarnings>4189</DisableSpecificWarnings>
       <OmitFramePointers>true</OmitFramePointers>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -245,6 +247,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <DisableSpecificWarnings>4189</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -293,6 +296,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <DisableSpecificWarnings>4189</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -337,6 +341,7 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <DisableSpecificWarnings>4189</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -383,6 +388,7 @@
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <OmitFramePointers>false</OmitFramePointers>
       <DisableSpecificWarnings>4189</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_UNICODE;UNICODE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;ECB=1;CBC=1;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
