@@ -383,7 +383,7 @@ ifeq ($(BRANDING),ant)
 APPNAME    = eego perform studio
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_ANT \
-             -DAPPNAME="$(APPNAME)"
+             -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-ANT.ico"
 endif
 
@@ -391,7 +391,7 @@ ifeq ($(BRANDING),starrbase)
 APPNAME    = Starrbase
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_STARRBASE \
-             -DAPPNAME="$(APPNAME)"
+             -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-Starrbase.ico"
 endif
 
