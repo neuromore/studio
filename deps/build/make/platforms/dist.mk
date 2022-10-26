@@ -69,9 +69,9 @@ dist-prep:
 	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/Layout.xml,{VERSION},$(VERSION3),$(DISTDIR)/$(NAME)/Layout.xml)
 	echo [CPY] Icons
-	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-neuromore-44x44.png,$(DISTDIR)/$(NAME)/resources/app-44x44.png)
-	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-neuromore-50x50.png,$(DISTDIR)/$(NAME)/resources/app-50x50.png)
-	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-neuromore-150x150.png,$(DISTDIR)/$(NAME)/resources/app-150x150.png)
+	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-$(BRANDING)-44x44.png,$(DISTDIR)/$(NAME)/resources/app-44x44.png)
+	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-$(BRANDING)-50x50.png,$(DISTDIR)/$(NAME)/resources/app-50x50.png)
+	$(call copyfiles,$(SRCDIR)/Resources/AppIcon-$(BRANDING)-150x150.png,$(DISTDIR)/$(NAME)/resources/app-150x150.png)
 dist-%: dist-prep
 	echo [MKD] $(DISTDIR)/$(NAME)/$*
 	$(call rmdir,$(DISTDIR)/$(NAME)/$*)
@@ -184,7 +184,7 @@ dist: dist-prep dist-x64 dist-arm64
 	@echo [MKD] $(APPNAME).app/Contents/Resources
 	@mkdir -p $(DISTDIRAPP)/Contents/Resources
 	@echo [ICO] $(NAME).icns
-	@cp $(SRCDIR)/Resources/AppIcon-neuromore.icns $(DISTDIRAPP)/Contents/Resources/Icon.icns
+	@cp $(SRCDIR)/Resources/AppIcon-$(BRANDING).icns $(DISTDIRAPP)/Contents/Resources/Icon.icns
 	@cp $(DISTDIR)/$(NAME).Info.plist $(DISTDIRAPP)/Contents/Info.plist
 	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIRAPP)/Contents/embedded.provisionprofile
 	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIRAPP)/Contents/Info.plist
@@ -303,7 +303,7 @@ dist-%: dist-prep
 	cp $(DISTDIR)/$(NAME).control $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	sed -i 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
-	cp $(SRCDIR)/Resources/AppIcon-neuromore-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
+	cp $(SRCDIR)/Resources/AppIcon-$(BRANDING)-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
 	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
 	sed -i 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
 	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
