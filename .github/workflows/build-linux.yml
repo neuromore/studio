@@ -22,7 +22,7 @@ jobs:
       matrix:
         os: [ubuntu-20.04,ubuntu-22.04]
         arch: [amd64,i386,arm64,armhf]
-        branding: [neuromore]
+        branding: [neuromore,ant]
     steps:
 
     # Remove Packages (20.04)
