@@ -1225,9 +1225,6 @@
     <ClInclude Include="..\..\src\Studio\TourManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\Studio\Resources\AppIcon.icns">
-      <Filter>Resources</Filter>
-    </None>
     <None Include="..\..\src\Studio\Resources\NMStudio.aps">
       <Filter>Resources</Filter>
     </None>
@@ -1239,9 +1236,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\src\Studio\Resources\AppIcon.ico">
-      <Filter>Resources</Filter>
-    </Image>
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\Close.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\EndTutorial.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\DownRectArrow.png" />
@@ -1250,6 +1244,15 @@
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightArrowBlue.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightRectArrow.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\TopRectArrow.png" />
+    <Image Include="..\..\src\Studio\Resources\AppIcon-neuromore.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\..\src\Studio\Resources\AppIcon-ant.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\..\src\Studio\Resources\AppIcon-starrbase.ico">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\Studio\Resources\NMStudio.rc">
