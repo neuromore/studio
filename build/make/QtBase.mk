@@ -233,6 +233,11 @@ DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_STARRBASE
 endif
 
+ifeq ($(BRANDING),supermind)
+DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING_SUPERMIND
+endif
+
 ################################################################################################
 # CPU
 

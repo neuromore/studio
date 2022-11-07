@@ -384,7 +384,7 @@ APPNAME    = eego perform studio
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_ANT \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-ANT.ico"
+             -DAPPICON="AppIcon-ant.ico"
 endif
 
 ifeq ($(BRANDING),starrbase)
@@ -392,7 +392,15 @@ APPNAME    = Starrbase
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_STARRBASE \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-Starrbase.ico"
+             -DAPPICON="AppIcon-starrbase.ico"
+endif
+
+ifeq ($(BRANDING),supermind)
+APPNAME    = Supermind Brainwave Studio
+DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING_SUPERMIND \
+             -DAPPNAME="$(APPNAME)" \
+             -DAPPICON="AppIcon-supermind.ico"
 endif
 
 ################################################################################################

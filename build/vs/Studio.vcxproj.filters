@@ -1253,6 +1253,9 @@
     <Image Include="..\..\src\Studio\Resources\AppIcon-starrbase.ico">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="..\..\src\Studio\Resources\AppIcon-supermind.ico">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\Studio\Resources\NMStudio.rc">

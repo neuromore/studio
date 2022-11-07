@@ -513,6 +513,7 @@
     <Image Include="..\..\src\Studio\Resources\AppIcon-ant.ico" />
     <Image Include="..\..\src\Studio\Resources\AppIcon-neuromore.ico" />
     <Image Include="..\..\src\Studio\Resources\AppIcon-starrbase.ico" />
+    <Image Include="..\..\src\Studio\Resources\AppIcon-supermind.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\Studio\Resources\NMStudio.rc" />
