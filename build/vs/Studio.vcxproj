@@ -498,7 +498,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Studio\Proprietary\README.md" />
-    <None Include="..\..\src\Studio\Resources\NMStudio.aps" />
     <None Include="..\..\src\Studio\Resources\StudioResources.qrc" />
   </ItemGroup>
   <ItemGroup>
