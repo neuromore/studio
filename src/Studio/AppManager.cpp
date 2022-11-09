@@ -41,6 +41,8 @@
 #define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
 #elif NEUROMORE_BRANDING_STARRBASE
 #define SPLASHIMAGE ":/Images/SplashScreen-Starrbase.png" 
+#elif NEUROMORE_BRANDING_SUPERMIND
+#define SPLASHIMAGE ":/Images/SplashScreen-Supermind.png" 
 #else
 #define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
 #endif
@@ -288,6 +290,13 @@ String AppManager::GetAppName() const
 		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Brainstation - Operator";
 		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Brainstation - Patient";
 		else name = "Brainstation";
+#elif NEUROMORE_BRANDING_SUPERMIND
+		if (user->FindRule("ROLE_Admin") != NULL) name = "Brainwave Studio - Admin";
+		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Brainwave Studio - Clinic Admin";
+		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Brainwave Studio - Clinician";
+		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Brainwave Studio - Operator";
+		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Brainwave Studio - Patient";
+		else name = "Brainwave Studio";
 #else
 		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
 		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";

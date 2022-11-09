@@ -117,6 +117,22 @@ class AppManager : public QObject
 		const char* GetPrivacyPolicyUrl() const						{ return "https://assets.starrbase.myneurva.com/license/privacy-policy.txt"; }
 		const bool  IsLoginRemberMePrechecked() const				{ return true; }
 		const char* GetLoginImageName() const							{ return ":/Images/Login-Starrbase.png"; }
+#elif NEUROMORE_BRANDING_SUPERMIND
+		const char* GetCompanyName() const								{ return "Supermind"; } // do not put Inc. behind this as this is also used as folder name
+		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
+		const char* GetWebsite() const									{ return "https://supermind.us"; }
+		const char* GetDocumentationUrl() const						{ return "https://doc.neuromore.com"; }
+		const char* GetAccountUrl() const								{ return "https://app.supermind.us"; }
+		const char* GetStoreUrl() const									{ return "https://supermind.us"; }
+		const char* GetForgotPasswordUrl() const						{ return "https://app.supermind.us/resetrequest"; }
+		const char* GetSupportEMail() const								{ return "support@supermind.com"; }
+		const char* GetAppShortName() const								{ return "brainwave-studio"; }
+		const char* GetMenuStudioName() const							{ return "BWStudio"; }
+		const char* GetLicenseUrl() const								{ return "https://assets.app.supermind.us/license/license.txt"; }
+		const char* GetCloudTermsUrl() const							{ return "https://assets.app.supermind.us/license/terms-and-conditions.txt"; }
+		const char* GetPrivacyPolicyUrl() const						{ return "https://assets.app.supermind.us/license/privacy-policy.txt"; }
+		const bool  IsLoginRemberMePrechecked() const				{ return true; }
+		const char* GetLoginImageName() const							{ return ":/Images/Login-Supermind.png"; }
 #else
 		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
 		const char* GetDeveloperName() const							{ return "neuromore Inc."; }

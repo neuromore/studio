@@ -9,14 +9,6 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Production-ANT|Win32">
-      <Configuration>Production-ANT</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Production-ANT|x64">
-      <Configuration>Production-ANT</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Production|Win32">
       <Configuration>Production</Configuration>
       <Platform>Win32</Platform>
@@ -58,9 +50,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -69,9 +59,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -83,50 +71,30 @@
     <ClCompile Include="..\..\src\Studio\Devices\Mitsar\MitsarDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkyDriver.moc.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\NeuroSky\NeuroSkySerialHandler.moc.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.moc.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCIDriver.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.moc.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\OpenBCI\OpenBCISerialHandler.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.moc.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusDriver.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.cpp" />
-    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.moc.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\DocumentationExporter.cpp" />
     <ClCompile Include="..\..\src\Studio\main.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
@@ -150,22 +118,18 @@
     <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationPlugin.moc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\DataVisualizationSettingsWidget.moc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -259,43 +223,35 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramBandsPlugin.moc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPlugin.moc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramPluginCollection.moc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Spectrogram\SpectrogramSurfacePlugin.moc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -313,11 +269,9 @@
     <ClCompile Include="..\..\src\Studio\Plugins\View\ViewWidget.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -331,11 +285,9 @@
     <ClCompile Include="..\..\src\Studio\Rendering\TextureManager.cpp" />
     <ClCompile Include="..\..\src\Studio\Resources\StudioResources.rcc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Production|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -546,12 +498,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Studio\Proprietary\README.md" />
-    <None Include="..\..\src\Studio\Resources\AppIcon.icns" />
-    <None Include="..\..\src\Studio\Resources\NMStudio.aps" />
     <None Include="..\..\src\Studio\Resources\StudioResources.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\src\Studio\Resources\AppIcon.ico" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\Close.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\EndTutorial.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\DownRectArrow.png" />
@@ -560,6 +509,10 @@
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightArrowBlue.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightRectArrow.png" />
     <Image Include="..\..\src\QtBase\Resources\Images\Icons\TopRectArrow.png" />
+    <Image Include="..\..\src\Studio\Resources\AppIcon-ant.ico" />
+    <Image Include="..\..\src\Studio\Resources\AppIcon-neuromore.ico" />
+    <Image Include="..\..\src\Studio\Resources\AppIcon-starrbase.ico" />
+    <Image Include="..\..\src\Studio\Resources\AppIcon-supermind.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\Studio\Resources\NMStudio.rc" />
@@ -605,14 +558,6 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>false</UseOfMfc>
-    <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <SpectreMitigation>false</SpectreMitigation>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
@@ -626,14 +571,6 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <SpectreMitigation>false</SpectreMitigation>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>false</UseOfMfc>
-    <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
@@ -654,32 +591,22 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">bin\x86\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">bin\x86\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">bin\x86\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">obj\x86\$(TargetName)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">obj\x86\$(TargetName)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">obj\x86\$(TargetName)\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">$(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">$(ProjectName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Production|x64'">$(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">$(ProjectName)</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">.exe</TargetExt>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">.exe</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Production|x64'">.exe</TargetExt>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>bin\x64\</OutDir>
     <IntDir>obj\x64\$(TargetName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
-    <OutDir>bin\x64\</OutDir>
-    <IntDir>obj\x64\$(TargetName)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">
     <OutDir>bin\x64\</OutDir>
     <IntDir>obj\x64\$(TargetName)\</IntDir>
   </PropertyGroup>
@@ -951,78 +878,6 @@ copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
       <Message>Copy prebuilt</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ExceptionHandling>false</ExceptionHandling>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>NEUROMORE_BRANDING_ANT;QT_LARGEFILE_SUPPORT=64;PRODUCTION_BUILD;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";_UNICODE;UNICODE;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;NEUROMORE_ARCHITECTURE_X86;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;QT_LINKED_OPENSSL;QT_STATIC;WIN32;_WINDOWS;QT_NO_DEBUG;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <StringPooling>true</StringPooling>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>APPNAME=eego perform studio;APPICON=AppIcon-ANT.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Midl>
-      <OutputDirectory>$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
-    <Lib>
-      <TargetMachine>MachineX86</TargetMachine>
-      <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
-      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
-    </Lib>
-    <Link>
-      <AdditionalLibraryDirectories>lib\x86;..\..\deps\prebuilt\win\x86;..\..\deps\build\vs\lib\x86</AdditionalLibraryDirectories>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <SetChecksum>true</SetChecksum>
-      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;Engine.lib;QtBase.lib;edflib.lib;kissfft.lib;libpng.lib;libjpeg.lib;oscpack.lib;libsvm.lib;dspfilters.lib;wavelib.lib;brainflow.lib;brainflow-boardcontroller.lib;opencv-core.lib;opencv-imgcodecs.lib;opencv-imgproc.lib;opencv-videoio.lib;tinyaes.lib;tinyobjloader.lib;zlib.lib;double-conversion.lib;libcrypto.lib;libssl.lib;pcre2.lib;harfbuzz.lib;harfbuzz-ng.lib;freetype.lib;singleapplication.lib;qt-bluetooth.lib;qt-core.lib;qt-concurrent.lib;qt-eventdispatchers.lib;qt-fontdatabases.lib;qt-gamepad.lib;qt-gui.lib;qt-multimedia.lib;qt-network.lib;qt-multimediaplugins.lib;qt-multimediawidgets.lib;qt-widgets.lib;qt-websockets.lib;qt-opengl.lib;qt-printsupport.lib;qt-serialport.lib;qt-xml.lib;qt-platform-windows.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PreBuildEvent>
-      <Command>setlocal
-set MOC="../../deps/build/vs/bin/x86/qt-moc.exe" -DPRODUCTION_BUILD
-set RCC="../../deps/build/vs/bin/x86/qt-rcc.exe"
-set UIC="../../deps/build/vs/bin/x86/qt-uic.exe"
-Studio.cmd
-
-</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>QT RCC+MOC</Message>
-    </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x86\*.dll bin\x86\
-copy ..\..\deps\build\vs\lib\x86\*.dll bin\x86\</Command>
-      <Message>Copy prebuilt</Message>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
@@ -1128,79 +983,6 @@ copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>APPNAME=neuromore Studio;APPICON=AppIcon-neuromore.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Midl>
-      <OutputDirectory>$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
-    <Lib>
-      <TargetMachine>MachineX64</TargetMachine>
-      <SubSystem>Console</SubSystem>
-      <MinimumRequiredVersion>6.00</MinimumRequiredVersion>
-      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
-    </Lib>
-    <Link>
-      <AdditionalLibraryDirectories>lib\x64;..\..\deps\prebuilt\win\x64;..\..\deps\build\vs\lib\x64</AdditionalLibraryDirectories>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <SubSystem>Windows</SubSystem>
-      <MinimumRequiredVersion>10.00</MinimumRequiredVersion>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <SetChecksum>true</SetChecksum>
-      <AdditionalDependencies>version.lib;bthprops.lib;setupapi.lib;vfw32.lib;rpcrt4.lib;ws2_32.lib;iphlpapi.lib;imm32.lib;winmm.lib;crypt32.lib;netapi32.lib;userenv.lib;dwmapi.lib;wtsapi32.lib;gdi32.lib;windowsapp.lib;dxva2.lib;d3d9.lib;evr.lib;mf.lib;mfplat.lib;mfplay.lib;mfreadwrite.lib;mfuuid.lib;wmcodecdspuuid.lib;strmiids.lib;advapi32.lib;shell32.lib;pdh.lib;opengl32.lib;glu32.lib;Engine.lib;QtBase.lib;edflib.lib;kissfft.lib;libpng.lib;libjpeg.lib;oscpack.lib;libsvm.lib;dspfilters.lib;wavelib.lib;brainflow.lib;brainflow-boardcontroller.lib;opencv-core.lib;opencv-imgcodecs.lib;opencv-imgproc.lib;opencv-videoio.lib;tinyaes.lib;tinyobjloader.lib;zlib.lib;double-conversion.lib;libcrypto.lib;libssl.lib;pcre2.lib;harfbuzz.lib;harfbuzz-ng.lib;freetype.lib;singleapplication.lib;qt-bluetooth.lib;qt-core.lib;qt-concurrent.lib;qt-eventdispatchers.lib;qt-fontdatabases.lib;qt-gamepad.lib;qt-gui.lib;qt-multimedia.lib;qt-network.lib;qt-multimediaplugins.lib;qt-multimediawidgets.lib;qt-widgets.lib;qt-websockets.lib;qt-opengl.lib;qt-printsupport.lib;qt-serialport.lib;qt-xml.lib;qt-platform-windows.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PreBuildEvent>
-      <Command>setlocal
-set MOC="../../deps/build/vs/bin/x64/qt-moc.exe" -DPRODUCTION_BUILD
-set RCC="../../deps/build/vs/bin/x64/qt-rcc.exe"
-set UIC="../../deps/build/vs/bin/x64/qt-uic.exe"
-Studio.cmd
-</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>QT RCC+MOC</Message>
-    </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>copy ..\..\deps\prebuilt\win\x64\*.dll bin\x64\
-copy ..\..\deps\build\vs\lib\x64\*.dll bin\x64\</Command>
-      <Message>Copy prebuilt</Message>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\deps\include\brainflow;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\data_handler;..\..\deps\include\brainflow\utils;..\..\deps\include\json;..\..\deps\include\neurosdk;..\..\deps\include\unicorn</AdditionalIncludeDirectories>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ExceptionHandling>false</ExceptionHandling>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>NEUROMORE_BRANDING_ANT;QT_LARGEFILE_SUPPORT=64;PRODUCTION_BUILD;QT_NO_FONTCONFIG;QT_QPA_DEFAULT_PLATFORM_NAME="windows";WIN32;_WINDOWS;NEUROMORE_PLATFORM_WINDOWS;__TBB_NO_IMPLICIT_LINKAGE;USE_WINTHREAD;OPENSSL_STATIC;OPENSSL_NO_DYNAMIC_ENGINE;QT_LINKED_OPENSSL;QT_STATIC;QT_NO_DEBUG;PCRE2_STATIC;PCRE2_CODE_UNIT_WIDTH=16;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <StringPooling>true</StringPooling>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <DisableSpecificWarnings>
-      </DisableSpecificWarnings>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <PrecompiledHeaderFile>Studio/Precompiled.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>APPNAME=eego perform studio;APPICON=AppIcon-ANT.ico;WIN32;_WINDOWS;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Midl>
       <OutputDirectory>$(IntDir)</OutputDirectory>

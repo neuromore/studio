@@ -1,46 +1,42 @@
 
 #include "winres.h"
+#include "../Version.h"
 
 #define CONCAT(a,b) a##b
 #define STRINGIZE_(x) #x
 #define STRINGIZE(x) STRINGIZE_(x)
 
-/////////////////////////////////////////////////////////////////////////////
-//
-// Version
-//
-
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION    1,6,0,0
-PRODUCTVERSION 1,6,0,0
-FILEFLAGSMASK 0x3fL
+FILEVERSION     NEUROMORE_STUDIO_VERSION_RESRC
+PRODUCTVERSION  NEUROMORE_STUDIO_VERSION_RESRC
+FILEFLAGSMASK   0x3fL
 #ifdef _DEBUG
-FILEFLAGS 0x1L
+FILEFLAGS       VS_FF_DEBUG
 #else
-FILEFLAGS 0x0L
+FILEFLAGS       0x0L
 #endif
-FILEOS 0x40004L
-FILETYPE 0x1L
-FILESUBTYPE 0x0L
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+FILESUBTYPE     VFT2_UNKNOWN
 BEGIN
-BLOCK "StringFileInfo"
-BEGIN
-BLOCK "040004b0"
-BEGIN
-VALUE "CompanyName", "neuromore co"
-VALUE "FileDescription", STRINGIZE(APPNAME)
-VALUE "FileVersion", "1.6.0.0"
-VALUE "InternalName", "neuromore.studio"
-VALUE "LegalCopyright", "Copyright (C) 2021"
-VALUE "OriginalFilename", ""
-VALUE "ProductName", STRINGIZE(APPNAME)
-VALUE "ProductVersion", "1.6.0.0"
-END
-END
-BLOCK "VarFileInfo"
-BEGIN
-VALUE "Translation", 0x400, 1200
-END
+ BLOCK "StringFileInfo"
+ BEGIN
+  BLOCK "040004b0"
+  BEGIN
+   VALUE "CompanyName",      "neuromore co"
+   VALUE "FileDescription",  STRINGIZE(APPNAME)
+   VALUE "FileVersion",      NEUROMORE_STUDIO_VERSION_STR4
+   VALUE "InternalName",     "neuromore.studio"
+   VALUE "LegalCopyright",   "Copyright (C) 2022"
+   VALUE "OriginalFilename", ""
+   VALUE "ProductName",      STRINGIZE(APPNAME)
+   VALUE "ProductVersion",   NEUROMORE_STUDIO_VERSION_STR4
+  END
+ END
+ BLOCK "VarFileInfo"
+ BEGIN
+  VALUE "Translation", 0x400, 1200
+ END
 END
 
-IDI_ICON1		ICON		DISCARDABLE	STRINGIZE(APPICON)
+IDI_ICON1 ICON DISCARDABLE STRINGIZE(APPICON)
