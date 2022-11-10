@@ -1693,6 +1693,8 @@ void MainWindow::OnLoadSettings()
 	const int defaultPresetIndex = 1;
 #elif NEUROMORE_BRANDING_STARRBASE
 	const int defaultPresetIndex = 2;
+#elif NEUROMORE_BRANDING_SUPERMIND
+   const int defaultPresetIndex = 3;
 #else
 	const int defaultPresetIndex = 0;
 #endif
