@@ -30,6 +30,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/edflib$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/oscpack$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/kissfft$(SUFFIX)$(EXTLIB) \
+             $(LIBDIRDEP)/tonic$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/zlib$(SUFFIX)$(EXTLIB) \
              $(LIBDIR)/Engine$(SUFFIX)$(EXTLIB)
 OBJS       = neuromoreEngineJni.o main.o
