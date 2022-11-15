@@ -64,7 +64,7 @@ jobs:
 
     # Cross-Compile Support
     - name: Cross-Compile Support
-      uses: cyberjunk/gha-ubuntu-cross@v2
+      uses: cyberjunk/gha-ubuntu-cross@v3
       if: matrix.arch != 'amd64'
       with:
         arch: ${{ matrix.arch }}
