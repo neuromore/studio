@@ -51,6 +51,7 @@ Open-Source Third Party Software included in this repository.
 | tinycbor            | 0.6.0    | https://github.com/intel/tinycbor                     | Concise Binary Object Representation    |
 | tinyobjectloader    | < 0.9    | https://github.com/syoyo/tinyobjloader                | WaveFront OBJ Format Support            |
 | tinyxml             | 2.6.2    | https://sourceforge.net/projects/tinyxml/             | XML Support                             |
+| tonic               | master   | https://github.com/TonicAudio/Tonic                   | Audio Synthesis                         |
 | wavelib             | ?.?.?    |                                                       |                                         |
 | wtl                 | 9.1      | http://wtl.sourceforge.net/                           | Windows Template Library (Windows only) |
 | zlib                | 1.2.11   | https://zlib.net/                                     | ZIP Compression                         |

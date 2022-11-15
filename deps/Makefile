@@ -309,6 +309,12 @@ tinyxml:
 tinyxml-clean:
 	+@make -s -C ./build/make/ -f tinyxml.mk clean
 
+tonic:
+	+@make -s -C ./build/make/ -f tonic.mk
+
+tonic-clean:
+	+@make -s -C ./build/make/ -f tonic.mk clean
+
 wavelib:
 	+@make -s -C ./build/make/ -f wavelib.mk
 
@@ -382,6 +388,7 @@ engine-dependencies: brainflow \
   tinyaes \
   tinyobjloader \
   tinyxml \
+  tonic \
   wavelib \
   zlib 
 
@@ -434,6 +441,7 @@ engine-dependencies: brainflow \
   tinyaes-clean \
   tinyobjloader-clean \
   tinyxml-clean \
+  tonic-clean \
   wavelib-clean \
   zlib-clean 
 

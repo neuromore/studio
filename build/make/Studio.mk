@@ -102,6 +102,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/tinyaes$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/tinyobjloader$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/tinyxml$(SUFFIX)$(EXTLIB) \
+             $(LIBDIRDEP)/tonic$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/libjpeg$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/libpng$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/libsvm$(SUFFIX)$(EXTLIB) \
