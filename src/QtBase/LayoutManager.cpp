@@ -134,15 +134,21 @@ void LayoutManager::ReInit()
 	///////////////////////////////////////////////////////////////////////////////////
 
 	String patientRoleName = "LAYOUT_Default";
+	bool isUserSupermindClinicPatient = false;
 
 	User* user = GetEngine()->GetUser();
 	if (user != nullptr && user->FindRule("ROLE_ClinicPatient") != nullptr) {
 		patientRoleName = "LAYOUT_BiofeedbackUser";
+#ifdef NEUROMORE_BRANDING_SUPERMIND
+		isUserSupermindClinicPatient = true;
+#endif
 	}
 	else {
 
 #if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_LINUX)
-  #ifdef CUSTOM_DEFAULT_LAYOUT
+  #ifdef NEUROMORE_BRANDING_SUPERMIND
+		RegisterLayout(new Layout(Layout::BUILTIN, "Default", ":/Layouts/Supermind.layout", "LAYOUT_Supermind", ""));
+  #elif CUSTOM_DEFAULT_LAYOUT
 		RegisterLayout(new Layout(Layout::BUILTIN, "Default", CUSTOM_DEFAULT_LAYOUT, "LAYOUT_Default", ""));
   #else
 		RegisterLayout(new Layout(Layout::BUILTIN, "Default", ":/Layouts/Default.layout", "LAYOUT_Default", ""));
@@ -162,7 +168,9 @@ void LayoutManager::ReInit()
 
 
 #ifdef NEUROMORE_PLATFORM_OSX
-  #ifdef CUSTOM_DEFAULT_LAYOUT
+  #ifdef NEUROMORE_BRANDING_SUPERMIND
+		RegisterLayout(new Layout(Layout::BUILTIN, "Default", ":/Layouts/Supermind.layout", "LAYOUT_Supermind", ""));
+  #elif CUSTOM_DEFAULT_LAYOUT
 		RegisterLayout(new Layout(Layout::BUILTIN, "Default", CUSTOM_DEFAULT_LAYOUT, "LAYOUT_Default", ""));
   #else
 		RegisterLayout(new Layout(Layout::BUILTIN, "Default", ":/Layouts/OSX_Default.layout", "LAYOUT_Default", ""));
@@ -175,8 +183,12 @@ void LayoutManager::ReInit()
 		RegisterLayout(new Layout(Layout::BUILTIN, "EEG", ":/Layouts/OSX_EEG.layout", "LAYOUT_EEG", ""));
 #endif
 	}
-	RegisterLayout(new Layout(Layout::BUILTIN, "Patient Layout", ":/Layouts/PatientUI.layout", patientRoleName, ""));
 
+	if (isUserSupermindClinicPatient) {
+		RegisterLayout(new Layout(Layout::BUILTIN, "Default", ":/Layouts/Supermind.layout", "LAYOUT_Default", ""));
+	} else {
+		RegisterLayout(new Layout(Layout::BUILTIN, "Patient Layout", ":/Layouts/PatientUI.layout", patientRoleName, ""));
+	}
 	///////////////////////////////////////////////////////////////////////////////////
 	// Local layouts
 	///////////////////////////////////////////////////////////////////////////////////
