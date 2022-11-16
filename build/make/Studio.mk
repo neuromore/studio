@@ -524,6 +524,7 @@ LINKFLAGS := $(LINKFLAGS) -Wl,-object_path_lto,$(OBJDIR)/lto.o
 LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/qt-platform-cocoa$(SUFFIX)$(EXTLIB) \
              -lcups \
+             -framework Accelerate \
              -framework AppKit \
              -framework AVFoundation \
              -framework Carbon \

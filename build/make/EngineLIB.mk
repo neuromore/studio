@@ -80,7 +80,8 @@ CXXFLAGS  := $(CXXFLAGS)
 LINKFLAGS := $(LINKFLAGS) \
              -dynamiclib \
              -install_name @rpath/$(NAME)$(EXTDLL)
-LINKLIBS  := $(LINKLIBS)
+LINKLIBS  := $(LINKLIBS) \
+             -framework Accelerate
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
@@ -140,7 +141,8 @@ CXXFLAGS  := $(CXXFLAGS)
 LINKFLAGS := $(LINKFLAGS) \
              -dynamiclib \
              -install_name @rpath/$(NAME)$(EXTDLL)
-LINKLIBS  := $(LINKLIBS)
+LINKLIBS  := $(LINKLIBS) \
+             -framework Accelerate
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif

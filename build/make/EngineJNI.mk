@@ -91,7 +91,8 @@ INCLUDES  := $(INCLUDES) \
              -I"$(JAVA_HOME)/include/darwin"
 CXXFLAGS  := $(CXXFLAGS)
 LINKFLAGS := $(LINKFLAGS)
-LINKLIBS  := $(LINKLIBS)
+LINKLIBS  := $(LINKLIBS) \
+             -framework Accelerate
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
@@ -151,7 +152,8 @@ ifeq ($(TARGET_OS),ios)
 DEFINES   := $(DEFINES) -DNEUROMORE_PLATFORM_IOS
 CXXFLAGS  := $(CXXFLAGS)
 LINKFLAGS := $(LINKFLAGS)
-LINKLIBS  := $(LINKLIBS)
+LINKLIBS  := $(LINKLIBS) \
+             -framework Accelerate
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
