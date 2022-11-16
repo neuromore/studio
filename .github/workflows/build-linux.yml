@@ -113,7 +113,9 @@ jobs:
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
-
+      with:
+        submodules: recursive
+        
     # Set Environment Vars
     - name: Set Environment Vars
       run: |
