@@ -1,0 +1,3 @@
+[submodule "priv"]
+	path = priv
+	url = git+ssh://git@github.com/neuromore/studio-private
