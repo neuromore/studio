@@ -50,24 +50,24 @@ OBJS       = ADSR.o \
              DSPUtils.o \
              Effect.o \
              Filters.o \
-			 FilterUtils.o \
-			 FixedValue.o \
-			 Generator.o \
-			 LFNoise.o \
-			 Mixer.o \
-			 MonoToStereoPanner.o \
-			 Noise.o \
-			 RampedValue.o \
-			 RectWave.o \
-			 Reverb.o \
-			 RingBuffer.o \
-			 SampleTable.o \
-			 SawtoothWave.o \
-			 SineWave.o \
-			 StereoDelay.o \
-			 Synth.o \
-			 TableLookupOsc.o \
-			 TonicFrames.o
+             FilterUtils.o \
+             FixedValue.o \
+             Generator.o \
+             LFNoise.o \
+             Mixer.o \
+             MonoToStereoPanner.o \
+             Noise.o \
+             RampedValue.o \
+             RectWave.o \
+             Reverb.o \
+             RingBuffer.o \
+             SampleTable.o \
+             SawtoothWave.o \
+             SineWave.o \
+             StereoDelay.o \
+             Synth.o \
+             TableLookupOsc.o \
+             TonicFrames.o
 
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
