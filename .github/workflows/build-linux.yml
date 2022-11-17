@@ -120,7 +120,7 @@ jobs:
         repository: neuromore/studio-private
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
         path: priv
-        
+
     # Set Environment Vars
     - name: Set Environment Vars
       run: |
