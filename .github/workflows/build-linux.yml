@@ -117,8 +117,8 @@ jobs:
     - name: Checkout Submodule
       uses: actions/checkout@v3
       with:
-        repository: neuromore/studio-private
-        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        repository: neuromore/studio-private
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
         path: priv
 
 #        submodules: recursive
