@@ -116,7 +116,6 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-        ssh-key: ''
 
     # Set Environment Vars
     - name: Set Environment Vars
