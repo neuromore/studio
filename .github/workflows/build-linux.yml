@@ -113,13 +113,10 @@ jobs:
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
-
-    - name: Checkout Submodule
-      uses: actions/checkout@v3
       with:
-        repository: neuromore/studio-private
-        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-        path: priv
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        ssh-key: ''
 
     # Set Environment Vars
     - name: Set Environment Vars
