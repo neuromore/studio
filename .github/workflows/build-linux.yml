@@ -120,9 +120,6 @@ jobs:
         repository: neuromore/studio-private
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
         path: priv
-
-#        submodules: recursive
-#        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
         
     # Set Environment Vars
     - name: Set Environment Vars
