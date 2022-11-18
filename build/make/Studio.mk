@@ -34,6 +34,9 @@ INCLUDES  := $(INCLUDES) \
              -I../../src/ \
              -I../../src/Engine \
              -I../../src/QtBase \
+             -I../../priv/src/ \
+             -I../../priv/src/Engine \
+             -I../../priv/src/QtBase \
              -I$(INCDIR) \
              -I$(INCDIR)/brainflow/board_controller \
              -I$(INCDIR)/brainflow/data_handler \
@@ -42,6 +45,7 @@ INCLUDES  := $(INCLUDES) \
              -I$(INCDIR)/neurosdk \
              -I$(INCDIR)/unicorn \
              -I$(SRCDIR) \
+             -I$(SRCDIRPRIV) \
              -I$(UICDIR) \
              -I$(MOCDIR) \
              -I$(INCDIR)/qt \

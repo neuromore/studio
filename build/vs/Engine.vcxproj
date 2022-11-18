@@ -149,7 +149,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;..\..\priv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -196,7 +196,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;..\..\priv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -243,7 +243,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;..\..\priv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -290,7 +290,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;..\..\priv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -336,7 +336,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;..\..\priv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -382,7 +382,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;..\..\priv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -428,7 +428,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;..\..\priv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -471,7 +471,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\deps\include\brainflow\board_controller;..\..\deps\include\brainflow\utils;..\..\src;..\..\priv\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>

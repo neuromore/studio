@@ -24,8 +24,11 @@ DEFINES   := $(DEFINES) \
 INCLUDES  := $(INCLUDES) \
              -I../../src \
              -I../../src/Engine \
+             -I../../priv/src \
+             -I../../priv/src/Engine \
              -I$(INCDIR) \
              -I$(SRCDIR) \
+             -I$(SRCDIRPRIV) \
              -I$(UICDIR) \
              -I$(MOCDIR) \
              -I$(INCDIR)/qt \

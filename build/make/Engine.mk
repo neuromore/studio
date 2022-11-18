@@ -14,7 +14,9 @@ INCLUDES  := $(INCLUDES) \
              -I$(INCDIR)/brainflow/utils \
              -I$(INCDIR)/brainflow/board_controller \
              -I../../src \
-             -I$(SRCDIR)
+             -I../../priv/src \
+             -I$(SRCDIR) \
+             -I$(SRCDIRPRIV)
 CXXFLAGS  := $(CXXFLAGS) \
              -Wno-unknown-warning-option \
              -Wno-deprecated-declarations \
