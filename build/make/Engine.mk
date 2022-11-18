@@ -4,6 +4,7 @@ include ../../deps/build/make/platforms/detect-host.mk
 NAME       = Engine
 INCDIR     = ../../deps/include/
 SRCDIR     = ../../src/$(NAME)
+SRCDIRPRIV = ../../priv/src/$(NAME)
 OBJDIR    := $(OBJDIR)/$(NAME)
 DEFINES   := $(DEFINES) \
              -DUNICODE \
@@ -216,6 +217,7 @@ OBJS       = Core/AABB.o \
              Session.o \
              SessionExporter.o \
              User.o
+OBJSPRIV   = 
 
 ################################################################################################
 # BRANDINGS
@@ -226,21 +228,25 @@ endif
 
 ifeq ($(BRANDING),neuromore)
 DEFINES   := $(DEFINES)
+OBJSPRIV  := $(OBJSPRIV)
 endif
 
 ifeq ($(BRANDING),ant)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_ANT
+OBJSPRIV  := $(OBJSPRIV)
 endif
 
 ifeq ($(BRANDING),starrbase)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_STARRBASE
+OBJSPRIV  := $(OBJSPRIV)
 endif
 
 ifeq ($(BRANDING),supermind)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_SUPERMIND
+OBJSPRIV  := $(OBJSPRIV)
 endif
 
 ################################################################################################
@@ -374,10 +380,14 @@ DEFINES := $(DEFINES) -DPRODUCTION_BUILD
 endif
 
 ################################################################################################
+# PCH
 
 pch:
 	@echo [PCH] $(OBJDIR)/$(PCH).pch
 	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -x c++-header -c $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
+
+################################################################################################
+# OBJECTS
 
 OBJS := $(patsubst %,$(OBJDIR)/%,$(OBJS))
 
@@ -387,12 +397,26 @@ $(OBJDIR)/%.o:
 
 $(OBJS) : pch
 
-build: pch $(OBJS)
+################################################################################################
+# OBJECTS PRIVATE
+
+OBJSPRIV := $(patsubst %,$(OBJDIR)/%,$(OBJSPRIV))
+
+$(OBJDIR)/%.op:
+	@echo [CXX] $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.op=$(SRCDIRPRIV)%.cpp) -o $@
+
+$(OBJSPRIV) : pch
+
+################################################################################################
+
+build: pch $(OBJS) $(OBJSPRIV)
 	@echo [AR]  $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB)
-	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS)
+	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS) $(OBJSPRIV)
 
 clean:
 	$(call deletefiles,$(OBJDIR),*.o)
+	$(call deletefiles,$(OBJDIR),*.op)
 	$(call deletefiles,$(OBJDIR),$(PCH).pch)
 	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTLIB))
 
