@@ -5,6 +5,7 @@ NAME       = Studio
 TARGET     = $(BINDIR)/$(NAME)$(SUFFIX)$(EXTBIN)
 INCDIR     = ../../deps/include
 SRCDIR     = ../../src/$(NAME)
+SRCDIRPRIV = ../../priv/src/$(NAME)
 INCDIRQT   = $(SRCDIR)
 MOCDIR     = $(SRCDIR)/.moc
 RCCDIR     = $(SRCDIR)/.rcc
@@ -356,6 +357,7 @@ OBJS       = Devices/ABM/AbmDriver.o \
              VisualizationManager.o \
              OnboardingAction.o \
              TourManager.o
+OBJSPRIV   = 
 
 ################################################################################################
 # Version
@@ -377,6 +379,7 @@ APPNAME    = neuromore Studio
 DEFINES   := $(DEFINES) \
              -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-neuromore.ico"
+OBJSPRIV  := $(OBJSPRIV)
 endif
 
 ifeq ($(BRANDING),ant)
@@ -385,6 +388,7 @@ DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_ANT \
              -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-ant.ico"
+OBJSPRIV  := $(OBJSPRIV)
 endif
 
 ifeq ($(BRANDING),starrbase)
@@ -393,6 +397,7 @@ DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_STARRBASE \
              -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-starrbase.ico"
+OBJSPRIV  := $(OBJSPRIV)
 endif
 
 ifeq ($(BRANDING),supermind)
@@ -401,6 +406,7 @@ DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_SUPERMIND \
              -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-supermind.ico"
+OBJSPRIV  := $(OBJSPRIV)
 endif
 
 ################################################################################################
@@ -740,6 +746,23 @@ $(OBJDIR)/%.omm:
 	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.omm=$(SRCDIR)%.mm) -o $@
 
 ################################################################################################
+# OBJS PRIVATE
+
+OBJSPRIV := $(patsubst %,$(OBJDIR)/%,$(OBJSPRIV))
+
+$(OBJDIR)/%.op:
+	@echo [CXX] $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.op=$(SRCDIRPRIV)%.cpp) -o $@
+
+$(OBJDIR)/%.ocp:
+	@echo [CC]  $@
+	$(CC) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.ocp=$(SRCDIRPRIV)%.c) -o $@
+
+$(OBJDIR)/%.ommp:
+	@echo [CXX] $@
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -include-pch $(OBJDIR)/$(PCH).pch -c $(@:$(OBJDIR)%.ommp=$(SRCDIRPRIV)%.mm) -o $@
+
+################################################################################################
 # RES
 	
 RESO := $(patsubst %,$(OBJDIR)/%,$(RESO))
@@ -754,9 +777,10 @@ $(OBJDIR)/%.res:
 
 $(MOCO) : pch
 $(OBJS) : pch
+$(OBJSPRIV) : pch
 
 PRES := $(MOCH) $(MOCC) $(RCCH) $(UICH)
-OBLS := $(OBJS) $(MOCO) $(RCCO)
+OBLS := $(OBJS) $(OBJSPRIV) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
 $(RESO) : $(PRES)
@@ -779,8 +803,11 @@ clean:
 	$(call deletefiles,$(UICDIR),*.h)
 	$(call deletefiles,$(OBJDIR),$(PCH).pch)
 	$(call deletefiles,$(OBJDIR),*.o)
+	$(call deletefiles,$(OBJDIR),*.op)
 	$(call deletefiles,$(OBJDIR),*.oc)
+	$(call deletefiles,$(OBJDIR),*.ocp)
 	$(call deletefiles,$(OBJDIR),*.omm)
+	$(call deletefiles,$(OBJDIR),*.ommp)
 	$(call deletefiles,$(OBJDIR),*.omoc)
 	$(call deletefiles,$(OBJDIR),*.orcc)
 	$(call deletefiles,$(OBJDIR),*.res)
