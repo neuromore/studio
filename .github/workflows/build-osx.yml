@@ -30,6 +30,9 @@ jobs:
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
 
     # Load Dependencies from Cache
     - name: Cache Dependencies

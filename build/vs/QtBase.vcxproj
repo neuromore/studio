@@ -149,7 +149,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\priv\src;..\..\priv\src\Engine;..\..\priv\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -204,7 +204,7 @@ QtBase.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\priv\src;..\..\priv\src\Engine;..\..\priv\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -259,7 +259,7 @@ QtBase.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\priv\src;..\..\priv\src\Engine;..\..\priv\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -314,7 +314,7 @@ QtBase.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\priv\src;..\..\priv\src\Engine;..\..\priv\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -368,7 +368,7 @@ QtBase.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\priv\src;..\..\priv\src\Engine;..\..\priv\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -422,7 +422,7 @@ QtBase.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Production-ANT|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\priv\src;..\..\priv\src\Engine;..\..\priv\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -476,7 +476,7 @@ QtBase.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\priv\src;..\..\priv\src\Engine;..\..\priv\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -527,7 +527,7 @@ QtBase.cmd
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\deps\include;..\..\src;..\..\src\Engine;..\..\src\QtBase;..\..\priv\src;..\..\priv\src\Engine;..\..\priv\src\QtBase;..\..\deps\include\qt;..\..\deps\include\qt\QtBluetooth;..\..\deps\include\qt\QtCore;..\..\deps\include\qt\mkspecs\win32-msvc;..\..\deps\include\qt\QtConcurrent;..\..\deps\include\qt\QtGamepad;..\..\deps\include\qt\QtGui;..\..\deps\include\qt\QtMultimedia;..\..\deps\include\qt\QtNetwork;..\..\deps\include\qt\QtMultimediaWidgets;..\..\deps\include\qt\QtWidgets;..\..\deps\include\qt\QtOpenGL;..\..\deps\include\qt\QtPrintSupport;..\..\deps\include\qt\QtSerialPort;..\..\deps\include\qt\QtXml;..\..\src\QtBase\Mocs\include_Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
