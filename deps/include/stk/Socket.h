@@ -3,8 +3,9 @@
 
 #include "Stk.h"
 
-#if (defined(__OS_IRIX__) || defined(__OS_LINUX__) || defined(__OS_MACOSX__))
-
+#if defined(__OS_WINDOWS__)
+  #include <winsock.h>
+#else
   #include <sys/socket.h>
   #include <sys/types.h>
   #include <arpa/inet.h>
@@ -13,11 +14,6 @@
   #include <fcntl.h>
   #include <netinet/in.h>
   #include <netinet/tcp.h>
-
-#elif defined(__OS_WINDOWS__)
-
-  #include <winsock.h>
-
 #endif
 
 namespace stk {

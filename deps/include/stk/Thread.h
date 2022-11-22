@@ -3,23 +3,19 @@
 
 #include "Stk.h"
 
-#if (defined(__OS_IRIX__) || defined(__OS_LINUX__) || defined(__OS_MACOSX__))
-
-  #include <pthread.h>
-  #define THREAD_TYPE
-  typedef pthread_t THREAD_HANDLE;
-  typedef void * THREAD_RETURN;
-  typedef void * (*THREAD_FUNCTION)(void *);
-
-#elif defined(__OS_WINDOWS__)
-
+#if defined(__OS_WINDOWS__)
   #include <windows.h>
   #include <process.h>
   #define THREAD_TYPE __stdcall
   typedef unsigned long THREAD_HANDLE;
   typedef unsigned THREAD_RETURN;
   typedef unsigned (__stdcall *THREAD_FUNCTION)(void *);
-
+#else
+  #include <pthread.h>
+  #define THREAD_TYPE
+  typedef pthread_t THREAD_HANDLE;
+  typedef void * THREAD_RETURN;
+  typedef void * (*THREAD_FUNCTION)(void *);
 #endif
 
 namespace stk {

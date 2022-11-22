@@ -3,19 +3,15 @@
 
 #include "Stk.h"
 
-#if (defined(__OS_IRIX__) || defined(__OS_LINUX__) || defined(__OS_MACOSX__))
-
-  #include <pthread.h>
-  typedef pthread_mutex_t MUTEX;
-  typedef pthread_cond_t CONDITION;
-
-#elif defined(__OS_WINDOWS__)
-
+#if defined(__OS_WINDOWS__)
   #include <windows.h>
   #include <process.h>
   typedef CRITICAL_SECTION MUTEX;
   typedef HANDLE CONDITION;
-
+#else
+  #include <pthread.h>
+  typedef pthread_mutex_t MUTEX;
+  typedef pthread_cond_t CONDITION;
 #endif
 
 namespace stk {
