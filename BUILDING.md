@@ -62,7 +62,9 @@ sudo apt-get install \
  libxcb-xfixes0-dev \
  libxcb-xinerama0-dev \
  libxcb-xkb-dev \
- libxcb-util-dev
+ libxcb-util-dev \
+ libpulse-dev \
+ libasound2-dev
 ```
 
 #### Mac OSX
