@@ -248,7 +248,9 @@ endif
 ifeq ($(BRANDING),supermind)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING_SUPERMIND
-OBJSPRIV  := $(OBJSPRIV)
+OBJSPRIV  := $(OBJSPRIV) \
+             DSP/CoherenceProcessor.op \
+             Graph/CoherenceNode.op
 endif
 
 ################################################################################################

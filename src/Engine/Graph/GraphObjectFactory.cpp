@@ -77,6 +77,10 @@
 #include "OscillatorNode.h"
 #include "WaveformNode.h"
 
+#ifdef INCLUDE_NODE_COHERENCE
+  #include <Graph/CoherenceNode.h>
+#endif
+
 // Bio Analysis
 #include "HrvNode.h"
 #include "ThresholdNode.h"
@@ -193,6 +197,10 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new BinSelectorNode(NULL) );
 		RegisterObjectType( new OscillatorNode(NULL) );
 		RegisterObjectType( new WaveformNode(NULL) );
+
+#ifdef INCLUDE_NODE_COHERENCE
+		RegisterObjectType( new CoherenceNode(NULL) );
+#endif
 		
 		// Bio Analysis
 		RegisterObjectType( new HrvNode(NULL) );

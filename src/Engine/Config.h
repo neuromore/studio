@@ -72,6 +72,10 @@
 // gamepad
 #define INCLUDE_DEVICE_GAMEPAD
 
+#ifdef NEUROMORE_BRANDING_SUPERMIND
+  #define INCLUDE_NODE_COHERENCE
+#endif
+
 // others disabled
 //#define INCLUDE_DEVICE_GENERIC_AUDIO
 
