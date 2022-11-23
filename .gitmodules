@@ -1,4 +1,4 @@
 [submodule "priv"]
 	path = priv
 	url = ../studio-private
-	branch = feature/CoherenceNode
+	branch = .
