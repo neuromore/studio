@@ -1,12 +1,53 @@
 # neuromore Studio
 
-Build state-of-the-art neurofeedback applications with ease using neuromore Studio!
+## Your all-in-one biofeedback suite
 
-Our node-based IDE supports a wide variety of biosensors like EEG headsets (e.g. OpenBCI boards, Interaxon’s Muse and devices supported by the Brainflow API), heart rate monitors, and bluetooth devices that you can effortlessly connect to your applications.
-
-Create audio or visual experiences within neuromore Studio or make your application control your Unity game, your favorite audio production, or your visualizer of choice using the Open Sound Control protocol. The only limit is our imagination!
+Create stunning neuro- and biofeedback experiences with ease using neuromore Studio!
 
 ![2022_02_03_Demo](https://user-images.githubusercontent.com/10089188/152370510-9eb30fc5-eb27-4696-9dc0-1ae25acb3586.gif)
+
+## Features 
+
+### Plug'n'play - Your no-code IDE for biodata application
+
+The Studio is designed to enable everyone from neuroscientists, therapists and clinicians to neuroenthusiasts to build biofeedback applications without writing code. Drag and drop nodes together and create immersive biofeedback applications at the speed of thought.
+
+### Hardware-agnostic - One platform to interface them all
+
+neuromore Studio provides you with a hardware-agnostic interface that includes medical grade EEG amplifiers, consumer EEG headsets, and heart and GSR sensors. 
+Those devices include: 
+- Neurosity Crown, Notion, & Notion 2
+- Interaxon Muse 2
+- OpenBCI Cyton, Daisy, Ganglion
+- G.Tec Unicorn (via Brainflow)
+- Ant Neuro eego mini 8 and mini 24
+- Brainmaster Discovery
+- Mitsar	EEG 201
+- Polar 10
+- All Brainflow devices
+- ... and many more
+
+Have a look at the [devices](https://doc.neuromore.com/?cat=0&page=3) section in our docs to see a full list of supported devices. 
+We're always interested in extending this list together with our community so if you have a request or want to integrate a device, please reach out and we can find a way to make it work with the Studio.
+
+### State-of-the-art biofeedback
+
+Create immersive end-to-end experiences from protocol to visualization. The Studio comes with 4 pre-built games in which you can control the speed of a car, the weather, screen effects and volume. You can also choose to play videos or audio files and control their brightness and volume for personalized neurofeedback training. 
+And if you want to go one step further, you can also make your application control your Unity game, your favorite audio production, or your visualizer of choice via the Open Sound Control protocol. The only limit is our imagination!
+
+### Visualize your data - From data to insights in real-time
+
+Analyze raw and processed EEG and other bio-signals in real-time using various signal views, a 3D LORETA brain representation, power spectograms, and more.
+
+- Live biodata viewer
+- 3D LORETA visualization
+- Feedback visualizations
+- Power spectrograms
+- Completely configurable layouts
+
+### Cloud convenience - Analyze session reports from anywhere
+
+Analyze your own sessions or sessions of your patients in the cloud under account.neuromore.com using various graphs and statistics.
 
 ## License
 
