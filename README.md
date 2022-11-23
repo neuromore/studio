@@ -8,7 +8,7 @@ Create stunning neuro- and biofeedback experiences with ease using neuromore Stu
 
 ## Features 
 
-### Plug'n'play - Your no-code IDE for biodata application
+### Plug'n'play - Your no-code IDE for biodata applications
 
 The Studio is designed to enable everyone from neuroscientists, therapists and clinicians to neuroenthusiasts to build biofeedback applications without writing code. Drag and drop nodes together and create immersive biofeedback applications at the speed of thought.
 
