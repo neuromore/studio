@@ -7,7 +7,7 @@
   #include <windows.h>
   #include <process.h>
   #define THREAD_TYPE __stdcall
-  typedef unsigned long THREAD_HANDLE;
+  typedef uintptr_t THREAD_HANDLE;
   typedef unsigned THREAD_RETURN;
   typedef unsigned (__stdcall *THREAD_FUNCTION)(void *);
 #else
