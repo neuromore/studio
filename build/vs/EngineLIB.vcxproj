@@ -168,7 +168,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;stk.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x86;../../deps/build/vs/lib/x86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -218,7 +218,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;stk.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x86;../../deps/build/vs/lib/x86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -267,7 +267,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;stk.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x64;../../deps/build/vs/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -316,7 +316,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;oscpack.lib;zlib.lib;edflib.lib;kissfft.lib;brainflow.lib;brainflow-boardcontroller.lib;stk.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x64;../../deps/build/vs/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -362,7 +362,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine_d.lib;oscpack_d.lib;zlib_d.lib;edflib_d.lib;kissfft_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine_d.lib;oscpack_d.lib;zlib_d.lib;edflib_d.lib;kissfft_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;stk_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x86;../../deps/build/vs/lib/x86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -408,7 +408,7 @@
       <SubSystem>Console</SubSystem>
     </Lib>
     <Link>
-      <AdditionalDependencies>Engine_d.lib;oscpack_d.lib;zlib_d.lib;edflib_d.lib;kissfft_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine_d.lib;oscpack_d.lib;zlib_d.lib;edflib_d.lib;kissfft_d.lib;brainflow_d.lib;brainflow-boardcontroller_d.lib;stk_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>./lib/x64;../../deps/build/vs/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
