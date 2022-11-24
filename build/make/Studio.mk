@@ -67,6 +67,7 @@ LINKPATH  := $(LINKPATH) \
 LINKLIBS  := $(LINKLIBS) \
              $(LIBDIR)/Engine$(SUFFIX)$(EXTLIB) \
              $(LIBDIR)/QtBase$(SUFFIX)$(EXTLIB) \
+             $(LIBDIRDEP)/stk$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/singleapplication$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/qt-bluetooth$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/qt-eventdispatchers$(SUFFIX)$(EXTLIB) \

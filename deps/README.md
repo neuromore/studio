@@ -45,6 +45,7 @@ Open-Source Third Party Software included in this repository.
 | sha1                | ?.?.?    |                                                       | SHA1                                    |
 | sha3                | ?.?.?    |                                                       | SHA3                                    |
 | singleapplication   | 3.3.4    | https://github.com/itay-grudev/SingleApplication      | Qt Single Application Extension         |
+| stk                 | ?.?.?    | https://github.com/thestk/stk                         | Audio Synthesis Library                 |
 | spdlog              | 0.17.0   | https://github.com/gabime/spdlog                      | C++ Logging Library                     |
 | stb                 | 2.24     | https://github.com/nothings/stb                       | Single File Header Libraries            |
 | tinyaes             | 1.0.0    | https://github.com/kokke/tiny-AES-c                   | AES Support                             |

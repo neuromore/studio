@@ -25,6 +25,7 @@ CXXFLAGS  := $(CXXFLAGS) \
 LINKFLAGS := $(LINKFLAGS) -shared
 LINKPATH  := $(LINKPATH)
 LINKLIBS  := $(LINKLIBS) \
+             $(LIBDIRDEP)/stk$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/brainflow$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/brainflow-boardcontroller$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/edflib$(SUFFIX)$(EXTLIB) \

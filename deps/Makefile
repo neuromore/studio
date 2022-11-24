@@ -291,6 +291,12 @@ singleapplication: qt-moc qt-rcc qt-uic
 singleapplication-clean: qt-moc-clean qt-rcc-clean qt-uic-clean
 	+@make -s -C ./build/make/ -f singleapplication.mk clean
 
+stk:
+	+@make -s -C ./build/make/ -f stk.mk
+
+stk-clean:
+	+@make -s -C ./build/make/ -f stk.mk clean
+
 tinyaes:
 	+@make -s -C ./build/make/ -f tinyaes.mk
 
@@ -379,6 +385,7 @@ engine-dependencies: brainflow \
   qt-widgets \
   qt-xml \
   singleapplication \
+  stk \
   tinyaes \
   tinyobjloader \
   tinyxml \
@@ -431,6 +438,7 @@ engine-dependencies: brainflow \
   qt-widgets-clean \
   qt-xml-clean \
   singleapplication-clean \
+  stk-clean \
   tinyaes-clean \
   tinyobjloader-clean \
   tinyxml-clean \

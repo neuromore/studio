@@ -98,6 +98,8 @@ jobs:
           libxcb-xinerama0-dev:$ARCH \
           libxcb-xkb-dev:$ARCH \
           libxcb-util-dev:$ARCH \
+          libpulse-dev:$ARCH \
+          libasound2-dev:$ARCH \
           libglib2.0-dev:$ARCH \
           libgstreamer1.0-dev:$ARCH \
           libgstreamer-plugins-base1.0-dev:$ARCH \
