@@ -33,10 +33,6 @@
 
 using namespace Core;
 
-// STK TEST CODE
-#include <stk/Stk.h>
-#include <stk/Guitar.h>
-
 // constructor
 DeviceManager::DeviceManager()
 {
@@ -50,13 +46,6 @@ DeviceManager::DeviceManager()
 
 	// enable autoremoval by default
 	mRemoveInactiveDevices = true;
-
-   // STK TEST CODE
-   stk::Stk::setSampleRate((stk::StkFloat)44100.0);
-   stk::Guitar g;
-   g.setFrequency(220.0);
-   g.noteOn(220.0, 0.5);
-   stk::StkFloat f = g.tick();
 }
 
 
