@@ -29,6 +29,9 @@
 #include "../Core/StandardHeaders.h"
 #include "SPNode.h"
 
+// STK
+#include <stk/SineWave.h>
+
 class ENGINE_API ToneGeneratorNode : public SPNode
 {
 public:
@@ -61,6 +64,7 @@ public:
    GraphObject* Clone(Graph* graph) override { ToneGeneratorNode* clone = new ToneGeneratorNode(graph); return clone; }
 
 private:
+   stk::SineWave mSineWave;
 };
 
 

@@ -30,7 +30,7 @@
 using namespace Core;
 
 // constructor
-ToneGeneratorNode::ToneGeneratorNode(Graph* graph) : SPNode(graph)
+ToneGeneratorNode::ToneGeneratorNode(Graph* graph) : SPNode(graph), mSineWave()
 {
 }
 
@@ -79,6 +79,22 @@ void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
 
    // update the baseclass
    SPNode::Update(elapsed, delta);
+
+   // get frequency input port
+   InputPort& freqInput = GetInputPort(INPUTPORT_FREQUENCY);
+
+   // must be connected
+   if (!freqInput.HasConnection())
+      return;
+
+   // get last frequency
+   const double freq = freqInput.GetChannels()
+      ->GetChannel(0)
+      ->AsType<double>()
+      ->GetLastSample();
+
+   // set in on STK sinewave
+   mSineWave.setFrequency(freq);
 }
 
 
