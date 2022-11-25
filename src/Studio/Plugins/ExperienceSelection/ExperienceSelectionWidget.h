@@ -64,7 +64,7 @@ class ExperienceSelectionItemWidget : public QWidget
 {
 		Q_OBJECT
 	public:
-		ExperienceSelectionItemWidget(ExperienceSelectionWidget* parent, const FileSystemItem& item, const FileSystemItem& parentItem=FileSystemItem());
+		ExperienceSelectionItemWidget(ExperienceSelectionWidget* parent, const FileSystemItem& item, const QSize& size, const FileSystemItem& parentItem=FileSystemItem());
 		virtual ~ExperienceSelectionItemWidget()														{}
 
 		const FileSystemItem& GetItem() const															{ return mItem; }

@@ -590,7 +590,11 @@ QTreeWidgetItem* BackendFileSystemWidget::AddFolderItem(const Json::Item& jsonFo
 
 	folderItem->setIcon( 0, GetQtBaseManager()->FindIcon(iconPath.AsChar()) );
 
-	folderItem->setText( 0, nameItem.GetString() );
+	if (nameItem.GetString() == GetSessionUser()->GetIdString()) {
+		folderItem->setText( 0, "My files" );
+	} else {
+		folderItem->setText( 0, nameItem.GetString() );
+	}
 
 	String folderPath = path + nameItem.GetString() + "/";
 	
