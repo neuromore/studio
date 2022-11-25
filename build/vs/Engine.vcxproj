@@ -950,7 +950,9 @@
     <ClInclude Include="..\..\src\Engine\Graph\ThresholdNode.h" />
     <ClCompile Include="..\..\src\Engine\Graph\TimerState.cpp" />
     <ClInclude Include="..\..\src\Engine\Graph\TimerState.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\ToneGeneratorNode.cpp" />
     <ClCompile Include="..\..\src\Engine\Graph\ViewNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\ToneGeneratorNode.h" />
     <ClInclude Include="..\..\src\Engine\Graph\ViewNode.h" />
     <ClCompile Include="..\..\src\Engine\Graph\WaveformNode.cpp" />
     <ClInclude Include="..\..\src\Engine\Graph\WaveformNode.h" />
