@@ -32,6 +32,7 @@ using namespace Core;
 // constructor
 ToneGeneratorNode::ToneGeneratorNode(Graph* graph) : SPNode(graph), mSineWave()
 {
+   stk::Stk::setSampleRate(8000);
 }
 
 // destructor
@@ -57,6 +58,9 @@ void ToneGeneratorNode::Init()
 void ToneGeneratorNode::Start(const Time& elapsed)
 {
    SPNode::Start(elapsed);
+
+   // reset tone
+   mSineWave.reset();
 }
 
 void ToneGeneratorNode::ReInit(const Time& elapsed, const Time& delta)
@@ -64,9 +68,7 @@ void ToneGeneratorNode::ReInit(const Time& elapsed, const Time& delta)
    if (BaseReInit(elapsed, delta) == false)
       return;
 
-   // reinit baseclass
    SPNode::ReInit(elapsed, delta);
-
    PostReInit(elapsed, delta);
 }
 
