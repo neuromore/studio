@@ -37,6 +37,7 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <Audio/MediaContent.h>
+#include <Audio/TonePlayer.h>
 
 // VideoPlayer
 #include "../../VideoPlayer.h"
@@ -91,6 +92,11 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 
 		void OnActiveStateMachineChanged(StateMachine* stateMachine) override;
 		
+		// classifier events
+		void OnActiveClassifierChanged(Classifier* classifier) override;
+		void OnNodeAdded(Graph* graph, Node* node) override;
+		void OnRemoveNode(Graph* graph, Node* node) override;
+		void OnGraphReset(Graph* graph) override;
 		// -----------------------------------------------------
 
 		void SetVolume(float normalizedVolume, const char* filename);
@@ -167,6 +173,9 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		// .mp4 etc. movie
 		QPixmap						mMoviePixmap;
 		OpenCVVideoPlayer*			mVideoPlayer;
+
+		// generated tone playback
+		Core::Array<TonePlayer*>	mTonePlayers;
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 		// windows master volume control

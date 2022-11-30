@@ -38,6 +38,12 @@ public:
    enum { TYPE_ID = 0x005A };
    static const char* Uuid() { return "966f12c6-72b0-40aa-8a2b-6ce3cf1359e1"; }
 
+   // sample rate used when generation audio
+   static constexpr int AUDIOSAMPLERATE = 8000;
+   
+   // number of samples that can be stored in the buffer (4000=500ms)
+   static constexpr int AUDIOBUFFERSAMPLES = AUDIOSAMPLERATE / 2;
+
    enum
    {
       INPUTPORT_FREQUENCY = 0
@@ -64,7 +70,25 @@ public:
    GraphObject* Clone(Graph* graph) override { ToneGeneratorNode* clone = new ToneGeneratorNode(graph); return clone; }
 
 private:
-   stk::SineWave mSineWave;
+   stk::SineWave   mSineWave;
+   double          mFramesRemainder;
+   union {
+      const float* mSamplesEnd;
+      const char*  mBufferEnd;
+   };
+   char*           mBufferRead;
+   union {
+      float*       mSamplesWrite;
+      char*        mBufferWrite;
+   };
+   union {
+      float        mSamples[AUDIOBUFFERSAMPLES];
+      char         mBuffer[AUDIOBUFFERSAMPLES*4U];
+   };
+
+public:
+   bool GetChunk(char*& buffer, uint32_t& length);
+   void DidChunk(uint32_t length);
 };
 
 

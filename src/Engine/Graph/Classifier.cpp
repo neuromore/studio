@@ -272,6 +272,7 @@ void Classifier::CollectNodes()
 	uint32 numCloudInputNodes		= 0;
 	uint32 numCloudOutputNodes		= 0;
 	uint32 numAnnotationNodes		= 0;
+   uint32 numToneGeneratorNodes	= 0;
 	uint32 numOutputNodes			= 0;
 	uint32 numInputNodes			= 0;
 	uint32 numEndNodes				= 0;
@@ -321,6 +322,9 @@ void Classifier::CollectNodes()
 		else if (node->GetType() == AnnotationNode::TYPE_ID)
 			numAnnotationNodes++;
 
+		else if (node->GetType() == ToneGeneratorNode::TYPE_ID)
+			numToneGeneratorNodes++;
+
 		
 		//// END elseif-block node-GetType()
 
@@ -361,6 +365,7 @@ void Classifier::CollectNodes()
 	if (mCloudInputNodes.Size() != numCloudInputNodes)			mCloudInputNodes.Resize(numCloudInputNodes);
 	if (mCloudOutputNodes.Size() != numCloudOutputNodes)		mCloudOutputNodes.Resize(numCloudOutputNodes);
 	if (mAnnotationNodes.Size() != numAnnotationNodes)			mAnnotationNodes.Resize(numAnnotationNodes);
+	if (mToneGeneratorNodes.Size() != numToneGeneratorNodes)	mToneGeneratorNodes.Resize(numToneGeneratorNodes);
 	if (mOutputNodes.Size() != numOutputNodes)					mOutputNodes.Resize(numOutputNodes);
 	if (mInputNodes.Size() != numInputNodes)					mInputNodes.Resize( numInputNodes );
 	if (mDeviceInputNodes.Size() != numDeviceInputNodes)		mDeviceInputNodes.Resize( numDeviceInputNodes );
@@ -375,7 +380,8 @@ void Classifier::CollectNodes()
 	uint32 cloudInputNodeIndex = 0;
 	uint32 cloudOutputNodeIndex = 0;
 	uint32 annotationNodeIndex = 0;
-	uint32 outputNodeIndex = 0;
+   uint32 toneGeneratorNodeIndex = 0;
+   uint32 outputNodeIndex = 0;
 	uint32 inputNodeIndex = 0;
 	uint32 deviceInputNodeIndex = 0;
 	uint32 endNodeIndex = 0;
@@ -453,6 +459,13 @@ void Classifier::CollectNodes()
 		{
 			mAnnotationNodes[annotationNodeIndex] = static_cast<AnnotationNode*>(node);
 			annotationNodeIndex++;
+		}
+
+		// is the given node an ToneGenerator node?
+		else if (node->GetType() == ToneGeneratorNode::TYPE_ID)
+		{
+			mToneGeneratorNodes[toneGeneratorNodeIndex] = static_cast<ToneGeneratorNode*>(node);
+			toneGeneratorNodeIndex++;
 		}
 		//// END elseif-block (node->GetType() = ...)
 

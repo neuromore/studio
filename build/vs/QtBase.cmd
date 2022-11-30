@@ -35,6 +35,7 @@ set PCH=QtBase/Precompiled.h
 %MOC% %DIR%/AttributeWidgets/PropertyTreeWidget.h -b %PCH% -o %DIR%/AttributeWidgets/PropertyTreeWidget.moc.cpp
 
 %MOC% %DIR%/Audio/MediaContent.h -b %PCH% -o %DIR%/Audio/MediaContent.moc.cpp
+%MOC% %DIR%/Audio/TonePlayer.h -b %PCH% -o %DIR%/Audio/TonePlayer.moc.cpp
 
 %MOC% %DIR%/Backend/BackendFileSystem.h -b %PCH% -o %DIR%/Backend/BackendFileSystem.moc.cpp
 %MOC% %DIR%/Backend/BackendInterface.h -b %PCH% -o %DIR%/Backend/BackendInterface.moc.cpp

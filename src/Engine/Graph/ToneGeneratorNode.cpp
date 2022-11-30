@@ -29,18 +29,21 @@
 
 using namespace Core;
 
-// constructor
-ToneGeneratorNode::ToneGeneratorNode(Graph* graph) : SPNode(graph), mSineWave()
+ToneGeneratorNode::ToneGeneratorNode(Graph* graph) : SPNode(graph),
+   mSineWave(),
+   mFramesRemainder(0.0),
+   mSamplesEnd(&mSamples[AUDIOBUFFERSAMPLES]),
+   mBufferWrite(mBuffer),
+   mBufferRead(mBuffer)
 {
-   stk::Stk::setSampleRate(8000);
+   stk::Stk::setSampleRate(AUDIOSAMPLERATE);
+   assert(AUDIOSAMPLERATE == (int)stk::Stk::sampleRate());
 }
 
-// destructor
 ToneGeneratorNode::~ToneGeneratorNode()
 {
 }
 
-// initialize the node
 void ToneGeneratorNode::Init()
 {
    // init base class first
@@ -54,13 +57,14 @@ void ToneGeneratorNode::Init()
    GetInputPort(INPUTPORT_FREQUENCY).Setup("Frequency", "freq", AttributeChannels<double>::TYPE_ID, INPUTPORT_FREQUENCY);
 }
 
-
 void ToneGeneratorNode::Start(const Time& elapsed)
 {
    SPNode::Start(elapsed);
 
-   // reset tone
-   mSineWave.reset();
+   mSineWave.reset();       // reset tone
+   mFramesRemainder = 0.0;  // reset frames remainder
+   mBufferWrite = mBuffer;  // reset write position
+   mBufferRead  = mBuffer;  // reset read position
 }
 
 void ToneGeneratorNode::ReInit(const Time& elapsed, const Time& delta)
@@ -72,8 +76,6 @@ void ToneGeneratorNode::ReInit(const Time& elapsed, const Time& delta)
    PostReInit(elapsed, delta);
 }
 
-
-// update the node
 void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
 {
    if (BaseUpdate(elapsed, delta) == false)
@@ -95,11 +97,71 @@ void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
       ->AsType<double>()
       ->GetLastSample();
 
-   // set in on STK sinewave
+   // set input frequency on STK sinewave
    mSineWave.setFrequency(freq);
-}
 
+   // calculate the number of samples to generate for last delta
+   double   secs  = delta.InSeconds();
+   double   frms  = AUDIOSAMPLERATE * secs;
+   uint32_t nfrms = (uint32_t)frms;
+   double   rfrms = frms - nfrms;
+
+   // don't forget the fraction
+   mFramesRemainder += rfrms;
+
+   // and increment frames if fractions sum up to more than 1
+   if (mFramesRemainder > 1.0) {
+      mFramesRemainder -= 1.0;
+      nfrms++;
+   }
+
+   // position and end
+   float*       p = mSamplesWrite;
+   const float* e = mSamplesEnd;
+
+   // generate samples
+   while (nfrms) {
+      if (p >= e) p = mSamples;
+      *p++ = (float)mSineWave.tick();
+      nfrms--;
+   }
+
+   // save back index
+   mSamplesWrite = p;
+}
 
 void ToneGeneratorNode::OnAttributesChanged()
 {
+}
+
+bool ToneGeneratorNode::GetChunk(char*& buffer, uint32_t& length)
+{
+   char* r = mBufferRead;
+   char* w = mBufferWrite;
+   if (w > r) {
+      buffer = r;
+      length = (uint32_t)(w-r);
+      return true;
+   }
+   else if (w < r) {
+      buffer = r;
+      length = (uint32_t)(mBufferEnd-r);
+      return true;
+   }
+   else {
+      buffer = 0;
+      length = 0;
+      return false;
+   }
+}
+
+void ToneGeneratorNode::DidChunk(uint32_t length)
+{
+   char*       r = mBufferRead;
+   const char* e = mBufferEnd;
+   const char* re = r + length;
+
+   // set new read position
+   mBufferRead = (re < e) ? (char*)re :
+      mBuffer + (length-(e-r));
 }
