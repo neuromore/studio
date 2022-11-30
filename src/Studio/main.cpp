@@ -78,6 +78,7 @@
    Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
    Q_IMPORT_PLUGIN(AVFServicePlugin);
    Q_IMPORT_PLUGIN(AVFMediaPlayerServicePlugin);
+   Q_IMPORT_PLUGIN(CoreAudioPlugin);
 #endif
 
 // STATIC QT PLUGINS FOR ALL PLATFORMS
