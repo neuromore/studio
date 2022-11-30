@@ -272,7 +272,7 @@ void Classifier::CollectNodes()
 	uint32 numCloudInputNodes		= 0;
 	uint32 numCloudOutputNodes		= 0;
 	uint32 numAnnotationNodes		= 0;
-   uint32 numToneGeneratorNodes	= 0;
+	uint32 numToneGeneratorNodes	= 0;
 	uint32 numOutputNodes			= 0;
 	uint32 numInputNodes			= 0;
 	uint32 numEndNodes				= 0;
@@ -380,8 +380,8 @@ void Classifier::CollectNodes()
 	uint32 cloudInputNodeIndex = 0;
 	uint32 cloudOutputNodeIndex = 0;
 	uint32 annotationNodeIndex = 0;
-   uint32 toneGeneratorNodeIndex = 0;
-   uint32 outputNodeIndex = 0;
+	uint32 toneGeneratorNodeIndex = 0;
+	uint32 outputNodeIndex = 0;
 	uint32 inputNodeIndex = 0;
 	uint32 deviceInputNodeIndex = 0;
 	uint32 endNodeIndex = 0;

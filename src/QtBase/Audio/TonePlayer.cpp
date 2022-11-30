@@ -88,23 +88,23 @@ void TonePlayer::OnAudioDeviceStateChanged(QAudio::State newState)
 {
    switch (newState) {
    case QAudio::IdleState:
-      printf("IDLE STATE \n");
+      //printf("IDLE STATE \n");
       break;
 
    case QAudio::StoppedState:
-      printf("STOPPED STATE \n");
+      //printf("STOPPED STATE \n");
       break;
 
    case QAudio::ActiveState:
-      printf("ACTIVE STATE\n");
+      //printf("ACTIVE STATE\n");
       break;
 
    case QAudio::InterruptedState:
-      printf("INTERRUPTED \n");
+      //printf("INTERRUPTED \n");
       break;
 
    default:
-      printf("UNKNOWN STATE \n");
+      //printf("UNKNOWN STATE \n");
       break;
    }
 }
