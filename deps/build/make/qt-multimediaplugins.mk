@@ -282,7 +282,11 @@ MOCH      := $(MOCH) \
              avfoundation/mediaplayer/avfmediaplayersession.mm \
              avfoundation/mediaplayer/avfvideorenderercontrol.mm \
              avfoundation/mediaplayer/avfvideowidgetcontrol.cpp \
-             avfoundation/mediaplayer/avfvideowindowcontrol.cpp
+             avfoundation/mediaplayer/avfvideowindowcontrol.cpp \
+             coreaudio/coreaudiooutput.cpp \
+             coreaudio/coreaudioinput.cpp \
+             coreaudio/coreaudiodeviceinfo.cpp \
+             coreaudio/coreaudioplugin.cpp
 MOCC      := $(MOCC)
 MOCO      := $(MOCO) \
              avfcameraflashcontrol.omocmm \
@@ -332,7 +336,12 @@ OBJS      := $(OBJS) \
              avfoundation/mediaplayer/avfvideorenderercontrol.omm \
              avfoundation/mediaplayer/avfvideowidget.omm \
              avfoundation/mediaplayer/avfvideowidgetcontrol.omm \
-             avfoundation/mediaplayer/avfvideowindowcontrol.omm
+             avfoundation/mediaplayer/avfvideowindowcontrol.omm \
+             coreaudio/coreaudiodeviceinfo.omm \
+             coreaudio/coreaudioinput.omm \
+             coreaudio/coreaudiooutput.omm \
+             coreaudio/coreaudioplugin.omm \
+             coreaudio/coreaudioutils.omm
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
