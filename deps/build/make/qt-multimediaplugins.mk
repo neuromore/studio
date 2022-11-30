@@ -412,7 +412,9 @@ MOCH      := $(MOCH) \
              gstreamer/mediaplayer/qgstreamermetadataprovider.cpp \
              gstreamer/mediaplayer/qgstreamerplayerservice.cpp \
              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.cpp \
-             gstreamer/mediaplayer/qgstreamerstreamscontrol.cpp
+             gstreamer/mediaplayer/qgstreamerstreamscontrol.cpp \
+             pulseaudio/qaudioinput_pulse.cpp \
+             pulseaudio/qaudiooutput_pulse.cpp
 MOCC      := $(MOCC)
 MOCO      := $(MOCO) \
              qgstreameraudiodecodercontrol.omoc \
@@ -508,7 +510,13 @@ OBJS      := $(OBJS) \
              gstreamer/mediaplayer/qgstreamermetadataprovider.o \
              gstreamer/mediaplayer/qgstreamerplayerservice.o \
              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.o \
-             gstreamer/mediaplayer/qgstreamerstreamscontrol.o
+             gstreamer/mediaplayer/qgstreamerstreamscontrol.o \
+             pulseaudio/qaudiodeviceinfo_pulse.o \
+             pulseaudio/qaudioinput_pulse.o \
+             pulseaudio/qaudiooutput_pulse.o \
+             pulseaudio/qpulseaudioengine.o \
+             pulseaudio/qpulseaudioplugin.o \
+             pulseaudio/qpulsehelpers.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 INCLUDES  := $(INCLUDES) -I/usr/lib/i386-linux-gnu/glib-2.0/include
