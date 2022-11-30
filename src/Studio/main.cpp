@@ -35,8 +35,9 @@
    Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 
    // STATIC QT MEDIASERVICE PLUGIN
-   //Q_IMPORT_PLUGIN(DSServicePlugin);    // DirectShow
-   Q_IMPORT_PLUGIN(WMFServicePlugin); // Windows Media Foundation
+   //Q_IMPORT_PLUGIN(DSServicePlugin);   // DirectShow
+   Q_IMPORT_PLUGIN(WMFServicePlugin);    // Windows Media Foundation
+   Q_IMPORT_PLUGIN(QWindowsAudioPlugin); // Windows Audio
 
    // PROPRIETARY LIBS WITH NO RUNTIME LOADING BUT LIB FOR LINKER ONLY
    #ifdef INCLUDE_DEVICE_TOBIIEYEX
@@ -71,6 +72,7 @@
    Q_IMPORT_PLUGIN(CameraBinServicePlugin);
    Q_IMPORT_PLUGIN(QGstreamerCaptureServicePlugin);
    Q_IMPORT_PLUGIN(QGstreamerPlayerServicePlugin);
+   Q_IMPORT_PLUGIN(QPulseAudioPlugin);
 #elif defined(NEUROMORE_PLATFORM_OSX)
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
