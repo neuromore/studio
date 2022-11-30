@@ -72,11 +72,13 @@
    Q_IMPORT_PLUGIN(CameraBinServicePlugin);
    Q_IMPORT_PLUGIN(QGstreamerCaptureServicePlugin);
    Q_IMPORT_PLUGIN(QGstreamerPlayerServicePlugin);
+   Q_IMPORT_PLUGIN(QPulseAudioPlugin);
 #elif defined(NEUROMORE_PLATFORM_OSX)
    // STATIC QT PLUGIN
    Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
    Q_IMPORT_PLUGIN(AVFServicePlugin);
    Q_IMPORT_PLUGIN(AVFMediaPlayerServicePlugin);
+   Q_IMPORT_PLUGIN(CoreAudioPlugin);
 #endif
 
 // STATIC QT PLUGINS FOR ALL PLATFORMS

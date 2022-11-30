@@ -126,7 +126,11 @@ MOCH      := $(MOCH) \
              directshow/player/directshowvideorenderercontrol.cpp \
              directshow/player/videosurfacefilter.cpp \
              directshow/player/vmr9videowindowcontrol.cpp \
-             directshow/dsserviceplugin.cpp
+             directshow/dsserviceplugin.cpp \
+             windowsaudio/qwindowsaudiodeviceinfo.cpp \
+             windowsaudio/qwindowsaudioinput.cpp \
+             windowsaudio/qwindowsaudiooutput.cpp \
+             windowsaudio/qwindowsaudioplugin.cpp
 MOCC      := $(MOCC) \
              wmf/player/mfvideorenderercontrol.moc
 MOCO      := $(MOCO) \
@@ -169,7 +173,9 @@ MOCO      := $(MOCO) \
              directshowvideorenderercontrol.omoc \
              videosurfacefilter.omoc \
              vmr9videowindowcontrol.omoc \
-             dsserviceplugin.omoc
+             dsserviceplugin.omoc \
+             qwindowsaudiodeviceinfo.omoc \
+             qwindowsaudioplugin.omoc
 RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
@@ -231,7 +237,12 @@ OBJS      := $(OBJS) \
              wmf/player/samplegrabber.o \
              wmf/mfstream.o \
              wmf/sourceresolver.o \
-             wmf/wmfserviceplugin.o
+             wmf/wmfserviceplugin.o \
+             windowsaudio/qwindowsaudiodeviceinfo.o \
+             windowsaudio/qwindowsaudioinput.o \
+             windowsaudio/qwindowsaudiooutput.o \
+             windowsaudio/qwindowsaudioplugin.o \
+             windowsaudio/qwindowsaudioutils.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
@@ -282,7 +293,11 @@ MOCH      := $(MOCH) \
              avfoundation/mediaplayer/avfmediaplayersession.mm \
              avfoundation/mediaplayer/avfvideorenderercontrol.mm \
              avfoundation/mediaplayer/avfvideowidgetcontrol.cpp \
-             avfoundation/mediaplayer/avfvideowindowcontrol.cpp
+             avfoundation/mediaplayer/avfvideowindowcontrol.cpp \
+             coreaudio/coreaudiooutput.cpp \
+             coreaudio/coreaudioinput.cpp \
+             coreaudio/coreaudiodeviceinfo.cpp \
+             coreaudio/coreaudioplugin.cpp
 MOCC      := $(MOCC)
 MOCO      := $(MOCO) \
              avfcameraflashcontrol.omocmm \
@@ -332,7 +347,12 @@ OBJS      := $(OBJS) \
              avfoundation/mediaplayer/avfvideorenderercontrol.omm \
              avfoundation/mediaplayer/avfvideowidget.omm \
              avfoundation/mediaplayer/avfvideowidgetcontrol.omm \
-             avfoundation/mediaplayer/avfvideowindowcontrol.omm
+             avfoundation/mediaplayer/avfvideowindowcontrol.omm \
+             coreaudio/coreaudiodeviceinfo.omm \
+             coreaudio/coreaudioinput.omm \
+             coreaudio/coreaudiooutput.omm \
+             coreaudio/coreaudioplugin.omm \
+             coreaudio/coreaudioutils.omm
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
@@ -403,7 +423,12 @@ MOCH      := $(MOCH) \
              gstreamer/mediaplayer/qgstreamermetadataprovider.cpp \
              gstreamer/mediaplayer/qgstreamerplayerservice.cpp \
              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.cpp \
-             gstreamer/mediaplayer/qgstreamerstreamscontrol.cpp
+             gstreamer/mediaplayer/qgstreamerstreamscontrol.cpp \
+             pulseaudio/qaudiodeviceinfo_pulse.cpp \
+             pulseaudio/qaudioinput_pulse.cpp \
+             pulseaudio/qaudiooutput_pulse.cpp \
+             pulseaudio/qpulseaudioengine.cpp \
+             pulseaudio/qpulseaudioplugin.cpp
 MOCC      := $(MOCC)
 MOCO      := $(MOCO) \
              qgstreameraudiodecodercontrol.omoc \
@@ -450,7 +475,10 @@ MOCO      := $(MOCO) \
              qgstreamermetadataprovider.omoc \
              qgstreamerplayerservice.omoc \
              qgstreamerplayerserviceplugin.omoc \
-             qgstreamerstreamscontrol.omoc
+             qgstreamerstreamscontrol.omoc \
+             qaudiodeviceinfo_pulse.omoc \
+             qpulseaudioengine.omoc \
+             qpulseaudioplugin.omoc
 RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
@@ -499,7 +527,13 @@ OBJS      := $(OBJS) \
              gstreamer/mediaplayer/qgstreamermetadataprovider.o \
              gstreamer/mediaplayer/qgstreamerplayerservice.o \
              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.o \
-             gstreamer/mediaplayer/qgstreamerstreamscontrol.o
+             gstreamer/mediaplayer/qgstreamerstreamscontrol.o \
+             pulseaudio/qaudiodeviceinfo_pulse.o \
+             pulseaudio/qaudioinput_pulse.o \
+             pulseaudio/qaudiooutput_pulse.o \
+             pulseaudio/qpulseaudioengine.o \
+             pulseaudio/qpulseaudioplugin.o \
+             pulseaudio/qpulsehelpers.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 INCLUDES  := $(INCLUDES) -I/usr/lib/i386-linux-gnu/glib-2.0/include
