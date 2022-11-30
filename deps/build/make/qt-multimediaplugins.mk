@@ -413,8 +413,11 @@ MOCH      := $(MOCH) \
              gstreamer/mediaplayer/qgstreamerplayerservice.cpp \
              gstreamer/mediaplayer/qgstreamerplayerserviceplugin.cpp \
              gstreamer/mediaplayer/qgstreamerstreamscontrol.cpp \
+             pulseaudio/qaudiodeviceinfo_pulse.cpp \
              pulseaudio/qaudioinput_pulse.cpp \
-             pulseaudio/qaudiooutput_pulse.cpp
+             pulseaudio/qaudiooutput_pulse.cpp \
+             pulseaudio/qpulseaudioengine.cpp \
+             pulseaudio/qpulseaudioplugin.cpp
 MOCC      := $(MOCC)
 MOCO      := $(MOCO) \
              qgstreameraudiodecodercontrol.omoc \
@@ -461,7 +464,10 @@ MOCO      := $(MOCO) \
              qgstreamermetadataprovider.omoc \
              qgstreamerplayerservice.omoc \
              qgstreamerplayerserviceplugin.omoc \
-             qgstreamerstreamscontrol.omoc
+             qgstreamerstreamscontrol.omoc \
+             qaudiodeviceinfo_pulse.omoc \
+             qpulseaudioengine.omoc \
+             qpulseaudioplugin.omoc
 RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
