@@ -586,6 +586,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/qt-dbus$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/qt-platform-xcb$(SUFFIX)$(EXTLIB) \
              -lpthread \
+             -lpulse \
              -ldl \
              -lgstallocators-1.0 \
              -lgstapp-1.0 \
