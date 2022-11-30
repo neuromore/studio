@@ -126,7 +126,11 @@ MOCH      := $(MOCH) \
              directshow/player/directshowvideorenderercontrol.cpp \
              directshow/player/videosurfacefilter.cpp \
              directshow/player/vmr9videowindowcontrol.cpp \
-             directshow/dsserviceplugin.cpp
+             directshow/dsserviceplugin.cpp \
+             windowsaudio/qwindowsaudiodeviceinfo.cpp \
+             windowsaudio/qwindowsaudioinput.cpp \
+             windowsaudio/qwindowsaudiooutput.cpp \
+             windowsaudio/qwindowsaudioplugin.cpp
 MOCC      := $(MOCC) \
              wmf/player/mfvideorenderercontrol.moc
 MOCO      := $(MOCO) \
@@ -169,7 +173,9 @@ MOCO      := $(MOCO) \
              directshowvideorenderercontrol.omoc \
              videosurfacefilter.omoc \
              vmr9videowindowcontrol.omoc \
-             dsserviceplugin.omoc
+             dsserviceplugin.omoc \
+             qwindowsaudiodeviceinfo.omoc \
+             qwindowsaudioplugin.omoc
 RCCH      := $(RCCH)
 RCCO      := $(RCCO)
 UICH      := $(UICH)
@@ -231,7 +237,12 @@ OBJS      := $(OBJS) \
              wmf/player/samplegrabber.o \
              wmf/mfstream.o \
              wmf/sourceresolver.o \
-             wmf/wmfserviceplugin.o
+             wmf/wmfserviceplugin.o \
+             windowsaudio/qwindowsaudiodeviceinfo.o \
+             windowsaudio/qwindowsaudioinput.o \
+             windowsaudio/qwindowsaudiooutput.o \
+             windowsaudio/qwindowsaudioplugin.o \
+             windowsaudio/qwindowsaudioutils.o
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
