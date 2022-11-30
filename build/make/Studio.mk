@@ -540,6 +540,8 @@ LINKLIBS  := $(LINKLIBS) \
              -framework Cocoa \
              -framework CoreBluetooth \
              -framework CoreMedia \
+             -framework CoreAudio \
+             -framework AudioToolbox \
              -framework GLUT \
              -framework IOBluetooth \
              -framework IOKit \
