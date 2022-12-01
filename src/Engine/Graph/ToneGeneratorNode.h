@@ -46,7 +46,8 @@ public:
 
    enum
    {
-      INPUTPORT_FREQUENCY = 0
+      INPUTPORT_FREQUENCY = 0,
+      INPUTPORT_ENABLED   = 1
    };
 
    // constructor & destructor
@@ -85,8 +86,10 @@ private:
       float        mSamples[AUDIOBUFFERSAMPLES];
       char         mBuffer[AUDIOBUFFERSAMPLES*4U];
    };
+   bool            mEnabled;
 
 public:
+   void ResetTone();
    bool GetChunk(char*& buffer, uint32_t& length);
    void DidChunk(uint32_t length);
 };

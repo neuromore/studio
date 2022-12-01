@@ -34,7 +34,8 @@ ToneGeneratorNode::ToneGeneratorNode(Graph* graph) : SPNode(graph),
    mFramesRemainder(0.0),
    mSamplesEnd(&mSamples[AUDIOBUFFERSAMPLES]),
    mBufferWrite(mBuffer),
-   mBufferRead(mBuffer)
+   mBufferRead(mBuffer),
+   mEnabled(true)
 {
    stk::Stk::setSampleRate(AUDIOSAMPLERATE);
    assert(AUDIOSAMPLERATE == (int)stk::Stk::sampleRate());
@@ -53,18 +54,23 @@ void ToneGeneratorNode::Init()
    RequireSyncedInput();
 
    // SETUP PORTS
-   InitInputPorts(1);
-   GetInputPort(INPUTPORT_FREQUENCY).Setup("Frequency", "freq", AttributeChannels<double>::TYPE_ID, INPUTPORT_FREQUENCY);
+   InitInputPorts(2);
+   GetInputPort(INPUTPORT_FREQUENCY).Setup("Frequency", "frequency", AttributeChannels<double>::TYPE_ID, INPUTPORT_FREQUENCY);
+   GetInputPort(INPUTPORT_ENABLED).Setup("Enabled", "enabled", AttributeChannels<double>::TYPE_ID, INPUTPORT_ENABLED);
+}
+
+void ToneGeneratorNode::ResetTone()
+{
+   mSineWave.reset();      // reset tone
+   mFramesRemainder = 0.0; // reset frames remainder
+   mBufferWrite = mBuffer; // reset write position
+   mBufferRead  = mBuffer; // reset read position
 }
 
 void ToneGeneratorNode::Start(const Time& elapsed)
 {
    SPNode::Start(elapsed);
-
-   mSineWave.reset();       // reset tone
-   mFramesRemainder = 0.0;  // reset frames remainder
-   mBufferWrite = mBuffer;  // reset write position
-   mBufferRead  = mBuffer;  // reset read position
+   ResetTone();
 }
 
 void ToneGeneratorNode::ReInit(const Time& elapsed, const Time& delta)
@@ -84,11 +90,30 @@ void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
    // update the baseclass
    SPNode::Update(elapsed, delta);
 
-   // get frequency input port
-   InputPort& freqInput = GetInputPort(INPUTPORT_FREQUENCY);
+   // get input ports
+   InputPort& freqInput    = GetInputPort(INPUTPORT_FREQUENCY);
+   InputPort& enabledInput = GetInputPort(INPUTPORT_ENABLED);
 
-   // must be connected
-   if (!freqInput.HasConnection())
+   // check enabled state
+   if (enabledInput.HasConnection())
+   {
+      const double v = enabledInput.GetChannels()
+         ->GetChannel(0)
+         ->AsType<double>()
+         ->GetLastSample();
+      if (v < 1.0 && mEnabled) {
+         mEnabled = false;
+      }
+      else if (v >= 1.0 && !mEnabled) {
+         mEnabled = true;
+         ResetTone();
+      }
+   }
+   else
+      mEnabled = true;
+
+   // must be enabled and freq must be connected
+   if (!mEnabled || !freqInput.HasConnection())
       return;
 
    // get last frequency
