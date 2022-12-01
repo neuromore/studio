@@ -44,6 +44,9 @@ public:
    // number of samples that can be stored in the buffer (4000=500ms)
    static constexpr int AUDIOBUFFERSAMPLES = AUDIOSAMPLERATE / 2;
 
+   // number of samples ahead in time (800=100ms)
+   static constexpr double DESIREDSAMPLESAHEAD = AUDIOSAMPLERATE / 10;
+
    enum
    {
       INPUTPORT_FREQUENCY = 0,
@@ -72,7 +75,7 @@ public:
 
 private:
    stk::SineWave   mSineWave;
-   double          mFramesRemainder;
+   double          mSamplesAhead;
    union {
       const float* mSamplesEnd;
       const char*  mBufferEnd;

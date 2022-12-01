@@ -31,7 +31,7 @@ using namespace Core;
 
 ToneGeneratorNode::ToneGeneratorNode(Graph* graph) : SPNode(graph),
    mSineWave(),
-   mFramesRemainder(0.0),
+   mSamplesAhead(0.0),
    mSamplesEnd(&mSamples[AUDIOBUFFERSAMPLES]),
    mBufferWrite(mBuffer),
    mBufferRead(mBuffer),
@@ -62,7 +62,7 @@ void ToneGeneratorNode::Init()
 void ToneGeneratorNode::ResetTone()
 {
    mSineWave.reset();      // reset tone
-   mFramesRemainder = 0.0; // reset frames remainder
+   mSamplesAhead = 0.0;    // reset samples ahead counter
    mBufferWrite = mBuffer; // reset write position
    mBufferRead  = mBuffer; // reset read position
 }
@@ -128,16 +128,21 @@ void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
    // calculate the number of samples to generate for last delta
    double   secs  = delta.InSeconds();
    double   frms  = AUDIOSAMPLERATE * secs;
-   uint32_t nfrms = (uint32_t)frms;
-   double   rfrms = frms - nfrms;
+   uint32_t nfrms = (uint32_t)frms; // number of samples
+   double   rfrms = frms - nfrms;   // fraction/remainder
 
-   // don't forget the fraction
-   mFramesRemainder += rfrms;
+   // remove missed fraction from samples ahead
+   mSamplesAhead -= rfrms;
 
-   // and increment frames if fractions sum up to more than 1
-   if (mFramesRemainder > 1.0) {
-      mFramesRemainder -= 1.0;
-      nfrms++;
+   // samples missing to reach desired ahead state
+   const double missing = DESIREDSAMPLESAHEAD - mSamplesAhead;
+
+   // generate additional samples
+   if (missing >= 1.0)
+   {
+      const uint32_t v = (uint32_t)missing;
+      nfrms         += v;
+      mSamplesAhead += v;
    }
 
    // position and end
