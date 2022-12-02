@@ -53,6 +53,9 @@ class ENGINE_API FeedbackNode : public OutputNode
 		virtual void WriteOscMessage(OscPacketParser::OutStream* outStream)					{}
 		bool GetSendOscNetworkMessages() const												{ return GetBoolAttribute(ATTRIB_SENDOSCNETWORKMESSAGES); }
 
+		virtual double GetRangeMin() const                                              	{ return 0.0; }
+		virtual double GetRangeMax() const                                              	{ return 0.0; }
+
 	private:
 };
 

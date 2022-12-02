@@ -75,8 +75,8 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 
 		// accessors
 		bool IsRanged() const													{ return GetBoolAttribute(ATTRIB_ISRANGED); }
-		double GetRangeMin() const												{ return GetFloatAttribute(ATTRIB_RANGEMIN); }
-		double GetRangeMax() const												{ return GetFloatAttribute(ATTRIB_RANGEMAX); }
+		double GetRangeMin() const override										{ return GetFloatAttribute(ATTRIB_RANGEMIN); }
+		double GetRangeMax() const override										{ return GetFloatAttribute(ATTRIB_RANGEMAX); }
 
 		// OSC
 		const char* GetOscAddress() const										{ return GetStringAttribute(ATTRIB_OSCADDRESS); }

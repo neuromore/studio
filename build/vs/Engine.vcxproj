@@ -956,6 +956,8 @@
     <ClInclude Include="..\..\src\Engine\Graph\ViewNode.h" />
     <ClCompile Include="..\..\src\Engine\Graph\WaveformNode.cpp" />
     <ClInclude Include="..\..\src\Engine\Graph\WaveformNode.h" />
+    <ClCompile Include="..\..\src\Engine\Graph\VolumeControlNode.cpp" />
+    <ClInclude Include="..\..\src\Engine\Graph\VolumeControlNode.h" />
     <ClCompile Include="..\..\src\Engine\License.cpp" />
     <ClInclude Include="..\..\src\Engine\License.h" />
     <ClCompile Include="..\..\src\Engine\Networking\OscFeedbackPacket.cpp" />

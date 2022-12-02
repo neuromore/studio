@@ -30,6 +30,7 @@
 #include "GraphExporter.h"
 #include "../EngineManager.h"
 #include "FileWriterNode.h"
+#include "VolumeControlNode.h"
 
 
 using namespace Core;
@@ -290,6 +291,12 @@ void Classifier::CollectNodes()
 			numFeedbackNodes++;
 		}
 
+		// is the given node a volume control node?
+		else if (node->GetType() == VolumeControlNode::TYPE_ID)
+		{
+			numFeedbackNodes++;
+		}
+
 		// is the given node a point node?
 		else if (node->GetType() == PointsNode::TYPE_ID)
 		{
@@ -398,6 +405,13 @@ void Classifier::CollectNodes()
 			customFeedbackNodeIndex++;
 
 			mFeedbackNodes[feedbackNodeIndex] = static_cast<CustomFeedbackNode*>(node);
+			feedbackNodeIndex++;
+		}
+
+		// is the given node a volume control node?
+		else if (node->GetType() == VolumeControlNode::TYPE_ID)
+		{
+			mFeedbackNodes[feedbackNodeIndex] = static_cast<VolumeControlNode*>(node);
 			feedbackNodeIndex++;
 		}
 
