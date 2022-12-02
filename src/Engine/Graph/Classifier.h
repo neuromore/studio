@@ -42,6 +42,7 @@
 #include "CloudOutputNode.h"
 #include "AnnotationNode.h"
 #include "DeviceInputNode.h"
+#include "ToneGeneratorNode.h"
 
 
 class ENGINE_API Classifier : public Graph, public Core::EventHandler
@@ -110,6 +111,10 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		// Annotation nodes
 		AnnotationNode* GetAnnotationNode(uint32 index) const				{ return mAnnotationNodes[index]; }
 		uint32 GetNumAnnotationNodes() const								{ return mAnnotationNodes.Size(); }
+
+		// ToneGenerator nodes
+		ToneGeneratorNode* GetToneGeneratorNode(uint32_t index) const		{ return mToneGeneratorNodes[index]; }
+		uint32_t GetNumToneGeneratorNodes() const							{ return mToneGeneratorNodes.Size(); }
 
 		//
 		// Parameters
@@ -235,6 +240,7 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		Core::Array<CloudInputNode*>			mCloudInputNodes;		// all instances of CloudInputNode
 		Core::Array<CloudOutputNode*>			mCloudOutputNodes;		// all instances of CloudOutputNode
 		Core::Array<AnnotationNode*>			mAnnotationNodes;		// all instances of AnnotationNode
+		Core::Array<ToneGeneratorNode*>			mToneGeneratorNodes;	// all instances of ToneGeneratorNode
 
 		Core::Array<Sensor*>					mUsedSensors;			// all instances of Sensors (mainly: devices) // TODO add read/write differentiation
 		Core::Array<InputNode*>					mInputNodes;			// all instances of InputNode

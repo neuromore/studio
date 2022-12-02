@@ -51,6 +51,7 @@ MOCH       = AttributeWidgets/AttributeSetGridWidget.cpp \
              AttributeWidgets/PropertyManager.cpp \
              AttributeWidgets/PropertyTreeWidget.cpp \
              Audio/MediaContent.cpp \
+             Audio/TonePlayer.cpp \
              Backend/BackendFileSystem.cpp \
              Backend/BackendInterface.cpp \
              Backend/BackendParameters.cpp \
@@ -116,6 +117,7 @@ OBJS       = AttributeWidgets/AttributeSetGridWidget.o \
              AttributeWidgets/PropertyManager.o \
              AttributeWidgets/PropertyTreeWidget.o \
              Audio/MediaContent.o \
+             Audio/TonePlayer.o \
              AutoUpdate/AutoUpdate.o \
              Backend/BackendFileSystem.o \
              Backend/BackendHelpers.o \

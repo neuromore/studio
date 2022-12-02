@@ -103,6 +103,7 @@
 #include "AnnotationNode.h"
 #include "ColorWheelNode.h"
 #include "SwitchNode.h"
+#include "ToneGeneratorNode.h"
 
 // state machine
 #include "EntryState.h"
@@ -224,6 +225,7 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new AnnotationNode(NULL) );
 		RegisterObjectType( new ColorWheelNode(NULL) );
 		RegisterObjectType( new SwitchNode(NULL) );
+		RegisterObjectType( new ToneGeneratorNode(NULL) );
 
 	// state machine
 

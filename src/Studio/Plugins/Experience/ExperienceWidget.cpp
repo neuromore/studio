@@ -831,3 +831,47 @@ void ExperienceWidget::OnActiveStateMachineChanged(StateMachine* stateMachine)
 	// pre-load data
 	//PreloadAssets();
 }
+
+void ExperienceWidget::OnActiveClassifierChanged(Classifier* classifier)
+{
+   const uint32_t nPlayers = mTonePlayers.Size();
+   for (uint32_t i = 0; i < nPlayers; i++)
+      delete mTonePlayers[i];
+   
+   mTonePlayers.Clear();
+
+   if (classifier)
+   {
+      const uint32_t nToneGens = classifier->GetNumToneGeneratorNodes();
+      for (uint32_t i = 0; i < nToneGens; i++)
+         mTonePlayers.Add(new TonePlayer(*classifier->GetToneGeneratorNode(i)));
+   }
+}
+
+void ExperienceWidget::OnNodeAdded(Graph* graph, Node* node)
+{
+   if (node && node->GetType() == ToneGeneratorNode::TYPE_ID)
+      mTonePlayers.Add(new TonePlayer(*(ToneGeneratorNode*)node));
+}
+
+void ExperienceWidget::OnRemoveNode(Graph* graph, Node* node)
+{
+   if (node && node->GetType() == ToneGeneratorNode::TYPE_ID)
+   {
+      const uint32_t nPlayers = mTonePlayers.Size();
+      for (uint32_t i = 0; i < nPlayers; i++) {
+         if (&mTonePlayers[i]->GetNode() == node) {
+            delete mTonePlayers[i];
+            mTonePlayers.Remove(i);
+            break;
+         }
+      }
+   }
+}
+
+void ExperienceWidget::OnGraphReset(Graph* graph)
+{
+   /*const uint32_t nPlayers = mTonePlayers.Size();
+   for (uint32_t i = 0; i < nPlayers; i++)
+      mTonePlayers[i]->Reset();*/
+}

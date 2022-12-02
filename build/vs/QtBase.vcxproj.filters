@@ -409,6 +409,12 @@
     <ClCompile Include="..\..\src\QtBase\Networking\WebsocketServer.moc.cpp">
       <Filter>Networking</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Audio\TonePlayer.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Audio\TonePlayer.moc.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.h">
@@ -695,6 +701,9 @@
     <ClInclude Include="..\..\src\QtBase\Precompiled.h" />
     <ClInclude Include="..\..\src\QtBase\Networking\WebsocketServer.h">
       <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Audio\TonePlayer.h">
+      <Filter>Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

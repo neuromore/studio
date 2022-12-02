@@ -194,6 +194,7 @@ OBJS       = Core/AABB.o \
              Graph/SyncState.o \
              Graph/ThresholdNode.o \
              Graph/TimerState.o \
+             Graph/ToneGeneratorNode.o \
              Graph/ViewNode.o \
              Graph/WaveformNode.o \
              Networking/OscFeedbackPacket.o \

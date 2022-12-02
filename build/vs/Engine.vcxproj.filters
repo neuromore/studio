@@ -565,6 +565,9 @@
     <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ToneGeneratorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1280,6 +1283,9 @@
       <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ToneGeneratorNode.h">
       <Filter>Graph</Filter>
     </ClInclude>
   </ItemGroup>

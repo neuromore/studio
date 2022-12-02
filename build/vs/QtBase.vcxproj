@@ -581,6 +581,8 @@ QtBase.cmd
     <ClCompile Include="..\..\src\QtBase\AttributeWidgets\PropertyManager.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\AttributeWidgets\PropertyTreeWidget.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Audio\MediaContent.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Audio\TonePlayer.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Audio\TonePlayer.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Backend\BackendFileSystem.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Backend\BackendInterface.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Backend\BackendParameters.moc.cpp" />
@@ -641,6 +643,7 @@ QtBase.cmd
     <ClCompile Include="..\..\src\QtBase\Audio\MediaContent.cpp" />
     <ClInclude Include="..\..\src\QtBase\Audio\MediaContent.h" />
     <ClCompile Include="..\..\src\QtBase\AutoUpdate\AutoUpdate.cpp" />
+    <ClInclude Include="..\..\src\QtBase\Audio\TonePlayer.h" />
     <ClInclude Include="..\..\src\QtBase\AutoUpdate\AutoUpdate.h" />
     <ClCompile Include="..\..\src\QtBase\Backend\BackendFileSystem.cpp" />
     <ClInclude Include="..\..\src\QtBase\Backend\BackendFileSystem.h" />
