@@ -285,15 +285,10 @@ void Classifier::CollectNodes()
 
 		//// BEGIN elseif-block node-GetType()
 		// is the given node a custom feedback node?
-		if (node->GetType() == CustomFeedbackNode::TYPE_ID)
+		if (node->GetType() == CustomFeedbackNode::TYPE_ID
+			|| node->GetType() == VolumeControlNode::TYPE_ID)
 		{
 			numCustomFeedbackNodes++;
-			numFeedbackNodes++;
-		}
-
-		// is the given node a volume control node?
-		else if (node->GetType() == VolumeControlNode::TYPE_ID)
-		{
 			numFeedbackNodes++;
 		}
 
@@ -399,19 +394,13 @@ void Classifier::CollectNodes()
 		
 		//// BEGIN elseif-block (node->GetType() = ...)
 		// is the given node a custom feedback node?
-		if (node->GetType() == CustomFeedbackNode::TYPE_ID)
+		if (node->GetType() == CustomFeedbackNode::TYPE_ID
+			|| node->GetType() == VolumeControlNode::TYPE_ID)
 		{
 			mCustomFeedbackNodes[customFeedbackNodeIndex] = static_cast<CustomFeedbackNode*>(node);
 			customFeedbackNodeIndex++;
 
 			mFeedbackNodes[feedbackNodeIndex] = static_cast<CustomFeedbackNode*>(node);
-			feedbackNodeIndex++;
-		}
-
-		// is the given node a volume control node?
-		else if (node->GetType() == VolumeControlNode::TYPE_ID)
-		{
-			mFeedbackNodes[feedbackNodeIndex] = static_cast<VolumeControlNode*>(node);
 			feedbackNodeIndex++;
 		}
 

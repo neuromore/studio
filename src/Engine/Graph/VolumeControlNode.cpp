@@ -34,7 +34,7 @@
 using namespace Core;
 
 // constructor
-VolumeControlNode::VolumeControlNode(Graph* parentGraph) : FeedbackNode(parentGraph)
+VolumeControlNode::VolumeControlNode(Graph* parentGraph) : CustomFeedbackNode(parentGraph)
 {
 }
 
@@ -68,6 +68,7 @@ void VolumeControlNode::Init()
 	for (uint32 i=0; i<MODE_NUM; ++i)
 		modeParam->SetComboValue( i, GetModeString((Mode)i) );
 	modeParam->SetDefaultValue( AttributeInt32::Create(defaultMode) );
+	mCurrentMode = defaultMode;
 
 	// file url
 	AttributeSettings* fileUrl = RegisterAttribute("File", "File", "The local filename of the media file.", ATTRIBUTE_INTERFACETYPE_STRING);
@@ -77,7 +78,7 @@ void VolumeControlNode::Init()
 	AttributeSettings* nodeName = RegisterAttribute("Node", "Node", "The name of the Tone Generator Node.", ATTRIBUTE_INTERFACETYPE_STRING);
 	nodeName->SetDefaultValue( Core::AttributeString::Create() );
 
-	ShowAttributesForSignalType(defaultMode);
+	ShowAttributesForMode(defaultMode);
 
 }
 
@@ -156,15 +157,20 @@ void VolumeControlNode::OnAttributesChanged()
 {
 	Mode mode = GetMode();
 
+	mOscAddress.Clear();
+
 	if (mode != mCurrentMode)
 	{
 		mCurrentMode = mode;
 		ResetAsync();
 	}
 
+	if (mode == Mode::VISUALIZATION) {
+		mOscAddress = "/audio/volume";
+	}
+
 	// show/hide attributes for the selected mode
-	const uint32 signalType = GetInt32Attribute(ATTRIB_MODE);
-	ShowAttributesForSignalType((Mode)signalType);
+	ShowAttributesForMode((Mode)mode);
 }
 
 
@@ -206,17 +212,19 @@ const char* VolumeControlNode::GetModeString(Mode mode) const
 		case Mode::OVERALL_SYSTEM_VOLUME:	return "Overall System Volume";
 		case Mode::SINGLE_MEDIA_FILE:	    return "Single Media File";
 		case Mode::TONE:	                return "Tone";
+		case Mode::VISUALIZATION:			return "Visualization";
         default:                            return "Unkonwn";
 	}
 }
 
-// show only the attributes required for this signal type
-void VolumeControlNode::ShowAttributesForSignalType(Mode type)
+// show only the attributes required for this Mode
+void VolumeControlNode::ShowAttributesForMode(Mode type)
 {
 	GetAttributeSettings(ATTRIB_SIGNALRESOLUTION)->SetVisible(false);
 	GetAttributeSettings(ATTRIB_UPLOAD)->SetVisible(false);
 	GetAttributeSettings(ATTRIB_SENDOSCNETWORKMESSAGES)->SetVisible(false);
 	GetAttributeSettings(ATTRIB_OSCADDRESS)->SetVisible(false);
+
 	switch (type)
 	{
 		// amplitude, frequency, dcoffset
@@ -241,4 +249,32 @@ void VolumeControlNode::ShowAttributesForSignalType(Mode type)
 		default:
 			break;
 	}
+}
+
+// write the OSC message
+void VolumeControlNode::WriteOscMessage(OscPacketParser::OutStream* outStream)
+{
+	// only send out the OSC message in case we have samples inside the channel already
+	if (IsValidInput(INPUTPORT_VALUE) == false)
+		return;
+
+	outStream->BeginMessage( mOscAddress );
+
+		// 1. feedback value
+		// output a float value and not the double (more OSC conform)
+		const float feedbackValue = GetCurrentValue();
+		outStream->WriteValue(feedbackValue);
+
+		// 2. range
+		outStream->WriteValue(true);
+
+		// 3. range min
+		const float rangeMin = GetRangeMin();
+		outStream->WriteValue(rangeMin);
+
+		// 4. range min
+		const float rangeMax = GetRangeMax();
+		outStream->WriteValue(rangeMax);
+
+	outStream->EndMessage();
 }

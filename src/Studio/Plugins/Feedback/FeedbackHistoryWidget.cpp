@@ -27,7 +27,6 @@
 // include required headers
 #include "FeedbackHistoryWidget.h"
 #include "FeedbackPlugin.h"
-#include "Graph/VolumeControlNode.h"
 
 using namespace Core;
 
@@ -66,26 +65,24 @@ Classifier* FeedbackHistoryWidget::GetClassifier() const
 // render frame
 void FeedbackHistoryWidget::paintGL()
 {
-	mNodesToRender.Clear();
+	uint32 numCustomFeedbackNodes = 0;
 	Classifier* classifier = GetClassifier();
 	if (classifier != NULL)
 	{
 		double maxTextWidth = 0.0;
 
-		for (uint32 i=0; i < classifier->GetNumFeedbackNodes(); ++i)
+		numCustomFeedbackNodes = classifier->GetNumCustomFeedbackNodes();
+		for (uint32 i=0; i<numCustomFeedbackNodes; ++i)
 		{
-			FeedbackNode* feedbackNode = classifier->GetFeedbackNode(i);
+			CustomFeedbackNode* feedbackNode = classifier->GetCustomFeedbackNode(i);
 
-			if(feedbackNode->GetTypeUuid() == CustomFeedbackNode::Uuid() || feedbackNode->GetTypeUuid() == VolumeControlNode::Uuid()) {
-				mNodesToRender.Add(feedbackNode);
-				// calc range min text width
-				mTempString.Format( "%.2f", feedbackNode->GetRangeMin() );
-				maxTextWidth = Max<double>( maxTextWidth, mRenderCallback->CalcTextWidth(mTempString.AsChar()) );
+			// calc range min text width
+			mTempString.Format( "%.2f", feedbackNode->GetRangeMin() );
+			maxTextWidth = Max<double>( maxTextWidth, mRenderCallback->CalcTextWidth(mTempString.AsChar()) );
 
-				// calc range max text width
-				mTempString.Format( "%.2f", feedbackNode->GetRangeMax() );
-				maxTextWidth = Max<double>( maxTextWidth, mRenderCallback->CalcTextWidth(mTempString.AsChar()) );
-			}
+			// calc range max text width
+			mTempString.Format( "%.2f", feedbackNode->GetRangeMax() );
+			maxTextWidth = Max<double>( maxTextWidth, mRenderCallback->CalcTextWidth(mTempString.AsChar()) );
 		}
 
 		mLeftTextWidth = maxTextWidth + 5; // +5 for spacing
@@ -110,7 +107,7 @@ void FeedbackHistoryWidget::paintGL()
 	if (PreRendering() == false)
 		return;
 
-	RenderSplitViews( mNodesToRender.Size() );
+	RenderSplitViews( numCustomFeedbackNodes );
 
 	// post rendering
 	PostRendering();
@@ -122,7 +119,7 @@ void FeedbackHistoryWidget::RenderCallback::Render(uint32 index, bool isHighligh
 	Classifier* classifier = mFeedbackWidget->GetClassifier();
 
 	// feedback info
-	FeedbackNode* feedbackNode			= mFeedbackWidget->mNodesToRender[index];
+	CustomFeedbackNode* feedbackNode	= classifier->GetCustomFeedbackNode(index);
 	//const bool			isRanged		= feedbackNode->IsRanged();
 	const double		rangeMin		= feedbackNode->GetRangeMin();
 	const double		rangeMax		= feedbackNode->GetRangeMax();

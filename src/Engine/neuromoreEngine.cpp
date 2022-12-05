@@ -249,8 +249,8 @@ void UpdateFeedbackData()
 			CustomFeedbackNode* node = classifier->GetCustomFeedbackNode(i);
 
 			// output values
-			const double minValue = node->GetFloatAttribute(CustomFeedbackNode::ATTRIB_RANGEMIN);
-			const double maxValue = node->GetFloatAttribute(CustomFeedbackNode::ATTRIB_RANGEMAX);
+			const double minValue = node->GetRangeMin();
+			const double maxValue = node->GetRangeMax();
 			gNMEngineData->mFeedbackData.SetFeedbackData(i, node->GetName(), node->GetCurrentValue(), minValue, maxValue );
 		}
 	}

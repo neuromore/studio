@@ -47,6 +47,7 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 			ATTRIB_ISRANGED,
 			ATTRIB_RANGEMIN,
 			ATTRIB_RANGEMAX,
+			NUM_CUSTOMFEEDBACKBASEATTRIBUTES
 		};
 		enum EError
 		{
@@ -66,9 +67,9 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 
 		Core::Color GetColor() const override;
 		uint32 GetType() const override											{ return TYPE_ID; }
-		const char* GetTypeUuid() const override final							{ return Uuid(); }
+		const char* GetTypeUuid() const override								{ return Uuid(); }
 		const char* GetReadableType() const override							{ return "Custom Feedback"; }
-		const char* GetRuleName() const override final							{ return "NODE_Feedback"; }
+		const char* GetRuleName() const override 								{ return "NODE_Feedback"; }
 		GraphObject* Clone(Graph* graph) override								{ CustomFeedbackNode* clone = new CustomFeedbackNode(graph); return clone; }
 
 		void SetName(const char* name) override;

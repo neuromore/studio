@@ -27,12 +27,12 @@
 // include the required headers
 #include "../Config.h"
 #include "../Core/StandardHeaders.h"
-#include "FeedbackNode.h"
+#include "CustomFeedbackNode.h"
 
 // forward declaration
 class Classifier;
 
-class ENGINE_API VolumeControlNode : public FeedbackNode
+class ENGINE_API VolumeControlNode : public CustomFeedbackNode
 {
 	public:
 		enum { TYPE_ID				= 0x0060 };
@@ -53,7 +53,8 @@ class ENGINE_API VolumeControlNode : public FeedbackNode
             OVERALL_SYSTEM_VOLUME   = 1,
             SINGLE_MEDIA_FILE       = 2,
             TONE                    = 3,
-            MODE_NUM                = 4
+            VISUALIZATION           = 4,
+            MODE_NUM                = 5
         };
 
         enum EError
@@ -92,10 +93,13 @@ class ENGINE_API VolumeControlNode : public FeedbackNode
         double GetRangeMin() const override                                     { return 0.0; }
         double GetRangeMax() const override                                     { return 1.0; }
 
+        void WriteOscMessage(OscPacketParser::OutStream* outStream) override;
+
     private:
-        void ShowAttributesForSignalType(Mode type);
+        void ShowAttributesForMode(Mode type);
         const char* GetModeString(Mode mode) const;
         Mode mCurrentMode;
+        Core::String mOscAddress;
 };
 
 #endif
