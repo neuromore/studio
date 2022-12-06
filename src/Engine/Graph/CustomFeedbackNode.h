@@ -55,6 +55,11 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 			ERROR_VALUE_RANGE			= GraphObjectError::ERROR_RUNTIME		| 0x02,
 		};
 
+		enum EWarning
+		{
+			WARNING_DEPRICATED_NODE_NAME			= GraphObjectWarning::WARNING_CUSTOM	| 0x01,
+		};
+
 		CustomFeedbackNode(Graph* parentGraph);
 		virtual ~CustomFeedbackNode();
 

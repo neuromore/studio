@@ -180,6 +180,15 @@ void CustomFeedbackNode::Update(const Time& elapsed, const Time& delta)
 		else
 			ClearError(ERROR_VALUE_RANGE);
 	}
+
+	if (GetNameString() == "Volume"
+		|| GetNameString() == "MasterVolume") {
+			String warningMsg;
+			warningMsg.Format("Using custom feedback with name %s is depricated, use the appropriate node", GetName());
+			SetWarning(WARNING_DEPRICATED_NODE_NAME, warningMsg.AsChar());
+	} else {
+		ClearWarning(WARNING_DEPRICATED_NODE_NAME);
+	}
 }
 
 
