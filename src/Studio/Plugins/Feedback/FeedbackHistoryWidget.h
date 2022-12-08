@@ -61,7 +61,6 @@ class FeedbackHistoryWidget : public OpenGLWidget
 
 		friend class RenderCallback;
 
-		Core::Array<FeedbackNode*> mNodesToRender;
 		FeedbackPlugin*		mPlugin;
 		RenderCallback*		mRenderCallback;
 		double				mLeftTextWidth;
