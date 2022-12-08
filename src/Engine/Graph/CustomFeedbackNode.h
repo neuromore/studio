@@ -47,7 +47,6 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 			ATTRIB_ISRANGED,
 			ATTRIB_RANGEMIN,
 			ATTRIB_RANGEMAX,
-			NUM_CUSTOMFEEDBACKBASEATTRIBUTES
 		};
 		enum EError
 		{
@@ -57,7 +56,7 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 
 		enum EWarning
 		{
-			WARNING_DEPRICATED_NODE_NAME			= GraphObjectWarning::WARNING_CUSTOM	| 0x01,
+			WARNING_DEPRECATED_NODE_NAME			= GraphObjectWarning::WARNING_CUSTOM	| 0x01,
 		};
 
 		CustomFeedbackNode(Graph* parentGraph);

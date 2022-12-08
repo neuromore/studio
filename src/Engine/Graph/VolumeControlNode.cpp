@@ -203,8 +203,6 @@ const char* VolumeControlNode::GetModeString(Mode mode) const
 // show only the attributes required for this Mode
 void VolumeControlNode::ShowAttributesForMode(Mode type)
 {
-	GetAttributeSettings(ATTRIB_SIGNALRESOLUTION)->SetVisible(false);
-	GetAttributeSettings(ATTRIB_UPLOAD)->SetVisible(false);
 	GetAttributeSettings(ATTRIB_SENDOSCNETWORKMESSAGES)->SetVisible(false);
 	GetAttributeSettings(ATTRIB_OSCADDRESS)->SetVisible(false);
 

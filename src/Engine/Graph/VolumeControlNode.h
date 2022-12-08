@@ -85,7 +85,7 @@ class ENGINE_API VolumeControlNode : public CustomFeedbackNode
 		uint32 GetType() const override											{ return TYPE_ID; }
 		const char* GetTypeUuid() const override final							{ return Uuid(); }
 		const char* GetReadableType() const override							{ return "Volume Control"; }
-		const char* GetRuleName() const override final							{ return "NODE_Feedback"; }
+		const char* GetRuleName() const override final							{ return "NODE_VOLUMECONTROL"; }
         uint32 GetOutputNodeType() const override								{ return OUTPUTNODE_TYPE; }
 		GraphObject* Clone(Graph* graph) override								{ VolumeControlNode* clone = new VolumeControlNode(graph); return clone; }
 
