@@ -173,23 +173,6 @@ void VolumeControlNode::OnAttributesChanged()
 	ShowAttributesForMode((Mode)mode);
 }
 
-
-double VolumeControlNode::GetCurrentValue(uint32 channelIndex) const
-{
-	CORE_ASSERT(channelIndex <= mInputReader.GetNumChannels());
-
-	if (mIsInitialized == false) 
-		return 0.0;
-
-	if (channelIndex >= mInputReader.GetNumChannels())
-		return 0.0;
-
-	if (mInputReader.GetChannel(channelIndex)->GetNumSamples() == 0)
-		return 0.0;
-
-	return mInputReader.GetChannel(channelIndex)->AsType<double>()->GetLastSample();
-}
-
 // check if feedback node has a current value
 bool VolumeControlNode::IsEmpty(uint32 channelIndex) const
 {

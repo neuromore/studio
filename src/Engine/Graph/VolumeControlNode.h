@@ -67,7 +67,6 @@ class ENGINE_API VolumeControlNode : public CustomFeedbackNode
 		VolumeControlNode(Graph* parentGraph);
 		virtual ~VolumeControlNode();
 
-        double GetCurrentValue(uint32 channelIndex = 0) const;
         bool IsEmpty(uint32 channelIndex = 0) const;
 
         // get signal resolution

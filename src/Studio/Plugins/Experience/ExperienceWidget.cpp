@@ -172,12 +172,12 @@ void ExperienceWidget::OnRefreshTimer()
 				SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
 		}
 
-		uint32 numNodes = classifier->GetNumNodes();
+		uint32 numFeedBackNodes = classifier->GetNumCustomFeedbackNodes();
 		bool isSystemVolumeControlUsed = false;
 		bool isStudioVolumeControlUsed = false;
 
-		for (uint32 i = 0; i < numNodes; ++i) {
-			node = classifier->GetNode(i);
+		for (uint32 i = 0; i < numFeedBackNodes; ++i) {
+			node = classifier->GetCustomFeedbackNode(i);
 
 			if (node->GetTypeUuid() == VolumeControlNode::Uuid()) {
 				VolumeControlNode* feedbackNode = static_cast<VolumeControlNode*>(node);
