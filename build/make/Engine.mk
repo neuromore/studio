@@ -197,6 +197,7 @@ OBJS       = Core/AABB.o \
              Graph/ToneGeneratorNode.o \
              Graph/ViewNode.o \
              Graph/WaveformNode.o \
+             Graph/VolumeControlNode.o \
              Networking/OscFeedbackPacket.o \
              Networking/OscMessageParser.o \
              Networking/OscMessageQueue.o \

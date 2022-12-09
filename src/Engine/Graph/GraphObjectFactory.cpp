@@ -49,6 +49,8 @@
   #include "AVEColorNode.h"
 #endif
 
+#include "VolumeControlNode.h"
+
 #if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_OSX) || defined(NEUROMORE_PLATFORM_LINUX)
   #include "FileReaderNode.h"
   #include "FileWriterNode.h"
@@ -170,6 +172,8 @@ GraphObjectFactory::GraphObjectFactory()
 #ifndef PRODUCTION_BUILD
 		RegisterObjectType( new AVEColorNode(NULL) );
 #endif
+
+		RegisterObjectType( new VolumeControlNode(NULL) );
 
 #if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_OSX) || defined(NEUROMORE_PLATFORM_LINUX)
 		RegisterObjectType( new FileReaderNode(NULL) );

@@ -30,6 +30,7 @@
 #include "GraphExporter.h"
 #include "../EngineManager.h"
 #include "FileWriterNode.h"
+#include "VolumeControlNode.h"
 
 
 using namespace Core;
@@ -284,7 +285,8 @@ void Classifier::CollectNodes()
 
 		//// BEGIN elseif-block node-GetType()
 		// is the given node a custom feedback node?
-		if (node->GetType() == CustomFeedbackNode::TYPE_ID)
+		if (node->GetType() == CustomFeedbackNode::TYPE_ID
+			|| node->GetType() == VolumeControlNode::TYPE_ID)
 		{
 			numCustomFeedbackNodes++;
 			numFeedbackNodes++;
@@ -392,7 +394,8 @@ void Classifier::CollectNodes()
 		
 		//// BEGIN elseif-block (node->GetType() = ...)
 		// is the given node a custom feedback node?
-		if (node->GetType() == CustomFeedbackNode::TYPE_ID)
+		if (node->GetType() == CustomFeedbackNode::TYPE_ID
+			|| node->GetType() == VolumeControlNode::TYPE_ID)
 		{
 			mCustomFeedbackNodes[customFeedbackNodeIndex] = static_cast<CustomFeedbackNode*>(node);
 			customFeedbackNodeIndex++;

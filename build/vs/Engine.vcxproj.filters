@@ -496,6 +496,9 @@
     <ClCompile Include="..\..\src\Engine\Graph\WaveformNode.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\VolumeControlNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Networking\OscFeedbackPacket.cpp">
       <Filter>Networking</Filter>
     </ClCompile>
@@ -1180,6 +1183,9 @@
       <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Graph\WaveformNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\VolumeControlNode.h">
       <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Networking\OscFeedbackPacket.h">

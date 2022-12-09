@@ -29,6 +29,7 @@
 #include "Graph/StateTransitionButtonCondition.h"
 #include "Graph/StateTransitionAudioCondition.h"
 #include "Graph/StateTransitionVideoCondition.h"
+#include "Graph/VolumeControlNode.h"
 
 // for system master volume control
 #ifdef NEUROMORE_PLATFORM_WINDOWS
@@ -162,17 +163,8 @@ void ExperienceWidget::OnRefreshTimer()
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
 	if (classifier != NULL)
 	{
-		// find volume node
-		Node* node = classifier->FindNodeByName("Volume", CustomFeedbackNode::TYPE_ID);
-		if (node != NULL)
-		{
-			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-				SetGlobalVolume( feedbackNode->GetCurrentValue() );
-		}
-
 		// find screen brightness node
-		node = classifier->FindNodeByName("ScreenBrightness", CustomFeedbackNode::TYPE_ID);
+		Node* node = classifier->FindNodeByName("ScreenBrightness", CustomFeedbackNode::TYPE_ID);
 		if (node != NULL)
 		{
 			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
@@ -180,17 +172,39 @@ void ExperienceWidget::OnRefreshTimer()
 				SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
 		}
 
+		uint32 numFeedBackNodes = classifier->GetNumCustomFeedbackNodes();
+		bool isSystemVolumeControlUsed = false;
+		bool isStudioVolumeControlUsed = false;
+
+		for (uint32 i = 0; i < numFeedBackNodes; ++i) {
+			node = classifier->GetCustomFeedbackNode(i);
+
+			if (node->GetTypeUuid() == VolumeControlNode::Uuid()) {
+				VolumeControlNode* feedbackNode = static_cast<VolumeControlNode*>(node);
+
+				if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false) {
+						if (!isStudioVolumeControlUsed && feedbackNode->GetMode() == VolumeControlNode::STUDIO_VOLUME) {
+							isStudioVolumeControlUsed = true;
+							SetGlobalVolume( feedbackNode->GetCurrentValue() );
+						} else if (feedbackNode->GetMode() == VolumeControlNode::SINGLE_MEDIA_FILE) {
+							isSystemVolumeControlUsed = true;
+							SetVolume(feedbackNode->GetCurrentValue(), feedbackNode->GetFileUrl());
+						} else if (feedbackNode->GetMode() == VolumeControlNode::TONE) {
+							String nodeName = feedbackNode->GetToneName();
+							for (uint32 j = 0; j < mTonePlayers.Size(); ++j) {
+								if (mTonePlayers[j]->GetNode().GetName() == nodeName) {
+									mTonePlayers[j]->SetVolume(feedbackNode->GetCurrentValue());
+								}
+							}
+						}
 #ifdef NEUROMORE_PLATFORM_WINDOWS
-		// find master volume node
-		node = classifier->FindNodeByName("MasterVolume", CustomFeedbackNode::TYPE_ID);
-		if (node != NULL)
-		{
-			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-				SetSystemMasterVolume( feedbackNode->GetCurrentValue() );
-		}
+						else if (!isSystemVolumeControlUsed && feedbackNode->GetMode() == VolumeControlNode::OVERALL_SYSTEM_VOLUME) {
+							SetSystemMasterVolume( feedbackNode->GetCurrentValue() );
+						}
 #endif
-		
+				}
+			}
+		}
 	}
 }
 
