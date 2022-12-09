@@ -198,6 +198,13 @@ OBJS       = Core/AABB.o \
              Graph/ViewNode.o \
              Graph/WaveformNode.o \
              Graph/VolumeControlNode.o \
+             Graph/ScreenBrightnessNode.o \
+             Graph/SpeedControlNode.o \
+             Graph/SunControlNode.o \
+             Graph/CloudsControlNode.o \
+             Graph/FogControlNode.o \
+             Graph/RainControlNode.o \
+             Graph/VignetteControlNode.o \
              Networking/OscFeedbackPacket.o \
              Networking/OscMessageParser.o \
              Networking/OscMessageQueue.o \
