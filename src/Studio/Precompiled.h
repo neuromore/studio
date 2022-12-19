@@ -29,6 +29,7 @@
 #include <Engine/DeviceDriver.h>
 #include <Engine/DeviceManager.h>
 #include <Engine/Config.h>
+#include <Engine/Branding.h>
 #include <Engine/Notifications.h>
 #include <Engine/User.h>
 
@@ -111,7 +112,6 @@
 #include <QTextOption>
 
 // From QtBase
-#include <QtBase/Branding.h>
 #include <QtBase/QtBaseConfig.h>
 #include <QtBase/QtBaseManager.h>
 #include <QtBase/ColorPalette.h>

@@ -5,6 +5,7 @@
 
 // From Engine
 #include <Engine/Core/StandardHeaders.h>
+#include <Engine/Branding.h>
 #include <Engine/Core/String.h>
 #include <Engine/Core/Array.h>
 #include <Engine/Core/Json.h>
@@ -55,7 +56,6 @@
 #include <QtBase/Windows/EnterLabelWindow.h>
 
 // From Root Folder
-#include <QtBase/Branding.h>
 #include <QtBase/QtBaseConfig.h>
 #include <QtBase/ColorLabel.h>
 #include <QtBase/ColorPalette.h>

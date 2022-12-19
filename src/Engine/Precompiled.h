@@ -51,6 +51,7 @@
 
 // From Root Folder
 #include <Engine/Config.h>
+#include <Engine/Branding.h>
 #include <Engine/CloudParameters.h>
 #include <Engine/Creud.h>
 #include <Engine/Device.h>

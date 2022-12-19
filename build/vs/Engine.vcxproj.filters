@@ -1294,6 +1294,7 @@
     <ClInclude Include="..\..\src\Engine\Graph\ToneGeneratorNode.h">
       <Filter>Graph</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Branding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

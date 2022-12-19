@@ -29,7 +29,7 @@
 #include <Core/StandardHeaders.h>
 #include <Core/Timer.h>
 #include <Core/String.h>
-#include <QtBase/Branding.h>
+#include <Engine/Branding.h>
 #include <QtBase/QtBaseManager.h>
 #include <PluginSystem/PluginManager.h>
 #include <singleapplication/singleapplication.h>

@@ -516,6 +516,7 @@
     <ClCompile Include="..\..\src\Engine\BciDevice.cpp" />
     <ClInclude Include="..\..\src\Engine\BciDevice.h" />
     <ClCompile Include="..\..\src\Engine\CloudParameters.cpp" />
+    <ClInclude Include="..\..\src\Engine\Branding.h" />
     <ClInclude Include="..\..\src\Engine\CloudParameters.h" />
     <ClCompile Include="..\..\src\Engine\ColorMapper.cpp" />
     <ClInclude Include="..\..\src\Engine\ColorMapper.h" />
