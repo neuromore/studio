@@ -382,9 +382,10 @@ endif
 
 ifeq ($(BRANDING),neuromore)
 APPNAME    = neuromore Studio
+APPICON    = $(SRCDIR)/Resources/AppIcon-$(BRANDING)
 DEFINES   := $(DEFINES) \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-neuromore.ico"
+             -DAPPICON="../../$(APPICON).ico"
 OBJSPRIV  := $(OBJSPRIV)
 RCCHPRIV  := $(RCCHPRIV)
 RCCO      := $(RCCO)
@@ -392,11 +393,12 @@ endif
 
 ifeq ($(BRANDING),ant)
 APPNAME    = eego perform studio
+APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_ANT \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-ant.ico"
+             -DAPPICON="../../$(APPICON).ico"
 OBJSPRIV  := $(OBJSPRIV)
 RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
 RCCO      := $(RCCO) StudioPrivate.orcc
@@ -404,11 +406,12 @@ endif
 
 ifeq ($(BRANDING),starrbase)
 APPNAME    = Starrbase
+APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_STARRBASE \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-starrbase.ico"
+             -DAPPICON="../../$(APPICON).ico"
 OBJSPRIV  := $(OBJSPRIV)
 RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
 RCCO      := $(RCCO) StudioPrivate.orcc
@@ -416,11 +419,12 @@ endif
 
 ifeq ($(BRANDING),supermind)
 APPNAME    = Supermind Brainwave Studio
+APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
 DEFINES   := $(DEFINES) \
              -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_SUPERMIND \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-supermind.ico"
+             -DAPPICON="../../$(APPICON).ico"
 OBJSPRIV  := $(OBJSPRIV)
 RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
 RCCO      := $(RCCO) StudioPrivate.orcc
