@@ -1689,16 +1689,7 @@ void MainWindow::OnLoadSettings()
 #endif
 
 	// used backend
-#ifdef NEUROMORE_BRANDING_ANT
-	const int defaultPresetIndex = 1;
-#elif NEUROMORE_BRANDING_STARRBASE
-	const int defaultPresetIndex = 2;
-#elif NEUROMORE_BRANDING_SUPERMIND
-   const int defaultPresetIndex = 3;
-#else
-	const int defaultPresetIndex = 0;
-#endif
-	int32 cloudServerPreset = settings.value("cloudServerPreset", defaultPresetIndex).toInt();
+	int32 cloudServerPreset = settings.value("cloudServerPreset", Branding::DefaultServerPresetIdx).toInt();
 	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(cloudServerPreset);
 
 	bool backendLoggingEnabled = settings.value( "cloudLoggingEnabled", false ).toBool();
