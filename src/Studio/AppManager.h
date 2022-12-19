@@ -124,7 +124,7 @@ class AppManager : public QObject
 		const char* GetCloudTermsUrl() const     { return AppManagerConfig::CloudTermsUrl; }
 		const char* GetPrivacyPolicyUrl() const  { return AppManagerConfig::PrivacyPolicyUrl; }
 		const char* GetLoginImageName() const    { return AppManagerConfig::LoginImageName; }
-      const bool  IsLoginRemberMePrechecked() const { return true; }
+		const bool  IsLoginRemberMePrechecked() const { return AppManagerConfig::LoginRemberMePrechecked; }
 
 		Core::String GetAppName() const;
 		const char* GetBackendSystemName() const;

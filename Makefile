@@ -11,7 +11,7 @@ QtTools:
 
 Dependencies:
 	@echo [BLD] Dependencies
-	+@make -s -C ./deps/ -f Makefile -j24
+	+@make -s -C ./deps/ -f Makefile
 
 Dependencies-engine:
 	@echo [BLD] Dependencies Engine
@@ -23,7 +23,7 @@ Dependencies-clean:
 
 Engine:
 	@echo [BLD] Engine
-	+@make -s -C ./build/make/ -f Engine.mk -j24
+	+@make -s -C ./build/make/ -f Engine.mk
 
 Engine-clean:
 	@echo [CLN] Engine
@@ -47,7 +47,7 @@ EngineJNI-clean:
 
 QtBase:
 	@echo [BLD] QtBase
-	+@make -s -C ./build/make/ -f QtBase.mk -j24
+	+@make -s -C ./build/make/ -f QtBase.mk
 
 QtBase-clean:
 	@echo [CLN] QtBase
@@ -55,7 +55,7 @@ QtBase-clean:
 
 Studio:
 	@echo [BLD] Studio
-	+@make -s -C ./build/make/ -f Studio.mk -j8
+	+@make -s -C ./build/make/ -f Studio.mk
 
 Studio-clean:
 	@echo [CLN] Studio
