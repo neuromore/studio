@@ -133,7 +133,7 @@ XCODEBUILDV  = $(shell xcodebuild -version | grep -E -m1 'Build version' | sed '
 dist-prep:
 	@echo [NAM] $(APPNAME)
 	@echo [VER] $(VERSION3)
-    @echo [ICO] $(APPICON)
+	@echo [ICO] $(APPICON)
 	@echo [OSX] $(OSXVER) - ${OSXBUILDV}
 	@echo [SDK] $(OSXSDKVER) - ${OSXSDKBUILDV}
 	@echo [XCO] $(XCODEVER) - ${XCODEBUILDV}
@@ -287,9 +287,9 @@ VERSIONPATCH = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFI
 VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
 dist-prep:
-    echo [NAM] $(APPNAME)
+	echo [NAM] $(APPNAME)
 	echo [VER] $(VERSION3)
-    echo [ICO] $(APPICON)
+	echo [ICO] $(APPICON)
 dist-%: dist-prep
 	echo [DST] $(NAME)-$*
 	$(eval DISTDEBARCH:=$(shell \
