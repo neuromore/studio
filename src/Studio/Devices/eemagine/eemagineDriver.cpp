@@ -31,16 +31,10 @@
 
 #include <eemagine/sdk/wrapper.cc>
 
-#ifdef NEUROMORE_BRANDING_ANT
-#define DEFAULT_DRIVER_ENABLED true
-#else
-#define DEFAULT_DRIVER_ENABLED false
-#endif
-
 using namespace Core;
 
 // constructor
-eemagineDriver::eemagineDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mMode(EMode::MODE_IDLE), mDevice(NULL), mFactory(NULL), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
+eemagineDriver::eemagineDriver() : DeviceDriver(Branding::DefaultEemagineEnabled), mMode(EMode::MODE_IDLE), mDevice(NULL), mFactory(NULL), mAmplifier(NULL), mStream(NULL), mLastDetect(0)
 {
    LogDetailedInfo("Constructing eemagine driver ...");
 
