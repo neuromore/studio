@@ -55,6 +55,7 @@
 #include <QtBase/Windows/EnterLabelWindow.h>
 
 // From Root Folder
+#include <QtBase/Branding.h>
 #include <QtBase/QtBaseConfig.h>
 #include <QtBase/ColorLabel.h>
 #include <QtBase/ColorPalette.h>

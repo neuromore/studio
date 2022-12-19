@@ -752,6 +752,7 @@ QtBase.cmd
     <ClCompile Include="..\..\src\QtBase\Backend\WebDataCache.cpp" />
     <ClInclude Include="..\..\src\QtBase\Backend\WebDataCache.h" />
     <ClCompile Include="..\..\src\QtBase\ColorLabel.cpp" />
+    <ClInclude Include="..\..\src\QtBase\Branding.h" />
     <ClInclude Include="..\..\src\QtBase\ColorLabel.h" />
     <ClInclude Include="..\..\src\QtBase\ColorPalette.h" />
     <ClCompile Include="..\..\src\QtBase\DockHeader.cpp" />

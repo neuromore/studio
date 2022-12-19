@@ -26,7 +26,7 @@
 
 // Branding (private for b2b)
 #ifdef NEUROMORE_BRANDING
-#include <Studio/BrandingPrivate.h>
+#include <QtBase/BrandingPrivate.h>
 #else
 class Branding
 {

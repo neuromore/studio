@@ -1223,7 +1223,6 @@
     <ClInclude Include="..\..\src\Studio\Precompiled.h" />
     <ClInclude Include="..\..\src\Studio\OnboardingAction.h" />
     <ClInclude Include="..\..\src\Studio\TourManager.h" />
-    <ClInclude Include="..\..\src\Studio\Branding.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\Studio\Resources\StudioResources.qrc">

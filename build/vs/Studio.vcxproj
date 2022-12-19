@@ -359,7 +359,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\AppManager.h" />
     <ClInclude Include="..\..\src\Studio\AuthenticationCenter.h" />
-    <ClInclude Include="..\..\src\Studio\Branding.h" />
     <ClInclude Include="..\..\src\Studio\Config.h" />
     <ClInclude Include="..\..\src\Studio\Devices\ABM\AbmDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\ABM\AbmThreadHandler.h" />

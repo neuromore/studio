@@ -28,14 +28,14 @@
 #include "Config.h"
 #include <Core/StandardHeaders.h>
 #include <Core/Timer.h>
-#include "Rendering/OpenGLManager.h"
 #include <Core/String.h>
-#include <QtBaseManager.h>
+#include <QtBase/Branding.h>
+#include <QtBase/QtBaseManager.h>
 #include <PluginSystem/PluginManager.h>
-#include "Windows/LoginWindow.h"
 #include <singleapplication/singleapplication.h>
+#include "Rendering/OpenGLManager.h"
+#include "Windows/LoginWindow.h"
 #include "OnboardingAction.h"
-#include "Branding.h"
 
 // include Qt
 #include <QObject>

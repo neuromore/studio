@@ -705,6 +705,7 @@
     <ClInclude Include="..\..\src\QtBase\Audio\TonePlayer.h">
       <Filter>Audio</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Branding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
