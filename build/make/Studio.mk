@@ -226,6 +226,7 @@ MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
 MOCC       =
 MOCO       = $(patsubst %.cpp,%.omoc,$(MOCH))
 RCCH       = Resources/StudioResources.cpp
+RCCHPRIV   =
 RCCO       = StudioResources.orcc
 UICH       =
 RESO       =
@@ -385,33 +386,44 @@ DEFINES   := $(DEFINES) \
              -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-neuromore.ico"
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV)
+RCCO      := $(RCCO)
 endif
 
 ifeq ($(BRANDING),ant)
 APPNAME    = eego perform studio
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_ANT \
              -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-ant.ico"
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
+RCCO      := $(RCCO) StudioPrivate.orcc
 endif
 
 ifeq ($(BRANDING),starrbase)
 APPNAME    = Starrbase
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_STARRBASE \
              -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-starrbase.ico"
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
+RCCO      := $(RCCO) StudioPrivate.orcc
 endif
 
 ifeq ($(BRANDING),supermind)
 APPNAME    = Supermind Brainwave Studio
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_SUPERMIND \
              -DAPPNAME="$(APPNAME)" \
              -DAPPICON="AppIcon-supermind.ico"
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
+RCCO      := $(RCCO) StudioPrivate.orcc
 endif
 
 ################################################################################################
@@ -716,12 +728,17 @@ $(OBJDIR)/%.omocmm:
 ################################################################################################
 # RCC
 
-RCCH := $(patsubst %,$(RCCDIR)/%,$(RCCH))
-RCCO := $(patsubst %,$(OBJDIR)/%,$(RCCO))
+RCCH     := $(patsubst %,$(RCCDIR)/%,$(RCCH))
+RCCHPRIV := $(patsubst %,$(RCCDIR)/%,$(RCCHPRIV))
+RCCO     := $(patsubst %,$(OBJDIR)/%,$(RCCO))
 
 $(RCCDIR)/%.cpp:
 	@echo [RCC] $@
 	$(QTRCC) --name $(basename $(@F)) $(@:$(RCCDIR)/%.cpp=$(SRCDIR)/%.qrc) --output $(@:$(RCCDIR)/%.cpp=$(RCCDIR)/qrc_$(@F))
+
+$(RCCDIR)/%.cppp:
+	@echo [RCC] $@
+	$(QTRCC) --name $(basename $(@F)) $(@:$(RCCDIR)/%.cppp=$(SRCDIRPRIV)/%.qrc) --output $(@:$(RCCDIR)/%.cppp=$(RCCDIR)/qrc_$(basename $(@F)).cpp)
 
 $(OBJDIR)/%.orcc:
 	@echo [CXX] $@
@@ -787,7 +804,7 @@ $(MOCO) : pch
 $(OBJS) : pch
 $(OBJSPRIV) : pch
 
-PRES := $(MOCH) $(MOCC) $(RCCH) $(UICH)
+PRES := $(MOCH) $(MOCC) $(RCCH) $(RCCHPRIV) $(UICH)
 OBLS := $(OBJS) $(OBJSPRIV) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
@@ -808,6 +825,7 @@ clean:
 	$(call deletefiles,$(MOCDIR),*.moc)
 	$(call deletefiles,$(MOCDIR),*.mocmm)
 	$(call deletefiles,$(RCCDIR),*.cpp)
+	$(call deletefiles,$(RCCDIR),*.cppp)
 	$(call deletefiles,$(UICDIR),*.h)
 	$(call deletefiles,$(OBJDIR),$(PCH).pch)
 	$(call deletefiles,$(OBJDIR),*.o)

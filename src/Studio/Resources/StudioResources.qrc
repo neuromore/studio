@@ -3,9 +3,5 @@
         <file>Assets/Models/Brain.obj</file>
         <file>Assets/Textures/FallbackTexture.png</file>
         <file>AppIcon-neuromore.ico</file>
-        <file>AppIcon-ant.ico</file>
-        <file>AppIcon-starrbase.ico</file>
-        <file>AppIcon-supermind.ico</file>
     </qresource>
 </RCC>
-

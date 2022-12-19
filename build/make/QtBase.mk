@@ -103,6 +103,7 @@ RCCH       = Resources/Assets.cpp \
              Resources/GraphResources.cpp \
              Resources/LayoutResources.cpp \
              Resources/QtBaseResources.cpp
+RCCHPRIV   =
 RCCO       = Assets.orcc \
              DeviceResources.orcc \
              GraphResources.orcc \
@@ -229,24 +230,35 @@ endif
 ifeq ($(BRANDING),neuromore)
 DEFINES   := $(DEFINES)
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV)
+RCCO      := $(RCCO)
 endif
 
 ifeq ($(BRANDING),ant)
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_ANT
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/QtBasePrivate.cppp
+RCCO      := $(RCCO) QtBasePrivate.orcc
 endif
 
 ifeq ($(BRANDING),starrbase)
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_STARRBASE
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/QtBasePrivate.cppp
+RCCO      := $(RCCO) QtBasePrivate.orcc
 endif
 
 ifeq ($(BRANDING),supermind)
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_SUPERMIND
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/QtBasePrivate.cppp
+RCCO      := $(RCCO) QtBasePrivate.orcc
 endif
 
 ################################################################################################
@@ -472,12 +484,17 @@ $(OBJDIR)/%.omocmm:
 ################################################################################################
 # RCC
 
-RCCH := $(patsubst %,$(RCCDIR)/%,$(RCCH))
-RCCO := $(patsubst %,$(OBJDIR)/%,$(RCCO))
+RCCH     := $(patsubst %,$(RCCDIR)/%,$(RCCH))
+RCCHPRIV := $(patsubst %,$(RCCDIR)/%,$(RCCHPRIV))
+RCCO     := $(patsubst %,$(OBJDIR)/%,$(RCCO))
 
 $(RCCDIR)/%.cpp:
 	@echo [RCC] $@
 	$(QTRCC) --name $(basename $(@F)) $(@:$(RCCDIR)/%.cpp=$(SRCDIR)/%.qrc) --output $(@:$(RCCDIR)/%.cpp=$(RCCDIR)/qrc_$(@F))
+
+$(RCCDIR)/%.cppp:
+	@echo [RCC] $@
+	$(QTRCC) --name $(basename $(@F)) $(@:$(RCCDIR)/%.cppp=$(SRCDIRPRIV)/%.qrc) --output $(@:$(RCCDIR)/%.cppp=$(RCCDIR)/qrc_$(basename $(@F)).cpp)
 
 $(OBJDIR)/%.orcc:
 	@echo [CXX] $@
@@ -534,7 +551,7 @@ $(MOCO) : pch
 $(OBJS) : pch
 $(OBJSPRIV) : pch
 
-PRES := $(MOCH) $(MOCC) $(RCCH) $(UICH)
+PRES := $(MOCH) $(MOCC) $(RCCH) $(RCCHPRIV) $(UICH)
 OBLS := $(OBJS) $(OBJSPRIV) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
@@ -548,6 +565,7 @@ clean:
 	$(call deletefiles,$(MOCDIR),*.moc)
 	$(call deletefiles,$(MOCDIR),*.mocmm)
 	$(call deletefiles,$(RCCDIR),*.cpp)
+	$(call deletefiles,$(RCCDIR),*.cppp)
 	$(call deletefiles,$(UICDIR),*.h)
 	$(call deletefiles,$(OBJDIR),$(PCH).pch)
 	$(call deletefiles,$(OBJDIR),*.o)
