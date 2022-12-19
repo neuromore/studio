@@ -41,6 +41,7 @@ public:
    static constexpr const char* StoreUrl                = "https://www.neuromore.com";
    static constexpr const char* ForgotPasswordUrl       = "https://account.neuromore.com/#/resetrequest";
    static constexpr const char* SupportEMail            = "support@neuromore.com";
+   static constexpr const char* AppName                 = "neuromore Studio";
    static constexpr const char* AppShortName            = "NMStudio";
    static constexpr const char* MenuStudioName          = "NMStudio";
    static constexpr const char* LicenseUrl              = "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md";
