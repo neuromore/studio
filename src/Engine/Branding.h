@@ -33,26 +33,27 @@ class Branding
 private:
    inline Branding() { }
 public:
-   static constexpr const char* CompanyName             = "neuromore";      // do not put Inc. behind this as this is also used as folder name
-   static constexpr const char* DeveloperName           = "neuromore Inc.";
-   static constexpr const char* Website                 = "https://www.neuromore.com";
-   static constexpr const char* DocumentationUrl        = "https://doc.neuromore.com";
-   static constexpr const char* AccountUrl              = "https://account.neuromore.com";
-   static constexpr const char* StoreUrl                = "https://www.neuromore.com";
-   static constexpr const char* ForgotPasswordUrl       = "https://account.neuromore.com/#/resetrequest";
-   static constexpr const char* SupportEMail            = "support@neuromore.com";
-   static constexpr const char* AppName                 = "neuromore Studio";
-   static constexpr const char* AppShortName            = "NMStudio";
-   static constexpr const char* MenuStudioName          = "NMStudio";
-   static constexpr const char* LicenseUrl              = "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md";
-   static constexpr const char* CloudTermsUrl           = "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md";
-   static constexpr const char* PrivacyPolicyUrl        = "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md";
-   static constexpr const char* LoginImageName          = ":/Images/Login-neuromore.png";
-   static constexpr const char* SplashImageName         = ":/Images/SplashScreen-neuromore.png";
-   static constexpr const char* AboutImageName          = ":/Images/About-neuromore.png";
-   static constexpr const bool  LoginRemberMePrechecked  = true;
-   static constexpr const bool  DefaultTestDeviceEnabled = true;
-   static constexpr const int   DefaultServerPresetIdx   = 0;
+   static constexpr const char* CompanyName               = "neuromore";      // do not put Inc. behind this as this is also used as folder name
+   static constexpr const char* DeveloperName             = "neuromore Inc.";
+   static constexpr const char* Website                   = "https://www.neuromore.com";
+   static constexpr const char* DocumentationUrl          = "https://doc.neuromore.com";
+   static constexpr const char* AccountUrl                = "https://account.neuromore.com";
+   static constexpr const char* StoreUrl                  = "https://www.neuromore.com";
+   static constexpr const char* ForgotPasswordUrl         = "https://account.neuromore.com/#/resetrequest";
+   static constexpr const char* SupportEMail              = "support@neuromore.com";
+   static constexpr const char* AppName                   = "neuromore Studio";
+   static constexpr const char* AppShortName              = "NMStudio";
+   static constexpr const char* MenuStudioName            = "NMStudio";
+   static constexpr const char* LicenseUrl                = "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md";
+   static constexpr const char* CloudTermsUrl             = "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md";
+   static constexpr const char* PrivacyPolicyUrl          = "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md";
+   static constexpr const char* LoginImageName            = ":/Images/Login-neuromore.png";
+   static constexpr const char* SplashImageName           = ":/Images/SplashScreen-neuromore.png";
+   static constexpr const char* AboutImageName            = ":/Images/About-neuromore.png";
+   static constexpr const bool  LoginRemberMePrechecked   = true;
+   static constexpr const bool  DefaultTestDeviceEnabled  = true;
+   static constexpr const bool  DefaultBrainMasterEnabled = false;
+   static constexpr const int   DefaultServerPresetIdx    = 0;
 };
 #endif
 #endif
