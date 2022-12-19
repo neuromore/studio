@@ -50,8 +50,9 @@ public:
    static constexpr const char* LoginImageName          = ":/Images/Login-neuromore.png";
    static constexpr const char* SplashImageName         = ":/Images/SplashScreen-neuromore.png";
    static constexpr const char* AboutImageName          = ":/Images/About-neuromore.png";
-   static constexpr const bool  LoginRemberMePrechecked = true;
-   static constexpr const int   DefaultServerPresetIdx  = 0;
+   static constexpr const bool  LoginRemberMePrechecked  = true;
+   static constexpr const bool  DefaultTestDeviceEnabled = true;
+   static constexpr const int   DefaultServerPresetIdx   = 0;
 };
 #endif
 #endif
