@@ -37,16 +37,6 @@
 #include <winuser.h>
 #endif
 
-#ifdef NEUROMORE_BRANDING_ANT
-#define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
-#elif NEUROMORE_BRANDING_STARRBASE
-#define SPLASHIMAGE ":/Images/SplashScreen-Starrbase.png" 
-#elif NEUROMORE_BRANDING_SUPERMIND
-#define SPLASHIMAGE ":/Images/SplashScreen-Supermind.png" 
-#else
-#define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
-#endif
-
 using namespace Core;
 
 //--------------------------------------------------------------------------
@@ -98,7 +88,7 @@ AppManager::AppManager(int argc, char* argv[])
 
 	// show splash screen
 	LogDetailedInfo("Initializing splash screen ...");
-	QPixmap pixmap(SPLASHIMAGE);
+	QPixmap pixmap(Branding::SplashImageName);
 	mSplashScreen = new QSplashScreen(pixmap);
 
 	// force taskbar entry for splashscreen on windows (otherwise it can get stuck in a state where the user cannot reach it anymore.. happened multiple times)

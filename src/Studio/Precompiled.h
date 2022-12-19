@@ -140,5 +140,6 @@
 
 // From Root
 #include <Studio/Config.h>
+#include <Studio/Branding.h>
 #include <Studio/AppManager.h>
 #include <Studio/MainWindow.h>

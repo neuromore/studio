@@ -35,6 +35,7 @@
 #include "Windows/LoginWindow.h"
 #include <singleapplication/singleapplication.h>
 #include "OnboardingAction.h"
+#include "Branding.h"
 
 // include Qt
 #include <QObject>
@@ -52,33 +53,6 @@ QT_FORWARD_DECLARE_CLASS(QLabel)
 class MainWindow;
 class VisualizationManager;
 class TourManager;
-
-// configuration of AppManager (private for brandings)
-#ifdef NEUROMORE_BRANDING
-#include <Studio/AppManagerConfig.h>
-#else
-class AppManagerConfig
-{
-private:
-   inline AppManagerConfig() { }
-public:
-   static constexpr const char* CompanyName             = "neuromore";      // do not put Inc. behind this as this is also used as folder name
-   static constexpr const char* DeveloperName           = "neuromore Inc.";
-   static constexpr const char* Website                 = "https://www.neuromore.com";
-   static constexpr const char* DocumentationUrl        = "https://doc.neuromore.com";
-   static constexpr const char* AccountUrl              = "https://account.neuromore.com";
-   static constexpr const char* StoreUrl                = "https://www.neuromore.com";
-   static constexpr const char* ForgotPasswordUrl       = "https://account.neuromore.com/#/resetrequest";
-   static constexpr const char* SupportEMail            = "support@neuromore.com";
-   static constexpr const char* AppShortName            = "NMStudio";
-   static constexpr const char* MenuStudioName          = "NMStudio";
-   static constexpr const char* LicenseUrl              = "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md";
-   static constexpr const char* CloudTermsUrl           = "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md";
-   static constexpr const char* PrivacyPolicyUrl        = "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md";
-   static constexpr const char* LoginImageName          = ":/Images/Login-neuromore.png";
-   static constexpr const bool  LoginRemberMePrechecked = true;
-};
-#endif
 
 /**
  *
@@ -110,21 +84,21 @@ class AppManager : public QObject
 		// version
 		Core::Version GetVersion() const								{ return mVersion; }
 
-		const char* GetCompanyName() const       { return AppManagerConfig::CompanyName; }
-		const char* GetDeveloperName() const     { return AppManagerConfig::DeveloperName; }
-		const char* GetWebsite() const           { return AppManagerConfig::Website; }
-		const char* GetDocumentationUrl() const  { return AppManagerConfig::DocumentationUrl; }
-		const char* GetAccountUrl() const        { return AppManagerConfig::AccountUrl; }
-		const char* GetStoreUrl() const          { return AppManagerConfig::StoreUrl; }
-		const char* GetForgotPasswordUrl() const { return AppManagerConfig::ForgotPasswordUrl; }
-		const char* GetSupportEMail() const      { return AppManagerConfig::SupportEMail; }
-		const char* GetAppShortName() const      { return AppManagerConfig::AppShortName; }
-		const char* GetMenuStudioName() const    { return AppManagerConfig::MenuStudioName; }
-		const char* GetLicenseUrl() const        { return AppManagerConfig::LicenseUrl; }
-		const char* GetCloudTermsUrl() const     { return AppManagerConfig::CloudTermsUrl; }
-		const char* GetPrivacyPolicyUrl() const  { return AppManagerConfig::PrivacyPolicyUrl; }
-		const char* GetLoginImageName() const    { return AppManagerConfig::LoginImageName; }
-		const bool  IsLoginRemberMePrechecked() const { return AppManagerConfig::LoginRemberMePrechecked; }
+		const char* GetCompanyName() const       { return Branding::CompanyName; }
+		const char* GetDeveloperName() const     { return Branding::DeveloperName; }
+		const char* GetWebsite() const           { return Branding::Website; }
+		const char* GetDocumentationUrl() const  { return Branding::DocumentationUrl; }
+		const char* GetAccountUrl() const        { return Branding::AccountUrl; }
+		const char* GetStoreUrl() const          { return Branding::StoreUrl; }
+		const char* GetForgotPasswordUrl() const { return Branding::ForgotPasswordUrl; }
+		const char* GetSupportEMail() const      { return Branding::SupportEMail; }
+		const char* GetAppShortName() const      { return Branding::AppShortName; }
+		const char* GetMenuStudioName() const    { return Branding::MenuStudioName; }
+		const char* GetLicenseUrl() const        { return Branding::LicenseUrl; }
+		const char* GetCloudTermsUrl() const     { return Branding::CloudTermsUrl; }
+		const char* GetPrivacyPolicyUrl() const  { return Branding::PrivacyPolicyUrl; }
+		const char* GetLoginImageName() const    { return Branding::LoginImageName; }
+		const bool  IsLoginRemberMePrechecked() const { return Branding::LoginRemberMePrechecked; }
 
 		Core::String GetAppName() const;
 		const char* GetBackendSystemName() const;

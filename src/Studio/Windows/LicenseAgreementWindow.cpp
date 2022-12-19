@@ -29,16 +29,6 @@
 #include <Backend/UsersAgreementRequest.h>
 #include <Backend/UsersAgreementResponse.h>
 
-#ifdef NEUROMORE_BRANDING_ANT
-#define ABOUTIMAGE ":/Images/About-ANT.png"
-#elif NEUROMORE_BRANDING_STARRBASE
-#define ABOUTIMAGE ":/Images/About-Starrbase.png"
-#elif NEUROMORE_BRANDING_SUPERMIND
-#define ABOUTIMAGE ":/Images/About-Supermind.png"
-#else
-#define ABOUTIMAGE ":/Images/About-neuromore.png"
-#endif
-
 using namespace Core;
 
 // constructor
@@ -52,7 +42,7 @@ LicenseAgreementWindow::LicenseAgreementWindow(bool showAgreeAndCancelButtons, Q
 	setLayout(mainLayout);
 
 	// load the about dialog image and add it to the dialog
-	QPixmap aboutImage(ABOUTIMAGE);
+	QPixmap aboutImage(Branding::AboutImageName);
 	const uint32 imageWidth = aboutImage.width();
 	QLabel* aboutImageLabel = new QLabel(this);
 	aboutImageLabel->setPixmap(aboutImage);
