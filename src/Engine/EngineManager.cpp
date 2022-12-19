@@ -132,7 +132,7 @@ bool EngineManager::Init()
 	// general config
 	mPowerLineFrequencyType	= POWERLINEFREQ_AUTO;
 	mAutoSyncEnabled		= true;
-	mAutoDetectionEnabled	= false;
+	mAutoDetectionEnabled	= Branding::DefaultAutoDetectionEnabled;
 
 	// drift correction settings
 	mDriftCorrectionSettings.mIsEnabled = true;
