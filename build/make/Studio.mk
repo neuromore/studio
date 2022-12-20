@@ -226,6 +226,7 @@ MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
 MOCC       =
 MOCO       = $(patsubst %.cpp,%.omoc,$(MOCH))
 RCCH       = Resources/StudioResources.cpp
+RCCHPRIV   =
 RCCO       = StudioResources.orcc
 UICH       =
 RESO       =
@@ -381,37 +382,52 @@ endif
 
 ifeq ($(BRANDING),neuromore)
 APPNAME    = neuromore Studio
+APPICON    = $(SRCDIR)/Resources/AppIcon-$(BRANDING)
 DEFINES   := $(DEFINES) \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-neuromore.ico"
+             -DAPPICON="../../$(APPICON).ico"
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV)
+RCCO      := $(RCCO)
 endif
 
 ifeq ($(BRANDING),ant)
 APPNAME    = eego perform studio
+APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_ANT \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-ant.ico"
+             -DAPPICON="../../$(APPICON).ico"
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
+RCCO      := $(RCCO) StudioPrivate.orcc
 endif
 
 ifeq ($(BRANDING),starrbase)
 APPNAME    = Starrbase
+APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_STARRBASE \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-starrbase.ico"
+             -DAPPICON="../../$(APPICON).ico"
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
+RCCO      := $(RCCO) StudioPrivate.orcc
 endif
 
 ifeq ($(BRANDING),supermind)
 APPNAME    = Supermind Brainwave Studio
+APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
 DEFINES   := $(DEFINES) \
+             -DNEUROMORE_BRANDING \
              -DNEUROMORE_BRANDING_SUPERMIND \
              -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="AppIcon-supermind.ico"
+             -DAPPICON="../../$(APPICON).ico"
 OBJSPRIV  := $(OBJSPRIV)
+RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
+RCCO      := $(RCCO) StudioPrivate.orcc
 endif
 
 ################################################################################################
@@ -716,12 +732,17 @@ $(OBJDIR)/%.omocmm:
 ################################################################################################
 # RCC
 
-RCCH := $(patsubst %,$(RCCDIR)/%,$(RCCH))
-RCCO := $(patsubst %,$(OBJDIR)/%,$(RCCO))
+RCCH     := $(patsubst %,$(RCCDIR)/%,$(RCCH))
+RCCHPRIV := $(patsubst %,$(RCCDIR)/%,$(RCCHPRIV))
+RCCO     := $(patsubst %,$(OBJDIR)/%,$(RCCO))
 
 $(RCCDIR)/%.cpp:
 	@echo [RCC] $@
 	$(QTRCC) --name $(basename $(@F)) $(@:$(RCCDIR)/%.cpp=$(SRCDIR)/%.qrc) --output $(@:$(RCCDIR)/%.cpp=$(RCCDIR)/qrc_$(@F))
+
+$(RCCDIR)/%.cppp:
+	@echo [RCC] $@
+	$(QTRCC) --name $(basename $(@F)) $(@:$(RCCDIR)/%.cppp=$(SRCDIRPRIV)/%.qrc) --output $(@:$(RCCDIR)/%.cppp=$(RCCDIR)/qrc_$(basename $(@F)).cpp)
 
 $(OBJDIR)/%.orcc:
 	@echo [CXX] $@
@@ -787,7 +808,7 @@ $(MOCO) : pch
 $(OBJS) : pch
 $(OBJSPRIV) : pch
 
-PRES := $(MOCH) $(MOCC) $(RCCH) $(UICH)
+PRES := $(MOCH) $(MOCC) $(RCCH) $(RCCHPRIV) $(UICH)
 OBLS := $(OBJS) $(OBJSPRIV) $(MOCO) $(RCCO)
 
 $(OBLS) : $(PRES)
@@ -808,6 +829,7 @@ clean:
 	$(call deletefiles,$(MOCDIR),*.moc)
 	$(call deletefiles,$(MOCDIR),*.mocmm)
 	$(call deletefiles,$(RCCDIR),*.cpp)
+	$(call deletefiles,$(RCCDIR),*.cppp)
 	$(call deletefiles,$(UICDIR),*.h)
 	$(call deletefiles,$(OBJDIR),$(PCH).pch)
 	$(call deletefiles,$(OBJDIR),*.o)

@@ -29,16 +29,10 @@
 
 #ifdef INCLUDE_DEVICE_BRAINMASTER
 
-#ifdef NEUROMORE_BRANDING_STARRBASE
-#define DEFAULT_DRIVER_ENABLED true
-#else
-#define DEFAULT_DRIVER_ENABLED false
-#endif
-
 using namespace Core;
 
 // constructor
-BrainMasterDriver::BrainMasterDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED), mSDK(*this), mMode(EMode::MODE_IDLE), mDevice(0), mLastDetect(0)
+BrainMasterDriver::BrainMasterDriver() : DeviceDriver(Branding::DefaultBrainMasterEnabled), mSDK(*this), mMode(EMode::MODE_IDLE), mDevice(0), mLastDetect(0)
 {
    LogDetailedInfo("Constructing BrainMaster driver ...");
 

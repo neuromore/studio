@@ -29,6 +29,7 @@
 #include <Engine/DeviceDriver.h>
 #include <Engine/DeviceManager.h>
 #include <Engine/Config.h>
+#include <Engine/Branding.h>
 #include <Engine/Notifications.h>
 #include <Engine/User.h>
 

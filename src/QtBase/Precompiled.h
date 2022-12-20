@@ -5,6 +5,7 @@
 
 // From Engine
 #include <Engine/Core/StandardHeaders.h>
+#include <Engine/Branding.h>
 #include <Engine/Core/String.h>
 #include <Engine/Core/Array.h>
 #include <Engine/Core/Json.h>

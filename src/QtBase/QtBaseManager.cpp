@@ -448,6 +448,11 @@ bool QtBaseInitializer::Init(const char* appDir)
 	Q_INIT_RESOURCE( LayoutResources );
 	Q_INIT_RESOURCE( Assets );
 
+#ifdef NEUROMORE_BRANDING
+	LogDetailedInfo("Initializing private Qt resources ...");
+	Q_INIT_RESOURCE( QtBasePrivate );
+#endif
+
 	LogDetailedInfo("Constructing Qt base manager ...");
 	gQtBaseManager = new QtBaseManager();
 	gQtBaseManager->SetAppDir( appDir );

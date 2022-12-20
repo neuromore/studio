@@ -37,16 +37,6 @@
 #include <winuser.h>
 #endif
 
-#ifdef NEUROMORE_BRANDING_ANT
-#define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
-#elif NEUROMORE_BRANDING_STARRBASE
-#define SPLASHIMAGE ":/Images/SplashScreen-Starrbase.png" 
-#elif NEUROMORE_BRANDING_SUPERMIND
-#define SPLASHIMAGE ":/Images/SplashScreen-Supermind.png" 
-#else
-#define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
-#endif
-
 using namespace Core;
 
 //--------------------------------------------------------------------------
@@ -98,7 +88,7 @@ AppManager::AppManager(int argc, char* argv[])
 
 	// show splash screen
 	LogDetailedInfo("Initializing splash screen ...");
-	QPixmap pixmap(SPLASHIMAGE);
+	QPixmap pixmap(Branding::SplashImageName);
 	mSplashScreen = new QSplashScreen(pixmap);
 
 	// force taskbar entry for splashscreen on windows (otherwise it can get stuck in a state where the user cannot reach it anymore.. happened multiple times)
@@ -271,44 +261,23 @@ void AppManager::ProcessCommandLine()
 
 String AppManager::GetAppName() const
 {
-	String name;
+   String name = Branding::AppName;
+   if (User* user = GetUser())
+   {
+      // default ones
+      if      (user->FindRule("ROLE_Admin"))        name += " - Administrator";
+      else if (user->FindRule("ROLE_Ultimate"))     name += " - Ultimate";
+      else if (user->FindRule("ROLE_Professional")) name += " - Professional";
+      else if (user->FindRule("ROLE_Community"))    name += " - Community";
 
-	User* user = GetUser();
-	if (user != NULL)
-	{
-#ifdef NEUROMORE_BRANDING_ANT
-		if (user->FindRule("ROLE_ResellerAdmin") != NULL) name = "eego perform studio - Reseller Admin";
-		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "eego perform studio - Clinic Admin";
-		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "eego perform studio - Clinician";
-		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
-		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
-		else name = "eego perform studio";
-#elif NEUROMORE_BRANDING_STARRBASE
-		if (user->FindRule("ROLE_Admin") != NULL) name = "Brainstation - Admin";
-		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Brainstation - Clinic Admin";
-		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Brainstation - Clinician";
-		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Brainstation - Operator";
-		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Brainstation - Patient";
-		else name = "Brainstation";
-#elif NEUROMORE_BRANDING_SUPERMIND
-		if (user->FindRule("ROLE_Admin") != NULL) name = "Brainwave Studio - Admin";
-		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "Brainwave Studio - Clinic Admin";
-		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "Brainwave Studio - Clinician";
-		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "Brainwave Studio - Operator";
-		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "Brainwave Studio - Patient";
-		else name = "Brainwave Studio";
-#else
-		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
-		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
-		else if (user->FindRule("ROLE_Professional") != NULL)			name = "neuromore Studio Professional";
-		else if (user->FindRule("ROLE_Community") != NULL)				name = "neuromore Studio Community";
-		else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = "neuromore Studio";
-		else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = "neuromore Studio";
-		else															name = "neuromore Studio";
-#endif
-	}
-
-	return name;
+      // clinic
+      else if (user->FindRule("ROLE_ResellerAdmin"))   name += " - Reseller Admin";
+      else if (user->FindRule("ROLE_ClinicAdmin"))     name += " - Clinic Admin";
+      else if (user->FindRule("ROLE_ClinicClinician")) name += " - Clinician";
+      else if (user->FindRule("ROLE_ClinicOperator"))  name += " - Operator";
+      else if (user->FindRule("ROLE_ClinicPatient"))   name += " - Patient";
+   }
+   return name;
 }
 
 

@@ -110,7 +110,7 @@ Following Parameters are supported. Defaults will be used if not provided.
 | Parameter   | Values                      | Default    |
 | ----------- | --------------------------- | ---------- |
 | MODE        | debug, release              | debug      |
-| BRANDING    | neuromore, ant, starrbase   | neuromore  |
+| BRANDING    | neuromore, ...              | neuromore  |
 | TARGET_OS   | win, osx, linux, android    | {host-os}  |
 | TARGET_ARCH | x86, x64, arm, arm64        | {host-cpu} |
 

@@ -28,12 +28,13 @@
 #include "Config.h"
 #include <Core/StandardHeaders.h>
 #include <Core/Timer.h>
-#include "Rendering/OpenGLManager.h"
 #include <Core/String.h>
-#include <QtBaseManager.h>
+#include <Engine/Branding.h>
+#include <QtBase/QtBaseManager.h>
 #include <PluginSystem/PluginManager.h>
-#include "Windows/LoginWindow.h"
 #include <singleapplication/singleapplication.h>
+#include "Rendering/OpenGLManager.h"
+#include "Windows/LoginWindow.h"
 #include "OnboardingAction.h"
 
 // include Qt
@@ -82,76 +83,22 @@ class AppManager : public QObject
 
 		// version
 		Core::Version GetVersion() const								{ return mVersion; }
-		
-		// information
-#ifdef NEUROMORE_BRANDING_ANT
-		const char* GetCompanyName() const								{ return "eemagine"; } // do not put Inc. behind this as this is also used as folder name
-		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
-		const char* GetWebsite() const									{ return "https://eego-perform.com"; }
-		const char* GetDocumentationUrl() const							{ return "https://doc.neuromore.com"; }
-		const char* GetAccountUrl() const								{ return "https://account.eego-perform.com"; }
-		const char* GetStoreUrl() const									{ return "https://eego-perform.com"; }
-		const char* GetForgotPasswordUrl() const						{ return "https://account.eego-perform.com/resetrequest"; }
-		const char* GetSupportEMail() const								{ return "support@eemagine.com"; }
-		const char* GetAppShortName() const								{ return "eego-perform-studio"; }
-		const char* GetMenuStudioName() const							{ return "EPStudio"; }
-		const char* GetLicenseUrl() const								{ return "https://assets.eego-perform.com/license/license.txt"; }
-		const char* GetCloudTermsUrl() const							{ return "https://assets.eego-perform.com/license/terms-and-conditions.txt"; }
-		const char* GetPrivacyPolicyUrl() const							{ return "https://assets.eego-perform.com/license/privacy-policy.txt"; }
 
-		const bool IsLoginRemberMePrechecked() const { return false; }
-		const char* GetLoginImageName() const							{ return ":/Images/Login-ANT.png"; }
-#elif NEUROMORE_BRANDING_STARRBASE
-		const char* GetCompanyName() const								{ return "myneurva"; } // do not put Inc. behind this as this is also used as folder name
-		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
-		const char* GetWebsite() const									{ return "https://myneurva.com"; }
-		const char* GetDocumentationUrl() const						{ return "https://doc.neuromore.com"; }
-		const char* GetAccountUrl() const								{ return "https://starrbase.myneurva.com"; }
-		const char* GetStoreUrl() const									{ return "https://myneurva.com"; }
-		const char* GetForgotPasswordUrl() const						{ return "https://starrbase.myneurva.com/resetrequest"; }
-		const char* GetSupportEMail() const								{ return "support@myneurva.com"; }
-		const char* GetAppShortName() const								{ return "Brainstation"; }
-		const char* GetMenuStudioName() const							{ return "Brainstation"; }
-		const char* GetLicenseUrl() const								{ return "https://assets.starrbase.myneurva.com/license/license.txt"; }
-		const char* GetCloudTermsUrl() const							{ return "https://assets.starrbase.myneurva.com/license/terms-and-conditions.txt"; }
-		const char* GetPrivacyPolicyUrl() const						{ return "https://assets.starrbase.myneurva.com/license/privacy-policy.txt"; }
-		const bool  IsLoginRemberMePrechecked() const				{ return true; }
-		const char* GetLoginImageName() const							{ return ":/Images/Login-Starrbase.png"; }
-#elif NEUROMORE_BRANDING_SUPERMIND
-		const char* GetCompanyName() const								{ return "Supermind"; } // do not put Inc. behind this as this is also used as folder name
-		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
-		const char* GetWebsite() const									{ return "https://supermind.us"; }
-		const char* GetDocumentationUrl() const						{ return "https://doc.neuromore.com"; }
-		const char* GetAccountUrl() const								{ return "https://app.supermind.us"; }
-		const char* GetStoreUrl() const									{ return "https://supermind.us"; }
-		const char* GetForgotPasswordUrl() const						{ return "https://app.supermind.us/resetrequest"; }
-		const char* GetSupportEMail() const								{ return "support@supermind.com"; }
-		const char* GetAppShortName() const								{ return "brainwave-studio"; }
-		const char* GetMenuStudioName() const							{ return "BWStudio"; }
-		const char* GetLicenseUrl() const								{ return "https://assets.app.supermind.us/license/license.txt"; }
-		const char* GetCloudTermsUrl() const							{ return "https://assets.app.supermind.us/license/terms-and-conditions.txt"; }
-		const char* GetPrivacyPolicyUrl() const						{ return "https://assets.app.supermind.us/license/privacy-policy.txt"; }
-		const bool  IsLoginRemberMePrechecked() const				{ return true; }
-		const char* GetLoginImageName() const							{ return ":/Images/Login-Supermind.png"; }
-#else
-		const char* GetCompanyName() const								{ return "neuromore"; } // do not put Inc. behind this as this is also used as folder name
-		const char* GetDeveloperName() const							{ return "neuromore Inc."; }
-		const char* GetWebsite() const									{ return "https://www.neuromore.com"; }
-		const char* GetDocumentationUrl() const							{ return "https://doc.neuromore.com"; }
-		const char* GetAccountUrl() const								{ return "https://account.neuromore.com"; }
-		const char* GetStoreUrl() const									{ return "https://www.neuromore.com"; }
-		const char* GetForgotPasswordUrl() const						{ return "https://account.neuromore.com/#/resetrequest"; }
-		const char* GetSupportEMail() const								{ return "support@neuromore.com"; }
-		const char* GetAppShortName() const								{ return "NMStudio"; }
-		const char* GetMenuStudioName() const							{ return "NMStudio"; }
-		const char* GetLicenseUrl() const								{ return "https://raw.githubusercontent.com/neuromore/studio/master/neuromore-licensing-info.md"; }
-		const char* GetCloudTermsUrl() const							{ return "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-general-terms.md"; }
-		const char* GetPrivacyPolicyUrl() const							{ return "https://raw.githubusercontent.com/neuromore/legal/master/neuromore-privacy.md"; }
-
-		const bool IsLoginRemberMePrechecked() const					{ return true; }
-		const char* GetLoginImageName() const							{ return ":/Images/Login-neuromore.png"; }
-
-#endif
+		const char* GetCompanyName() const       { return Branding::CompanyName; }
+		const char* GetDeveloperName() const     { return Branding::DeveloperName; }
+		const char* GetWebsite() const           { return Branding::Website; }
+		const char* GetDocumentationUrl() const  { return Branding::DocumentationUrl; }
+		const char* GetAccountUrl() const        { return Branding::AccountUrl; }
+		const char* GetStoreUrl() const          { return Branding::StoreUrl; }
+		const char* GetForgotPasswordUrl() const { return Branding::ForgotPasswordUrl; }
+		const char* GetSupportEMail() const      { return Branding::SupportEMail; }
+		const char* GetAppShortName() const      { return Branding::AppShortName; }
+		const char* GetMenuStudioName() const    { return Branding::MenuStudioName; }
+		const char* GetLicenseUrl() const        { return Branding::LicenseUrl; }
+		const char* GetCloudTermsUrl() const     { return Branding::CloudTermsUrl; }
+		const char* GetPrivacyPolicyUrl() const  { return Branding::PrivacyPolicyUrl; }
+		const char* GetLoginImageName() const    { return Branding::LoginImageName; }
+		const bool  IsLoginRemberMePrechecked() const { return Branding::LoginRemberMePrechecked; }
 
 		Core::String GetAppName() const;
 		const char* GetBackendSystemName() const;
