@@ -232,33 +232,8 @@ DEFINES   := $(DEFINES)
 OBJSPRIV  := $(OBJSPRIV)
 RCCHPRIV  := $(RCCHPRIV)
 RCCO      := $(RCCO)
-endif
-
-ifeq ($(BRANDING),ant)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_ANT
-OBJSPRIV  := $(OBJSPRIV)
-RCCHPRIV  := $(RCCHPRIV) Resources/QtBasePrivate.cppp
-RCCO      := $(RCCO) QtBasePrivate.orcc
-endif
-
-ifeq ($(BRANDING),starrbase)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_STARRBASE
-OBJSPRIV  := $(OBJSPRIV)
-RCCHPRIV  := $(RCCHPRIV) Resources/QtBasePrivate.cppp
-RCCO      := $(RCCO) QtBasePrivate.orcc
-endif
-
-ifeq ($(BRANDING),supermind)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_SUPERMIND
-OBJSPRIV  := $(OBJSPRIV)
-RCCHPRIV  := $(RCCHPRIV) Resources/QtBasePrivate.cppp
-RCCO      := $(RCCO) QtBasePrivate.orcc
+else
+include ../../priv/build/make/QtBaseBranding.mk
 endif
 
 ################################################################################################

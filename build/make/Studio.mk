@@ -389,45 +389,8 @@ DEFINES   := $(DEFINES) \
 OBJSPRIV  := $(OBJSPRIV)
 RCCHPRIV  := $(RCCHPRIV)
 RCCO      := $(RCCO)
-endif
-
-ifeq ($(BRANDING),ant)
-APPNAME    = eego perform studio
-APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_ANT \
-             -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="../../$(APPICON).ico"
-OBJSPRIV  := $(OBJSPRIV)
-RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
-RCCO      := $(RCCO) StudioPrivate.orcc
-endif
-
-ifeq ($(BRANDING),starrbase)
-APPNAME    = Starrbase
-APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_STARRBASE \
-             -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="../../$(APPICON).ico"
-OBJSPRIV  := $(OBJSPRIV)
-RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
-RCCO      := $(RCCO) StudioPrivate.orcc
-endif
-
-ifeq ($(BRANDING),supermind)
-APPNAME    = Supermind Brainwave Studio
-APPICON    = $(SRCDIRPRIV)/Resources/AppIcon-$(BRANDING)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_SUPERMIND \
-             -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="../../$(APPICON).ico"
-OBJSPRIV  := $(OBJSPRIV)
-RCCHPRIV  := $(RCCHPRIV) Resources/StudioPrivate.cppp
-RCCO      := $(RCCO) StudioPrivate.orcc
+else
+include ../../priv/build/make/StudioBranding.mk
 endif
 
 ################################################################################################
