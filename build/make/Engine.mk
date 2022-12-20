@@ -233,29 +233,8 @@ endif
 ifeq ($(BRANDING),neuromore)
 DEFINES   := $(DEFINES)
 OBJSPRIV  := $(OBJSPRIV)
-endif
-
-ifeq ($(BRANDING),ant)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_ANT
-OBJSPRIV  := $(OBJSPRIV)
-endif
-
-ifeq ($(BRANDING),starrbase)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_STARRBASE
-OBJSPRIV  := $(OBJSPRIV)
-endif
-
-ifeq ($(BRANDING),supermind)
-DEFINES   := $(DEFINES) \
-             -DNEUROMORE_BRANDING \
-             -DNEUROMORE_BRANDING_SUPERMIND
-OBJSPRIV  := $(OBJSPRIV) \
-             DSP/CoherenceProcessor.op \
-             Graph/CoherenceNode.op
+else
+include ../../priv/build/make/EngineBranding.mk
 endif
 
 ################################################################################################
