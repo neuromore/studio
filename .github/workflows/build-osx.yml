@@ -24,7 +24,7 @@ jobs:
       matrix:
         os: [macos-11,macos-12]
         arch: [x64,arm64]
-        branding: [neuromore,supermind]
+        branding: [neuromore,supermind,natus]
     steps:
 
     # Checkout
