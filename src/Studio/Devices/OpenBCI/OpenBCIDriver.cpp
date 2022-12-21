@@ -34,7 +34,7 @@
 using namespace Core;
 
 // constructor
-OpenBCIDriver::OpenBCIDriver() : DeviceDriver(false), EventHandler()
+OpenBCIDriver::OpenBCIDriver() : DeviceDriver(false), EventHandler(), mRemainder(0.0)
 {
 	LogInfo("Constructing OpenBCI device driver ...");
 
@@ -112,6 +112,23 @@ bool OpenBCIDriver::Init()
 
 void OpenBCIDriver::Update(const Time& elapsed, const Time& delta)
 {
+   uint32 nDevs = mDevices.Size();
+   for (uint32 i = 0; i < nDevs; i++) {
+      OpenBCIDeviceBase* dev = mDevices[i];
+      const uint32_t numSensors = dev->GetNumNeuroSensors();
+      double samplerate = dev->GetSampleRate();
+      double nsamples = delta.InSeconds() * samplerate;
+      uint32 isamples = (uint32_t)nsamples;
+      mRemainder += (nsamples-(double)isamples);
+      if (mRemainder > 1.0) {
+         isamples++;
+         mRemainder -= 1.0;
+      }
+      for (uint32_t s = 0; s < isamples; s++)
+         for (uint32_t e = 0; e < numSensors; e++)
+            if (Sensor* sensor = dev->GetNeuroSensor(e))
+               sensor->AddQueuedSample(1.0);
+   }
 }
 
 
@@ -149,9 +166,16 @@ void OpenBCIDriver::DetectDevices()
 	if (mIsEnabled == false)
 		return;
 	
+   if (mDevices.Size() == 0) {
+      OpenBCIDeviceBase* device = static_cast<OpenBCIDeviceBase*>(CreateDevice(OpenBCIDaisyDevice::TYPE_ID));
+      mDevices.Add(device);
+      mRemainder = 0.0;
+      GetDeviceManager()->AddDeviceAsync(device);
+   }
+
 	// make sure thread is running
-	mAutoDetectionThread->start();
-	mAutoDetection->DetectDevicesOnce();
+	//mAutoDetectionThread->start();
+	//mAutoDetection->DetectDevicesOnce();
 }
 
 

@@ -90,6 +90,7 @@ class OpenBCIDriver : public QObject, public DeviceDriver, public Core::EventHan
 		// TODO use one thread for all serial handlers
 		Core::Array<OpenBCISerialThread*>	mSerialHandlerThreads;
 
+      double mRemainder;
 };
 
 
