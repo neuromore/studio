@@ -167,7 +167,7 @@ void OpenBCIDriver::DetectDevices()
 		return;
 	
    if (mDevices.Size() == 0) {
-      OpenBCIDeviceBase* device = static_cast<OpenBCIDeviceBase*>(CreateDevice(OpenBCIDaisyDevice::TYPE_ID));
+      OpenBCIDeviceBase* device = static_cast<OpenBCIDeviceBase*>(CreateDevice(OpenBCIDevice::TYPE_ID));
       mDevices.Add(device);
       mRemainder = 0.0;
       GetDeviceManager()->AddDeviceAsync(device);
