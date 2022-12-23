@@ -84,7 +84,6 @@ bool FileManager::Close(const char* identifier, bool askSaveChanges)
 		int result = QMessageBox::warning(GetQtBaseManager()->GetMainWindow(), "Save changes?", mTempString.AsChar(), QMessageBox::Save,  QMessageBox::Discard,  QMessageBox::Cancel);
 		
 		if (result == QMessageBox::Save) {
-			mIsInFileSaving = true;
 			Save(file);
 		}
 		else if (result == QMessageBox::Cancel) {
@@ -150,6 +149,8 @@ bool FileManager::Save(OpenFile* file)
 {
 	if (file->Serialize() == false)
 		return false;
+
+	mIsInFileSaving = true;
 
 	WriteData(file);
 
