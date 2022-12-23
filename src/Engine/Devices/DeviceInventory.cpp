@@ -301,7 +301,6 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 #endif 
 
 #ifdef INCLUDE_DEVICE_NATUS
-	std::cout << "ffffffffffffffffffffffffffffffffffff" << std::endl;
 	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
 	{
 		GetDeviceManager()->RegisterDeviceType(new NatusDevice());
