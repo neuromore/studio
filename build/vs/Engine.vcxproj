@@ -762,6 +762,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseDevice.cpp" />
     <ClInclude Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseDevice.h" />
     <ClInclude Include="..\..\src\Engine\Devices\eSense\eSenseSkinResponseNode.h" />
+    <ClCompile Include="..\..\src\Engine\Devices\Natus\NatusDevice.cpp" />
+    <ClInclude Include="..\..\src\Engine\Devices\Natus\NatusDevice.h" />
+    <ClInclude Include="..\..\src\Engine\Devices\Natus\NatusNode.h" />
     <ClCompile Include="..\..\src\Engine\EEGElectrodes.cpp" />
     <ClInclude Include="..\..\src\Engine\EEGElectrodes.h" />
     <ClCompile Include="..\..\src\Engine\EngineManager.cpp" />

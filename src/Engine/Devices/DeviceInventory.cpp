@@ -127,6 +127,10 @@
 	#include "Neurosity/CrownNode.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_NATUS
+	#include "Natus/NatusDevice.h"
+	#include "Natus/NatusNode.h"
+#endif
 
 
 #include "../EngineManager.h"
@@ -295,6 +299,15 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 		GetGraphObjectFactory()->RegisterObjectType(new CrownNode(NULL));
 	}
 #endif 
+
+#ifdef INCLUDE_DEVICE_NATUS
+	std::cout << "ffffffffffffffffffffffffffffffffffff" << std::endl;
+	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new NatusDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new NatusNode(NULL));
+	}
+#endif
 
 #ifdef INCLUDE_DEVICE_BRAINFLOW
 	//if (disablePermissionCheck || user->ReadAllowed(BrainFlowDeviceCyton::GetRuleName()))
