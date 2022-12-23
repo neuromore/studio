@@ -571,6 +571,13 @@
     <ClCompile Include="..\..\src\Engine\Graph\ToneGeneratorNode.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ScreenBrightnessNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\SpeedControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\SunControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\CloudsControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\FogControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\RainControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\VignetteControlNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1186,6 +1193,27 @@
       <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Graph\VolumeControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ScreenBrightnessNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SpeedControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SunControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\CloudsControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\FogControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\RainControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\VignetteControlNode.h">
       <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Networking\OscFeedbackPacket.h">

@@ -50,6 +50,13 @@
 #endif
 
 #include "VolumeControlNode.h"
+#include "ScreenBrightnessNode.h"
+#include "SpeedControlNode.h"
+#include "SunControlNode.h"
+#include "CloudsControlNode.h"
+#include "FogControlNode.h"
+#include "RainControlNode.h"
+#include "VignetteControlNode.h"
 
 #if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_OSX) || defined(NEUROMORE_PLATFORM_LINUX)
   #include "FileReaderNode.h"
@@ -174,6 +181,13 @@ GraphObjectFactory::GraphObjectFactory()
 #endif
 
 		RegisterObjectType( new VolumeControlNode(NULL) );
+		RegisterObjectType( new ScreenBrightnessNode(NULL) );
+		RegisterObjectType( new SpeedControlNode(NULL) );
+		RegisterObjectType( new SunControlNode(NULL) );
+		RegisterObjectType( new CloudsControlNode(NULL) );
+		RegisterObjectType( new FogControlNode(NULL) );
+		RegisterObjectType( new RainControlNode(NULL) );
+		RegisterObjectType( new VignetteControlNode(NULL) );
 
 #if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_OSX) || defined(NEUROMORE_PLATFORM_LINUX)
 		RegisterObjectType( new FileReaderNode(NULL) );

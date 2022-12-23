@@ -30,6 +30,7 @@
 #include "Graph/StateTransitionAudioCondition.h"
 #include "Graph/StateTransitionVideoCondition.h"
 #include "Graph/VolumeControlNode.h"
+#include "Graph/ScreenBrightnessNode.h"
 
 // for system master volume control
 #ifdef NEUROMORE_PLATFORM_WINDOWS
@@ -163,23 +164,16 @@ void ExperienceWidget::OnRefreshTimer()
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
 	if (classifier != NULL)
 	{
-		// find screen brightness node
-		Node* node = classifier->FindNodeByName("ScreenBrightness", CustomFeedbackNode::TYPE_ID);
-		if (node != NULL)
-		{
-			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-				SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
-		}
-
 		uint32 numFeedBackNodes = classifier->GetNumCustomFeedbackNodes();
 		bool isSystemVolumeControlUsed = false;
 		bool isStudioVolumeControlUsed = false;
 
+		Node* node = nullptr;
 		for (uint32 i = 0; i < numFeedBackNodes; ++i) {
 			node = classifier->GetCustomFeedbackNode(i);
+			const char* nodeTypeUuid = node->GetTypeUuid();
 
-			if (node->GetTypeUuid() == VolumeControlNode::Uuid()) {
+			if (nodeTypeUuid == VolumeControlNode::Uuid()) {
 				VolumeControlNode* feedbackNode = static_cast<VolumeControlNode*>(node);
 
 				if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false) {
@@ -202,6 +196,11 @@ void ExperienceWidget::OnRefreshTimer()
 							SetSystemMasterVolume( feedbackNode->GetCurrentValue() );
 						}
 #endif
+				}
+			} else if (nodeTypeUuid == ScreenBrightnessNode::Uuid()) {
+				ScreenBrightnessNode* feedbackNode = static_cast<ScreenBrightnessNode*>(node);
+				if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false) {
+					SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
 				}
 			}
 		}
