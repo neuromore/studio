@@ -1,0 +1,522 @@
+diff --git a/build/make/Engine.mk b/build/make/Engine.mk
+index 64d775ad..fe1ba755 100644
+--- a/build/make/Engine.mk
++++ b/build/make/Engine.mk
+@@ -68,6 +68,7 @@ OBJS       = Core/AABB.o \
+              Devices/Muse/MuseDevice.o \
+              Devices/Neurosity/NotionDevices.o \
+              Devices/Neurosity/CrownDevice.o \
++             Devices/Natus/NatusDevice.o \
+              Devices/NeuroSky/NeuroSkyDevice.o \
+              Devices/OpenBCI/OpenBCIDevices.o \
+              Devices/Test/TestDevice.o \
+diff --git a/build/vs/Engine.vcxproj b/build/vs/Engine.vcxproj
+index dd0ae111..4bc2c93f 100644
+--- a/build/vs/Engine.vcxproj
++++ b/build/vs/Engine.vcxproj
+@@ -747,6 +747,9 @@
+     <ClCompile Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyDevice.cpp" />
+     <ClInclude Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyDevice.h" />
+     <ClInclude Include="..\..\src\Engine\Devices\NeuroSky\NeuroSkyNode.h" />
++    <ClCompile Include="..\..\src\Engine\Devices\Natus\NatusDevice.cpp" />
++    <ClInclude Include="..\..\src\Engine\Devices\Natus\NatusDevice.h" />
++    <ClInclude Include="..\..\src\Engine\Devices\Natus\NatusNode.h" />
+     <ClCompile Include="..\..\src\Engine\Devices\OpenBCI\OpenBCIDevices.cpp" />
+     <ClInclude Include="..\..\src\Engine\Devices\OpenBCI\OpenBCIDevices.h" />
+     <ClInclude Include="..\..\src\Engine\Devices\OpenBCI\OpenBCINodes.h" />
+diff --git a/build/vs/Engine.vcxproj.filters b/build/vs/Engine.vcxproj.filters
+index 0cf10858..de36ba7f 100644
+--- a/build/vs/Engine.vcxproj.filters
++++ b/build/vs/Engine.vcxproj.filters
+@@ -565,6 +565,10 @@
+     <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.cpp">
+       <Filter>Graph</Filter>
+     </ClCompile>
++    </ClCompile>
++    <ClCompile Include="..\..\src\Engine\Devices\Natus\NatusDevices.cpp">
++      <Filter>Devices\Natus</Filter>
++    </ClCompile>
+   </ItemGroup>
+   <ItemGroup>
+     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
+@@ -1282,6 +1286,13 @@
+     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.h">
+       <Filter>Graph</Filter>
+     </ClInclude>
++    </ClInclude>
++    <ClInclude Include="..\..\src\Engine\Devices\Natus\NatusNode.h">
++      <Filter>Devices\Natus</Filter>
++    </ClInclude>
++    <ClInclude Include="..\..\src\Engine\Devices\Natus\NatusDevices.h">
++      <Filter>Devices\Natus</Filter>
++    </ClInclude>
+   </ItemGroup>
+   <ItemGroup>
+     <Filter Include="Core">
+diff --git a/src/Engine/Devices/DeviceInventory.cpp b/src/Engine/Devices/DeviceInventory.cpp
+index fe83a3b9..cdf626e9 100644
+--- a/src/Engine/Devices/DeviceInventory.cpp
++++ b/src/Engine/Devices/DeviceInventory.cpp
+@@ -127,6 +127,9 @@
+ 	#include "Neurosity/CrownNode.h"
+ #endif
+ 
++#include "Natus/NatusDevice.h"
++#include "Natus/NatusNode.h"
++
+ 
+ 
+ #include "../EngineManager.h"
+@@ -363,5 +366,11 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
+ 
+ #endif
+ 
++	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
++	{
++		GetDeviceManager()->RegisterDeviceType(new NatusDevice());
++		GetGraphObjectFactory()->RegisterObjectType(new NatusNode(NULL));
++	}
++
+ 	LogDetailedInfo("Device Inventory finished registering devices.");
+ }
+diff --git a/src/Engine/Devices/DeviceTypeIDs.h b/src/Engine/Devices/DeviceTypeIDs.h
+index 5d60a830..765024c6 100644
+--- a/src/Engine/Devices/DeviceTypeIDs.h
++++ b/src/Engine/Devices/DeviceTypeIDs.h
+@@ -82,7 +82,10 @@ class ENGINE_API DeviceTypeIDs
+ 			DEVICE_TYPEID_GENERIC_CAMERA			= 0xD001,	// TODO probably need several types of camera
+ 
+ 			// eyetracker
+-			DEVICE_TYPEID_TOBII_EYEX				= 0xE001
++			DEVICE_TYPEID_TOBII_EYEX				= 0xE001,
++
++			// Natus
++			DEVICE_TYPEID_NATUS						= 0xF001
+ 
+ 		};
+ 
+diff --git a/src/Engine/Devices/Natus/NatusDevice.cpp b/src/Engine/Devices/Natus/NatusDevice.cpp
+new file mode 100644
+index 00000000..9b99dac9
+--- /dev/null
++++ b/src/Engine/Devices/Natus/NatusDevice.cpp
+@@ -0,0 +1,265 @@
++/****************************************************************************
++**
++** Copyright 2022 neuromore co
++** Contact: https://neuromore.com/contact
++**
++** Commercial License Usage
++** Licensees holding valid commercial neuromore licenses may use this file in
++** accordance with the commercial license agreement provided with the
++** Software or, alternatively, in accordance with the terms contained in
++** a written agreement between you and neuromore. For licensing terms
++** and conditions see https://neuromore.com/licensing. For further
++** information use the contact form at https://neuromore.com/contact.
++**
++** neuromore Public License Usage
++** Alternatively, this file may be used under the terms of the neuromore
++** Public License version 1 as published by neuromore co with exceptions as
++** appearing in the file neuromore-class-exception.md included in the
++** packaging of this file. Please review the following information to
++** ensure the neuromore Public License requirements will be met:
++** https://neuromore.com/npl
++**
++****************************************************************************/
++
++// include precompiled header
++#include <Engine/Precompiled.h>
++
++// include required files
++#include "NatusDevice.h"
++#include "../../EngineManager.h"
++#include "../../Core/LogManager.h"
++#include <iostream>
++
++// #ifdef INCLUDE_DEVICE_NATUS
++
++#define BUFFERSIZE_IN_SECONDS 60.0
++
++using namespace Core;
++
++//constructor
++NatusDevice::NatusDevice(DeviceDriver* driver) : BciDevice(driver)
++{
++    LogDetailedInfo("Constructing Natus Device...");
++    mOscPathPattern = "/natus/natus/*/*";
++    CreateSensors();
++}
++
++// destructor
++NatusDevice::~NatusDevice()
++{
++    LogDetailedInfo("Destructing Natus Device ...");
++}
++
++// get the available electrodes of the headset
++void NatusDevice::CreateElectrodes()
++{
++    mElectrodes.Clear();
++    mElectrodes.Reserve(32);
++
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3")); // 0
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));  // 1
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));  // 2
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO3")); // 3
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO4")); // 4
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));  // 5
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));  // 6
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4")); // 7
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3")); // 8
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));  // 9
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));  // 10
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO3")); // 11
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO4")); // 12
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));  // 13
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));  // 14
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4")); // 15
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3")); // 16
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));  // 17
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));  // 18
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO3")); // 19
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO4")); // 20
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));  // 21
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));  // 22
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4")); // 23
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP3")); // 24
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));  // 25
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F5"));  // 26
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO3")); // 27
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("PO4")); // 28
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F6"));  // 29
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));  // 30
++    mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("CP4")); // 31
++}
++
++void NatusDevice::CreateSensors()
++{
++    // create EEG sensors first
++   BciDevice::CreateSensors();
++
++   const uint32 numSensors = GetNumSensors();
++   for (uint32_t i = 0; i < numSensors; i++)
++   {
++      // extend buffers so they can hold up to 60s of samples
++      GetSensor(i)->GetInput()->SetBufferSizeInSeconds(BUFFERSIZE_IN_SECONDS);
++      GetSensor(i)->GetOutput()->SetBufferSizeInSeconds(BUFFERSIZE_IN_SECONDS);
++   }
++}
++
++void NatusDevice::ProcessMessage(OscMessageParser* message)
++{
++    // do nothing is device was disabled or not enough sensors for code
++    if (IsEnabled() == false || GetNumSensors() < 8)
++        return;
++
++    // raw 8 channel eeg
++    if (message->MatchAddress("/natus/natus/*/raw") == true)
++    {
++        // validate data layout
++        if (strcmp(message->GetTypeTags(), "[ffffffff]sis") != 0)
++           return;
++
++        // get iterator
++        auto it = message->GetOscMessage().ArgumentsBegin();
++
++        // EEG
++        it++; // array start
++        const float v1 = it->AsFloat(); it++;
++        const float v2 = it->AsFloat(); it++;
++        const float v3 = it->AsFloat(); it++;
++        const float v4 = it->AsFloat(); it++;
++        const float v5 = it->AsFloat(); it++;
++        const float v6 = it->AsFloat(); it++;
++        const float v7 = it->AsFloat(); it++;
++        const float v8 = it->AsFloat(); it++;
++        const float v9 = it->AsFloat(); it++;
++        const float v10 = it->AsFloat(); it++;
++        const float v11 = it->AsFloat(); it++;
++        const float v12 = it->AsFloat(); it++;
++        const float v13 = it->AsFloat(); it++;
++        const float v14 = it->AsFloat(); it++;
++        const float v15 = it->AsFloat(); it++;
++        const float v16 = it->AsFloat(); it++;
++        const float v17 = it->AsFloat(); it++;
++        const float v18 = it->AsFloat(); it++;
++        const float v19 = it->AsFloat(); it++;
++        const float v20 = it->AsFloat(); it++;
++        const float v21 = it->AsFloat(); it++;
++        const float v22 = it->AsFloat(); it++;
++        const float v23 = it->AsFloat(); it++;
++        const float v24 = it->AsFloat(); it++;
++        const float v25 = it->AsFloat(); it++;
++        const float v26 = it->AsFloat(); it++;
++        const float v27 = it->AsFloat(); it++;
++        const float v28 = it->AsFloat(); it++;
++        const float v29 = it->AsFloat(); it++;
++        const float v30 = it->AsFloat(); it++;
++        const float v31 = it->AsFloat(); it++;
++        const float v32 = it->AsFloat(); it++;
++        it++; // array end
++
++        // Misc/Unused
++        const char* a1 = it->AsString(); it++;
++        const int   a2 = it->AsInt32();  it++;
++        const char* a3 = it->AsString(); it++;
++
++        GetSensor(0)->AddQueuedSample(v1); // v1 = CP3
++        GetSensor(1)->AddQueuedSample(v2); // v2 = C3
++        GetSensor(2)->AddQueuedSample(v3); // v3 = F5
++        GetSensor(3)->AddQueuedSample(v4); // v4 = PO3
++        GetSensor(4)->AddQueuedSample(v5); // v5 = PO4
++        GetSensor(5)->AddQueuedSample(v6); // v6 = F6
++        GetSensor(6)->AddQueuedSample(v7); // v7 = C4
++        GetSensor(7)->AddQueuedSample(v8); // v8 = CP4
++        GetSensor(8)->AddQueuedSample(v9); // v1 = CP3
++        GetSensor(9)->AddQueuedSample(v10); // v2 = C3
++        GetSensor(10)->AddQueuedSample(v11); // v3 = F5
++        GetSensor(11)->AddQueuedSample(v12); // v4 = PO3
++        GetSensor(12)->AddQueuedSample(v13); // v5 = PO4
++        GetSensor(13)->AddQueuedSample(v14); // v6 = F6
++        GetSensor(14)->AddQueuedSample(v15); // v7 = C4
++        GetSensor(15)->AddQueuedSample(v16); // v8 = CP4
++        GetSensor(16)->AddQueuedSample(v17); // v1 = CP3
++        GetSensor(17)->AddQueuedSample(v18); // v2 = C3
++        GetSensor(18)->AddQueuedSample(v19); // v3 = F5
++        GetSensor(19)->AddQueuedSample(v20); // v4 = PO3
++        GetSensor(20)->AddQueuedSample(v21); // v5 = PO4
++        GetSensor(21)->AddQueuedSample(v22); // v6 = F6
++        GetSensor(22)->AddQueuedSample(v23); // v7 = C4
++        GetSensor(23)->AddQueuedSample(v24); // v8 = CP4
++        GetSensor(24)->AddQueuedSample(v25); // v1 = CP3
++        GetSensor(25)->AddQueuedSample(v26); // v2 = C3
++        GetSensor(26)->AddQueuedSample(v27); // v3 = F5
++        GetSensor(27)->AddQueuedSample(v28); // v4 = PO3
++        GetSensor(28)->AddQueuedSample(v29); // v5 = PO4
++        GetSensor(29)->AddQueuedSample(v30); // v6 = F6
++        GetSensor(30)->AddQueuedSample(v31); // v7 = C4
++        GetSensor(31)->AddQueuedSample(v32); // v8 = CP4
++    }
++    else if (message->MatchAddress("/natus/natus/*/info") == true)
++    {
++        // validate data layout
++        if (strcmp(message->GetTypeTags(), "ssssssiis") != 0)
++            return;
++
++        // parse them
++        const char* deviceId       = 0; (*message) >> deviceId;
++        const char* deviceNickname = 0; (*message) >> deviceNickname;
++        const char* model          = 0; (*message) >> model;
++        const char* modelName      = 0; (*message) >> modelName;
++        const char* modelVersion   = 0; (*message) >> modelVersion;
++        const char* manufacturer   = 0; (*message) >> manufacturer;
++        int         samplingRate   = 0; (*message) >> samplingRate;
++        int         numChannels    = 0; (*message) >> numChannels;
++        const char* channelnames   = 0; (*message) >> channelnames;
++
++    }
++}
++
++void NatusDevice::SetDeviceId(uint32 deviceId)
++{
++    mDeviceID = deviceId;
++}
++
++void NatusDevice::SetDeviceString(const Core::String& deviceString)
++{
++    Device::SetDeviceString(deviceString);
++    mOscAddress = "/natus/natus/" + deviceString + "/*";
++}
++
++int32 NatusDevice::GetOscPathDeviceId(const Core::String& address) const
++{
++    const Array<String> elements = address.Split(StringCharacter::forwardSlash);
++    if (elements.Size() >= 4)
++    {
++        // should look like: 'local7cca794fb5f4675a69371e949b2'
++        ::std::string s(elements[3].AsChar());
++
++        // must have at least 4 symbols
++        if (s.length() >= 4)
++        {
++            // get last 4 hex symbols (16-bit)
++            s = s.substr(s.length() - 4, 4);
++
++            // try hex to bin
++            int32 x;
++            std::stringstream ss;
++            ss << std::hex << s;
++            ss >> x;
++
++            // x = 0 if non-hex symbol
++            return x != 0 ? x : -1;
++        }
++    }
++
++    // fail
++    return -1;
++}
++
++Core::String NatusDevice::GetOscPathDeviceString(const Core::String& address) const
++{
++    // e.g. returns 'local7cca794fb5f4675a69371e949b2'
++    // for '/neurosity/notion/local7cca794fb5f4675a69371e949b2/raw'
++    const Array<String> elements = address.Split(StringCharacter::forwardSlash);
++    return (elements.Size() >= 4) ? elements[3] : "";
++}
++
++// #endif
+diff --git a/src/Engine/Devices/Natus/NatusDevice.h b/src/Engine/Devices/Natus/NatusDevice.h
+new file mode 100644
+index 00000000..aee4365a
+--- /dev/null
++++ b/src/Engine/Devices/Natus/NatusDevice.h
+@@ -0,0 +1,72 @@
++/****************************************************************************
++**
++** Copyright 2022 neuromore co
++** Contact: https://neuromore.com/contact
++**
++** Commercial License Usage
++** Licensees holding valid commercial neuromore licenses may use this file in
++** accordance with the commercial license agreement provided with the
++** Software or, alternatively, in accordance with the terms contained in
++** a written agreement between you and neuromore. For licensing terms
++** and conditions see https://neuromore.com/licensing. For further
++** information use the contact form at https://neuromore.com/contact.
++**
++** neuromore Public License Usage
++** Alternatively, this file may be used under the terms of the neuromore
++** Public License version 1 as published by neuromore co with exceptions as
++** appearing in the file neuromore-class-exception.md included in the
++** packaging of this file. Please review the following information to
++** ensure the neuromore Public License requirements will be met:
++** https://neuromore.com/npl
++**
++****************************************************************************/
++
++#ifndef __NEUROMORE_NATUS_H
++#define __NEUROMORE_NATUS_H
++
++// include required headers
++#include "../../BciDevice.h"
++
++// #ifdef INCLUDE_DEVICE_NATUS_NATUS
++
++// forward declaration
++class NotionSystem;
++
++
++class ENGINE_API NatusDevice : public BciDevice
++{
++    public:
++        enum { TYPE_ID = DeviceTypeIDs::DEVICE_TYPEID_NATUS };
++
++        // CONSTRUCTOR AND DESTRUCTOR
++        NatusDevice(DeviceDriver* driver = NULL);
++        ~NatusDevice();
++
++        Device* Clone() override                            { return new NatusDevice(); }
++
++        // overloaded
++        uint32 GetType() const override                     { return TYPE_ID; }
++        double GetSampleRate() const override               { return 256; }
++        const char* GetHardwareName() const override        { return "Natus Headbox"; }
++        const char* GetUuid() const override                { return "24b358c9-7af2-4fab-9c3c-0d47635458ac"; }
++        const char* GetTypeName() const override            { return "natus"; }
++        double GetLatency() const override                  { return 0.1; }
++        double GetExpectedJitter() const override           { return 0.2; }
++        bool IsWireless() const override                    { return false; /* we do not know the connection quality of the muse; this removes the connection quality icon in the device manager */ }
++        bool HasEegContactQualityIndicator() override       { return true; }
++        static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion"; }
++
++        int32 GetOscPathDeviceId(const Core::String& address) const override;
++        Core::String GetOscPathDeviceString(const Core::String& address) const override;
++
++        void CreateElectrodes() override;
++        void CreateSensors() override;
++
++        void SetDeviceId(uint32 deviceId) override;
++        void SetDeviceString(const Core::String& deviceString) override;
++        void ProcessMessage(OscMessageParser* message) override;
++};
++
++// #endif
++
++#endif
+diff --git a/src/Engine/Devices/Natus/NatusNode.h b/src/Engine/Devices/Natus/NatusNode.h
+new file mode 100644
+index 00000000..3e82f3ca
+--- /dev/null
++++ b/src/Engine/Devices/Natus/NatusNode.h
+@@ -0,0 +1,54 @@
++/****************************************************************************
++**
++** Copyright 2022 neuromore co
++** Contact: https://neuromore.com/contact
++**
++** Commercial License Usage
++** Licensees holding valid commercial neuromore licenses may use this file in
++** accordance with the commercial license agreement provided with the
++** Software or, alternatively, in accordance with the terms contained in
++** a written agreement between you and neuromore. For licensing terms
++** and conditions see https://neuromore.com/licensing. For further
++** information use the contact form at https://neuromore.com/contact.
++**
++** neuromore Public License Usage
++** Alternatively, this file may be used under the terms of the neuromore
++** Public License version 1 as published by neuromore co with exceptions as
++** appearing in the file neuromore-class-exception.md included in the
++** packaging of this file. Please review the following information to
++** ensure the neuromore Public License requirements will be met:
++** https://neuromore.com/npl
++**
++****************************************************************************/
++
++#ifndef __NEUROMORE_NATUSNODE_H
++#define __NEUROMORE_NATUSNODE_H
++
++// include the required headers
++#include "../../Config.h"
++#include "../../Graph/DeviceInputNode.h"
++// #ifdef INCLUDE_DEVICE_NATUS_NATUS
++
++
++// Natus device node
++class ENGINE_API NatusNode : public DeviceInputNode
++{
++    public:
++        enum { TYPE_ID = 0xD00000 | NatusDevice::TYPE_ID };
++        static const char* Uuid() { return "24b358c9-7af2-4fab-9c3c-0d47635458ac"; }        // Add UUID
++
++        // constructor & destructor
++        NatusNode(Graph* parentGraph) : DeviceInputNode(parentGraph, NatusDevice::TYPE_ID) {}
++        ~NatusNode() {}
++
++        Core::Color GetColor() const override                   { return Core::RGBA(30, 180, 158); }    // need to change color at some point to neurosity colors
++        uint32 GetType() const override                         { return TYPE_ID; }
++        const char* GetTypeUuid() const override final          { return Uuid(); }
++        const char* GetReadableType() const override            { return "Natus"; }
++        const char* GetRuleName() const override final          { return NatusDevice::GetRuleName(); }
++        GraphObject* Clone(Graph* parentObject) override        { NatusNode* clone = new NatusNode(parentObject); return clone; }
++};
++
++#endif
++
++// #endif
+\ No newline at end of file
+diff --git a/src/QtBase/Resources/GraphResources.qrc b/src/QtBase/Resources/GraphResources.qrc
+index c85e9614..cef91830 100644
+--- a/src/QtBase/Resources/GraphResources.qrc
++++ b/src/QtBase/Resources/GraphResources.qrc
+@@ -88,5 +88,6 @@
+ 		<file>Images/Graph/a8c6808f-3cc8-44e6-8d57-63ec144cbca9.png</file>
+ 		<file>Images/Graph/fe2edadc-5641-4be7-97c4-caa615adee86.png</file>
+         <file>Images/Graph/a993213e-bfbf-11ec-9d64-0242ac120002.png</file>
++        <file>Images/Graph/24b358c9-7af2-4fab-9c3c-0d47635458ac.png</file>
+ 	</qresource>
+ </RCC>
+diff --git a/src/QtBase/Resources/Images/Graph/24b358c9-7af2-4fab-9c3c-0d47635458ac.png b/src/QtBase/Resources/Images/Graph/24b358c9-7af2-4fab-9c3c-0d47635458ac.png
+new file mode 100644
+index 00000000..e7539b31
+Binary files /dev/null and b/src/QtBase/Resources/Images/Graph/24b358c9-7af2-4fab-9c3c-0d47635458ac.png differ

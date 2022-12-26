@@ -164,6 +164,8 @@
     <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\CreateExperienceWindow.cpp" />
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\CreateExperienceWindow.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.cpp" />
     <ClCompile Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.moc.cpp" />
@@ -414,6 +416,7 @@
     <ClInclude Include="..\..\src\Studio\Plugins\Examples\SimpleOpenGLPlugin\ExampleOpenGLWidget.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionPlugin.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.h" />
+    <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\CreateExperienceWindow.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Experience\ExperiencePlugin.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Experience\ExperienceWidget.h" />
     <ClInclude Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.h" />

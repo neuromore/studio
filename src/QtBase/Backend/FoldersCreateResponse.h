@@ -17,6 +17,11 @@ class QTBASE_API FoldersCreateResponse : public Response
 	public:
 		// constructor
 		FoldersCreateResponse(QNetworkReply* reply);
+
+		const char* GetFolderId() const					{ return mFolderId.AsChar(); }
+
+	private:
+		Core::String	mFolderId;
 };
 
 

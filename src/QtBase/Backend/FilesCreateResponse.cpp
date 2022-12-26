@@ -20,4 +20,17 @@ FilesCreateResponse::FilesCreateResponse(QNetworkReply* reply) : Response(reply)
 	// check for errors
 	if (mHasError == true)
 		return;
+
+	// data
+	Json::Item dataItem = mJson.Find("data");
+	if (dataItem.IsNull() == true)
+	{
+		mHasError = true;
+		return;
+	}
+
+	// item id
+	Json::Item itemFileId = dataItem.Find("fileId");
+	if (itemFileId.IsString() == true)
+		mFileId = itemFileId.GetString();
 }

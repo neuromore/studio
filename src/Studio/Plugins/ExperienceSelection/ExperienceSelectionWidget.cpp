@@ -26,6 +26,7 @@
 
 // include required headers
 #include <Graph/GraphImporter.h>
+#include <Graph/GraphExporter.h>
 #include "ExperienceSelectionWidget.h"
 #include "ExperienceSelectionPlugin.h"
 #include "../Experience/ExperienceWidget.h"
@@ -33,8 +34,17 @@
 #include <Backend/FileSystemGetResponse.h>
 #include "../../MainWindow.h"
 #include "../../VisualizationManager.h"
+#include "../BackendFileSystem/CreateFolderWindow.h"
+#include "Backend/FoldersCreateRequest.h"
+#include "Backend/FoldersCreateResponse.h"
+#include "Backend/FilesCreateRequest.h"
+#include "Backend/FilesCreateResponse.h"
+#include "CreateExperienceWindow.h"
 
 using namespace Core;
+
+bool ExperienceSelectionWidget::mIsGoToExperience = false;
+bool ExperienceSelectionWidget::mIsCopingExperience = false;
 
 // constructor
 ExperienceSelectionWidget::ExperienceSelectionWidget(QWidget* parent, ExperienceSelectionPlugin* plugin) : QScrollArea(parent)
@@ -42,6 +52,10 @@ ExperienceSelectionWidget::ExperienceSelectionWidget(QWidget* parent, Experience
 	mPlugin		= plugin;
 	mMainWidget	= NULL;
 	mIsLoading	= false;
+	mSkipBtn 	= nullptr;
+	mCreateFolderBtn = nullptr;
+	mCreateXPBtn = nullptr;
+	mIsCreatingExperience = false;
 
 	setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 	setVerticalScrollBarPolicy( Qt::ScrollBarAsNeeded );
@@ -133,6 +147,65 @@ void ExperienceSelectionWidget::ReInit(bool downloadAssets)
 	// create new main widget
 	mMainWidget = new ExperienceSelectionBackgroundWidget();
 	setWidget(mMainWidget);
+
+	if (mSkipBtn == nullptr) {
+		QString styleSheet("QPushButton {"
+                                    "background-color: #009ADA;"
+                                    "background-origin: content;"
+                                    "color: #FFFFFF;"
+                                "}");
+
+        mSkipBtn = new QPushButton(this);
+        mCreateFolderBtn = new QPushButton(this);
+        mCreateXPBtn = new QPushButton(this);
+
+		mSkipBtn->setText("Skip Experience Selection");
+		mSkipBtn->setStyleSheet(styleSheet);
+
+		mCreateFolderBtn->setText("Create Folder");
+
+		mCreateXPBtn->setText("Create New Experience");
+
+		connect(mSkipBtn, &QPushButton::clicked, this, &ExperienceSelectionWidget::onSkipButtonClicked);
+		connect(mCreateFolderBtn, &QPushButton::clicked, this, &ExperienceSelectionWidget::onCreateFolderClicked);
+		connect(mCreateXPBtn, &QPushButton::clicked, this, &ExperienceSelectionWidget::onCreateExperienceClicked);
+    }
+
+    QSize buttonSize = QSize(this->width() / 5, this->height() / 15);
+
+    mSkipBtn->setFixedSize(buttonSize);
+
+    mCreateFolderBtn->setFixedSize(buttonSize);
+
+    mCreateXPBtn->setFixedSize(buttonSize);
+
+    mCreateXPBtn->move(this->width() - buttonSize.width() - 10, this->height() - buttonSize.height() - 10);
+
+    mCreateFolderBtn->move(mCreateXPBtn->x() - buttonSize.width() - 10, mCreateXPBtn->y());
+
+    mSkipBtn->move(mCreateFolderBtn->x() - buttonSize.width() - 10, mCreateFolderBtn->y());
+
+	if (mParents.IsEmpty() /*|| !mParents[0].GetCreud().Create()*/) {
+		mCreateFolderBtn->setEnabled(false);
+		mCreateXPBtn->setEnabled(false);
+		QString styleSheet("QPushButton {"
+                                    "background-color: grey;"
+                                    "background-origin: content;"
+                                    "color: #FFFFFF;"
+                                "}");
+		mCreateFolderBtn->setStyleSheet(styleSheet);
+		mCreateXPBtn->setStyleSheet(styleSheet);
+	} else {
+		QString styleSheet("QPushButton {"
+                                    "background-color: #009ADA;"
+                                    "background-origin: content;"
+                                    "color: #FFFFFF;"
+                                "}");
+		mCreateFolderBtn->setEnabled(true);
+		mCreateXPBtn->setEnabled(true);
+		mCreateFolderBtn->setStyleSheet(styleSheet);
+		mCreateXPBtn->setStyleSheet(styleSheet);
+	}
 
 	// enable/disable interaction while session is running
 	const bool sessionRunning = GetSession()->IsRunning();
@@ -419,6 +492,11 @@ void ExperienceSelectionWidget::AsyncLoadFromBackend(const char* itemId)
 		mTotalPages		= response.mTotalPages;
 		mPageIndex		= response.mPageIndex;
 
+		// enable this once backend side is ready
+		// if (mPersonalFolderID.IsEmpty()) {
+		// 	mPersonalFolderID = mParents[0].GetItemIdString();
+		// }
+
 		mCurrentItem.SetParentId(mParents.IsEmpty() ? "" : mParents[0].GetParentId());
 		mCacheDownloadQueue.Clear();
 
@@ -470,13 +548,236 @@ bool ExperienceSelectionWidget::HasParent() const
 
 void ExperienceSelectionWidget::OnAssetDownloadFinished()
 {
-#ifdef NEUROMORE_BRANDING_ANT
-	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
-		GetLayoutManager()->SwitchToLayoutByName("Experience Trainer");
-#else
-	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
+	if (mIsCreatingExperience) {
+		Experience* experience = GetEngine()->GetActiveExperience();
+
+		if (experience) {
+			experience->SetClassifierUuid(mClassifierUUID);
+			experience->SetStateMachineUuid(mStateMachineUUID);
+		}
+
+		// save design file
+		GetFileManager()->Save(experience->GetUuid());
+		mIsCreatingExperience = false;
+		mClassifierUUID.Clear();
+		mStateMachineUUID.Clear();
+	} else if (mIsCopingExperience) {
+		Experience* experience = GetEngine()->GetActiveExperience();
+		copyExperienceFile(experience->GetNameString(), experience->GetClassifierUuid(), experience->GetStateMachineUuid());
+		mIsCopingExperience = false;
+	}
+	else if (mIsGoToExperience) {
+  #ifdef NEUROMORE_BRANDING_ANT
+		if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
+			GetLayoutManager()->SwitchToLayoutByName("Experience Trainer");
+  #else
+		if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
+			GetLayoutManager()->SwitchToLayoutByName("Experience Player");
+  #endif
+	} else {
+		if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL) {
+			uint32 layoutIndex = GetLayoutManager()->FindLayoutIndexByName("Default");
+			if (layoutIndex == CORE_INVALIDINDEX32) {
+				GetLayoutManager()->SwitchToLayoutByName("Experience Player");
+			} else {
+				GetLayoutManager()->SwitchToLayoutByIndex(layoutIndex);
+			}
+		}
+	}
+}
+
+void ExperienceSelectionWidget::onSkipButtonClicked()
+{
+	uint32 layoutIndex = GetLayoutManager()->FindLayoutIndexByName("Default");
+	if (layoutIndex == CORE_INVALIDINDEX32) {
 		GetLayoutManager()->SwitchToLayoutByName("Experience Player");
-#endif
+	} else {
+		GetLayoutManager()->SwitchToLayoutByIndex(layoutIndex);
+	}
+}
+
+void ExperienceSelectionWidget::onCreateFolderClicked()
+{
+	// open the dialog and return directly if the user canceled the process
+	CreateFolderWindow createFolderWindow( "Name Folder", "New Folder", mParents[0].GetItemId(), this );
+	if (createFolderWindow.exec() == QDialog::Rejected)
+		return;
+
+	// 1. construct /folders/update request
+	FoldersCreateRequest request( GetUser()->GetToken(), createFolderWindow.GetLabelText().AsChar(), mParents[0].GetItemId() );
+
+	// 2. process request and connect to the reply
+	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
+	connect(reply, &QNetworkReply::finished, this, [reply, this]()
+	{
+		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+
+		// 3. construct and parse response
+		FoldersCreateResponse response(networkReply);
+		if (response.HasError() == true)
+			return;
+
+		// 4. handle response
+		AsyncLoadFromBackend( mParents[0].GetItemId());
+	});
+}
+
+void ExperienceSelectionWidget::onCreateExperienceClicked()
+{
+	CreateExperienceWindow createExperienceWindow("Name File", "New File", this );
+	if (createExperienceWindow.exec() == QDialog::Rejected)
+		return;
+
+	String fileName = createExperienceWindow.GetLabelText();
+
+	createClassifier(fileName, mParents[0].GetItemId());
+	createStateMachine(fileName, mParents[0].GetItemId());
+	createExperienceFile(fileName, mParents[0].GetItemId());
+
+}
+
+void ExperienceSelectionWidget::createClassifier(const Core::String& fileName, const Core::String& folderID, const Core::String& jsonContent)
+{
+	// 1. construct /files/create request
+	FilesCreateRequest requestClassifier( GetUser()->GetToken(), fileName.AsChar(), folderID, "Classifier", jsonContent );
+
+	// 2. process request and connect to the reply
+	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( requestClassifier );
+	connect(reply, &QNetworkReply::finished, this, [reply, fileName, this]()
+	{
+		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+
+		// 3. construct and parse response
+		FilesCreateResponse response(networkReply);
+		if (response.HasError() == true)
+			return;
+
+		mClassifierUUID = response.GetFileId();
+
+	});
+}
+
+void ExperienceSelectionWidget::createStateMachine(const Core::String& fileName, const Core::String& folderID,  const Core::String& jsonContent)
+{
+	FilesCreateRequest requestStateMachine( GetUser()->GetToken(), fileName, folderID, "statemachine", jsonContent );
+
+	// 2. process request and connect to the reply
+	QNetworkReply* replyStateMachine = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( requestStateMachine );
+	connect(replyStateMachine, &QNetworkReply::finished, this, [replyStateMachine, fileName, this]()
+	{
+		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+
+		// 3. construct and parse response
+		FilesCreateResponse response(networkReply);
+		if (response.HasError() == true)
+			return;
+
+		mStateMachineUUID = response.GetFileId();
+	});
+}
+
+void ExperienceSelectionWidget::createExperienceFile(const Core::String& fileName, const Core::String& folderId)
+{
+	FilesCreateRequest requestDesign( GetUser()->GetToken(), fileName, folderId, "experience", "{}" );
+
+	// 2. process request and connect to the reply
+	QNetworkReply* replyDesign = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( requestDesign );
+	connect(replyDesign, &QNetworkReply::finished, this, [replyDesign, fileName, this]()
+	{
+		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+
+		// 3. construct and parse response
+		FilesCreateResponse response(networkReply);
+		if (response.HasError() == true)
+			return;
+
+		mIsCreatingExperience = true;
+		GetFileManager()->OpenExperience( FileManager::LOCATION_BACKEND, response.GetFileId(), fileName );
+		// 4. handle response
+		AsyncLoadFromBackend( mParents[0].GetItemId());
+	});
+}
+
+void ExperienceSelectionWidget::copyExperienceFile(const Core::String& experienceName, const Core::String& classifierUUID, const Core::String& stateMachineUUID)
+{
+	// uncomment this once backend is ready
+	// if (mPersonalFolderID.IsEmpty()) {
+	// 	return;
+	// }
+
+	// remove this
+	if (mParents[0].GetItemId()) {
+		return;
+	}
+
+	// 1. construct /folders/update request
+	// uncomment this once backend is ready
+	// FoldersCreateRequest request( GetUser()->GetToken(), experienceName, mPersonalFolderID );4
+
+	// remove this
+	FoldersCreateRequest request( GetUser()->GetToken(), experienceName, mParents[0].GetItemId() );
+
+	// 2. process request and connect to the reply
+	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
+	connect(reply, &QNetworkReply::finished, this, [reply, experienceName, classifierUUID, stateMachineUUID ,this]()
+	{
+		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+
+		// 3. construct and parse response
+		FoldersCreateResponse response(networkReply);
+		if (response.HasError() == true)
+			return;
+
+		Core::String folderId = response.GetFolderId();
+
+		// find the graph based on the uuid
+		Graph* graph = GetGraphManager()->FindGraphByUuid( classifierUUID );
+		if (graph == NULL)
+		{
+			return;
+		}
+
+		String jsonContent;
+		bool result = GraphExporter::Save( &jsonContent, graph );
+		if (result == false)
+		{
+			String errorMsg;
+			errorMsg.Format( "Cannot save file (filename='%s', UUID=%s).", graph->GetName(), classifierUUID.AsChar() );
+			LogError( errorMsg.AsChar() );
+			QMessageBox::critical( this, "ERROR", "Cannot save file." );
+			return;
+		}
+
+		String newItemName = graph->GetNameString();
+
+		createClassifier(newItemName, folderId, jsonContent);
+
+		graph = GetGraphManager()->FindGraphByUuid( stateMachineUUID );
+		if (graph == NULL)
+		{
+			return;
+		}
+
+		jsonContent.Clear();
+		result = GraphExporter::Save( &jsonContent, graph );
+		if (result == false)
+		{
+			String errorMsg;
+			errorMsg.Format( "Cannot save file (filename='%s', UUID=%s).", graph->GetName(), classifierUUID.AsChar() );
+			LogError( errorMsg.AsChar() );
+			QMessageBox::critical( this, "ERROR", "Cannot save file." );
+			return;
+		}
+
+		newItemName = graph->GetNameString();
+
+		createStateMachine(newItemName, folderId, jsonContent);
+
+		createExperienceFile(experienceName, folderId);
+
+		AsyncLoadFromBackend( mParents[0].GetItemId());
+	});
+
 }
 
 
@@ -573,6 +874,21 @@ ExperienceSelectionItemWidget::ExperienceSelectionItemWidget(ExperienceSelection
 
 	// load button
 	const int loadButtonSize = 40;
+
+	mEditButton = new ImageButton("Images/Icons/EditText.png", loadButtonSize, "Edit");
+	connect( mEditButton, SIGNAL(clicked()), this, SLOT(onEditButtonClicked()) );
+	hLayout->addWidget(mEditButton);
+
+	mEditButton->setMinimumHeight(loadButtonSize);
+	mEditButton->setMinimumWidth(loadButtonSize);
+
+	mCopyButton = new ImageButton("Images/Icons/Copy.png", loadButtonSize, "Copy");
+	connect( mCopyButton, SIGNAL(clicked()), this, SLOT(onCopyButtonClicked()) );
+	hLayout->addWidget(mCopyButton);
+
+	mCopyButton->setMinimumHeight(loadButtonSize);
+	mCopyButton->setMinimumWidth(loadButtonSize);
+
 	mLoadButton = new ImageButton("Images/Icons/Play.png", loadButtonSize, "Load");
 	connect( mLoadButton, SIGNAL(clicked()), this, SLOT(OnGoButtonClicked()) );
 	hLayout->addWidget(mLoadButton);
@@ -624,6 +940,8 @@ void ExperienceSelectionItemWidget::leaveEvent(QEvent* event)
 
 void ExperienceSelectionItemWidget::UpdateInterface()
 {
+	mEditButton->setVisible( mIsHovered );
+	mCopyButton->setVisible( mIsHovered );
 	mLoadButton->setVisible( mIsHovered );
 	update();
 }
@@ -652,6 +970,25 @@ void ExperienceSelectionItemWidget::Unselect()
 void ExperienceSelectionItemWidget::OnGoButtonClicked()
 {
 	LogInfo( "Load experience '%s'", mItem.GetName() );
+
+	ExperienceSelectionWidget::mIsGoToExperience = true;
+
+	// load experience
+	GetFileManager()->OpenExperience( FileManager::LOCATION_BACKEND, mItem.GetItemId(), mItem.GetName() );
+}
+
+void ExperienceSelectionItemWidget::onCopyButtonClicked()
+{
+	ExperienceSelectionWidget::mIsCopingExperience = true;
+	// load experience
+	GetFileManager()->OpenExperience( FileManager::LOCATION_BACKEND, mItem.GetItemId(), mItem.GetName() );
+}
+
+void ExperienceSelectionItemWidget::onEditButtonClicked()
+{
+	LogInfo( "Load experience '%s'", mItem.GetName() );
+
+	ExperienceSelectionWidget::mIsGoToExperience = false;
 
 	// load experience
 	GetFileManager()->OpenExperience( FileManager::LOCATION_BACKEND, mItem.GetItemId(), mItem.GetName() );

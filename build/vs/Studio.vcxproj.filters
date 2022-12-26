@@ -280,6 +280,9 @@
     <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.cpp">
       <Filter>Plugins\ExperienceSelection</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\CreateExperienceWindow.cpp">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.cpp">
       <Filter>Plugins\Feedback</Filter>
     </ClCompile>
@@ -653,6 +656,9 @@
     <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.moc.cpp">
       <Filter>Plugins\ExperienceSelection</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Plugins\ExperienceSelection\CreateExperienceWindow.moc.cpp">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.moc.cpp">
       <Filter>Plugins\Feedback</Filter>
     </ClCompile>
@@ -983,6 +989,9 @@
       <Filter>Plugins\ExperienceSelection</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\ExperienceSelectionWidget.h">
+      <Filter>Plugins\ExperienceSelection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Plugins\ExperienceSelection\CreateExperienceWindow.h">
       <Filter>Plugins\ExperienceSelection</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Studio\Plugins\Feedback\FeedbackHistoryWidget.h">

@@ -148,6 +148,7 @@ MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
              Plugins/Experience/ExperienceWidget.cpp \
              Plugins/ExperienceSelection/ExperienceSelectionPlugin.cpp \
              Plugins/ExperienceSelection/ExperienceSelectionWidget.cpp \
+             Plugins/ExperienceSelection/CreateExperienceWindow.cpp \
              Plugins/Feedback/FeedbackHistoryWidget.cpp \
              Plugins/Feedback/FeedbackPlugin.cpp \
              Plugins/Graph/ClassifierPlugin.cpp \
@@ -278,6 +279,7 @@ OBJS       = Devices/ABM/AbmDriver.o \
              Plugins/Experience/ExperienceWidget.o \
              Plugins/ExperienceSelection/ExperienceSelectionPlugin.o \
              Plugins/ExperienceSelection/ExperienceSelectionWidget.o \
+             Plugins/ExperienceSelection/CreateExperienceWindow.o \
              Plugins/Feedback/FeedbackHistoryWidget.o \
              Plugins/Feedback/FeedbackPlugin.o \
              Plugins/Graph/ClassifierPlugin.o \
