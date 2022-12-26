@@ -44,6 +44,7 @@ private:
    virtual void OnBrowserPausePlayer() override;
 
 Q_SIGNALS:
+   void handleOnImpersonation(const QString& msg);
    void closed();
 
 private Q_SLOTS:

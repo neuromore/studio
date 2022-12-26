@@ -172,10 +172,19 @@
     <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateResponse.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateSpecificeUUIDRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateSpecificeUUIDResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Backend\UsersGetRequest.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Backend\UsersGetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UserGetResponse.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Backend\UsersInviteRequest.cpp">
@@ -592,6 +601,9 @@
       <Filter>Backend</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\QtBase\Backend\UsersGetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UserGetResponse.h">
       <Filter>Backend</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\QtBase\Backend\UsersInviteRequest.h">

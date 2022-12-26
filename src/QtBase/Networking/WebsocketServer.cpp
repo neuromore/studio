@@ -133,6 +133,10 @@ void WebsocketServer::processTextMessage(QString message)
    {
       handleOnBrowserPlayerPaused();
    }
+   else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_IMPERSONATION))
+   {
+      emit handleOnImpersonation(message);
+   }
    else
       qDebug() << "Unhandled WSMessage: " << mMessageRecv.type();
 }

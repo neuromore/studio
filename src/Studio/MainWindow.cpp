@@ -82,6 +82,8 @@
 #include "Plugins/Development/EEGElectrodePlacementPlugin/EEGElectrodePlacementPlugin.h"
 #include "Plugins/Development/HeatmapPlugin/HeatmapPlugin.h"
 
+#include "Impersonation.h"
+
 #ifdef OPENCV_SUPPORT
 //#include "Plugins/Development/LORETA/LoretaPlugin.h"
 #endif
@@ -99,6 +101,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags) : MainWindowBase(
 	mVisualizationMenu			= NULL;
 	mToolsMenu					= NULL;
 	mSettingsAction				= NULL;
+	mImpersonation				= NULL;
 
 	LogDetailedInfo("Adding main window event handler ...");
 	CORE_EVENTMANAGER.AddEventHandler(this);
@@ -146,9 +149,11 @@ void MainWindow::Init()
 	// create the osc listener
 	mOscServer = new OscServer(STUDIO_OSCLISTENER_UDP_PORT, STUDIO_OSCREMOTE_UDP_PORT);
 
+	mImpersonation = new Impersonation();
 	// create the websocket server
 	mWebsocketServer = new WebsocketServer(1234, true);
 	QObject::connect(mWebsocketServer, &WebsocketServer::closed, this, &QCoreApplication::quit);
+	QObject::connect(mWebsocketServer, &WebsocketServer::handleOnImpersonation, mImpersonation, &Impersonation::handleOnImpersonation);
 
 #ifdef BACKEND_LOGGING
 	// enable back-end logging
@@ -864,10 +869,12 @@ void MainWindow::OnSessionUserSelected(const User& user)
 {
 	GetEngine()->SetSessionUser(user);
 
-	// dealloc window
-	mSessionUserSelectionWindow->close();
-	mSessionUserSelectionWindow->deleteLater();
-	mSessionUserSelectionWindow = NULL;
+	if (mSessionUserSelectionWindow->isVisible()) {
+		// dealloc window
+		mSessionUserSelectionWindow->close();
+		mSessionUserSelectionWindow->deleteLater();
+		mSessionUserSelectionWindow = NULL;
+	}
 
 	// refresh the experience plugin using the selected user
 	if (ExperienceSelectionPlugin* p = (ExperienceSelectionPlugin*)GetPluginManager()->FindFirstActivePluginByType(ExperienceSelectionPlugin::GetStaticTypeUuid()))

@@ -168,8 +168,12 @@ OBJS       = AttributeWidgets/AttributeSetGridWidget.o \
              Backend/UsersAgreementResponse.o \
              Backend/UsersCreateRequest.o \
              Backend/UsersCreateResponse.o \
+             Backend/UsersCreateSpecificUUIDRequest.o \
+             Backend/UsersCreateSpecificUUIDResponse.o \
              Backend/UsersGetRequest.o \
              Backend/UsersGetResponse.o \
+             Backend/UserGetRequest.o \
+             Backend/UserGetResponse.o \
              Backend/UsersInviteRequest.o \
              Backend/UsersInviteResponse.o \
              Backend/WebDataCache.o \

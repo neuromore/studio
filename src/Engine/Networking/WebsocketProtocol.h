@@ -63,6 +63,7 @@ public:
       static constexpr char ON_BROWSER_PLAYER_STARTED[] = "ON_BROWSER_PLAYER_STARTED";
       static constexpr char ON_BROWSER_PLAYER_STOPPED[] = "ON_BROWSER_PLAYER_STOPPED";
       static constexpr char ON_BROWSER_PLAYER_PAUSED[]  = "ON_BROWSER_PLAYER_PAUSED";
+      static constexpr char ON_IMPERSONATION[]    = "IMPERSONATION";
    };
 
    inline WSMessage() : d(rapidjson::kObjectType) { }
