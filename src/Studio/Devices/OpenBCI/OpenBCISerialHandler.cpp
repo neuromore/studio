@@ -569,7 +569,7 @@ void OpenBCISerialHandler::ProcessStreamPacket(const OpenBCIStreamPacket& packet
 			const uint32 base = Math::PowD(2,23) - 1.0;
 			const double scale = 4.5 / gain / base;
 
-			const double sampleValue = sensors[i].GetValue() * scale;
+			const double sampleValue = sensors[i].GetValue() * scale * 1000000.0;
 			mDevice->GetSensor(i + sensorIndexOffset)->AddQueuedSample((double)sampleValue);
 		}
 	}
@@ -583,7 +583,7 @@ void OpenBCISerialHandler::ProcessStreamPacket(const OpenBCIStreamPacket& packet
 			const uint32 base = Math::PowD(2,23) - 1.0;
 			const double scale = 4.5 / gain / base;
 
-			const double sampleValue = sensors[i].GetValue() * scale;
+			const double sampleValue = sensors[i].GetValue() * scale * 1000000.0;
 			mDevice->GetSensor(i)->AddQueuedSample((double)sampleValue);
 		}
 	}
