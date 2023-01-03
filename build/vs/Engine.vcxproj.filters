@@ -569,9 +569,6 @@
       <Filter>Graph</Filter>
     </ClCompile>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\Devices\Natus\NatusDevices.cpp">
-      <Filter>Devices\Natus</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Graph\ToneGeneratorNode.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
@@ -1322,12 +1319,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.h">
       <Filter>Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Engine\Devices\Natus\NatusNode.h">
-      <Filter>Devices\Natus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Engine\Devices\Natus\NatusDevices.h">
-      <Filter>Devices\Natus</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Graph\ToneGeneratorNode.h">
       <Filter>Graph</Filter>

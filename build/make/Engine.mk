@@ -71,7 +71,6 @@ OBJS       = Core/AABB.o \
              Devices/Muse/MuseDevice.o \
              Devices/Neurosity/NotionDevices.o \
              Devices/Neurosity/CrownDevice.o \
-             Devices/Natus/NatusDevice.o \
              Devices/NeuroSky/NeuroSkyDevice.o \
              Devices/OpenBCI/OpenBCIDevices.o \
              Devices/Test/TestDevice.o \
