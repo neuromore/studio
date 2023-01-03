@@ -568,7 +568,6 @@
     <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
-    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Graph\ToneGeneratorNode.cpp">
       <Filter>Graph</Filter>
     </ClCompile>

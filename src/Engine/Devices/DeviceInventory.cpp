@@ -128,8 +128,8 @@
 #endif
 
 #ifdef INCLUDE_DEVICE_NATUS
-	#include "Natus/NatusDevice.h"
-	#include "Natus/NatusNode.h"
+	#include <Engine/Devices/Natus/NatusDevice.h>
+	#include <Engine/Devices/Natus/NatusNode.h>
 #endif
 
 
