@@ -419,6 +419,17 @@ void EEGElectrodes::Init()
 	mElectrodes.Add( Electrode("REF", 90.000, 22.500));  // otherwise at GND pos (dummy/unknown)
 #endif
 
+	mElectrodes.Add( Electrode("AUX1", 0, 0));
+	mElectrodes.Add( Electrode("AUX2", 0, 0));
+	mElectrodes.Add( Electrode("AUX3", 0, 0));
+	mElectrodes.Add( Electrode("AUX4", 0, 0));
+	mElectrodes.Add( Electrode("AUX5", 0, 0));
+	mElectrodes.Add( Electrode("AUX6", 0, 0));
+	mElectrodes.Add( Electrode("AUX7", 0, 0));
+	mElectrodes.Add( Electrode("AUX8", 0, 0));
+	mElectrodes.Add( Electrode("PG1", 0, 0));
+	mElectrodes.Add( Electrode("PG2", 0, 0));
+
     // Others
 	// 127 electrodes
 	//mElectrodes.Add( Electrode("1",  36.000,  -22.000) );

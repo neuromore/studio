@@ -82,7 +82,10 @@ class ENGINE_API DeviceTypeIDs
 			DEVICE_TYPEID_GENERIC_CAMERA			= 0xD001,	// TODO probably need several types of camera
 
 			// eyetracker
-			DEVICE_TYPEID_TOBII_EYEX				= 0xE001
+			DEVICE_TYPEID_TOBII_EYEX				= 0xE001,
+
+			// Natus
+			DEVICE_TYPEID_NATUS						= 0xF001
 
 		};
 
