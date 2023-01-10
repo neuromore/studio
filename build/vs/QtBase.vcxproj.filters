@@ -172,10 +172,10 @@
     <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateResponse.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateSpecificeUUIDRequest.cpp">
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDRequest.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateSpecificeUUIDResponse.cpp">
+    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDResponse.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Backend\UsersGetRequest.cpp">
@@ -716,6 +716,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\QtBase\Audio\TonePlayer.h">
       <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDRequest.h">
+      <Filter>Backend</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
