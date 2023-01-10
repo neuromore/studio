@@ -96,6 +96,8 @@
     <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.cpp" />
     <ClCompile Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\DocumentationExporter.cpp" />
+    <ClCompile Include="..\..\src\Studio\Impersonation.cpp" />
+    <ClCompile Include="..\..\src\Studio\Impersonation.moc.cpp" />
     <ClCompile Include="..\..\src\Studio\main.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.moc.cpp" />
@@ -388,6 +390,7 @@
     <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusDriver.h" />
     <ClInclude Include="..\..\src\Studio\Devices\Versus\VersusSerialHandler.h" />
     <ClInclude Include="..\..\src\Studio\DocumentationExporter.h" />
+    <ClInclude Include="..\..\src\Studio\Impersonation.h" />
     <ClInclude Include="..\..\src\Studio\MainWindow.h" />
     <ClInclude Include="..\..\src\Studio\OnboardingAction.h" />
     <ClInclude Include="..\..\src\Studio\TourManager.h" />

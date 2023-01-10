@@ -589,6 +589,7 @@ QtBase.cmd
     <ClCompile Include="..\..\src\QtBase\Backend\BackendUploader.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Backend\FileDownloader.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Backend\NetworkAccessManager.moc.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Backend\UserGetRequest.cpp" />
     <ClCompile Include="..\..\src\QtBase\Backend\WebDataCache.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\ColorLabel.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\DockHeader.moc.cpp" />
@@ -734,6 +735,7 @@ QtBase.cmd
     <ClCompile Include="..\..\src\QtBase\Backend\SystemsGetResponse.cpp" />
     <ClInclude Include="..\..\src\QtBase\Backend\SystemsGetResponse.h" />
     <ClCompile Include="..\..\src\QtBase\Backend\UsersAgreementRequest.cpp" />
+    <ClInclude Include="..\..\src\QtBase\Backend\UserGetRequest.h" />
     <ClInclude Include="..\..\src\QtBase\Backend\UsersAgreementRequest.h" />
     <ClCompile Include="..\..\src\QtBase\Backend\UsersAgreementResponse.cpp" />
     <ClInclude Include="..\..\src\QtBase\Backend\UsersAgreementResponse.h" />

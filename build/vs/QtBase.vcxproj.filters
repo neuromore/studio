@@ -424,6 +424,9 @@
     <ClCompile Include="..\..\src\QtBase\Audio\TonePlayer.moc.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UserGetRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.h">
@@ -721,6 +724,9 @@
       <Filter>Backend</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UserGetRequest.h">
       <Filter>Backend</Filter>
     </ClInclude>
   </ItemGroup>
