@@ -41,10 +41,8 @@ UserGetResponse::UserGetResponse(QNetworkReply* reply, bool handleCustomErrorCod
       const char* type = typeItem.GetString();
 
       // test for 404 / USER_NOT_FOUND case
-      if (code == 404 && 0 == ::strcmp(type, "USER_NOT_FOUND")) {
-         std::cout << "User is not exist" << std::endl;
+      if (code == 404 && 0 == ::strcmp(type, "USER_NOT_FOUND"))
          mIsNotFoundError = true;
-      }
    }
 
    // data
