@@ -743,10 +743,6 @@ QtBase.cmd
     <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateRequest.h" />
     <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateResponse.cpp" />
     <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateResponse.h" />
-    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDRequest.cpp" />
-    <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDRequest.h" />
-    <ClCompile Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDResponse.cpp" />
-    <ClInclude Include="..\..\src\QtBase\Backend\UsersCreateSpecificUUIDResponse.h" />
     <ClCompile Include="..\..\src\QtBase\Backend\UsersGetRequest.cpp" />
     <ClInclude Include="..\..\src\QtBase\Backend\UsersGetRequest.h" />
     <ClCompile Include="..\..\src\QtBase\Backend\UsersGetResponse.cpp" />
