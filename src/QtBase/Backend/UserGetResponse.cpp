@@ -15,69 +15,76 @@
 using namespace Core;
 
 // constructor
-UserGetResponse::UserGetResponse(QNetworkReply* reply, bool handleCustomErrorCodes) : Response(reply, handleCustomErrorCodes)
+UserGetResponse::UserGetResponse(QNetworkReply* reply, bool handleCustomErrorCodes) : Response(reply, handleCustomErrorCodes), mIsNotFoundError(false)
 {
-    mIsExist = true;
+   Json::Item dataItem = mJson.Find("data");
 
-	// data
-	Json::Item dataItem = mJson.Find("data");
-	if (dataItem.IsNull() == true) {
-        Json::Item metaItem = mJson.Find("meta");
+   // no data
+   if (dataItem.IsNull())
+   {
+      Json::Item metaItem = mJson.Find("meta");
 
-        if (metaItem.IsNull() == true) {
-            mHasError = true;
-            return;
-        }
+      if (metaItem.IsNull()) {
+         mHasError = true;
+         return;
+      }
 
-        Json::Item codeItem = metaItem.Find("code");
-        Json::Item typeItem = metaItem.Find("type");
+      Json::Item codeItem = metaItem.Find("code");
+      Json::Item typeItem = metaItem.Find("type");
 
-        if (codeItem.IsNull() && typeItem.IsNull()) {
-            mHasError = true;
-            return;
-        }
+      if (codeItem.IsNull() || typeItem.IsNull()) {
+         mHasError = true;
+         return;
+      }
 
-        if (codeItem.GetInt() == 403 && 0 == ::strcmp(typeItem.GetString(), "GET_USER_FAILED")) {
-			std::cout << "User is not exist" << std::endl;
-            mIsExist = false;
-        }
+      const int   code = codeItem.GetInt();
+      const char* type = typeItem.GetString();
 
-    } else {
-        Json::Item userItem = dataItem.Find("user");
+      // test for 404 / USER_NOT_FOUND case
+      if (code == 404 && 0 == ::strcmp(type, "USER_NOT_FOUND")) {
+         std::cout << "User is not exist" << std::endl;
+         mIsNotFoundError = true;
+      }
+   }
 
-		if (userItem.IsNull()) {
-			mHasError = true;
-            return;
-		}
+   // data
+   else 
+   {
+      Json::Item userItem = dataItem.Find("user");
 
-        Json::Item userIdItem = userItem.Find("userId");
-        if (userIdItem.IsString() == true)
-			mUser.SetId( userIdItem.GetString() );
+      if (userItem.IsNull()) {
+         mHasError = true;
+         return;
+      }
 
-		// first name
-		Json::Item firstNameItem = userItem.Find("firstname");
-		if (firstNameItem.IsString() == true)
-			mUser.SetFirstName( firstNameItem.GetString() );
+      Json::Item userIdItem = userItem.Find("userId");
+      if (userIdItem.IsString())
+         mUser.SetId(userIdItem.GetString());
 
-		// middle name
-		Json::Item middleNameItem = userItem.Find("middlename");
-		if (middleNameItem.IsString() == true)
-			mUser.SetMiddleName( middleNameItem.GetString() );
+      // first name
+      Json::Item firstNameItem = userItem.Find("firstname");
+      if (firstNameItem.IsString())
+         mUser.SetFirstName(firstNameItem.GetString());
 
-		// last name
-		Json::Item lastNameItem = userItem.Find("lastname");
-		if (lastNameItem.IsString() == true)
-			mUser.SetLastName( lastNameItem.GetString() );
+      // middle name
+      Json::Item middleNameItem = userItem.Find("middlename");
+      if (middleNameItem.IsString())
+         mUser.SetMiddleName(middleNameItem.GetString());
 
-		// email
-		Json::Item emailItem = userItem.Find("email");
-		if (emailItem.IsString() == true)
-			mUser.SetEmail( emailItem.GetString() );
+      // last name
+      Json::Item lastNameItem = userItem.Find("lastname");
+      if (lastNameItem.IsString())
+         mUser.SetLastName(lastNameItem.GetString());
 
-		// birthday
-		Json::Item birthdayItem = userItem.Find("birthday");
-		if (birthdayItem.IsString() == true) {
-			mUser.SetBirthday( birthdayItem.GetString() );
-		}
-    }
+      // email
+      Json::Item emailItem = userItem.Find("email");
+      if (emailItem.IsString())
+         mUser.SetEmail(emailItem.GetString());
+
+      // birthday
+      Json::Item birthdayItem = userItem.Find("birthday");
+      if (birthdayItem.IsString()) {
+         mUser.SetBirthday(birthdayItem.GetString());
+      }
+   }
 }

@@ -14,16 +14,15 @@
 // response
 class QTBASE_API UserGetResponse : public Response
 {
-	public:
-		// constructor
-		UserGetResponse(QNetworkReply* reply, bool handleCustomErrorCodes=false);
+public:
+   UserGetResponse(QNetworkReply* reply, bool handleCustomErrorCodes=false);
 
-    bool UserIsExist() const          { return mIsExist; }
-    User GetUser() const              { return mUser; }
+   bool  IsNotFoundError() const { return mIsNotFoundError; }
+   const User& GetUser()   const { return mUser; }
 
-    private:
-        User mUser;
-        bool mIsExist;
+private:
+   User mUser;
+   bool mIsNotFoundError;
 };
 
 

@@ -25,8 +25,14 @@
 #include <Studio/Precompiled.h>
 
 #include "Impersonation.h"
+
 #include "Backend/UserGetRequest.h"
 #include "Backend/UserGetResponse.h"
+
+#include "Backend/UsersCreateRequest.h"
+#include "Backend/UsersCreateResponse.h"
+
+
 #include "Backend/UsersCreateSpecificUUIDRequest.h"
 #include "Backend/UsersCreateSpecificUUIDResponse.h"
 #include "EngineManager.h"
@@ -40,96 +46,124 @@ using namespace Core;
 
 Impersonation::Impersonation(QObject* parent) : QObject(parent)
 {
-
 }
 
 void Impersonation::handleOnImpersonation(const QString& msg)
 {
-    if (mJson.Parse(msg.toUtf8().data()) == false)
-	{
-        // cannot parse the message
-		return;
-	}
+   if (!mJson.Parse(msg.toUtf8().data()))
+      return;
 
-    Json::Item dataItem = mJson.Find("data");
-	if (dataItem.IsNull() == true)
-		return;
+   Json::Item dataItem = mJson.Find("data");
+   if (dataItem.IsNull())
+      return;
 
-    // uuid
-	Json::Item uuidItem = dataItem.Find("uuid");
-	if (uuidItem.IsNull() == true)
-		return;
+   // uuid
+   Json::Item uuidItem = dataItem.Find("uuid");
+   if (uuidItem.IsNull())
+      return;
 
-    checkUserExistence(uuidItem.GetString());
+   const char* s = uuidItem.GetString();
+
+   // validate uuid string length
+   if (::strlen(s) != 36)
+      return;
+
+   // validate hyphen characters
+   if (s[8] != '-' || s[13] != '-' || s[18] != '-' || s[23] != '-')
+      return;
+
+   // validate hex characters
+   const bool ISHEXCHARS = 
+      isxdigit(s[0])  && isxdigit(s[1])  && isxdigit(s[2])  && isxdigit(s[3]) &&
+      isxdigit(s[4])  && isxdigit(s[5])  && isxdigit(s[6])  && isxdigit(s[7]) &&
+      isxdigit(s[9])  && isxdigit(s[10]) && isxdigit(s[11]) && isxdigit(s[12]) &&
+      isxdigit(s[14]) && isxdigit(s[15]) && isxdigit(s[16]) && isxdigit(s[17]) &&
+      isxdigit(s[19]) && isxdigit(s[20]) && isxdigit(s[21]) && isxdigit(s[22]) &&
+      isxdigit(s[24]) && isxdigit(s[25]) && isxdigit(s[26]) && isxdigit(s[27]) &&
+      isxdigit(s[28]) && isxdigit(s[29]) && isxdigit(s[30]) && isxdigit(s[31]) &&
+      isxdigit(s[32]) && isxdigit(s[33]) && isxdigit(s[34]) && isxdigit(s[35]);
+
+   if (!ISHEXCHARS)
+      return;
+
+   checkUserExistence(s);
 }
 
 void Impersonation::checkUserExistence(const Core::String& uuid)
 {
-	// construct /users/{userID}/get request
+   // construct /users/{userID}/get request
+   UserGetRequest request(GetUser()->GetToken(), uuid.AsChar());
 
-	UserGetRequest request(GetUser()->GetToken(), uuid.AsChar());
+   // process request and connect to the reply
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
+   connect(reply, &QNetworkReply::finished, this, [reply, this]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+      UserGetResponse response(networkReply, true);
 
-	// process request and connect to the reply
-	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
+      // CASE1: User does not exist
+      if (response.IsNotFoundError())
+         createUser();
 
-	connect(reply, &QNetworkReply::finished, this, [reply, this]()
-	{
-		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+      // CASE2: Some other error
+      else if (response.HasError())
+      {
+         const char* errortype = response.GetErrorType();
+         const char* errormsg = response.GetErrorMessage();
+         LogError(errormsg);
+         return;
+      }
 
-		UserGetResponse response(networkReply, true);
-
-		if (response.HasError() == true)
-			return;
-
-		if (response.UserIsExist()) {
-			GetMainWindow()->OnSessionUserSelected(response.GetUser());
-		} else {
-			createUser();
-		}
-	});
+      // CASE3: User exists
+      else
+         GetMainWindow()->OnSessionUserSelected(response.GetUser());
+   });
 }
 
 void Impersonation::createUser()
 {
-	Json::Item dataItem = mJson.Find("data");
-	if (dataItem.IsNull() == true)
-		return;
+   Json::Item dataItem = mJson.Find("data");
+   if (dataItem.IsNull())
+      return;
 
-	Json::Item uuidItem = dataItem.Find("uuid");
-	if (uuidItem.IsNull() == true)
-		return;
+   // mandatory: uuid
+   Json::Item uuidItem = dataItem.Find("uuid");
+   if (uuidItem.IsNull())
+      return;
 
-	Json::Item firstNameItem = dataItem.Find("firstName");
-	if (uuidItem.IsNull() == true)
-		return;
+   // optional
+   Json::Item emailItem     = dataItem.Find("email");
+   Json::Item firstNameItem = dataItem.Find("firstName");
+   Json::Item lastNameItem  = dataItem.Find("lastName");
+   Json::Item birthdayItem  = dataItem.Find("birthday");
 
-	Json::Item lastNameItem = dataItem.Find("lastName");
-	if (uuidItem.IsNull() == true)
-		return;
+   // string request parameters
+   const String userUuid  = uuidItem.GetString();
+   const String email     = emailItem.IsNull()     ? "" : emailItem.GetString();
+   const String firstName = firstNameItem.IsNull() ? "" : firstNameItem.GetString();
+   const String lastName  = lastNameItem.IsNull()  ? "" : lastNameItem.GetString();
+   const String birthday  = birthdayItem.IsNull()  ? "" : birthdayItem.GetString();
 
-	String userUuid = uuidItem.GetString();
-	String firstName = firstNameItem.GetString();
-	String lastName = lastNameItem.GetString();
+   // array request parameter
+   Array<String> parentIds;
+   const uint32 numCompanies = GetUser()->GetNumParentCompanyIds();
+   for (uint32 i = 0; i < numCompanies; i++)
+      parentIds.Add( GetUser()->GetParentCompanyId(i) );
 
-	Array<String> parentIds;
-	const uint32 numCompanies = GetUser()->GetNumParentCompanyIds();
-	for (uint32 i = 0; i < numCompanies; i++)
-		parentIds.Add( GetUser()->GetParentCompanyId(i) );
+   // construct request
+   UsersCreateRequest request(GetUser()->GetToken(), firstName, lastName, parentIds, email, birthday, userUuid, 3004);
 
-	// 1. construct invite request
-	UsersCreateSpecificUUIDRequest request( GetUser()->GetToken(), userUuid, firstName, lastName, parentIds, 3004 );
+   // process request and connect to the reply
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
+   connect(reply, &QNetworkReply::finished, this, [reply, this, userUuid]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+      UsersCreateResponse response(networkReply);
 
-	// 2. process request and connect to the reply
-	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
-	connect(reply, &QNetworkReply::finished, this, [reply, this, userUuid]()
-	{
-		// 3. construct and parse response
-		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
-		UsersCreateSpecificUUIDResponse response(networkReply);
+      if (response.HasError()) {
+         return;
+      }
 
-		if (response.HasError()) {
-			return;
-		}
-		checkUserExistence(userUuid);
-	});
+      checkUserExistence(userUuid);
+   });
 }
