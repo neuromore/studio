@@ -63,7 +63,7 @@ public:
       static constexpr char ON_BROWSER_PLAYER_STARTED[] = "ON_BROWSER_PLAYER_STARTED";
       static constexpr char ON_BROWSER_PLAYER_STOPPED[] = "ON_BROWSER_PLAYER_STOPPED";
       static constexpr char ON_BROWSER_PLAYER_PAUSED[]  = "ON_BROWSER_PLAYER_PAUSED";
-      static constexpr char ON_IMPERSONATION[]    = "IMPERSONATION";
+      static constexpr char ON_IMPERSONATION[]          = "IMPERSONATION";
    };
 
    inline WSMessage() : d(rapidjson::kObjectType) { }
@@ -90,7 +90,7 @@ public:
 
    inline const char* type() const { return d["header"]["type"].GetString(); }
 
-   inline virtual bool isvalid() const 
+   inline bool isvalid() const 
    {
       if (!d.IsObject() || !d.HasMember("header") || !d.HasMember("data"))
          return false;
@@ -140,7 +140,7 @@ public:
       Value name(kStringType);
       data.AddMember("name", name, alloc);
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       if (!WSMessage::isvalid())
          return false;
@@ -180,7 +180,7 @@ public:
       Value name(kStringType);
       data.AddMember("name", name, alloc);
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       if (!WSMessage::isvalid())
          return false;
@@ -220,7 +220,7 @@ public:
       Value name(kStringType);
       data.AddMember("name", name, alloc);
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       if (!WSMessage::isvalid())
          return false;
@@ -259,7 +259,7 @@ public:
       Value start(kStringType);
       data.AddMember("start", start, alloc);
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       if (!WSMessage::isvalid())
          return false;
@@ -303,7 +303,7 @@ public:
       Value feedbacks(kArrayType);
       data.AddMember("feedbacks", feedbacks, alloc);
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       if (!WSMessage::isvalid())
          return false;
@@ -385,7 +385,7 @@ public:
       Value url(kStringType);
       data.AddMember("url", url, alloc);
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       if (!WSMessage::isvalid())
          return false;
@@ -422,7 +422,7 @@ public:
       Value fullscreen(kNumberType);
       data.AddMember("fullscreen", fullscreen, alloc);
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       if (!WSMessage::isvalid())
          return false;
@@ -494,11 +494,11 @@ public:
       Value url(kStringType);
       data.AddMember("url", url, alloc);
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       if (!WSMessage::isvalid())
          return false;
-      auto& data = d["url"];
+      auto& data = d["data"];
       return data.HasMember("url") && data["url"].IsString();
    }
    inline void setUrl(const char* url)
@@ -508,7 +508,7 @@ public:
       auto& data = d["data"];
       data["url"].SetString(url, d.GetAllocator());
    }
-   inline const char* getUrl()
+   inline const char* getUrl() const
    {
       return d["data"]["url"].GetString();
    }
@@ -527,7 +527,7 @@ public:
       auto& alloc = d.GetAllocator();
       Value& data = d["data"];
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       return WSMessage::isvalid();
    }
@@ -546,7 +546,7 @@ public:
       auto& alloc = d.GetAllocator();
       Value& data = d["data"];
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       return WSMessage::isvalid();
    }
@@ -565,9 +565,59 @@ public:
       auto& alloc = d.GetAllocator();
       Value& data = d["data"];
    }
-   inline virtual bool isvalid() const override
+   inline bool isvalid() const
    {
       return WSMessage::isvalid();
+   }
+};
+
+/// <summary>
+/// Sent from Client to Studio to impersonate into an user
+/// </summary>
+class WSMessageOnImpersonation : public WSMessage
+{
+public:
+   inline virtual const char* msgtype() const override { return Type::ON_IMPERSONATION; }
+   inline WSMessageOnImpersonation() : WSMessage(msgtype())
+   {
+      using namespace rapidjson;
+      auto& alloc = d.GetAllocator();
+      Value& data = d["data"];
+      Value userId(kStringType);
+      data.AddMember("uuid", userId, alloc);
+   }
+   inline bool isvalid() const
+   {
+      if (!WSMessage::isvalid())
+         return false;
+      auto& data = d["data"];
+      if (!data.HasMember("uuid") || !data["uuid"].IsString())
+         return false;
+      const char* s = data["uuid"].GetString();
+      if (::strlen(s) != 36)
+         return false; // uuid string has 36 characters
+      if (s[8] != '-' || s[13] != '-' || s[18] != '-' || s[23] != '-')
+         return false; // with four hyphens
+      return           // and 32 hex characters
+         isxdigit(s[0])  && isxdigit(s[1])  && isxdigit(s[2])  && isxdigit(s[3])  &&
+         isxdigit(s[4])  && isxdigit(s[5])  && isxdigit(s[6])  && isxdigit(s[7])  &&
+         isxdigit(s[9])  && isxdigit(s[10]) && isxdigit(s[11]) && isxdigit(s[12]) &&
+         isxdigit(s[14]) && isxdigit(s[15]) && isxdigit(s[16]) && isxdigit(s[17]) &&
+         isxdigit(s[19]) && isxdigit(s[20]) && isxdigit(s[21]) && isxdigit(s[22]) &&
+         isxdigit(s[24]) && isxdigit(s[25]) && isxdigit(s[26]) && isxdigit(s[27]) &&
+         isxdigit(s[28]) && isxdigit(s[29]) && isxdigit(s[30]) && isxdigit(s[31]) &&
+         isxdigit(s[32]) && isxdigit(s[33]) && isxdigit(s[34]) && isxdigit(s[35]);
+   }
+   inline void setUuid(const char* userId)
+   {
+      if (!userId)
+         return;
+      auto& data = d["data"];
+      data["uuid"].SetString(userId, d.GetAllocator());
+   }
+   inline const char* getUuid() const
+   {
+      return d["data"]["uuid"].GetString();
    }
 };
 

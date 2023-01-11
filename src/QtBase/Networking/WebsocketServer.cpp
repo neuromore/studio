@@ -118,24 +118,23 @@ void WebsocketServer::processTextMessage(QString message)
    // Run according handler
    if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_URL_OPENED))
    {
-      WSMessageOnUrlOpened& msg = *(WSMessageOnUrlOpened*)&mMessageRecv;
-      handleOnUrlOpened(msg.getUrl());
+      handleOnUrlOpened(*(WSMessageOnUrlOpened*)&mMessageRecv);
    }
    else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_BROWSER_PLAYER_STARTED))
    {
-      handleOnBrowserPlayerStarted();
+      handleOnBrowserPlayerStarted(*(WSMessageOnBrowserPlayerStarted*)&mMessageRecv);
    }
    else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_BROWSER_PLAYER_STOPPED))
    {
-      handleOnBrowserPlayerStopped();
+      handleOnBrowserPlayerStopped(*(WSMessageOnBrowserPlayerStopped*)&mMessageRecv);
    }
    else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_BROWSER_PLAYER_PAUSED))
    {
-      handleOnBrowserPlayerPaused();
+      handleOnBrowserPlayerPaused(*(WSMessageOnBrowserPlayerPaused*)&mMessageRecv);
    }
    else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_IMPERSONATION))
    {
-      emit handleOnImpersonation(message);
+      handleOnImpersonation2(*(WSMessageOnImpersonation*)&mMessageRecv, message);
    }
    else
       qDebug() << "Unhandled WSMessage: " << mMessageRecv.type();
@@ -284,12 +283,19 @@ void WebsocketServer::sendFeedbacks()
 
 // MESSAGE HANDLERS
 
-void WebsocketServer::handleOnUrlOpened(const char* url)
+void WebsocketServer::handleOnUrlOpened(const WSMessageOnUrlOpened& msg)
 {
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnUrlOpened:";
+      return;
+   }
+
    // get the active state machine
    StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
    if (stateMachine == NULL)
       return;
+
+   const char* url = msg.getUrl();
 
    // get the number of transitions and iterate through them
    const uint32 numTransitions = stateMachine->GetNumConnections();
@@ -320,8 +326,13 @@ void WebsocketServer::handleOnUrlOpened(const char* url)
    }
 }
 
-void WebsocketServer::handleOnBrowserPlayerStarted()
+void WebsocketServer::handleOnBrowserPlayerStarted(const WSMessageOnBrowserPlayerStarted& msg)
 {
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnBrowserPlayerStarted:";
+      return;
+   }
+
    // get the active state machine
    StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
    if (stateMachine == NULL)
@@ -352,8 +363,13 @@ void WebsocketServer::handleOnBrowserPlayerStarted()
    }
 }
 
-void WebsocketServer::handleOnBrowserPlayerStopped()
+void WebsocketServer::handleOnBrowserPlayerStopped(const WSMessageOnBrowserPlayerStopped& msg)
 {
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnBrowserPlayerStopped:";
+      return;
+   }
+
    // get the active state machine
    StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
    if (stateMachine == NULL)
@@ -384,8 +400,13 @@ void WebsocketServer::handleOnBrowserPlayerStopped()
    }
 }
 
-void WebsocketServer::handleOnBrowserPlayerPaused()
+void WebsocketServer::handleOnBrowserPlayerPaused(const WSMessageOnBrowserPlayerPaused& msg)
 {
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnBrowserPlayerPaused:";
+      return;
+   }
+
    // get the active state machine
    StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
    if (stateMachine == NULL)
@@ -414,4 +435,14 @@ void WebsocketServer::handleOnBrowserPlayerPaused()
          }
       }
    }
+}
+
+void WebsocketServer::handleOnImpersonation2(const WSMessageOnImpersonation& msg, const QString& str)
+{
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnImpersonation:";
+      return;
+   }
+
+   emit handleOnImpersonation(str);
 }

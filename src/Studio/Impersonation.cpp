@@ -56,31 +56,7 @@ void Impersonation::handleOnImpersonation(const QString& msg)
    if (uuidItem.IsNull())
       return;
 
-   const char* s = uuidItem.GetString();
-
-   // validate uuid string length
-   if (::strlen(s) != 36)
-      return;
-
-   // validate hyphen characters
-   if (s[8] != '-' || s[13] != '-' || s[18] != '-' || s[23] != '-')
-      return;
-
-   // validate hex characters
-   const bool ISHEXCHARS = 
-      isxdigit(s[0])  && isxdigit(s[1])  && isxdigit(s[2])  && isxdigit(s[3]) &&
-      isxdigit(s[4])  && isxdigit(s[5])  && isxdigit(s[6])  && isxdigit(s[7]) &&
-      isxdigit(s[9])  && isxdigit(s[10]) && isxdigit(s[11]) && isxdigit(s[12]) &&
-      isxdigit(s[14]) && isxdigit(s[15]) && isxdigit(s[16]) && isxdigit(s[17]) &&
-      isxdigit(s[19]) && isxdigit(s[20]) && isxdigit(s[21]) && isxdigit(s[22]) &&
-      isxdigit(s[24]) && isxdigit(s[25]) && isxdigit(s[26]) && isxdigit(s[27]) &&
-      isxdigit(s[28]) && isxdigit(s[29]) && isxdigit(s[30]) && isxdigit(s[31]) &&
-      isxdigit(s[32]) && isxdigit(s[33]) && isxdigit(s[34]) && isxdigit(s[35]);
-
-   if (!ISHEXCHARS)
-      return;
-
-   checkUserExistence(s);
+   checkUserExistence(uuidItem.GetString());
 }
 
 void Impersonation::checkUserExistence(const Core::String& uuid)

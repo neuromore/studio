@@ -55,10 +55,11 @@ private Q_SLOTS:
    void sendFeedbacks();
 
 private:
-   void handleOnUrlOpened(const char* url);
-   void handleOnBrowserPlayerStarted();
-   void handleOnBrowserPlayerStopped();
-   void handleOnBrowserPlayerPaused();
+   void handleOnUrlOpened(const WSMessageOnUrlOpened& msg);
+   void handleOnBrowserPlayerStarted(const WSMessageOnBrowserPlayerStarted& msg);
+   void handleOnBrowserPlayerStopped(const WSMessageOnBrowserPlayerStopped& msg);
+   void handleOnBrowserPlayerPaused(const WSMessageOnBrowserPlayerPaused& msg);
+   void handleOnImpersonation2(const WSMessageOnImpersonation& msg, const QString& str);
 
 private:
    // qt websockets
@@ -84,6 +85,7 @@ private:
    WSMessageBrowserStartPlayer   mMessageBrowserStartPlayer;
    WSMessageBrowserStopPlayer    mMessageBrowserStopPlayer;
    WSMessageBrowserPausePlayer   mMessageBrowserPausePlayer;
+   WSMessageOnImpersonation      mMessageOnImpersonation;
 
    // binary message
    WSBMessage mMessageBinary;
