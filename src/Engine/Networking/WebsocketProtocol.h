@@ -584,7 +584,11 @@ public:
       auto& alloc = d.GetAllocator();
       Value& data = d["data"];
       Value userId(kStringType);
+      Value firstName(kStringType);
+      Value lastName(kStringType);
       data.AddMember("uuid", userId, alloc);
+      data.AddMember("firstName", firstName, alloc);
+      data.AddMember("lastName", lastName, alloc);
    }
    inline bool isvalid() const
    {
@@ -608,16 +612,17 @@ public:
          isxdigit(s[28]) && isxdigit(s[29]) && isxdigit(s[30]) && isxdigit(s[31]) &&
          isxdigit(s[32]) && isxdigit(s[33]) && isxdigit(s[34]) && isxdigit(s[35]);
    }
-   inline void setUuid(const char* userId)
-   {
-      if (!userId)
-         return;
-      auto& data = d["data"];
-      data["uuid"].SetString(userId, d.GetAllocator());
-   }
    inline const char* getUuid() const
    {
-      return d["data"]["uuid"].GetString();
+      return d["data"].HasMember("uuid") ? d["data"]["uuid"].GetString() : 0;
+   }
+   inline const char* getFirstName() const
+   {
+      return d["data"].HasMember("firstName") ? d["data"]["firstName"].GetString() : 0;
+   }
+   inline const char* getLastName() const
+   {
+      return d["data"].HasMember("lastName") ? d["data"]["lastName"].GetString() : 0;
    }
 };
 

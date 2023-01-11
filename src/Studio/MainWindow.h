@@ -186,8 +186,6 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		// UI elements
 		//
 
-		Impersonation*				mImpersonation;
-
 		QMenuBar*					mMenuBar;
 		QLabel*						mActiveBciLabel;
 		QComboBox*					mActiveBciCombo;

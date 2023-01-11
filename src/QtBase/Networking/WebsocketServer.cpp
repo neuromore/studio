@@ -11,6 +11,7 @@
 #include "QtWebSockets/qwebsocketserver.h"
 #include "QtWebSockets/qwebsocket.h"
 #include <QtCore/QDebug>
+#include <QtBase/QtBaseManager.h>
 
 #include <Engine/EngineManager.h>
 #include <Engine/Networking/WebsocketProtocol.h>
@@ -18,6 +19,11 @@
 #include <Engine/Graph/StateTransitionBrowserPlayerStartedCondition.h>
 #include <Engine/Graph/StateTransitionBrowserPlayerStoppedCondition.h>
 #include <Engine/Graph/StateTransitionBrowserPlayerPausedCondition.h>
+
+#include <QtBase/Backend/UserGetRequest.h>
+#include <QtBase/Backend/UserGetResponse.h>
+#include <QtBase/Backend/UsersCreateRequest.h>
+#include <QtBase/Backend/UsersCreateResponse.h>
 
 #include <rapidjson/rapidjson.h>
 #include <rapidjson/stringbuffer.h>
@@ -444,5 +450,81 @@ void WebsocketServer::handleOnImpersonation2(const WSMessageOnImpersonation& msg
       return;
    }
 
-   emit handleOnImpersonation(str);
+   // set data on user object
+   mImpersonationUser.SetId(msg.getUuid());
+   mImpersonationUser.SetFirstName(msg.getFirstName());
+   mImpersonationUser.SetLastName(msg.getLastName());
+   mImpersonationUser.SetEmail(0);
+   mImpersonationUser.SetBirthday(0);
+   mImpersonationUser.ClearParentCompanyIds();
+   const uint32 numCompanies = GetUser()->GetNumParentCompanyIds();
+   for (uint32 i = 0; i < numCompanies; i++)
+      mImpersonationUser.AddParentCompanyId(GetUser()->GetParentCompanyId(i));
+
+   // impersonate or create
+   impersonateOrCreateUser();
+}
+
+// MESSAGE HANDLER SUBFUNCTIONS
+
+void WebsocketServer::impersonateOrCreateUser()
+{
+   // construct request
+   UserGetRequest request(
+      GetUser()->GetToken(), 
+      mImpersonationUser.GetId());
+
+   // execute request
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
+   connect(reply, &QNetworkReply::finished, this, [reply, this]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+      UserGetResponse response(networkReply, true);
+
+      // CASE1: User does not exist
+      if (response.IsNotFoundError())
+         createUser();
+
+      // CASE2: Some other error
+      else if (response.HasError())
+      {
+         const char* errortype = response.GetErrorType();
+         const char* errormsg = response.GetErrorMessage();
+         //LogError(errormsg);
+         return;
+      }
+
+      // CASE3: User exists
+      else
+         emit impersonated(response.GetUser());
+   });
+}
+
+void WebsocketServer::createUser()
+{
+   // construct request
+   UsersCreateRequest request(
+      GetUser()->GetToken(), 
+      mImpersonationUser.GetFirstName(), 
+      mImpersonationUser.GetLastName(),
+      mImpersonationUser.GetParentCompanyIds(),
+      mImpersonationUser.GetEmail(),
+      mImpersonationUser.GetBirthday(),
+      mImpersonationUser.GetId(),
+      3004);
+
+   // execute request
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
+   connect(reply, &QNetworkReply::finished, this, [reply, this]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+      UsersCreateResponse response(networkReply);
+
+      if (response.HasError()) {
+         return;
+      }
+
+      // try impersonate again
+      impersonateOrCreateUser();
+   });
 }

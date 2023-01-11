@@ -12,6 +12,7 @@
 #include <QtCore/QByteArray>
 
 #include <Engine/Networking/WebsocketProtocol.h>
+#include <Engine/User.h>
 
 QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
 QT_FORWARD_DECLARE_CLASS(QWebSocket)
@@ -44,9 +45,9 @@ private:
    virtual void OnBrowserPausePlayer() override;
 
 Q_SIGNALS:
-   void handleOnImpersonation(const QString& msg);
+   void impersonated(const User& user);
    void closed();
-
+   
 private Q_SLOTS:
    void onNewConnection();
    void processTextMessage(QString message);
@@ -62,10 +63,14 @@ private:
    void handleOnImpersonation2(const WSMessageOnImpersonation& msg, const QString& str);
 
 private:
+   void impersonateOrCreateUser();
+   void createUser();
+
+private:
    // qt websockets
    QWebSocketServer*  mWebSocketServer;
    QList<QWebSocket*> mClients;
-
+   
    // feedbacks timer
    QTimer* mTimerFeedbacks;
 
@@ -89,6 +94,9 @@ private:
 
    // binary message
    WSBMessage mMessageBinary;
+
+   // user from impersonation
+   User mImpersonationUser;
 };
 
 #endif //__NEUROMORE_WEBSOCKETSERVER_H
