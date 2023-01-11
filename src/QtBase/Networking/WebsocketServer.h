@@ -47,7 +47,7 @@ private:
 Q_SIGNALS:
    void impersonated(const User& user);
    void closed();
-   
+
 private Q_SLOTS:
    void onNewConnection();
    void processTextMessage(QString message);

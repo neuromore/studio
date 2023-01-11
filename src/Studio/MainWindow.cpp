@@ -151,7 +151,6 @@ void MainWindow::Init()
 	QObject::connect(mWebsocketServer, &WebsocketServer::closed, this, &QCoreApplication::quit);
 	QObject::connect(mWebsocketServer, &WebsocketServer::impersonated, this, &MainWindow::OnSessionUserSelected);
 
-
 #ifdef BACKEND_LOGGING
 	// enable back-end logging
 	GetBackendInterface()->SetIsLogEnabled(true);
