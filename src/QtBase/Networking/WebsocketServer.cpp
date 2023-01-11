@@ -454,8 +454,8 @@ void WebsocketServer::handleOnImpersonation(const WSMessageOnImpersonation& msg)
    mImpersonationUser.SetId(msg.getUuid());
    mImpersonationUser.SetFirstName(msg.getFirstName());
    mImpersonationUser.SetLastName(msg.getLastName());
-   mImpersonationUser.SetEmail(0);
-   mImpersonationUser.SetBirthday(0);
+   mImpersonationUser.SetEmail(msg.getEMail());
+   mImpersonationUser.SetBirthday(msg.getBirthday());
    mImpersonationUser.ClearParentCompanyIds();
    const uint32 numCompanies = GetUser()->GetNumParentCompanyIds();
    for (uint32 i = 0; i < numCompanies; i++)

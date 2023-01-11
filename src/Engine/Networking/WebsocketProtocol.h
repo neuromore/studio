@@ -586,9 +586,13 @@ public:
       Value userId(kStringType);
       Value firstName(kStringType);
       Value lastName(kStringType);
+      Value email(kStringType);
+      Value birthday(kStringType);
       data.AddMember("uuid", userId, alloc);
       data.AddMember("firstName", firstName, alloc);
       data.AddMember("lastName", lastName, alloc);
+      data.AddMember("email", email, alloc);
+      data.AddMember("birthday", birthday, alloc);
    }
    inline bool isvalid() const
    {
@@ -623,6 +627,14 @@ public:
    inline const char* getLastName() const
    {
       return d["data"].HasMember("lastName") ? d["data"]["lastName"].GetString() : 0;
+   }
+   inline const char* getEMail() const
+   {
+      return d["data"].HasMember("email") ? d["data"]["email"].GetString() : 0;
+   }
+   inline const char* getBirthday() const
+   {
+      return d["data"].HasMember("birthday") ? d["data"]["birthday"].GetString() : 0;
    }
 };
 
