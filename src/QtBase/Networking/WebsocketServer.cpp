@@ -140,7 +140,7 @@ void WebsocketServer::processTextMessage(QString message)
    }
    else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_IMPERSONATION))
    {
-      handleOnImpersonation2(*(WSMessageOnImpersonation*)&mMessageRecv, message);
+      handleOnImpersonation(*(WSMessageOnImpersonation*)&mMessageRecv);
    }
    else
       qDebug() << "Unhandled WSMessage: " << mMessageRecv.type();
@@ -443,7 +443,7 @@ void WebsocketServer::handleOnBrowserPlayerPaused(const WSMessageOnBrowserPlayer
    }
 }
 
-void WebsocketServer::handleOnImpersonation2(const WSMessageOnImpersonation& msg, const QString& str)
+void WebsocketServer::handleOnImpersonation(const WSMessageOnImpersonation& msg)
 {
    if (!msg.isvalid()) {
       qDebug() << "Failed to parse WSMessageOnImpersonation:";
@@ -485,14 +485,9 @@ void WebsocketServer::impersonateOrCreateUser()
       if (response.IsNotFoundError())
          createUser();
 
-      // CASE2: Some other error
+      // CASE2: Some real error
       else if (response.HasError())
-      {
-         const char* errortype = response.GetErrorType();
-         const char* errormsg = response.GetErrorMessage();
-         //LogError(errormsg);
          return;
-      }
 
       // CASE3: User exists
       else

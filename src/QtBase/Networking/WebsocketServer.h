@@ -60,7 +60,7 @@ private:
    void handleOnBrowserPlayerStarted(const WSMessageOnBrowserPlayerStarted& msg);
    void handleOnBrowserPlayerStopped(const WSMessageOnBrowserPlayerStopped& msg);
    void handleOnBrowserPlayerPaused(const WSMessageOnBrowserPlayerPaused& msg);
-   void handleOnImpersonation2(const WSMessageOnImpersonation& msg, const QString& str);
+   void handleOnImpersonation(const WSMessageOnImpersonation& msg);
 
 private:
    void impersonateOrCreateUser();
@@ -70,7 +70,7 @@ private:
    // qt websockets
    QWebSocketServer*  mWebSocketServer;
    QList<QWebSocket*> mClients;
-   
+
    // feedbacks timer
    QTimer* mTimerFeedbacks;
 

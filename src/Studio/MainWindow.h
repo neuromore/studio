@@ -65,7 +65,6 @@ QT_FORWARD_DECLARE_CLASS(QPushButton)
 class AboutWindow;
 class Plugin;
 class SettingsWindow;
-class Impersonation;
 
 // the main window
 class MainWindow : public MainWindowBase, public Core::EventHandler
