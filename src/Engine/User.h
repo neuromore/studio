@@ -115,6 +115,8 @@ class ENGINE_API User
 		void AddParentCompanyId(const char* userId)							{ mParentCompanyIds.Add(userId); }
 		uint32 GetNumParentCompanyIds() const								{ return mParentCompanyIds.Size(); }
 		const char* GetParentCompanyId(uint32 index) const					{ return mParentCompanyIds[index]; }
+		void ClearParentCompanyIds()										{ mParentCompanyIds.Clear(); }
+		const Core::Array<Core::String>& GetParentCompanyIds() const { return mParentCompanyIds; }
 
 		void SetAutoPowerLineFrequency(double frequency)					{ mAutoPowerLineFrequency = frequency; }
 		double GetAutoPowerLineFrequency() const							{ return mAutoPowerLineFrequency; }

@@ -178,6 +178,9 @@
     <ClCompile Include="..\..\src\QtBase\Backend\UsersGetResponse.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UserGetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Backend\UsersInviteRequest.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
@@ -415,6 +418,9 @@
     <ClCompile Include="..\..\src\QtBase\Audio\TonePlayer.moc.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UserGetRequest.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.h">
@@ -594,6 +600,9 @@
     <ClInclude Include="..\..\src\QtBase\Backend\UsersGetResponse.h">
       <Filter>Backend</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UserGetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\QtBase\Backend\UsersInviteRequest.h">
       <Filter>Backend</Filter>
     </ClInclude>
@@ -704,6 +713,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\QtBase\Audio\TonePlayer.h">
       <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UserGetRequest.h">
+      <Filter>Backend</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

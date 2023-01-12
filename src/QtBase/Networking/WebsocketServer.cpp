@@ -11,6 +11,7 @@
 #include "QtWebSockets/qwebsocketserver.h"
 #include "QtWebSockets/qwebsocket.h"
 #include <QtCore/QDebug>
+#include <QtBase/QtBaseManager.h>
 
 #include <Engine/EngineManager.h>
 #include <Engine/Networking/WebsocketProtocol.h>
@@ -18,6 +19,11 @@
 #include <Engine/Graph/StateTransitionBrowserPlayerStartedCondition.h>
 #include <Engine/Graph/StateTransitionBrowserPlayerStoppedCondition.h>
 #include <Engine/Graph/StateTransitionBrowserPlayerPausedCondition.h>
+
+#include <QtBase/Backend/UserGetRequest.h>
+#include <QtBase/Backend/UserGetResponse.h>
+#include <QtBase/Backend/UsersCreateRequest.h>
+#include <QtBase/Backend/UsersCreateResponse.h>
 
 #include <rapidjson/rapidjson.h>
 #include <rapidjson/stringbuffer.h>
@@ -118,20 +124,23 @@ void WebsocketServer::processTextMessage(QString message)
    // Run according handler
    if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_URL_OPENED))
    {
-      WSMessageOnUrlOpened& msg = *(WSMessageOnUrlOpened*)&mMessageRecv;
-      handleOnUrlOpened(msg.getUrl());
+      handleOnUrlOpened(*(WSMessageOnUrlOpened*)&mMessageRecv);
    }
    else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_BROWSER_PLAYER_STARTED))
    {
-      handleOnBrowserPlayerStarted();
+      handleOnBrowserPlayerStarted(*(WSMessageOnBrowserPlayerStarted*)&mMessageRecv);
    }
    else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_BROWSER_PLAYER_STOPPED))
    {
-      handleOnBrowserPlayerStopped();
+      handleOnBrowserPlayerStopped(*(WSMessageOnBrowserPlayerStopped*)&mMessageRecv);
    }
    else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_BROWSER_PLAYER_PAUSED))
    {
-      handleOnBrowserPlayerPaused();
+      handleOnBrowserPlayerPaused(*(WSMessageOnBrowserPlayerPaused*)&mMessageRecv);
+   }
+   else if (0 == ::strcmp(mMessageRecv.type(), WSMessage::Type::ON_IMPERSONATION))
+   {
+      handleOnImpersonation(*(WSMessageOnImpersonation*)&mMessageRecv);
    }
    else
       qDebug() << "Unhandled WSMessage: " << mMessageRecv.type();
@@ -280,12 +289,19 @@ void WebsocketServer::sendFeedbacks()
 
 // MESSAGE HANDLERS
 
-void WebsocketServer::handleOnUrlOpened(const char* url)
+void WebsocketServer::handleOnUrlOpened(const WSMessageOnUrlOpened& msg)
 {
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnUrlOpened:";
+      return;
+   }
+
    // get the active state machine
    StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
    if (stateMachine == NULL)
       return;
+
+   const char* url = msg.getUrl();
 
    // get the number of transitions and iterate through them
    const uint32 numTransitions = stateMachine->GetNumConnections();
@@ -316,8 +332,13 @@ void WebsocketServer::handleOnUrlOpened(const char* url)
    }
 }
 
-void WebsocketServer::handleOnBrowserPlayerStarted()
+void WebsocketServer::handleOnBrowserPlayerStarted(const WSMessageOnBrowserPlayerStarted& msg)
 {
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnBrowserPlayerStarted:";
+      return;
+   }
+
    // get the active state machine
    StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
    if (stateMachine == NULL)
@@ -348,8 +369,13 @@ void WebsocketServer::handleOnBrowserPlayerStarted()
    }
 }
 
-void WebsocketServer::handleOnBrowserPlayerStopped()
+void WebsocketServer::handleOnBrowserPlayerStopped(const WSMessageOnBrowserPlayerStopped& msg)
 {
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnBrowserPlayerStopped:";
+      return;
+   }
+
    // get the active state machine
    StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
    if (stateMachine == NULL)
@@ -380,8 +406,13 @@ void WebsocketServer::handleOnBrowserPlayerStopped()
    }
 }
 
-void WebsocketServer::handleOnBrowserPlayerPaused()
+void WebsocketServer::handleOnBrowserPlayerPaused(const WSMessageOnBrowserPlayerPaused& msg)
 {
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnBrowserPlayerPaused:";
+      return;
+   }
+
    // get the active state machine
    StateMachine* stateMachine = GetEngine()->GetActiveStateMachine();
    if (stateMachine == NULL)
@@ -410,4 +441,85 @@ void WebsocketServer::handleOnBrowserPlayerPaused()
          }
       }
    }
+}
+
+void WebsocketServer::handleOnImpersonation(const WSMessageOnImpersonation& msg)
+{
+   if (!msg.isvalid()) {
+      qDebug() << "Failed to parse WSMessageOnImpersonation:";
+      return;
+   }
+
+   // set data on user object
+   mImpersonationUser.SetId(msg.getUuid());
+   mImpersonationUser.SetFirstName(msg.getFirstName());
+   mImpersonationUser.SetLastName(msg.getLastName());
+   mImpersonationUser.SetEmail(msg.getEMail());
+   mImpersonationUser.SetBirthday(msg.getBirthday());
+   mImpersonationUser.ClearParentCompanyIds();
+   const uint32 numCompanies = GetUser()->GetNumParentCompanyIds();
+   for (uint32 i = 0; i < numCompanies; i++)
+      mImpersonationUser.AddParentCompanyId(GetUser()->GetParentCompanyId(i));
+
+   // impersonate or create
+   impersonateOrCreateUser();
+}
+
+// MESSAGE HANDLER SUBFUNCTIONS
+
+void WebsocketServer::impersonateOrCreateUser()
+{
+   // construct request
+   UserGetRequest request(
+      GetUser()->GetToken(), 
+      mImpersonationUser.GetId());
+
+   // execute request
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
+   connect(reply, &QNetworkReply::finished, this, [reply, this]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+      UserGetResponse response(networkReply, true);
+
+      // CASE1: User does not exist
+      if (response.IsNotFoundError())
+         createUser();
+
+      // CASE2: Some real error
+      else if (response.HasError())
+         return;
+
+      // CASE3: User exists
+      else
+         emit impersonated(response.GetUser());
+   });
+}
+
+void WebsocketServer::createUser()
+{
+   // construct request
+   UsersCreateRequest request(
+      GetUser()->GetToken(), 
+      mImpersonationUser.GetFirstName(), 
+      mImpersonationUser.GetLastName(),
+      mImpersonationUser.GetParentCompanyIds(),
+      mImpersonationUser.GetEmail(),
+      mImpersonationUser.GetBirthday(),
+      mImpersonationUser.GetId(),
+      3004);
+
+   // execute request
+   QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
+   connect(reply, &QNetworkReply::finished, this, [reply, this]()
+   {
+      QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+      UsersCreateResponse response(networkReply);
+
+      if (response.HasError()) {
+         return;
+      }
+
+      // try impersonate again
+      impersonateOrCreateUser();
+   });
 }
