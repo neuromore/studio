@@ -12,6 +12,7 @@
 #include <QtCore/QByteArray>
 
 #include <Engine/Networking/WebsocketProtocol.h>
+#include <Engine/User.h>
 
 QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
 QT_FORWARD_DECLARE_CLASS(QWebSocket)
@@ -44,6 +45,7 @@ private:
    virtual void OnBrowserPausePlayer() override;
 
 Q_SIGNALS:
+   void impersonated(const User& user);
    void closed();
 
 private Q_SLOTS:
@@ -54,10 +56,15 @@ private Q_SLOTS:
    void sendFeedbacks();
 
 private:
-   void handleOnUrlOpened(const char* url);
-   void handleOnBrowserPlayerStarted();
-   void handleOnBrowserPlayerStopped();
-   void handleOnBrowserPlayerPaused();
+   void handleOnUrlOpened(const WSMessageOnUrlOpened& msg);
+   void handleOnBrowserPlayerStarted(const WSMessageOnBrowserPlayerStarted& msg);
+   void handleOnBrowserPlayerStopped(const WSMessageOnBrowserPlayerStopped& msg);
+   void handleOnBrowserPlayerPaused(const WSMessageOnBrowserPlayerPaused& msg);
+   void handleOnImpersonation(const WSMessageOnImpersonation& msg);
+
+private:
+   void impersonateOrCreateUser();
+   void createUser();
 
 private:
    // qt websockets
@@ -83,9 +90,13 @@ private:
    WSMessageBrowserStartPlayer   mMessageBrowserStartPlayer;
    WSMessageBrowserStopPlayer    mMessageBrowserStopPlayer;
    WSMessageBrowserPausePlayer   mMessageBrowserPausePlayer;
+   WSMessageOnImpersonation      mMessageOnImpersonation;
 
    // binary message
    WSBMessage mMessageBinary;
+
+   // user from impersonation
+   User mImpersonationUser;
 };
 
 #endif //__NEUROMORE_WEBSOCKETSERVER_H

@@ -170,6 +170,8 @@ OBJS       = AttributeWidgets/AttributeSetGridWidget.o \
              Backend/UsersCreateResponse.o \
              Backend/UsersGetRequest.o \
              Backend/UsersGetResponse.o \
+             Backend/UserGetRequest.o \
+             Backend/UserGetResponse.o \
              Backend/UsersInviteRequest.o \
              Backend/UsersInviteResponse.o \
              Backend/WebDataCache.o \

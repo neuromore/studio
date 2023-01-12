@@ -149,6 +149,7 @@ void MainWindow::Init()
 	// create the websocket server
 	mWebsocketServer = new WebsocketServer(1234, true);
 	QObject::connect(mWebsocketServer, &WebsocketServer::closed, this, &QCoreApplication::quit);
+	QObject::connect(mWebsocketServer, &WebsocketServer::impersonated, this, &MainWindow::OnSessionUserSelected);
 
 #ifdef BACKEND_LOGGING
 	// enable back-end logging
@@ -864,10 +865,11 @@ void MainWindow::OnSessionUserSelected(const User& user)
 {
 	GetEngine()->SetSessionUser(user);
 
-	// dealloc window
-	mSessionUserSelectionWindow->close();
-	mSessionUserSelectionWindow->deleteLater();
-	mSessionUserSelectionWindow = NULL;
+	if (mSessionUserSelectionWindow && mSessionUserSelectionWindow->isVisible()) {
+		mSessionUserSelectionWindow->close();
+		mSessionUserSelectionWindow->deleteLater();
+		mSessionUserSelectionWindow = NULL;
+	}
 
 	// refresh the experience plugin using the selected user
 	if (ExperienceSelectionPlugin* p = (ExperienceSelectionPlugin*)GetPluginManager()->FindFirstActivePluginByType(ExperienceSelectionPlugin::GetStaticTypeUuid()))
