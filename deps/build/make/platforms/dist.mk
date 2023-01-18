@@ -296,6 +296,7 @@ VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
 dist-prep:
 	echo [NAM] $(APPNAME)
+	echo [SNM] $(APPSHORTNAME)
 	echo [VER] $(VERSION3)
 	echo [ICO] $(APPICON)
 dist-%: dist-prep
@@ -316,12 +317,14 @@ dist-%: dist-prep
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps	
 	cp $(DISTDIR)/$(NAME).control $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	sed -i 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
-	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
-	cp $(APPICON)-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
-	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
-	sed -i 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
-	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
-	@chmod +x $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
+	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control	
+	sed -i 's/{APPSHORTNAME}/${APPSHORTNAME}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
+	cp $(APPICON)-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(APPSHORTNAME).png
+	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(APPSHORTNAME).desktop
+	sed -i 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(APPSHORTNAME).desktop
+	sed -i 's/{APPSHORTNAME}/${APPSHORTNAME}/g' $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(APPSHORTNAME).desktop
+	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(APPSHORTNAME)$(EXTBIN)
+	@chmod +x $(DISTDIR)/$(NAME)-$*/usr/bin/$(APPSHORTNAME)$(EXTBIN)
 	-cp ./../../deps/prebuilt/linux/$*/*.so $(DISTDIR)/$(NAME)-$*/usr/lib/
 	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE) > /dev/null 2>&1
 		
