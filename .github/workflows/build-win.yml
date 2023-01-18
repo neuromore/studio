@@ -151,6 +151,9 @@ jobs:
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
 
     # Download X64 Build
     - name: Download X64 Build
