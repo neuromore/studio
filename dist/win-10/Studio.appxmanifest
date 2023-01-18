@@ -13,14 +13,14 @@
   IgnorableNamespaces="uap uap4 uap5 uap6 iot2 desktop2 desktop4 rescap build" >
 
   <Identity 
-    Name="Studio" 
+    Name="{APPID}" 
 	Publisher="{PUBLISHER}" 
 	Version="{VERSION}"
 	ProcessorArchitecture="neutral"	/>
 
   <Properties>
     <DisplayName>{DISPLAYNAME}</DisplayName>
-    <PublisherDisplayName>neuromore co</PublisherDisplayName>
+    <PublisherDisplayName>{APPCOMPANY}</PublisherDisplayName>
     <Logo>app-50x50.png</Logo>
   </Properties>
   

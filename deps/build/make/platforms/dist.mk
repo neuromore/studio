@@ -52,6 +52,7 @@ VERSION3 = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4 = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
 dist-prep:
 	echo [NAM] $(APPNAME)
+	echo [ID ] $(APPID)
 	echo [VER] $(VERSION4)
 	echo [ICO] $(APPICON)
 	echo [CPG] CodePage 1252
@@ -68,6 +69,9 @@ dist-prep:
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{VERSION},$(VERSION4),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{DISPLAYNAME},$(APPNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPID},$(APPID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPCOMPANY},$(APPCOMPANY),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPSHORTNAME},$(APPSHORTNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/Layout.xml,{VERSION},$(VERSION3),$(DISTDIR)/$(NAME)/Layout.xml)
 	echo [CPY] Icons
@@ -132,6 +136,7 @@ XCODEVER     = $(shell xcodebuild -version | grep -E -m1 'Xcode' | sed 's/Xcode 
 XCODEBUILDV  = $(shell xcodebuild -version | grep -E -m1 'Build version' | sed 's/Build version //g')
 dist-prep:
 	@echo [NAM] $(APPNAME)
+	@echo [ID ] $(APPID)
 	@echo [VER] $(VERSION3)
 	@echo [ICO] $(APPICON)
 	@echo [OSX] $(OSXVER) - ${OSXBUILDV}
@@ -193,6 +198,9 @@ dist: dist-prep dist-x64 dist-arm64
 	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIRAPP)/Contents/embedded.provisionprofile
 	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{APPSHORTNAME}/${APPSHORTNAME}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{APPID}/${APPID}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{APPCOMPANY}/${APPCOMPANY}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{OSXSDKVER}/${OSXSDKVER}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{OSXSDKBUILDV}/${OSXSDKBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
