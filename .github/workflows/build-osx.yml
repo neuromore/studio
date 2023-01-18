@@ -126,7 +126,9 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-11,macos-12]
-        branding: [neuromore,natus]
+        branding: [neuromore,supermind,natus]
+    env:
+      BRANDING: ${{ matrix.branding }}
     steps:
 
     # Checkout
@@ -199,6 +201,8 @@ jobs:
       matrix:
         os: [macos-11,macos-12]
         branding: [neuromore]
+    env:
+      BRANDING: ${{ matrix.branding }}
     steps:
 
     # Checkout
