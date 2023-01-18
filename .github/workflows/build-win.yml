@@ -143,7 +143,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-2019,windows-2022]
-        branding: [neuromore]
+        branding: [neuromore,supermind,natus]
     steps:
       
     # Checkout
@@ -188,11 +188,11 @@ jobs:
 
     # Pack
     - name: Make (dist)
-      env:
-        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
-        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
-        PUBLISHERCN: neuromore co
-        PUBLISHER: CN=neuromore co, O=neuromore co, STREET=382 NE 191st St, L=Miami, S=Florida, PostalCode=33179, C=US
+#      env:
+#        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
+#        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
+#        PUBLISHERCN: neuromore co
+#        PUBLISHER: CN=neuromore co, O=neuromore co, STREET=382 NE 191st St, L=Miami, S=Florida, PostalCode=33179, C=US
       run: make dist
     
     # Upload
