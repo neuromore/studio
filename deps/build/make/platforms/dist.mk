@@ -165,7 +165,7 @@ dist-prep:
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
 dist: dist-prep dist-x64 dist-arm64
-	@-rm -rf $(DISTDIRAPP)
+	@-rm -rf $(DISTDIR)/$(NAME)
 	@-rm -rf $(DISTDIR)/$(NAME).dSYM
 	@-rm -rf $(DISTDIR)/$(NAME).symbols
 	@-rm -rf $(DISTDIR)/*.pkg
