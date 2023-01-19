@@ -126,12 +126,17 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-11,macos-12]
-        branding: [neuromore]
+        branding: [neuromore,supermind,natus]
+    env:
+      BRANDING: ${{ matrix.branding }}
     steps:
 
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
 
     # Download X64 Build
     - name: Download X64 Build
@@ -199,11 +204,16 @@ jobs:
       matrix:
         os: [macos-11,macos-12]
         branding: [neuromore]
+    env:
+      BRANDING: ${{ matrix.branding }}
     steps:
 
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
 
     # Download X64 Build
     - name: Download X64 Build
