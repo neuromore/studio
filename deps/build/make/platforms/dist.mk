@@ -206,6 +206,9 @@ dist: dist-prep dist-x64 dist-arm64
 	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{XCODEBUILDV}/${XCODEBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@rm $(DISTDIRAPP)/Contents/Info.plist.orig
+	@cp $(DISTDIR)/$(NAME).Component.template.plist $(DISTDIR)/$(NAME).Component.plist
+	@sed -i'.orig' -e 's/{APPNAME}/${APPNAME}/g' $(DISTDIR)/$(NAME).Component.plist
+	@rm $(DISTDIR)/$(NAME).Component.plist.orig
 ifeq ($(APPLE_DIST_STORE),true)
 	@echo [SIG] $(NAME).app
 	@codesign --verbose \
