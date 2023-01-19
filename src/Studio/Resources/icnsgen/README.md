@@ -1,0 +1,1 @@
+Generate .icns from .png
