@@ -52,6 +52,7 @@ VERSION3 = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4 = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
 dist-prep:
 	echo [NAM] $(APPNAME)
+	echo [ID ] $(APPID)
 	echo [VER] $(VERSION4)
 	echo [ICO] $(APPICON)
 	echo [CPG] CodePage 1252
@@ -68,6 +69,9 @@ dist-prep:
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{VERSION},$(VERSION4),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{DISPLAYNAME},$(APPNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPID},$(APPID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPCOMPANY},$(APPCOMPANY),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPSHORTNAME},$(APPSHORTNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/Layout.xml,{VERSION},$(VERSION3),$(DISTDIR)/$(NAME)/Layout.xml)
 	echo [CPY] Icons
@@ -132,6 +136,7 @@ XCODEVER     = $(shell xcodebuild -version | grep -E -m1 'Xcode' | sed 's/Xcode 
 XCODEBUILDV  = $(shell xcodebuild -version | grep -E -m1 'Build version' | sed 's/Build version //g')
 dist-prep:
 	@echo [NAM] $(APPNAME)
+	@echo [ID ] $(APPID)
 	@echo [VER] $(VERSION3)
 	@echo [ICO] $(APPICON)
 	@echo [OSX] $(OSXVER) - ${OSXBUILDV}
@@ -160,7 +165,7 @@ dist-prep:
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
 dist: dist-prep dist-x64 dist-arm64
-	@-rm -rf $(DISTDIRAPP)
+	@-rm -rf $(DISTDIR)/$(NAME)
 	@-rm -rf $(DISTDIR)/$(NAME).dSYM
 	@-rm -rf $(DISTDIR)/$(NAME).symbols
 	@-rm -rf $(DISTDIR)/*.pkg
@@ -193,11 +198,17 @@ dist: dist-prep dist-x64 dist-arm64
 	@cp $(DISTDIR)/$(NAME).provisionprofile $(DISTDIRAPP)/Contents/embedded.provisionprofile
 	@sed -i'.orig' -e 's/{VERSION}/${VERSION3}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{APPSHORTNAME}/${APPSHORTNAME}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{APPID}/${APPID}/g' $(DISTDIRAPP)/Contents/Info.plist
+	@sed -i'.orig' -e 's/{APPCOMPANY}/${APPCOMPANY}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{OSXSDKVER}/${OSXSDKVER}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{OSXSDKBUILDV}/${OSXSDKBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{OSXBUILDV}/${OSXBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@sed -i'.orig' -e 's/{XCODEBUILDV}/${XCODEBUILDV}/g' $(DISTDIRAPP)/Contents/Info.plist
 	@rm $(DISTDIRAPP)/Contents/Info.plist.orig
+	@cp $(DISTDIR)/$(NAME).Component.template.plist $(DISTDIR)/$(NAME).Component.plist
+	@sed -i'.orig' -e 's/{APPNAME}/${APPNAME}/g' $(DISTDIR)/$(NAME).Component.plist
+	@rm $(DISTDIR)/$(NAME).Component.plist.orig
 ifeq ($(APPLE_DIST_STORE),true)
 	@echo [SIG] $(NAME).app
 	@codesign --verbose \
@@ -288,6 +299,7 @@ VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
 dist-prep:
 	echo [NAM] $(APPNAME)
+	echo [SNM] $(APPSHORTNAME)
 	echo [VER] $(VERSION3)
 	echo [ICO] $(APPICON)
 dist-%: dist-prep
@@ -308,12 +320,14 @@ dist-%: dist-prep
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps	
 	cp $(DISTDIR)/$(NAME).control $(DISTDIR)/$(NAME)-$*/DEBIAN/control
 	sed -i 's/{VERSION}/${VERSION3}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
-	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
-	cp $(APPICON)-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(NAME).png
-	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
-	sed -i 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(NAME).desktop
-	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
-	@chmod +x $(DISTDIR)/$(NAME)-$*/usr/bin/$(NAME)$(EXTBIN)
+	sed -i 's/{ARCH}/${DEBARCH}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control	
+	sed -i 's/{APPSHORTNAME}/${APPSHORTNAME}/g' $(DISTDIR)/$(NAME)-$*/DEBIAN/control
+	cp $(APPICON)-256x256.png $(DISTDIR)/$(NAME)-$*/usr/share/pixmaps/$(APPSHORTNAME).png
+	cp $(DISTDIR)/$(NAME).desktop $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(APPSHORTNAME).desktop
+	sed -i 's/{DISPLAYNAME}/${APPNAME}/g' $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(APPSHORTNAME).desktop
+	sed -i 's/{APPSHORTNAME}/${APPSHORTNAME}/g' $(DISTDIR)/$(NAME)-$*/usr/share/applications/$(APPSHORTNAME).desktop
+	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(APPSHORTNAME)$(EXTBIN)
+	@chmod +x $(DISTDIR)/$(NAME)-$*/usr/bin/$(APPSHORTNAME)$(EXTBIN)
 	-cp ./../../deps/prebuilt/linux/$*/*.so $(DISTDIR)/$(NAME)-$*/usr/lib/
 	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE) > /dev/null 2>&1
 		

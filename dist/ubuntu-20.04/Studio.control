@@ -1,4 +1,4 @@
-Package: studio
+Package: {APPSHORTNAME}
 Version: {VERSION}-1
 Section: base
 Priority: optional

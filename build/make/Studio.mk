@@ -383,14 +383,17 @@ BRANDING = neuromore
 endif
 
 ifeq ($(BRANDING),neuromore)
-APPNAME    = neuromore Studio
-APPICON    = $(SRCDIR)/Resources/AppIcon-$(BRANDING)
-DEFINES   := $(DEFINES) \
-             -DAPPNAME="$(APPNAME)" \
-             -DAPPICON="../../$(APPICON).ico"
-OBJSPRIV  := $(OBJSPRIV)
-RCCHPRIV  := $(RCCHPRIV)
-RCCO      := $(RCCO)
+APPNAME      = neuromore Studio
+APPSHORTNAME = NMStudio
+APPID        = com.neuromore.studio
+APPCOMPANY   = neuromore co
+APPICON      = $(SRCDIR)/Resources/AppIcon-$(BRANDING)
+DEFINES     := $(DEFINES) \
+               -DAPPNAME="$(APPNAME)" \
+               -DAPPICON="../../$(APPICON).ico"
+OBJSPRIV    := $(OBJSPRIV)
+RCCHPRIV    := $(RCCHPRIV)
+RCCO        := $(RCCO)
 else
 include ../../priv/build/make/StudioBranding.mk
 endif
