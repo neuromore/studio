@@ -41,7 +41,8 @@ class ENGINE_API FFTNode : public ProcessorNode
 		{
 			ATTRIB_FFTORDER			= 0,
 			ATTRIB_WINDOWFUNCTION	= 1,
-			ATTRIB_SHIFTSAMPLES		= 2
+			ATTRIB_SHIFTSAMPLES		= 2,
+			ATTRIB_ZEROPADDING		= 3
 
 		};
 
