@@ -38,7 +38,7 @@ FFTNode::FFTNode(Graph* graph) : ProcessorNode(graph, new FFTProcessor())
 	mSettings.mFFTOrder = 7;
 	mSettings.mWindowFunction.SetType(WindowFunction::WINDOWFUNCTION_HANN);
 	mSettings.mEpochShift = 1;
-	mSettings.mUseZeroPadding = true;
+	mSettings.mUseZeroPadding = false;
 }
 
 
