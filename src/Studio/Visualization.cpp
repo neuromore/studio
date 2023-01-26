@@ -121,21 +121,36 @@ bool Visualization::ParseFromJsonFile(const char* filename)
    const Json::Item executableItem = json.Find("executable");
    if (executableItem.IsString() == true)
    {
-      // build full executable based on platform and cpu
-      mExecutableFilename = mFolder + "/" + 
-         NEUROMORE_PLATFORM_STRING + "-" + NEUROMORE_CPU_STRING + "/" + 
-         executableItem.GetString();
+      // try different locations
+      for (uint32_t i = 0; i < 2; i++)
+      {
+         switch (i)
+         {
+         case 0: // with 'platform-cpu' subfolder
+            mExecutableFilename = mFolder + "/" +
+               NEUROMORE_PLATFORM_STRING + "-" + NEUROMORE_CPU_STRING + "/" +
+               executableItem.GetString();
+            break;
+         case 1: // without 'platform-cpu' subfolder
+            mExecutableFilename = mFolder + "/" + executableItem.GetString();
+            break;
+         }
 
-      // dynamically add extension for platforms
-   #if defined(NEUROMORE_PLATFORM_WINDOWS)
-      mExecutableFilename += ".exe";
-   #elif defined(NEUROMORE_PLATFORM_OSX)
-      mExecutableFilename += ".app";
-   #endif
+         // dynamically add extension for platforms
+      #if defined(NEUROMORE_PLATFORM_WINDOWS)
+         mExecutableFilename += ".exe";
+      #elif defined(NEUROMORE_PLATFORM_OSX)
+         mExecutableFilename += ".app";
+      #endif
 
-      // check if binary exists
-      QFileInfo inf(mExecutableFilename.AsChar());
-      mIsSupported = inf.exists();
+         // check if binary exists
+         QFileInfo inf(mExecutableFilename.AsChar());
+         if (inf.exists())
+         {
+            mIsSupported = true;
+            break;
+         }
+      }
    }
 
    // image
