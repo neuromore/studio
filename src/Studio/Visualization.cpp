@@ -73,8 +73,8 @@ void Visualization::SetExecutableFilename(const char* filename)
 
 bool Visualization::Start()
 {
-   // do not start if already running
-   if (mProcess.isOpen())
+   // do not start if already running or not supported
+   if (mProcess.isOpen() || !mIsSupported)
       return false;
 
    // set executable and arguments
