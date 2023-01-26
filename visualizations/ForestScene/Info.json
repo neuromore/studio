@@ -1,0 +1,6 @@
+{
+  "name": "Forest Walk",
+  "executable": "ForestScene",
+  "description": "Enjoy the peace and connect to nature while you're slowly walking through the forest. Controllable feedback parameters are /movement-speed, /weather-sun, /weather-fog, and /weather-clouds.",
+  "image": "Thumbnail.jpeg"
+}
