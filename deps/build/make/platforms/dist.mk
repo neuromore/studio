@@ -134,6 +134,10 @@ OSXSDKVER    = $(shell xcrun --show-sdk-version)
 OSXSDKBUILDV = $(shell xcrun --show-sdk-build-version)
 XCODEVER     = $(shell xcodebuild -version | grep -E -m1 'Xcode' | sed 's/Xcode //g')
 XCODEBUILDV  = $(shell xcodebuild -version | grep -E -m1 'Build version' | sed 's/Build version //g')
+dist-vis: dist-vis-ForestScene \
+          dist-vis-InfiniteTunnel \
+          dist-vis-CartoonTown \
+          dist-vis-TropicalIsland
 dist-prep:
 	@echo [NAM] $(APPNAME)
 	@echo [ID ] $(APPID)
@@ -143,6 +147,10 @@ dist-prep:
 	@echo [SDK] $(OSXSDKVER) - ${OSXSDKBUILDV}
 	@echo [XCO] $(XCODEVER) - ${XCODEBUILDV}
 	@echo [KCH] $(KEYCHAIN)
+	@-rm -rf $(DISTDIR)/$(NAME)
+	@-rm -rf $(DISTDIR)/$(NAME).dSYM
+	@-rm -rf $(DISTDIR)/$(NAME).symbols
+	@-rm -rf $(DISTDIR)/*.pkg
 	@-security delete-keychain $(KEYCHAIN)
 	@security create-keychain -p "$(SIGN_PFX_PASS)" $(KEYCHAIN)
 	@security set-keychain-settings -lut 21600 $(KEYCHAIN)
@@ -162,13 +170,31 @@ dist-prep:
 	@security list-keychain -d user -s $(KEYCHAIN)
 	@echo [INF] $(KEYCHAIN)
 	@security show-keychain-info $(KEYCHAIN)
+dist-vis-%: dist-prep
+	@echo [VIS] $*
+	@mkdir -p $(DISTDIRAPP)/Contents/Visualizations/$*/
+	@cp $(DISTDIR)/../../visualizations/$*/Info.json $(DISTDIRAPP)/Contents/Visualizations/$*/
+	@cp $(DISTDIR)/../../visualizations/$*/Thumbnail.png $(DISTDIRAPP)/Contents/Visualizations/$*/
+	@-cp -r $(DISTDIR)/../../visualizations/$*/osx-all/ $(DISTDIRAPP)/Contents/Visualizations/$*/
+ifeq ($(APPLE_DIST_STORE),true)
+	@-codesign --verbose \
+	  --sign "$(PUBLISHERCN)" \
+	  --keychain $(KEYCHAIN) \
+	  --timestamp --force --deep \
+	  --options runtime \
+	  --entitlements $(DISTDIR)/$(NAME).Entitlements.Local.plist \
+	  $(DISTDIRAPP)/Contents/Visualizations/$*/$*.app
+else
+	@-codesign --verbose \
+	  --sign "$(PUBLISHERCN)" \
+	  --keychain $(KEYCHAIN) \
+	  --timestamp --force --deep \
+	  --options runtime \
+	  $(DISTDIRAPP)/Contents/Visualizations/$*/$*.app
+endif
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
-dist: dist-prep dist-x64 dist-arm64
-	@-rm -rf $(DISTDIR)/$(NAME)
-	@-rm -rf $(DISTDIR)/$(NAME).dSYM
-	@-rm -rf $(DISTDIR)/$(NAME).symbols
-	@-rm -rf $(DISTDIR)/*.pkg
+dist: dist-prep dist-x64 dist-arm64 dist-vis
 	@echo [MKD] $(APPNAME).app/Contents/MacOS
 	@mkdir -p $(DISTDIRAPP)/Contents/MacOS
 	@echo [LIP] $(NAME)$(EXTBIN)
