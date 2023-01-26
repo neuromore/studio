@@ -8,3 +8,4 @@
 *.auto-component.plist
 *.notary.log
 *.notary.id
+*.Component.plist

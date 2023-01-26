@@ -80,6 +80,9 @@ void VolumeControlNode::Init()
 
 	ShowAttributesForMode(defaultMode);
 
+	// OSC address for the Visualizations
+	mOscAddress = "/audio/volume";
+
 }
 
 
@@ -157,7 +160,7 @@ void VolumeControlNode::OnAttributesChanged()
 {
 	Mode mode = GetMode();
 
-	mOscAddress.Clear();
+	SetAttributeValue(ATTRIB_SENDOSCNETWORKMESSAGES, AttributeBool::Create(false));
 
 	if (mode != mCurrentMode)
 	{
@@ -166,7 +169,7 @@ void VolumeControlNode::OnAttributesChanged()
 	}
 
 	if (mode == Mode::VISUALIZATION) {
-		mOscAddress = "/audio/volume";
+		SetAttributeValue(ATTRIB_SENDOSCNETWORKMESSAGES, AttributeBool::Create(true));
 	}
 
 	// show/hide attributes for the selected mode

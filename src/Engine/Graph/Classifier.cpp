@@ -31,6 +31,13 @@
 #include "../EngineManager.h"
 #include "FileWriterNode.h"
 #include "VolumeControlNode.h"
+#include "ScreenBrightnessNode.h"
+#include "SpeedControlNode.h"
+#include "SunControlNode.h"
+#include "CloudsControlNode.h"
+#include "FogControlNode.h"
+#include "RainControlNode.h"
+#include "VignetteControlNode.h"
 
 
 using namespace Core;
@@ -282,49 +289,57 @@ void Classifier::CollectNodes()
 	for (uint32 i=0; i<numNodes; ++i)
 	{
 		Node* node = mNodes[i];
+		const uint32 nodeType = node->GetType();;
 
 		//// BEGIN elseif-block node-GetType()
 		// is the given node a custom feedback node?
-		if (node->GetType() == CustomFeedbackNode::TYPE_ID
-			|| node->GetType() == VolumeControlNode::TYPE_ID)
+		if (nodeType == CustomFeedbackNode::TYPE_ID
+			|| nodeType == VolumeControlNode::TYPE_ID
+			|| nodeType == ScreenBrightnessNode::TYPE_ID
+			|| nodeType == SpeedControlNode::TYPE_ID
+			|| nodeType == SunControlNode::TYPE_ID
+			|| nodeType == CloudsControlNode::TYPE_ID
+			|| nodeType == FogControlNode::TYPE_ID
+			|| nodeType == RainControlNode::TYPE_ID
+			|| nodeType == VignetteControlNode::TYPE_ID)
 		{
 			numCustomFeedbackNodes++;
 			numFeedbackNodes++;
 		}
 
 		// is the given node a point node?
-		else if (node->GetType() == PointsNode::TYPE_ID)
+		else if (nodeType == PointsNode::TYPE_ID)
 		{
 			numPointNodes++;
 			//numFeedbackNodes++;
 		}
 
 		// is the given node a body feedback node?
-		else if (node->GetType() == BodyFeedbackNode::TYPE_ID)
+		else if (nodeType == BodyFeedbackNode::TYPE_ID)
 			numFeedbackNodes++;
 
 		// is the given node a view node?
-		else if (node->GetType() == ViewNode::TYPE_ID)
+		else if (nodeType == ViewNode::TYPE_ID)
 			numViewNodes++;
 
 		// is the given node a LORETA node?
-		else if (node->GetType() == LoretaNode::TYPE_ID)
+		else if (nodeType == LoretaNode::TYPE_ID)
 			numLoretaNodes++;
 
 		// is the node an input of the graph?
-		else if (node->GetType() == ParameterNode::TYPE_ID)
+		else if (nodeType == ParameterNode::TYPE_ID)
 			numParameterNodes++;
 
-		else if (node->GetType() == CloudInputNode::TYPE_ID)
+		else if (nodeType == CloudInputNode::TYPE_ID)
 			numCloudInputNodes++;
 
-		else if (node->GetType() == CloudOutputNode::TYPE_ID)
+		else if (nodeType == CloudOutputNode::TYPE_ID)
 			numCloudOutputNodes++;
 
-		else if (node->GetType() == AnnotationNode::TYPE_ID)
+		else if (nodeType == AnnotationNode::TYPE_ID)
 			numAnnotationNodes++;
 
-		else if (node->GetType() == ToneGeneratorNode::TYPE_ID)
+		else if (nodeType == ToneGeneratorNode::TYPE_ID)
 			numToneGeneratorNodes++;
 
 		
@@ -391,11 +406,19 @@ void Classifier::CollectNodes()
 	for (uint32 i=0; i<numNodes; ++i)
 	{
 		Node* node = mNodes[i];
+		const uint32 nodeType = node->GetType();
 		
-		//// BEGIN elseif-block (node->GetType() = ...)
+		//// BEGIN elseif-block (nodeType = ...)
 		// is the given node a custom feedback node?
-		if (node->GetType() == CustomFeedbackNode::TYPE_ID
-			|| node->GetType() == VolumeControlNode::TYPE_ID)
+		if (nodeType == CustomFeedbackNode::TYPE_ID
+			|| nodeType == VolumeControlNode::TYPE_ID
+			|| nodeType == ScreenBrightnessNode::TYPE_ID
+			|| nodeType == SpeedControlNode::TYPE_ID
+			|| nodeType == SunControlNode::TYPE_ID
+			|| nodeType == CloudsControlNode::TYPE_ID
+			|| nodeType == FogControlNode::TYPE_ID
+			|| nodeType == RainControlNode::TYPE_ID
+			|| nodeType == VignetteControlNode::TYPE_ID)
 		{
 			mCustomFeedbackNodes[customFeedbackNodeIndex] = static_cast<CustomFeedbackNode*>(node);
 			customFeedbackNodeIndex++;
@@ -405,7 +428,7 @@ void Classifier::CollectNodes()
 		}
 
 		// is the given node a point node?
-		else if (node->GetType() == PointsNode::TYPE_ID)
+		else if (nodeType == PointsNode::TYPE_ID)
 		{
 			mPointsNodes[pointNodeIndex] = static_cast<PointsNode*>(node);
 			pointNodeIndex++;
@@ -416,61 +439,61 @@ void Classifier::CollectNodes()
 		}
 
 		// is the given node a body feedback node?
-		else if (node->GetType() == BodyFeedbackNode::TYPE_ID)
+		else if (nodeType == BodyFeedbackNode::TYPE_ID)
 		{
 			mFeedbackNodes[feedbackNodeIndex] = static_cast<CustomFeedbackNode*>(node);
 			feedbackNodeIndex++;
 		}
 
 		// is the given node a view node?
-		else if (node->GetType() == ViewNode::TYPE_ID)
+		else if (nodeType == ViewNode::TYPE_ID)
 		{
 			mViewNodes[viewNodeIndex] = static_cast<ViewNode*>(node);
 			viewNodeIndex++;
 		}
 
 		// is the given node a LORETA node?
-		else if (node->GetType() == LoretaNode::TYPE_ID)
+		else if (nodeType == LoretaNode::TYPE_ID)
 		{
 			mLoretaNodes[loretaNodeIndex] = static_cast<LoretaNode*>(node);
 			loretaNodeIndex++;
 		}
 
 		// is the given node a parameter node?
-		else if (node->GetType() == ParameterNode::TYPE_ID)
+		else if (nodeType == ParameterNode::TYPE_ID)
 		{
 			mParameterNodes[parameterNodeIndex] = static_cast<ParameterNode*>(node);
 			parameterNodeIndex++;
 		}
 
 		// is the given node a parameter node?
-		else if (node->GetType() == CloudInputNode::TYPE_ID)
+		else if (nodeType == CloudInputNode::TYPE_ID)
 		{
 			mCloudInputNodes[cloudInputNodeIndex] = static_cast<CloudInputNode*>(node);
 			cloudInputNodeIndex++;
 		}
 
 		// is the given node a parameter node?
-		else if (node->GetType() == CloudOutputNode::TYPE_ID)
+		else if (nodeType == CloudOutputNode::TYPE_ID)
 		{
 			mCloudOutputNodes[cloudOutputNodeIndex] = static_cast<CloudOutputNode*>(node);
 			cloudOutputNodeIndex++;
 		}
 
 		// is the given node an Annotation node?
-		else if (node->GetType() == AnnotationNode::TYPE_ID)
+		else if (nodeType == AnnotationNode::TYPE_ID)
 		{
 			mAnnotationNodes[annotationNodeIndex] = static_cast<AnnotationNode*>(node);
 			annotationNodeIndex++;
 		}
 
 		// is the given node an ToneGenerator node?
-		else if (node->GetType() == ToneGeneratorNode::TYPE_ID)
+		else if (nodeType == ToneGeneratorNode::TYPE_ID)
 		{
 			mToneGeneratorNodes[toneGeneratorNodeIndex] = static_cast<ToneGeneratorNode*>(node);
 			toneGeneratorNodeIndex++;
 		}
-		//// END elseif-block (node->GetType() = ...)
+		//// END elseif-block (nodeType = ...)
 
 		//// BEGIN elseif-block (node->GetNodeType() = ...)
 		// collect all output nodes (note: output nodes are nodes without output ports)

@@ -14,56 +14,70 @@
 using namespace Core;
 
 // constructor
-UsersCreateRequest::UsersCreateRequest(const char* token, Core::String email, Core::String firstName, Core::String lastName, Core::String birthday, const Array<String>& parentIds, int role) : Request()
+UsersCreateRequest::UsersCreateRequest(
+   const char*      token, 
+   Core::String     firstName, 
+   Core::String     lastName, 
+   const ParentIds& parentIds,
+   Core::String     email,
+   Core::String     birthday,
+   Core::String     userId,
+   int              role) : Request()
 {
-	// display text
-	SetDisplayText("Creating user ...");
+   // display text
+   SetDisplayText("Creating user ...");
 
-	// url
-	SetUrl( "users/create" );
+   // url
+   SetUrl( "users/create" );
 
-	// request method
-	SetRequestMethod( REQUESTMETHOD_POST );
+   // request method
+   SetRequestMethod( REQUESTMETHOD_POST );
 
-	// url parameters
-	AddUrlParameter( "token", token );
+   // url parameters
+   AddUrlParameter( "token", token );
 
+   // body
+   Json::Item rootItem = GetBodyJsonRoot();
 
-	// body
-	Json::Item rootItem = GetBodyJsonRoot();
+   // trim the strings
+   firstName.Trim();
+   lastName.Trim();
+   email.Trim();
+   birthday.Trim();
+   userId.Trim();
 
-	// name
-	firstName.Trim();
-	rootItem.AddString( "firstname", firstName.AsChar() );
-	lastName.Trim();
-	rootItem.AddString( "lastname", lastName.AsChar() );
+   // parent ids are mandatory
+   Json::Item parentsItem = rootItem.AddArray("appendParentIds");
+   const uint32 numParentIds = parentIds.Size();
+   String tempParentId;
+   for (uint32 i=0; i<numParentIds; ++i)
+   {
+      tempParentId = parentIds[i];
+      tempParentId.Trim();
+      parentsItem.AddString(tempParentId.AsChar());
+   }
 
-	// email
-	if (email.IsEmpty() == false)
-	{
-		email.Trim();
-		rootItem.AddString( "email", email.AsChar() );
-	}
+   // firstname (optional)
+   if (!firstName.IsEmpty())
+      rootItem.AddString("firstname", firstName.AsChar());
 
-	// birthday
-	if (birthday.IsEmpty() == false)
-	{
-		birthday.Trim();
-		rootItem.AddString( "birthday", birthday.AsChar() );
-	}
+   // lastname (optional)
+   if (!lastName.IsEmpty())
+      rootItem.AddString("lastname", lastName.AsChar());
 
-	// parent ids
-	Json::Item parentsItem = rootItem.AddArray("appendParentIds");
-	const uint32 numParentIds = parentIds.Size();
-	String tempParentId;
-	for (uint32 i=0; i<numParentIds; ++i)
-	{
-		tempParentId = parentIds[i];
-		tempParentId.Trim();
-		parentsItem.AddString( tempParentId.AsChar() );
-	}
+   // email (optional)
+   if (!email.IsEmpty())
+      rootItem.AddString("email", email.AsChar());
 
-   // role
+   // birthday (optional)
+   if (!birthday.IsEmpty())
+      rootItem.AddString("birthday", birthday.AsChar());
+
+   // role (optional)
    if (role > 0)
       rootItem.AddInt("role", role);
+
+   // userId (optional)
+   if (!userId.IsEmpty())
+      rootItem.AddString("userId", userId.AsChar());
 }

@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name={DISPLAYNAME}
 Comment=Your IDE for neuro-tech apps
-Exec=/usr/bin/Studio
-Icon=/usr/share/pixmaps/Studio.png
+Exec=/usr/bin/{APPSHORTNAME}
+Icon=/usr/share/pixmaps/{APPSHORTNAME}.png
 Terminal=true
 Type=Application
 Categories=Development;
