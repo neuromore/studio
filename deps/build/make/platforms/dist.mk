@@ -182,7 +182,7 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  --keychain $(KEYCHAIN) \
 	  --timestamp --force --deep \
 	  --options runtime \
-	  --entitlements $(DISTDIR)/$(NAME).Entitlements.Local.plist \
+	  --entitlements $(DISTDIR)/Visualization.Entitlements.plist \
 	  $(DISTDIRAPP)/Contents/Visualizations/$*/$*.app
 else
 	@-codesign --verbose \
@@ -190,6 +190,7 @@ else
 	  --keychain $(KEYCHAIN) \
 	  --timestamp --force --deep \
 	  --options runtime \
+	  --entitlements $(DISTDIR)/Visualization.Entitlements.plist \
 	  $(DISTDIRAPP)/Contents/Visualizations/$*/$*.app
 endif
 dist-%: dist-prep
