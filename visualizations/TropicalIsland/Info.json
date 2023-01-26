@@ -1,0 +1,6 @@
+{
+  "name": "Tropical Island",
+  "executable": "TropicalIsland",
+  "description": "Master controlling the sky and sea. The tropical island visualization adapts the weather from a sunny beach to a tropical storm based on the feedback. Waves will push against the beach while palm trees fight against the wind.",
+  "image": "Thumbnail.png"
+}
