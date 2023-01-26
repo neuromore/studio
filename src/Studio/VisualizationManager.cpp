@@ -40,6 +40,14 @@ VisualizationManager::VisualizationManager(QObject* parent) : QObject(parent), m
    mVisualizationFolders.Add(appDir + "../../../visualizations");
    mVisualizationFolders.Add(appDir + "../../../../visualizations");
 
+#ifndef NEUROMORE_PLATFORM_WINDOWS
+   mVisualizationFolders.Add(appDir + "Visualizations");
+   mVisualizationFolders.Add(appDir + "../Visualizations");
+   mVisualizationFolders.Add(appDir + "../../Visualizations");
+   mVisualizationFolders.Add(appDir + "../../../Visualizations");
+   mVisualizationFolders.Add(appDir + "../../../../Visualizations");
+#endif
+
 #ifdef NEUROMORE_PLATFORM_LINUX
    mVisualizationFolders.Add("/usr/share/neuromore/visualizations"); // linux distribution packages
 #endif
