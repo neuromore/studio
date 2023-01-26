@@ -31,7 +31,7 @@
 using namespace Core;
 
 // constructor
-Visualization::Visualization()
+Visualization::Visualization() : mIsSupported(false)
 {
    // setup process arguments
    mArguments.append("-single-instance");
@@ -57,6 +57,12 @@ Visualization::Visualization()
 // destructor
 Visualization::~Visualization()
 {
+}
+
+void Visualization::SetFolder(const char* folder)
+{
+   mFolder = folder;
+   mFolder.ConvertToNativePath();
 }
 
 void Visualization::SetExecutableFilename(const char* filename)
@@ -89,8 +95,11 @@ void Visualization::Stop()
 
 bool Visualization::ParseFromJsonFile(const char* filename)
 {
-   String folder = String(filename).ExtractPath();
+   // save folder
+   mFolder = String(filename).ExtractPath(false);
+   mIsSupported = false;
 
+   // parse json
    Json json;
    if (json.ParseFile(filename) == false)
       return false;
@@ -111,12 +120,28 @@ bool Visualization::ParseFromJsonFile(const char* filename)
    // executable
    const Json::Item executableItem = json.Find("executable");
    if (executableItem.IsString() == true)
-      mExecutableFilename = folder + executableItem.GetString();
+   {
+      // build full executable based on platform and cpu
+      mExecutableFilename = mFolder + "/" + 
+         NEUROMORE_PLATFORM_STRING + "-" + NEUROMORE_CPU_STRING + "/" + 
+         executableItem.GetString();
+
+      // dynamically add extension for platforms
+   #if defined(NEUROMORE_PLATFORM_WINDOWS)
+      mExecutableFilename += ".exe";
+   #elif defined(NEUROMORE_PLATFORM_OSX)
+      mExecutableFilename += ".app";
+   #endif
+
+      // check if binary exists
+      QFileInfo inf(mExecutableFilename.AsChar());
+      mIsSupported = inf.exists();
+   }
 
    // image
    const Json::Item imageItem = json.Find("image");
    if (imageItem.IsString() == true)
-      mImageFilename = folder + imageItem.GetString();
+      mImageFilename = mFolder + "/" + imageItem.GetString();
 
    return true;
 }
