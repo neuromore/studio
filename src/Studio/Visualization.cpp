@@ -122,7 +122,7 @@ bool Visualization::ParseFromJsonFile(const char* filename)
    if (executableItem.IsString() == true)
    {
       // try different locations
-      for (uint32_t i = 0; i < 2; i++)
+      for (uint32_t i = 0; i < 3; i++)
       {
          switch (i)
          {
@@ -131,7 +131,12 @@ bool Visualization::ParseFromJsonFile(const char* filename)
                NEUROMORE_PLATFORM_STRING + "-" + NEUROMORE_CPU_STRING + "/" +
                executableItem.GetString();
             break;
-         case 1: // without 'platform-cpu' subfolder
+         case 1: // with 'platform-all' subfolder
+            mExecutableFilename = mFolder + "/" +
+               NEUROMORE_PLATFORM_STRING + "-all/" +
+               executableItem.GetString();
+            break;
+         case 2: // without 'platform-cpu' subfolder
             mExecutableFilename = mFolder + "/" + executableItem.GetString();
             break;
          }
