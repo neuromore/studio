@@ -142,6 +142,9 @@ VisualizationSelectWidget::VisualizationSelectWidget(QGridLayout* gridLayout, Vi
 	connect( mSelectButton, &QPushButton::clicked, this, &VisualizationSelectWidget::OnSelectVisualization );
 	vLayout->addWidget( mSelectButton );
 
+	// set enabled state
+	this->setEnabled(visualization->IsSupported());
+
 	UpdateInterface();
 }
 
