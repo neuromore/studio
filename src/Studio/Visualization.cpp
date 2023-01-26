@@ -28,6 +28,10 @@
 #include "Visualization.h"
 #include "MainWindow.h"
 
+#if defined(NEUROMORE_PLATFORM_OSX) && defined(__OBJC__)
+#include <Cocoa/Cocoa.h>
+#endif
+
 using namespace Core;
 
 // constructor
@@ -77,6 +81,15 @@ bool Visualization::Start()
    if (mProcess.isOpen() || !mIsSupported)
       return false;
 
+#if defined(NEUROMORE_PLATFORM_OSX) && defined(__OBJC__)
+   NSRunningApplication* app = [[NSWorkspace sharedWorkspace] 
+      launchApplicationAtURL:[NSURL fileURLWithPath:[NSString stringWithUTF8String:mExecutableFilename.AsChar()] isDirectory:NO] 
+      options:NSWorkspaceLaunchDefault 
+      configuration:nil 
+      error:NULL];
+
+   return app != nil;
+#else
    // set executable and arguments
    mProcess.setProgram(mExecutableFilename.AsChar());
    mProcess.setArguments(mArguments);
@@ -84,7 +97,7 @@ bool Visualization::Start()
 
    // wait for it to start
    return mProcess.waitForStarted(1000);
-
+#endif
 }
 
 void Visualization::Stop()
