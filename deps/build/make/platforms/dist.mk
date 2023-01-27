@@ -50,6 +50,11 @@ VERSIONPATCH = $(shell powershell -command "& {\
   Extract-Macro '$(VERSIONFILE)' '$(VERSIONMACROPATCH)'; }")
 VERSION3 = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
 VERSION4 = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+ZIPPER   = $(DISTDIR)/7za.exe a -y -aoa -mx6 -bd -bb0
+dist-vis: dist-vis-ForestScene \
+          dist-vis-InfiniteTunnel \
+          dist-vis-CartoonTown \
+          dist-vis-TropicalIsland
 dist-prep:
 	echo [NAM] $(APPNAME)
 	echo [ID ] $(APPID)
@@ -61,9 +66,16 @@ dist-prep:
 	echo [PFX] $(SIGN_PFX_FILE)
 	echo [MKD] $(DISTDIR)/$(NAME)
 	$(call rmdir,$(DISTDIR)/$(NAME))
+	$(call deletefiles,$(DISTDIR),$(NAME)*.zip)
+	$(call deletefiles,$(DISTDIR),$(NAME)*.appx)
+	$(call deletefiles,$(DISTDIR),$(NAME)*.appxbundle)
+	$(call deletefiles,$(DISTDIR),$(NAME)*.appxupload)
 	$(call mkdir,$(DISTDIR)/$(NAME))
 	$(call mkdir,$(DISTDIR)/$(NAME)/resources)
 	$(call mkdir,$(DISTDIR)/$(NAME)/upload)
+	$(call mkdir,$(DISTDIR)/$(NAME)/x64)
+	$(call mkdir,$(DISTDIR)/$(NAME)/x86)
+	$(call mkdir,$(DISTDIR)/$(NAME)/arm64)
 	$(call copyfiles,$(DISTDIR)/$(NAME).appxmanifest,$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
@@ -78,9 +90,54 @@ dist-prep:
 	$(call copyfiles,$(APPICON)-44x44.png,$(DISTDIR)/$(NAME)/resources/app-44x44.png)
 	$(call copyfiles,$(APPICON)-50x50.png,$(DISTDIR)/$(NAME)/resources/app-50x50.png)
 	$(call copyfiles,$(APPICON)-150x150.png,$(DISTDIR)/$(NAME)/resources/app-150x150.png)
-dist-%: dist-prep
-	echo [MKD] $(DISTDIR)/$(NAME)/$*
-	$(call rmdir,$(DISTDIR)/$(NAME)/$*)
+dist-vis-%: dist-prep
+	echo [VIS] $*
+	$(call mkdir,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
+	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
+	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
+	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x64/*,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
+ifeq ($(SIGN_PFX_PASS),)
+	$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+else
+	$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+endif
+	$(call mkdir,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
+	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
+	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
+	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x86/*,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
+ifeq ($(SIGN_PFX_PASS),)
+	$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+else
+	$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+endif
+	$(call mkdir,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
+	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
+	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
+	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-arm64/*,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
+ifeq ($(SIGN_PFX_PASS),)
+	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+else
+	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+endif
+dist-dll-x64: dist-prep
+	echo [DLL] Copy X64 DLL
+	$(call copyfiles,./bin/win-x64/eego-SDK.dll,$(DISTDIR)/$(NAME)/x64/eego-SDK.dll)
+	$(call copyfiles,./bin/win-x64/gforce64.dll,$(DISTDIR)/$(NAME)/x64/gforce64.dll)
+	$(call copyfiles,./bin/win-x64/neurosdk-x64.dll,$(DISTDIR)/$(NAME)/x64/neurosdk-x64.dll)
+	$(call copyfiles,./bin/win-x64/Unicorn.dll,$(DISTDIR)/$(NAME)/x64/Unicorn.dll)
+	$(call copyfiles,./bin/win-x64/GanglionLib.dll,$(DISTDIR)/$(NAME)/x64/GanglionLib.dll)
+	$(call copyfiles,./bin/win-x64/gForceSDKWrapper.dll,$(DISTDIR)/$(NAME)/x64/gForceSDKWrapper.dll)
+dist-dll-x86: dist-prep
+	echo [DLL] Copy X86 DLL
+	$(call copyfiles,./bin/win-x86/eego-SDK.dll,$(DISTDIR)/$(NAME)/x86/eego-SDK.dll)
+	$(call copyfiles,./bin/win-x86/gforce32.dll,$(DISTDIR)/$(NAME)/x86/gforce32.dll)
+	$(call copyfiles,./bin/win-x86/neurosdk-x86.dll,$(DISTDIR)/$(NAME)/x86/neurosdk-x86.dll)
+	$(call copyfiles,./bin/win-x86/GanglionLib32.dll,$(DISTDIR)/$(NAME)/x86/GanglionLib32.dll)
+	$(call copyfiles,./bin/win-x86/gForceSDKWrapper32.dll,$(DISTDIR)/$(NAME)/x86/gForceSDKWrapper32.dll)
+dist-dll-arm64: dist-prep
+	echo [DLL] Copy ARM64 DLL
+dist-bin-%: dist-prep dist-dll-%
+	echo [BIN] $(DISTDIR)/$(NAME)/$*
 	$(call mkdir,$(DISTDIR)/$(NAME)/$*)
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTBIN),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN))
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTPDB),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB))
@@ -93,9 +150,11 @@ else
 	$(call signp,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	echo [SYM] $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym
-	$(call makezip,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB),$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip)
+	$(ZIPPER) $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB)	
 	$(call move,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym)
-dist: dist-prep dist-x64 dist-x86 dist-arm64
+	echo [ZIP] $(DISTDIR)/$(NAME)-$*.zip
+	$(ZIPPER) $(DISTDIR)/$(NAME)-$*.zip $(DISTDIR)/$(NAME)/$*/*
+dist: dist-prep dist-vis dist-bin-x64 dist-bin-x86 dist-bin-arm64
 	echo [BDL] $(DISTDIR)/$(NAME).appxbundle
 	$(call makepkg,$(DISTDIR)/$(NAME)/Layout.xml,$(DISTDIR))
 	echo [SIG] $(DISTDIR)/$(NAME).appxbundle
@@ -112,7 +171,7 @@ else
 endif
 	echo [APU] $(DISTDIR)/$(NAME).appxupload
 	$(call copyfiles,$(DISTDIR)/$(NAME).appxbundle,$(DISTDIR)/$(NAME)/upload/$(NAME).appxbundle)
-	$(call makezip,$(DISTDIR)/$(NAME)/upload/*,$(DISTDIR)/$(NAME).appxupload.zip)
+	$(ZIPPER) $(DISTDIR)/$(NAME).appxupload.zip $(DISTDIR)/$(NAME)/upload/*
 	$(call move,$(DISTDIR)/$(NAME).appxupload.zip,$(DISTDIR)/$(NAME).appxupload)
 endif
 
@@ -134,6 +193,10 @@ OSXSDKVER    = $(shell xcrun --show-sdk-version)
 OSXSDKBUILDV = $(shell xcrun --show-sdk-build-version)
 XCODEVER     = $(shell xcodebuild -version | grep -E -m1 'Xcode' | sed 's/Xcode //g')
 XCODEBUILDV  = $(shell xcodebuild -version | grep -E -m1 'Build version' | sed 's/Build version //g')
+dist-vis: dist-vis-ForestScene \
+          dist-vis-InfiniteTunnel \
+          dist-vis-CartoonTown \
+          dist-vis-TropicalIsland
 dist-prep:
 	@echo [NAM] $(APPNAME)
 	@echo [ID ] $(APPID)
@@ -143,6 +206,10 @@ dist-prep:
 	@echo [SDK] $(OSXSDKVER) - ${OSXSDKBUILDV}
 	@echo [XCO] $(XCODEVER) - ${XCODEBUILDV}
 	@echo [KCH] $(KEYCHAIN)
+	@-rm -rf $(DISTDIR)/$(NAME)
+	@-rm -rf $(DISTDIR)/$(NAME).dSYM
+	@-rm -rf $(DISTDIR)/$(NAME).symbols
+	@-rm -rf $(DISTDIR)/*.pkg
 	@-security delete-keychain $(KEYCHAIN)
 	@security create-keychain -p "$(SIGN_PFX_PASS)" $(KEYCHAIN)
 	@security set-keychain-settings -lut 21600 $(KEYCHAIN)
@@ -162,13 +229,22 @@ dist-prep:
 	@security list-keychain -d user -s $(KEYCHAIN)
 	@echo [INF] $(KEYCHAIN)
 	@security show-keychain-info $(KEYCHAIN)
+dist-vis-%: dist-prep
+	@echo [VIS] $*
+	@mkdir -p $(DISTDIRAPP)/Contents/Visualizations/$*/
+	@cp $(DISTDIR)/../../visualizations/$*/Info.json $(DISTDIRAPP)/Contents/Visualizations/$*/
+	@cp $(DISTDIR)/../../visualizations/$*/Thumbnail.png $(DISTDIRAPP)/Contents/Visualizations/$*/
+	@-cp -r $(DISTDIR)/../../visualizations/$*/osx-all/ $(DISTDIRAPP)/Contents/Visualizations/$*/
+	@-codesign --verbose \
+	  --sign "$(PUBLISHERCN)" \
+	  --keychain $(KEYCHAIN) \
+	  --timestamp --force --deep \
+	  --options runtime \
+	  --entitlements $(DISTDIR)/Visualization.Entitlements.plist \
+	  $(DISTDIRAPP)/Contents/Visualizations/$*/$*.app
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
-dist: dist-prep dist-x64 dist-arm64
-	@-rm -rf $(DISTDIR)/$(NAME)
-	@-rm -rf $(DISTDIR)/$(NAME).dSYM
-	@-rm -rf $(DISTDIR)/$(NAME).symbols
-	@-rm -rf $(DISTDIR)/*.pkg
+dist: dist-prep dist-x64 dist-arm64 dist-vis
 	@echo [MKD] $(APPNAME).app/Contents/MacOS
 	@mkdir -p $(DISTDIRAPP)/Contents/MacOS
 	@echo [LIP] $(NAME)$(EXTBIN)
@@ -292,11 +368,12 @@ endif
 ##############################################################################################################
 
 ifeq ($(TARGET_OS),linux)
-VERSIONMAJOR = $(shell sed -n 's/^\#define $(VERSIONMACROMAJOR) //p' $(VERSIONFILE))
-VERSIONMINOR = $(shell sed -n 's/^\#define $(VERSIONMACROMINOR) //p' $(VERSIONFILE))
-VERSIONPATCH = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFILE))
-VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
-VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+VERSIONMAJOR   = $(shell sed -n 's/^\#define $(VERSIONMACROMAJOR) //p' $(VERSIONFILE))
+VERSIONMINOR   = $(shell sed -n 's/^\#define $(VERSIONMACROMINOR) //p' $(VERSIONFILE))
+VERSIONPATCH   = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFILE))
+VERSION3       = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
+VERSION4       = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+VISUALIZATIONS = ForestScene InfiniteTunnel CartoonTown TropicalIsland
 dist-prep:
 	echo [NAM] $(APPNAME)
 	echo [SNM] $(APPSHORTNAME)
@@ -312,7 +389,7 @@ dist-%: dist-prep
 		(arm)   echo armhf;; \
 	  esac))
 	$(eval DEBFILE=$(NAME)-$(VERSION3)-1-ubuntu-$(LSBREL)-$(DISTDEBARCH).deb)
-	echo [DEB] $(DEBFILE)
+	echo [PRE] $(DEBFILE)
 	mkdir -p $(DISTDIR)/$(NAME)-$*/DEBIAN
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/bin
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/lib
@@ -329,7 +406,15 @@ dist-%: dist-prep
 	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(APPSHORTNAME)$(EXTBIN)
 	@chmod +x $(DISTDIR)/$(NAME)-$*/usr/bin/$(APPSHORTNAME)$(EXTBIN)
 	-cp ./../../deps/prebuilt/linux/$*/*.so $(DISTDIR)/$(NAME)-$*/usr/lib/
-	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE) > /dev/null 2>&1
+	for vis in $(VISUALIZATIONS) ; do \
+	  echo [VIS] $$vis ; \
+	  mkdir -p $(DISTDIR)/$(NAME)-$*/usr/share/$(APPSHORTNAME)/visualizations/$$vis ; \
+	  cp $(DISTDIR)/../../visualizations/$$vis/Info.json $(DISTDIR)/$(NAME)-$*/usr/share/$(APPSHORTNAME)/visualizations/$$vis/Info.json ; \
+	  cp $(DISTDIR)/../../visualizations/$$vis/Thumbnail.png $(DISTDIR)/$(NAME)-$*/usr/share/$(APPSHORTNAME)/visualizations/$$vis/Thumbnail.png ; \
+	  cp -r $(DISTDIR)/../../visualizations/$$vis/linux-$*/* $(DISTDIR)/$(NAME)-$*/usr/share/$(APPSHORTNAME)/visualizations/$$vis/ 2>/dev/null || true; \
+	done
+	echo [DEB] $(DEBFILE)
+	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE)
 		
 #dist: dist-prep dist-x64 dist-x86 dist-arm64 dist-arm
 dist: dist-prep dist-$(TARGET_ARCH)
