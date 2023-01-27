@@ -113,12 +113,12 @@ endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
-#	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-arm64/*,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
-#ifeq ($(SIGN_PFX_PASS),)
-#	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
-#else
-#	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
-#endif
+	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-arm64/*,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
+ifeq ($(SIGN_PFX_PASS),)
+	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+else
+	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+endif
 dist-dll-x64: dist-prep
 	echo [DLL] Copy X64 DLL
 	$(call copyfiles,./bin/win-x64/eego-SDK.dll,$(DISTDIR)/$(NAME)/x64/eego-SDK.dll)
