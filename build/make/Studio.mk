@@ -427,7 +427,7 @@ DEFINES   := $(DEFINES) \
              -DNEUROMORE_PLATFORM_WINDOWS \
 			 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
 CXXFLAGS  := $(CXXFLAGS)
-PCHFLAGS  := $(PCHFLAGS)
+PCHFLAGS  := $(PCHFLAGS) -x c++-header
 CFLAGS    := $(CFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/win32-clang-msvc
 MOCH      := $(MOCH)
@@ -505,7 +505,7 @@ DEFINES   := $(DEFINES) \
              -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" \
              -DQT_FEATURE_fontconfig=1
 CXXFLAGS  := $(CXXFLAGS) -fdeclspec -ObjC++
-PCHFLAGS  := $(PCHFLAGS) -fdeclspec
+PCHFLAGS  := $(PCHFLAGS) -fdeclspec -x objective-c++-header
 CFLAGS    := $(CFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-clang
 MOCH      := $(MOCH)
@@ -559,7 +559,7 @@ DEFINES   := $(DEFINES) \
              -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" \
              -DQT_FEATURE_fontconfig=1
 CXXFLAGS  := $(CXXFLAGS)
-PCHFLAGS  := $(PCHFLAGS)
+PCHFLAGS  := $(PCHFLAGS) -x c++-header
 CFLAGS    := $(CFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/linux-clang
 MOCH      := $(MOCH)
@@ -629,7 +629,7 @@ ifeq ($(TARGET_OS),android)
 QTMOC     := $(QTMOC) -DQ_OS_ANDROID
 DEFINES   := $(DEFINES)
 CXXFLAGS  := $(CXXFLAGS)
-PCHFLAGS  := $(PCHFLAGS)
+PCHFLAGS  := $(PCHFLAGS) -x c++-header
 CFLAGS    := $(CFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/android-clang
 MOCH      := $(MOCH)
@@ -667,7 +667,7 @@ endif
 
 pch:
 	@echo [PCH] $(OBJDIR)/$(PCH).pch
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(PCHFLAGS) -x objective-c++-header -c $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(PCHFLAGS) -c $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
 
 ################################################################################################
 # MOC
