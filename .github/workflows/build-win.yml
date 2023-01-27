@@ -193,7 +193,7 @@ jobs:
 
     # Pack
     - name: Make (dist)
-      env:
+#      env:
 #        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
 #        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
 #        PUBLISHERCN: neuromore co
