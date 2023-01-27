@@ -235,7 +235,6 @@ dist-vis-%: dist-prep
 	@cp $(DISTDIR)/../../visualizations/$*/Info.json $(DISTDIRAPP)/Contents/Visualizations/$*/
 	@cp $(DISTDIR)/../../visualizations/$*/Thumbnail.png $(DISTDIRAPP)/Contents/Visualizations/$*/
 	@-cp -r $(DISTDIR)/../../visualizations/$*/osx-all/ $(DISTDIRAPP)/Contents/Visualizations/$*/
-ifeq ($(APPLE_DIST_STORE),true)
 	@-codesign --verbose \
 	  --sign "$(PUBLISHERCN)" \
 	  --keychain $(KEYCHAIN) \
@@ -243,15 +242,6 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  --options runtime \
 	  --entitlements $(DISTDIR)/Visualization.Entitlements.plist \
 	  $(DISTDIRAPP)/Contents/Visualizations/$*/$*.app
-else
-	@-codesign --verbose \
-	  --sign "$(PUBLISHERCN)" \
-	  --keychain $(KEYCHAIN) \
-	  --timestamp --force --deep \
-	  --options runtime \
-	  --entitlements $(DISTDIR)/Visualization.Entitlements.plist \
-	  $(DISTDIRAPP)/Contents/Visualizations/$*/$*.app
-endif
 dist-%: dist-prep
 	@echo [DST] $(NAME)-$*
 dist: dist-prep dist-x64 dist-arm64 dist-vis
