@@ -15,7 +15,7 @@
         <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
         <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
 
-		<File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/x64/Visualizations/**"/>
+        <File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/x64/Visualizations/**"/>
       </Files>
     </Package>
 	
@@ -29,7 +29,7 @@
         <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
         <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
 
-		<File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/x86/Visualizations/**"/>
+        <File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/x86/Visualizations/**"/>
       </Files>
     </Package>
 	
@@ -43,7 +43,7 @@
         <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
         <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
 
-		<File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/arm64/Visualizations/**"/>
+        <File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/arm64/Visualizations/**"/>
       </Files>
     </Package>
 	
