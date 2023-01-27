@@ -378,11 +378,12 @@ endif
 ##############################################################################################################
 
 ifeq ($(TARGET_OS),linux)
-VERSIONMAJOR = $(shell sed -n 's/^\#define $(VERSIONMACROMAJOR) //p' $(VERSIONFILE))
-VERSIONMINOR = $(shell sed -n 's/^\#define $(VERSIONMACROMINOR) //p' $(VERSIONFILE))
-VERSIONPATCH = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFILE))
-VERSION3     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
-VERSION4     = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+VERSIONMAJOR   = $(shell sed -n 's/^\#define $(VERSIONMACROMAJOR) //p' $(VERSIONFILE))
+VERSIONMINOR   = $(shell sed -n 's/^\#define $(VERSIONMACROMINOR) //p' $(VERSIONFILE))
+VERSIONPATCH   = $(shell sed -n 's/^\#define $(VERSIONMACROPATCH) //p' $(VERSIONFILE))
+VERSION3       = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH)
+VERSION4       = $(VERSIONMAJOR).$(VERSIONMINOR).$(VERSIONPATCH).0
+VISUALIZATIONS = ForestScene InfiniteTunnel CartoonTown TropicalIsland
 dist-prep:
 	echo [NAM] $(APPNAME)
 	echo [SNM] $(APPSHORTNAME)
@@ -398,7 +399,7 @@ dist-%: dist-prep
 		(arm)   echo armhf;; \
 	  esac))
 	$(eval DEBFILE=$(NAME)-$(VERSION3)-1-ubuntu-$(LSBREL)-$(DISTDEBARCH).deb)
-	echo [DEB] $(DEBFILE)
+	echo [PRE] $(DEBFILE)
 	mkdir -p $(DISTDIR)/$(NAME)-$*/DEBIAN
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/bin
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/lib
@@ -415,6 +416,14 @@ dist-%: dist-prep
 	cp ./bin/linux-$*/$(NAME)$(EXTBIN) $(DISTDIR)/$(NAME)-$*/usr/bin/$(APPSHORTNAME)$(EXTBIN)
 	@chmod +x $(DISTDIR)/$(NAME)-$*/usr/bin/$(APPSHORTNAME)$(EXTBIN)
 	-cp ./../../deps/prebuilt/linux/$*/*.so $(DISTDIR)/$(NAME)-$*/usr/lib/
+	for vis in $(VISUALIZATIONS) ; do \
+	  echo [VIS] $$vis ; \
+	  mkdir -p $(DISTDIR)/$(NAME)-$*/usr/share/neuromore/visualizations/$$vis ; \
+	  cp $(DISTDIR)/../../visualizations/$$vis/Info.json $(DISTDIR)/$(NAME)-$*/usr/share/neuromore/visualizations/$$vis/Info.json ; \
+	  cp $(DISTDIR)/../../visualizations/$$vis/Thumbnail.png $(DISTDIR)/$(NAME)-$*/usr/share/neuromore/visualizations/$$vis/Thumbnail.png ; \
+	  cp -r $(DISTDIR)/../../visualizations/$$vis/linux-$*/* $(DISTDIR)/$(NAME)-$*/usr/share/neuromore/visualizations/$$vis/ 2>/dev/null || true; \
+    done
+	echo [DEB] $(DEBFILE)
 	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE) > /dev/null 2>&1
 		
 #dist: dist-prep dist-x64 dist-x86 dist-arm64 dist-arm
