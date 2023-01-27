@@ -9,15 +9,13 @@
       <Files>
         <File DestinationPath="Studio.exe" SourcePath="../../dist/win-10/Studio/x64/Studio.exe"/>
         <File DestinationPath="Studio.pdb" SourcePath="../../dist/win-10/Studio/x64/Studio.pdb"/>
+        <File DestinationPath="*.dll" SourcePath="../../dist/win-10/Studio/x64/*.dll"/>
 
         <File DestinationPath="app-150x150.png" SourcePath="../../dist/win-10/Studio/resources/app-150x150.png"/>
         <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
         <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
 
-        <File DestinationPath="eego-SDK.dll" SourcePath="../../deps/prebuilt/win/x64/eego-SDK.dll"/>
-        <File DestinationPath="gforce64.dll" SourcePath="../../deps/prebuilt/win/x64/gforce64.dll"/>
-        <File DestinationPath="neurosdk-x64.dll" SourcePath="../../deps/prebuilt/win/x64/neurosdk-x64.dll"/>
-        <File DestinationPath="Unicorn.dll" SourcePath="../../deps/prebuilt/win/x64/Unicorn.dll"/>
+		<File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/x64/Visualizations/**"/>
       </Files>
     </Package>
 	
@@ -25,14 +23,13 @@
       <Files>
         <File DestinationPath="Studio.exe" SourcePath="../../dist/win-10/Studio/x86/Studio.exe"/>
         <File DestinationPath="Studio.pdb" SourcePath="../../dist/win-10/Studio/x86/Studio.pdb"/>
+        <File DestinationPath="*.dll" SourcePath="../../dist/win-10/Studio/x86/*.dll"/>
 
         <File DestinationPath="app-150x150.png" SourcePath="../../dist/win-10/Studio/resources/app-150x150.png"/>
         <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
         <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
 
-        <File DestinationPath="eego-SDK.dll" SourcePath="../../deps/prebuilt/win/x86/eego-SDK.dll"/>
-        <File DestinationPath="gforce32.dll" SourcePath="../../deps/prebuilt/win/x86/gforce32.dll"/>
-        <File DestinationPath="neurosdk-x86.dll" SourcePath="../../deps/prebuilt/win/x86/neurosdk-x86.dll"/>
+		<File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/x86/Visualizations/**"/>
       </Files>
     </Package>
 	
@@ -40,10 +37,13 @@
       <Files>
         <File DestinationPath="Studio.exe" SourcePath="../../dist/win-10/Studio/arm64/Studio.exe"/>
         <File DestinationPath="Studio.pdb" SourcePath="../../dist/win-10/Studio/arm64/Studio.pdb"/>
+        <File DestinationPath="*.dll" SourcePath="../../dist/win-10/Studio/arm64/*.dll"/>
 
         <File DestinationPath="app-150x150.png" SourcePath="../../dist/win-10/Studio/resources/app-150x150.png"/>
         <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
         <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
+
+		<File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/arm64/Visualizations/**"/>
       </Files>
     </Package>
 	

@@ -206,6 +206,7 @@ jobs:
       with:
         name: Packages (${{ matrix.os }}-${{ matrix.branding }})
         path: |
+          ./dist/win-10/*.zip
           ./dist/win-10/*.appx
           ./dist/win-10/*.appxbundle
           ./dist/win-10/*.appxupload

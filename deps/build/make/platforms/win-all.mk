@@ -10,6 +10,11 @@ define copyfiles
 	cmd.exe /C "copy /Y $(subst /,\,$(1)) $(subst /,\,$(2)) >nul 2>&1" & exit 0
 endef
 
+# Copy Files recursively
+define copyfilesrecursive
+	cmd.exe /C "xcopy /Y /E /H $(subst /,\,$(1)) $(subst /,\,$(2)) >nul 2>&1" & exit 0
+endef
+
 # Recursively remove folder
 define rmdir	
 	cmd.exe /C "if exist $(subst /,\,$(1)) rd /s /q $(subst /,\,$(1)) >nul 2>&1"
