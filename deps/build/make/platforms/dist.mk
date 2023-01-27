@@ -69,6 +69,7 @@ dist-prep:
 	$(call deletefiles,$(DISTDIR),$(NAME)*.zip)
 	$(call deletefiles,$(DISTDIR),$(NAME)*.appx)
 	$(call deletefiles,$(DISTDIR),$(NAME)*.appxbundle)
+	$(call deletefiles,$(DISTDIR),$(NAME)*.appxupload)
 	$(call mkdir,$(DISTDIR)/$(NAME))
 	$(call mkdir,$(DISTDIR)/$(NAME)/resources)
 	$(call mkdir,$(DISTDIR)/$(NAME)/upload)
