@@ -424,7 +424,7 @@ dist-%: dist-prep
 	  cp -r $(DISTDIR)/../../visualizations/$$vis/linux-$*/* $(DISTDIR)/$(NAME)-$*/usr/share/$(APPSHORTNAME)/visualizations/$$vis/ 2>/dev/null || true; \
     done
 	echo [DEB] $(DEBFILE)
-	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE) > /dev/null 2>&1
+	dpkg-deb --build $(DISTDIR)/$(NAME)-$* $(DISTDIR)/$(DEBFILE)
 		
 #dist: dist-prep dist-x64 dist-x86 dist-arm64 dist-arm
 dist: dist-prep dist-$(TARGET_ARCH)
