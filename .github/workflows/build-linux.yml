@@ -118,6 +118,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
 
     # Set Environment Vars
     - name: Set Environment Vars
