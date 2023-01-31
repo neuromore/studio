@@ -33,7 +33,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-        lfs: true
+        lfs: false
 
     # Load Dependencies from Cache
     - name: Cache Dependencies
