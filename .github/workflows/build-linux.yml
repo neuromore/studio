@@ -21,7 +21,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-        lfs: false
+        lfs: true
     - name: Archive
       run: |
         touch repository.tar.zst
