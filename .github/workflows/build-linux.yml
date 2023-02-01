@@ -25,7 +25,7 @@ jobs:
     - name: Archive
       run: |
         touch repository.tar.zst
-        tar -I "zstd -T0 --ultra -22" --exclude=repository.tar.zst --exclude=.git -cf repository.tar.zst .
+        tar -I "zstd -T0 -19" --exclude=repository.tar.zst --exclude=.git -cf repository.tar.zst .
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
