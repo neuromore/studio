@@ -126,7 +126,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11,macos-12]
+        os: [macos-12]
         branding: [neuromore,supermind,natus]
     env:
       BRANDING: ${{ matrix.branding }}
@@ -204,7 +204,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11,macos-12]
+        os: [macos-12]
         branding: [neuromore]
     env:
       BRANDING: ${{ matrix.branding }}
