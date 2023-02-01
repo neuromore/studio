@@ -59,12 +59,13 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: Repository
-        path: ./repository.tar.zst
+        path: *
 
     # Extract Repository
     - name: Extract Repository
       run: |
         ls -la
+        ls -la repository.tar.zst
         tar --zstd -xvf repository.tar.zst .
 
     # Remove Packages (20.04)
