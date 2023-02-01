@@ -29,6 +29,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
+        retention-days: 1
         name: Repository
         path: ./repository.tar.zst
 
