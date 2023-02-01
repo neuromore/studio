@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2019,windows-2022,macos-11,macos-12]
+        os: [windows-2022,macos-12]
         arch: [x64,x86,arm64,arm]
         branding: [neuromore]
     steps:
