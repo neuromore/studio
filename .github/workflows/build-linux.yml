@@ -26,6 +26,7 @@ jobs:
       run: |
         touch repository.tar.zst
         tar --zstd --exclude=repository.tar.zst --exclude=.git -cvf repository.tar.zst .
+        ls -la
 
     - name: Upload
       uses: actions/upload-artifact@v3
