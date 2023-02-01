@@ -438,13 +438,14 @@ void ResampleProcessor::DoOutputLast()
 {
 	// new samples we have to output
 	const uint32 numNewSamples = mOutputClock.GetNumNewTicks();
-	mOutputClock.ClearNewTicks();
 
 	ChannelBase* input = GetInput();
 	Channel<double>* output = GetOutput()->AsType<double>();
 
 	if (input != NULL && input->IsEmpty() == false)
 	{
+		mOutputClock.ClearNewTicks();
+
 		// get the last value
 		double lastValue = input->AsType<double>()->GetLastSample();
 
