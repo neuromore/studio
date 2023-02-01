@@ -33,6 +33,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: false
 
     # Load Dependencies from Cache
     - name: Cache Dependencies
@@ -137,6 +138,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
 
     # Download X64 Build
     - name: Download X64 Build
@@ -214,6 +216,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
 
     # Download X64 Build
     - name: Download X64 Build
