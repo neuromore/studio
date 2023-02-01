@@ -23,7 +23,7 @@ jobs:
         lfs: false
 
     - name: Archive
-      run: tar --use-compress-program=unzstd -cvf repository.tar.zst .
+      run: tar --zstd --exclude=repository.tar.zst --exclude=.git -cvf repository.tar.zst .
 
     - name: Upload
       uses: actions/upload-artifact@v3
@@ -61,7 +61,7 @@ jobs:
 
     # Extract Repository
     - name: Archive
-      run: tar --use-compress-program=unzstd -xvf repository.tar.zst .
+      run: tar --zstd -xvf repository.tar.zst .
 
     # Remove Packages (20.04)
     - name: Remove Packages (20.04)
