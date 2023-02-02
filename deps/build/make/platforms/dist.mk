@@ -235,6 +235,7 @@ dist-vis-%: dist-prep
 	@cp $(DISTDIR)/../../visualizations/$*/Info.json $(DISTDIRAPP)/Contents/Visualizations/$*/
 	@cp $(DISTDIR)/../../visualizations/$*/Thumbnail.png $(DISTDIRAPP)/Contents/Visualizations/$*/
 	@-cp -r $(DISTDIR)/../../visualizations/$*/osx-all/ $(DISTDIRAPP)/Contents/Visualizations/$*/
+	@-cp -r $(DISTDIR)/../../visualizations/$*/osx-x64/ $(DISTDIRAPP)/Contents/Visualizations/$*/
 	@-codesign --verbose \
 	  --sign "$(PUBLISHERCN)" \
 	  --keychain $(KEYCHAIN) \
