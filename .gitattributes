@@ -13,3 +13,10 @@
 /visualizations/**/UnityCrashHandler32.exe filter=lfs diff=lfs merge=lfs -text
 /visualizations/**/level0                  filter=lfs diff=lfs merge=lfs -text
 /visualizations/**/level1                  filter=lfs diff=lfs merge=lfs -text
+
+# Old Unity 5.6 has large binaries instead of large lib
+
+/visualizations/**/CartoonTown             filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/CartoonTown.exe         filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/TropicalIsland          filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/TropicalIsland.exe      filter=lfs diff=lfs merge=lfs -text
