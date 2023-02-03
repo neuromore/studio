@@ -86,6 +86,11 @@ See [this](https://github.com/neuromore/studio/blob/master/BUILDING.md) for more
 
 See [this](https://github.com/neuromore/studio/blob/master/deps/README.md) for more information about the third party software included in this repository.
 
+## Community 
+
+Have a look at our [Github Discussions](https://github.com/neuromore/studio/discussions) forum to ask questions, brainstorm about future ideas, and connect to other community members.
+
+
 ## FAQ
 
 ### Technical
