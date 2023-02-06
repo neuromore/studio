@@ -371,6 +371,7 @@ void MainWindow::Init()
 			QAction* vizAction = mVisualizationMenu->addAction( visualization->GetName(), this, &MainWindow::OnStartVisualization );
 			vizAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Eye.png") );
 			vizAction->setProperty("index", i);
+			vizAction->setEnabled(visualization->IsSupported());
 		}
 	}
 

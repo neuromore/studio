@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11,macos-12]
+        os: [macos-12]
         arch: [arm64,x64]
         branding: [neuromore]
     steps:
@@ -31,6 +31,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: false
 
     # Load Dependencies from Cache
     - name: Cache Dependencies

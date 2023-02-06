@@ -7,7 +7,35 @@ on:
       - 'master'
       - 'release'
 jobs:
+###########################################################################
+  prepare:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+    strategy:
+      fail-fast: false
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
+    - name: Archive
+      run: |
+        touch repository.tar.zst
+        tar -I "zstd -T0 --ultra -10" --exclude=repository.tar.zst --exclude=.git -cf repository.tar.zst .
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        retention-days: 1
+        name: Repository
+        path: ./repository.tar.zst
+
+###########################################################################
   build:
+    needs: prepare
     runs-on: ${{ matrix.os }}
     timeout-minutes: 360
     env:
@@ -24,6 +52,18 @@ jobs:
         arch: [amd64,i386,arm64,armhf]
         branding: [neuromore,supermind,natus]
     steps:
+
+    # Download Repository
+    - name: Download Repository
+      uses: actions/download-artifact@v3
+      with:
+        name: Repository
+        path: .
+
+    # Extract Repository
+    - name: Extract Repository
+      run: |
+        tar --zstd -xf repository.tar.zst .
 
     # Remove Packages (20.04)
     - name: Remove Packages (20.04)
@@ -112,13 +152,6 @@ jobs:
 
     ############################################################
     
-    # Checkout
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-
     # Set Environment Vars
     - name: Set Environment Vars
       run: |

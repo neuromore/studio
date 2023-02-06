@@ -33,6 +33,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: false
 
     # Load Dependencies from Cache
     - name: Cache Dependencies
@@ -125,7 +126,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11,macos-12]
+        os: [macos-12]
         branding: [neuromore,supermind,natus]
     env:
       BRANDING: ${{ matrix.branding }}
@@ -137,31 +138,32 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
 
     # Download X64 Build
     - name: Download X64 Build
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: Binaries (${{ matrix.os }}-x64-${{ matrix.branding }})
         path: ./build/make/bin/osx-x64/
 
     # Download X64 lto.o
     - name: Download X64 lto.o
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: lto.o (${{ matrix.os }}-x64-${{ matrix.branding }})
         path: ./build/make/obj/osx-x64-release/
 
     # Download ARM64 Build
     - name: Download ARM64 Build
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/bin/osx-arm64/
 
     # Download ARM64 lto.o
     - name: Download ARM64 lto.o
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: lto.o (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/obj/osx-arm64-release/
@@ -202,7 +204,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11,macos-12]
+        os: [macos-12]
         branding: [neuromore]
     env:
       BRANDING: ${{ matrix.branding }}
@@ -214,6 +216,7 @@ jobs:
       with:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
 
     # Download X64 Build
     - name: Download X64 Build

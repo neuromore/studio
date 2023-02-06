@@ -113,6 +113,7 @@ LINKLIBS  := $(LINKLIBS) \
              $(LIBDIRDEP)/libsvm$(SUFFIX)$(EXTLIB) \
              $(LIBDIRDEP)/zlib$(SUFFIX)$(EXTLIB)
 PCH        = Precompiled
+PCHFLAGS  := $(CXXFLAGS)
 MOCH       = Devices/Bluetooth/BluetoothDevice.cpp \
              Devices/Bluetooth/BluetoothDriver.cpp \
              Devices/Bluetooth/BluetoothService.cpp \
@@ -428,6 +429,7 @@ DEFINES   := $(DEFINES) \
              -DNEUROMORE_PLATFORM_WINDOWS \
 			 -DQT_QPA_DEFAULT_PLATFORM_NAME=\"windows\"
 CXXFLAGS  := $(CXXFLAGS)
+PCHFLAGS  := $(PCHFLAGS) -x c++-header
 CFLAGS    := $(CFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/win32-clang-msvc
 MOCH      := $(MOCH)
@@ -504,7 +506,8 @@ DEFINES   := $(DEFINES) \
              -DNEUROMORE_PLATFORM_OSX \
              -DQT_QPA_DEFAULT_PLATFORM_NAME=\"cocoa\" \
              -DQT_FEATURE_fontconfig=1
-CXXFLAGS  := $(CXXFLAGS)
+CXXFLAGS  := $(CXXFLAGS) -fdeclspec -ObjC++
+PCHFLAGS  := $(PCHFLAGS) -fdeclspec -x objective-c++-header
 CFLAGS    := $(CFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/macx-clang
 MOCH      := $(MOCH)
@@ -558,6 +561,7 @@ DEFINES   := $(DEFINES) \
              -DQT_QPA_DEFAULT_PLATFORM_NAME=\"xcb\" \
              -DQT_FEATURE_fontconfig=1
 CXXFLAGS  := $(CXXFLAGS)
+PCHFLAGS  := $(PCHFLAGS) -x c++-header
 CFLAGS    := $(CFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/linux-clang
 MOCH      := $(MOCH)
@@ -627,6 +631,7 @@ ifeq ($(TARGET_OS),android)
 QTMOC     := $(QTMOC) -DQ_OS_ANDROID
 DEFINES   := $(DEFINES)
 CXXFLAGS  := $(CXXFLAGS)
+PCHFLAGS  := $(PCHFLAGS) -x c++-header
 CFLAGS    := $(CFLAGS)
 INCLUDES  := $(INCLUDES) -I$(INCDIR)/qt/mkspecs/android-clang
 MOCH      := $(MOCH)
@@ -664,7 +669,7 @@ endif
 
 pch:
 	@echo [PCH] $(OBJDIR)/$(PCH).pch
-	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(CXXFLAGS) -x c++-header -c $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
+	$(CXX) $(CPUFLAGS) $(DEFINES) $(INCLUDES) $(PCHFLAGS) -c $(SRCDIR)/$(PCH).h -o $(OBJDIR)/$(PCH).pch
 
 ################################################################################################
 # MOC
