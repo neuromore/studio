@@ -146,9 +146,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 #endif
 
 		// neuromore Cloud settings
-#ifndef PRODUCTION_BUILD
 		Property*					mServerPresetProperty;
-#endif
 		Property*					mLogBackendProperty;
 
 		// NETWORK settings
