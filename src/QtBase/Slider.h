@@ -12,8 +12,16 @@
 #include <QWidget>
 #include <QSlider>
 #include <QLabel>
+#include <QEvent>
 #include "Spinbox.h"
 
+class QTBASE_API MouseWheelEventFilter : public QObject
+{
+	virtual inline bool eventFilter(QObject* object, QEvent* event) override
+	{
+		return event->type() == QEvent::Wheel;
+	}
+};
 
 class QTBASE_API IntSlider : public QWidget
 {
