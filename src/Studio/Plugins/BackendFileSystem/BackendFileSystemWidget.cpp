@@ -839,8 +839,6 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				removeAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Minus.png") );
 			}
 
-#ifndef PRODUCTION_BUILD
-//#ifdef NEUROMORE_PLATFORM_WINDOWS
 			menu.addSeparator();
 
 				// copy to clipboard
@@ -856,8 +854,6 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				loadFromDiskSaveToCloudAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png") );
 			
 			menu.addSeparator();
-//#endif
-#endif
 
 			// revisions
 			QMenu* revisionsMenu = menu.addMenu("Revisions");
