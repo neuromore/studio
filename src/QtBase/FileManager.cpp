@@ -516,6 +516,7 @@ bool FileManager::WriteDataToBackend(OpenFile* file)
 		{
 			Core::LogError("Cannot close the file");
 		}
+		mIsInFileSaving = false;
 		emit writeToBackendFinished();
 	});
 
