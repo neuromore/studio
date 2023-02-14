@@ -1351,9 +1351,6 @@ void MainWindow::OnSettings()
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// neuromore Cloud category
 
-		//NOTE: production build doesn't have anything in the cloud category right now!
-
-#ifndef PRODUCTION_BUILD
 		categoryName = "Cloud";
 		PropertyTreeWidget* cloudPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (cloudPropertyWidget == NULL)
@@ -1369,7 +1366,6 @@ void MainWindow::OnSettings()
 
 		mServerPresetProperty				= cloudPropertyWidget->GetPropertyManager()->AddComboBoxProperty( "", "Server", serverPresetNames, GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() );
 		mLogBackendProperty					= cloudPropertyWidget->GetPropertyManager()->AddBoolProperty("", "Backend (REST) Communication Logging", GetBackendInterface()->GetNetworkAccessManager()->IsLogEnabled() );
-#endif
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Network category
