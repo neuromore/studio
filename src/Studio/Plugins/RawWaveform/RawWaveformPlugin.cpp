@@ -120,7 +120,7 @@ void RawWaveformPlugin::RegisterAttributes()
 	attributeSettings = RegisterAttribute("Time (s)", "time", "Length of the displayed Waveform Interval in seconds.", ATTRIBUTE_INTERFACETYPE_FLOATSLIDER);
 	attributeSettings->SetDefaultValue( AttributeFloat::Create(10.0f) );
 	attributeSettings->SetMinValue( AttributeFloat::Create(1.0f) );
-	attributeSettings->SetMaxValue( AttributeFloat::Create(60.0f) );
+	attributeSettings->SetMaxValue( AttributeFloat::Create(1200.0f) );
 
 	// show voltages
 	attributeSettings = RegisterAttribute("Show Voltages", "showVoltages", "", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);

@@ -117,7 +117,7 @@ void ViewPlugin::RegisterAttributes()
 	AttributeSettings* attributeTimeRange = RegisterAttribute("Time Range (s)", "timeRange", "Length of the displayed interval in seconds.", ATTRIBUTE_INTERFACETYPE_FLOATSLIDER);
 	attributeTimeRange->SetDefaultValue( AttributeFloat::Create(defaultViewRange) );
 	attributeTimeRange->SetMinValue( AttributeFloat::Create(1.0f) );
-	attributeTimeRange->SetMaxValue( AttributeFloat::Create(120.0f) );
+	attributeTimeRange->SetMaxValue( AttributeFloat::Create(1200.0f) );
 
 	// set default view duration
 	SetViewDuration(defaultViewRange);

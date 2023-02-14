@@ -38,7 +38,7 @@ ViewNode::ViewNode(Graph* graph) : SPNode(graph)
 {
 	// max view duration
 	mViewDuration = 30;
-	mMaxViewDuration = 120; // same as in plugin
+	mMaxViewDuration = 1200; // same as in plugin
 }
 
 
