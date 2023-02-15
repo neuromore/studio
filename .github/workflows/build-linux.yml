@@ -77,7 +77,7 @@ jobs:
       if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt-get remove -f -y libunwind-14-dev
-        sudo apt-get remove -f -y firefox
+        sudo apt-get remove -f -y firefox unixodbc-dev
         sudo apt-get install -f -y libunwind-dev
         sudo apt-get autoremove -y
 
