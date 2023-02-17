@@ -113,7 +113,7 @@ bool Spectrogram2DPlugin::Init()
 	mChannelSelectionWidget = new ChannelMultiSelectionWidget(mainWidget);
 	toolbarWidgets.Add(mChannelSelectionWidget);
 	connect(mChannelSelectionWidget, SIGNAL(ChannelSelectionChanged()), this, SLOT(OnChannelSelectionChanged()));
-	mChannelSelectionWidget->SetAutoSelectType(ChannelMultiSelectionWidget::AutoSelectType::SELECT_ALL);
+	mChannelSelectionWidget->SetAutoSelectType((ChannelMultiSelectionWidget::AutoSelectType)Branding::DefaultAutoSelectType);
 	mChannelSelectionWidget->SetShowNeuroChannelsOnly(true);
 	mChannelSelectionWidget->Init();
 
