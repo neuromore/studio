@@ -90,10 +90,7 @@ jobs:
 
     # Ubuntu Update
     - name: Update Ubuntu
-      run: |
-        sudo apt-get update -y 
-        sudo apt-get upgrade -f -y
-        sudo apt-get dist-upgrade -f -y
+      run: sudo apt-get update -y 
 
     # Ubuntu Version
     - name: Ubuntu Version
