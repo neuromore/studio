@@ -91,6 +91,7 @@ jobs:
     # Ubuntu Update
     - name: Update Ubuntu
       run: |
+        sudo update-grub
         sudo apt-get update -y 
         sudo apt-get upgrade -f -y
         sudo apt-get dist-upgrade -f -y
