@@ -60,7 +60,6 @@ TestDevice::TestDevice(DeviceDriver* driver, uint32 sampleRate) : BciDevice()
 		// set min and max value for channel: Possible min/max range - [short::min,short::max].
 		mSensors[i]->GetChannel()->SetMinValue(std::numeric_limits<short>::min());
 		mSensors[i]->GetChannel()->SetMaxValue(std::numeric_limits<short>::max());
-		mSensors[i]->GetChannel()->SetBufferSizeInSeconds(1200.0);
 		mElectrodeTimeOffsets[i] = Math::RandD( 0.0, 100.0 );
 	}
 
