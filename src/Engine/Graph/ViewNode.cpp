@@ -37,8 +37,8 @@ using namespace Core;
 ViewNode::ViewNode(Graph* graph) : SPNode(graph)
 {
 	// max view duration
-	mViewDuration = 30;
-	mMaxViewDuration = 1200; // same as in plugin
+	mViewDuration = VIEWDURATION;
+	mMaxViewDuration = VIEWDURATIONMAX; // same as in plugin
 }
 
 
@@ -99,6 +99,9 @@ void ViewNode::Init()
 	const bool defaultCombinedView = false;
 	AttributeSettings* attributeCombinedView = RegisterAttribute("Combined View", "combineView", "Display all input channels in a single chart.", ATTRIBUTE_INTERFACETYPE_CHECKBOX);
 	attributeCombinedView->SetDefaultValue( AttributeBool::Create(defaultCombinedView) );
+
+	// sync buffer size to initial value
+	SyncBufferSize(true);
 }
 
 
@@ -109,7 +112,7 @@ void ViewNode::ReInit(const Time& elapsed, const Time& delta)
 
 	// reinit baseclass
 	SPNode::ReInit(elapsed, delta);
-
+	
 	PostReInit(elapsed, delta);
 }
 
@@ -331,4 +334,21 @@ void ViewNode::CalculateScalingRange()
 				mRangesMax[i] = 1.0;
 			}
 	}
+}
+
+void ViewNode::SyncBufferSize(bool discard)
+{
+	InputPort& doublePort = GetInputPort(INPUTPORT_DOUBLE);
+	InputPort& specPort   = GetInputPort(INPUTPORT_SPECTRUM);
+	InputPort& enablePort = GetInputPort(INPUTPORT_ENABLE);
+	MultiChannel* channels;
+
+	if (doublePort.HasConnection() && (channels = doublePort.GetChannels()))
+		channels->SetBufferSizeInSeconds(mViewDuration, discard);
+
+	if (specPort.HasConnection() && (channels = specPort.GetChannels()))
+		channels->SetBufferSizeInSeconds(mViewDuration, discard);
+
+	if (enablePort.HasConnection() && (channels = enablePort.GetChannels()))
+		channels->SetBufferSizeInSeconds(mViewDuration, discard);
 }

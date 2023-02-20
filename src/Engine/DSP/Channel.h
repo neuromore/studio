@@ -55,8 +55,8 @@ class Channel : public ChannelBase
 		uint32 GetType() const override									{ return TYPE_ID; }
 
 		// configure channel
-		virtual void SetBufferSize(uint32 numSamples) override;
-		inline void SetBufferSizeInSeconds(double seconds) { SetBufferSize((uint32)::ceil(mSampleRate * seconds)); }
+		virtual void SetBufferSize(uint32 numSamples, bool discard = true) override;
+		inline void SetBufferSizeInSeconds(double seconds, bool discard = true) { SetBufferSize((uint32)::ceil(mSampleRate * seconds), discard); }
 
         uint32 CalcChunkSize() const                                    { return Core::Max<uint32>(mSampleRate * 5.0, 100); }
 
