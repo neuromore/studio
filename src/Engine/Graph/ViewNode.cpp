@@ -112,7 +112,7 @@ void ViewNode::ReInit(const Time& elapsed, const Time& delta)
 
 	// reinit baseclass
 	SPNode::ReInit(elapsed, delta);
-	
+
 	PostReInit(elapsed, delta);
 }
 
