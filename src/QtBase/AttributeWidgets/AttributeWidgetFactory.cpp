@@ -34,6 +34,8 @@ AttributeWidgetFactory::AttributeWidgetFactory()
 	RegisterCreator( new ColorMappingAttributeWidgetCreator() );
 	RegisterCreator( new WindowFunctionAttributeWidgetCreator() );
 	RegisterCreator( new ButtonAttributeWidgetCreator());
+	RegisterCreator( new TextAttributeWidgetCreator() );
+
 }
 
 
