@@ -8,6 +8,7 @@
 #include <Engine/Core/AttributeFloat.h>
 #include <Engine/Core/AttributeInt32.h>
 #include <Engine/Core/AttributeString.h>
+#include <Engine/Core/AttributeText.h>
 #include <Engine/Core/AttributeColor.h>
 #include <Engine/Core/ByteArray.h>
 #include <Engine/Core/Color.h>

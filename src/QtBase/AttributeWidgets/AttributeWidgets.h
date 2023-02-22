@@ -16,6 +16,7 @@
 #include <Core/AttributeFloat.h>
 #include <Core/AttributeString.h>
 #include <Core/AttributeStringArray.h>
+#include <Core/AttributeText.h>
 #include <Core/AttributeColor.h>
 #include <Core/AttributeSettings.h>
 #include <Core/AttributeSet.h>
@@ -28,6 +29,7 @@
 #include <QWidget>
 #include <QComboBox>
 #include <QLineEdit>
+#include <QPlainTextEdit>
 #include <QCheckBox>
 
 
@@ -209,6 +211,20 @@ class QTBASE_API StringArrayAttributeWidget : public AttributeWidget
 		void OnStringChange();
 	private:
 		QLineEdit* mLineEdit;
+};
+
+
+// text attribute widget
+class QTBASE_API TextAttributeWidget : public AttributeWidget
+{
+	Q_OBJECT
+	public:
+		TextAttributeWidget(const Core::Array<Core::Attribute*> attributes, Core::AttributeSettings* attributeSettings, void* customData, bool readOnly, bool creationMode=false);
+		void SetValue(Core::Attribute* attribute) override;
+	protected slots:
+		void OnStringChange();
+	private:
+		QPlainTextEdit* mPlainTextEdit;
 };
 
 

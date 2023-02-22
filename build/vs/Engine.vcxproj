@@ -541,6 +541,7 @@
     <ClInclude Include="..\..\src\Engine\Core\AttributeString.h" />
     <ClInclude Include="..\..\src\Engine\Core\AttributeStringArray.h" />
     <ClCompile Include="..\..\src\Engine\Core\ByteArray.cpp" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeText.h" />
     <ClInclude Include="..\..\src\Engine\Core\ByteArray.h" />
     <ClCompile Include="..\..\src\Engine\Core\Color.cpp" />
     <ClInclude Include="..\..\src\Engine\Core\Color.h" />

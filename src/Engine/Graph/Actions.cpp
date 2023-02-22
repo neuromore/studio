@@ -241,9 +241,9 @@ void HideImageAction::Execute()
 // initialize attributes
 void ShowTextAction::Init()
 {
-	// register audio url attribute
-	AttributeSettings* urlAttribute = RegisterAttribute("Text", "test", "The test to show.", ATTRIBUTE_INTERFACETYPE_STRING);
-	urlAttribute->SetDefaultValue( AttributeString::Create("Example text") );
+	// register text attribute
+	AttributeSettings* textAttribute = RegisterAttribute("Text", "text", "The text to show.", ATTRIBUTE_INTERFACETYPE_TEXT);
+	textAttribute->SetDefaultValue( AttributeText::Create("Example text") );
 
 	// custom color
 	AttributeSettings* colorAttribute = RegisterAttribute("Color", "color", "The text color.", ATTRIBUTE_INTERFACETYPE_COLOR);
@@ -254,7 +254,7 @@ void ShowTextAction::Init()
 // execute action
 void ShowTextAction::Execute()
 {
-	mText					= GetStringAttribute( ATTRIBUTE_TEXT );
+	mText					= GetTextAttribute( ATTRIBUTE_TEXT );
 	const Color	color	= GetColorAttribute( ATTRIBUTE_COLOR );
 
 	// check if there are any placeholders in the string
