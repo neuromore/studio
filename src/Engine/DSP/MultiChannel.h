@@ -69,7 +69,11 @@ class ENGINE_API MultiChannel
 		bool IsHighlighted() const;
 
 		// get/set buffer size of all channels
-		void SetBufferSize(uint32 numSamples);
+		void SetBufferSize(uint32 numSamples, bool discard = true);
+		inline void SetBufferSizeInSeconds(double seconds, bool discard = true) { 
+			SetBufferSize((uint32)::ceil(GetSampleRate() * seconds), discard); 
+		}
+
 		uint32 GetMinBufferSize() const;
 		bool IsBuffer() const;
 		uint32 CalculateMemoryAllocated(bool countBuffersOnly = false);

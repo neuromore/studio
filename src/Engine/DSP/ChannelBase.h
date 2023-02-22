@@ -101,8 +101,9 @@ class ENGINE_API ChannelBase
 		// set a maximum size of the channel (if > 0 it behaves like a circular buffer)
 		bool IsBuffer() const													{ return (mBufferSize != 0); }
 		
-		virtual void SetBufferSize(uint32 numSamples) = 0;
+		virtual void SetBufferSize(uint32 numSamples, bool discard = true) = 0;
 		uint32 GetBufferSize() const											{ return mBufferSize; }
+
 		virtual uint64 CalculateMemoryAllocated(bool countBuffersOnly = false) const = 0;
 		virtual uint64 CalculateMemoryUsed( bool countBuffersOnly = false) const = 0;
 

@@ -113,14 +113,13 @@ void ViewPlugin::RegisterAttributes()
 	Plugin::RegisterAttributes();
 
 	// displayed interval duration
-	const double defaultViewRange = 10;
 	AttributeSettings* attributeTimeRange = RegisterAttribute("Time Range (s)", "timeRange", "Length of the displayed interval in seconds.", ATTRIBUTE_INTERFACETYPE_FLOATSLIDER);
-	attributeTimeRange->SetDefaultValue( AttributeFloat::Create(defaultViewRange) );
+	attributeTimeRange->SetDefaultValue( AttributeFloat::Create(ViewNode::VIEWDURATION) );
 	attributeTimeRange->SetMinValue( AttributeFloat::Create(1.0f) );
-	attributeTimeRange->SetMaxValue( AttributeFloat::Create(120.0f) );
+	attributeTimeRange->SetMaxValue( AttributeFloat::Create(ViewNode::VIEWDURATIONMAX) );
 
 	// set default view duration
-	SetViewDuration(defaultViewRange);
+	SetViewDuration(ViewNode::VIEWDURATION);
 
 	// visual sample style
 	AttributeSettings* attributeStyle = RegisterAttribute("Style", "style", "The visual appearance of the chart.", ATTRIBUTE_INTERFACETYPE_COMBOBOX);

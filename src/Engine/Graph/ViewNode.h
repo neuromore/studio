@@ -36,6 +36,9 @@ class ENGINE_API ViewNode : public SPNode
 		enum { TYPE_ID = 0x0033 };
 		static const char* Uuid () { return "8b55d922-3200-11e5-a151-feff819cdc9f"; }
 		
+		static const constexpr uint32_t VIEWDURATION    = 30;   // 30s
+		static const constexpr uint32_t VIEWDURATIONMAX = 1200; // 20min
+		
 		//
 		enum
 		{
@@ -104,13 +107,18 @@ class ENGINE_API ViewNode : public SPNode
 		MultiChannel* GetSpectrumChannels();
 		Channel<Spectrum>* GetSpectrumChannel(uint32 index);
 
-		void SetViewDuration(double seconds)									{ mViewDuration = seconds; }
+		inline void SetViewDuration(double seconds)									
+		{ 
+			mViewDuration = seconds;
+			SyncBufferSize(false);
+		}
 		
 		virtual uint32 GetNumEpochSamples(uint32 inputPortIndex) const override;
 
 	private:
 		void CalculateScalingRange();
-		
+		void SyncBufferSize(bool discard = false);
+
 		double				mViewDuration;
 		double				mMaxViewDuration;
 

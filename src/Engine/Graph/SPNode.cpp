@@ -717,29 +717,10 @@ void SPNode::ResizeBuffers(double seconds)
 		const uint32 defaultMinBufferSize = 500;
 		const double sampleRate = channels->GetSampleRate();
 		const uint32 minBufferSizeForRealtime = (sampleRate > 0 ? seconds * sampleRate : defaultMinBufferSize);
-		const uint32 newBufferSize = minBufferSizeForReader + minBufferSizeForRealtime;
+		const uint32 newBufferSize = ::std::max(minBufferSizeForReader, minBufferSizeForRealtime);
 
-		// 3) resize all buffers and reset node if size has changed
-		const uint32 numChannels = channels->GetNumChannels();
-		for (uint32 c = 0; c<numChannels; ++c)
-		{
-			ChannelBase* channel = channels->GetChannel(c);
-
-			// only grow buffers
-			if (newBufferSize > channel->GetBufferSize())
-			{
-				LogDebug("SPNode::ResizeBuffers: resizing buffers from %i to %i", channel->GetBufferSize(), newBufferSize);
-
-				// get last sampletime before resetting it
-				Time newStartTime = channel->GetLastSampleTime();
-
-				// set new buffer size (grow only, resets channel)
-				channel->SetBufferSize(newBufferSize);
-
-				// continue channel where it ended
-				channel->SetStartTime(newStartTime);
-			}
-		}
+		// 3) resize all buffers, but DO NOT RESET
+		channels->SetBufferSize(newBufferSize, false);
 	}
 }
 
