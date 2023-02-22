@@ -16,9 +16,7 @@
 #include <Core/AttributeFloat.h>
 #include <Core/AttributeString.h>
 #include <Core/AttributeStringArray.h>
-
 #include <Core/AttributeText.h>
-
 #include <Core/AttributeColor.h>
 #include <Core/AttributeSettings.h>
 #include <Core/AttributeSet.h>

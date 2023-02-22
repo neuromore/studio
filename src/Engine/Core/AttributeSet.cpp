@@ -428,8 +428,6 @@ bool AttributeSet::SetColorAttribute(const char* internalName, const Color& valu
 bool AttributeSet::SetStringAttribute(const char* internalName, const char* value, bool createIfNotExists)							{ CORE_ATTRIBUTESET_DECLARE_SETBYNAME( AttributeString ) }
 bool AttributeSet::SetTextAttribute(const char* internalName, const char* value, bool createIfNotExists)							{ CORE_ATTRIBUTESET_DECLARE_SETBYNAME( AttributeText ) }
 
-
-
 bool AttributeSet::SetFloatAttributeByIndex(uint32 index, double value, bool createIfNotExists)										{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeFloat ) }
 bool AttributeSet::SetInt32AttributeByIndex(uint32 index, int32 value, bool createIfNotExists)										{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeInt32 ) }
 bool AttributeSet::SetBoolAttributeByIndex(uint32 index, bool value, bool createIfNotExists)										{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeBool ) }

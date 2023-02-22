@@ -241,9 +241,9 @@ void HideImageAction::Execute()
 // initialize attributes
 void ShowTextAction::Init()
 {
-	// register audio url attribute
-	AttributeSettings* urlAttribute = RegisterAttribute("Text", "text", "The text to show.", ATTRIBUTE_INTERFACETYPE_TEXT);
-	urlAttribute->SetDefaultValue( AttributeText::Create("Example text") );
+	// register text attribute
+	AttributeSettings* textAttribute = RegisterAttribute("Text", "text", "The text to show.", ATTRIBUTE_INTERFACETYPE_TEXT);
+	textAttribute->SetDefaultValue( AttributeText::Create("Example text") );
 
 	// custom color
 	AttributeSettings* colorAttribute = RegisterAttribute("Color", "color", "The text color.", ATTRIBUTE_INTERFACETYPE_COLOR);
