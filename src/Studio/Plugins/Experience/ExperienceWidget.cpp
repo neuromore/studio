@@ -51,28 +51,30 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) :
 {
 	mGifMovie = NULL;
 
-   // main layout vertical
-   mMainLayout = new QVBoxLayout();
-   mMainLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	// main layout vertical
+	mMainLayout = new QVBoxLayout();
+	mMainLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
 
-   // button layout horizontal
-   mButtonLayout = new QHBoxLayout();
-   mButtonLayout->setAlignment( Qt::AlignBottom);
+	// multiple buttons layout horizontaly
+	mButtonLayout = new QHBoxLayout();
+	mButtonLayout->setAlignment( Qt::AlignBottom);
 
-   mTextEdit = new QPlainTextEdit(this);
-   mTextEdit->setMaximumHeight(128);
-   mTextEdit->setMinimumHeight(32);
-   mTextEdit->setVisible(true);
-   
-   mTextEditLayout = new QHBoxLayout();
-   mTextEditLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
-   mTextEditLayout->addWidget(mTextEdit);
+	// text input element
+	mTextEdit = new QPlainTextEdit(this);
+	mTextEdit->setMaximumHeight(128);
+	mTextEdit->setMinimumHeight(32);
+	mTextEdit->setVisible(false);
 
+	// text input element layout
+	mTextEditLayout = new QHBoxLayout();
+	mTextEditLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	mTextEditLayout->addWidget(mTextEdit);
 
-   mMainLayout->addLayout(mTextEditLayout);
-   mMainLayout->addLayout(mButtonLayout);
+	// add both to main layout (textedit above buttons)
+	mMainLayout->addLayout(mTextEditLayout);
+	mMainLayout->addLayout(mButtonLayout);
 
-   setLayout( mMainLayout );
+	setLayout( mMainLayout );
 
 	CORE_EVENTMANAGER.AddEventHandler(this);
 
@@ -804,6 +806,27 @@ void ExperienceWidget::OnHideText()
 	update();
 }
 
+void ExperienceWidget::OnShowTextInput(const char* text, uint32 id)
+{
+	LogDebug("Experience Widget: OnShowTextInput(text='%s')", text);
+	if (mTextEdit) {
+		mTextEdit->setPlainText(text);
+		mTextEdit->setVisible(true);
+	}
+	update();
+}
+
+
+void ExperienceWidget::OnHideTextInput()
+{
+	LogDebug("Experience Widget: OnHideTextInput()");
+	if (mTextEdit) {
+		mTextEdit->setPlainText("");
+		mTextEdit->setVisible(false);
+	}
+	update();
+}
+
 
 void ExperienceWidget::OnSetBackgroundColor(const Core::Color& color)
 {
@@ -906,6 +929,9 @@ void ExperienceWidget::OnRemoveNode(Graph* graph, Node* node)
 
 void ExperienceWidget::OnGraphReset(Graph* graph)
 {
+   if (graph && graph->GetType() == StateMachine::TYPE_ID)
+      ClearButtons();
+
    /*const uint32_t nPlayers = mTonePlayers.Size();
    for (uint32_t i = 0; i < nPlayers; i++)
       mTonePlayers[i]->Reset();*/

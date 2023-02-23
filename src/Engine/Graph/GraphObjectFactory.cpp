@@ -297,6 +297,9 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new BrowserStopPlayerAction(NULL) );
 		RegisterObjectType( new BrowserPausePlayerAction(NULL) );
 
+		RegisterObjectType( new ShowTextInputAction(NULL) );
+		RegisterObjectType( new HideTextInputAction(NULL) );
+
 #ifndef PRODUCTION_BUILD
 		// LORETA
 		RegisterObjectType( new LoretaNode(NULL) );
