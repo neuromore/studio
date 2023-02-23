@@ -272,7 +272,6 @@ void ExperienceWidget::AddButton(const char* text, uint32 buttonId)
 {
 	QPushButton* button = new QPushButton( text, this );
 	button->setProperty( "buttonId", buttonId );
-   button->setMinimumWidth(128);
 	connect( button, SIGNAL(clicked()), this, SLOT(OnButtonClicked()) );
 	mButtons.Add(button);
 	mButtonLayout->addWidget(button);

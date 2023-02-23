@@ -680,7 +680,7 @@ class ENGINE_API ShowTextInputAction : public Action
 {
 	public:
 		enum { TYPE_ID = 0x00720 };
-		static const char* Uuid ()																{ return "437fe72e-5f18-4352-b83a-59fe31937280"; }
+		static const char* Uuid () { return "437fe72e-5f18-4352-b83a-59fe31937280"; }
 
 		enum
 		{
@@ -690,17 +690,17 @@ class ENGINE_API ShowTextInputAction : public Action
 
 		// constructor & destructor
 		ShowTextInputAction(Graph* graph) : Action(graph), mId(0) {}
-		~ShowTextInputAction()																		{}
+		~ShowTextInputAction() {}
 
 		void Init() override;
 		void Execute() override;
-		void Update(const Core::Time& elapsed, const Core::Time& delta) override				{}
+		void Update(const Core::Time& elapsed, const Core::Time& delta) override {}
 
 		// overloaded
-		virtual const char* GetReadableType() const override final								{ return "Show TextInput Action"; }
-		uint32 GetType() const override															{ return TYPE_ID; }
-		const char* GetTypeUuid() const override final											{ return Uuid(); }
-		GraphObject* Clone(Graph* graph) override												{ ShowTextInputAction* clone = new ShowTextInputAction(graph); return clone; }
+		virtual const char* GetReadableType() const override final { return "Show TextInput Action"; }
+		uint32 GetType() const override                            { return TYPE_ID; }
+		const char* GetTypeUuid() const override final             { return Uuid(); }
+		GraphObject* Clone(Graph* graph) override                  { ShowTextInputAction* clone = new ShowTextInputAction(graph); return clone; }
 
 	private:
 		Core::String mText;
@@ -715,21 +715,21 @@ class ENGINE_API HideTextInputAction : public Action
 {
 	public:
 		enum { TYPE_ID = 0x00721 };
-		static const char* Uuid ()																{ return "b4ce67f2-ac07-40c0-bbae-db0d3b1528f3"; }
+		static const char* Uuid () { return "b4ce67f2-ac07-40c0-bbae-db0d3b1528f3"; }
 
 		// constructor & destructor
-		HideTextInputAction(Graph* graph) : Action(graph)											{}
-		~HideTextInputAction()																		{}
+		HideTextInputAction(Graph* graph) : Action(graph) {}
+		~HideTextInputAction() {}
 
 		void Init() override;
 		void Execute() override;
-		void Update(const Core::Time& elapsed, const Core::Time& delta) override				{}
+		void Update(const Core::Time& elapsed, const Core::Time& delta) override {}
 
 		// overloaded
-		virtual const char* GetReadableType() const override final								{ return "Hide TextInput Action"; }
-		uint32 GetType() const override															{ return TYPE_ID; }
-		const char* GetTypeUuid() const override final											{ return Uuid(); }
-		GraphObject* Clone(Graph* graph) override												{ HideTextInputAction* clone = new HideTextInputAction(graph); return clone; }
+		virtual const char* GetReadableType() const override final { return "Hide TextInput Action"; }
+		uint32 GetType() const override                            { return TYPE_ID; }
+		const char* GetTypeUuid() const override final             { return Uuid(); }
+		GraphObject* Clone(Graph* graph) override                  { HideTextInputAction* clone = new HideTextInputAction(graph); return clone; }
 };
 
 
