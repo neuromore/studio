@@ -54,16 +54,20 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) :
 	// main layout vertical
 	mMainLayout = new QVBoxLayout();
 	mMainLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	mMainLayout->setMargin(MAINLAYOUTPADDING);
 
 	// multiple buttons layout horizontaly
 	mButtonLayout = new QHBoxLayout();
 	mButtonLayout->setAlignment( Qt::AlignBottom);
+	mButtonLayout->setSpacing(16);
 
 	// text input element
 	mTextEdit = new QPlainTextEdit(this);
 	mTextEdit->setMaximumHeight(128);
 	mTextEdit->setMinimumHeight(32);
+	mTextEdit->setStyleSheet("border: 2px solid; border-radius:16px;");
 	mTextEdit->setVisible(false);
+	mTextEdit->document()->setDocumentMargin(16.0);
 
 	// text input element layout
 	mTextEditLayout = new QHBoxLayout();
@@ -493,8 +497,8 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 
 	font.setPixelSize( textScaler );
 	painter.setFont( font );
-	const int textedith = mTextEdit->isVisible() ? mTextEdit->height() : 0;
-	painter.drawText( QRect( 0, 0, width(), height()-textedith), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
+	const int usedheight = MAINLAYOUTPADDING + mTextEdit->isVisible() ? mTextEdit->height() : 0;
+	painter.drawText( QRect( 0, 0, width(), height()-usedheight), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
 	
     painter.end();
 }

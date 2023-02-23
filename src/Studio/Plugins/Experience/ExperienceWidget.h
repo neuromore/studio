@@ -56,6 +56,8 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		ExperienceWidget(QWidget* parent=NULL);
 		virtual ~ExperienceWidget();
 
+		static constexpr const uint32 MAINLAYOUTPADDING = 64;
+
 		void UpdateInterface();
 
 		static void DrawPixmapKeepAspectRatio(QWidget* widget, QPainter& painter, const QPixmap& pixmap);
