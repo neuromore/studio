@@ -51,10 +51,28 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) :
 {
 	mGifMovie = NULL;
 
-	// create the button layout
-	mButtonLayout = new QHBoxLayout();
-	mButtonLayout->setAlignment( Qt::AlignBottom );
-	setLayout( mButtonLayout );
+   // main layout vertical
+   mMainLayout = new QVBoxLayout();
+   mMainLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+
+   // button layout horizontal
+   mButtonLayout = new QHBoxLayout();
+   mButtonLayout->setAlignment( Qt::AlignBottom);
+
+   mTextEdit = new QPlainTextEdit(this);
+   mTextEdit->setMaximumHeight(128);
+   mTextEdit->setMinimumHeight(32);
+   mTextEdit->setVisible(true);
+   
+   mTextEditLayout = new QHBoxLayout();
+   mTextEditLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+   mTextEditLayout->addWidget(mTextEdit);
+
+
+   mMainLayout->addLayout(mTextEditLayout);
+   mMainLayout->addLayout(mButtonLayout);
+
+   setLayout( mMainLayout );
 
 	CORE_EVENTMANAGER.AddEventHandler(this);
 
@@ -252,6 +270,7 @@ void ExperienceWidget::AddButton(const char* text, uint32 buttonId)
 {
 	QPushButton* button = new QPushButton( text, this );
 	button->setProperty( "buttonId", buttonId );
+   button->setMinimumWidth(128);
 	connect( button, SIGNAL(clicked()), this, SLOT(OnButtonClicked()) );
 	mButtons.Add(button);
 	mButtonLayout->addWidget(button);
@@ -464,6 +483,8 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 	painter.setPen( mTextColor );
 	painter.setBrush( mTextColor );
 
+
+	// E) Text
 	QFont font;
 
 	const uint32 textLength = mText.size();
@@ -471,7 +492,8 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 
 	font.setPixelSize( textScaler );
 	painter.setFont( font );
-	painter.drawText( QRect( 0, 0, width(), height() ), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
+	const int textedith = mTextEdit->isVisible() ? mTextEdit->height() : 0;
+	painter.drawText( QRect( 0, 0, width(), height()-textedith), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
 	
     painter.end();
 }

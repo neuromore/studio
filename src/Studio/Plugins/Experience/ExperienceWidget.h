@@ -167,6 +167,11 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		QColor						mBackgroundColor;
 		Core::Array<QColor>			mAVEZoneColors;
 
+      QVBoxLayout* mMainLayout;
+
+      QPlainTextEdit* mTextEdit;
+      QHBoxLayout* mTextEditLayout;
+
 		Core::Array<QPushButton*>	mButtons;
 		QHBoxLayout*				mButtonLayout;
 
