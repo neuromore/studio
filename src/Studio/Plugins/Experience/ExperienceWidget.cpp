@@ -65,7 +65,7 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) :
 	mTextEdit = new QPlainTextEdit(this);
 	mTextEdit->setMaximumHeight(128);
 	mTextEdit->setMinimumHeight(32);
-	mTextEdit->setStyleSheet("border: 2px solid; border-radius:16px;");
+	mTextEdit->setStyleSheet("border: 2px solid grey; border-radius:16px; font-size:18px; color:#009FE3");
 	mTextEdit->setVisible(false);
 	mTextEdit->document()->setDocumentMargin(16.0);
 
@@ -274,8 +274,13 @@ void ExperienceWidget::Clear()
 // add a new button condition button
 void ExperienceWidget::AddButton(const char* text, uint32 buttonId)
 {
+	QFont font;
+	font.setPixelSize(12);
+	font.setBold(true);
+
 	QPushButton* button = new QPushButton( text, this );
 	button->setProperty( "buttonId", buttonId );
+	button->setFont(font);
 	connect( button, SIGNAL(clicked()), this, SLOT(OnButtonClicked()) );
 	mButtons.Add(button);
 	mButtonLayout->addWidget(button);
