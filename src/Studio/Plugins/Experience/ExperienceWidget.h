@@ -56,6 +56,8 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 		ExperienceWidget(QWidget* parent=NULL);
 		virtual ~ExperienceWidget();
 
+		static constexpr const uint32 MAINLAYOUTPADDING = 64;
+
 		void UpdateInterface();
 
 		static void DrawPixmapKeepAspectRatio(QWidget* widget, QPainter& painter, const QPixmap& pixmap);
@@ -81,6 +83,9 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 
 		void OnShowText(const char* text, const Core::Color& color) override;
 		void OnHideText() override;
+
+		void OnShowTextInput(const char* text, uint32 id) override;
+		void OnHideTextInput() override;
 
 		void OnSetBackgroundColor(const Core::Color& color) override;
 		
@@ -166,6 +171,11 @@ class ExperienceWidget : public QWidget, public Core::EventHandler
 
 		QColor						mBackgroundColor;
 		Core::Array<QColor>			mAVEZoneColors;
+
+		QVBoxLayout*    mMainLayout;
+
+		QPlainTextEdit* mTextEdit;
+		QHBoxLayout*    mTextEditLayout;
 
 		Core::Array<QPushButton*>	mButtons;
 		QHBoxLayout*				mButtonLayout;

@@ -826,3 +826,48 @@ void BrowserPausePlayerAction::Execute()
 {
 	EMIT_EVENT(OnBrowserPausePlayer());
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// show textinput action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// initialize attributes
+void ShowTextInputAction::Init()
+{
+	// register text attribute
+	AttributeSettings* textAttribute = RegisterAttribute("Text", "text", "The text to show.", ATTRIBUTE_INTERFACETYPE_TEXT);
+	textAttribute->SetDefaultValue( AttributeText::Create("") );
+
+	// custom color
+	AttributeSettings* idAttribute = RegisterAttribute("ID", "id", "The id of the input.", ATTRIBUTE_INTERFACETYPE_INTSPINNER);
+	idAttribute->SetDefaultValue( AttributeInt32::Create(0) );
+	idAttribute->SetMinValue(AttributeInt32::Create(0));
+	idAttribute->SetMaxValue(AttributeInt32::Create(1000));
+}
+
+
+// execute action
+void ShowTextInputAction::Execute()
+{
+	mText = GetTextAttribute(ATTRIBUTE_TEXT);
+	mId = GetInt32Attribute(ATTRIBUTE_ID);
+	EMIT_EVENT(OnShowTextInput(mText.AsChar(), mId));
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// hide textinput action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// initialize attributes
+void HideTextInputAction::Init()
+{
+}
+
+
+// execute action
+void HideTextInputAction::Execute()
+{
+	EMIT_EVENT(OnHideTextInput());
+}
