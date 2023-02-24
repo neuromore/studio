@@ -591,7 +591,7 @@ EEGElectrodes::Electrode EEGElectrodes::GetElectrodeByID(const String& electrode
 	}
 	else
 	{
-		return Electrode();
+		return Electrode(electrodeID, 0.0, 0.0);
 	}
 }
 
