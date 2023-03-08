@@ -48,5 +48,7 @@
 	<false/>
 	<key>LSMultipleInstancesProhibited</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This software supports bluetooth based devices like heart-rate monitors.</string>
 </dict>
 </plist>
