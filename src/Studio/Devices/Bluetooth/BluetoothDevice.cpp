@@ -74,7 +74,7 @@ void BluetoothDevice::Connect()
     LogInfo( "Connecting to Bluetooth LE device '%s' (Address: %s) ...", mDeviceInfo.name().toLatin1().data(), GetDeviceInfoAddress(mDeviceInfo).toLatin1().data() );
 
 	// create the Bluetooth LE controller
-	mController = new QLowEnergyController( mDeviceInfo, this );
+	mController = QLowEnergyController::createCentral( mDeviceInfo, this );
 	connect( mController, SIGNAL(serviceDiscovered(QBluetoothUuid)), this, SLOT(OnServiceDiscovered(QBluetoothUuid)));
 	connect( mController, SIGNAL(discoveryFinished()), this, SLOT(OnServiceScanDone()));
 	connect( mController, SIGNAL(error(QLowEnergyController::Error)), this, SLOT(OnControllerError(QLowEnergyController::Error)));
