@@ -166,6 +166,7 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 		case AutoSelectType::SELECT_NONE: numBoxesToSelect = 0; break;
 		case AutoSelectType::SELECT_FIRST: numBoxesToSelect = 1; break;
 		case AutoSelectType::SELECT_FIRST_TWO: numBoxesToSelect = 2; break;
+		case AutoSelectType::SELECT_FIRST_EIGHT: numBoxesToSelect = 8; break;
 
 		case AutoSelectType::SELECT_ALL: 
 		default:

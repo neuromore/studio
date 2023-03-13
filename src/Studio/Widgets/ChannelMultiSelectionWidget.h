@@ -38,10 +38,11 @@ class ChannelMultiSelectionWidget : public QWidget
 	public:
 		// device-change behaviour (values used in Branding.h!)
 		enum AutoSelectType { 
-			SELECT_ALL       = 0,
-			SELECT_NONE      = 1,
-			SELECT_FIRST     = 2,
-			SELECT_FIRST_TWO = 3
+			SELECT_ALL         = 0,
+			SELECT_NONE        = 1,
+			SELECT_FIRST       = 2,
+			SELECT_FIRST_TWO   = 3,
+			SELECT_FIRST_EIGHT = 4,
 		};
 
 		// constructor & destructor
