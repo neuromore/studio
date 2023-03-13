@@ -89,7 +89,7 @@ void HMultiCheckboxWidget::ReInit(const Array<String>& names, const Array<String
 	mCheckboxes.Resize( numCheckboxes );
 
 	// break line after that many checkboxes
-	const uint32_t BOXESINROW = 16;
+	const uint32_t BOXESINROW = 8;
 
 	// start cell (all is in 0,0)
 	uint32_t row = 0;

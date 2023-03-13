@@ -46,7 +46,7 @@ ChannelMultiSelectionWidget::ChannelMultiSelectionWidget(QWidget* parent) : QWid
 
 	QHBoxLayout* hLayout = new QHBoxLayout();
 	hLayout->addWidget(mDeviceSelectionWidget, 0, Qt::AlignTop);
-	hLayout->addWidget(mShowUsedCheckbox);
+	hLayout->addWidget(mShowUsedCheckbox, 0, Qt::AlignTop);
 	hLayout->addWidget(mChannelMultiCheckbox);
 	hLayout->setMargin(0);
 	hLayout->setSpacing(0);
