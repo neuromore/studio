@@ -88,14 +88,19 @@ void HMultiCheckboxWidget::ReInit(const Array<String>& names, const Array<String
 	// prepare the checkbox array
 	mCheckboxes.Resize( numCheckboxes );
 
-	int col = 1;
-	int row = 0;
+	// break line after that many checkboxes
+	const uint32_t BOXESINROW = 16;
+
+	// start cell (all is in 0,0)
+	uint32_t row = 0;
+	uint32_t col = 1;
 
 	// iterate through the available checkboxes
 	Core::String widgetColorText;
 	for (uint32 i=0; i<numCheckboxes; ++i)
 	{
-		if (i != 0 && i % 5 == 0) {
+		// flow to next row
+		if (i != 0 && i % BOXESINROW == 0) {
 			row++;
 			col = 1;
 		}

@@ -45,7 +45,7 @@ ChannelMultiSelectionWidget::ChannelMultiSelectionWidget(QWidget* parent) : QWid
 	connect(mDeviceSelectionWidget, SIGNAL(DeviceSelectionChanged(Device*)), this, SLOT(OnDeviceSelectionChanged(Device*)));
 
 	QHBoxLayout* hLayout = new QHBoxLayout();
-	hLayout->addWidget(mDeviceSelectionWidget);
+	hLayout->addWidget(mDeviceSelectionWidget, 0, Qt::AlignTop);
 	hLayout->addWidget(mShowUsedCheckbox);
 	hLayout->addWidget(mChannelMultiCheckbox);
 	hLayout->setMargin(0);
