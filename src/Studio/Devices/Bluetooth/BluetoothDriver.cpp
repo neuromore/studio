@@ -69,6 +69,7 @@ bool BluetoothDriver::Init()
 	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(deviceDiscovered(const QBluetoothDeviceInfo&)), this, SLOT(OnDeviceDiscovered(const QBluetoothDeviceInfo&)) );
 	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(error(QBluetoothDeviceDiscoveryAgent::Error)), this, SLOT(OnDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error)) );
 	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(OnDeviceScanFinished()) );
+	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(canceled()), this, SLOT(OnDeviceScanCanceled()) );
 
 	// autodetect timer
 	mAutodetectTimer = new QTimer(this);
@@ -81,18 +82,12 @@ bool BluetoothDriver::Init()
 // called when the bluetooth device discovery agent found a new device
 void BluetoothDriver::OnDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo)
 {
-	// are we dealing with a Bluetooth LE device?
 	if (deviceInfo.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
 	{
-		QString address = BluetoothDevice::GetDeviceInfoAddress(deviceInfo);
+		const QString address = BluetoothDevice::GetDeviceInfoAddress(deviceInfo);
 		LogInfo(" - Bluetooth LE device discovered:");
 		LogInfo("    + Name: %s", deviceInfo.name().toLatin1().data());
 		LogInfo("    + Adress: %s", address.toLatin1().data());
-
-		if (deviceInfo.isValid() && deviceInfo.name().size() && !FindDeviceInfo(address))
-			mDiscoveredDeviceInfos.Add( deviceInfo );
-
-		// don't connec to the device here directly, else we might miss one or the other LE device and connect to a wrong one
 	}
 }
 
@@ -100,27 +95,54 @@ void BluetoothDriver::OnDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo)
 // called when the bluetooth device discovery agent finished searching for devices
 void BluetoothDriver::OnDeviceScanFinished()
 {
-	LogInfo("Scan for Bluetooth LE devices finished.");
-    
-    const uint32 numDeviceInfos = mDiscoveredDeviceInfos.Size();
-    
-/*    if (numDeviceInfos == 1)
-        Connect(mDiscoveredDeviceInfos[0]);
-    else if (numDeviceInfos > 1)*/
-    if (numDeviceInfos > 0)
-    {
-        BluetoothDeviceSelectorDialog selectionDialog( mDiscoveredDeviceInfos, GetQtBaseManager()->GetMainWindow() );
-        selectionDialog.exec();
+   LogInfo("Scan for Bluetooth LE devices finished.");
+   for (const auto& dev : mBluetoothDeviceDiscoveryAgent->discoveredDevices())
+   {
+      if (dev.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
+      {
+         const QString address = BluetoothDevice::GetDeviceInfoAddress(dev);
+
+         // ignore invalid and unnamed devices
+         if (!dev.isValid() || !dev.name().size())// || FindDeviceInfo(address))
+            continue;
+
+         // ignore non hrm devices
+         if (!dev.serviceUuids().contains(QBluetoothUuid::HeartRate)) {
+            LogInfo("Skipping non-HRM device: %s", dev.name().toLatin1().data());
+            continue;
+         }
+
+         // add found HRM
+         LogInfo("Bluetooth LE HRM found: %s", dev.name().toLatin1().data());
+         mDiscoveredDeviceInfos.Add(dev);
+      }
+   }
+
+   const uint32 numDeviceInfos = mDiscoveredDeviceInfos.Size();
+
+   // select found hrm
+   if (numDeviceInfos == 1)
+      Connect(mDiscoveredDeviceInfos[0]);
+
+   // let user pick from multiple
+   else if (numDeviceInfos > 1)
+   {
+      BluetoothDeviceSelectorDialog selectionDialog( mDiscoveredDeviceInfos, GetQtBaseManager()->GetMainWindow() );
+      selectionDialog.exec();
         
-        const uint32 connectToDeviceIndex = selectionDialog.GetIndex();
-        if (connectToDeviceIndex < numDeviceInfos)
-            Connect(mDiscoveredDeviceInfos[connectToDeviceIndex]);
-    }
-    
-	mIsSearching = false;
-	mDetectOnce = false;
+      const uint32 connectToDeviceIndex = selectionDialog.GetIndex();
+      if (connectToDeviceIndex < numDeviceInfos)
+         Connect(mDiscoveredDeviceInfos[connectToDeviceIndex]);
+   }
+
+   mIsSearching = false;
+   mDetectOnce = false;
 }
 
+void BluetoothDriver::OnDeviceScanCanceled()
+{
+   LogInfo("Scan for Bluetooth LE devices canceled.");
+}
 
 // called in case an error in the bluetooth device discovery agent happened
 void BluetoothDriver::OnDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error error)
@@ -317,9 +339,16 @@ void BluetoothDriver::OnDetectDevices()
 
 	// clear discovered devices and start searching for new ones
 	mDiscoveredDeviceInfos.Clear();
-	mBluetoothDeviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 
-	mIsSearching = true;
+   // check if Bluetooth LE is supported
+   if (mBluetoothDeviceDiscoveryAgent->supportedDiscoveryMethods() & QBluetoothDeviceDiscoveryAgent::LowEnergyMethod)
+   {
+      mBluetoothDeviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
+      mIsSearching = true;
+   }
+   else {
+      LogError("Your Bluetooth adapter does not support Bluetooth LE.");
+   }
 }
 
 

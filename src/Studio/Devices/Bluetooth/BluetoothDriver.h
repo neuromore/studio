@@ -81,6 +81,7 @@ class BluetoothDriver : public QObject, public DeviceDriver, public Core::EventH
 		void OnDeviceScanFinished();
 		void OnDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo);
 		void OnDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error error);
+		void OnDeviceScanCanceled();
 
         //void OnConnectNextDevice();
 void Connect(const QBluetoothDeviceInfo& deviceInfo);
