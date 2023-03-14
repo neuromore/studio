@@ -93,7 +93,7 @@ void Connect(const QBluetoothDeviceInfo& deviceInfo);
 	private:
 		// device discovery
 		QTimer*								mAutodetectTimer;
-		bool								mDetectOnce;
+		bool								mIsBtleSupported;
 		bool								mIsSearching;
 		QBluetoothDeviceDiscoveryAgent*		mBluetoothDeviceDiscoveryAgent;
 		Core::Array<QBluetoothDeviceInfo>	mDiscoveredDeviceInfos;

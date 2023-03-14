@@ -35,7 +35,7 @@ BluetoothDriver::BluetoothDriver() : DeviceDriver(false), EventHandler()
 	LogInfo("Constructing Bluetooth device driver ...");
 
 	mBluetoothDeviceDiscoveryAgent = NULL;
-	mDetectOnce = false;
+	mIsBtleSupported = false;
 	mIsSearching = false;
 
 	LogDetailedInfo("Bluetooth device driver constructed");
@@ -65,6 +65,16 @@ bool BluetoothDriver::Init()
 	// create the bluetooth device discovery agent
 	mBluetoothDeviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
 	mBluetoothDeviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(4000);
+
+	// check if Bluetooth LE is supported
+	if (mBluetoothDeviceDiscoveryAgent->supportedDiscoveryMethods() & QBluetoothDeviceDiscoveryAgent::LowEnergyMethod) {
+		LogInfo("Bluetooth adapter supports Bluetooth LE.");
+		mIsBtleSupported = true;
+	}
+	else {
+		LogError("Bluetooth adapter does NOT support Bluetooth LE.");
+		mIsBtleSupported = false;
+	}
 
 	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(deviceDiscovered(const QBluetoothDeviceInfo&)), this, SLOT(OnDeviceDiscovered(const QBluetoothDeviceInfo&)) );
 	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(error(QBluetoothDeviceDiscoveryAgent::Error)), this, SLOT(OnDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error)) );
@@ -136,7 +146,6 @@ void BluetoothDriver::OnDeviceScanFinished()
    }
 
    mIsSearching = false;
-   mDetectOnce = false;
 }
 
 void BluetoothDriver::OnDeviceScanCanceled()
@@ -295,8 +304,6 @@ bool BluetoothDriver::IsDeviceConnecting() const
 // start stop auto detection thread
 void BluetoothDriver::SetAutoDetectionEnabled(bool enable)
 {
-   mDetectOnce = false;
-
    // baseclass (sets flags, may call start/stop autodetection)
    DeviceDriver::SetAutoDetectionEnabled(enable);
 }
@@ -317,38 +324,29 @@ void BluetoothDriver::StopAutoDetection()
    mBluetoothDeviceDiscoveryAgent->stop();
 }
 
+void BluetoothDriver::OnDetectDevices()
+{
+   DetectDevices();
+}
 
 void BluetoothDriver::DetectDevices()
 {
-    if (mIsEnabled == false)
-		return;
+   // skip directly in some cases
+   if (!mIsEnabled || !mIsBtleSupported || mIsSearching || IsDeviceConnecting())
+      return;
 
-	mDetectOnce = true;
-	OnDetectDevices();
-}
+   // skip if we got one already
+   if (mDevices.Size() > 0)
+      return;
 
+   LogInfo("Starting Bluetooth LE scan...");
 
-// search for devices once
-void BluetoothDriver::OnDetectDevices()
-{
-    // skip directly in case we're already searching or if any bluetooth device is currently already connecting
-    if (mIsSearching == true || IsDeviceConnecting() == true)
-        return;
-    
-	LogInfo("Scanning for Bluetooth LE devices ...");
+   // clear discovered devices and start searching for new ones
+   mDiscoveredDeviceInfos.Clear();
 
-	// clear discovered devices and start searching for new ones
-	mDiscoveredDeviceInfos.Clear();
-
-   // check if Bluetooth LE is supported
-   if (mBluetoothDeviceDiscoveryAgent->supportedDiscoveryMethods() & QBluetoothDeviceDiscoveryAgent::LowEnergyMethod)
-   {
-      mBluetoothDeviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
-      mIsSearching = true;
-   }
-   else {
-      LogError("Your Bluetooth adapter does not support Bluetooth LE.");
-   }
+   // start it
+   mBluetoothDeviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
+   mIsSearching = true;
 }
 
 
