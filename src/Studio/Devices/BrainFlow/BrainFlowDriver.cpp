@@ -40,7 +40,9 @@ BrainFlowDriver::BrainFlowDriver() : DeviceDriver(true)
 }
 
 void BrainFlowDriver::DetectDevices() {
-	SetEnabled();
+	if (!mIsEnabled)
+		return;
+
 	if (auto* device = GetDeviceManager()->FindDeviceByType(BrainFlowDevice::TYPE_ID, 0))
 	{
 		GetDeviceManager()->RemoveDeviceAsync(device);

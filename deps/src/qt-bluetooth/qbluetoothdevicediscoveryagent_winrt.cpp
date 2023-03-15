@@ -84,7 +84,7 @@ public:
     explicit QWinRTBluetoothDeviceDiscoveryWorker(QBluetoothDeviceDiscoveryAgent::DiscoveryMethods methods);
     ~QWinRTBluetoothDeviceDiscoveryWorker();
     void start();
-    void stop();
+    void stopLEWatcher();
 
 private:
     void startDeviceDiscovery(QBluetoothDeviceDiscoveryAgent::DiscoveryMethod mode);
@@ -144,7 +144,7 @@ QWinRTBluetoothDeviceDiscoveryWorker::QWinRTBluetoothDeviceDiscoveryWorker(QBlue
 
 QWinRTBluetoothDeviceDiscoveryWorker::~QWinRTBluetoothDeviceDiscoveryWorker()
 {
-    stop();
+    stopLEWatcher();
 #ifdef CLASSIC_APP_BUILD
     CoUninitialize();
 #endif
@@ -166,7 +166,7 @@ void QWinRTBluetoothDeviceDiscoveryWorker::start()
     qCDebug(QT_BT_WINRT) << "Worker started";
 }
 
-void QWinRTBluetoothDeviceDiscoveryWorker::stop()
+void QWinRTBluetoothDeviceDiscoveryWorker::stopLEWatcher()
 {
     if (m_leWatcher) {
         HRESULT hr = m_leWatcher->Stop();
@@ -269,6 +269,7 @@ void QWinRTBluetoothDeviceDiscoveryWorker::setupLEDeviceWatcher()
 void QWinRTBluetoothDeviceDiscoveryWorker::finishDiscovery()
 {
     emit scanFinished();
+    stopLEWatcher();
     deleteLater();
 }
 
@@ -602,14 +603,12 @@ void QBluetoothDeviceDiscoveryAgentPrivate::stop()
 {
     Q_Q(QBluetoothDeviceDiscoveryAgent);
     if (worker) {
-        worker->stop();
+        worker->stopLEWatcher();
         disconnectAndClearWorker();
         emit q->canceled();
     }
-    if (leScanTimer) {
+    if (leScanTimer)
         leScanTimer->stop();
-        worker->deleteLater();
-    }
 }
 
 void QBluetoothDeviceDiscoveryAgentPrivate::registerDevice(const QBluetoothDeviceInfo &info)

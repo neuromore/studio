@@ -133,6 +133,7 @@ private:
         EventRegistrationToken token;
     };
     QVector<ValueChangedEntry> mValueChangedTokens;
+    std::map<QBluetoothUuid, Microsoft::WRL::ComPtr<ABI::Windows::Devices::Bluetooth::GenericAttributeProfile::IGattDeviceService>> m_openedServices;
 
     Microsoft::WRL::ComPtr<ABI::Windows::Devices::Bluetooth::GenericAttributeProfile::IGattDeviceService> getNativeService(const QBluetoothUuid &serviceUuid);
     Microsoft::WRL::ComPtr<ABI::Windows::Devices::Bluetooth::GenericAttributeProfile::IGattCharacteristic> getNativeCharacteristic(const QBluetoothUuid &serviceUuid, const QBluetoothUuid &charUuid);
@@ -142,6 +143,8 @@ private:
     void obtainIncludedServices(QSharedPointer<QLowEnergyServicePrivate> servicePointer,
         Microsoft::WRL::ComPtr<ABI::Windows::Devices::Bluetooth::GenericAttributeProfile::IGattDeviceService> nativeService);
 
+    void clearAllServices();
+    void closeAndRemoveService(const QBluetoothUuid& uuid);
 };
 
 QT_END_NAMESPACE
