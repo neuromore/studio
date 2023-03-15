@@ -48,7 +48,11 @@ BluetoothDevice::BluetoothDevice(QObject* parent, const QBluetoothDeviceInfo& de
 // destructor
 BluetoothDevice::~BluetoothDevice()
 {
-    // do nothing here, heart rate device will get removed with the disconnect event
+   if (mController != NULL)
+   {
+      delete mController;
+      mController = NULL;
+   }
 }
 
 
@@ -98,7 +102,7 @@ void BluetoothDevice::OnDeviceConnected()
 // device got disconnected
 void BluetoothDevice::OnDeviceDisconnected()
 {
-    LogInfo( "Failed to connect to Bluetooth LE Device '%s'", mDeviceInfo.name().toLatin1().data() );
+    LogInfo( "Disconnected from Bluetooth LE Device '%s'", mDeviceInfo.name().toLatin1().data() );
     
     if (mHeartRateDevice != NULL)
     {
@@ -109,13 +113,15 @@ void BluetoothDevice::OnDeviceDisconnected()
     mIsConnected = false;
     mIsConnecting = false;
     
-    emit Finished();
+    emit Finished(this);
 }
 
 
 void BluetoothDevice::OnControllerError(QLowEnergyController::Error error)
 {
-    LogInfo( "Cannot connect to Bluetooth LE Device '%s'.", mDeviceInfo.name().toLatin1().data() );
+    LogInfo("Cannot connect to Bluetooth LE Device '%s' (%s).", 
+       mDeviceInfo.name().toLatin1().data(), 
+       mController->errorString().toLatin1().data());
 
     if (mHeartRateDevice != NULL)
     {
@@ -126,7 +132,7 @@ void BluetoothDevice::OnControllerError(QLowEnergyController::Error error)
     mIsConnected = false;
     mIsConnecting = false;
     
-    emit Finished();
+    emit Finished(this);
 }
 
 
@@ -147,6 +153,8 @@ void BluetoothDevice::OnServiceScanDone()
 		mHeartRateService = new BluetoothService( this, this, QBluetoothUuid(QBluetoothUuid::HeartRate), QBluetoothUuid(QBluetoothUuid::HeartRateMeasurement), mController );
 		connect( mHeartRateService, SIGNAL(CharacteristicChanged(QLowEnergyCharacteristic,QByteArray)), this, SLOT(OnUpdateHeartRate(QLowEnergyCharacteristic,QByteArray)) );
 	}
+	else
+		LogError("HeartRate Service not found on HRM device '%s'", this->mDeviceInfo.name().toLatin1().data());
 
 	// battery service
 	if (mDiscoveredServiceUuids.Find(QBluetoothUuid(QBluetoothUuid::BatteryService)) != CORE_INVALIDINDEX32)
@@ -154,11 +162,13 @@ void BluetoothDevice::OnServiceScanDone()
 		mBatteryService = new BluetoothService( this, this, QBluetoothUuid(QBluetoothUuid::BatteryService), QBluetoothUuid(QBluetoothUuid::BatteryLevel), mController );
 		connect( mBatteryService, SIGNAL(CharacteristicChanged(QLowEnergyCharacteristic,QByteArray)), this, SLOT(OnUpdateBatteryLevel(QLowEnergyCharacteristic,QByteArray)) );
 	}
+	else
+		LogWarning("Battery Service not found on HRM device '%s'", this->mDeviceInfo.name().toLatin1().data());
 
     mIsConnected = true;
     mIsConnecting = false;
 
-    emit Finished();
+    emit Finished(this);
 }
 
 

@@ -76,6 +76,7 @@ class BluetoothDriver : public QObject, public DeviceDriver, public Core::EventH
 	private slots:
 		// autodetect timer
 		void OnDetectDevices();
+		void OnDeviceFinished(BluetoothDevice* device);
 
 		// Bluetooth device discovery agent slots
 		void OnDeviceScanFinished();

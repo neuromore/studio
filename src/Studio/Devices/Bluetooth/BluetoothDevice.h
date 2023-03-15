@@ -53,7 +53,7 @@ class BluetoothDevice : public QObject
         bool IsConnected() const                                            { return mIsConnected; }
     
     signals:
-        void Finished();
+        void Finished(BluetoothDevice* device);
 
 	private slots:
 		void OnServiceDiscovered(const QBluetoothUuid& gatt);

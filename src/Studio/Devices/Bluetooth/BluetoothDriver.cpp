@@ -35,6 +35,7 @@ BluetoothDriver::BluetoothDriver() : DeviceDriver(false), EventHandler()
 	LogInfo("Constructing Bluetooth device driver ...");
 
 	mBluetoothDeviceDiscoveryAgent = NULL;
+	mAutodetectTimer = NULL;
 	mIsBtleSupported = false;
 	mIsSearching = false;
 
@@ -179,7 +180,7 @@ void BluetoothDriver::Connect(const QBluetoothDeviceInfo& deviceInfo)
     {
         // create a new Bluetooth device and add it to the device array
         device = new BluetoothDevice(this, deviceInfo);
-        //connect( device, SIGNAL(Finished()), this, SLOT(OnConnectNextDevice()) );
+        connect(device, SIGNAL(Finished(BluetoothDevice*)), this, SLOT(OnDeviceFinished(BluetoothDevice*)));
         mDevices.Add(device);
     }
     
@@ -187,36 +188,21 @@ void BluetoothDriver::Connect(const QBluetoothDeviceInfo& deviceInfo)
         device->Connect();
 }
 
-
-// start connecting to the next device
-/*void BluetoothDriver::OnConnectNextDevice()
+// finish a bluetooth device that is fully connected or failed
+void BluetoothDriver::OnDeviceFinished(BluetoothDevice* device)
 {
-    // get the number of discovered Bluetooth devices and iterate through them
-    const uint32 numDevices = mDiscoveredDeviceInfos.Size();
-    for (uint32 i=0; i<numDevices; ++i)
-    {
-        QBluetoothDeviceInfo deviceInfo = mDiscoveredDeviceInfos[i];
-        
-        BluetoothDevice* device = FindDevice(deviceInfo);
-        
-        // connect to this device if there is no active connection yet
-        if (device == NULL)
-        {
-            // create a new Bluetooth device and add it to the device array
-            device = new BluetoothDevice(this, deviceInfo);
-            connect( device, SIGNAL(Finished()), this, SLOT(OnConnectNextDevice()) );
-            mDevices.Add(device);
-        }
-        
-        if (device->IsConnected() == false && device->IsConnecting() == false)
-        {
-            device->Connect();
+   // nothing to do if connected fine
+   if (device->IsConnected())
+      return;
 
-            // as soon as we found the next device we haven't connected to, return to avoid scanning multiple devices
-            return;
-        }
-    }
-}*/
+   // otherwise remove it from our list
+   const uint32_t idx = mDevices.Find(device);
+   if (idx != CORE_INVALIDINDEX32)
+      mDevices.Remove(idx);
+
+   // and delete
+   device->deleteLater();
+}
 
 
 // find the Bluetooth device info based on the address
