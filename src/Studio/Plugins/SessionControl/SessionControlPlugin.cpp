@@ -478,7 +478,7 @@ void SessionControlPlugin::OnStart()
 	CORE_ASSERT( GetSession()->IsRunning() == false );
 
 	// reset engine
-	GetEngine()->Reset();
+	//GetEngine()->Reset();
 
 	// load parameters
 	GetBackendInterface()->GetParameters()->Load(true, *GetSessionUser(), activeExperience, activeClassifier);
