@@ -33,32 +33,48 @@
 // the base class for all OpenBCI devices
 class ENGINE_API OpenBCIDeviceBase : public BciDevice
 {
-	class OpenBCISerialThread;
-	friend class OpenBCISerialThread;
+   class OpenBCISerialThread;
+   friend class OpenBCISerialThread;
 
-	public:
-		// constructors & destructor
-		OpenBCIDeviceBase(DeviceDriver* driver = NULL)				{ mState = STATE_IDLE; }
-		virtual ~OpenBCIDeviceBase()								{}
+public:
+   static constexpr uint32_t NUMELECTRODESCYTON = 8;
+   static constexpr uint32_t NUMELECTRODESDAISY = 16;
 
-		// information
-		double GetSampleRate() const override						{ return 250; }
-		double GetLatency() const override							{ return 0.1; }
-		double GetExpectedJitter() const override					{ return 0.1; }
-		bool IsWireless() const override							{ return true; }
+   static constexpr double series_resistor_ohms = 2200; // Ohms. There is a series resistor on the 32 bit board.
+   static constexpr double leadOffDrive_amps = 6.0e-9;  //6 nA, set by its Arduino code
 
-		void CreateSensors() override;
+public:
+   // constructors & destructor
+   OpenBCIDeviceBase(DeviceDriver* driver = NULL);
+   virtual ~OpenBCIDeviceBase() {}
 
-        // custom sensor
-        inline Sensor* GetAccForwardSensor() const					{ return mAccForwardSensor; }
-		inline Sensor* GetAccUpSensor() const						{ return mAccUpSensor; }
-		inline Sensor* GetAccLeftSensor() const						{ return mAccLeftSensor; }
+   // information
+   double GetSampleRate() const override     { return 250; }
+   double GetLatency() const override        { return 0.1; }
+   double GetExpectedJitter() const override { return 0.1; }
+   bool IsWireless() const override          { return true; }
+   bool HasTestMode() const override         { return true; }
 
-	private:
-        Sensor*					mAccForwardSensor;
-		Sensor*					mAccUpSensor;
-		Sensor*					mAccLeftSensor;
+   void CreateSensors() override;
 
+   void StartTest() override;
+   void StopTest() override;
+   inline bool IsTestRunning() override { return mTesting; }
+   inline bool HasEegContactQualityIndicator() override { return mTesting; }
+   inline double GetImpedance(uint32 idx) override { return mImpedances[idx]; }
+   inline void SetImpedance(uint32 idx, double v) { mImpedances[idx] = v; }
+
+   // custom sensor
+   inline Sensor* GetAccForwardSensor() const { return mAccForwardSensor; }
+   inline Sensor* GetAccUpSensor()      const { return mAccUpSensor; }
+   inline Sensor* GetAccLeftSensor()    const { return mAccLeftSensor; }
+
+private:
+   bool     mTesting;
+   Sensor*  mAccForwardSensor;
+   Sensor*  mAccUpSensor;
+   Sensor*  mAccLeftSensor;
+   double   mImpedances[NUMELECTRODESDAISY];
 };
 
 

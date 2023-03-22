@@ -34,6 +34,14 @@
 using namespace Core;
 
 // base class commons
+
+OpenBCIDeviceBase::OpenBCIDeviceBase(DeviceDriver* driver) : BciDevice(driver),
+   mTesting(false), mAccForwardSensor(0), mAccUpSensor(0), mAccLeftSensor(0) 
+{ 
+   mState = STATE_IDLE;
+   std::memset(mImpedances, 0, sizeof(mImpedances));
+}
+
 void OpenBCIDeviceBase::CreateSensors()
 {
 	BciDevice::CreateSensors();
@@ -55,6 +63,22 @@ void OpenBCIDeviceBase::CreateSensors()
 	mAccLeftSensor->GetChannel()->SetMaxValue(1996.1);
 	mAccLeftSensor->GetChannel()->SetUnit("mm/s^2");
 	AddSensor(mAccLeftSensor);
+}
+
+void OpenBCIDeviceBase::StartTest()
+{
+   if (mTesting)
+      return;
+
+   mTesting = true;
+}
+
+void OpenBCIDeviceBase::StopTest()
+{
+   if (!mTesting)
+      return;
+
+   mTesting = false;
 }
 
 
@@ -83,7 +107,7 @@ OpenBCIDevice::~OpenBCIDevice()
 void OpenBCIDevice::CreateElectrodes()
 {
 	mElectrodes.Clear();
-	mElectrodes.Reserve(8);
+	mElectrodes.Reserve(NUMELECTRODESCYTON);
 
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));
@@ -121,7 +145,7 @@ OpenBCIDaisyDevice::~OpenBCIDaisyDevice()
 void OpenBCIDaisyDevice::CreateElectrodes()
 {
 	mElectrodes.Clear();
-	mElectrodes.Reserve(16);
+	mElectrodes.Reserve(NUMELECTRODESDAISY);
 
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));
@@ -140,6 +164,5 @@ void OpenBCIDaisyDevice::CreateElectrodes()
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));
 	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));
 }
-
 
 #endif
