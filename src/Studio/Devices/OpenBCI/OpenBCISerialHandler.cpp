@@ -570,7 +570,7 @@ void OpenBCISerialHandler::ProcessStreamPacket(const OpenBCIStreamPacket& packet
 			const double scale = 4.5 / gain / base;
 
 			const double sampleValue = sensors[i].GetValue() * scale * 1000000.0;
-			mDevice->GetSensor(i + sensorIndexOffset)->AddQueuedSample((double)sampleValue);
+			mDevice->AddSample(i + sensorIndexOffset, sampleValue);
 		}
 	}
 	else
@@ -584,16 +584,7 @@ void OpenBCISerialHandler::ProcessStreamPacket(const OpenBCIStreamPacket& packet
 			const double scale = 4.5 / gain / base;
 
 			const double sampleValue = sensors[i].GetValue() * scale * 1000000.0;
-			mDevice->GetSensor(i)->AddQueuedSample((double)sampleValue);
-
-         double impedance = (::sqrt(2.0) * sampleValue * 1.0e-6) / OpenBCIDeviceBase::leadOffDrive_amps;
-         impedance -= OpenBCIDeviceBase::series_resistor_ohms;
-         impedance *= 0.001; // Ohm->kOhm
-         if (impedance < 0) {
-            impedance = 0;
-         }
-         mDevice->SetImpedance(i, impedance);
-
+			mDevice->AddSample(i, sampleValue);
 		}
 	}
 

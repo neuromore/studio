@@ -36,10 +36,9 @@ using namespace Core;
 // base class commons
 
 OpenBCIDeviceBase::OpenBCIDeviceBase(DeviceDriver* driver) : BciDevice(driver),
-   mTesting(false), mAccForwardSensor(0), mAccUpSensor(0), mAccLeftSensor(0) 
+   mTesting(false), mAccForwardSensor(0), mAccUpSensor(0), mAccLeftSensor(0)
 { 
    mState = STATE_IDLE;
-   std::memset(mImpedances, 0, sizeof(mImpedances));
 }
 
 void OpenBCIDeviceBase::CreateSensors()
@@ -91,6 +90,9 @@ OpenBCIDevice::OpenBCIDevice(DeviceDriver* driver) : OpenBCIDeviceBase(driver)
 {
 	LogDetailedInfo("Constructing OpenBCI headset ...");
 
+	// zero init impedances
+	std::memset(mImpedances, 0, sizeof(mImpedances));
+
 	// create all sensors
 	CreateSensors();
 }
@@ -128,6 +130,9 @@ void OpenBCIDevice::CreateElectrodes()
 OpenBCIDaisyDevice::OpenBCIDaisyDevice(DeviceDriver* driver) : OpenBCIDeviceBase(driver)
 {
 	LogDetailedInfo("Constructing OpenBCI + Daisy device ...");
+
+	// zero init impedances
+	std::memset(mImpedances, 0, sizeof(mImpedances));
 
 	// create all sensors
 	CreateSensors();
