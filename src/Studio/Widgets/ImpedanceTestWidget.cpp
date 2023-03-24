@@ -147,7 +147,7 @@ void ImpedanceTestWidget::UpdateInterface()
 
 		// skip invalid values (Eccept exactly 0.0), dont skip used electrodes
 		if (activeClassifier == NULL || (activeClassifier != NULL && activeClassifier->IsSensorUsed(mDevice->GetSensor(i)) == false))
-			if (impedance > electrodeActiveDetectionThreshold || impedance < 0.0)
+			if (impedance > electrodeActiveDetectionThreshold || impedance <= 0.0)
 				continue;
 		
 		minImpedance = Min(minImpedance, impedance);
@@ -189,7 +189,7 @@ void ImpedanceTestWidget::UpdateInterface()
 		for (uint32 i = 0; i < numSensors; ++i)
 		{
 			const double impedance = mDevice->GetImpedance(i);
-			if (impedance > electrodeActiveDetectionThreshold)
+			if (impedance == 0.0 || impedance > electrodeActiveDetectionThreshold)
 				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
 			else if (impedance <= mImpedanceThreshold)
 				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_GOOD);
