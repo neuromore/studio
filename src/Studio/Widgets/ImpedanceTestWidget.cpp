@@ -31,9 +31,9 @@ using namespace Core;
 
 // impedance quality profiles
 ImpedanceTestWidget::Threshold ImpedanceTestWidget::Thresholds[] = {
-   ImpedanceTestWidget::Threshold("STRICT",   20.0,  30.0,  40.0,  50.0), 
-   ImpedanceTestWidget::Threshold("DEFAULT",  40.0,  50.0,  60.0,  80.0), 
-   ImpedanceTestWidget::Threshold("RELAXED",  80.0, 200.0, 300.0, 400.0)
+   ImpedanceTestWidget::Threshold("Research",        5.0,  10.0,  20.0,  80.0), 
+   ImpedanceTestWidget::Threshold("Neurofeedback",  10.0,  20.0,  40.0,  80.0), 
+   ImpedanceTestWidget::Threshold("Testing",       100.0, 200.0, 300.0, 400.0)
 };
 
 // constructor
