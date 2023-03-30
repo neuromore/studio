@@ -21,8 +21,12 @@ class WebsocketServer : public QObject, public Core::EventHandler
 {
    Q_OBJECT
 public:
-   explicit WebsocketServer(quint16 port, bool debug = false, QObject* parent = nullptr);
+   explicit WebsocketServer(uint16 port, bool debug = false, QObject* parent = nullptr);
    ~WebsocketServer();
+
+   void Init();
+   inline void SetListenPort(uint16 port) { mPort = port; }
+   inline uint16 GetListenPort() const { return mPort; }
 
 private:
    // MESSAGE SENDERS
@@ -70,6 +74,7 @@ private:
    // qt websockets
    QWebSocketServer*  mWebSocketServer;
    QList<QWebSocket*> mClients;
+   uint16             mPort;
 
    // feedbacks timer
    QTimer* mTimerFeedbacks;

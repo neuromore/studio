@@ -159,6 +159,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		Property*					mOSCRemoteHostProperty;
 		Property*					mOSCRemotePortProperty;
 		Property*					mOSCLocalEndpointProperty;
+		Property*					mWebsocketPortProperty;
 
 		// DEVICE CONFIGS
 		void LoadDeviceConfigs(bool reload = true);
