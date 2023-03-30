@@ -147,7 +147,7 @@ void MainWindow::Init()
 	mOscServer = new OscServer(STUDIO_OSCLISTENER_UDP_PORT, STUDIO_OSCREMOTE_UDP_PORT);
 
 	// create the websocket server
-	mWebsocketServer = new WebsocketServer(1234, true);
+	mWebsocketServer = new WebsocketServer(STUDIO_WEBSOCKET_TCP_PORT, false);
 	QObject::connect(mWebsocketServer, &WebsocketServer::closed, this, &QCoreApplication::quit);
 	QObject::connect(mWebsocketServer, &WebsocketServer::impersonated, this, &MainWindow::OnSessionUserSelected);
 
@@ -170,6 +170,7 @@ void MainWindow::Init()
 	// init networkserver/osc listener after settings are loaded
 	mNetworkServer->Init();
 	mOscServer->Init();
+	mWebsocketServer->Init();
 
 	// base class init
 	MainWindowBase::Init();
@@ -1398,7 +1399,10 @@ void MainWindow::OnSettings()
 		
 		const int32 oscOutputPort = GetOscServer()->GetRemoteUdpPort();
 		mOSCRemotePortProperty = networkPropertyWidget->GetPropertyManager()->AddIntProperty("OSC Server", "Target UDP port", oscOutputPort, oscOutputPort, 0, maxPort);
-		
+
+		const uint16 websocketPort = GetWebsockerServer()->GetListenPort();
+		mWebsocketPortProperty = networkPropertyWidget->GetPropertyManager()->AddIntProperty("Websocket Server", "Listen TCP Port", websocketPort, websocketPort, 0, maxPort);
+
 		// add all categories from the plugins
 		mSettingsWindow->AddCategoriesFromPlugin(NULL);
 	}
@@ -1565,6 +1569,13 @@ void MainWindow::OnValueChanged(Property* property)
 		GetOscServer()->ReInit();
 	}
 
+	// Websocket serverr
+	if (property == mWebsocketPortProperty)
+	{
+		const int32 port = property->AsInt();
+		GetWebsockerServer()->SetListenPort((uint16)port);
+	}
+
 	// update and save the settings directly
 	OnSaveSettings();
 
@@ -1722,6 +1733,8 @@ void MainWindow::OnLoadSettings()
 	int32 networkOscRemotePort = settings.value("networkOscRemotePort_v2", GetOscServer()->GetRemoteUdpPort()).toInt();
 	GetOscServer()->SetRemoteUdpPort(networkOscRemotePort);
 
+	int32 websocketPort = settings.value("websocketPort", GetWebsockerServer()->GetListenPort()).toInt();
+	GetWebsockerServer()->SetListenPort(websocketPort);
 }
 
 
@@ -1811,7 +1824,7 @@ void MainWindow::OnSaveSettings()
 	settings.setValue("networkOscLocalEndpoint", FromQtString(GetOscServer()->GetLocalEndpoint().toString()).AsChar());
 	settings.setValue("networkOscRemoteHost", FromQtString(GetOscServer()->GetRemoteHost().toString()).AsChar());
 	settings.setValue("networkOscRemotePort_v2", GetOscServer()->GetRemoteUdpPort());
-
+	settings.setValue("websocketPort", GetWebsockerServer()->GetListenPort());
 }
 
 
