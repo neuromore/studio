@@ -62,18 +62,11 @@ void Spectrogram2DPlugin::RegisterAttributes()
 
 	// multi view
 	AttributeSettings* attributeSettings = RegisterAttribute("Multi View", "multiView", "", ATTRIBUTE_INTERFACETYPE_CHECKBOX);
-#ifdef NEUROMORE_BRANDING_ANT
 	attributeSettings->SetDefaultValue(AttributeBool::Create(true));
-#else
-	attributeSettings->SetDefaultValue(AttributeBool::Create(false));
-#endif
+
 	// show zero Hz bin
 	attributeSettings = RegisterAttribute("Show 0Hz Bin", "show0HzBin", "", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);
-#ifdef NEUROMORE_BRANDING_ANT
 	attributeSettings->SetDefaultValue(AttributeBool::Create(false));
-#else
-	attributeSettings->SetDefaultValue(AttributeBool::Create(true));
-#endif
 
 	// average interval
 	attributeSettings = RegisterAttribute("Average Interval", "averageInterval", "", ATTRIBUTE_INTERFACETYPE_FLOATSLIDER);
@@ -120,7 +113,7 @@ bool Spectrogram2DPlugin::Init()
 	mChannelSelectionWidget = new ChannelMultiSelectionWidget(mainWidget);
 	toolbarWidgets.Add(mChannelSelectionWidget);
 	connect(mChannelSelectionWidget, SIGNAL(ChannelSelectionChanged()), this, SLOT(OnChannelSelectionChanged()));
-	mChannelSelectionWidget->SetAutoSelectType(ChannelMultiSelectionWidget::AutoSelectType::SELECT_ALL);
+	mChannelSelectionWidget->SetAutoSelectType((ChannelMultiSelectionWidget::AutoSelectType)Branding::DefaultAutoSelectType);
 	mChannelSelectionWidget->SetShowNeuroChannelsOnly(true);
 	mChannelSelectionWidget->Init();
 

@@ -66,6 +66,7 @@ public:
 
     QBluetoothLocalDevicePrivate(QBluetoothLocalDevice *, const QBluetoothAddress & =
                                  QBluetoothAddress());
+    ~QBluetoothLocalDevicePrivate();
 
     bool isValid() const;
     void requestPairing(const QBluetoothAddress &address, Pairing pairing);
@@ -145,6 +146,11 @@ QBluetoothLocalDevicePrivate::QBluetoothLocalDevicePrivate(QBluetoothLocalDevice
 
     // This one is optional, if it fails to initialize, we do not care at all.
     connectionMonitor.reset([[ObjCConnectionMonitor alloc] initWithMonitor:this]);
+}
+
+QBluetoothLocalDevicePrivate::~QBluetoothLocalDevicePrivate()
+{
+    [connectionMonitor stopMonitoring];
 }
 
 bool QBluetoothLocalDevicePrivate::isValid() const

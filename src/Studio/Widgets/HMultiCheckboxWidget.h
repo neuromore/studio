@@ -30,6 +30,7 @@
 #include <Core/Color.h>
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QGridLayout>
 #include <QCheckBox>
 
 

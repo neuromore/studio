@@ -343,7 +343,7 @@ public:
          const uint32_t NUMCHANNELS = ch ? ch->GetNumChannels() : 0;
 
          // get samplerate
-         const double SAMPLERATE = ch ? n->GetSampleRate(
+         const double SAMPLERATE = (ch && NUMCHANNELS) ? n->GetSampleRate(
             n->GetSignalResolution(), 
             ch->GetChannel(0)) : 0.0;
 

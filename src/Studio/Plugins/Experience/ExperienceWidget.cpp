@@ -51,10 +51,34 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) :
 {
 	mGifMovie = NULL;
 
-	// create the button layout
+	// main layout vertical
+	mMainLayout = new QVBoxLayout();
+	mMainLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	mMainLayout->setMargin(MAINLAYOUTPADDING);
+
+	// multiple buttons layout horizontaly
 	mButtonLayout = new QHBoxLayout();
-	mButtonLayout->setAlignment( Qt::AlignBottom );
-	setLayout( mButtonLayout );
+	mButtonLayout->setAlignment( Qt::AlignBottom);
+	mButtonLayout->setSpacing(16);
+
+	// text input element
+	mTextEdit = new QPlainTextEdit(this);
+	mTextEdit->setMaximumHeight(128);
+	mTextEdit->setMinimumHeight(32);
+	mTextEdit->setStyleSheet("border: 2px solid grey; border-radius:16px; font-size:18px; color:#009FE3");
+	mTextEdit->setVisible(false);
+	mTextEdit->document()->setDocumentMargin(16.0);
+
+	// text input element layout
+	mTextEditLayout = new QHBoxLayout();
+	mTextEditLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	mTextEditLayout->addWidget(mTextEdit);
+
+	// add both to main layout (textedit above buttons)
+	mMainLayout->addLayout(mTextEditLayout);
+	mMainLayout->addLayout(mButtonLayout);
+
+	setLayout( mMainLayout );
 
 	CORE_EVENTMANAGER.AddEventHandler(this);
 
@@ -250,8 +274,13 @@ void ExperienceWidget::Clear()
 // add a new button condition button
 void ExperienceWidget::AddButton(const char* text, uint32 buttonId)
 {
+	QFont font;
+	font.setPixelSize(12);
+	font.setBold(true);
+
 	QPushButton* button = new QPushButton( text, this );
 	button->setProperty( "buttonId", buttonId );
+	button->setFont(font);
 	connect( button, SIGNAL(clicked()), this, SLOT(OnButtonClicked()) );
 	mButtons.Add(button);
 	mButtonLayout->addWidget(button);
@@ -464,6 +493,8 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 	painter.setPen( mTextColor );
 	painter.setBrush( mTextColor );
 
+
+	// E) Text
 	QFont font;
 
 	const uint32 textLength = mText.size();
@@ -471,7 +502,8 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 
 	font.setPixelSize( textScaler );
 	painter.setFont( font );
-	painter.drawText( QRect( 0, 0, width(), height() ), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
+	const int usedheight = MAINLAYOUTPADDING + mTextEdit->isVisible() ? mTextEdit->height() : 0;
+	painter.drawText( QRect( 0, 0, width(), height()-usedheight), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
 	
     painter.end();
 }
@@ -782,6 +814,27 @@ void ExperienceWidget::OnHideText()
 	update();
 }
 
+void ExperienceWidget::OnShowTextInput(const char* text, uint32 id)
+{
+	LogDebug("Experience Widget: OnShowTextInput(text='%s')", text);
+	if (mTextEdit) {
+		mTextEdit->setPlainText(text);
+		mTextEdit->setVisible(true);
+	}
+	update();
+}
+
+
+void ExperienceWidget::OnHideTextInput()
+{
+	LogDebug("Experience Widget: OnHideTextInput()");
+	if (mTextEdit) {
+		mTextEdit->setPlainText("");
+		mTextEdit->setVisible(false);
+	}
+	update();
+}
+
 
 void ExperienceWidget::OnSetBackgroundColor(const Core::Color& color)
 {
@@ -884,6 +937,9 @@ void ExperienceWidget::OnRemoveNode(Graph* graph, Node* node)
 
 void ExperienceWidget::OnGraphReset(Graph* graph)
 {
+   if (graph && graph->GetType() == StateMachine::TYPE_ID)
+      ClearButtons();
+
    /*const uint32_t nPlayers = mTonePlayers.Size();
    for (uint32_t i = 0; i < nPlayers; i++)
       mTonePlayers[i]->Reset();*/

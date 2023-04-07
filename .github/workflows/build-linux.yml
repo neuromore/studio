@@ -77,6 +77,7 @@ jobs:
       if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt-get remove -f -y libunwind-14-dev
+        sudo apt-get remove -f -y firefox unixodbc-dev odbcinst unixodbc
         sudo apt-get install -f -y libunwind-dev
         sudo apt-get autoremove -y
 
@@ -89,10 +90,7 @@ jobs:
 
     # Ubuntu Update
     - name: Update Ubuntu
-      run: |
-        sudo apt-get update -y 
-        sudo apt-get upgrade -f -y
-        sudo apt-get dist-upgrade -f -y
+      run: sudo apt-get update -y 
 
     # Ubuntu Version
     - name: Ubuntu Version

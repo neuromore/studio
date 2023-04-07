@@ -160,6 +160,9 @@ class ENGINE_API EventManager
 		EVENT_CREATE_NOTIFY_FUNCTION_0(OnBrowserStopPlayer);
 		EVENT_CREATE_NOTIFY_FUNCTION_0(OnBrowserPausePlayer);
 
+		EVENT_CREATE_NOTIFY_FUNCTION_2( OnShowTextInput, const char*, text, uint32, inputId );
+		EVENT_CREATE_NOTIFY_FUNCTION_0( OnHideTextInput );
+
 	private:
 		Core::Array<EventHandler*>			mEventHandlers;
 		EventLogger*						mEventLogger;

@@ -76,11 +76,13 @@ class BluetoothDriver : public QObject, public DeviceDriver, public Core::EventH
 	private slots:
 		// autodetect timer
 		void OnDetectDevices();
+		void OnDeviceFinished(BluetoothDevice* device);
 
 		// Bluetooth device discovery agent slots
 		void OnDeviceScanFinished();
 		void OnDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo);
 		void OnDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error error);
+		void OnDeviceScanCanceled();
 
         //void OnConnectNextDevice();
 void Connect(const QBluetoothDeviceInfo& deviceInfo);
@@ -92,7 +94,7 @@ void Connect(const QBluetoothDeviceInfo& deviceInfo);
 	private:
 		// device discovery
 		QTimer*								mAutodetectTimer;
-		bool								mDetectOnce;
+		bool								mIsBtleSupported;
 		bool								mIsSearching;
 		QBluetoothDeviceDiscoveryAgent*		mBluetoothDeviceDiscoveryAgent;
 		Core::Array<QBluetoothDeviceInfo>	mDiscoveredDeviceInfos;

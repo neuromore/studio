@@ -62,7 +62,7 @@ bool RawWaveformPlugin::Init()
 
 	// init checkbox widget
 	mChannelSelectionWidget = new ChannelMultiSelectionWidget();
-	mChannelSelectionWidget->SetAutoSelectType(ChannelMultiSelectionWidget::AutoSelectType::SELECT_ALL);
+	mChannelSelectionWidget->SetAutoSelectType((ChannelMultiSelectionWidget::AutoSelectType)Branding::DefaultAutoSelectType);
 	mChannelSelectionWidget->SetShowNeuroChannelsOnly(true);
 	mChannelSelectionWidget->Init();
 	connect( mChannelSelectionWidget, SIGNAL(ShowUsedCheckboxToggled(int)), this, SLOT(OnShowUsedCheckboxToggled(int)) );

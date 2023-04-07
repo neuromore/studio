@@ -61,6 +61,7 @@ class QTBASE_API MediaContent : public QAbstractVideoSurface
 
    private slots:
       void OnMediaStatusChanged(QMediaPlayer::MediaStatus status);
+      void OnMediaError(QMediaPlayer::Error error);
 
    private:
       void OnLooped(const Core::String& url);
