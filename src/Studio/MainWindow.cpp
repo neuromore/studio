@@ -1497,7 +1497,6 @@ void MainWindow::OnValueChanged(Property* property)
 	}
 #endif
 
-#ifndef PRODUCTION_BUILD
 	// neuromore Cloud settings
 	bool serverPresetChanged = false;
 	if (property == mServerPresetProperty)
@@ -1514,7 +1513,6 @@ void MainWindow::OnValueChanged(Property* property)
 
 	if (property == mLogBackendProperty)
 		GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled( property->AsBool() );
-#endif
 
 	// Network server
 	if (property == mNetworkServerEnableTCPProperty)
@@ -1579,9 +1577,6 @@ void MainWindow::OnValueChanged(Property* property)
 	// update and save the settings directly
 	OnSaveSettings();
 
-	
-
-#ifndef PRODUCTION_BUILD
 	// backend server change -> restart studio
 	if (serverPresetChanged == true)
 	{
@@ -1595,7 +1590,6 @@ void MainWindow::OnValueChanged(Property* property)
 		QProcess::startDetached(QCoreApplication::applicationFilePath());
 
 	}
-#endif
 }
 
 
@@ -1810,10 +1804,8 @@ void MainWindow::OnSaveSettings()
 	settings.setValue("logLevelPreset", logPreset->GetName());
 
 	// neuromore Cloud category
-#ifndef PRODUCTION_BUILD
 	settings.setValue("cloudServerPreset", GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex());
 	settings.setValue("cloudLoggingEnabled", GetBackendInterface()->GetNetworkAccessManager()->IsLogEnabled());
-#endif
 
 	// network category
 	settings.setValue("networkEnableTCPServer", GetNetworkServer()->GetListenerEnabled());
