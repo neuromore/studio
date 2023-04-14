@@ -14,11 +14,17 @@ ifeq ($(OS),Windows_NT)
 		DETECTED_ARCH := $(PROCESSOR_ARCHITECTURE)
 	endif
 	
-	# Map platform arch to our x64/x86
+	# Map platform arch to our name
 	ifeq ($(DETECTED_ARCH),AMD64)
 		DETECTED_ARCH := x64
-	else
+	else ifeq ($(DETECTED_ARCH),x86)
 		DETECTED_ARCH := x86
+	else ifeq ($(DETECTED_ARCH),ARM64)
+		DETECTED_ARCH := arm64
+	else ifeq ($(DETECTED_ARCH),ARM)
+		DETECTED_ARCH := arm
+	else
+		echo ERROR - Unrecognized Host CPU arch
 	endif
 	
 	# Detect # of cores
@@ -27,21 +33,33 @@ ifeq ($(OS),Windows_NT)
 # Linux/OSX (anything with uname)
 else
 	DETECTED_OS := $(shell uname)
+	DETECTED_ARCH := $(shell uname -m)
 	DETECTED_EXTBIN :=
-		
+
 	# Map os name to our linux/osx
 	ifeq ($(DETECTED_OS),Linux)
 		DETECTED_OS := linux
-	endif
-	ifeq ($(DETECTED_OS),Darwin)
+	else ifeq ($(DETECTED_OS),Darwin)
 		DETECTED_OS := osx
 	endif
 	
-	# Map platform arch to our x64/x86
-	ifeq ($(shell uname -m),x86_64)
+	# Map platform arch to our name
+	ifeq ($(DETECTED_ARCH),x86_64)
 		DETECTED_ARCH := x64
-	else
+	else ifeq ($(DETECTED_ARCH),i386)
 		DETECTED_ARCH := x86
+	else ifeq ($(DETECTED_ARCH),x86)
+		DETECTED_ARCH := x86
+	else ifeq ($(DETECTED_ARCH),aarch64)
+		DETECTED_ARCH := arm64
+	else ifeq ($(DETECTED_ARCH),arm64)
+		DETECTED_ARCH := arm64
+	else ifeq ($(DETECTED_ARCH),arm)
+		DETECTED_ARCH := arm
+	else ifeq ($(DETECTED_ARCH),armv7a)
+		DETECTED_ARCH := arm
+	else
+		echo ERROR - Unrecognized Host CPU arch
 	endif
 	
 	# Detect # of cores
