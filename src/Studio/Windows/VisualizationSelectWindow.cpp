@@ -138,12 +138,13 @@ VisualizationSelectWidget::VisualizationSelectWidget(QGridLayout* gridLayout, Vi
 
 
 	// select button
-	mSelectButton = new QPushButton("Select", this);
+	mSelectButton = new QPushButton(visualization->IsSupported() ? "START" : "COMING SOON", this);
 	connect( mSelectButton, &QPushButton::clicked, this, &VisualizationSelectWidget::OnSelectVisualization );
 	vLayout->addWidget( mSelectButton );
 
 	// set enabled state
 	this->setEnabled(visualization->IsSupported());
+	this->setToolTip(visualization->IsSupported() ? "" : "Not yet available for your platform.");
 
 	UpdateInterface();
 }
