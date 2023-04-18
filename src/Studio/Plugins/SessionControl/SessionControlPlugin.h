@@ -131,6 +131,7 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		bool mLostDeviceError;
 
       QTimer* mTimer;
+      bool mIsPreparing;
 
    private slots:
       void OnTimer();

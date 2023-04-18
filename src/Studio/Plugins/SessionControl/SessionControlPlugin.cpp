@@ -48,6 +48,7 @@ SessionControlPlugin::SessionControlPlugin() : Plugin(GetStaticTypeUuid())
 	mLostClientError		 = false;
 	mLostDeviceError		 = false;
 	mTimer					 = NULL;
+	mIsPreparing = false;
 }
 
 
@@ -230,10 +231,11 @@ void SessionControlPlugin::UpdateWidgets()
 	
 	// show different widgets, depending on running state
 	bool isRunning = GetEngine()->GetSession()->IsRunning();
-	if (isRunning == true)
+	if (isRunning || mIsPreparing)
 	{
 		mWhileSessionWidget->show();
 		mPreSessionWidget->hide();
+      mWhileSessionWidget->SetPreparing(mIsPreparing);
 	}
 	else
 	{
@@ -483,6 +485,9 @@ void SessionControlPlugin::OnStart()
 	// make sure no session is running
 	CORE_ASSERT( GetSession()->IsRunning() == false );
 
+   mIsPreparing = true;
+   UpdateWidgets();
+
 	// reset engine but keep it paused
 	GetEngine()->Reset();
 	GetEngine()->SoftPause();
@@ -516,6 +521,7 @@ void SessionControlPlugin::OnParametersLoaded(bool success)
 
 	// start the timer for session start
 	mTimer->start(3000);
+
 }
 
 
@@ -544,6 +550,8 @@ void SessionControlPlugin::Reset()
 	
 	mLostClientError = false;
 	mLostDeviceError= false;
+
+	mIsPreparing = false;
 }
 
 
@@ -755,6 +763,7 @@ void SessionControlPlugin::OnAfterLoadLayout()
 void SessionControlPlugin::OnTimer()
 {
 	mTimer->stop();
+   mIsPreparing = false;
 
 	if (StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine())
 		activeStateMachine->Continue();

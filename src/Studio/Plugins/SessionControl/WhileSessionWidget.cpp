@@ -57,6 +57,14 @@ WhileSessionWidget::WhileSessionWidget(QWidget* parent, int buttonSize) : QWidge
 	rightVLayout->setMargin(0);
 	hLayout->addLayout(rightVLayout);
 
+   mPreparing = new QLabel();
+   mPreparing->setText("Preparing");
+   QFont timeFont = mPreparing->font();
+   timeFont.setPixelSize(24);
+   mPreparing->setFont(timeFont);
+   mPreparing->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+   rightVLayout->addWidget(mPreparing, 0, Qt::AlignCenter);
+
 	// add the stopwatch widget
 	mStopwatchWidget = new StopwatchWidget(-1);
 	rightVLayout->addWidget(mStopwatchWidget);
@@ -115,4 +123,24 @@ void WhileSessionWidget::UpdateInterface()
 	// elapsed time
 	const Time timeElapsed = GetSession()->GetElapsedTime();
 	mStopwatchWidget->SetTimeInSecs(timeElapsed.InSeconds());
+}
+
+void WhileSessionWidget::SetPreparing(bool v)
+{
+   if (v)
+   {
+      mStopwatchWidget->hide();
+      mPreparing->show();
+      mContinueButton->setEnabled(false);
+      mStopButton->setEnabled(false);
+      mPauseButton->setEnabled(false);
+   }
+   else
+   {
+      mStopwatchWidget->show();
+      mPreparing->hide();
+      mContinueButton->setEnabled(true);
+      mStopButton->setEnabled(true);
+      mPauseButton->setEnabled(true);
+   }
 }
