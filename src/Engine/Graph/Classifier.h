@@ -56,6 +56,7 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		// main functions
 		void Update(const Core::Time& elapsed, const Core::Time& delta) override;
 		void Reset() override;
+		void ResetOnSessionStart();
 
 		// overloads
 		uint32 GetType() const override							{ return TYPE_ID; }

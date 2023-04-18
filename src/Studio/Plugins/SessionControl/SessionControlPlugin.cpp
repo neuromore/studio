@@ -47,6 +47,7 @@ SessionControlPlugin::SessionControlPlugin() : Plugin(GetStaticTypeUuid())
 	mCanStartSession		 = false;
 	mLostClientError		 = false;
 	mLostDeviceError		 = false;
+	mTimer					 = NULL;
 }
 
 
@@ -141,6 +142,11 @@ bool SessionControlPlugin::Init()
 	UpdateStartButton();
 	mDock->SetContents(mainWidget);
 	mDock->update();
+
+	// create timer for delayed session start
+	mTimer = new QTimer(this);
+	connect(mTimer, SIGNAL(timeout()), this, SLOT(OnTimer()));
+	mTimer->setTimerType(Qt::PreciseTimer);
 
 	// register with event handler
 	CORE_EVENTMANAGER.AddEventHandler(this);
@@ -477,12 +483,12 @@ void SessionControlPlugin::OnStart()
 	// make sure no session is running
 	CORE_ASSERT( GetSession()->IsRunning() == false );
 
-	// reset engine
+	// reset engine but keep it paused
 	GetEngine()->Reset();
+	GetEngine()->SoftPause();
 
 	// load parameters
 	GetBackendInterface()->GetParameters()->Load(true, *GetSessionUser(), activeExperience, activeClassifier);
-
 }
 
 
@@ -498,10 +504,18 @@ void SessionControlPlugin::OnParametersLoaded(bool success)
 		return;
 	}
 
-	//
-	// Start Session
-	//
-	Start();
+	// continue engine
+	GetEngine()->SoftContinue();
+
+	// but keep the statemachine paused until session really starts
+	if (StateMachine* sm = GetEngine()->GetActiveStateMachine())
+		sm->Pause();
+
+	//mWhileSessionWidget->show();
+	//mPreSessionWidget->hide();
+
+	// start the timer for session start
+	mTimer->start(3000);
 }
 
 
@@ -736,4 +750,20 @@ void SessionControlPlugin::OnAfterLoadLayout()
 			selectVizWindow.exec();
 		}
 	}
+}
+
+void SessionControlPlugin::OnTimer()
+{
+	mTimer->stop();
+
+	if (StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine())
+		activeStateMachine->Continue();
+
+	if (Classifier* c = GetEngine()->GetActiveClassifier())
+	{
+		c->ResetOnSessionStart();
+		Start();
+	}
+	else
+		Reset();
 }
