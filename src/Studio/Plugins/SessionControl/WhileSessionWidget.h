@@ -46,7 +46,6 @@ class WhileSessionWidget : public QWidget
 		QPushButton* GetStopButton() const		{ return mStopButton; }
 		QPushButton* GetPauseButton() const		{ return mPauseButton; }
 		QPushButton* GetContinueButton() const	{ return mContinueButton; }
-      void SetPreparing(bool v);
 
 	private:
 		Core::String		mTempString;
@@ -54,7 +53,7 @@ class WhileSessionWidget : public QWidget
 		ImageButton*		mPauseButton;
 		ImageButton*		mContinueButton;
 
-      QLabel* mPreparing;
+		QLabel* 			mPreparing;
 		StopwatchWidget*	mStopwatchWidget;
 		//QMovie*			mRunningAnimatedImage;
 		//QLabel*			mRunningLabel;

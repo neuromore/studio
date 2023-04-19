@@ -40,6 +40,7 @@ Session::Session()
 	mPausedTime					= 0.0;
 	mPoints						= 0.0;
 	mHavePoints					= false;
+	mIsPreparing				= false;
 	mIsRunning					= false;
 	mIsPaused					= false;
 }
@@ -48,6 +49,19 @@ Session::Session()
 // destructor
 Session::~Session()
 {
+}
+
+
+// prepare the session
+void Session::Prepare()
+{
+	if (mIsPreparing || mIsRunning)
+		return;
+
+	mIsPreparing = true;
+
+	// emit event
+	EMIT_EVENT( OnPrepareSession() );
 }
 
 
@@ -70,6 +84,7 @@ void Session::Start()
 	mStartTime = Time::Now();
 
 	// start session
+	mIsPreparing= false;
 	mIsRunning	= true;
 	mIsPaused	= false;
 	mPoints		= 0.0;
@@ -104,6 +119,7 @@ void Session::Reset()
 	mPoints		 = 0.0;
 	mHavePoints	 = false;
 	mPausedTime  = 0.0;
+	mIsPreparing = false;
 	mIsRunning	 = false;
 	mIsPaused	 = false;
 }

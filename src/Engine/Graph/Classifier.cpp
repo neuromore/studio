@@ -111,14 +111,11 @@ void Classifier::Reset()
 
 void Classifier::ResetOnSessionStart()
 {
-	uint32 num;
-
 	// reset some nodes
-	num = GetNumNodes();
+	const uint32 num = GetNumOutputNodes();
 	for (uint32_t i = 0; i < num; i++) {
-		Node* n = GetNode(i);
-		if (n->GetType() == FileWriterNode::TYPE_ID || n->GetNodeType() == OutputNode::NODE_TYPE)
-			n->Reset();
+		OutputNode* n = GetOutputNode(i);
+		n->Reset();
 	}
 }
 

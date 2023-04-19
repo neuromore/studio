@@ -48,7 +48,6 @@ SessionControlPlugin::SessionControlPlugin() : Plugin(GetStaticTypeUuid())
 	mLostClientError		 = false;
 	mLostDeviceError		 = false;
 	mTimer					 = NULL;
-	mIsPreparing = false;
 }
 
 
@@ -230,12 +229,12 @@ void SessionControlPlugin::UpdateWidgets()
 	}
 	
 	// show different widgets, depending on running state
-	bool isRunning = GetEngine()->GetSession()->IsRunning();
-	if (isRunning || mIsPreparing)
+	const bool isPreparing = GetEngine()->GetSession()->IsPreparing();
+	const bool isRunning = GetEngine()->GetSession()->IsRunning();
+	if (isRunning || isPreparing)
 	{
 		mWhileSessionWidget->show();
 		mPreSessionWidget->hide();
-      mWhileSessionWidget->SetPreparing(mIsPreparing);
 	}
 	else
 	{
@@ -485,12 +484,11 @@ void SessionControlPlugin::OnStart()
 	// make sure no session is running
 	CORE_ASSERT( GetSession()->IsRunning() == false );
 
-   mIsPreparing = true;
-   UpdateWidgets();
+	GetEngine()->Reset();     // reset engine (also resets session)
+	GetEngine()->SoftPause(); // but keep it paused
+	GetSession()->Prepare();  // prepare the session
 
-	// reset engine but keep it paused
-	GetEngine()->Reset();
-	GetEngine()->SoftPause();
+	UpdateWidgets();
 
 	// load parameters
 	GetBackendInterface()->GetParameters()->Load(true, *GetSessionUser(), activeExperience, activeClassifier);
@@ -516,12 +514,8 @@ void SessionControlPlugin::OnParametersLoaded(bool success)
 	if (StateMachine* sm = GetEngine()->GetActiveStateMachine())
 		sm->Pause();
 
-	//mWhileSessionWidget->show();
-	//mPreSessionWidget->hide();
-
 	// start the timer for session start
 	mTimer->start(3000);
-
 }
 
 
@@ -540,8 +534,8 @@ void SessionControlPlugin::Start()
 
 void SessionControlPlugin::Reset()
 {
-	GetSession()->Reset();
 	GetSession()->Stop();
+	GetSession()->Reset();
 
 	// update the interface
 	UpdateWidgets();
@@ -550,8 +544,6 @@ void SessionControlPlugin::Reset()
 	
 	mLostClientError = false;
 	mLostDeviceError= false;
-
-	mIsPreparing = false;
 }
 
 
@@ -763,7 +755,6 @@ void SessionControlPlugin::OnAfterLoadLayout()
 void SessionControlPlugin::OnTimer()
 {
 	mTimer->stop();
-   mIsPreparing = false;
 
 	if (StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine())
 		activeStateMachine->Continue();

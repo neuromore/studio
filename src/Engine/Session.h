@@ -40,6 +40,7 @@ class ENGINE_API Session : public Core::EventSource
 		Session();
 		virtual ~Session();
 
+		void Prepare();
 		void Start();
 		void Stop();
 		void Pause()													{ mIsPaused = true; }
@@ -58,6 +59,7 @@ class ENGINE_API Session : public Core::EventSource
 		Core::Time GetRemainingTime() const;
 		double GetProgress() const;
 
+		bool IsPreparing() const										{ return mIsPreparing; }
 		bool IsRunning() const											{ return mIsRunning; }
 		bool IsPaused() const											{ return mIsPaused; }
 
@@ -78,6 +80,7 @@ class ENGINE_API Session : public Core::EventSource
 		double									mPoints;
 		bool									mHavePoints;
 
+		bool									mIsPreparing;
 		bool									mIsRunning;
 		bool									mIsPaused;
 };

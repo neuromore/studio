@@ -1180,8 +1180,8 @@ QAction* MainWindow::FindAction(QList<QAction*>& actionList, Plugin* plugin)
 // EVENTS
 //
 
-// lock parts of the UI on session start
-void MainWindow::OnStartSession()
+// lock parts of the UI on session prepare
+void MainWindow::OnPrepareSession()
 {
 	mMenuBar->setEnabled(false);
 
@@ -1192,6 +1192,11 @@ void MainWindow::OnStartSession()
 	mActiveBciCombo->setEnabled(false);
 	mLayoutComboBox->setEnabled(false);
 	mSelectSessionUserButton->setEnabled(false);
+}
+
+
+void MainWindow::OnStartSession()
+{
 }
 
 

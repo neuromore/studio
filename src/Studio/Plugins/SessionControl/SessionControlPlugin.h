@@ -88,6 +88,7 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		void OnStop();
 		void OnPause();
 		void OnContinue();
+		void OnTimer();
 
 		// client and network message callabacks
 		void OnClientChanged   ( NetworkServerClient* client );
@@ -130,11 +131,8 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		bool mLostClientError;
 		bool mLostDeviceError;
 
-      QTimer* mTimer;
-      bool mIsPreparing;
+		QTimer* mTimer;
 
-   private slots:
-      void OnTimer();
 };
 
 
