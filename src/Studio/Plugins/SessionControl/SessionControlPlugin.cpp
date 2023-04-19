@@ -47,7 +47,7 @@ SessionControlPlugin::SessionControlPlugin() : Plugin(GetStaticTypeUuid())
 	mCanStartSession		 = false;
 	mLostClientError		 = false;
 	mLostDeviceError		 = false;
-	mTimer					 = NULL;
+	mTimer				 = NULL;
 }
 
 
