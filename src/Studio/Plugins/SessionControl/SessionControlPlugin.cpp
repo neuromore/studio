@@ -514,17 +514,16 @@ void SessionControlPlugin::OnParametersLoaded(bool success)
 	if (StateMachine* sm = GetEngine()->GetActiveStateMachine())
 		sm->Pause();
 
-   if (Classifier* c = GetEngine()->GetActiveClassifier())
-   {
-      const double inittime = c->GetFloatAttribute(
-         Classifier::ATTRIB_INITTIME, Classifier::DEFAULTINITTIME) * 1000.0;
+	if (Classifier* c = GetEngine()->GetActiveClassifier())
+	{
+		const double inittime = c->GetFloatAttribute(
+			Classifier::ATTRIB_INITTIME, Classifier::DEFAULTINITTIME) * 1000.0;
 
-      // start the timer for session start
-      mTimer->start((int)inittime);
-   }
-   else
-      Reset();
-
+		// start the timer for session start
+		mTimer->start((int)inittime);
+	}
+	else
+		Reset();
 }
 
 

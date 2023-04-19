@@ -55,7 +55,8 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 			ATTRIB_INITTIME = 0
 		};
 
-		constexpr static const double DEFAULTINITTIME = 3.0;
+		// default initialization time until e.g. filters are stable
+		constexpr static const double DEFAULTINITTIME = 2.0;
 
 		Classifier(Graph* parentNode=NULL);
 		virtual ~Classifier();
