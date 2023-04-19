@@ -59,6 +59,17 @@ Classifier::~Classifier()
 }
 
 
+void Classifier::Init()
+{
+	Graph::Init();
+
+	Core::AttributeSettings* attribInitTime = RegisterAttribute("Init Time (s)", "InitTime", "Required initialization time until classifier is stable.", Core::ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
+	attribInitTime->SetDefaultValue(Core::AttributeFloat::Create(DEFAULTINITTIME));
+	attribInitTime->SetMinValue(Core::AttributeFloat::Create(0.0));
+	attribInitTime->SetMaxValue(Core::AttributeFloat::Create(30.0));
+}
+
+
 // update the graph
 void Classifier::Update(const Time& elapsed, const Time& delta)
 {
