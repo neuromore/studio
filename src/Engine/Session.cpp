@@ -40,7 +40,7 @@ Session::Session()
 	mPausedTime					= 0.0;
 	mPoints						= 0.0;
 	mHavePoints					= false;
-	mIsPreparing				= false;
+	mIsPreparing					= false;
 	mIsRunning					= false;
 	mIsPaused					= false;
 }
@@ -84,7 +84,7 @@ void Session::Start()
 	mStartTime = Time::Now();
 
 	// start session
-	mIsPreparing= false;
+	mIsPreparing	= false;
 	mIsRunning	= true;
 	mIsPaused	= false;
 	mPoints		= 0.0;
@@ -119,7 +119,7 @@ void Session::Reset()
 	mPoints		 = 0.0;
 	mHavePoints	 = false;
 	mPausedTime  = 0.0;
-	mIsPreparing = false;
+	mIsPreparing	= false;
 	mIsRunning	 = false;
 	mIsPaused	 = false;
 }
