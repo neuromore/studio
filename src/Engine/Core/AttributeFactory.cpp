@@ -34,6 +34,7 @@
 #include "AttributeInt32.h"
 #include "AttributeString.h"
 #include "AttributeStringArray.h"
+#include "AttributeText.h"
 #include "AttributeBool.h"
 #include "AttributeColor.h"
 
@@ -47,11 +48,12 @@ namespace Core
 // constructor
 AttributeFactory::AttributeFactory()
 {
-	mRegisteredAttributes.Reserve( 7 );
+	mRegisteredAttributes.Reserve( 8 );
 
 	mRegisteredAttributes.Add( AttributeFloat::Create() );
 	mRegisteredAttributes.Add( AttributeInt32::Create() );
 	mRegisteredAttributes.Add( AttributeString::Create() );
+	mRegisteredAttributes.Add( AttributeText::Create() );
 	mRegisteredAttributes.Add( AttributeBool::Create() );
 	mRegisteredAttributes.Add( AttributeColor::Create() );
 

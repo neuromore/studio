@@ -107,6 +107,9 @@ enum
 #define STUDIO_OSCLISTENER_UDP_PORT		4545			// port for OSC input nodes
 #define STUDIO_OSCREMOTE_UDP_PORT		4546			// port for OSC output nodes
 
+// default websocket port
+#define STUDIO_WEBSOCKET_TCP_PORT		4547			// default tcp port for websocket
+
 // client timeout duration in seconds
 #define STUDIO_NETWORKSERVER_CLIENT_TIMEOUT				5	
 

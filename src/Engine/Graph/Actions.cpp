@@ -241,9 +241,9 @@ void HideImageAction::Execute()
 // initialize attributes
 void ShowTextAction::Init()
 {
-	// register audio url attribute
-	AttributeSettings* urlAttribute = RegisterAttribute("Text", "test", "The test to show.", ATTRIBUTE_INTERFACETYPE_STRING);
-	urlAttribute->SetDefaultValue( AttributeString::Create("Example text") );
+	// register text attribute
+	AttributeSettings* textAttribute = RegisterAttribute("Text", "text", "The text to show.", ATTRIBUTE_INTERFACETYPE_TEXT);
+	textAttribute->SetDefaultValue( AttributeText::Create("Example text") );
 
 	// custom color
 	AttributeSettings* colorAttribute = RegisterAttribute("Color", "color", "The text color.", ATTRIBUTE_INTERFACETYPE_COLOR);
@@ -254,7 +254,7 @@ void ShowTextAction::Init()
 // execute action
 void ShowTextAction::Execute()
 {
-	mText					= GetStringAttribute( ATTRIBUTE_TEXT );
+	mText					= GetTextAttribute( ATTRIBUTE_TEXT );
 	const Color	color	= GetColorAttribute( ATTRIBUTE_COLOR );
 
 	// check if there are any placeholders in the string
@@ -825,4 +825,49 @@ void BrowserPausePlayerAction::Init()
 void BrowserPausePlayerAction::Execute()
 {
 	EMIT_EVENT(OnBrowserPausePlayer());
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// show textinput action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// initialize attributes
+void ShowTextInputAction::Init()
+{
+	// register text attribute
+	AttributeSettings* textAttribute = RegisterAttribute("Text", "text", "The text to show.", ATTRIBUTE_INTERFACETYPE_TEXT);
+	textAttribute->SetDefaultValue( AttributeText::Create("") );
+
+	// custom color
+	AttributeSettings* idAttribute = RegisterAttribute("ID", "id", "The id of the input.", ATTRIBUTE_INTERFACETYPE_INTSPINNER);
+	idAttribute->SetDefaultValue( AttributeInt32::Create(0) );
+	idAttribute->SetMinValue(AttributeInt32::Create(0));
+	idAttribute->SetMaxValue(AttributeInt32::Create(1000));
+}
+
+
+// execute action
+void ShowTextInputAction::Execute()
+{
+	mText = GetTextAttribute(ATTRIBUTE_TEXT);
+	mId = GetInt32Attribute(ATTRIBUTE_ID);
+	EMIT_EVENT(OnShowTextInput(mText.AsChar(), mId));
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// hide textinput action
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// initialize attributes
+void HideTextInputAction::Init()
+{
+}
+
+
+// execute action
+void HideTextInputAction::Execute()
+{
+	EMIT_EVENT(OnHideTextInput());
 }

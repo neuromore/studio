@@ -30,7 +30,13 @@
 using namespace Core;
 
 ToneGeneratorNode::ToneGeneratorNode(Graph* graph) : SPNode(graph),
+   mInstrument(INSTRUMENT_SINEWAVE),
    mSineWave(),
+   mClarinet(),
+   mFlute(1.0),
+   mGuitar(),
+   mSitar(),
+   mLastToneDelta(1.0),
    mSamplesAhead(0.0),
    mSamplesEnd(&mSamples[AUDIOBUFFERSAMPLES]),
    mBufferWrite(mBuffer),
@@ -54,14 +60,22 @@ void ToneGeneratorNode::Init()
    RequireSyncedInput();
 
    // SETUP PORTS
-   InitInputPorts(2);
+   InitInputPorts(5);
+   GetInputPort(INPUTPORT_INSTRUMENT).Setup("Instrument", "instrument", AttributeChannels<double>::TYPE_ID, INPUTPORT_INSTRUMENT);
    GetInputPort(INPUTPORT_FREQUENCY).Setup("Frequency", "frequency", AttributeChannels<double>::TYPE_ID, INPUTPORT_FREQUENCY);
+   GetInputPort(INPUTPORT_AMPLITUDE).Setup("Amplitude", "amplitude", AttributeChannels<double>::TYPE_ID, INPUTPORT_AMPLITUDE);
+   GetInputPort(INPUTPORT_DELAY).Setup("Delay", "delay", AttributeChannels<double>::TYPE_ID, INPUTPORT_DELAY);
    GetInputPort(INPUTPORT_ENABLED).Setup("Enabled", "enabled", AttributeChannels<double>::TYPE_ID, INPUTPORT_ENABLED);
 }
 
 void ToneGeneratorNode::ResetTone()
 {
    mSineWave.reset();      // reset tone
+   mClarinet.clear();      // reset clarinet
+   mFlute.clear();         // reset flute
+   mGuitar.clear();        // reset guitar
+   mSitar.clear();         // reset sitar
+   mLastToneDelta = 1.0;   // reset lasttonedelta
    mSamplesAhead = 0.0;    // reset samples ahead counter
    mBufferWrite = mBuffer; // reset write position
    mBufferRead  = mBuffer; // reset read position
@@ -91,8 +105,14 @@ void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
    SPNode::Update(elapsed, delta);
 
    // get input ports
-   InputPort& freqInput    = GetInputPort(INPUTPORT_FREQUENCY);
-   InputPort& enabledInput = GetInputPort(INPUTPORT_ENABLED);
+   InputPort& instrumentInput = GetInputPort(INPUTPORT_INSTRUMENT);
+   InputPort& freqInput       = GetInputPort(INPUTPORT_FREQUENCY);
+   InputPort& amplitudeInput  = GetInputPort(INPUTPORT_AMPLITUDE);
+   InputPort& delayInput      = GetInputPort(INPUTPORT_DELAY);
+   InputPort& enabledInput    = GetInputPort(INPUTPORT_ENABLED);
+
+   // whether to reset later or not
+   bool doreset = false;
 
    // check enabled state
    if (enabledInput.HasConnection())
@@ -106,7 +126,7 @@ void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
       }
       else if (v >= 1.0 && !mEnabled) {
          mEnabled = true;
-         ResetTone();
+         doreset  = true;
       }
    }
    else
@@ -122,8 +142,50 @@ void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
       ->AsType<double>()
       ->GetLastSample();
 
-   // set input frequency on STK sinewave
-   mSineWave.setFrequency(freq);
+   // get last amplitude (internal volume of instrument, e.g. 'piano' vs. 'forte')
+   const double amplitude = amplitudeInput.HasConnection() ? amplitudeInput.GetChannels()
+      ->GetChannel(0)
+      ->AsType<double>()
+      ->GetLastSample() : DEFAULTAMPLITUDE;
+
+   // get last delay
+   const double delay = delayInput.HasConnection() ? delayInput.GetChannels()
+      ->GetChannel(0)
+      ->AsType<double>()
+      ->GetLastSample() : DEFAULTDELAY;
+
+   // get last instrument
+   const uint32_t instrument = (uint32_t)(instrumentInput.HasConnection() ? instrumentInput.GetChannels()
+      ->GetChannel(0)
+      ->AsType<double>()
+      ->GetLastSample() : 0.0);
+
+   // check for instrument change
+   if (instrument != mInstrument)
+   {
+      mInstrument = instrument;
+      doreset = true;
+   }
+
+   // do reset if necessary
+   if (doreset)
+      ResetTone();
+
+   // add delta
+   mLastToneDelta += delta.InSeconds();
+
+   // update
+   if (mLastToneDelta >= delay)
+   {
+      switch (mInstrument) {
+      case INSTRUMENT_CLARINET: mClarinet.noteOn(freq, ::std::min(amplitude, 1.0)); break;
+      case INSTRUMENT_FLUTE:    mFlute.noteOn(freq, ::std::min(amplitude, 1.0));    break;
+      case INSTRUMENT_GUITAR:   mGuitar.noteOn(freq, amplitude);   break;
+      case INSTRUMENT_SITAR:    mSitar.noteOn(freq, amplitude);    break;
+      default:                  mSineWave.setFrequency(freq);      break;
+      }
+      mLastToneDelta = 0.0;
+   }
 
    // calculate the number of samples to generate for last delta
    double   secs  = delta.InSeconds();
@@ -152,7 +214,13 @@ void ToneGeneratorNode::Update(const Time& elapsed, const Time& delta)
    // generate samples
    while (nfrms) {
       if (p >= e) p = mSamples;
-      *p++ = (float)mSineWave.tick();
+      switch (mInstrument) {
+      case INSTRUMENT_CLARINET: *p++ = (float)mClarinet.tick(); break;
+      case INSTRUMENT_FLUTE:    *p++ = (float)mFlute.tick();    break;
+      case INSTRUMENT_GUITAR:   *p++ = (float)mGuitar.tick();   break;
+      case INSTRUMENT_SITAR:    *p++ = (float)mSitar.tick();    break;
+      default:                  *p++ = (float)mSineWave.tick(); break;
+      }
       nfrms--;
    }
 

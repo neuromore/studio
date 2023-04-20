@@ -208,6 +208,24 @@ void OpenBCIDriver::OnRemoveDevice(Device* device)
 }
 
 
+void OpenBCIDriver::StartTest(Device* device)
+{
+   if (device) 
+      device->StartTest();
+}
+
+void OpenBCIDriver::StopTest(Device* device)
+{
+   if (device)
+      device->StopTest();
+}
+
+bool OpenBCIDriver::IsTestRunning(Device* device)
+{
+   return device ? device->IsTestRunning() : false;
+}
+
+
 // run autodetection once
 void OpenBCIAutoDetection::DetectDevices()
 { 
@@ -438,5 +456,6 @@ void OpenBCISerialThread::run()
 	}
 
 }
+
 
 #endif

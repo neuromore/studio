@@ -1323,6 +1323,9 @@
       <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Branding.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeText.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

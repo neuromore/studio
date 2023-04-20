@@ -40,7 +40,7 @@ public:
   ~DelayL();
 
   //! Get the maximum delay-line length.
-  unsigned long getMaximumDelay( void ) { return inputs_.size() - 1; };
+  size_t getMaximumDelay( void ) { return inputs_.size() - 1; };
 
   //! Set the maximum delay-line length.
   /*!

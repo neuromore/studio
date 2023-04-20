@@ -84,6 +84,8 @@ QT_END_NAMESPACE
 - (void)connectionNotification:(id)notification withDevice:(IOBluetoothDevice *)device;
 - (void)connectionClosedNotification:(id)notification withDevice:(IOBluetoothDevice *)device;
 
+- (void)stopMonitoring;
+
 @end
 
 #endif

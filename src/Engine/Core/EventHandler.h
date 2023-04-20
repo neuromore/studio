@@ -149,7 +149,10 @@ class ENGINE_API EventHandler
 		virtual void OnBrowserStartPlayer(double progress, bool fullscreen) { }
 		virtual void OnBrowserStopPlayer() { }
 		virtual void OnBrowserPausePlayer() { }
-	
+
+		virtual void OnShowTextInput(const char* text, uint32 inputId) { }
+		virtual void OnHideTextInput() { }
+
 	private:
 
 		// enable/disable all events

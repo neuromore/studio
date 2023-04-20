@@ -66,7 +66,7 @@ void HMultiCheckboxWidget::ReInit(const Array<String>& names, const Array<String
 	CORE_ASSERT( numCheckboxes == tooltips.Size() && numCheckboxes == colors.Size() );
 
 	// layout for the checkboxes
-	QHBoxLayout* hLayout = new QHBoxLayout();
+	QGridLayout* hLayout = new QGridLayout();
 	hLayout->setMargin(3);
 	hLayout->setSpacing(10);
 	hLayout->setAlignment( Qt::AlignLeft );
@@ -78,7 +78,7 @@ void HMultiCheckboxWidget::ReInit(const Array<String>& names, const Array<String
 		mCheckboxAll = new QCheckBox( allCheckboxName );
 		mCheckboxAll->setToolTip( "Enable/disable all with a single click" );
 		mCheckboxAll->setChecked( true );
-		hLayout->addWidget( mCheckboxAll );
+		hLayout->addWidget( mCheckboxAll, 0, 0 );
 		connect( mCheckboxAll, SIGNAL(stateChanged(int)), this, SLOT(OnAllCheckbox(int)) );
 	} else
 	{
@@ -88,10 +88,23 @@ void HMultiCheckboxWidget::ReInit(const Array<String>& names, const Array<String
 	// prepare the checkbox array
 	mCheckboxes.Resize( numCheckboxes );
 
+	// break line after that many checkboxes
+	const uint32_t BOXESINROW = 8;
+
+	// start cell (all is in 0,0)
+	uint32_t row = 0;
+	uint32_t col = 1;
+
 	// iterate through the available checkboxes
 	Core::String widgetColorText;
 	for (uint32 i=0; i<numCheckboxes; ++i)
 	{
+		// flow to next row
+		if (i != 0 && i % BOXESINROW == 0) {
+			row++;
+			col = 1;
+		}
+
 		// create the style sheet used to set the checkbox's color
 		widgetColorText.Format( "QCheckBox { color: rgb(%.0f, %.0f, %.0f) }", colors[i].r*255.0f, colors[i].g*255.0f, colors[i].b*255.0f );
 
@@ -103,7 +116,8 @@ void HMultiCheckboxWidget::ReInit(const Array<String>& names, const Array<String
 
 		// connect and add it
 		connect( mCheckboxes[i], SIGNAL(stateChanged(int)), this, SLOT(OnCheckbox(int)) );
-		hLayout->addWidget( mCheckboxes[i] );
+		hLayout->addWidget( mCheckboxes[i], row, col );
+		col++;
 	}
 
 	mMainWidget->setLayout(hLayout);

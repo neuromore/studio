@@ -21,11 +21,16 @@ using namespace Core;
 MediaContent::MediaContent(QObject* parent, WebDataCache* cache, const char* url) : 
    QAbstractVideoSurface(parent),
    mMediaPlayer(this),
-   mUrl(url)
+   mUrl(url),
+   mVolume(0.0),
+   mCurrentLoops(0),
+   mMaxLoops(0),
+   mHasFinished(false)
 {
    mMediaPlayer.setVideoOutput(this);
 
    connect(&mMediaPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(OnMediaStatusChanged(QMediaPlayer::MediaStatus)));
+   connect(&mMediaPlayer, SIGNAL(error(QMediaPlayer::Error)), this, SLOT(OnMediaError(QMediaPlayer::Error)));
 
    if (cache->FileExists(url) == true)
    {
@@ -43,10 +48,6 @@ MediaContent::MediaContent(QObject* parent, WebDataCache* cache, const char* url
       // not cached, stream from the web
       mMediaPlayer.setMedia(QUrl(url));
    }
-
-   mHasFinished = false;
-   mCurrentLoops = 0;
-   mMaxLoops = 0;
 }
 
 MediaContent::~MediaContent()
@@ -71,7 +72,7 @@ void MediaContent::Stop()
 
 void MediaContent::OnMediaStatusChanged(QMediaPlayer::MediaStatus status)
 {
-   //LogInfo("%i", status);
+   LogInfo("MEDIASTATUS: %i", status);
 
    if (status == QMediaPlayer::EndOfMedia)
    {
@@ -94,6 +95,11 @@ void MediaContent::OnMediaStatusChanged(QMediaPlayer::MediaStatus status)
       OnLooped( mUrl );
       emit Looped( mUrl );
    }
+}
+
+void MediaContent::OnMediaError(QMediaPlayer::Error error)
+{
+   LogError("MEDIAERROR: %i", error);
 }
 
 void MediaContent::OnLooped(const String& url)

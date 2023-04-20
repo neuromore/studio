@@ -78,6 +78,7 @@ class ENGINE_API AttributeSet
 		bool SetFloatAttribute(const char* internalName, double value, bool createIfNotExists=true);
 		bool SetStringAttribute(const char* internalName, const char* value, bool createIfNotExists=true);
 		bool SetColorAttribute(const char* internalName, const Color& value, bool createIfNotExists=true);
+		bool SetTextAttribute(const char* internalName, const char* value, bool createIfNotExists=true);
 
 		bool SetStringAttributeByIndex(uint32 index, const char* value, bool createIfNotExists=true);
 		bool SetFloatAttributeByIndex(uint32 index, double value, bool createIfNotExists=true);
@@ -85,6 +86,7 @@ class ENGINE_API AttributeSet
 		bool SetBoolAttributeByIndex(uint32 index, bool value, bool createIfNotExists=true);
 		bool SetColorAttributeByIndex(uint32 index, const Color& value, bool createIfNotExists=true);
 		bool SetStringArrayAttributeByIndex(uint32 index, const Array<String>& value, bool createIfNotExists=true);
+		bool SetTextAttributeByIndex(uint32 index, const char* value, bool createIfNotExists=true);
 		
 
 		// get helpers
@@ -101,6 +103,7 @@ class ENGINE_API AttributeSet
 		const char* GetStringAttribute(uint32 index, const char* defaultValue="") const;
 		const Array<String>& GetStringArrayAttribute(uint32 index, const Array<String>& defaultValue) const;
 		Color GetColorAttribute(uint32 index, const Color& defaultValue=Color()) const;
+		const char* GetTextAttribute(uint32 index, const char* defaultValue="") const;
 
 		// enable or disable attributes
 		void EnableAllAttributes();

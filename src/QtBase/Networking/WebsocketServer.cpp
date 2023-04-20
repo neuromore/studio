@@ -31,11 +31,12 @@
 
 QT_USE_NAMESPACE
 
-WebsocketServer::WebsocketServer(quint16 port, bool debug, QObject* parent) :
+WebsocketServer::WebsocketServer(uint16 port, bool debug, QObject* parent) :
    QObject(parent),
    mWebSocketServer(new QWebSocketServer(QStringLiteral("Studio Server"),
       QWebSocketServer::NonSecureMode, this)),
    mTimerFeedbacks(new QTimer(this)),
+   mPort(port),
    mJsonBuf(),
    mJsonWriter(mJsonBuf)
 {
@@ -43,18 +44,6 @@ WebsocketServer::WebsocketServer(quint16 port, bool debug, QObject* parent) :
 
    // configure timer
    mTimerFeedbacks->setTimerType(Qt::PreciseTimer);
-
-   // start listening
-   if (mWebSocketServer->listen(QHostAddress::Any, port))
-   {
-      qDebug() << "Studio Websocket Server listening on port" << port;
-      connect(mWebSocketServer, &QWebSocketServer::newConnection,
-         this, &WebsocketServer::onNewConnection);
-      connect(mWebSocketServer, &QWebSocketServer::closed, 
-         this, &WebsocketServer::closed);
-      connect(mTimerFeedbacks, &QTimer::timeout, 
-         this, &WebsocketServer::sendFeedbacks);
-   }
 }
 
 WebsocketServer::~WebsocketServer()
@@ -63,6 +52,25 @@ WebsocketServer::~WebsocketServer()
 
    mWebSocketServer->close();
    qDeleteAll(mClients.begin(), mClients.end());
+}
+
+void WebsocketServer::Init()
+{
+   // start listening
+   if (mWebSocketServer->listen(QHostAddress::Any, mPort))
+   {
+      qDebug() << "Studio Websocket Server listening on port" << mPort;
+      connect(mWebSocketServer, &QWebSocketServer::newConnection,
+         this, &WebsocketServer::onNewConnection);
+      connect(mWebSocketServer, &QWebSocketServer::closed, 
+         this, &WebsocketServer::closed);
+      connect(mTimerFeedbacks, &QTimer::timeout, 
+         this, &WebsocketServer::sendFeedbacks);
+   }
+   else
+   {
+      qDebug() << "Studio Websocket Server failed to listen on port" << mPort;
+   }
 }
 
 // SOCKET EVENTS

@@ -31,6 +31,11 @@
 
 // STK
 #include <stk/SineWave.h>
+#include <stk/Instrmnt.h>
+#include <stk/Clarinet.h>
+#include <stk/Flute.h>
+#include <stk/Guitar.h>
+#include <stk/Sitar.h>
 
 class ENGINE_API ToneGeneratorNode : public SPNode
 {
@@ -47,10 +52,28 @@ public:
    // number of samples ahead in time (800=100ms)
    static constexpr double DESIREDSAMPLESAHEAD = AUDIOSAMPLERATE / 10;
 
+   // default amplitude used on instruments
+   static constexpr double DEFAULTAMPLITUDE = 1.0;
+
+   // default delay between tones used on instruments (in seconds)
+   static constexpr double DEFAULTDELAY = 1.0;
+
    enum
    {
-      INPUTPORT_FREQUENCY = 0,
-      INPUTPORT_ENABLED   = 1
+      INSTRUMENT_SINEWAVE = 0,
+      INSTRUMENT_CLARINET = 1,
+      INSTRUMENT_FLUTE    = 2,
+      INSTRUMENT_GUITAR   = 3,
+      INSTRUMENT_SITAR    = 4
+   };
+
+   enum
+   {
+      INPUTPORT_INSTRUMENT = 0,
+      INPUTPORT_FREQUENCY  = 1,
+      INPUTPORT_AMPLITUDE  = 2,
+      INPUTPORT_DELAY      = 3,
+      INPUTPORT_ENABLED    = 4
    };
 
    // constructor & destructor
@@ -74,7 +97,13 @@ public:
    GraphObject* Clone(Graph* graph) override { ToneGeneratorNode* clone = new ToneGeneratorNode(graph); return clone; }
 
 private:
+   uint32_t        mInstrument;
    stk::SineWave   mSineWave;
+   stk::Clarinet   mClarinet;
+   stk::Flute      mFlute;
+   stk::Guitar     mGuitar;
+   stk::Sitar      mSitar;
+   double          mLastToneDelta;
    double          mSamplesAhead;
    union {
       const float* mSamplesEnd;
