@@ -38,6 +38,7 @@ Session::Session()
 	mTotalTime					= 0;
 	mElapsedTime				= 0.0;
 	mPausedTime					= 0.0;
+	mPrepareSeconds				= 0.0;
 	mPoints						= 0.0;
 	mHavePoints					= false;
 	mIsPreparing					= false;
@@ -55,10 +56,16 @@ Session::~Session()
 // prepare the session
 void Session::Prepare()
 {
-	if (mIsPreparing || mIsRunning)
+	Classifier* c = GetEngine()->GetActiveClassifier();
+
+	if (mIsPreparing || mIsRunning || !c)
 		return;
 
 	mIsPreparing = true;
+
+	// init delay of the classifier
+	mPrepareSeconds = c->GetFloatAttribute(
+		Classifier::ATTRIB_INITTIME, Classifier::DEFAULTINITTIME);
 
 	// emit event
 	EMIT_EVENT( OnPrepareSession() );
@@ -79,6 +86,9 @@ void Session::Start()
 		mIsRunning = false;
 		return;
 	}
+
+	// reset some nodes on session start
+	activeClassifier->ResetOnSessionStart();
 
 	// capture the start time and remember it
 	mStartTime = Time::Now();
@@ -126,8 +136,20 @@ void Session::Reset()
 
 
 // update the session
-void Session::Update(Core::Time delta)
+void Session::Update(const Core::Time& elapsed, const Core::Time& delta)
 {
+	Classifier* c = GetEngine()->GetActiveClassifier();
+
+	if (!c)
+		return;
+
+	// flip preparing state after init delay
+	if (mIsPreparing && elapsed.InSeconds() >= mPrepareSeconds)
+	{
+		mIsPreparing = false;
+		EMIT_EVENT( OnPreparedSession() );
+	}
+
 	// only update the session in case it is running
 	if (mIsRunning == false)
 		return;
@@ -138,14 +160,13 @@ void Session::Update(Core::Time delta)
 		mElapsedTime += delta;
 
 
-	Classifier* classifier = GetEngine()->GetActiveClassifier();
-	const uint32 numPointsNodes = classifier->GetNumPointsNodes();
+	const uint32 numPointsNodes = c->GetNumPointsNodes();
 	if (numPointsNodes > 0)
 	{
 		// sum up current total points
 		mPoints = 0;
 		for (uint32 i = 0; i < numPointsNodes; ++i)
-			mPoints += classifier->GetPointsNode(i)->GetPoints();
+			mPoints += c->GetPointsNode(i)->GetPoints();
 
 		mHavePoints	= true;
 	}

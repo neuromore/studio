@@ -197,7 +197,7 @@ void EngineManager::Update(Time delta)
 	const double timeDelta = delta.InSeconds();
 
 	// 1) update the session first (because of session state and time elapsed)
-	mSession->Update(timeDelta);
+	mSession->Update(mElapsedTime, timeDelta);
 
 	// 2) update the osc message router, so the newest messages are pushed into the devices
 	// this internally passes the asynch received messages over to the receiver objects and let them process the data

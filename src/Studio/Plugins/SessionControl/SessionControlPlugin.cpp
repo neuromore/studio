@@ -47,7 +47,6 @@ SessionControlPlugin::SessionControlPlugin() : Plugin(GetStaticTypeUuid())
 	mCanStartSession		 = false;
 	mLostClientError		 = false;
 	mLostDeviceError		 = false;
-	mTimer				 = NULL;
 }
 
 
@@ -143,11 +142,6 @@ bool SessionControlPlugin::Init()
 	mDock->SetContents(mainWidget);
 	mDock->update();
 
-	// create timer for delayed session start
-	mTimer = new QTimer(this);
-	connect(mTimer, SIGNAL(timeout()), this, SLOT(OnTimer()));
-	mTimer->setTimerType(Qt::PreciseTimer);
-
 	// register with event handler
 	CORE_EVENTMANAGER.AddEventHandler(this);
 
@@ -241,6 +235,20 @@ void SessionControlPlugin::UpdateWidgets()
 		mWhileSessionWidget->hide();
 		mPreSessionWidget->show();
 	}
+}
+
+
+void SessionControlPlugin::OnPreparedSession()
+{
+	if (Classifier* c = GetEngine()->GetActiveClassifier())
+	{
+		if (StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine())
+			activeStateMachine->Continue();
+
+		Start();
+	}
+	else
+		Reset();
 }
 
 
@@ -486,9 +494,6 @@ void SessionControlPlugin::OnStart()
 
 	GetEngine()->Reset();     // reset engine (also resets session)
 	GetEngine()->SoftPause(); // but keep it paused
-	GetSession()->Prepare();  // prepare the session
-
-	UpdateWidgets();
 
 	// load parameters
 	GetBackendInterface()->GetParameters()->Load(true, *GetSessionUser(), activeExperience, activeClassifier);
@@ -507,23 +512,21 @@ void SessionControlPlugin::OnParametersLoaded(bool success)
 		return;
 	}
 
-	// continue engine
-	GetEngine()->SoftContinue();
+   Classifier* c = GetEngine()->GetActiveClassifier();
+
+   // must have a classifier
+   if (!c) {
+      Reset();
+      return;
+   }
+
+	GetSession()->Prepare();     // prepare the session
+	UpdateWidgets();             // update ui
+	GetEngine()->SoftContinue(); // continue engine
 
 	// but keep the statemachine paused until session really starts
 	if (StateMachine* sm = GetEngine()->GetActiveStateMachine())
 		sm->Pause();
-
-	if (Classifier* c = GetEngine()->GetActiveClassifier())
-	{
-		const double inittime = c->GetFloatAttribute(
-			Classifier::ATTRIB_INITTIME, Classifier::DEFAULTINITTIME) * 1000.0;
-
-		// start the timer for session start
-		mTimer->start((int)inittime);
-	}
-	else
-		Reset();
 }
 
 
@@ -758,20 +761,4 @@ void SessionControlPlugin::OnAfterLoadLayout()
 			selectVizWindow.exec();
 		}
 	}
-}
-
-void SessionControlPlugin::OnTimer()
-{
-	mTimer->stop();
-
-	if (StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine())
-		activeStateMachine->Continue();
-
-	if (Classifier* c = GetEngine()->GetActiveClassifier())
-	{
-		c->ResetOnSessionStart();
-		Start();
-	}
-	else
-		Reset();
 }

@@ -68,6 +68,7 @@ class ENGINE_API EventHandler
 
 		// session
 		virtual void OnPrepareSession()							{}
+		virtual void OnPreparedSession()						{}
 		virtual void OnStartSession()							{}
 		virtual void OnStopSession()							{}
 		virtual void OnSessionUserChanged(const User& user)		{}

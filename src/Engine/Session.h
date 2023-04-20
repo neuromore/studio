@@ -47,7 +47,7 @@ class ENGINE_API Session : public Core::EventSource
 		void Continue()													{ mIsPaused = false; }
 		void Reset();
 		
-		void Update(Core::Time delta);
+		void Update(const Core::Time& elapsed, const Core::Time& delta);
 
 		void SetTotalTime(Core::Time time)								{ mTotalTime = time; }
 		Core::Time GetTotalTime() const									{ return mTotalTime; }
@@ -77,6 +77,7 @@ class ENGINE_API Session : public Core::EventSource
 		Core::Time								mElapsedTime;
 		Core::Time								mPausedTime;
 
+		double									mPrepareSeconds;
 		double									mPoints;
 		bool									mHavePoints;
 

@@ -74,6 +74,7 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 
 
 		// EVENTS
+		void OnPreparedSession() override final;
 		void OnSessionUserChanged(const User& user) override final;
 		void OnActiveExperienceChanged(Experience* experience) override final				{ UpdateStartButton(); }
 		void OnActiveClassifierChanged(Classifier* experience) override final				{ UpdateStartButton(); }
@@ -88,7 +89,6 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		void OnStop();
 		void OnPause();
 		void OnContinue();
-		void OnTimer();
 
 		// client and network message callabacks
 		void OnClientChanged   ( NetworkServerClient* client );
@@ -130,8 +130,6 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		bool mCanStartSession;
 		bool mLostClientError;
 		bool mLostDeviceError;
-
-		QTimer* mTimer;
 };
 
 

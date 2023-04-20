@@ -92,6 +92,7 @@ class ENGINE_API EventManager
 
 		// session
 		inline EVENT_CREATE_NOTIFY_FUNCTION_0( OnPrepareSession );
+		inline EVENT_CREATE_NOTIFY_FUNCTION_0( OnPreparedSession );
 		inline EVENT_CREATE_NOTIFY_FUNCTION_0( OnStartSession );
 		inline EVENT_CREATE_NOTIFY_FUNCTION_0( OnStopSession );
 		inline EVENT_CREATE_NOTIFY_FUNCTION_1( OnSessionUserChanged, const User&, user );
