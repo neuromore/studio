@@ -175,6 +175,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		void OnDeviceAdded(Device* device) override	final					{ ReInitBciDeviceCombo(); }
 		void OnDeviceRemoved(Device* device) override final					{ ReInitBciDeviceCombo(); }
 		void OnSessionUserChanged(const User& user) override final;
+		void OnPrepareSession() override final;
 		void OnStartSession() override final;
 		void OnStopSession() override final;
 		void OnActiveExperienceChanged(Experience* experience) override final;

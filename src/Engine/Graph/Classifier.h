@@ -50,12 +50,22 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 	public:
 		enum { TYPE_ID = 0x1001 };
 
+		enum
+		{
+			ATTRIB_INITTIME = 0
+		};
+
+		// default initialization time until e.g. filters are stable
+		constexpr static const double DEFAULTINITTIME = 0.0;
+
 		Classifier(Graph* parentNode=NULL);
 		virtual ~Classifier();
 
 		// main functions
+		void Init() override;
 		void Update(const Core::Time& elapsed, const Core::Time& delta) override;
 		void Reset() override;
+		void ResetOnSessionStart();
 
 		// overloads
 		uint32 GetType() const override							{ return TYPE_ID; }

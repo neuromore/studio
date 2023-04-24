@@ -53,6 +53,7 @@ class WhileSessionWidget : public QWidget
 		ImageButton*		mPauseButton;
 		ImageButton*		mContinueButton;
 
+		QLabel*			mPreparing;
 		StopwatchWidget*	mStopwatchWidget;
 		//QMovie*			mRunningAnimatedImage;
 		//QLabel*			mRunningLabel;
