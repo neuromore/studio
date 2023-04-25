@@ -301,7 +301,7 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 #endif 
 
 #ifdef INCLUDE_DEVICE_NATUS
-	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
+	//if (disablePermissionCheck || user->ReadAllowed(NatusDevice::GetRuleName()))
 	{
 		GetDeviceManager()->RegisterDeviceType(new NatusDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new NatusNode(NULL));
