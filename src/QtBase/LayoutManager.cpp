@@ -133,76 +133,16 @@ void LayoutManager::ReInit()
 	// Qt resource based layouts
 	///////////////////////////////////////////////////////////////////////////////////
 
-	String patientRoleName = "LAYOUT_Default";
-	String defaultLayoutRoleName = "LAYOUT_Default";
-
 	User* user = GetEngine()->GetUser();
 
-#ifdef NEUROMORE_BRANDING_SUPERMIND
-	if (user != nullptr && (user->FindRule("ROLE_ClinicAdmin") != nullptr || user->FindRule("ROLE_Admin") != nullptr)) {
-		defaultLayoutRoleName = "Layout_Supermind";
-	}
-#endif
-
-	if (user != nullptr && user->FindRule("ROLE_ClinicPatient") != nullptr) {
-		patientRoleName = "LAYOUT_BiofeedbackUser";
-	}
-	else {
-
-#if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_LINUX)
-  #ifdef CUSTOM_DEFAULT_LAYOUT
-		RegisterLayout(new Layout(Layout::BUILTIN, "Default", CUSTOM_DEFAULT_LAYOUT, defaultLayoutRoleName, ""));
-  #else
-		RegisterLayout(new Layout(Layout::BUILTIN, "Default", ":/Layouts/Default.layout", defaultLayoutRoleName, ""));
-  #endif
-		RegisterLayout(new Layout(Layout::BUILTIN, "Classifier Designer", ":/Layouts/ClassifierDesigner.layout", "LAYOUT_ClassifierDesigner", ""));
-		RegisterLayout(new Layout(Layout::BUILTIN, "State Machine Designer", ":/Layouts/StateMachineDesigner.layout", "LAYOUT_StateMachineDesigner", ""));
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Designer", ":/Layouts/ExperienceDesigner.layout", "LAYOUT_ExperienceDesigner", ""));
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Selection", ":/Layouts/ExperienceSelection.layout", "LAYOUT_ExperienceSelection", ""));
-  #ifdef NEUROMORE_BRANDING_ANT
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Trainer", ":/Layouts/ANT_ExperiencePlayer.layout", "LAYOUT_ExperiencePlayer", ""));
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Signal", ":/Layouts/EEG.layout", "LAYOUT_EEG", ""));
-  #else
-  #ifdef NEUROMORE_BRANDING_SUPERMIND
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Player", ":/Layouts/Supermind.layout", "LAYOUT_ExperiencePlayer", ""));
-  #else
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Player", ":/Layouts/OSX_ExperiencePlayer.layout", "LAYOUT_ExperiencePlayer", ""));
-  #endif
-		RegisterLayout(new Layout(Layout::BUILTIN, "EEG", ":/Layouts/EEG.layout", "LAYOUT_EEG", ""));
-  #endif
-#endif
-
-
-#ifdef NEUROMORE_PLATFORM_OSX
-  #ifdef CUSTOM_DEFAULT_LAYOUT
-		RegisterLayout(new Layout(Layout::BUILTIN, "Default", CUSTOM_DEFAULT_LAYOUT, defaultLayoutRoleName, ""));
-  #else
-		RegisterLayout(new Layout(Layout::BUILTIN, "Default", ":/Layouts/OSX_Default.layout", defaultLayoutRoleName, ""));
-  #endif
-		RegisterLayout(new Layout(Layout::BUILTIN, "Classifier Designer", ":/Layouts/OSX_ClassifierDesigner.layout", "LAYOUT_ClassifierDesigner", ""));
-		RegisterLayout(new Layout(Layout::BUILTIN, "State Machine Designer", ":/Layouts/OSX_StateMachineDesigner.layout", "LAYOUT_StateMachineDesigner", ""));
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Designer", ":/Layouts/OSX_ExperienceDesigner.layout", "LAYOUT_ExperienceDesigner", ""));
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Selection", ":/Layouts/ExperienceSelection.layout", "LAYOUT_ExperienceSelection", ""));
-  #ifdef NEUROMORE_BRANDING_SUPERMIND
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Player", ":/Layouts/Supermind.layout", "LAYOUT_ExperiencePlayer", ""));
-  #else
-		RegisterLayout(new Layout(Layout::BUILTIN, "Experience Player", ":/Layouts/OSX_ExperiencePlayer.layout", "LAYOUT_ExperiencePlayer", ""));
-  #endif
-		RegisterLayout(new Layout(Layout::BUILTIN, "EEG", ":/Layouts/OSX_EEG.layout", "LAYOUT_EEG", ""));
-#endif
-	}
-
-#ifdef NEUROMORE_BRANDING_SUPERMIND
-	if (user != nullptr) {
-		if (user->FindRule("ROLE_ClinicPatient") != nullptr) {
-			RegisterLayout(new Layout(Layout::BUILTIN, "Patient Layout", ":/Layouts/Supermind.layout", "LAYOUT_Supermind", ""));
-		} else if(user != nullptr && user->FindRule("ROLE_ClinicClinician") != nullptr || user->FindRule("ROLE_ClinicOperator") != nullptr) {
-			RegisterLayout(new Layout(Layout::BUILTIN, "Designer", ":/Layouts/Default.layout", "LAYOUT_Supermind", ""));
-		}
-	}
-#else
-	RegisterLayout(new Layout(Layout::BUILTIN, "Patient Layout", ":/Layouts/PatientUI.layout", patientRoleName, ""));
-#endif
+	//                  DB RULE                                                                    NAME                      QT RESOURCE                              DB RULE
+	if (user->FindRule("LAYOUT_Default"))              RegisterLayout(new Layout(Layout::BUILTIN, "Default",                ":/Layouts/Default.layout",              "LAYOUT_Default", ""));
+	if (user->FindRule("LAYOUT_ExperienceSelection"))  RegisterLayout(new Layout(Layout::BUILTIN, "Experience Selection",   ":/Layouts/ExperienceSelection.layout",  "LAYOUT_ExperienceSelection", ""));
+	if (user->FindRule("LAYOUT_ExperiencePlayer"))     RegisterLayout(new Layout(Layout::BUILTIN, "Experience Player",      ":/Layouts/ExperiencePlayer.layout",     "LAYOUT_ExperiencePlayer", ""));
+	if (user->FindRule("LAYOUT_ClassifierDesigner"))   RegisterLayout(new Layout(Layout::BUILTIN, "Classifier Designer",    ":/Layouts/ClassifierDesigner.layout",   "LAYOUT_ClassifierDesigner", ""));
+	if (user->FindRule("LAYOUT_StateMachineDesigner")) RegisterLayout(new Layout(Layout::BUILTIN, "State Machine Designer", ":/Layouts/StateMachineDesigner.layout", "LAYOUT_StateMachineDesigner", ""));
+	if (user->FindRule("LAYOUT_ExperienceDesigner"))   RegisterLayout(new Layout(Layout::BUILTIN, "Experience Designer",    ":/Layouts/ExperienceDesigner.layout",   "LAYOUT_ExperienceDesigner", ""));
+	if (user->FindRule("LAYOUT_EEG"))                  RegisterLayout(new Layout(Layout::BUILTIN, "EEG",                    ":/Layouts/EEG.layout",                  "LAYOUT_EEG", ""));
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// Local layouts
