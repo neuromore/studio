@@ -202,13 +202,20 @@ jobs:
         PUBLISHER: CN=Neuromore Co, O=Neuromore Co, S=Florida, C=US
       run: make dist
     
-    # Upload
-    - name: Upload
+    # Upload ZIP
+    - name: Upload ZIP
       uses: actions/upload-artifact@v3
       with:
-        name: Packages (${{ matrix.os }}-${{ matrix.branding }})
+        name: Packages ZIP (${{ matrix.os }}-${{ matrix.branding }})
         path: |
           ./dist/win-10/*.zip
+
+    # Upload Packages
+    - name: Upload App
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages App (${{ matrix.os }}-${{ matrix.branding }})
+        path: |
           ./dist/win-10/*.appx
           ./dist/win-10/*.appxbundle
           ./dist/win-10/*.appxupload
