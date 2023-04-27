@@ -68,7 +68,8 @@ Analyze your own sessions or sessions of your patients in the cloud under accoun
 | OS       | Windows 10, Ubuntu 20.04, OSX 10.15                   | TODO        |
 | CPU      | Dual-Core released past ~2010 (with SSE4.2, AVX, ...) | TODO        |
 | RAM      | 4GB                                                   | TODO        |
-| GPU      | OpenGL 2.x compatible (TODO: more details, e.g. MEM)  | TODO        |
+| GPU      | OpenGL 2.x compatible                                 | TODO        |
+| Display  | 1920x1080                                             | TODO        |
 
 ## Configuration/Cache Folders
 
