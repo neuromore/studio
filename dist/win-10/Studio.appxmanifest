@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package 
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" 
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" 
+  xmlns:uap6="http://schemas.microsoft.com/appx/manifest/uap/windows10/6" 
+  xmlns:desktop2="http://schemas.microsoft.com/appx/manifest/desktop/windows10/2" 
+  xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4" 
+  xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2" 
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:build="http://schemas.microsoft.com/developer/appx/2015/build"
+  IgnorableNamespaces="uap uap4 uap5 uap6 iot2 desktop2 desktop4 rescap build" >
+
+  <Identity 
+    Name="{APPID}" 
+	Publisher="{PUBLISHER}" 
+	Version="{VERSION}"
+	ProcessorArchitecture="neutral"	/>
+
+  <Properties>
+    <DisplayName>{DISPLAYNAME}</DisplayName>
+    <PublisherDisplayName>{APPCOMPANY}</PublisherDisplayName>
+    <Logo>app-50x50.png</Logo>
+  </Properties>
+  
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17134.0" MaxVersionTested="10.0.20348.0" />
+  </Dependencies>
+  
+  <Resources>
+    <Resource Language="en-US" />
+  </Resources>
+  
+  <Applications>
+    <Application 
+      Id="App" 
+      Executable="Studio.exe"
+      EntryPoint="Studio.App"
+      desktop4:Subsystem="console" 
+      desktop4:SupportsMultipleInstances="true">
+	  
+      <uap:VisualElements 
+        DisplayName="{DISPLAYNAME}" 
+        Square150x150Logo="app-150x150.png" 
+        Square44x44Logo="app-44x44.png"
+        Description="Your IDE for neuro-tech apps"
+        BackgroundColor="transparent">		
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust"/>
+    <Capability Name="internetClient" />
+    <Capability Name="privateNetworkClientServer" />
+    <DeviceCapability Name="serialcommunication">
+      <Device Id="any">
+        <Function Type="name:serialPort"/>
+      </Device>
+    </DeviceCapability>
+    <DeviceCapability Name="usb">
+      <Device Id="any">
+        <Function Type="name:vendorSpecific"/>
+      </Device>
+    </DeviceCapability>
+  </Capabilities>
+</Package>

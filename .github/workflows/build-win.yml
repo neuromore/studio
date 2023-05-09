@@ -1,0 +1,221 @@
+name: Build Windows
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - 'master'
+      - 'release'
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 480
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+      MODE: release
+      TARGET_OS: win
+      TARGET_ARCH: ${{ matrix.arch }}
+      BRANDING: ${{ matrix.branding }}
+      JOBS: 4
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022]
+        arch: [x64,x86,arm64]
+        branding: [neuromore,supermind,natus]
+    steps:
+    
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: false
+
+    # Load Dependencies from Cache
+    - name: Cache Dependencies
+      id: cache-dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          deps/build/make/bin/win-*
+          deps/build/make/lib/win-*
+        key: dependencies-${{ env.BRANCH_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
+
+    # Developer Console (X64)
+    - name: MSVC Developer Console (X64)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64
+
+    # Build QtTools (X64)
+    - name: Build QtTools (X64)
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
+
+    # Developer Console (X86)
+    - name: MSVC Developer Console (X86)
+      if: matrix.arch == 'x86'
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64_x86
+
+    # Developer Console (ARM64)
+    - name: MSVC Developer Console (ARM64)
+      if: matrix.arch == 'arm64'
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64_arm64
+
+    # Build Dependencies
+    - name: Build Dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      run: make Dependencies -j${{ env.JOBS }}
+
+    # Build Engine
+    - name: Build Engine
+      run: make Engine -j${{ env.JOBS }}
+
+    # Build QtBase
+    - name: Build QtBase
+      run: make QtBase -j${{ env.JOBS }}
+
+    # Build Studio
+    - name: Build Studio
+      run: make Studio -j${{ env.JOBS }}
+
+    # Build EngineLIB
+    - name: Build EngineLIB
+      run: make EngineLIB -j${{ env.JOBS }}
+
+    # Build EngineJNI
+    - name: Build EngineJNI
+      run: make EngineJNI -j${{ env.JOBS }}
+
+    # Binary Info
+    - name: Binary Info
+      run: |
+        dumpbin /dependents /exports ./build/make/bin/win-${{ env.TARGET_ARCH }}/Studio.exe
+        dumpbin /dependents /exports ./build/make/lib/win-${{ env.TARGET_ARCH }}/EngineLIB.dll
+        dumpbin /dependents /exports ./build/make/lib/win-${{ env.TARGET_ARCH }}/EngineJNI.dll
+
+    # PDB Info
+    - name: PDB Info
+      run: llvm-pdbutil dump --summary ./build/make/bin/win-${{ env.TARGET_ARCH }}/Studio.pdb
+
+    # Upload
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        path: |
+          ./build/make/bin/win-${{ matrix.arch }}/*.exe
+          ./build/make/bin/win-${{ matrix.arch }}/*.dll
+          ./build/make/bin/win-${{ matrix.arch }}/*.pdb
+
+    # Upload EngineLIB
+    - name: Upload EngineLIB
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        path: |
+          ./src/Engine/neuromoreEngine.h
+          ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.dll
+          ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.lib
+          ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.pdb
+
+    # Upload EngineJNI
+    - name: Upload EngineJNI
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        path: |
+          ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.dll
+          ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.pdb
+          ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.jar
+
+###########################################################################         
+  dist:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022]
+        branding: [neuromore,supermind,natus]
+    env:
+      BRANDING: ${{ matrix.branding }}
+    steps:
+      
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
+
+    # Download X64 Build
+    - name: Download X64 Build
+      uses: actions/download-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-x64-${{ matrix.branding }})
+        path: ./build/make/bin/win-x64/
+
+    # Download X86 Build
+    - name: Download X86 Build
+      uses: actions/download-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-x86-${{ matrix.branding }})
+        path: ./build/make/bin/win-x86/
+
+    # Download ARM64 Build
+    - name: Download ARM64 Build
+      uses: actions/download-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
+        path: ./build/make/bin/win-arm64/
+
+    # Developer Console (X64)
+    - name: MSVC Developer Console (X64)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64
+    
+    # Load Code Signing Certificate
+    - name: Load Code Signing Certificate
+      shell: pwsh
+      env:
+        PFX_BASE64: ${{ secrets.SIGN_PFX_FILE }}
+      run: |
+        echo $env:PFX_BASE64 > ./certs/TrueCert.pfx.base64
+        certutil -decode ./certs/TrueCert.pfx.base64 ./certs/TrueCert.pfx
+
+    # Pack
+    - name: Make (dist)
+      env:
+        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
+        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
+        PUBLISHERCN: Neuromore Co
+        PUBLISHER: CN=Neuromore Co, O=Neuromore Co, S=Florida, C=US
+      run: make dist
+    
+    # Upload ZIP
+    - name: Upload ZIP
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages ZIP (${{ matrix.os }}-${{ matrix.branding }})
+        path: |
+          ./dist/win-10/*.zip
+
+    # Upload Packages
+    - name: Upload App
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages App (${{ matrix.os }}-${{ matrix.branding }})
+        path: |
+          ./dist/win-10/*.appx
+          ./dist/win-10/*.appxbundle
+          ./dist/win-10/*.appxupload

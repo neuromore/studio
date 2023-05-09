@@ -211,7 +211,7 @@ std::vector<eemagine::sdk::channel> _channelArrayToVector(eemagine_sdk_channel_i
 		eemagine_sdk_channel_info* read_ptr = channelPtr + channel;
 		if (read_ptr->index < 0)
 		{
-			throw eemagine::sdk::exceptions::unknown("Channel index is below zero: " + read_ptr->index);
+			throw eemagine::sdk::exceptions::unknown("Channel index is below zero: " + std::to_string(read_ptr->index));
 		}
 		unsigned index = read_ptr->index;
 		switch (read_ptr->type) {
@@ -243,7 +243,7 @@ std::vector<eemagine::sdk::channel> _channelArrayToVector(eemagine_sdk_channel_i
 			rv.push_back(eemagine::sdk::channel(index, eemagine::sdk::channel::magnetometer));
 			break;
 		default:
-			throw eemagine::sdk::exceptions::unknown("Channel type unknown: " + read_ptr->type);
+			throw eemagine::sdk::exceptions::unknown("Channel type unknown: " + std::to_string(read_ptr->type));
 		}
 	}
 
@@ -375,12 +375,12 @@ public:
 		return rv;
 	}
 
-	eemagine::sdk::stream * OpenEegStream(int sampling_rate, double reference_range, double bipolar_range, unsigned long long ref_mask, unsigned long long bip_mask) {
+	eemagine::sdk::stream * OpenEegStream(int sampling_rate, double reference_range, double bipolar_range, unsigned long long ref_mask, unsigned long long bip_mask) override {
 		int stream_id = _return_value_guard(_sdk.open_eeg_stream(_amplifier_info.id, sampling_rate, reference_range, bipolar_range, ref_mask, bip_mask));
 		return new _sdk_stream(stream_id);
 	}
 
-	eemagine::sdk::stream * OpenImpedanceStream(unsigned long long ref_mask) {
+	eemagine::sdk::stream * OpenImpedanceStream(unsigned long long ref_mask) override {
 		int stream_id = _return_value_guard(_sdk.open_impedance_stream(_amplifier_info.id, ref_mask));
 		return new _sdk_stream(stream_id);
 	}
@@ -555,7 +555,7 @@ static std::string UTF16toUTF8(const std::wstring& utf16String)
 		if (error == ERROR_NO_UNICODE_TRANSLATION)
 			throw eemagine::sdk::exceptions::incorrectValue("Failure of string conversion from utf16, invalid characters.");
 
-		throw eemagine::sdk::exceptions::incorrectValue("Failure to classify utf16 string. errorcode: " + error);
+		throw eemagine::sdk::exceptions::incorrectValue("Failure to classify utf16 string. errorcode: " + std::to_string(error));
 	}
 
 	std::string retvalUTF8;

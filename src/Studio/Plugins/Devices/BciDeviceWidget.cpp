@@ -21,9 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "BciDeviceWidget.h"
-
 
 using namespace Core;
 
@@ -69,7 +71,7 @@ void BciDeviceWidget::Init()
 
 	// set minimuim size and expanding
 	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
-	mEEGElectrodeWidget->setFixedSize(180,180);
+	mEEGElectrodeWidget->setFixedSize(256,256);
 
 	// add it to primary layout
 	QVBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();

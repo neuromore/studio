@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+ // include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include the required headers
 #include "SystemInfo.h"
 
@@ -12,10 +15,6 @@
 
 
 using namespace Core;
-
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-	#pragma comment(lib, "pdh.lib")
-#endif
 
 // constructor
 SystemInfo::SystemInfo()
@@ -276,7 +275,7 @@ uint64 SystemInfo::GetProcessMemoryInBytes() const
 
 	// macOS
 	#ifdef NEUROMORE_PLATFORM_OSX
-
+		return 0;
 	#endif
 
 	// linux
@@ -317,7 +316,7 @@ double SystemInfo::GetCpuUsage() const
 
 	// macOS
 	#ifdef NEUROMORE_PLATFORM_OSX
-
+		return 0.0;
 	#endif
 
 	// linux
@@ -397,7 +396,7 @@ double SystemInfo::GetProcessCpuUsage()
 
 	// macOS
 	#ifdef NEUROMORE_PLATFORM_OSX
-
+		return 0.0;
 	#endif
 
 	// linux

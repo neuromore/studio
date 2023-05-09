@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+
 // WINDOWS X86 ONLY
 #if defined(_WIN32) && (defined(_M_IX86) || defined(_X86_) || defined(__i386__) || defined(__i686__))
 
@@ -31,15 +33,20 @@ public:
       typedef BOOL  (__cdecl* FuncAtlClosePort)           (int32_t portno);
       typedef BOOL  (__cdecl* FuncAtlSetBaudRate)         (int32_t ratecode);
       typedef BOOL  (__cdecl* FuncAtlWriteSamplingRate)   (int32_t samplingrate);
+      typedef int   (__cdecl* FuncAtlReadSamplingRate)    ();
       typedef BOOL  (__cdecl* FuncAtlClearSpecials)       ();
       typedef void  (__cdecl* FuncAtlFlush)               ();
-      typedef int   (__cdecl* FuncAtlLoginDevice)         (char* codekey, char* serialnumber, char* passkey);
+      typedef int   (__cdecl* FuncBmrLoginDevice)         (char* codekey, char* serialnumber, char* passkey);
       typedef BOOL  (__cdecl* FuncDiscStartModule)        ();
       typedef BOOL  (__cdecl* FuncDiscStopModule)         ();
       typedef DWORD (__cdecl* FuncAtlGetBytesInQue)       ();
       typedef int   (__cdecl* FuncAtlReadData)            (uint8_t* buffer, int32_t count);
       typedef BOOL  (__cdecl* FuncAtlSelectImpedanceChans)(int selectcode);
       typedef BOOL  (__cdecl* FuncAtlSelectSpecial)       (int selectcode);
+      typedef BOOL  (__cdecl* FuncAtlSetNotchFilters)     (int selectcode);
+      typedef int   (__cdecl* FuncAtlPeek)                (uint16_t location);
+      typedef int   (__cdecl* FuncAtlPoke)                (uint16_t location, uint16_t data);
+      typedef int   (__cdecl* FuncAtlQueryFirmware)       (int32_t reserved);
 
    public:
       enum BRCodes : int32_t {
@@ -47,21 +54,31 @@ public:
          BR115200 = 0x20,
          BR9600   = 0x30
       };
+      enum LoginCodes : int32_t {
+         EARLY2E = 11,
+         READY2E = 12,
+         WIDEB2E = 13
+      };
    public:
       HMODULE                     Handle;
       FuncAtlOpenPort             AtlOpenPort;
       FuncAtlClosePort            AtlClosePort;
       FuncAtlSetBaudRate          AtlSetBaudRate;
       FuncAtlWriteSamplingRate    AtlWriteSamplingRate;
+      FuncAtlReadSamplingRate     AtlReadSamplingRate;
       FuncAtlClearSpecials        AtlClearSpecials;
       FuncAtlFlush                AtlFlush;
-      FuncAtlLoginDevice          AtlLoginDevice;
+      FuncBmrLoginDevice          BmrLoginDevice;
       FuncDiscStartModule         DiscStartModule;
       FuncDiscStopModule          DiscStopModule;
       FuncAtlGetBytesInQue        AtlGetBytesInQue;
       FuncAtlReadData             AtlReadData;
       FuncAtlSelectImpedanceChans AtlSelectImpedanceChans;
       FuncAtlSelectSpecial        AtlSelectSpecial;
+      FuncAtlSetNotchFilters      AtlSetNotchFilters;
+      FuncAtlPeek                 AtlPeek;
+      FuncAtlPoke                 AtlPoke;
+      FuncAtlQueryFirmware        AtlQueryFirmware;
 
    public:
       inline SDK() :
@@ -70,15 +87,20 @@ public:
          AtlClosePort           (Handle ? (FuncAtlClosePort)            GetProcAddress(Handle, "AtlClosePort")            : 0),
          AtlSetBaudRate         (Handle ? (FuncAtlSetBaudRate)          GetProcAddress(Handle, "AtlSetBaudRate")          : 0),
          AtlWriteSamplingRate   (Handle ? (FuncAtlWriteSamplingRate)    GetProcAddress(Handle, "AtlWriteSamplingRate")    : 0),
+         AtlReadSamplingRate    (Handle ? (FuncAtlReadSamplingRate)     GetProcAddress(Handle, "AtlReadSamplingRate")     : 0),
          AtlClearSpecials       (Handle ? (FuncAtlClearSpecials)        GetProcAddress(Handle, "AtlClearSpecials")        : 0),
          AtlFlush               (Handle ? (FuncAtlFlush)                GetProcAddress(Handle, "AtlFlush")                : 0),
-         AtlLoginDevice         (Handle ? (FuncAtlLoginDevice)          GetProcAddress(Handle, "AtlLoginDevice")          : 0),
+         BmrLoginDevice         (Handle ? (FuncBmrLoginDevice)          GetProcAddress(Handle, "BmrLoginDevice")          : 0),
          DiscStartModule        (Handle ? (FuncDiscStartModule)         GetProcAddress(Handle, "DiscStartModule")         : 0),
          DiscStopModule         (Handle ? (FuncDiscStopModule)          GetProcAddress(Handle, "DiscStopModule")          : 0),
          AtlGetBytesInQue       (Handle ? (FuncAtlGetBytesInQue)        GetProcAddress(Handle, "AtlGetBytesInQue")        : 0),
          AtlReadData            (Handle ? (FuncAtlReadData)             GetProcAddress(Handle, "AtlReadData")             : 0),
          AtlSelectImpedanceChans(Handle ? (FuncAtlSelectImpedanceChans) GetProcAddress(Handle, "AtlSelectImpedanceChans") : 0),
-         AtlSelectSpecial       (Handle ? (FuncAtlSelectSpecial)        GetProcAddress(Handle, "AtlSelectSpecial")        : 0)
+         AtlSelectSpecial       (Handle ? (FuncAtlSelectSpecial)        GetProcAddress(Handle, "AtlSelectSpecial")        : 0),
+         AtlSetNotchFilters     (Handle ? (FuncAtlSetNotchFilters)      GetProcAddress(Handle, "AtlSetNotchFilters")      : 0),
+         AtlPeek                (Handle ? (FuncAtlPeek)                 GetProcAddress(Handle, "AtlPeek")                 : 0),
+         AtlPoke                (Handle ? (FuncAtlPoke)                 GetProcAddress(Handle, "AtlPoke")                 : 0),
+         AtlQueryFirmware       (Handle ? (FuncAtlQueryFirmware)        GetProcAddress(Handle, "AtlQueryFirmware")        : 0)
       {
       }
       inline ~SDK()
@@ -91,15 +113,20 @@ public:
             AtlClosePort            = 0;
             AtlSetBaudRate          = 0;
             AtlWriteSamplingRate    = 0;
+            AtlReadSamplingRate     = 0;
             AtlClearSpecials        = 0;
             AtlFlush                = 0;
-            AtlLoginDevice          = 0;
+            BmrLoginDevice          = 0;
             DiscStartModule         = 0;
             DiscStopModule          = 0;
             AtlGetBytesInQue        = 0;
             AtlReadData             = 0;
             AtlSelectImpedanceChans = 0;
             AtlSelectSpecial        = 0;
+            AtlSetNotchFilters      = 0;
+            AtlPeek                 = 0;
+            AtlPoke                 = 0;
+            AtlQueryFirmware        = 0;
          }
       }
    };
@@ -167,21 +194,43 @@ public:
    /// </summary>
    struct Frame
    {
-      static constexpr size_t SIZE = 75;
-      static constexpr float CONVERTUV = 0.0174f * 1000.0f;
+      static constexpr size_t SIZE = 78;
+      static constexpr float CONVERTUV   = 0.01658f;
+      static constexpr float CONVERTKOHM = 0.005f;
       union {
          uint8_t data[SIZE];
          struct {
             uint8_t sync;
             uint8_t unused1;
             uint8_t unused2;
+            uint8_t steering;
+            int16_t specialdata;
             int24_t channels[Channels::SIZE];
          };
       };
-      inline void extract(Channels& ch)
+      inline void extract(Channels& ch, Channels& impRef, Channels& impAct)
       {
          for (size_t i = 0; i < Channels::SIZE; i++) {
             ch.data[i] = (float)channels[i].get() * CONVERTUV;
+         }
+         if (steering >= 1 && steering <= 28)
+         {
+            const float VALUE = (float)specialdata * CONVERTKOHM;
+            switch (steering)
+            {
+            case 23: impAct.AUX23 = VALUE; break; // AUX23A
+            case 24: impAct.AUX24 = VALUE; break; // AUX24A
+            case 25: impRef.AUX23 = VALUE; break; // AUX23R
+            case 26: impRef.AUX24 = VALUE; break; // AUX24R
+            case 27:                       break; // UNUSED
+            case 28: // A1 REF FOR CH 1-22)
+               for (size_t j = 0; j < 22; j++)
+                  impRef.data[j] = VALUE;
+               break;
+            default: // CH 1-22
+               impAct.data[steering-1] = VALUE;
+               break;
+            }
          }
       }
    };
@@ -203,17 +252,17 @@ public:
    class Callback
    {
    public:
-      inline virtual void onLoadSDKSuccess(HMODULE h)                    { }
-      inline virtual void onLoadSDKFail()                                { }
-      inline virtual void onDeviceFound(int32_t port)                    { }
-      inline virtual void onDeviceConnected()                            { }
-      inline virtual void onDeviceDisconnected()                         { }
-      inline virtual void onDeviceTimeout()                              { }
-      inline virtual void onSyncStart(uint8_t c1, uint8_t c2)            { }
-      inline virtual void onSyncSuccess()                                { }
-      inline virtual void onSyncFail(uint8_t expected, uint8_t received) { }
-      inline virtual void onSyncLost()                                   { }
-      inline virtual void onFrame(const Frame& f, const Channels& c)     { }
+      inline virtual void onLoadSDKSuccess(Discovery20& d, HMODULE h)                    { }
+      inline virtual void onLoadSDKFail(Discovery20& d)                                  { }
+      inline virtual void onDeviceFound(Discovery20& d, int32_t port)                    { }
+      inline virtual void onDeviceConnected(Discovery20& d)                              { }
+      inline virtual void onDeviceDisconnected(Discovery20& d)                           { }
+      inline virtual void onDeviceTimeout(Discovery20& d)                                { }
+      inline virtual void onSyncStart(Discovery20& d, uint8_t c1, uint8_t c2)            { }
+      inline virtual void onSyncSuccess(Discovery20& d)                                  { }
+      inline virtual void onSyncFail(Discovery20& d, uint8_t expected, uint8_t received) { }
+      inline virtual void onSyncLost(Discovery20& d)                                     { }
+      inline virtual void onFrame(Discovery20& d, const Frame& f, const Channels& c)     { }
    };
 
    /// <summary>
@@ -225,6 +274,27 @@ public:
       UNSYNCED     = 2, // streaming: unsynced
       SYNCING      = 3, // streaming: syncing
       SYNCED       = 4, // streaming: synced
+   };
+
+   /// <summary>
+   /// Result Codes for connect() 
+   /// </summary>
+   enum class ConnectResult {
+      SUCCESS                 = 0,  // all went good
+      SDK_NOT_LOADED          = 1,  // SDK not loaded, bmrcm.dll likely missing
+      STATE_NOT_DISCONNECTED  = 2,  // tried to call connect but not disconnected
+      NO_DEVICE_DISCOVERED    = 3,  // no device found or find() not executed
+      OPEN_PORT_FAILED        = 4,  // failed to open com port
+      SET_BAUD_RATE_FAILED    = 5,  // failed to set baud rate
+      CLOSE_PORT_FAILED       = 6,  // failed to close port
+      BUFFER_INCREASE_FAILED  = 7,  // failed to increase windows com port buffer
+      CREDENTIALS_WRONG       = 8,  // credentials for login not correct
+      UNSUPPORTED_FIRMWARE    = 9,  // incorrect firmware detected
+      IMPEDANCE_NOT_SUPPORTED = 10,  // impedance not supported on device
+      SET_SAMPLERATE_FAILED   = 11, // failed to set samplerate
+      READ_SAMPLERATE_FAILED  = 12, // failed to read samplerate
+      CLEAR_SPECIALS_FAILED   = 13, // failed to clear all specials
+      ENABLE_IMPEDANCE_FAILED = 14  // failed to enable specialdata
    };
 
    /// <summary>
@@ -256,14 +326,15 @@ protected:
    uint32_t  mNumSyncs;
    uint32_t  mNumBytes;
    uint8_t   mNextSync;
-   int32_t   mAuth;
    uint64_t  mTickLastData;
+   Callback& mCallback;
+   Channels  mChannels;
+   Channels  mImpedancesRef;
+   Channels  mImpedancesAct;
    union {
      Frame   mFrame;
      uint8_t mBuffer[Frame::SIZE*2];
    };
-   Channels  mChannels;
-   Callback& mCallback;
 
    /// <summary>
    /// Returns next sync byte for sync byte s
@@ -329,14 +400,20 @@ public:
       mNumSyncs(0),
       mNumBytes(0),
       mNextSync(0),
-      mAuth(0),
       mTickLastData(0),
+      mCallback(cb),
       mBuffer(),
       mChannels(),
-      mCallback(cb) 
+      mImpedancesRef(),
+      mImpedancesAct()
    {
-      if (mSDK.Handle) mCallback.onLoadSDKSuccess(mSDK.Handle);
-      else mCallback.onLoadSDKFail();
+      ::memset(&mBuffer,        0, sizeof(mBuffer));
+      ::memset(&mChannels,      0, sizeof(mChannels));
+      ::memset(&mImpedancesRef, 0, sizeof(mImpedancesRef));
+      ::memset(&mImpedancesAct, 0, sizeof(mImpedancesAct));
+
+      if (mSDK.Handle) mCallback.onLoadSDKSuccess(*this, mSDK.Handle);
+      else mCallback.onLoadSDKFail(*this);
    }
 
    /// <summary>
@@ -370,31 +447,22 @@ public:
    inline const Channels& getChannels() const { return mChannels; }
 
    /// <summary>
+   /// Get current active impedance values.
+   /// Meaningless if state is not SYNCED.
+   /// </summary>
+   inline const Channels& getActiveImpedances()  const { return mImpedancesAct; }
+
+   /// <summary>
+   /// Get current reference impedance values.
+   /// Meaningless if state is not SYNCED.
+   /// </summary>
+   inline const Channels& getReferenceImpedances()  const { return mImpedancesRef; }
+
+   /// <summary>
    /// True after successful execution of start() for states
    /// UNSYNCED, SYNCING and SYNCED.
    /// </summary>
    inline bool isStreaming() const { return mState > State::CONNECTED; }
-
-   /// <summary>
-   /// True if currently logged-in on the device.
-   /// </summary>
-   inline bool isLoggedIn() const { return mAuth != 0; }
-
-   /// <summary>
-   /// Tries to login to the device with provided credentials.
-   /// Can only be called while in CONNECTED state.
-   /// </summary>
-   inline bool login(char* codekey, char* serialnumber, char* passkey)
-   {
-      if (!mSDK.Handle)
-         return false;
-
-      if (mState != State::CONNECTED)
-         return false;
-
-      mAuth = mSDK.AtlLoginDevice(codekey, serialnumber, passkey);
-      return mAuth != 0;
-   }
 
    /// <summary>
    /// Tries to find a connected Discovery 20 device.
@@ -404,9 +472,9 @@ public:
 
    /// <summary>
    /// Try connect to Discovery 20 device.
-   /// Returns true on success or if already connected.
+   /// Returns true on success.
    /// </summary>
-   bool connect();
+   ConnectResult connect(const char* codekey, const char* serialnumber, const char* passkey);
 
    /// <summary>
    /// Starts data streaming on a connected Discovery 20.
@@ -432,4 +500,5 @@ public:
    /// </summary>
    void update();
 };
+#endif
 #endif

@@ -21,6 +21,8 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
 
 // include require files
 #include "AppManager.h"

@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "CustomFeedbackNode.h"
 #include "Classifier.h"
@@ -176,6 +179,15 @@ void CustomFeedbackNode::Update(const Time& elapsed, const Time& delta)
 			SetError(ERROR_VALUE_RANGE, "Value not in range");
 		else
 			ClearError(ERROR_VALUE_RANGE);
+	}
+
+	if (GetNameString() == "Volume"
+		|| GetNameString() == "MasterVolume") {
+			String warningMsg;
+			warningMsg.Format("Using custom feedback with name %s is deprecated, use the appropriate node", GetName());
+			SetWarning(WARNING_DEPRECATED_NODE_NAME, warningMsg.AsChar());
+	} else {
+		ClearWarning(WARNING_DEPRECATED_NODE_NAME);
 	}
 }
 

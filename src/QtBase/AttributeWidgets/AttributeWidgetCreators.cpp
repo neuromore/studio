@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+// include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required headers
 #include <EngineManager.h>
 #include "AttributeWidgetCreators.h"
@@ -232,6 +235,12 @@ void WindowFunctionAttributeWidgetCreator::InitAttributes(Array<Attribute*>& att
 
 
 void ButtonAttributeWidgetCreator::InitAttributes(Array<Attribute*>& attributes, Core::AttributeSettings* attributeSettings, bool forceInitMinMaxAttributes, bool resetMinMaxAttributes)
+{
+	CreateAttributes(attributes, attributeSettings, forceInitMinMaxAttributes);	
+}
+
+
+void TextAttributeWidgetCreator::InitAttributes(Array<Attribute*>& attributes, Core::AttributeSettings* attributeSettings, bool forceInitMinMaxAttributes, bool resetMinMaxAttributes)
 {
 	CreateAttributes(attributes, attributeSettings, forceInitMinMaxAttributes);	
 }

@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "Channel.h"
 #include "../Core/Time.h"
@@ -80,7 +83,7 @@ Channel<T>::~Channel()
 
 // reconfigure the buffer size
 template<class T>
-void Channel<T>::SetBufferSize(uint32 numSamples)
+void Channel<T>::SetBufferSize(uint32 numSamples, bool discard)
 {
 	LogTrace("SetBufferSize");
 
@@ -102,8 +105,8 @@ void Channel<T>::SetBufferSize(uint32 numSamples)
 	}
 
 	mBufferSize = numSamples;
-	 
-	Clear();
+	if (discard)
+		Clear();
 }
 
 

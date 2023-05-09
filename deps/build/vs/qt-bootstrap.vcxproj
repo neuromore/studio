@@ -114,21 +114,21 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
@@ -136,7 +136,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
@@ -182,7 +182,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_VERSION_MAJOR=5;QT_VERSION_MINOR=12;QT_VERSION_PATCH=4;QT_VERSION_STR="\"5.12.4\"";QT_BOOTSTRAPPED;QT_BUILD_BOOTSTRAP_LIB;QT_BUILDING_QT;QT_MOC_COMPAT;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_EXCEPTIONS;QT_NO_FOREACH;QT_NO_CAST_TO_ASCII;_ENABLE_EXTENDED_ALIGNED_STORAGE;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;WIN32;_WINDOWS;_UNICODE;QT_VERSION_MAJOR=5;QT_VERSION_MINOR=12;QT_VERSION_PATCH=4;QT_VERSION_STR="\"5.12.4\"";QT_BOOTSTRAPPED;QT_BUILD_BOOTSTRAP_LIB;QT_BUILDING_QT;QT_MOC_COMPAT;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_EXCEPTIONS;QT_NO_FOREACH;QT_NO_CAST_TO_ASCII;_ENABLE_EXTENDED_ALIGNED_STORAGE;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -220,7 +220,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_VERSION_MAJOR=5;QT_VERSION_MINOR=12;QT_VERSION_PATCH=4;QT_VERSION_STR="\"5.12.4\"";QT_BOOTSTRAPPED;QT_BUILD_BOOTSTRAP_LIB;QT_BUILDING_QT;QT_MOC_COMPAT;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_EXCEPTIONS;QT_NO_FOREACH;QT_NO_CAST_TO_ASCII;_ENABLE_EXTENDED_ALIGNED_STORAGE;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;WIN32;_WINDOWS;_UNICODE;QT_VERSION_MAJOR=5;QT_VERSION_MINOR=12;QT_VERSION_PATCH=4;QT_VERSION_STR="\"5.12.4\"";QT_BOOTSTRAPPED;QT_BUILD_BOOTSTRAP_LIB;QT_BUILDING_QT;QT_MOC_COMPAT;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_EXCEPTIONS;QT_NO_FOREACH;QT_NO_CAST_TO_ASCII;_ENABLE_EXTENDED_ALIGNED_STORAGE;_ENABLE_EXTENDED_ALIGNED_STORAGE;_DEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Debug</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -258,7 +258,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_VERSION_MAJOR=5;QT_VERSION_MINOR=12;QT_VERSION_PATCH=4;QT_VERSION_STR="\"5.12.4\"";QT_BOOTSTRAPPED;QT_BUILD_BOOTSTRAP_LIB;QT_BUILDING_QT;QT_MOC_COMPAT;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_EXCEPTIONS;QT_NO_FOREACH;QT_NO_CAST_TO_ASCII;QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;WIN32;_WINDOWS;_UNICODE;QT_VERSION_MAJOR=5;QT_VERSION_MINOR=12;QT_VERSION_PATCH=4;QT_VERSION_STR="\"5.12.4\"";QT_BOOTSTRAPPED;QT_BUILD_BOOTSTRAP_LIB;QT_BUILDING_QT;QT_MOC_COMPAT;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_EXCEPTIONS;QT_NO_FOREACH;QT_NO_CAST_TO_ASCII;QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -305,7 +305,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;QT_VERSION_MAJOR=5;QT_VERSION_MINOR=12;QT_VERSION_PATCH=4;QT_VERSION_STR="\"5.12.4\"";QT_BOOTSTRAPPED;QT_BUILD_BOOTSTRAP_LIB;QT_BUILDING_QT;QT_MOC_COMPAT;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_EXCEPTIONS;QT_NO_FOREACH;QT_NO_CAST_TO_ASCII;QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CHROMIUM_ZLIB_NO_CHROMECONF;WIN32;_WINDOWS;_UNICODE;QT_VERSION_MAJOR=5;QT_VERSION_MINOR=12;QT_VERSION_PATCH=4;QT_VERSION_STR="\"5.12.4\"";QT_BOOTSTRAPPED;QT_BUILD_BOOTSTRAP_LIB;QT_BUILDING_QT;QT_MOC_COMPAT;QT_STATIC;QT_LARGEFILE_SUPPORT=64;QT_USE_QSTRINGBUILDER;QT_NO_EXCEPTIONS;QT_NO_FOREACH;QT_NO_CAST_TO_ASCII;QT_NO_DEBUG;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>Release</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>

@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 #include "AttributeChannels.h"
 #include "Spectrum.h"
 

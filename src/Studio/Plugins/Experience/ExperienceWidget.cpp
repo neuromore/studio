@@ -21,20 +21,16 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "ExperienceWidget.h"
-#include <Core/EventManager.h>
 #include "Graph/StateTransitionButtonCondition.h"
 #include "Graph/StateTransitionAudioCondition.h"
 #include "Graph/StateTransitionVideoCondition.h"
-#include "../../AppManager.h"
-#include <EngineManager.h>
-#include <QtBaseManager.h>
-#include <QSoundEffect>
-#include <QPainter>
-#include <QFileInfo>
-#include <QBuffer>
-#include <QMessageBox>
+#include "Graph/VolumeControlNode.h"
+#include "Graph/ScreenBrightnessNode.h"
 
 // for system master volume control
 #ifdef NEUROMORE_PLATFORM_WINDOWS
@@ -42,8 +38,6 @@
 	#include <windows.h>
 	#include <mmdeviceapi.h>
 	#include <endpointvolume.h>
-	
-	#include <QSettings>
 #endif
 
 using namespace Core;
@@ -57,10 +51,34 @@ ExperienceWidget::ExperienceWidget(QWidget* parent) :
 {
 	mGifMovie = NULL;
 
-	// create the button layout
+	// main layout vertical
+	mMainLayout = new QVBoxLayout();
+	mMainLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	mMainLayout->setMargin(MAINLAYOUTPADDING);
+
+	// multiple buttons layout horizontaly
 	mButtonLayout = new QHBoxLayout();
-	mButtonLayout->setAlignment( Qt::AlignBottom );
-	setLayout( mButtonLayout );
+	mButtonLayout->setAlignment( Qt::AlignBottom);
+	mButtonLayout->setSpacing(16);
+
+	// text input element
+	mTextEdit = new QPlainTextEdit(this);
+	mTextEdit->setMaximumHeight(128);
+	mTextEdit->setMinimumHeight(32);
+	mTextEdit->setStyleSheet("border: 2px solid grey; border-radius:16px; font-size:18px; color:#009FE3");
+	mTextEdit->setVisible(false);
+	mTextEdit->document()->setDocumentMargin(16.0);
+
+	// text input element layout
+	mTextEditLayout = new QHBoxLayout();
+	mTextEditLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+	mTextEditLayout->addWidget(mTextEdit);
+
+	// add both to main layout (textedit above buttons)
+	mMainLayout->addLayout(mTextEditLayout);
+	mMainLayout->addLayout(mButtonLayout);
+
+	setLayout( mMainLayout );
 
 	CORE_EVENTMANAGER.AddEventHandler(this);
 
@@ -170,35 +188,46 @@ void ExperienceWidget::OnRefreshTimer()
 	Classifier* classifier = GetEngine()->GetActiveClassifier();
 	if (classifier != NULL)
 	{
-		// find volume node
-		Node* node = classifier->FindNodeByName("Volume", CustomFeedbackNode::TYPE_ID);
-		if (node != NULL)
-		{
-			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-				SetGlobalVolume( feedbackNode->GetCurrentValue() );
-		}
+		uint32 numFeedBackNodes = classifier->GetNumCustomFeedbackNodes();
+		bool isSystemVolumeControlUsed = false;
+		bool isStudioVolumeControlUsed = false;
 
-		// find screen brightness node
-		node = classifier->FindNodeByName("ScreenBrightness", CustomFeedbackNode::TYPE_ID);
-		if (node != NULL)
-		{
-			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-				SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
-		}
+		Node* node = nullptr;
+		for (uint32 i = 0; i < numFeedBackNodes; ++i) {
+			node = classifier->GetCustomFeedbackNode(i);
+			const char* nodeTypeUuid = node->GetTypeUuid();
 
+			if (nodeTypeUuid == VolumeControlNode::Uuid()) {
+				VolumeControlNode* feedbackNode = static_cast<VolumeControlNode*>(node);
+
+				if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false) {
+						if (!isStudioVolumeControlUsed && feedbackNode->GetMode() == VolumeControlNode::STUDIO_VOLUME) {
+							isStudioVolumeControlUsed = true;
+							SetGlobalVolume( feedbackNode->GetCurrentValue() );
+						} else if (feedbackNode->GetMode() == VolumeControlNode::SINGLE_MEDIA_FILE) {
+							isSystemVolumeControlUsed = true;
+							SetVolume(feedbackNode->GetCurrentValue(), feedbackNode->GetFileUrl());
+						} else if (feedbackNode->GetMode() == VolumeControlNode::TONE) {
+							String nodeName = feedbackNode->GetToneName();
+							for (uint32 j = 0; j < mTonePlayers.Size(); ++j) {
+								if (mTonePlayers[j]->GetNode().GetName() == nodeName) {
+									mTonePlayers[j]->SetVolume(feedbackNode->GetCurrentValue());
+								}
+							}
+						}
 #ifdef NEUROMORE_PLATFORM_WINDOWS
-		// find master volume node
-		node = classifier->FindNodeByName("MasterVolume", CustomFeedbackNode::TYPE_ID);
-		if (node != NULL)
-		{
-			CustomFeedbackNode* feedbackNode = static_cast<CustomFeedbackNode*>(node);
-			if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false)
-				SetSystemMasterVolume( feedbackNode->GetCurrentValue() );
-		}
+						else if (!isSystemVolumeControlUsed && feedbackNode->GetMode() == VolumeControlNode::OVERALL_SYSTEM_VOLUME) {
+							SetSystemMasterVolume( feedbackNode->GetCurrentValue() );
+						}
 #endif
-		
+				}
+			} else if (nodeTypeUuid == ScreenBrightnessNode::Uuid()) {
+				ScreenBrightnessNode* feedbackNode = static_cast<ScreenBrightnessNode*>(node);
+				if (feedbackNode->IsInitialized() == true && feedbackNode->IsEmpty() == false) {
+					SetBlendOpacity(1.0f - Clamp(feedbackNode->GetCurrentValue(), 0.0, 1.0));
+				}
+			}
+		}
 	}
 }
 
@@ -245,8 +274,13 @@ void ExperienceWidget::Clear()
 // add a new button condition button
 void ExperienceWidget::AddButton(const char* text, uint32 buttonId)
 {
+	QFont font;
+	font.setPixelSize(12);
+	font.setBold(true);
+
 	QPushButton* button = new QPushButton( text, this );
 	button->setProperty( "buttonId", buttonId );
+	button->setFont(font);
 	connect( button, SIGNAL(clicked()), this, SLOT(OnButtonClicked()) );
 	mButtons.Add(button);
 	mButtonLayout->addWidget(button);
@@ -459,6 +493,8 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 	painter.setPen( mTextColor );
 	painter.setBrush( mTextColor );
 
+
+	// E) Text
 	QFont font;
 
 	const uint32 textLength = mText.size();
@@ -466,7 +502,8 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 
 	font.setPixelSize( textScaler );
 	painter.setFont( font );
-	painter.drawText( QRect( 0, 0, width(), height() ), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
+	const int usedheight = MAINLAYOUTPADDING + mTextEdit->isVisible() ? mTextEdit->height() : 0;
+	painter.drawText( QRect( 0, 0, width(), height()-usedheight), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
 	
     painter.end();
 }
@@ -777,6 +814,27 @@ void ExperienceWidget::OnHideText()
 	update();
 }
 
+void ExperienceWidget::OnShowTextInput(const char* text, uint32 id)
+{
+	LogDebug("Experience Widget: OnShowTextInput(text='%s')", text);
+	if (mTextEdit) {
+		mTextEdit->setPlainText(text);
+		mTextEdit->setVisible(true);
+	}
+	update();
+}
+
+
+void ExperienceWidget::OnHideTextInput()
+{
+	LogDebug("Experience Widget: OnHideTextInput()");
+	if (mTextEdit) {
+		mTextEdit->setPlainText("");
+		mTextEdit->setVisible(false);
+	}
+	update();
+}
+
 
 void ExperienceWidget::OnSetBackgroundColor(const Core::Color& color)
 {
@@ -838,4 +896,51 @@ void ExperienceWidget::OnActiveStateMachineChanged(StateMachine* stateMachine)
 
 	// pre-load data
 	//PreloadAssets();
+}
+
+void ExperienceWidget::OnActiveClassifierChanged(Classifier* classifier)
+{
+   const uint32_t nPlayers = mTonePlayers.Size();
+   for (uint32_t i = 0; i < nPlayers; i++)
+      delete mTonePlayers[i];
+   
+   mTonePlayers.Clear();
+
+   if (classifier)
+   {
+      const uint32_t nToneGens = classifier->GetNumToneGeneratorNodes();
+      for (uint32_t i = 0; i < nToneGens; i++)
+         mTonePlayers.Add(new TonePlayer(*classifier->GetToneGeneratorNode(i)));
+   }
+}
+
+void ExperienceWidget::OnNodeAdded(Graph* graph, Node* node)
+{
+   if (node && node->GetType() == ToneGeneratorNode::TYPE_ID)
+      mTonePlayers.Add(new TonePlayer(*(ToneGeneratorNode*)node));
+}
+
+void ExperienceWidget::OnRemoveNode(Graph* graph, Node* node)
+{
+   if (node && node->GetType() == ToneGeneratorNode::TYPE_ID)
+   {
+      const uint32_t nPlayers = mTonePlayers.Size();
+      for (uint32_t i = 0; i < nPlayers; i++) {
+         if (&mTonePlayers[i]->GetNode() == node) {
+            delete mTonePlayers[i];
+            mTonePlayers.Remove(i);
+            break;
+         }
+      }
+   }
+}
+
+void ExperienceWidget::OnGraphReset(Graph* graph)
+{
+   if (graph && graph->GetType() == StateMachine::TYPE_ID)
+      ClearButtons();
+
+   /*const uint32_t nPlayers = mTonePlayers.Size();
+   for (uint32_t i = 0; i < nPlayers; i++)
+      mTonePlayers[i]->Reset();*/
 }

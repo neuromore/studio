@@ -227,13 +227,11 @@ class ComplexMath
 		static inline bool IsInf(const Complex& z)
 		{
 			return std::isinf(z.mReal) || std::isinf(z.mImag);
-			return false;
 		}
 
 		static inline bool IsNaN(const Complex& z)
 		{
-			return isnan(z.mReal) || std::isinf(z.mImag);
-			return false;
+			return std::isnan(z.mReal) || std::isinf(z.mImag);
 		}
 
 };

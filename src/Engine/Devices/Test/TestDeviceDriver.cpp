@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "TestDeviceDriver.h"
 #include "../../EngineManager.h"
@@ -28,16 +31,10 @@
 
 #ifdef INCLUDE_DEVICE_TEST
 
-#ifdef NEUROMORE_BRANDING_ANT
-#define DEFAULT_DRIVER_ENABLED false
-#else
-#define DEFAULT_DRIVER_ENABLED true
-#endif
-
 using namespace Core;
 
 // constructor
-TestDeviceDriver::TestDeviceDriver() : DeviceDriver(DEFAULT_DRIVER_ENABLED)
+TestDeviceDriver::TestDeviceDriver() : DeviceDriver(Branding::DefaultTestDeviceEnabled)
 {
 	AddSupportedDevice(TestDevice::TYPE_ID);
 

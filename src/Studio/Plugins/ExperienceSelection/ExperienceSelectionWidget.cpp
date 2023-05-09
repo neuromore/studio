@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include <Graph/GraphImporter.h>
 #include "ExperienceSelectionWidget.h"
@@ -30,14 +33,6 @@
 #include <Backend/FileSystemGetResponse.h>
 #include "../../MainWindow.h"
 #include "../../VisualizationManager.h"
-#include "../../AppManager.h"
-#include <QtBaseManager.h>
-#include <QGridLayout>
-#include <QPainter>
-#include <QLabel>
-#include <QTimer>
-#include <Core/LogManager.h>
-
 
 using namespace Core;
 
@@ -187,49 +182,74 @@ void ExperienceSelectionWidget::CreateWidgetsForFolders(bool downloadAssets)
 	{
 		const FileSystemItem& item = mItems[i];
 
-		// only do for folders
-		if (item.IsFolder() == false)
-			continue;
-
 		const uint32 row	= i / numItemsPerRow;
 		const uint32 column	= i % numItemsPerRow;
 
-		ExperiencePushButtonWidget* button = new ExperiencePushButtonWidget(NULL, item);
 
-		//button->setText( item.GetName() );
-		button->setToolTip( item.GetSummary() );
-		button->setObjectName("TransparentButton");
-		button->setFixedSize( tileSize, tileSize );
+		// handle the case where there are files along with folders
+		if (item.IsFolder()) {
 
-		// icon
-		if (item.GetIconUrlString().IsEmpty() == false)
-		{
-			// load icon
-			if (mCache->FileExists(item.GetIconUrl()) == true)
+			ExperiencePushButtonWidget* button = new ExperiencePushButtonWidget(NULL, item);
+
+			// button->setText( item.GetName() );
+			button->setToolTip( item.GetSummary() );
+			button->setObjectName("TransparentButton");
+			button->setFixedSize( tileSize, tileSize );
+
+			// icon
+			if (item.GetIconUrlString().IsEmpty() == false)
 			{
-				Core::String imageLocalFilename = mCache->GetCacheFilenameForUrl(item.GetIconUrl());
-				if (QFile::exists(imageLocalFilename.AsChar()) == true)
+				// load icon
+				if (mCache->FileExists(item.GetIconUrl()) == true)
 				{
-					button->InitImages( imageLocalFilename.AsChar() );
-					button->setIconSize( QSize(tileSize, tileSize) );
-										
-					// remove text, as we got an icon
-					button->setText( "" );
+					Core::String imageLocalFilename = mCache->GetCacheFilenameForUrl(item.GetIconUrl());
+					if (QFile::exists(imageLocalFilename.AsChar()) == true)
+					{
+						button->InitImages( imageLocalFilename.AsChar() );
+						button->setIconSize( QSize(tileSize, tileSize) );
+
+						// remove text, as we got an icon
+						button->setText( "" );
+					}
 				}
+				else
+				{
+					if (downloadAssets == true)
+					{
+						// add the icon to the cache download queue
+						mCacheDownloadQueue.Add( item.GetIconUrl() );
+					}
+				}
+			} else {
+				button->setText(item.GetName());
+
+				button->setStyleSheet(QString("QPushButton {"
+									  "width: %1px;"
+									  "height: %1px;"
+									  "border-image: url(:/Images/Icons/ExperienceFolder.png);"
+									  "text-align: center bottom;"
+									  "font-size: 18px;"
+									  "color: #FFFFFF;"
+									"}").arg(tileSize - 18));
 			}
+
+			connect(button, &ImageButton::clicked, this, &ExperienceSelectionWidget::OnItemButtonClicked);
+
+			gridLayout->addWidget( button, row, column );
+
+		} else {
+			if (item.IsExperience() == false)
+				continue;
+
+			ExperienceSelectionItemWidget* experienceWidget = NULL;
+
+			if (HasParent() == true)
+				experienceWidget = new ExperienceSelectionItemWidget( this, item, QSize(tileSize, tileSize), mParents[0] );
 			else
-			{
-				if (downloadAssets == true)
-				{
-					// add the icon to the cache download queue
-					mCacheDownloadQueue.Add( item.GetIconUrl() );
-				}
-			}
+				experienceWidget = new ExperienceSelectionItemWidget( this, item, QSize(tileSize, tileSize) );
+
+			gridLayout->addWidget( experienceWidget, row, column );
 		}
-
-		connect(button, &ImageButton::clicked, this, &ExperienceSelectionWidget::OnItemButtonClicked);
-
-		gridLayout->addWidget( button, row, column );
 	}
 
 	// finally set the height of the main widget to accomodate the whole grid layout in the vertical direction
@@ -297,9 +317,9 @@ void ExperienceSelectionWidget::CreateWidgetsForFiles(bool downloadAssets)
 		ExperienceSelectionItemWidget* experienceWidget = NULL;
 		
 		if (HasParent() == true)
-			experienceWidget = new ExperienceSelectionItemWidget( this, item, mParents[0] );
+			experienceWidget = new ExperienceSelectionItemWidget( this, item, {}, mParents[0] );
 		else
-			experienceWidget = new ExperienceSelectionItemWidget( this, item );
+			experienceWidget = new ExperienceSelectionItemWidget( this, item, {});
 
 		vLayout->addWidget( experienceWidget );
 
@@ -371,13 +391,12 @@ void ExperienceSelectionWidget::AsyncLoadFromBackend(const char* itemId)
 	setEnabled(false);
 	mIsLoading = true;
 
-	mCurrentItem.SetParentId( mCurrentItem.GetParentId() );
 	mCurrentItem.SetItemId(	itemId );
 
 	//LogInfo( "ExperienceSelectionWidget::AsyncLoadFromBackend: parentId=%s, itemId=%s", mCurrentItem.GetParentId(), mCurrentItem.GetItemId() );
 
 	// 1. construct /filesystem/get request
-	FileSystemGetRequest request( GetUser()->GetToken(), GetSessionUser()->GetIdString(), page, size, "store", itemId, "[experience,folder]");
+	FileSystemGetRequest request( GetUser()->GetToken(), GetSessionUser()->GetIdString(), page, size, "store", mCurrentItem.GetItemId(), "[experience,folder]");
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT, false, QNetworkRequest::AlwaysNetwork );
@@ -400,6 +419,7 @@ void ExperienceSelectionWidget::AsyncLoadFromBackend(const char* itemId)
 		mTotalPages		= response.mTotalPages;
 		mPageIndex		= response.mPageIndex;
 
+		mCurrentItem.SetParentId(mParents.IsEmpty() ? "" : mParents[0].GetParentId());
 		mCacheDownloadQueue.Clear();
 
 		ReInit();
@@ -482,11 +502,15 @@ void ExperienceSelectionWidget::OnAssetDownloadFinished()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ExperienceWidget
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-ExperienceSelectionItemWidget::ExperienceSelectionItemWidget(ExperienceSelectionWidget* parent, const FileSystemItem& item, const FileSystemItem& parentItem) : QWidget(parent)
+ExperienceSelectionItemWidget::ExperienceSelectionItemWidget(ExperienceSelectionWidget* parent, const FileSystemItem& item, const QSize& widgetSize, const FileSystemItem& parentItem) : QWidget(parent)
 {
 	mItem = item;
 	mParentItem = parentItem;
 	mExperienceSelectionWidget = parent;
+
+	if (!widgetSize.isEmpty()) {
+		setFixedSize(widgetSize);
+	}
 
 	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 
@@ -497,7 +521,6 @@ ExperienceSelectionItemWidget::ExperienceSelectionItemWidget(ExperienceSelection
 	QVBoxLayout* vLayout = new QVBoxLayout();
 	vLayout->setMargin( 15 );
 	vLayout->setAlignment(Qt::AlignLeft);
-	hLayout->addLayout(vLayout);
 
 	mIsHovered = false;
 
@@ -506,23 +529,47 @@ ExperienceSelectionItemWidget::ExperienceSelectionItemWidget(ExperienceSelection
 	QColor qColor = QColor(ToQColor(color));
 	String colorHexString = qColor.name().toUtf8().data();
 
+	QIcon icon(":/Images/Graph/Experience.png");
+	QLabel *mIconLabel = new QLabel();
+
+	mIconLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+	mIconLabel->setFixedSize(this->width() - this->width() / 5, this->height() - this->height() / 3);
+	mIconLabel->setPixmap(icon.pixmap(QSize(mIconLabel->width(), mIconLabel->height())));
+	mIconLabel->setAlignment(Qt::AlignHCenter);
+
 	String nameString;
 	nameString.Format("<font color=\"%s\">%s</font>", colorHexString.AsChar(), item.GetName());
-
 	mNameLabel = new QLabel( nameString.AsChar() );
 	mNameLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mNameLabel->setWordWrap(true);
+
 	QFont font = mNameLabel->font();
 	font.setBold(mIsHovered);
 	font.setPixelSize(18);
+
 	mNameLabel->setFont(font);
+	if (!widgetSize.isEmpty()) {
+		hLayout->addLayout(vLayout);
+		setFixedSize(widgetSize);
+		mNameLabel->setFixedSize(this->width() - this->width() / 5, this->height() / 3);
+		mNameLabel->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+		vLayout->addWidget(mIconLabel);
+	} else {
+		hLayout->addWidget(mIconLabel);
+		mNameLabel->setAlignment(Qt::AlignLeft);
+		hLayout->addLayout(vLayout);
+	}
+
 	vLayout->addWidget(mNameLabel);
 
-	// summary
-	QLabel* mSummaryLabel = new QLabel(item.GetSummary());
-	mSummaryLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-	mSummaryLabel->setWordWrap(true);
-	vLayout->addWidget(mSummaryLabel);
+	String summeryText = item.GetSummaryString();
+	if (!summeryText.IsEmpty()) {
+		// summary
+		QLabel* mSummaryLabel = new QLabel(summeryText.AsChar());
+		mSummaryLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+		mSummaryLabel->setWordWrap(true);
+		vLayout->addWidget(mSummaryLabel);
+	}
 
 	// load button
 	const int loadButtonSize = 40;

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name={DISPLAYNAME}
+Comment=Your IDE for neuro-tech apps
+Exec=/usr/bin/{APPSHORTNAME}
+Icon=/usr/share/pixmaps/{APPSHORTNAME}.png
+Terminal=true
+Type=Application
+Categories=Development;
+StartupNotify=true
+NoDisplay=false

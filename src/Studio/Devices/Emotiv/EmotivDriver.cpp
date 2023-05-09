@@ -21,15 +21,13 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "EmotivDriver.h"
-#include <Core/LogManager.h>
-#include <QMessageBox>
 
 #ifdef INCLUDE_DEVICE_EMOTIV
-
-// link to the EDK libraries
-//#pragma comment(lib, "edk.lib")
 
 // NOTE:
 // The raw EEG starts life as an unsigned integer and is rescaled, where (approximately) 4000 points represents the DC level, and 1 point is 1uV. 

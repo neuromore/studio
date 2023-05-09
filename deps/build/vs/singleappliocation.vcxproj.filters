@@ -13,6 +13,7 @@
       <Filter>.moc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\singleapplication\singleapplication.cpp" />
+    <ClCompile Include="..\..\src\singleapplication\singleapplication_p.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\singleapplication\singleapplication.h" />

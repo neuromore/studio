@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleName</key>
+	<string>{APPSHORTNAME}</string>
+	<key>CFBundleIdentifier</key>
+	<string>{APPID}</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleVersion</key>
+	<string>{VERSION}</string>
+	<key>CFBundleExecutable</key>
+	<string>Studio</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Copyright 2022 {APPCOMPANY}</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleIconFile</key>
+	<string>Icon</string>
+	<key>CFBundleSignature</key>
+	<string>Studio</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.15.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>{VERSION}</string>
+	<key>DTSDKName</key>
+	<string>macosx{OSXSDKVER}</string>
+	<key>DTSDKBuild</key>
+	<string>{OSXSDKBUILDV}</string>
+	<key>BuildMachineOSBuild</key>
+	<string>{OSXBUILDV}</string>
+	<key>DTPlatformName</key>
+	<string>macosx</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
+	<key>DTPlatformBuild</key>
+	<string>{XCODEBUILDV}</string>
+	<key>DTXcodeBuild</key>
+	<string>{XCODEBUILDV}</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSMultipleInstancesProhibited</key>
+	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This software supports bluetooth based devices like heart-rate monitors.</string>
+</dict>
+</plist>

@@ -44,8 +44,8 @@
 #define QT_FEATURE_whatsthis 1
 #define QT_FEATURE_wheelevent 1
 
-// Use OpenGL ES for Android (ES 3.1 = API 21 = 5.0)
-#ifdef ANDROID
+// Use OpenGL ES for Android (ES 3.1 = API 21 = 5.0) and iOS
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
 #ifndef QT_OPENGL_ES
   #define QT_OPENGL_ES
 #endif

@@ -39,6 +39,13 @@ class BrainMasterDriver : public DeviceDriver, Core::EventHandler, Discovery20::
 public:
    enum { TYPE_ID = DeviceTypeIDs::DRIVER_TYPEID_BRAINMASTER };
 
+   enum EMode
+   {
+      MODE_IDLE,        // init/default mode
+      MODE_STREAM,      // normal EEG data stream
+      MODE_IMPEDANCE    // impedance test 
+   };
+
    // constructor & destructor
    BrainMasterDriver();
    virtual ~BrainMasterDriver();
@@ -53,27 +60,45 @@ public:
    void OnRemoveDevice(Device* device) override;
    void OnDeviceAdded(Device* device) override;
 
+   // impedance test
+   void StartTest(Device* device) override;
+   void StopTest(Device* device) override;
+   bool IsTestRunning(Device* device) override;
+
    // autodetection of local devices
    bool HasAutoDetectionSupport() const override final { return true; }
    void SetAutoDetectionEnabled(bool enable = true) override;
 
+   inline const std::string& GetCodeKey() const { return mCodeKey; }
+   inline const std::string& GetSerial() const { return mSerial; }
+   inline const std::string& GetPassKey() const { return mPassKey; }
+   inline void SetCodeKey(const std::string& v) { mCodeKey = v; }
+   inline void SetSerial(const std::string& v) { mSerial = v; }
+   inline void SetPassKey(const std::string& v) { mPassKey = v; }
+
 private:
    void Cleanup();
 
-   virtual void onLoadSDKSuccess(HMODULE h) override;
-   virtual void onLoadSDKFail() override;
-   virtual void onDeviceFound(int32_t port)override;
-   virtual void onDeviceConnected() override;
-   virtual void onDeviceDisconnected() override;
-   virtual void onDeviceTimeout() override;
-   virtual void onSyncStart(uint8_t c1, uint8_t c2) override;
-   virtual void onSyncSuccess() override;
-   virtual void onSyncFail(uint8_t expected, uint8_t received) override;
-   virtual void onSyncLost() override;
-   virtual void onFrame(const Discovery20::Frame& f, const Discovery20::Channels& c) override;
+   virtual void onLoadSDKSuccess(Discovery20& d, HMODULE h) override;
+   virtual void onLoadSDKFail(Discovery20& d) override;
+   virtual void onDeviceFound(Discovery20& d, int32_t port)override;
+   virtual void onDeviceConnected(Discovery20& d) override;
+   virtual void onDeviceDisconnected(Discovery20& d) override;
+   virtual void onDeviceTimeout(Discovery20& d) override;
+   virtual void onSyncStart(Discovery20& d, uint8_t c1, uint8_t c2) override;
+   virtual void onSyncSuccess(Discovery20& d) override;
+   virtual void onSyncFail(Discovery20& d, uint8_t expected, uint8_t received) override;
+   virtual void onSyncLost(Discovery20& d) override;
+   virtual void onFrame(Discovery20& d, const Discovery20::Frame& f, const Discovery20::Channels& c) override;
 
-   Discovery20      mSDK;
-   DiscoveryDevice* mDevice;
+
+   EMode              mMode;
+   std::string        mCodeKey;
+   std::string        mSerial;
+   std::string        mPassKey;
+   Discovery20        mSDK;
+   Discovery20Device* mDevice;
+   Core::Time         mLastDetect;
 };
 
 #endif

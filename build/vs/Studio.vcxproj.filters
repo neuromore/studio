@@ -200,7 +200,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\AppManager.cpp" />
     <ClCompile Include="..\..\src\Studio\AuthenticationCenter.cpp" />
-    <ClCompile Include="..\..\src\Studio\CrashReporter.cpp" />
     <ClCompile Include="..\..\src\Studio\DocumentationExporter.cpp" />
     <ClCompile Include="..\..\src\Studio\main.cpp" />
     <ClCompile Include="..\..\src\Studio\MainWindow.cpp" />
@@ -666,9 +665,6 @@
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphAttributesWidget.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphHelpers.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphInfoWidget.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
@@ -676,12 +672,6 @@
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphPlugin.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRenderer.moc.cpp">
-      <Filter>Plugins\Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphRendererState.moc.cpp">
       <Filter>Plugins\Graph</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Studio\Plugins\Graph\GraphShared.moc.cpp">
@@ -836,6 +826,11 @@
     <ClCompile Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.cpp">
       <Filter>Devices\BrainMaster</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Studio\Precompiled.cpp" />
+    <ClCompile Include="..\..\src\Studio\OnboardingAction.cpp" />
+    <ClCompile Include="..\..\src\Studio\OnboardingAction.moc.cpp" />
+    <ClCompile Include="..\..\src\Studio\TourManager.cpp" />
+    <ClCompile Include="..\..\src\Studio\TourManager.moc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Studio\Devices\DeviceHelpers.h">
@@ -910,7 +905,6 @@
     <ClInclude Include="..\..\src\Studio\AppManager.h" />
     <ClInclude Include="..\..\src\Studio\AuthenticationCenter.h" />
     <ClInclude Include="..\..\src\Studio\Config.h" />
-    <ClInclude Include="..\..\src\Studio\CrashReporter.h" />
     <ClInclude Include="..\..\src\Studio\DocumentationExporter.h" />
     <ClInclude Include="..\..\src\Studio\MainWindow.h" />
     <ClInclude Include="..\..\src\Studio\Version.h" />
@@ -1226,14 +1220,11 @@
     <ClInclude Include="..\..\src\Studio\Devices\BrainMaster\Discovery20.h">
       <Filter>Devices\BrainMaster</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Studio\Precompiled.h" />
+    <ClInclude Include="..\..\src\Studio\OnboardingAction.h" />
+    <ClInclude Include="..\..\src\Studio\TourManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\Studio\Resources\AppIcon.icns">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\..\src\Studio\Resources\NMStudio.aps">
-      <Filter>Resources</Filter>
-    </None>
     <None Include="..\..\src\Studio\Resources\StudioResources.qrc">
       <Filter>Resources</Filter>
     </None>
@@ -1242,7 +1233,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\src\Studio\Resources\AppIcon.ico">
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\Close.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\EndTutorial.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\DownRectArrow.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftArrowBlue.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\LeftRectArrow.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightArrowBlue.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\RightRectArrow.png" />
+    <Image Include="..\..\src\QtBase\Resources\Images\Icons\TopRectArrow.png" />
+    <Image Include="..\..\src\Studio\Resources\AppIcon-neuromore.ico">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

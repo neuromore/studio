@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "MultiChannel.h"
 
@@ -150,11 +153,11 @@ bool MultiChannel::IsHighlighted() const
 
 
 // set buffer size of all channels
-void MultiChannel::SetBufferSize(uint32 numSamples)
+void MultiChannel::SetBufferSize(uint32 numSamples, bool discard)
 {
 	const uint32 numChannels = mChannels.Size();
 	for (uint32 i=0; i<numChannels; ++i)
-		mChannels[i]->SetBufferSize(numSamples);
+		mChannels[i]->SetBufferSize(numSamples, discard);
 }
 
 

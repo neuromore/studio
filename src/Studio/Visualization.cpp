@@ -21,19 +21,21 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "Visualization.h"
-#include <Core/LogManager.h>
-#include <Core/Json.h>
-#include "AppManager.h"
 #include "MainWindow.h"
-#include <QProcess>
-#include <QMessageBox>
+
+#if defined(NEUROMORE_PLATFORM_OSX) && defined(__OBJC__)
+#include <Cocoa/Cocoa.h>
+#endif
 
 using namespace Core;
 
 // constructor
-Visualization::Visualization()
+Visualization::Visualization() : mIsSupported(false)
 {
    // setup process arguments
    mArguments.append("-single-instance");
@@ -61,6 +63,12 @@ Visualization::~Visualization()
 {
 }
 
+void Visualization::SetFolder(const char* folder)
+{
+   mFolder = folder;
+   mFolder.ConvertToNativePath();
+}
+
 void Visualization::SetExecutableFilename(const char* filename)
 {
    mExecutableFilename = filename;
@@ -69,10 +77,19 @@ void Visualization::SetExecutableFilename(const char* filename)
 
 bool Visualization::Start()
 {
-   // do not start if already running
-   if (mProcess.isOpen())
+   // do not start if already running or not supported
+   if (mProcess.isOpen() || !mIsSupported)
       return false;
 
+#if defined(NEUROMORE_PLATFORM_OSX) && defined(__OBJC__)
+   NSRunningApplication* app = [[NSWorkspace sharedWorkspace] 
+      launchApplicationAtURL:[NSURL fileURLWithPath:[NSString stringWithUTF8String:mExecutableFilename.AsChar()] isDirectory:NO] 
+      options:NSWorkspaceLaunchDefault 
+      configuration:nil 
+      error:NULL];
+
+   return app != nil;
+#else
    // set executable and arguments
    mProcess.setProgram(mExecutableFilename.AsChar());
    mProcess.setArguments(mArguments);
@@ -80,7 +97,7 @@ bool Visualization::Start()
 
    // wait for it to start
    return mProcess.waitForStarted(1000);
-
+#endif
 }
 
 void Visualization::Stop()
@@ -91,8 +108,11 @@ void Visualization::Stop()
 
 bool Visualization::ParseFromJsonFile(const char* filename)
 {
-   String folder = String(filename).ExtractPath();
+   // save folder
+   mFolder = String(filename).ExtractPath(false);
+   mIsSupported = false;
 
+   // parse json
    Json json;
    if (json.ParseFile(filename) == false)
       return false;
@@ -113,12 +133,48 @@ bool Visualization::ParseFromJsonFile(const char* filename)
    // executable
    const Json::Item executableItem = json.Find("executable");
    if (executableItem.IsString() == true)
-      mExecutableFilename = folder + executableItem.GetString();
+   {
+      // try different locations
+      for (uint32_t i = 0; i < 3; i++)
+      {
+         switch (i)
+         {
+         case 0: // with 'platform-cpu' subfolder
+            mExecutableFilename = mFolder + "/" +
+               NEUROMORE_PLATFORM_STRING + "-" + NEUROMORE_CPU_STRING + "/" +
+               executableItem.GetString();
+            break;
+         case 1: // with 'platform-all' subfolder
+            mExecutableFilename = mFolder + "/" +
+               NEUROMORE_PLATFORM_STRING + "-all/" +
+               executableItem.GetString();
+            break;
+         case 2: // without 'platform-cpu' subfolder
+            mExecutableFilename = mFolder + "/" + executableItem.GetString();
+            break;
+         }
+
+         // dynamically add extension for platforms
+      #if defined(NEUROMORE_PLATFORM_WINDOWS)
+         mExecutableFilename += ".exe";
+      #elif defined(NEUROMORE_PLATFORM_OSX)
+         mExecutableFilename += ".app";
+      #endif
+
+         // check if binary exists
+         QFileInfo inf(mExecutableFilename.AsChar());
+         if (inf.exists())
+         {
+            mIsSupported = true;
+            break;
+         }
+      }
+   }
 
    // image
    const Json::Item imageItem = json.Find("image");
    if (imageItem.IsString() == true)
-      mImageFilename = folder + imageItem.GetString();
+      mImageFilename = mFolder + "/" + imageItem.GetString();
 
    return true;
 }

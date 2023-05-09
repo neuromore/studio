@@ -90,6 +90,15 @@
     <ClCompile Include="..\..\src\brainflow-boardcontroller\openbci\openbci_wifi_shield_board.cpp">
       <Filter>openbci</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\board.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\board_controller.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\board_info_getter.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\brainflow_boards.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\file_streamer.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\multicast_streamer.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\playback_file_board.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\streaming_board.cpp" />
+    <ClCompile Include="..\..\src\brainflow-boardcontroller\synthetic_board.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\brainflow\board_controller\board.h" />

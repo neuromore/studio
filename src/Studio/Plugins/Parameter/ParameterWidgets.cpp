@@ -21,12 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "ParameterWidgets.h"
-#include "../../AppManager.h"
 #include <Graph/ParameterNode.h>
-#include <Slider.h>
-
 
 using namespace Core;
 

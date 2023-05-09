@@ -21,14 +21,13 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "OpenBCIDriver.h"
 #include "OpenBCISerialHandler.h"
-#include "../DeviceHelpers.h"
 #include <Devices/OpenBCI/OpenBCIDevices.h>
-#include <EngineManager.h>
-#include <System/SerialPort.h>
-#include <QApplication>
 
 #ifdef INCLUDE_DEVICE_OPENBCI
 
@@ -206,6 +205,24 @@ void OpenBCIDriver::OnRemoveDevice(Device* device)
 	serialThread->wait();
 	mSerialHandlerThreads.Remove(index);
 	delete serialThread;
+}
+
+
+void OpenBCIDriver::StartTest(Device* device)
+{
+   if (device) 
+      device->StartTest();
+}
+
+void OpenBCIDriver::StopTest(Device* device)
+{
+   if (device)
+      device->StopTest();
+}
+
+bool OpenBCIDriver::IsTestRunning(Device* device)
+{
+   return device ? device->IsTestRunning() : false;
 }
 
 
@@ -439,5 +456,6 @@ void OpenBCISerialThread::run()
 	}
 
 }
+
 
 #endif

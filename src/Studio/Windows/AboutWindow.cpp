@@ -21,22 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "AboutWindow.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QLabel>
-#include <QSizePolicy>
-#include <QPixmap>
-#include <QTextEdit>
-#include <QVBoxLayout>
-
-#ifdef NEUROMORE_BRANDING_ANT
-#define ABOUTIMAGE ":/Images/About-ANT.png"
-#else
-#define ABOUTIMAGE ":/Images/About-neuromore.png"
-#endif
 
 using namespace Core;
 
@@ -58,7 +47,7 @@ AboutWindow::AboutWindow(QWidget* parent) : QDialog(parent, Qt::WindowSystemMenu
 	layout->setSpacing(3);
 
 	// load the about dialog image and add it to the dialog
-	QPixmap aboutImage(ABOUTIMAGE);
+	QPixmap aboutImage(Branding::AboutImageName);
 	QLabel* aboutImageLabel = new QLabel(this);
 	aboutImageLabel->setPixmap(aboutImage);
 	layout->addWidget(aboutImageLabel);

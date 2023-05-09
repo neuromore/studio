@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+// include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required headers
 #include "AttributeWidgets.h"
 #include "../QtBaseManager.h"
@@ -642,6 +645,62 @@ void StringArrayAttributeWidget::OnStringChange()
 		if (widgetText.Compare(attribText) != 0)
 		{
 			attribute->InitFromString(widgetText);
+			OnAttributeChanged(attribute);
+		}
+	}
+
+	FireValueChangedSignal();
+}
+
+
+//-----------------------------------------------------------------------------------------------------------------
+
+
+TextAttributeWidget::TextAttributeWidget(const Core::Array<Core::Attribute*> attributes, Core::AttributeSettings* attributeSettings, void* customData, bool readOnly, bool creationMode) : AttributeWidget(attributes, attributeSettings, customData, readOnly, creationMode)
+{
+	mPlainTextEdit = new QPlainTextEdit();
+	CreateStandardLayout(mPlainTextEdit, attributeSettings);
+
+	const char* value = (mFirstAttribute != NULL) ? static_cast<Core::AttributeString*>(mFirstAttribute)->GetValue() : "";
+	mPlainTextEdit->setPlainText( value );
+	mPlainTextEdit->setReadOnly( readOnly );
+	mPlainTextEdit->setEnabled( !readOnly );
+	mPlainTextEdit->setFixedHeight(100);
+
+	connect(mPlainTextEdit, SIGNAL(textChanged()), this, SLOT(OnStringChange()));
+}
+
+
+void TextAttributeWidget::SetValue(Core::Attribute* attribute)
+{
+	if (attribute == NULL)
+		mPlainTextEdit->clear();
+	else {
+		QString s(static_cast<Core::AttributeString*>(attribute)->GetValue());
+		if (mPlainTextEdit->toPlainText() != s)
+			mPlainTextEdit->setPlainText(s);
+	}
+}
+
+
+// a string changed
+void TextAttributeWidget::OnStringChange()
+{
+	assert( sender()->inherits("QPlainTextEdit") == true );
+	QPlainTextEdit* widget = qobject_cast<QPlainTextEdit*>( sender() );
+	String widgetText;
+
+	// get the number of attributes and iterate through them
+	const uint32 numAttributes = mAttributes.Size();
+
+	for (uint32 i=0; i<numAttributes; ++i)
+	{
+		Core::AttributeText* attribute = static_cast<Core::AttributeText*>(mAttributes[i]);
+		widgetText = FromQtString(widget->toPlainText());
+
+		if (widgetText.Compare(attribute->GetValue()) != 0)
+		{
+			attribute->SetValue(widgetText);
 			OnAttributeChanged(attribute);
 		}
 	}

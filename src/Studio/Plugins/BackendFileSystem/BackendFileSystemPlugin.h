@@ -54,6 +54,8 @@ class BackendFileSystemPlugin : public Plugin, public Core::EventHandler
 		void OnPostAuthenticationInit() override										{ mFileSystemWidget->Refresh(); }
 		void OnAfterLoadLayout() override												{ mFileSystemWidget->Refresh(); }
 
+		bool ExpandByPath(const QStringList& itemPath);
+
 		// EVENTS ----------------------------------------------
 		void OnActiveClassifierChanged(Classifier* classifier) override final					{ mFileSystemWidget->UpdateInterface(); }
 		void OnActiveStateMachineChanged(StateMachine* statemachine) override final				{ mFileSystemWidget->UpdateInterface(); }

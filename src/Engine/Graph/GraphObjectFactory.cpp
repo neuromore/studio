@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "GraphObjectFactory.h"
 
@@ -45,6 +48,15 @@
 #ifndef PRODUCTION_BUILD
   #include "AVEColorNode.h"
 #endif
+
+#include "VolumeControlNode.h"
+#include "ScreenBrightnessNode.h"
+#include "SpeedControlNode.h"
+#include "SunControlNode.h"
+#include "CloudsControlNode.h"
+#include "FogControlNode.h"
+#include "RainControlNode.h"
+#include "VignetteControlNode.h"
 
 #if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_OSX) || defined(NEUROMORE_PLATFORM_LINUX)
   #include "FileReaderNode.h"
@@ -74,6 +86,10 @@
 #include "OscillatorNode.h"
 #include "WaveformNode.h"
 
+#ifdef INCLUDE_NODE_COHERENCE
+  #include <Graph/CoherenceNode.h>
+#endif
+
 // Bio Analysis
 #include "HrvNode.h"
 #include "ThresholdNode.h"
@@ -96,6 +112,7 @@
 #include "AnnotationNode.h"
 #include "ColorWheelNode.h"
 #include "SwitchNode.h"
+#include "ToneGeneratorNode.h"
 
 // state machine
 #include "EntryState.h"
@@ -113,6 +130,10 @@
 #include "StateTransitionButtonCondition.h"
 #include "StateTransitionAudioCondition.h"
 #include "StateTransitionVideoCondition.h"
+#include "StateTransitionUrlOpenedCondition.h"
+#include "StateTransitionBrowserPlayerStartedCondition.h"
+#include "StateTransitionBrowserPlayerStoppedCondition.h"
+#include "StateTransitionBrowserPlayerPausedCondition.h"
 
 // actions
 #include "Actions.h"
@@ -159,6 +180,15 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new AVEColorNode(NULL) );
 #endif
 
+		RegisterObjectType( new VolumeControlNode(NULL) );
+		RegisterObjectType( new ScreenBrightnessNode(NULL) );
+		RegisterObjectType( new SpeedControlNode(NULL) );
+		RegisterObjectType( new SunControlNode(NULL) );
+		RegisterObjectType( new CloudsControlNode(NULL) );
+		RegisterObjectType( new FogControlNode(NULL) );
+		RegisterObjectType( new RainControlNode(NULL) );
+		RegisterObjectType( new VignetteControlNode(NULL) );
+
 #if defined(NEUROMORE_PLATFORM_WINDOWS) || defined(NEUROMORE_PLATFORM_OSX) || defined(NEUROMORE_PLATFORM_LINUX)
 		RegisterObjectType( new FileReaderNode(NULL) );
 		RegisterObjectType( new FileWriterNode(NULL) );
@@ -186,6 +216,10 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new BinSelectorNode(NULL) );
 		RegisterObjectType( new OscillatorNode(NULL) );
 		RegisterObjectType( new WaveformNode(NULL) );
+
+#ifdef INCLUDE_NODE_COHERENCE
+		RegisterObjectType( new CoherenceNode(NULL) );
+#endif
 		
 		// Bio Analysis
 		RegisterObjectType( new HrvNode(NULL) );
@@ -209,6 +243,7 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new AnnotationNode(NULL) );
 		RegisterObjectType( new ColorWheelNode(NULL) );
 		RegisterObjectType( new SwitchNode(NULL) );
+		RegisterObjectType( new ToneGeneratorNode(NULL) );
 
 	// state machine
 
@@ -230,6 +265,10 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new StateTransitionButtonCondition(NULL) );
 		RegisterObjectType( new StateTransitionAudioCondition(NULL) );
 		RegisterObjectType( new StateTransitionVideoCondition(NULL) );
+		RegisterObjectType( new StateTransitionUrlOpenedCondition(NULL) );
+		RegisterObjectType( new StateTransitionBrowserPlayerStartedCondition(NULL) );
+		RegisterObjectType( new StateTransitionBrowserPlayerStoppedCondition(NULL) );
+		RegisterObjectType( new StateTransitionBrowserPlayerPausedCondition(NULL) );
 
 		// actions
 		RegisterObjectType( new PlayAudioAction(NULL) );
@@ -253,6 +292,13 @@ GraphObjectFactory::GraphObjectFactory()
 		RegisterObjectType( new CommandAction(NULL) );
 		RegisterObjectType( new ParameterAction(NULL) );
 		RegisterObjectType( new ClearButtonsAction(NULL) );
+		RegisterObjectType( new OpenUrlAction(NULL) );
+		RegisterObjectType( new BrowserStartPlayerAction(NULL) );
+		RegisterObjectType( new BrowserStopPlayerAction(NULL) );
+		RegisterObjectType( new BrowserPausePlayerAction(NULL) );
+
+		RegisterObjectType( new ShowTextInputAction(NULL) );
+		RegisterObjectType( new HideTextInputAction(NULL) );
 
 #ifndef PRODUCTION_BUILD
 		// LORETA

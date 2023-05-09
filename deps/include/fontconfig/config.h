@@ -4,11 +4,13 @@
 /* Define if building universal (internal helper macro) */
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
+// SET FROM BUILD DEFINES
 /* The normal alignment of `double', in bytes. */
-#define ALIGNOF_DOUBLE 8
-
+//#define ALIGNOF_DOUBLE 8
 /* The normal alignment of `void *', in bytes. */
-#define ALIGNOF_VOID_P 8
+//#define ALIGNOF_VOID_P 8
+/* The size of `void *', as computed by sizeof. */
+//#define SIZEOF_VOID_P 8
 
 /* Use libxml2 instead of Expat */
 /* #undef ENABLE_LIBXML2 */
@@ -299,9 +301,6 @@
 
 /* The size of `void*', as computed by sizeof. */
 /* #undef SIZEOF_VOIDP */
-
-/* The size of `void *', as computed by sizeof. */
-#define SIZEOF_VOID_P 8
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1

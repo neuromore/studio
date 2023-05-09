@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "DeviceInventory.h"
 #include "../Config.h"
@@ -120,8 +123,14 @@
 #ifdef INCLUDE_DEVICE_NEUROSITY_NOTION
 	#include "Neurosity/NotionDevices.h"
 	#include "Neurosity/NotionNode.h"
+	#include "Neurosity/CrownDevice.h"
+	#include "Neurosity/CrownNode.h"
 #endif
 
+#ifdef INCLUDE_DEVICE_NATUS
+	#include <Engine/Devices/Natus/NatusDevice.h>
+	#include <Engine/Devices/Natus/NatusNode.h>
+#endif
 
 
 #include "../EngineManager.h"
@@ -285,9 +294,19 @@ void DeviceInventory::RegisterDevices(bool disablePermissionCheck)
 	if (disablePermissionCheck || user->ReadAllowed(NotionDevice::GetRuleName()))
 	{
 		GetDeviceManager()->RegisterDeviceType(new NotionDevice());
+		GetDeviceManager()->RegisterDeviceType(new CrownDevice());
 		GetGraphObjectFactory()->RegisterObjectType(new NotionNode(NULL));
+		GetGraphObjectFactory()->RegisterObjectType(new CrownNode(NULL));
 	}
 #endif 
+
+#ifdef INCLUDE_DEVICE_NATUS
+	//if (disablePermissionCheck || user->ReadAllowed(NatusDevice::GetRuleName()))
+	{
+		GetDeviceManager()->RegisterDeviceType(new NatusDevice());
+		GetGraphObjectFactory()->RegisterObjectType(new NatusNode(NULL));
+	}
+#endif
 
 #ifdef INCLUDE_DEVICE_BRAINFLOW
 	//if (disablePermissionCheck || user->ReadAllowed(BrainFlowDeviceCyton::GetRuleName()))

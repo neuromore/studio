@@ -178,6 +178,9 @@
     <ClCompile Include="..\..\src\QtBase\Backend\UsersGetResponse.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UserGetResponse.cpp">
+      <Filter>Backend</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Backend\UsersInviteRequest.cpp">
       <Filter>Backend</Filter>
     </ClCompile>
@@ -302,7 +305,6 @@
     <ClCompile Include="..\..\src\QtBase\Gamepad.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\GamepadManager.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\ImageButton.moc.cpp" />
-    <ClCompile Include="..\..\src\QtBase\ImageManipulation.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Layout.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\LayoutComboBox.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\LayoutManager.moc.cpp" />
@@ -310,24 +312,13 @@
     <ClCompile Include="..\..\src\QtBase\LinkWidget.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\MainWindowBase.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\PainterStaticTextCache.moc.cpp" />
-    <ClCompile Include="..\..\src\QtBase\QtBaseConfig.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\QtBaseManager.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Slider.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\Spinbox.moc.cpp" />
-    <ClCompile Include="..\..\src\QtBase\SystemInfo.moc.cpp" />
     <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeSetGridWidget.moc.cpp">
       <Filter>AttributeWidgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetCreators.moc.cpp">
-      <Filter>AttributeWidgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgetFactory.moc.cpp">
-      <Filter>AttributeWidgets</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\QtBase\AttributeWidgets\AttributeWidgets.moc.cpp">
-      <Filter>AttributeWidgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\AttributeWidgets\Property.moc.cpp">
       <Filter>AttributeWidgets</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\AttributeWidgets\PropertyManager.moc.cpp">
@@ -338,9 +329,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Audio\MediaContent.moc.cpp">
       <Filter>Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\QtBase\AutoUpdate\AutoUpdate.moc.cpp">
-      <Filter>AutoUpdate</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Backend\BackendFileSystem.moc.cpp">
       <Filter>Backend</Filter>
@@ -416,6 +404,22 @@
     </ClCompile>
     <ClCompile Include="..\..\src\QtBase\Windows\StatusPopupWindow.moc.cpp">
       <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Precompiled.cpp" />
+    <ClCompile Include="..\..\src\QtBase\Networking\WebsocketServer.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Networking\WebsocketServer.moc.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Audio\TonePlayer.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Audio\TonePlayer.moc.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\QtBase\Backend\UserGetRequest.cpp">
+      <Filter>Backend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -596,6 +600,9 @@
     <ClInclude Include="..\..\src\QtBase\Backend\UsersGetResponse.h">
       <Filter>Backend</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UserGetResponse.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\QtBase\Backend\UsersInviteRequest.h">
       <Filter>Backend</Filter>
     </ClInclude>
@@ -700,6 +707,16 @@
     <ClInclude Include="..\..\src\QtBase\Spinbox.h" />
     <ClInclude Include="..\..\src\QtBase\SystemInfo.h" />
     <ClInclude Include="..\..\src\QtBase\Version.h" />
+    <ClInclude Include="..\..\src\QtBase\Precompiled.h" />
+    <ClInclude Include="..\..\src\QtBase\Networking\WebsocketServer.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Audio\TonePlayer.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\QtBase\Backend\UserGetRequest.h">
+      <Filter>Backend</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

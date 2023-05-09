@@ -91,6 +91,8 @@ class ENGINE_API EventManager
 		inline EVENT_CREATE_NOTIFY_FUNCTION_1( OnSubProgressValue, float, percentage );
 
 		// session
+		inline EVENT_CREATE_NOTIFY_FUNCTION_0( OnPrepareSession );
+		inline EVENT_CREATE_NOTIFY_FUNCTION_0( OnPreparedSession );
 		inline EVENT_CREATE_NOTIFY_FUNCTION_0( OnStartSession );
 		inline EVENT_CREATE_NOTIFY_FUNCTION_0( OnStopSession );
 		inline EVENT_CREATE_NOTIFY_FUNCTION_1( OnSessionUserChanged, const User&, user );
@@ -154,6 +156,14 @@ class ENGINE_API EventManager
 		EVENT_CREATE_NOTIFY_FUNCTION_0( OnClearButtons );
 
 		EVENT_CREATE_NOTIFY_FUNCTION_1( OnCommand, const char*, command );
+
+		EVENT_CREATE_NOTIFY_FUNCTION_1(OnOpenUrl, const char*, url);
+		EVENT_CREATE_NOTIFY_FUNCTION_2(OnBrowserStartPlayer, double, progress, bool, fullscreen);
+		EVENT_CREATE_NOTIFY_FUNCTION_0(OnBrowserStopPlayer);
+		EVENT_CREATE_NOTIFY_FUNCTION_0(OnBrowserPausePlayer);
+
+		EVENT_CREATE_NOTIFY_FUNCTION_2( OnShowTextInput, const char*, text, uint32, inputId );
+		EVENT_CREATE_NOTIFY_FUNCTION_0( OnHideTextInput );
 
 	private:
 		Core::Array<EventHandler*>			mEventHandlers;

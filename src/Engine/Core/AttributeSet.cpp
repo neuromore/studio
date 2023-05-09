@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include the required headers
 #include "StandardHeaders.h"
 #include "AttributeSet.h"
@@ -423,6 +426,7 @@ bool AttributeSet::SetInt32Attribute(const char* internalName, int32 value, bool
 bool AttributeSet::SetBoolAttribute(const char* internalName, bool value, bool createIfNotExists)									{ CORE_ATTRIBUTESET_DECLARE_SETBYNAME( AttributeBool ) }
 bool AttributeSet::SetColorAttribute(const char* internalName, const Color& value, bool createIfNotExists)							{ CORE_ATTRIBUTESET_DECLARE_SETBYNAME( AttributeColor ) }
 bool AttributeSet::SetStringAttribute(const char* internalName, const char* value, bool createIfNotExists)							{ CORE_ATTRIBUTESET_DECLARE_SETBYNAME( AttributeString ) }
+bool AttributeSet::SetTextAttribute(const char* internalName, const char* value, bool createIfNotExists)							{ CORE_ATTRIBUTESET_DECLARE_SETBYNAME( AttributeText ) }
 
 bool AttributeSet::SetFloatAttributeByIndex(uint32 index, double value, bool createIfNotExists)										{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeFloat ) }
 bool AttributeSet::SetInt32AttributeByIndex(uint32 index, int32 value, bool createIfNotExists)										{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeInt32 ) }
@@ -430,6 +434,7 @@ bool AttributeSet::SetBoolAttributeByIndex(uint32 index, bool value, bool create
 bool AttributeSet::SetColorAttributeByIndex(uint32 index, const Color& value, bool createIfNotExists)								{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeColor ) }
 bool AttributeSet::SetStringAttributeByIndex(uint32 index, const char* value, bool createIfNotExists)								{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeString ) }
 bool AttributeSet::SetStringArrayAttributeByIndex(uint32 index, const Array<String>&  value, bool createIfNotExists)				{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeStringArray ) }
+bool AttributeSet::SetTextAttributeByIndex(uint32 index, const char* value, bool createIfNotExists)								{ CORE_ATTRIBUTESET_DECLARE_SETBYINDEX( AttributeText ) }
 
 
 // get helpers
@@ -461,5 +466,6 @@ double AttributeSet::GetFloatAttribute(uint32 index, double defaultValue) const	
 const char* AttributeSet::GetStringAttribute(uint32 index, const char* defaultValue) const											{ CORE_ATTRIBUTESET_DECLARE_GETBYINDEX( AttributeString ) }
 const Array<String>& AttributeSet::GetStringArrayAttribute(uint32 index, const Array<String>& defaultValue) const					{ CORE_ATTRIBUTESET_DECLARE_GETBYINDEX( AttributeStringArray ) }
 Color AttributeSet::GetColorAttribute(uint32 index, const Color& defaultValue) const												{ CORE_ATTRIBUTESET_DECLARE_GETBYINDEX( AttributeColor ) }
+const char* AttributeSet::GetTextAttribute(uint32 index, const char* defaultValue) const											{ CORE_ATTRIBUTESET_DECLARE_GETBYINDEX( AttributeText ) }
 
 } // namespace Core

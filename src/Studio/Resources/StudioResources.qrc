@@ -3,7 +3,5 @@
         <file>Assets/Models/Brain.obj</file>
         <file>Assets/Textures/FallbackTexture.png</file>
         <file>AppIcon-neuromore.ico</file>
-        <file>AppIcon-ANT.ico</file>
     </qresource>
 </RCC>
-

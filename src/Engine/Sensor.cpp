@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "Sensor.h"
 #include "Core/Counter.h"
@@ -188,11 +191,14 @@ void Sensor::SetSampleRate(double sampleRate)
 {
 	mSampleRate = sampleRate;
 
+	// set samplerate on input and output
+	// the resampler evaluates this
+	GetOutput()->SetSampleRate(mSampleRate);
+	GetInput()->SetSampleRate(mSampleRate);
+
 	// set sample rate of resampler
 	mResampler.SetOutputSampleRate(mSampleRate);
 	mResampler.ReInit();
-	
-	GetOutput()->SetSampleRate(mSampleRate);
 }
 
 

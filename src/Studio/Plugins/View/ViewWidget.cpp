@@ -21,17 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "ViewWidget.h"
 #include "ViewPlugin.h"
-#include <Core/Math.h>
-#include <Core/LogManager.h>
-#include <Core/EventManager.h>
-#include <EngineManager.h>
-#include "../../Rendering/OpenGLWidget2DHelpers.h"
-#include <QPainter>
-#include <ColorPalette.h>
-
 
 using namespace Core;
 
@@ -193,11 +188,24 @@ void ViewWidget::RenderCallback::Render(uint32 index, bool isHighlighted, double
 	const OpenGLWidget2DHelpers::EChartRenderStyle style = (OpenGLWidget2DHelpers::EChartRenderStyle)plugin->GetSampleStyle();
 
 	const uint32 numChannels = channels.GetNumChannels();
+
+	float textY = 0.f;
+	const float textMargin = 2.0f;
+
 	for (uint32 i=0; i<numChannels; ++i )
 	{
 		Channel<double>* channel = channels.GetChannel(i)->AsType<double>();
 		const Color& color = mViewWidget->mPlugin->GetChannelColor(index, i);
 		OpenGLWidget2DHelpers::RenderChart( this, channel, color, style, timeRange, maxTime, rangeMin, rangeMax, areaStartX, width, height, height,  drawLatencyMarker);
+
+		// Render channels text
+		if (channel->GetSourceNameString().IsEmpty() == false)
+			mTempString.Format("%s - %s", channel->GetSourceName(), channel->GetName());
+		else
+			mTempString.Format("%s", channel->GetName());
+
+		RenderText( mTempString.AsChar(), GetOpenGLWidget()->GetDefaultFontSize(), color, areaStartX+textMargin, textY, OpenGLWidget::ALIGN_TOP | OpenGLWidget::ALIGN_LEFT );
+		textY = textY + GetTextHeight() + textMargin;
 	}
 
 	// Now Render all lines at once
@@ -209,7 +217,6 @@ void ViewWidget::RenderCallback::Render(uint32 index, bool isHighlighted, double
 
 	// RENDER TEXT
 
-	const float textMargin = 2.0f;
 	//const int textHeight = GetTextHeight();
 	//const int textRectWidth = areaStartX - 5;
 
@@ -230,19 +237,6 @@ void ViewWidget::RenderCallback::Render(uint32 index, bool isHighlighted, double
 
 		mTempString.Format("%.2f", value);
 		RenderText( mTempString.AsChar(), GetOpenGLWidget()->GetDefaultFontSize(), textColor, areaStartX-textMargin, y, OpenGLWidget::ALIGN_MIDDLE | OpenGLWidget::ALIGN_RIGHT );
-	}
-
-
-	if (numChannels > 0)
-	{
-		// FIXME: for multichannels, we have to render the whole legend for all signals in the set including name and color, not just only the text name
-		Channel<double>* channel = channels.GetChannel(0)->AsType<double>();
-		if (channel->GetSourceNameString().IsEmpty() == false)
-			mTempString.Format("%s - %s", channel->GetSourceName(), channel->GetName());
-		else
-			mTempString.Format("%s", channel->GetName());
-
-		RenderText( mTempString.AsChar(), GetOpenGLWidget()->GetDefaultFontSize(), channelLabelColor, areaStartX+textMargin, 0, OpenGLWidget::ALIGN_TOP | OpenGLWidget::ALIGN_LEFT );
 	}
 }
 

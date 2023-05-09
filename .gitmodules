@@ -1,0 +1,4 @@
+[submodule "priv"]
+	path = priv
+	url = ../studio-private
+	branch = .

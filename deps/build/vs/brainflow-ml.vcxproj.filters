@@ -15,6 +15,12 @@
     <ClCompile Include="..\..\src\brainflow-ml\generated\regression_model.cpp">
       <Filter>generated</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\brainflow-ml\base_classifier.cpp" />
+    <ClCompile Include="..\..\src\brainflow-ml\concentration_knn_classifier.cpp" />
+    <ClCompile Include="..\..\src\brainflow-ml\concentration_lda_classifier.cpp" />
+    <ClCompile Include="..\..\src\brainflow-ml\concentration_regression_classifier.cpp" />
+    <ClCompile Include="..\..\src\brainflow-ml\concentration_svm_classifier.cpp" />
+    <ClCompile Include="..\..\src\brainflow-ml\ml_module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\brainflow\ml\base_classifier.h" />

@@ -41,9 +41,6 @@
 	// backend
 	#define BACKEND_LOGGING
 
-	// updates
-	//#define USE_AUTOUPDATE					// comment this if we don't want to use myBuild's auto updater anymore
-
 	// disable memory manager in debug
 	//#define CORE_DISABLE_MEMORYINFO
 
@@ -55,11 +52,6 @@
 
    // OpenCV support
    #define OPENCV_SUPPORT
-
-	// crash reporting system
-	#ifdef NEUROMORE_PLATFORM_WINDOWS
-		//#define USE_CRASHREPORTER				// comment this if we don't want to use the CrashRpt system
-	#endif
 
 	// loreta debug mode
 	#define LORETA_DEBUG
@@ -82,13 +74,6 @@
    // OpenCV support
    #define OPENCV_SUPPORT
 
-	// updates
-	//#define USE_AUTOUPDATE
-
-	// crash reporting system
-	#ifdef NEUROMORE_PLATFORM_WINDOWS
-		//#define USE_CRASHREPORTER
-	#endif
 #endif
 
 
@@ -121,6 +106,9 @@ enum
 // default osc listener port
 #define STUDIO_OSCLISTENER_UDP_PORT		4545			// port for OSC input nodes
 #define STUDIO_OSCREMOTE_UDP_PORT		4546			// port for OSC output nodes
+
+// default websocket port
+#define STUDIO_WEBSOCKET_TCP_PORT		4547			// default tcp port for websocket
 
 // client timeout duration in seconds
 #define STUDIO_NETWORKSERVER_CLIENT_TIMEOUT				5	

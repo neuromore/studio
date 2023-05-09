@@ -1,0 +1,51 @@
+<PackagingLayout xmlns="http://schemas.microsoft.com/appx/makeappx/2017">
+  <PackageFamily 
+    ID="Studio" 
+    FlatBundle="false"
+    ManifestPath="../../dist/win-10/Studio/AppxManifest.xml"
+    ResourceManager="false">
+    
+    <Package ID="Studio-x64" ProcessorArchitecture="x64">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../dist/win-10/Studio/x64/Studio.exe"/>
+        <File DestinationPath="Studio.pdb" SourcePath="../../dist/win-10/Studio/x64/Studio.pdb"/>
+        <File DestinationPath="*.dll" SourcePath="../../dist/win-10/Studio/x64/*.dll"/>
+
+        <File DestinationPath="app-150x150.png" SourcePath="../../dist/win-10/Studio/resources/app-150x150.png"/>
+        <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
+        <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
+
+        <File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/x64/Visualizations/**"/>
+      </Files>
+    </Package>
+	
+    <Package ID="Studio-x86" ProcessorArchitecture="x86">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../dist/win-10/Studio/x86/Studio.exe"/>
+        <File DestinationPath="Studio.pdb" SourcePath="../../dist/win-10/Studio/x86/Studio.pdb"/>
+        <File DestinationPath="*.dll" SourcePath="../../dist/win-10/Studio/x86/*.dll"/>
+
+        <File DestinationPath="app-150x150.png" SourcePath="../../dist/win-10/Studio/resources/app-150x150.png"/>
+        <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
+        <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
+
+        <File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/x86/Visualizations/**"/>
+      </Files>
+    </Package>
+	
+    <Package ID="Studio-arm64" ProcessorArchitecture="arm64">
+      <Files>
+        <File DestinationPath="Studio.exe" SourcePath="../../dist/win-10/Studio/arm64/Studio.exe"/>
+        <File DestinationPath="Studio.pdb" SourcePath="../../dist/win-10/Studio/arm64/Studio.pdb"/>
+        <File DestinationPath="*.dll" SourcePath="../../dist/win-10/Studio/arm64/*.dll"/>
+
+        <File DestinationPath="app-150x150.png" SourcePath="../../dist/win-10/Studio/resources/app-150x150.png"/>
+        <File DestinationPath="app-50x50.png" SourcePath="../../dist/win-10/Studio/resources/app-50x50.png"/>
+        <File DestinationPath="app-44x44.png" SourcePath="../../dist/win-10/Studio/resources/app-44x44.png"/>
+
+        <File DestinationPath="Visualizations/**" SourcePath="../../dist/win-10/Studio/arm64/Visualizations/**"/>
+      </Files>
+    </Package>
+	
+  </PackageFamily>
+</PackagingLayout>

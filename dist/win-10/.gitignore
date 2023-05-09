@@ -1,0 +1,7 @@
+**/
+*.exe
+*.log
+*.msixbundle
+*.appxbundle
+*.appxupload
+*.appx

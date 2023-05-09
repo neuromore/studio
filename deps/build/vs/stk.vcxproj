@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>stk</ProjectName>
+    <ProjectGuid>{F4C146F9-F840-4C21-9CA9-E1DD9649AB8C}</ProjectGuid>
+    <RootNamespace>stk</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\x86\$(TargetName)_d\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib\x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">obj\x86\$(TargetName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">lib\x64\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">obj\x64\$(TargetName)_d\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">lib\x64\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">obj\x64\$(TargetName)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_USE_MATH_DEFINES;__WINDOWS_MM__;__WINDOWS_DS__;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader />
+      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4309;4996;</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <ResourceOutputFileName>
+      </ResourceOutputFileName>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_USE_MATH_DEFINES;__WINDOWS_MM__;__WINDOWS_DS__;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <PrecompiledHeader />
+      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <DisableSpecificWarnings>4018;4244;4309;4996;</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <ResourceOutputFileName>
+      </ResourceOutputFileName>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+      <TargetMachine>MachineX86</TargetMachine>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <Link />
+    <Link>
+      <Version>
+      </Version>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_USE_MATH_DEFINES;__WINDOWS_MM__;__WINDOWS_DS__;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader />
+      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4309;4996;4267</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <ResourceOutputFileName>
+      </ResourceOutputFileName>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_USE_MATH_DEFINES;__WINDOWS_MM__;__WINDOWS_DS__;_LIB;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <PrecompiledHeader />
+      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4309;4996;4267</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <ResourceOutputFileName>
+      </ResourceOutputFileName>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Console</SubSystem>
+      <MinimumRequiredVersion>6.02</MinimumRequiredVersion>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies />
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="../../src/zlib/win32\zlib.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="../../src/zlib/contrib\masmx86\gvmat32.asm">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="../../src/zlib/contrib\masmx86\inffas32.asm">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\stk\ADSR.cpp" />
+    <ClCompile Include="..\..\src\stk\Asymp.cpp" />
+    <ClCompile Include="..\..\src\stk\BandedWG.cpp" />
+    <ClCompile Include="..\..\src\stk\BeeThree.cpp" />
+    <ClCompile Include="..\..\src\stk\BiQuad.cpp" />
+    <ClCompile Include="..\..\src\stk\Blit.cpp" />
+    <ClCompile Include="..\..\src\stk\BlitSaw.cpp" />
+    <ClCompile Include="..\..\src\stk\BlitSquare.cpp" />
+    <ClCompile Include="..\..\src\stk\BlowBotl.cpp" />
+    <ClCompile Include="..\..\src\stk\BlowHole.cpp" />
+    <ClCompile Include="..\..\src\stk\Bowed.cpp" />
+    <ClCompile Include="..\..\src\stk\Brass.cpp" />
+    <ClCompile Include="..\..\src\stk\Chorus.cpp" />
+    <ClCompile Include="..\..\src\stk\Clarinet.cpp" />
+    <ClCompile Include="..\..\src\stk\Delay.cpp" />
+    <ClCompile Include="..\..\src\stk\DelayA.cpp" />
+    <ClCompile Include="..\..\src\stk\DelayL.cpp" />
+    <ClCompile Include="..\..\src\stk\Drummer.cpp" />
+    <ClCompile Include="..\..\src\stk\Echo.cpp" />
+    <ClCompile Include="..\..\src\stk\Envelope.cpp" />
+    <ClCompile Include="..\..\src\stk\FileLoop.cpp" />
+    <ClCompile Include="..\..\src\stk\FileRead.cpp" />
+    <ClCompile Include="..\..\src\stk\FileWrite.cpp" />
+    <ClCompile Include="..\..\src\stk\FileWvIn.cpp" />
+    <ClCompile Include="..\..\src\stk\FileWvOut.cpp" />
+    <ClCompile Include="..\..\src\stk\Fir.cpp" />
+    <ClCompile Include="..\..\src\stk\Flute.cpp" />
+    <ClCompile Include="..\..\src\stk\FM.cpp" />
+    <ClCompile Include="..\..\src\stk\FMVoices.cpp" />
+    <ClCompile Include="..\..\src\stk\FormSwep.cpp" />
+    <ClCompile Include="..\..\src\stk\FreeVerb.cpp" />
+    <ClCompile Include="..\..\src\stk\Granulate.cpp" />
+    <ClCompile Include="..\..\src\stk\Guitar.cpp" />
+    <ClCompile Include="..\..\src\stk\HevyMetl.cpp" />
+    <ClCompile Include="..\..\src\stk\Iir.cpp" />
+    <ClCompile Include="..\..\src\stk\InetWvIn.cpp" />
+    <ClCompile Include="..\..\src\stk\InetWvOut.cpp" />
+    <ClCompile Include="..\..\src\stk\JCRev.cpp" />
+    <ClCompile Include="..\..\src\stk\LentPitShift.cpp" />
+    <ClCompile Include="..\..\src\stk\Mandolin.cpp" />
+    <ClCompile Include="..\..\src\stk\Mesh2D.cpp" />
+    <ClCompile Include="..\..\src\stk\Messager.cpp" />
+    <ClCompile Include="..\..\src\stk\MidiFileIn.cpp" />
+    <ClCompile Include="..\..\src\stk\Modal.cpp" />
+    <ClCompile Include="..\..\src\stk\ModalBar.cpp" />
+    <ClCompile Include="..\..\src\stk\Modulate.cpp" />
+    <ClCompile Include="..\..\src\stk\Moog.cpp" />
+    <ClCompile Include="..\..\src\stk\Mutex.cpp" />
+    <ClCompile Include="..\..\src\stk\Noise.cpp" />
+    <ClCompile Include="..\..\src\stk\NRev.cpp" />
+    <ClCompile Include="..\..\src\stk\OnePole.cpp" />
+    <ClCompile Include="..\..\src\stk\OneZero.cpp" />
+    <ClCompile Include="..\..\src\stk\PercFlut.cpp" />
+    <ClCompile Include="..\..\src\stk\Phonemes.cpp" />
+    <ClCompile Include="..\..\src\stk\PitShift.cpp" />
+    <ClCompile Include="..\..\src\stk\Plucked.cpp" />
+    <ClCompile Include="..\..\src\stk\PoleZero.cpp" />
+    <ClCompile Include="..\..\src\stk\PRCRev.cpp" />
+    <ClCompile Include="..\..\src\stk\Recorder.cpp" />
+    <ClCompile Include="..\..\src\stk\Resonate.cpp" />
+    <ClCompile Include="..\..\src\stk\Rhodey.cpp" />
+    <ClCompile Include="..\..\src\stk\RtAudio.cpp" />
+    <ClCompile Include="..\..\src\stk\RtMidi.cpp" />
+    <ClCompile Include="..\..\src\stk\RtWvIn.cpp" />
+    <ClCompile Include="..\..\src\stk\RtWvOut.cpp" />
+    <ClCompile Include="..\..\src\stk\Sampler.cpp" />
+    <ClCompile Include="..\..\src\stk\Saxofony.cpp" />
+    <ClCompile Include="..\..\src\stk\Shakers.cpp" />
+    <ClCompile Include="..\..\src\stk\Simple.cpp" />
+    <ClCompile Include="..\..\src\stk\SineWave.cpp" />
+    <ClCompile Include="..\..\src\stk\SingWave.cpp" />
+    <ClCompile Include="..\..\src\stk\Sitar.cpp" />
+    <ClCompile Include="..\..\src\stk\Skini.cpp" />
+    <ClCompile Include="..\..\src\stk\Socket.cpp" />
+    <ClCompile Include="..\..\src\stk\Sphere.cpp" />
+    <ClCompile Include="..\..\src\stk\StifKarp.cpp" />
+    <ClCompile Include="..\..\src\stk\Stk.cpp" />
+    <ClCompile Include="..\..\src\stk\TapDelay.cpp" />
+    <ClCompile Include="..\..\src\stk\TcpClient.cpp" />
+    <ClCompile Include="..\..\src\stk\TcpServer.cpp" />
+    <ClCompile Include="..\..\src\stk\Thread.cpp" />
+    <ClCompile Include="..\..\src\stk\TubeBell.cpp" />
+    <ClCompile Include="..\..\src\stk\Twang.cpp" />
+    <ClCompile Include="..\..\src\stk\TwoPole.cpp" />
+    <ClCompile Include="..\..\src\stk\TwoZero.cpp" />
+    <ClCompile Include="..\..\src\stk\UdpSocket.cpp" />
+    <ClCompile Include="..\..\src\stk\Voicer.cpp" />
+    <ClCompile Include="..\..\src\stk\VoicForm.cpp" />
+    <ClCompile Include="..\..\src\stk\Whistle.cpp" />
+    <ClCompile Include="..\..\src\stk\Wurley.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\stk\ADSR.h" />
+    <ClInclude Include="..\..\include\stk\Asymp.h" />
+    <ClInclude Include="..\..\include\stk\BandedWG.h" />
+    <ClInclude Include="..\..\include\stk\BeeThree.h" />
+    <ClInclude Include="..\..\include\stk\BiQuad.h" />
+    <ClInclude Include="..\..\include\stk\Blit.h" />
+    <ClInclude Include="..\..\include\stk\BlitSaw.h" />
+    <ClInclude Include="..\..\include\stk\BlitSquare.h" />
+    <ClInclude Include="..\..\include\stk\BlowBotl.h" />
+    <ClInclude Include="..\..\include\stk\BlowHole.h" />
+    <ClInclude Include="..\..\include\stk\Bowed.h" />
+    <ClInclude Include="..\..\include\stk\BowTable.h" />
+    <ClInclude Include="..\..\include\stk\Brass.h" />
+    <ClInclude Include="..\..\include\stk\Chorus.h" />
+    <ClInclude Include="..\..\include\stk\Clarinet.h" />
+    <ClInclude Include="..\..\include\stk\Cubic.h" />
+    <ClInclude Include="..\..\include\stk\Delay.h" />
+    <ClInclude Include="..\..\include\stk\DelayA.h" />
+    <ClInclude Include="..\..\include\stk\DelayL.h" />
+    <ClInclude Include="..\..\include\stk\Drummer.h" />
+    <ClInclude Include="..\..\include\stk\Echo.h" />
+    <ClInclude Include="..\..\include\stk\Effect.h" />
+    <ClInclude Include="..\..\include\stk\Envelope.h" />
+    <ClInclude Include="..\..\include\stk\FileLoop.h" />
+    <ClInclude Include="..\..\include\stk\FileRead.h" />
+    <ClInclude Include="..\..\include\stk\FileWrite.h" />
+    <ClInclude Include="..\..\include\stk\FileWvIn.h" />
+    <ClInclude Include="..\..\include\stk\FileWvOut.h" />
+    <ClInclude Include="..\..\include\stk\Filter.h" />
+    <ClInclude Include="..\..\include\stk\Fir.h" />
+    <ClInclude Include="..\..\include\stk\Flute.h" />
+    <ClInclude Include="..\..\include\stk\FM.h" />
+    <ClInclude Include="..\..\include\stk\FMVoices.h" />
+    <ClInclude Include="..\..\include\stk\FormSwep.h" />
+    <ClInclude Include="..\..\include\stk\FreeVerb.h" />
+    <ClInclude Include="..\..\include\stk\Function.h" />
+    <ClInclude Include="..\..\include\stk\Generator.h" />
+    <ClInclude Include="..\..\include\stk\Granulate.h" />
+    <ClInclude Include="..\..\include\stk\Guitar.h" />
+    <ClInclude Include="..\..\include\stk\HevyMetl.h" />
+    <ClInclude Include="..\..\include\stk\Iir.h" />
+    <ClInclude Include="..\..\include\stk\InetWvIn.h" />
+    <ClInclude Include="..\..\include\stk\InetWvOut.h" />
+    <ClInclude Include="..\..\include\stk\Instrmnt.h" />
+    <ClInclude Include="..\..\include\stk\JCRev.h" />
+    <ClInclude Include="..\..\include\stk\JetTable.h" />
+    <ClInclude Include="..\..\include\stk\LentPitShift.h" />
+    <ClInclude Include="..\..\include\stk\Mandolin.h" />
+    <ClInclude Include="..\..\include\stk\Mesh2D.h" />
+    <ClInclude Include="..\..\include\stk\Messager.h" />
+    <ClInclude Include="..\..\include\stk\MidiFileIn.h" />
+    <ClInclude Include="..\..\include\stk\Modal.h" />
+    <ClInclude Include="..\..\include\stk\ModalBar.h" />
+    <ClInclude Include="..\..\include\stk\Modulate.h" />
+    <ClInclude Include="..\..\include\stk\Moog.h" />
+    <ClInclude Include="..\..\include\stk\Mutex.h" />
+    <ClInclude Include="..\..\include\stk\Noise.h" />
+    <ClInclude Include="..\..\include\stk\NRev.h" />
+    <ClInclude Include="..\..\include\stk\OnePole.h" />
+    <ClInclude Include="..\..\include\stk\OneZero.h" />
+    <ClInclude Include="..\..\include\stk\PercFlut.h" />
+    <ClInclude Include="..\..\include\stk\Phonemes.h" />
+    <ClInclude Include="..\..\include\stk\PitShift.h" />
+    <ClInclude Include="..\..\include\stk\Plucked.h" />
+    <ClInclude Include="..\..\include\stk\PoleZero.h" />
+    <ClInclude Include="..\..\include\stk\PRCRev.h" />
+    <ClInclude Include="..\..\include\stk\Recorder.h" />
+    <ClInclude Include="..\..\include\stk\ReedTable.h" />
+    <ClInclude Include="..\..\include\stk\Resonate.h" />
+    <ClInclude Include="..\..\include\stk\Rhodey.h" />
+    <ClInclude Include="..\..\include\stk\RtAudio.h" />
+    <ClInclude Include="..\..\include\stk\RtMidi.h" />
+    <ClInclude Include="..\..\include\stk\RtWvIn.h" />
+    <ClInclude Include="..\..\include\stk\RtWvOut.h" />
+    <ClInclude Include="..\..\include\stk\Sampler.h" />
+    <ClInclude Include="..\..\include\stk\Saxofony.h" />
+    <ClInclude Include="..\..\include\stk\Shakers.h" />
+    <ClInclude Include="..\..\include\stk\Simple.h" />
+    <ClInclude Include="..\..\include\stk\SineWave.h" />
+    <ClInclude Include="..\..\include\stk\SingWave.h" />
+    <ClInclude Include="..\..\include\stk\Sitar.h" />
+    <ClInclude Include="..\..\include\stk\Skini.h" />
+    <ClInclude Include="..\..\include\stk\SKINImsg.h" />
+    <ClInclude Include="..\..\include\stk\SKINItbl.h" />
+    <ClInclude Include="..\..\include\stk\Socket.h" />
+    <ClInclude Include="..\..\include\stk\Sphere.h" />
+    <ClInclude Include="..\..\include\stk\StifKarp.h" />
+    <ClInclude Include="..\..\include\stk\Stk.h" />
+    <ClInclude Include="..\..\include\stk\TapDelay.h" />
+    <ClInclude Include="..\..\include\stk\TcpClient.h" />
+    <ClInclude Include="..\..\include\stk\TcpServer.h" />
+    <ClInclude Include="..\..\include\stk\Thread.h" />
+    <ClInclude Include="..\..\include\stk\TubeBell.h" />
+    <ClInclude Include="..\..\include\stk\Twang.h" />
+    <ClInclude Include="..\..\include\stk\TwoPole.h" />
+    <ClInclude Include="..\..\include\stk\TwoZero.h" />
+    <ClInclude Include="..\..\include\stk\UdpSocket.h" />
+    <ClInclude Include="..\..\include\stk\Vector3D.h" />
+    <ClInclude Include="..\..\include\stk\Voicer.h" />
+    <ClInclude Include="..\..\include\stk\VoicForm.h" />
+    <ClInclude Include="..\..\include\stk\Whistle.h" />
+    <ClInclude Include="..\..\include\stk\Wurley.h" />
+    <ClInclude Include="..\..\include\stk\WvIn.h" />
+    <ClInclude Include="..\..\include\stk\WvOut.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

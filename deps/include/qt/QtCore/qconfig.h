@@ -1,8 +1,8 @@
 #define QT_FEATURE_cross_compile -1
 #define QT_FEATURE_framework -1
 #define QT_FEATURE_rpath -1
-#define QT_FEATURE_shared 1
-#define QT_FEATURE_appstore_compliant -1
+#define QT_FEATURE_shared -1
+#define QT_FEATURE_appstore_compliant 1
 #define QT_FEATURE_debug_and_release 1
 #define QT_FEATURE_build_all 1
 #define QT_FEATURE_c__11 1
@@ -26,23 +26,57 @@
 // defined by platforms that want it
 //#define QT_LARGEFILE_SUPPORT 64
 
-// TODO: Set optimized in build
-//#define QT_COMPILER_SUPPORTS_F16C        1
-//#define QT_COMPILER_SUPPORTS_RDRND       1
-//#define QT_COMPILER_SUPPORTS_SHA         1
 #define QT_COMPILER_SUPPORTS_SIMD_ALWAYS 1
-//#define QT_COMPILER_SUPPORTS_AES         1
 #define QT_COMPILER_SUPPORTS_SSE2        1
-//#define QT_COMPILER_SUPPORTS_SSE3        1
-//#define QT_COMPILER_SUPPORTS_SSSE3       1
-//#define QT_COMPILER_SUPPORTS_SSE4_1      1
-//#define QT_COMPILER_SUPPORTS_SSE4_2      1
-//#define QT_COMPILER_SUPPORTS_AVX         1
-//#define QT_COMPILER_SUPPORTS_AVX2        1
-//#define QT_COMPILER_SUPPORTS_AVX512F     1
-//#define QT_COMPILER_SUPPORTS_AVX512BW    1
-//#define QT_COMPILER_SUPPORTS_AVX512CD    1
-//#define QT_COMPILER_SUPPORTS_AVX512DQ    1
-//#define QT_COMPILER_SUPPORTS_AVX512ER    1
-//#define QT_COMPILER_SUPPORTS_AVX512PF    1
-//#define QT_COMPILER_SUPPORTS_AVX512VBMI  1
+
+#if defined(__F16C__)
+#define QT_COMPILER_SUPPORTS_F16C 1
+#endif
+#if defined(__RDRND__)
+#define QT_COMPILER_SUPPORTS_RDRND 1
+#endif
+#if defined(__SHA__)
+#define QT_COMPILER_SUPPORTS_SHA 1
+#endif
+#if defined(__AES__)
+#define QT_COMPILER_SUPPORTS_AES 1
+#endif
+#if defined(__SSE3__)
+#define QT_COMPILER_SUPPORTS_SSE3 1
+#endif
+#if defined(__SSSE3__)
+#define QT_COMPILER_SUPPORTS_SSSE3 1
+#endif
+#if defined(__SSE4_1__)
+#define QT_COMPILER_SUPPORTS_SSE4_1 1
+#endif
+#if defined(__SSE4_2__)
+#define QT_COMPILER_SUPPORTS_SSE4_2 1
+#endif
+#if defined(__AVX__)
+#define QT_COMPILER_SUPPORTS_AVX 1
+#endif
+#if defined(__AVX2__)
+#define QT_COMPILER_SUPPORTS_AVX2 1
+#endif
+#if defined(__AVX512F__)
+#define QT_COMPILER_SUPPORTS_AVX512F 1
+#endif
+#if defined(__AVX512BW__)
+#define QT_COMPILER_SUPPORTS_AVX512BW 1
+#endif
+#if defined(__AVX512CD__)
+#define QT_COMPILER_SUPPORTS_AVX512CD 1
+#endif
+#if defined(__AVX512DQ__)
+#define QT_COMPILER_SUPPORTS_AVX512DQ 1
+#endif
+#if defined(__AVX512ER__)
+#define QT_COMPILER_SUPPORTS_AVX512ER 1
+#endif
+#if defined(__AVX512PF__)
+#define QT_COMPILER_SUPPORTS_AVX512PF 1
+#endif
+#if defined(__AVX512VBMI__)
+#define QT_COMPILER_SUPPORTS_AVX512VBMI 1
+#endif

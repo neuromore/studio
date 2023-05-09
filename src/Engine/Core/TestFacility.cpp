@@ -20,6 +20,10 @@
 ** https://neuromore.com/npl
 **
 ****************************************************************************/
+
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 #include "TestFacility.h"
 
 

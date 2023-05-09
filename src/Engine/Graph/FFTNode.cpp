@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "FFTNode.h"
 #include "../Core/Math.h"
@@ -35,7 +38,7 @@ FFTNode::FFTNode(Graph* graph) : ProcessorNode(graph, new FFTProcessor())
 	mSettings.mFFTOrder = 7;
 	mSettings.mWindowFunction.SetType(WindowFunction::WINDOWFUNCTION_HANN);
 	mSettings.mEpochShift = 1;
-	mSettings.mUseZeroPadding = true;
+	mSettings.mUseZeroPadding = false;
 }
 
 
@@ -79,6 +82,10 @@ void FFTNode::Init()
 	winShiftAttr->SetDefaultValue(Core::AttributeInt32::Create(mSettings.mEpochShift));
 	winShiftAttr->SetMinValue(Core::AttributeInt32::Create(1));
 	winShiftAttr->SetMaxValue(Core::AttributeInt32::Create(1024));
+
+	// Zero Padding
+	Core::AttributeSettings* zeroPaddingAttr = RegisterAttribute( "Zero Padding", "UseZeroPadding", "Zero Padding on Input.", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX );
+	zeroPaddingAttr->SetDefaultValue(Core::AttributeBool::Create(mSettings.mUseZeroPadding));
 }
 
 
@@ -111,11 +118,13 @@ void FFTNode::OnAttributesChanged()
 	const uint32 fftOrder = GetInt32Attribute(ATTRIB_FFTORDER);
 	const uint32 shiftSteps = GetInt32Attribute(ATTRIB_SHIFTSAMPLES);
 	const uint32 windowFunctionID = GetInt32Attribute(ATTRIB_WINDOWFUNCTION);
+	const bool useZeroPadding = GetBoolAttribute(ATTRIB_ZEROPADDING);
 
 	// check if settings have changed
 	if (mSettings.mFFTOrder == fftOrder && 
 		mSettings.mEpochShift == shiftSteps && 
-		mSettings.mWindowFunction.GetType() == (WindowFunction::EWindowFunction)windowFunctionID)
+		mSettings.mWindowFunction.GetType() == (WindowFunction::EWindowFunction)windowFunctionID &&
+		mSettings.mUseZeroPadding == useZeroPadding)
 	{
 		return;
 	}
@@ -123,6 +132,7 @@ void FFTNode::OnAttributesChanged()
 	mSettings.mFFTOrder = fftOrder;
 	mSettings.mEpochShift = shiftSteps;
 	mSettings.mWindowFunction.SetType((WindowFunction::EWindowFunction)windowFunctionID);
+	mSettings.mUseZeroPadding = useZeroPadding;
 
 	ResetAsync();
 }

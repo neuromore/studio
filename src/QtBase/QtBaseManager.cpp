@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+ // include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required files
 #include "QtBaseManager.h"
 #include "Windows/ProgressWindowManager.h"
@@ -170,22 +173,11 @@ bool QtBaseManager::RemoveFileFromDisk(const char* filename)
 String QtBaseManager::GetAppDataFolder()
 {
 	QString result = QStandardPaths::standardLocations(QStandardPaths::DataLocation).at(0);
-
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-	result += "\\";
-#endif
-#ifdef NEUROMORE_PLATFORM_OSX
-    result += "/";
-#endif
-#ifdef NEUROMORE_PLATFORM_LINUX
 	result += "/";
-#endif
-
-	result = QDir::toNativeSeparators( result );
+	result = QDir::toNativeSeparators(result);
 
 	// make sure our folder exists
-	QDir appDataFolder(result);
-	appDataFolder.mkpath(result);
+	std::filesystem::create_directories(result.toStdString());
 
 	return FromQtString(result);
 }
@@ -195,22 +187,11 @@ void QtBaseManager::UpdatePhysiologicalDataFolder()
 {
 	QString result = GetAppDataFolder().AsChar();
 	result += "Data";
-
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-	result += "\\";
-#endif
-#ifdef NEUROMORE_PLATFORM_OSX
-    result += "/";
-#endif
-#ifdef NEUROMORE_PLATFORM_LINUX
 	result += "/";
-#endif
-
-	result = QDir::toNativeSeparators( result );
+	result = QDir::toNativeSeparators(result);
 
 	// make sure our physiological data folder exists
-	QDir appDataFolder(result);
-	appDataFolder.mkpath(result);
+	std::filesystem::create_directories(result.toStdString());
 
 	mPhysiologicalDataFolder = FromQtString(result);
 }
@@ -466,6 +447,11 @@ bool QtBaseInitializer::Init(const char* appDir)
 	Q_INIT_RESOURCE( DeviceResources );
 	Q_INIT_RESOURCE( LayoutResources );
 	Q_INIT_RESOURCE( Assets );
+
+#ifdef NEUROMORE_BRANDING
+	LogDetailedInfo("Initializing private Qt resources ...");
+	Q_INIT_RESOURCE( QtBasePrivate );
+#endif
 
 	LogDetailedInfo("Constructing Qt base manager ...");
 	gQtBaseManager = new QtBaseManager();

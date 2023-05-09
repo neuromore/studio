@@ -21,17 +21,13 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "BackendFileSystemWidget.h"
 #include "BackendFileSystemPlugin.h"
-#include <Core/LogManager.h>
-#include <EngineManager.h>
-#include <Graph/StateMachine.h>
-#include <QtBaseManager.h>
 #include <FileManager.h>
-#include "../../AppManager.h"
-#include "../../MainWindow.h"
-#include <Core/EncryptedJSONFile.h>
 #include <Graph/GraphImporter.h>
 #include <Graph/GraphExporter.h>
 #include <Windows/EnterLabelWindow.h>
@@ -45,19 +41,6 @@
 #include <Backend/FilesGetResponse.h>
 #include <Backend/FilesUpdateRequest.h>
 #include <Backend/FilesUpdateResponse.h>
-#include <QPushButton>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QDir>
-#include <QMessageBox>
-#include <QHeaderView>
-#include <QFileDialog>
-#include <QApplication>
-#include <QClipboard>
-#include <QMessageBox>
-#include <QMimeData>
-
 
 using namespace Core;
 
@@ -607,7 +590,11 @@ QTreeWidgetItem* BackendFileSystemWidget::AddFolderItem(const Json::Item& jsonFo
 
 	folderItem->setIcon( 0, GetQtBaseManager()->FindIcon(iconPath.AsChar()) );
 
-	folderItem->setText( 0, nameItem.GetString() );
+	if (nameItem.GetString() == GetSessionUser()->GetIdString()) {
+		folderItem->setText( 0, "My files" );
+	} else {
+		folderItem->setText( 0, nameItem.GetString() );
+	}
 
 	String folderPath = path + nameItem.GetString() + "/";
 	
@@ -852,8 +839,6 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				removeAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Minus.png") );
 			}
 
-#ifndef PRODUCTION_BUILD
-//#ifdef NEUROMORE_PLATFORM_WINDOWS
 			menu.addSeparator();
 
 				// copy to clipboard
@@ -869,8 +854,6 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				loadFromDiskSaveToCloudAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png") );
 			
 			menu.addSeparator();
-//#endif
-#endif
 
 			// revisions
 			QMenu* revisionsMenu = menu.addMenu("Revisions");
@@ -1597,7 +1580,7 @@ bool BackendFileSystemWidget::IsItemCollapsed(const char* uuid)
 {
 	CollapseState* state = FindCollapsedState(uuid);
 	if (state == NULL)
-		return false;
+		return true;
 
 	return state->IsCollapsed();
 }
@@ -1613,6 +1596,50 @@ void BackendFileSystemWidget::SetCollapseState(const char* uuid, bool isCollapse
 	}
 
 	state->SetIsCollapsed(isCollapsed);
+}
+
+bool BackendFileSystemWidget::ExpandByPath(const QStringList& itemPath)
+{
+	QList<QTreeWidgetItem*> itemsToExpand;
+	QTreeWidgetItem* topWidget = nullptr;
+	for (int i = 0; i < mTreeWidget->topLevelItemCount(); ++i)
+	{
+		if (itemPath[0] == mTreeWidget->topLevelItem(i)->text(0))
+		{
+			topWidget = mTreeWidget->topLevelItem(i);
+			itemsToExpand.push_back(topWidget);
+			break;
+		}
+	}
+	if (nullptr == topWidget)
+	{
+		return false;
+	}
+
+	for (int i = 1; i < itemPath.size(); ++i)
+	{
+		auto currentTreeWidget = itemsToExpand.back();
+		QTreeWidgetItem* childWidget = nullptr;
+		for (int j = 0; j < currentTreeWidget->childCount(); ++j)
+		{
+			if (itemPath[i] == currentTreeWidget->child(j)->text(0))
+			{
+				childWidget = currentTreeWidget->child(j);
+				itemsToExpand.push_back(childWidget);
+				break;
+			}
+		}
+		if (nullptr == childWidget)
+		{
+			return false;
+		}
+	}
+
+	foreach(auto item, itemsToExpand)
+	{
+		item->setExpanded(true);
+	}
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

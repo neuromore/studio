@@ -21,10 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "FrequencyBandCheckboxWidget.h"
-#include <Core/LogManager.h>
-
 
 using namespace Core;
 

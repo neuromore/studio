@@ -54,6 +54,11 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 			ERROR_VALUE_RANGE			= GraphObjectError::ERROR_RUNTIME		| 0x02,
 		};
 
+		enum EWarning
+		{
+			WARNING_DEPRECATED_NODE_NAME			= GraphObjectWarning::WARNING_CUSTOM	| 0x01,
+		};
+
 		CustomFeedbackNode(Graph* parentGraph);
 		virtual ~CustomFeedbackNode();
 
@@ -66,17 +71,17 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 
 		Core::Color GetColor() const override;
 		uint32 GetType() const override											{ return TYPE_ID; }
-		const char* GetTypeUuid() const override final							{ return Uuid(); }
+		const char* GetTypeUuid() const override								{ return Uuid(); }
 		const char* GetReadableType() const override							{ return "Custom Feedback"; }
-		const char* GetRuleName() const override final							{ return "NODE_Feedback"; }
+		const char* GetRuleName() const override 								{ return "NODE_Feedback"; }
 		GraphObject* Clone(Graph* graph) override								{ CustomFeedbackNode* clone = new CustomFeedbackNode(graph); return clone; }
 
 		void SetName(const char* name) override;
 
 		// accessors
 		bool IsRanged() const													{ return GetBoolAttribute(ATTRIB_ISRANGED); }
-		double GetRangeMin() const												{ return GetFloatAttribute(ATTRIB_RANGEMIN); }
-		double GetRangeMax() const												{ return GetFloatAttribute(ATTRIB_RANGEMAX); }
+		double GetRangeMin() const override										{ return GetFloatAttribute(ATTRIB_RANGEMIN); }
+		double GetRangeMax() const override										{ return GetFloatAttribute(ATTRIB_RANGEMAX); }
 
 		// OSC
 		const char* GetOscAddress() const										{ return GetStringAttribute(ATTRIB_OSCADDRESS); }

@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+ // include precompiled header
+#include <QtBase/Precompiled.h>
+
 #include "BluetoothHelpers.h"
 #include <Core/LogManager.h>
 #ifdef NEUROMORE_PLATFORM_WINDOWS

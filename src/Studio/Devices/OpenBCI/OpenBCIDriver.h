@@ -76,6 +76,11 @@ class OpenBCIDriver : public QObject, public DeviceDriver, public Core::EventHan
 		// event handler (removes serial threads)
 		void OnRemoveDevice(Device* device) override;
 
+		// impedance test
+		void StartTest(Device* device) override;
+		void StopTest(Device* device) override;
+		bool IsTestRunning(Device* device) override;
+
 	private:
 
 		// for autodetection

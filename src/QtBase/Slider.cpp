@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+ // include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include the required headers
 #include "Slider.h"
 #include <QHBoxLayout>
@@ -171,6 +174,7 @@ FloatSlider::FloatSlider(QWidget* parent, Mode mode) : QWidget(parent)
 	// create the slider
 	mSlider = new QSlider(Qt::Horizontal, this);
 	mSlider->setMinimumWidth(50);
+	mSlider->installEventFilter(new MouseWheelEventFilter());
 
 	// create the spinbox
 	mSpinBox = new SpinBox(this);

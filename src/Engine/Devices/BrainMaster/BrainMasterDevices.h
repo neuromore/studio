@@ -47,6 +47,8 @@ public:
    void CreateSensors() override;
 
 protected:
+   Sensor* mFpz;
+   Sensor* mOz;
    Sensor* mAUX23;
    Sensor* mAUX24;
 };
@@ -73,6 +75,19 @@ public:
 
    void CreateElectrodes() override;
    void CreateSensors() override;
+
+   bool HasTestMode() const override { return true; }
+   void StartTest() override { mDeviceDriver->StartTest(this); }
+   void StopTest() override { mDeviceDriver->StopTest(this); }
+   bool IsTestRunning() override { return mDeviceDriver->IsTestRunning(this); }
+
+   bool HasEegContactQualityIndicator() override { return IsTestRunning(); }
+   double GetImpedance(uint32 neuroSensorIndex) override;
+
+
+   inline Sensor* GetSensorMode() { return mSensorMode; }
+
+   Sensor* mSensorMode;
 };
 
 #endif

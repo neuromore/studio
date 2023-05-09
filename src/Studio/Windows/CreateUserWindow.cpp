@@ -21,17 +21,16 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "CreateUserWindow.h"
 #include "InviteUserWindow.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QGridLayout>
 #include <Backend/UsersCreateRequest.h>
 #include <Backend/UsersCreateResponse.h>
 #include <Backend/UsersInviteRequest.h>
 #include <Backend/UsersInviteResponse.h>
-#include <QMessageBox>
 
 using namespace Core;
 
@@ -258,7 +257,7 @@ void CreateUserWindow::OnCreateButtonClicked()
 		parentIds.Add( GetUser()->GetParentCompanyId(i) );
 
 	// 1. construct invite request
-	UsersCreateRequest request( GetUser()->GetToken(), email, firstName, lastName, birthday, parentIds, 3004 );
+	UsersCreateRequest request( GetUser()->GetToken(), firstName, lastName, parentIds, email, birthday, "", 3004);
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );

@@ -1,0 +1,275 @@
+name: Build MacOS
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - 'master'
+      - 'release'
+jobs:
+###########################################################################
+
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 360
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+      MODE: release
+      TARGET_OS: osx
+      TARGET_ARCH: ${{ matrix.arch }}
+      BRANDING: ${{ matrix.branding }}
+      JOBS: 4
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-12]
+        arch: [x64,arm64]
+        branding: [neuromore,supermind,natus]
+    steps:
+
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: false
+
+    # Load Dependencies from Cache
+    - name: Cache Dependencies
+      id: cache-dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          deps/build/make/bin/osx-*
+          deps/build/make/lib/osx-*
+        key: dependencies-${{ env.BRANCH_NAME }}-${{ env.TARGET_OS }}-${{ env.TARGET_ARCH }}-${{ matrix.os }}-${{ hashFiles('deps/VERSION') }}
+
+    # Build QtTools (X64)
+    - name: Build QtTools (X64)
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      run: make TARGET_ARCH=x64 QtTools -j${{ env.JOBS }}
+
+    # Build Dependencies
+    - name: Build Dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      run: make Dependencies -j${{ env.JOBS }}
+
+    # Build Engine
+    - name: Build Engine
+      run: make Engine -j${{ env.JOBS }}
+
+    # Build QtBase
+    - name: Build QtBase
+      run: make QtBase -j${{ env.JOBS }}
+
+    # Build Studio
+    - name: Build Studio
+      run: make Studio -j${{ env.JOBS }}
+
+    # Build EngineLIB
+    - name: Build EngineLIB
+      run: make EngineLIB -j${{ env.JOBS }}
+
+    # Build EngineJNI
+    - name: Build EngineJNI
+      run: make EngineJNI -j${{ env.JOBS }}
+
+    # Binary Info
+    - name: Binary Info
+      run: |
+        otool -l ./build/make/bin/osx-${{ matrix.arch }}/Studio
+        otool -l ./build/make/lib/osx-${{ matrix.arch }}/EngineLIB.dylib
+        otool -l ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
+
+    # Upload
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        path: |
+          ./build/make/bin/osx-${{ matrix.arch }}/*
+          !./build/make/bin/osx-${{ matrix.arch }}/.gitignore
+
+    # Upload lto.o
+    - name: Upload lto.o
+      uses: actions/upload-artifact@v3
+      with:
+        retention-days: 1
+        name: lto.o (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        path: ./build/make/obj/osx-${{ matrix.arch }}-release/**/lto.o
+
+    # Upload EngineLIB
+    - name: Upload EngineLIB
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        path: |
+          ./src/Engine/neuromoreEngine.h
+          ./build/make/lib/osx-${{ matrix.arch }}/EngineLIB.dylib
+
+    # Upload EngineJNI
+    - name: Upload EngineJNI
+      uses: actions/upload-artifact@v3
+      with:
+        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        path: |
+          ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
+          ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.jar
+
+###########################################################################
+
+  dist:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-12]
+        branding: [neuromore,supermind,natus]
+    env:
+      BRANDING: ${{ matrix.branding }}
+    steps:
+
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
+
+    # Download X64 Build
+    - name: Download X64 Build
+      uses: actions/download-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-x64-${{ matrix.branding }})
+        path: ./build/make/bin/osx-x64/
+
+    # Download X64 lto.o
+    - name: Download X64 lto.o
+      uses: actions/download-artifact@v3
+      with:
+        name: lto.o (${{ matrix.os }}-x64-${{ matrix.branding }})
+        path: ./build/make/obj/osx-x64-release/
+
+    # Download ARM64 Build
+    - name: Download ARM64 Build
+      uses: actions/download-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
+        path: ./build/make/bin/osx-arm64/
+
+    # Download ARM64 lto.o
+    - name: Download ARM64 lto.o
+      uses: actions/download-artifact@v3
+      with:
+        name: lto.o (${{ matrix.os }}-arm64-${{ matrix.branding }})
+        path: ./build/make/obj/osx-arm64-release/
+
+    # Load Code Signing Certificate
+    - name: Load Code Signing Certificate
+      env:
+        PFX_BASE64: ${{ secrets.SIGN_PFX_FILE_OSX }}
+      run: |
+        echo $PFX_BASE64 > ./certs/TrueCert.pfx.base64
+        base64 --decode -i ./certs/TrueCert.pfx.base64 -o ./certs/TrueCert.pfx
+
+    # Pack
+    - name: Distribution Packages
+      env:
+        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
+        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS_OSX }}
+        PUBLISHERCN: "Developer ID Application: neuromore co (QFSQ5DFX96)"
+        PRODUCTSIGNCN: "Developer ID Installer: neuromore co (QFSQ5DFX96)"
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
+      run: make dist
+
+    # Upload
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages (${{ matrix.os }}-${{ matrix.branding }})
+        path: ./dist/osx-10.15/*.pkg
+
+###########################################################################
+ 
+  dist-store:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-12]
+        branding: [neuromore]
+    env:
+      BRANDING: ${{ matrix.branding }}
+    steps:
+
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: true
+
+    # Download X64 Build
+    - name: Download X64 Build
+      uses: actions/download-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-x64-${{ matrix.branding }})
+        path: ./build/make/bin/osx-x64/
+
+    # Download X64 lto.o
+    - name: Download X64 lto.o
+      uses: actions/download-artifact@v3
+      with:
+        name: lto.o (${{ matrix.os }}-x64-${{ matrix.branding }})
+        path: ./build/make/obj/osx-x64-release/
+
+    # Download ARM64 Build
+    - name: Download ARM64 Build
+      uses: actions/download-artifact@v3
+      with:
+        name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
+        path: ./build/make/bin/osx-arm64/
+
+    # Download ARM64 lto.o
+    - name: Download ARM64 lto.o
+      uses: actions/download-artifact@v3
+      with:
+        name: lto.o (${{ matrix.os }}-arm64-${{ matrix.branding }})
+        path: ./build/make/obj/osx-arm64-release/
+
+    # Load Code Signing Certificate
+    - name: Load Code Signing Certificate
+      env:
+        PFX_BASE64: ${{ secrets.SIGN_PFX_FILE_OSX }}
+      run: |
+        echo $PFX_BASE64 > ./certs/TrueCert.pfx.base64
+        base64 --decode -i ./certs/TrueCert.pfx.base64 -o ./certs/TrueCert.pfx
+
+    # Pack
+    - name: Distribution Packages
+      env:
+        SIGN_PFX_FILE: ../../certs/TrueCert.pfx
+        SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS_OSX }}
+        PUBLISHERCN: "3rd Party Mac Developer Application: neuromore co (QFSQ5DFX96)"
+        PRODUCTSIGNCN: "3rd Party Mac Developer Installer: neuromore co (QFSQ5DFX96)"
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
+        APPLE_DIST_STORE: true
+      run: make dist
+
+    # Upload
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages Store (${{ matrix.os }}-${{ matrix.branding }})
+        path: ./dist/osx-10.15/*.pkg

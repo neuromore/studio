@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+// include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required headers
 #include "AttributeWidgetFactory.h"
 #include <Core/LogManager.h>
@@ -31,6 +34,7 @@ AttributeWidgetFactory::AttributeWidgetFactory()
 	RegisterCreator( new ColorMappingAttributeWidgetCreator() );
 	RegisterCreator( new WindowFunctionAttributeWidgetCreator() );
 	RegisterCreator( new ButtonAttributeWidgetCreator());
+	RegisterCreator( new TextAttributeWidgetCreator() );
 }
 
 

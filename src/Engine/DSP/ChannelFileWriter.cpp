@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required files
 #include "ChannelFileWriter.h"
 #include "../Core/LogManager.h"
@@ -29,7 +32,7 @@
 using namespace Core;
 
 
-bool ChannelFileWriter::Write(EFormat format, const Array<Channel<double>*>& inChannels, FILE* outFile)
+bool ChannelFileWriter::Write(EFormat format, const Array<Channel<double>*>& inChannels, FILE* outFile, int handle, double phyiscalMin, double phyiscalMax)
 {
 	LogInfo("Saving channels in %s format...", GetFormatName(format));
 
@@ -43,15 +46,14 @@ bool ChannelFileWriter::Write(EFormat format, const Array<Channel<double>*>& inC
 
 	bool success = true;
 
-	WriteHeader(format, inChannels, outFile);
+	WriteHeader(format, inChannels, outFile, handle, phyiscalMin, phyiscalMax);
 
 	LogDetailedInfo("Done.");
 
 	return success;
 }
 
-
-bool ChannelFileWriter::WriteHeader(EFormat format, const Core::Array<Channel<double>*>& channels, FILE* file)
+bool ChannelFileWriter::WriteHeader(EFormat format, const Core::Array<Channel<double>*>& channels, FILE* file, int handle, double phyiscalMin, double phyiscalMax)
 {
 	// call the right write method
 	switch (format)
@@ -63,16 +65,17 @@ bool ChannelFileWriter::WriteHeader(EFormat format, const Core::Array<Channel<do
 			const bool useTimestamps = (format == FORMAT_CSV_TIMESTAMP ? true : false);
 			return WriteHeaderCSV(channels, useTimestamps, file);
 		}
-		case FORMAT_EDF_PLUS: return true;
+		case FORMAT_EDF_PLUS: 
+		{
+			return WriteHeaderEDF(channels, handle, phyiscalMin, phyiscalMax);
+		}
 		// RAW (no header)
 		//case FORMAT_RAW_DOUBLE:	return true;
 		default:	return false;
 	}
 }
 
-
-// appends the last N sampels to the file
-bool ChannelFileWriter::WriteSamples(EFormat format, const Core::Array<Channel<double>*>& channels, uint64 numSamples, FILE* file, const int handle)
+bool ChannelFileWriter::WriteSamples(EFormat format, const Core::Array<Channel<double>*>& channels, uint32 numSamples, FILE* file, const int handle)
 {
 	// call the right write method
 	switch (format)
@@ -154,7 +157,7 @@ bool ChannelFileWriter::WriteHeaderCSV(const Array<Channel<double>*>& inChannels
 }
 
 
-bool ChannelFileWriter::WriteSamplesCSV(const Array<Channel<double>*>& inChannels, uint64 numSamples, bool useTimestamps, uint32 numDigits, FILE* outFile)
+bool ChannelFileWriter::WriteSamplesCSV(const Array<Channel<double>*>& inChannels, uint32 numSamples, bool useTimestamps, uint32 numDigits, FILE* outFile)
 {
 	// get the maximum number of samples in all the channels
 	const uint32 numChannels = inChannels.Size();
@@ -185,7 +188,7 @@ bool ChannelFileWriter::WriteSamplesCSV(const Array<Channel<double>*>& inChannel
 
 
 	// write samples
-	for (uint64 i = 0; i < numSamples; ++i)
+	for (uint32 i = 0; i < numSamples; ++i)
 	{
 		// write sample timestamp
 		if (useTimestamps == true)
@@ -235,28 +238,86 @@ bool ChannelFileWriter::WriteSamplesCSV(const Array<Channel<double>*>& inChannel
 	return true;
 }
 
-
-bool ChannelFileWriter::WriteSamplesRawDouble(const Core::Array<Channel<double>*>& inChannels, uint64 numSamples, FILE* outFile)
+bool ChannelFileWriter::WriteSamplesRawDouble(const Core::Array<Channel<double>*>& inChannels, uint32 numSamples, FILE* outFile)
 {
 	// TODO implement me
 	return false;
 }
 
-bool ChannelFileWriter::WriteSamplesEDF(const Core::Array<Channel<double>*>& inChannels, uint64 numSamples, const int handle)
+bool ChannelFileWriter::WriteHeaderEDF(const Core::Array<Channel<double>*>& inChannels, int handle, double phyiscalMin, double phyiscalMax)
 {
-	const uint32 numChannels = inChannels.Size();
+	const uint32 NUMCHANNELS = inChannels.Size();
+
+	// no valid edf handle, invalid channel count or invalid min/max
+	if (handle < 0 || NUMCHANNELS == 0 || NUMCHANNELS > MAXCHANNELS || phyiscalMin >= phyiscalMax)
+		return false;
+	
+	// must have identical sample rate on all channels (multichannels have)
+	mSampleRate = (uint32_t)inChannels[0]->GetSampleRate();
+	for (uint32 i = 1; i < NUMCHANNELS; ++i) {
+		if ((uint32_t)inChannels[i]->GetSampleRate() != mSampleRate)
+			return false;
+	}
+	
+	// max samplerate in edfwrite here is 512hz
+	if (mSampleRate > MAXSAMPLERATE)
+		return false;
+	
+	// setup edf
 	bool success = true;
-
-	if (handle < 0)
-		success = false;
-
-	for (uint32 i=0;i<numChannels;++i) {
-		Array<double>& sampleValues = inChannels[i]->GetRawArray();
-		success = success && edfwrite_physical_samples(handle, sampleValues.GetPtr()) == 0;
+	for (uint32 i = 0; i < NUMCHANNELS; ++i) {
+		success = success && edf_set_label(handle, i, inChannels[i]->GetName()) == 0;
+		success = success && edf_set_samplefrequency(handle, i, mSampleRate) == 0;
+		success = success && edf_set_physical_dimension(handle, i, "uV") == 0;
+		success = success && edf_set_physical_minimum(handle, i, phyiscalMin) == 0;
+		success = success && edf_set_physical_maximum(handle, i, phyiscalMax) == 0;
+		success = success && edf_set_digital_minimum(handle, i, -32768) == 0;
+		success = success && edf_set_digital_maximum(handle, i, 32767) == 0;
 	}
 
-	// close file
+	// reset edf block buffer
+	mSamples = 0;
+	::memset(mBuffer, 0, sizeof(mBuffer));
 	return success;
+}
+
+
+bool ChannelFileWriter::WriteSamplesEDF(const Core::Array<Channel<double>*>& inChannels, uint32 numSamples, const int handle)
+{
+	const uint32 NUMCHANNELS = inChannels.Size();
+
+	if (handle < 0 || NUMCHANNELS == 0 || NUMCHANNELS > MAXCHANNELS || mSampleRate == 0)
+		return false;
+
+	if (numSamples == 0)
+		return true;
+
+	uint32_t processed = 0;
+	while (processed < numSamples)
+	{
+		const uint32_t missing = mSampleRate - mSamples;
+		const uint32_t copylen = std::min(missing, std::min((numSamples-processed), mSampleRate));
+		for (uint32 i = 0; i < NUMCHANNELS; ++i) {
+			auto* channel = inChannels[i];
+			double* buf = &mBuffer[i*mSampleRate+mSamples];
+			for (uint32_t j = 0; j < copylen; j++) {
+				const uint32 IDX = channel->GetSampleCounter()-numSamples+processed+j;
+				if (!channel->IsValidSample(IDX))
+					return false;
+				buf[j] = channel->GetSample(IDX);
+			}
+		}
+		mSamples += copylen;
+		processed += copylen;
+		if (mSamples == mSampleRate) {
+			mSamples = 0;
+			if (edf_blockwrite_physical_samples(handle, mBuffer) != 0)
+				return false;
+		}
+		else if (mSamples > mSampleRate)
+			return false;
+	}
+	return true;
 }
 
 
@@ -267,7 +328,7 @@ const char* ChannelFileWriter::GetFormatName(EFormat format)
 		case FORMAT_CSV_SIMPLE:			return "CSV";
 		case FORMAT_CSV_TIMESTAMP:		return "CSV with timestamps";
 		//case FORMAT_RAW_DOUBLE:		return "Raw 64bit IEEE float";
-		case FORMAT_EDF_PLUS:			return "EDF(+) / BDF(+)";
+		case FORMAT_EDF_PLUS:			return "EDF+";
 		default:						return "";
 	}
 }

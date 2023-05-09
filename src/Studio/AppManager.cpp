@@ -21,40 +21,20 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+#include <qsettings.h>
+
 // include the required headers
 #include "AppManager.h"
 #include "MainWindow.h"
-#include "CrashReporter.h"
 #include "Version.h"
 #include "VisualizationManager.h"
-
-// include required headers related
-#include <Core/LogManager.h>
-
-// include Qt related things
-#include <QPushButton>
-#include <QApplication>
-#include <QFile>
-#include <QTextStream>
-#include <QComboBox>
-#include <QUuid>
-#include <QSplashScreen>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QLabel>
-#include <QFontDatabase>
-#include <QPalette>
-#include <QSysInfo>
+#include "TourManager.h"
 
 #ifdef NEUROMORE_PLATFORM_WINDOWS
 #include <windows.h>
 #include <winuser.h>
-#endif
-
-#ifdef NEUROMORE_BRANDING_ANT
-#define SPLASHIMAGE  ":/Images/SplashScreen-ANT.png" 
-#else
-#define SPLASHIMAGE  ":/Images/SplashScreen-neuromore.png" 
 #endif
 
 using namespace Core;
@@ -73,26 +53,20 @@ AppManager::AppManager(int argc, char* argv[])
 {
 	LogDetailedInfo("Constructing application manager object ...");
 
+	// init tourmanager
+	mTourManager = NULL;
+
 	// set version
 	mVersion = Version( NEUROMORE_STUDIO_VERSION_MAJOR, NEUROMORE_STUDIO_VERSION_MINOR, NEUROMORE_STUDIO_VERSION_PATCH );
 
 	mOpenGLManager	= NULL;
 	gAppManager		= this;
 
-#ifdef NEUROMORE_PLATFORM_OSX
-    // needed for mac package
-    QDir dir(argv[0]);
-    if(dir.cd("../../PlugIns"))
-    {
-        QCoreApplication::setLibraryPaths(QStringList(dir.absolutePath()));
-    }
-#endif
-
 	// enable high-dpi support
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     // create a single or normal (multiple) instance(s) application
-	mApp = new SingleApplication(argc, argv);
+	mApp = new Application(argc, argv);
 
 	// get the application directory
 	QString appDir = qApp->applicationDirPath();
@@ -112,13 +86,9 @@ AppManager::AppManager(int argc, char* argv[])
 	LogInfo();
 	LogDetailedInfo("Log file '%s' created ...", logFilename.AsChar());
 
-#ifdef USE_CRASHREPORTER
-	CrashReporterAddFile( logFilename.AsChar(), "neuromore Studio log file" );
-#endif
-
 	// show splash screen
 	LogDetailedInfo("Initializing splash screen ...");
-	QPixmap pixmap(SPLASHIMAGE);
+	QPixmap pixmap(Branding::SplashImageName);
 	mSplashScreen = new QSplashScreen(pixmap);
 
 	// force taskbar entry for splashscreen on windows (otherwise it can get stuck in a state where the user cannot reach it anymore.. happened multiple times)
@@ -211,7 +181,14 @@ bool AppManager::ExecuteApp()
 
 	LogDetailedInfo("Constructing main window ...");
 	mMainWindow = new MainWindow();
-	connect( mApp, &SingleApplication::instanceStarted, mMainWindow, &MainWindow::OnRaise );
+
+#if defined(NEUROMORE_PLATFORM_OSX)
+	mMainWindow->OnRaise();
+#else
+	connect(mApp, &SingleApplication::instanceStarted, mMainWindow, &MainWindow::OnRaise);
+#endif
+
+	connect( mMainWindow, &MainWindow::postAuthenticationInitSucceed, this, &AppManager::LoadTourManager);
 
 	SetSplashScreenMessage("Initializing windows ...");
 
@@ -260,10 +237,6 @@ bool AppManager::ExecuteApp()
 	LogDetailedInfo( "Load application settings (after all plugins successfully loaded) ..." );
 	mMainWindow->OnLoadSettings();
 
-#ifdef USE_CRASHREPORTER
-	CrashReporterAddFile( FromQtString( GetMainWindow()->GetSettingsFilename() ).AsChar(), "neuromore Studio settings file" );
-#endif
-
 	// tell everything that we fully loaded everything and that we are about to start the event loop
 	emit AppStartPrepared();
 
@@ -288,30 +261,23 @@ void AppManager::ProcessCommandLine()
 
 String AppManager::GetAppName() const
 {
-	String name;
+   String name = Branding::AppName;
+   if (User* user = GetUser())
+   {
+      // default ones
+      if      (user->FindRule("ROLE_Admin"))        name += " - Administrator";
+      else if (user->FindRule("ROLE_Ultimate"))     name += " - Ultimate";
+      else if (user->FindRule("ROLE_Professional")) name += " - Professional";
+      else if (user->FindRule("ROLE_Community"))    name += " - Community";
 
-	User* user = GetUser();
-	if (user != NULL)
-	{
-#ifdef NEUROMORE_BRANDING_ANT
-		if (user->FindRule("ROLE_ResellerAdmin") != NULL) name = "eego perform studio - Reseller Admin";
-		else if (user->FindRule("ROLE_ClinicAdmin") != NULL) name = "eego perform studio - Clinic Admin";
-		else if (user->FindRule("ROLE_ClinicClinician") != NULL) name = "eego perform studio - Clinician";
-		else if (user->FindRule("ROLE_ClinicOperator") != NULL) name = "eego perform studio - Operator";
-		else if (user->FindRule("ROLE_ClinicPatient") != NULL) name = "eego perform studio - Patient";
-		else name = "eego perform studio";
-#else
-		if (user->FindRule("ROLE_Admin") != NULL)					name = "neuromore Studio Administrator";
-		else if (user->FindRule("ROLE_Ultimate") != NULL)				name = "neuromore Studio Ultimate";
-		else if (user->FindRule("ROLE_Professional") != NULL)			name = "neuromore Studio Professional";
-		else if (user->FindRule("ROLE_Community") != NULL)				name = "neuromore Studio Community";
-		else if (user->FindRule("ROLE_BiofeedbackProvider") != NULL)	name = "neuromore Studio";
-		else if (user->FindRule("ROLE_BiofeedbackUser") != NULL)		name = "neuromore Studio";
-		else															name = "neuromore Studio";
-#endif
-	}
-
-	return name;
+      // clinic
+      else if (user->FindRule("ROLE_ResellerAdmin"))   name += " - Reseller Admin";
+      else if (user->FindRule("ROLE_ClinicAdmin"))     name += " - Clinic Admin";
+      else if (user->FindRule("ROLE_ClinicClinician")) name += " - Clinician";
+      else if (user->FindRule("ROLE_ClinicOperator"))  name += " - Operator";
+      else if (user->FindRule("ROLE_ClinicPatient"))   name += " - Patient";
+   }
+   return name;
 }
 
 
@@ -326,6 +292,52 @@ const char* AppManager::GetBackendSystemName() const
 #ifdef NEUROMORE_PLATFORM_LINUX
 	return "win_studio"; // TODO linux backend system name
 #endif
+}
+
+void AppManager::SetPluginTabVisible(int activePluginIdx)
+{
+	if (activePluginIdx < 0)
+	{
+		return;
+	}
+
+	auto activePlugin = GetQtBaseManager()->GetPluginManager()
+					  ->GetActivePlugin(activePluginIdx);
+	if (nullptr == activePlugin)
+	{
+		return;
+	}
+	QDockWidget* dockWidget = activePlugin->GetDockWidget();
+	Q_FOREACH(QTabBar * tabBar, mMainWindow->findChildren<QTabBar*>()) {
+		for (int i = 0; i < tabBar->count(); ++i) {
+			if (dockWidget == (QDockWidget*)tabBar->tabData(i).toULongLong())
+			{
+				tabBar->setCurrentIndex(i);
+				return;
+			}
+		}
+	}
+}
+
+void AppManager::LoadTourManager()
+{
+	this->mTourManager = new TourManager();
+	QTimer::singleShot(1000, this, [this] {
+		if (this->mTourManager->InitOnboardingActions()) {
+			this->mTourManager->startTour();
+		} else {
+			Core::LogError("Could not find some widgets or tabs for the tour.");
+		}
+	});
+}
+
+void AppManager::CloseTour()
+{
+	if (mTourManager != nullptr)
+	{
+		delete mTourManager;
+		mTourManager = nullptr;
+	}
 }
 
 //--------------------------------------------------------------------------

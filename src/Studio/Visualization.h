@@ -54,6 +54,10 @@ public:
    inline void SetDescription(const char* desc)       { mDescription = desc; }
    inline const char* GetDescription() const          { return mDescription; }
 
+   // folder
+   void SetFolder(const char* filename);
+   inline const char* GetFolder() const   { return mFolder; }
+
    // executable filename
    void SetExecutableFilename(const char* filename);
    inline const char* GetExecutableFilename() const   { return mExecutableFilename; }
@@ -61,6 +65,9 @@ public:
    // name
    inline void SetImageFilename(const char* filename) { mImageFilename = filename; }
    inline const char* GetImageFilename() const        { return mImageFilename; }
+
+   // true if binary for platform and cpu was found
+   inline bool IsSupported() { return mIsSupported; }
 
    // qt signal handlers
    void OnProcessStarted();
@@ -72,8 +79,10 @@ protected:
    QStringList  mArguments;
    Core::String mName;
    Core::String mDescription;
+   Core::String mFolder;
    Core::String mExecutableFilename;
    Core::String mImageFilename;
+   bool         mIsSupported;
 };
 
 #endif

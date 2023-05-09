@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+ // include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include the required headers
 #include "Plugin.h"
 #include "../DockHeader.h"
@@ -280,6 +283,14 @@ void Plugin::RealtimeUpdate()
 		mRealtimeWidget->update();
 }
 
+QRect Plugin::GetGeometry() const
+{
+	QRect rect(mDock->x(),
+		mDock->y(),
+		mDock->width(),
+		mDock->height());
+	return rect;
+}
 
 QDockWidget::DockWidgetFeatures Plugin::GetDockWidgetFeatures() const
 {

@@ -56,6 +56,7 @@ class ENGINE_API DeviceTypeIDs
 			DEVICE_TYPEID_EEMAGINE_64CH				= 0x0924,
 			DEVICE_TYPEID_NEUROSITY_NOTION			= 0x0931,	// 093X = neurosity
 			DEVICE_TYPEID_BRAINMASTER_DISCOVERY20	= 0x0941,// 094X = BrainMaster
+			DEVICE_TYPEID_NEUROSITY_CROWN			= 0x0951,	// 095X = neurosity crown
 			DEVICE_TYPEID_BRAINFLOW					= 0x1001,   // 10XX = BrainFlow
 			DEVICE_TYPEID_BRAINFLOW_CYTON			= 0x1002,
 
@@ -81,7 +82,10 @@ class ENGINE_API DeviceTypeIDs
 			DEVICE_TYPEID_GENERIC_CAMERA			= 0xD001,	// TODO probably need several types of camera
 
 			// eyetracker
-			DEVICE_TYPEID_TOBII_EYEX				= 0xE001
+			DEVICE_TYPEID_TOBII_EYEX				= 0xE001,
+
+			// Natus
+			DEVICE_TYPEID_NATUS						= 0xF001
 
 		};
 

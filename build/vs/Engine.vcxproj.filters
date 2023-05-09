@@ -496,6 +496,9 @@
     <ClCompile Include="..\..\src\Engine\Graph\WaveformNode.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\VolumeControlNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Networking\OscFeedbackPacket.cpp">
       <Filter>Networking</Filter>
     </ClCompile>
@@ -540,6 +543,9 @@
     <ClCompile Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.cpp">
       <Filter>Devices\Neurosity</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Devices\Neurosity\CrownDevice.cpp">
+      <Filter>Devices\Neurosity</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.cpp">
       <Filter>Devices\BrainFlow</Filter>
     </ClCompile>
@@ -549,6 +555,29 @@
     <ClCompile Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterDevices.cpp">
       <Filter>Devices\BrainMaster</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Precompiled.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionUrlOpenedCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerPausedCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStartedCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ToneGeneratorNode.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Graph\ScreenBrightnessNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\SpeedControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\SunControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\CloudsControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\FogControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\RainControlNode.cpp" />
+    <ClCompile Include="..\..\src\Engine\Graph\VignetteControlNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Engine\Core\AABB.h">
@@ -1163,6 +1192,30 @@
     <ClInclude Include="..\..\src\Engine\Graph\WaveformNode.h">
       <Filter>Graph</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\VolumeControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ScreenBrightnessNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SpeedControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\SunControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\CloudsControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\FogControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\RainControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\VignetteControlNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Engine\Networking\OscFeedbackPacket.h">
       <Filter>Networking</Filter>
     </ClInclude>
@@ -1235,6 +1288,9 @@
     <ClInclude Include="..\..\src\Engine\Devices\Neurosity\NotionDevices.h">
       <Filter>Devices\Neurosity</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Devices\Neurosity\CrownDevice.h">
+      <Filter>Devices\Neurosity</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\BrainFlow\BrainFlowDevices.h">
       <Filter>Devices\BrainFlow</Filter>
     </ClInclude>
@@ -1246,6 +1302,29 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Engine\Devices\BrainMaster\BrainMasterNodes.h">
       <Filter>Devices\BrainMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Precompiled.h" />
+    <ClInclude Include="..\..\src\Engine\Networking\WebsocketProtocol.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionUrlOpenedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerPausedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStartedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\StateTransitionBrowserPlayerStoppedCondition.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Graph\ToneGeneratorNode.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Engine\Branding.h" />
+    <ClInclude Include="..\..\src\Engine\Core\AttributeText.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

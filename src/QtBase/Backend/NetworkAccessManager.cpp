@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+// include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required files
 #include "NetworkAccessManager.h"
 #include "BackendHelpers.h"
@@ -23,22 +26,20 @@ NetworkAccessManager::NetworkAccessManager(QObject* parent) : QObject(parent)
 	mRequestCounter = 0;
 	mLoggingEnabled	= true;
 
-	mPresets.Add(new ServerPreset("neuromore (AWS)", "backend.neuromore.com", "https://backend.neuromore.com/api/", 443, "https://account.neuromore.com"));
-	mPresets.Add(new ServerPreset("eego-perform (AWS)", "backend.eego-perform.com", "https://backend.eego-perform.com/api/", 443, "https://account.eego-perform.com"));
+	// production
+	// careful when changing order here: these are referenced by index in existing configurations
+	mPresets.Add(new ServerPreset("neuromore (AWS)",    "backend.neuromore.com",               "https://backend.neuromore.com/api/",               443, "https://account.neuromore.com"));
+	mPresets.Add(new ServerPreset("eego-perform (AWS)", "backend.eego-perform.com",            "https://backend.eego-perform.com/api/",            443, "https://account.eego-perform.com"));
+	mPresets.Add(new ServerPreset("starrbase (AWS)",    "backend.starrbase.myneurva.com",      "https://backend.starrbase.myneurva.com/api/",      443, "https://starrbase.myneurva.com"));
+	mPresets.Add(new ServerPreset("supermind (AWS)",    "backend.app.supermind.us",            "https://backend.app.supermind.us/api/",            443, "https://app.supermind.us"));
+	mPresets.Add(new ServerPreset("natus-rad (AWS)",    "backend.neurofeedback.natus-rad.com", "https://backend.neurofeedback.natus-rad.com/api/", 443, "https://neurofeedback.natus-rad.com"));
 
-	// non-prod server presets (always neuromore)
-	#ifndef PRODUCTION_BUILD
-		mPresets.Add( new ServerPreset("Swap (AWS)",				"swap-prod-server.neuromore.com",	"https://swap-deployment.neuromore.com/api/",	443,	"https://account.neuromore.com") );
-		mPresets.Add( new ServerPreset("Test (AWS)",				"backend-test.neuromore.com",		"https://backend-test.neuromore.com/api/",		443,	"https://account-test.neuromore.com") );
-		mPresets.Add( new ServerPreset("localhost",					"localhost",						"http://localhost/neuromore-server/api/",		8080,	"http://localhost") );
-	#endif
+	// development
+	mPresets.Add(new ServerPreset("staging (AWS)", "backend.staging.neuromore.com", "https://backend.staging.neuromore.com/api/", 443,  "https://account.staging.neuromore.com"));
+	mPresets.Add(new ServerPreset("localhost",     "localhost",                     "http://localhost/neuromore-server/api/",     8080, "http://localhost"));
 
 	// set default one
-	#ifdef NEUROMORE_BRANDING_ANT
-		mActivePresetIndex = 1;
-	#else
-		mActivePresetIndex = 0;
-	#endif
+	mActivePresetIndex = Branding::DefaultServerPresetIdx;
 
 	// create the network access manager
 	mNetworkAccessManager = new QNetworkAccessManager(parent);

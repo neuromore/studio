@@ -21,12 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required files
 #include "OpenBCISerialHandler.h"
 #include <Devices/OpenBCI/OpenBCIDevices.h>
-#include <EngineManager.h>
-#include <QCoreApplication>
-#include <QTimer>
 
 #ifdef INCLUDE_DEVICE_OPENBCI
 
@@ -569,8 +569,8 @@ void OpenBCISerialHandler::ProcessStreamPacket(const OpenBCIStreamPacket& packet
 			const uint32 base = Math::PowD(2,23) - 1.0;
 			const double scale = 4.5 / gain / base;
 
-			const double sampleValue = sensors[i].GetValue() * scale;
-			mDevice->GetSensor(i + sensorIndexOffset)->AddQueuedSample((double)sampleValue);
+			const double sampleValue = sensors[i].GetValue() * scale * 1000000.0;
+			mDevice->AddSample(i + sensorIndexOffset, sampleValue);
 		}
 	}
 	else
@@ -583,8 +583,8 @@ void OpenBCISerialHandler::ProcessStreamPacket(const OpenBCIStreamPacket& packet
 			const uint32 base = Math::PowD(2,23) - 1.0;
 			const double scale = 4.5 / gain / base;
 
-			const double sampleValue = sensors[i].GetValue() * scale;
-			mDevice->GetSensor(i)->AddQueuedSample((double)sampleValue);
+			const double sampleValue = sensors[i].GetValue() * scale * 1000000.0;
+			mDevice->AddSample(i, sampleValue);
 		}
 	}
 

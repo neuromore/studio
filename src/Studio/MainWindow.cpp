@@ -21,12 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include required headers
 #include "MainWindow.h"
-#include <Core/LogManager.h>
 #include <License.h>
-#include "AppManager.h"
-#include <PluginSystem/PluginManager.h>
 #include <Graph/GraphImporter.h>
 #include "Windows/AboutWindow.h"
 #include "Windows/UpgradeWindow.h"
@@ -34,8 +34,6 @@
 #include "Windows/LicenseAgreementWindow.h"
 #include "Windows/EnterLabelWindow.h"
 #include "Windows/SelectUserWindow.h"
-#include <EngineManager.h>
-#include <AutoUpdate/AutoUpdate.h>
 #include <LayoutManager.h>
 #include <LayoutComboBox.h>
 #include <LayoutMenu.h>
@@ -50,6 +48,7 @@
 #include <Devices/Test/TestDeviceDriver.h>
 #include <Devices/Muse/MuseDevice.h>
 #include "Devices/Audio/AudioDriver.h"
+#include "Devices/BrainMaster/BrainMasterDriver.h"
 
 #include <System/SerialPort.h>
 #include <System/BluetoothHelpers.h>
@@ -86,28 +85,6 @@
 #ifdef OPENCV_SUPPORT
 //#include "Plugins/Development/LORETA/LoretaPlugin.h"
 #endif
-
-// include Qt related
-#include <QMenu>
-#include <QMenuBar>
-#include <QVariant>
-#include <QSignalMapper>
-#include <QTextEdit>
-#include <QDir>
-#include <QMessageBox>
-#include <QToolBar>
-#include <QLineEdit>
-#include <QLabel>
-#include <QFileDialog>
-#include <QApplication>
-#include <QDesktopServices>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QHBoxLayout>
-#include <QTimer>
-#include <QSettings>
-#include <QProcess>
-
 
 using namespace Core;
 
@@ -169,6 +146,11 @@ void MainWindow::Init()
 	// create the osc listener
 	mOscServer = new OscServer(STUDIO_OSCLISTENER_UDP_PORT, STUDIO_OSCREMOTE_UDP_PORT);
 
+	// create the websocket server
+	mWebsocketServer = new WebsocketServer(STUDIO_WEBSOCKET_TCP_PORT, false);
+	QObject::connect(mWebsocketServer, &WebsocketServer::closed, this, &QCoreApplication::quit);
+	QObject::connect(mWebsocketServer, &WebsocketServer::impersonated, this, &MainWindow::OnSessionUserSelected);
+
 #ifdef BACKEND_LOGGING
 	// enable back-end logging
 	GetBackendInterface()->SetIsLogEnabled(true);
@@ -188,6 +170,7 @@ void MainWindow::Init()
 	// init networkserver/osc listener after settings are loaded
 	mNetworkServer->Init();
 	mOscServer->Init();
+	mWebsocketServer->Init();
 
 	// base class init
 	MainWindowBase::Init();
@@ -245,14 +228,6 @@ void MainWindow::Init()
 	spacerWidget->setMaximumWidth(5);
 	menuLayout->addWidget(spacerWidget);
 
-	// layout combo box
-	QLabel* layoutLabel = new QLabel("Layout: ");
-	menuLayout->addWidget(layoutLabel);
-	
-	mLayoutComboBox = new LayoutComboBox();
-	menuLayout->addWidget(mLayoutComboBox);
-	GetLayoutManager()->SetComboBox( mLayoutComboBox );
-	
 	// spacer
 	spacerWidget = new QWidget();
 	spacerWidget->setMinimumWidth(5);
@@ -397,6 +372,7 @@ void MainWindow::Init()
 			QAction* vizAction = mVisualizationMenu->addAction( visualization->GetName(), this, &MainWindow::OnStartVisualization );
 			vizAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Eye.png") );
 			vizAction->setProperty("index", i);
+			vizAction->setEnabled(visualization->IsSupported());
 		}
 	}
 
@@ -473,12 +449,6 @@ void MainWindow::Init()
 	//
 	QMenu* helpMenu = mMenuBar->addMenu( tr("&Help") );
 
-#ifdef USE_AUTOUPDATE
-	QAction* updateAction = helpMenu->addAction( tr("Check For Updates"), this, &MainWindow::OnCheckForUpdates );
-	updateAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Refresh.png") );
-#endif
-
-
 	helpMenu->addSeparator();
 
 	QAction* visitWebsiteAction = helpMenu->addAction( tr("Website"), this, &MainWindow::OnVisitWebsite );
@@ -523,12 +493,27 @@ void MainWindow::OnPostAuthenticationInit()
 
 	// from extern repo:
 	DriverInventory::RegisterDrivers(); 
+
+	User* user = GetUser();
 	
 	// studio built in:
 	#ifdef INCLUDE_DEVICE_TEST
-	if (GetUser()->ReadAllowed(TestDevice::GetRuleName()))
+	if (user->ReadAllowed(TestDevice::GetRuleName()))
 		GetDeviceManager()->AddDeviceDriver(new TestDeviceDriver());
 	#endif
+
+	if (user->FindRule("ROLE_ClinicPatient") == nullptr) {
+		// layout combo box
+		QLabel* layoutLabel = new QLabel("Layout: ");
+		auto menuWdg = menuWidget();
+		auto menuLayout = menuWdg->layout();
+
+		menuLayout->addWidget(layoutLabel);
+
+		mLayoutComboBox = new LayoutComboBox();
+		menuLayout->addWidget(mLayoutComboBox);
+		GetLayoutManager()->SetComboBox(mLayoutComboBox);
+	}
 
 	// load device configs (requires all devices to be present)
 	GetManager()->SetSplashScreenMessage("Loading device definitions...");
@@ -597,7 +582,6 @@ void MainWindow::OnPostAuthenticationInit()
 	LogDetailedInfo("Searching for available layouts ...");
 
 	// update layouts menu
-	User* user = GetUser();
 
 	bool uiCustomization = false;
 	if (user != NULL && user->FindRule("STUDIO_SETTING_CustomLayouts") != NULL)
@@ -700,6 +684,32 @@ void MainWindow::OnPostAuthenticationInit()
 	//if (GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() == 0)
 		//QMessageBox::warning(this, "WARNING", "You are using the Production (AWS) backend with a development version of neuromore Studio.\n\nPlease switch back to the Test (AWS) backend." );
 #endif
+	if (user->FindRule("ROLE_Community") != nullptr)
+	{
+		QList<QMenu*> allMenus = mMenuBar->findChildren<QMenu*>();
+		for (const auto helpMenu: allMenus)
+		{
+			if (helpMenu != nullptr && helpMenu->title() == "&Help")
+			{
+				auto actions = helpMenu->actions();
+				for (const auto action: actions)
+				{
+					if (action != nullptr && action->text() == "Website")
+					{
+						QAction* productTourAction = new QAction(GetQtBaseManager()->FindIcon("Images/Icons/Info.png"), "Product tour", mMenuBar);
+						connect(productTourAction, &QAction::triggered, GetManager(), &AppManager::LoadTourManager);
+						helpMenu->insertAction(action, productTourAction);
+						helpMenu->insertSeparator(action);
+					}
+				}
+			}
+		}
+
+		if (GetAuthenticationCenter()->IsUserInputLogIn())
+		{
+			emit postAuthenticationInitSucceed();
+		}
+	}
 }
 
 
@@ -857,10 +867,11 @@ void MainWindow::OnSessionUserSelected(const User& user)
 {
 	GetEngine()->SetSessionUser(user);
 
-	// dealloc window
-	mSessionUserSelectionWindow->close();
-	mSessionUserSelectionWindow->deleteLater();
-	mSessionUserSelectionWindow = NULL;
+	if (mSessionUserSelectionWindow && mSessionUserSelectionWindow->isVisible()) {
+		mSessionUserSelectionWindow->close();
+		mSessionUserSelectionWindow->deleteLater();
+		mSessionUserSelectionWindow = NULL;
+	}
 
 	// refresh the experience plugin using the selected user
 	if (ExperienceSelectionPlugin* p = (ExperienceSelectionPlugin*)GetPluginManager()->FindFirstActivePluginByType(ExperienceSelectionPlugin::GetStaticTypeUuid()))
@@ -925,21 +936,6 @@ void MainWindow::OnExit()
 // called when we want to check for updates
 void MainWindow::OnCheckForUpdates()
 {
-#ifdef USE_AUTOUPDATE
-	if (AutoUpdate::IsUpdateAvailable() == true)
-	{
-		if (QMessageBox::question(NULL, "Update Available", "Would you like to install the available update? Click yes to install the update or no to go back.", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
-		//if (MessageBox( NULL, L"Would you like to install the available update? Click Yes to install the update or no to skip updating this time.", L"Update Available", MB_YESNO | MB_ICONQUESTION|MB_TOPMOST) == IDYES)
-		{
-			// start the auto updater and quit directly
-			close();
-			AutoUpdate::StartUpdateTool();
-
-		}
-	}
-	else
-		QMessageBox::information(NULL, "No Updates Available", "There are no updates available.", QMessageBox::Ok);
-#endif
 }
 
 
@@ -1002,6 +998,9 @@ void MainWindow::OnVisitSupport()
 // user wants to close the window: ask to save dirty files
 void MainWindow::closeEvent(QCloseEvent* event)
 {
+	auto appManager = GetManager();
+	appManager->CloseTour();
+
 	String message;
 
 	// session is running
@@ -1076,6 +1075,41 @@ void MainWindow::closeEvent(QCloseEvent* event)
 }
 
 
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+	QMainWindow::resizeEvent(event);
+	emit resized();
+}
+
+
+void MainWindow::moveEvent(QMoveEvent* event)
+{
+	QMainWindow::moveEvent(event);
+	emit resized();
+}
+
+
+void MainWindow::changeEvent(QEvent* event)
+{
+	QMainWindow::changeEvent(event);
+	if (event->type() == QEvent::WindowStateChange)
+	{
+		QWindowStateChangeEvent* stateEvent = static_cast<QWindowStateChangeEvent*>(event);
+		if (isMinimized())
+		{
+			emit minimized();
+		}
+		else if (stateEvent->oldState() & Qt::WindowMinimized)
+		{
+			emit maximized();
+		}
+		else
+		{
+			emit resized();
+		}
+	}
+}
+
 // key pressed
 void MainWindow::keyPressEvent(QKeyEvent* event)
 {
@@ -1146,8 +1180,8 @@ QAction* MainWindow::FindAction(QList<QAction*>& actionList, Plugin* plugin)
 // EVENTS
 //
 
-// lock parts of the UI on session start
-void MainWindow::OnStartSession()
+// lock parts of the UI on session prepare
+void MainWindow::OnPrepareSession()
 {
 	mMenuBar->setEnabled(false);
 
@@ -1158,6 +1192,11 @@ void MainWindow::OnStartSession()
 	mActiveBciCombo->setEnabled(false);
 	mLayoutComboBox->setEnabled(false);
 	mSelectSessionUserButton->setEnabled(false);
+}
+
+
+void MainWindow::OnStartSession()
+{
 }
 
 
@@ -1304,12 +1343,20 @@ void MainWindow::OnSettings()
 		}
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+		DeviceDriver* brainMasterDriverBase = GetDeviceManager()->FindDeviceDriverByType(BrainMasterDriver::TYPE_ID);
+		if (brainMasterDriverBase != NULL)
+		{
+			BrainMasterDriver* brainMasterDriver = static_cast<BrainMasterDriver*>(brainMasterDriverBase);
+			mBrainMasterCodeKey = devicePropertyWidget->GetPropertyManager()->AddStringProperty("BrainMaster", "Code Key", brainMasterDriver->GetCodeKey().c_str(), "");
+			mBrainMasterSerial = devicePropertyWidget->GetPropertyManager()->AddStringProperty("BrainMaster", "Serial Number", brainMasterDriver->GetSerial().c_str(), "");
+			mBrainMasterPassKey = devicePropertyWidget->GetPropertyManager()->AddStringProperty("BrainMaster", "Pass Key", brainMasterDriver->GetPassKey().c_str(), "");
+		}
+#endif
+
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// neuromore Cloud category
 
-		//NOTE: production build doesn't have anything in the cloud category right now!
-
-#ifndef PRODUCTION_BUILD
 		categoryName = "Cloud";
 		PropertyTreeWidget* cloudPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (cloudPropertyWidget == NULL)
@@ -1325,7 +1372,6 @@ void MainWindow::OnSettings()
 
 		mServerPresetProperty				= cloudPropertyWidget->GetPropertyManager()->AddComboBoxProperty( "", "Server", serverPresetNames, GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() );
 		mLogBackendProperty					= cloudPropertyWidget->GetPropertyManager()->AddBoolProperty("", "Backend (REST) Communication Logging", GetBackendInterface()->GetNetworkAccessManager()->IsLogEnabled() );
-#endif
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Network category
@@ -1358,7 +1404,10 @@ void MainWindow::OnSettings()
 		
 		const int32 oscOutputPort = GetOscServer()->GetRemoteUdpPort();
 		mOSCRemotePortProperty = networkPropertyWidget->GetPropertyManager()->AddIntProperty("OSC Server", "Target UDP port", oscOutputPort, oscOutputPort, 0, maxPort);
-		
+
+		const uint16 websocketPort = GetWebsockerServer()->GetListenPort();
+		mWebsocketPortProperty = networkPropertyWidget->GetPropertyManager()->AddIntProperty("Websocket Server", "Listen TCP Port", websocketPort, websocketPort, 0, maxPort);
+
 		// add all categories from the plugins
 		mSettingsWindow->AddCategoriesFromPlugin(NULL);
 	}
@@ -1439,7 +1488,20 @@ void MainWindow::OnValueChanged(Property* property)
 	}
 #endif
 
-#ifndef PRODUCTION_BUILD
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	DeviceDriver* brainMasterDriverBase = GetDeviceManager()->FindDeviceDriverByType(BrainMasterDriver::TYPE_ID);
+	if (brainMasterDriverBase != NULL)
+	{
+		BrainMasterDriver* brainMasterDriver = static_cast<BrainMasterDriver*>(brainMasterDriverBase);
+		if (property == mBrainMasterCodeKey)
+			brainMasterDriver->SetCodeKey(std::string(property->AsString().AsChar()));
+		if (property == mBrainMasterSerial)
+			brainMasterDriver->SetSerial(std::string(property->AsString().AsChar()));
+		if (property == mBrainMasterPassKey)
+			brainMasterDriver->SetPassKey(std::string(property->AsString().AsChar()));
+	}
+#endif
+
 	// neuromore Cloud settings
 	bool serverPresetChanged = false;
 	if (property == mServerPresetProperty)
@@ -1456,7 +1518,6 @@ void MainWindow::OnValueChanged(Property* property)
 
 	if (property == mLogBackendProperty)
 		GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled( property->AsBool() );
-#endif
 
 	// Network server
 	if (property == mNetworkServerEnableTCPProperty)
@@ -1511,12 +1572,16 @@ void MainWindow::OnValueChanged(Property* property)
 		GetOscServer()->ReInit();
 	}
 
+	// Websocket serverr
+	if (property == mWebsocketPortProperty)
+	{
+		const int32 port = property->AsInt();
+		GetWebsockerServer()->SetListenPort((uint16)port);
+	}
+
 	// update and save the settings directly
 	OnSaveSettings();
 
-	
-
-#ifndef PRODUCTION_BUILD
 	// backend server change -> restart studio
 	if (serverPresetChanged == true)
 	{
@@ -1530,7 +1595,6 @@ void MainWindow::OnValueChanged(Property* property)
 		QProcess::startDetached(QCoreApplication::applicationFilePath());
 
 	}
-#endif
 }
 
 
@@ -1578,12 +1642,7 @@ void MainWindow::OnLoadSettings()
 	SetRealtimeUIUpdateRate(realtimeInterfaceUpdateRate);
 
 	// device detection
-#ifdef NEUROMORE_BRANDING_ANT
-	const bool default_autodetection = true;
-#else
-	const bool default_autodetection = GetEngine()->GetAutoDetectionSetting();
-#endif
-	const bool enableAutoDetection = settings.value("deviceAutoDetectionEnabled", default_autodetection).toBool();
+	const bool enableAutoDetection = settings.value("deviceAutoDetectionEnabled", GetEngine()->GetAutoDetectionSetting()).toBool();
 	GetEngine()->SetAutoDetectionSetting(enableAutoDetection);
 
 	// power line frequency
@@ -1622,13 +1681,19 @@ void MainWindow::OnLoadSettings()
 	}
 #endif
 
-	// used backend
-#ifdef NEUROMORE_BRANDING_ANT
-	const int defaultPresetIndex = 1;
-#else
-	const int defaultPresetIndex = 0;
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	DeviceDriver* brainMasterDriverBase = GetDeviceManager()->FindDeviceDriverByType(BrainMasterDriver::TYPE_ID);
+	if (brainMasterDriverBase != NULL)
+	{
+		BrainMasterDriver* brainMasterDriver = static_cast<BrainMasterDriver*>(brainMasterDriverBase);
+		brainMasterDriver->SetCodeKey(settings.value("discovery20CodeKey", "").toString().toStdString());
+		brainMasterDriver->SetSerial(settings.value("discovery20SerialNumber", "").toString().toStdString());
+		brainMasterDriver->SetPassKey(settings.value("discovery20PassKey", "").toString().toStdString());
+	}
 #endif
-	int32 cloudServerPreset = settings.value("cloudServerPreset", defaultPresetIndex).toInt();
+
+	// used backend
+	int32 cloudServerPreset = settings.value("cloudServerPreset", Branding::DefaultServerPresetIdx).toInt();
 	GetBackendInterface()->GetNetworkAccessManager()->SetActiveServerPresetIndex(cloudServerPreset);
 
 	bool backendLoggingEnabled = settings.value( "cloudLoggingEnabled", false ).toBool();
@@ -1667,6 +1732,8 @@ void MainWindow::OnLoadSettings()
 	int32 networkOscRemotePort = settings.value("networkOscRemotePort_v2", GetOscServer()->GetRemoteUdpPort()).toInt();
 	GetOscServer()->SetRemoteUdpPort(networkOscRemotePort);
 
+	int32 websocketPort = settings.value("websocketPort", GetWebsockerServer()->GetListenPort()).toInt();
+	GetWebsockerServer()->SetListenPort(websocketPort);
 }
 
 
@@ -1726,15 +1793,24 @@ void MainWindow::OnSaveSettings()
 	}
 #endif
 
+#ifdef INCLUDE_DEVICE_BRAINMASTER
+	DeviceDriver* brainMasterDriverBase = GetDeviceManager()->FindDeviceDriverByType(BrainMasterDriver::TYPE_ID);
+	if (brainMasterDriverBase != NULL)
+	{
+		BrainMasterDriver* brainMasterDriver = static_cast<BrainMasterDriver*>(brainMasterDriverBase);
+		settings.setValue("discovery20CodeKey", QString(brainMasterDriver->GetCodeKey().c_str()));
+		settings.setValue("discovery20SerialNumber", QString(brainMasterDriver->GetSerial().c_str()));
+		settings.setValue("discovery20PassKey", QString(brainMasterDriver->GetPassKey().c_str()));
+	}
+#endif
+
 	// log level preset
 	const LogLevelPreset* logPreset = CORE_LOGMANAGER.GetActiveLogLevelPreset();
 	settings.setValue("logLevelPreset", logPreset->GetName());
 
 	// neuromore Cloud category
-#ifndef PRODUCTION_BUILD
 	settings.setValue("cloudServerPreset", GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex());
 	settings.setValue("cloudLoggingEnabled", GetBackendInterface()->GetNetworkAccessManager()->IsLogEnabled());
-#endif
 
 	// network category
 	settings.setValue("networkEnableTCPServer", GetNetworkServer()->GetListenerEnabled());
@@ -1745,7 +1821,7 @@ void MainWindow::OnSaveSettings()
 	settings.setValue("networkOscLocalEndpoint", FromQtString(GetOscServer()->GetLocalEndpoint().toString()).AsChar());
 	settings.setValue("networkOscRemoteHost", FromQtString(GetOscServer()->GetRemoteHost().toString()).AsChar());
 	settings.setValue("networkOscRemotePort_v2", GetOscServer()->GetRemoteUdpPort());
-
+	settings.setValue("websocketPort", GetWebsockerServer()->GetListenPort());
 }
 
 

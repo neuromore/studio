@@ -21,6 +21,9 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Engine/Precompiled.h>
+
 // include required headers
 #include "Graph.h"
 #include "Node.h"
@@ -802,6 +805,14 @@ void Graph::ResetReInitReadyFlags()
 
 Json::Item Graph::Save(Json& json, Json::Item& item)
 {	
+	// graph base properties
+	item.AddString( "name", GetName() );
+	item.AddString( "uuid", GetUuid() );
+	item.AddString( "type", GetTypeUuid() );
+
+	// graph attributes
+	AttributeSet::Write(json, item, false);
+
 	// save child nodes recursively
 	if (SaveNodes(json, item) == false)
 		return json.NullItem();
@@ -859,6 +870,10 @@ bool Graph::SaveConnections(Json& json, Json::Item& item)
 bool Graph::Load(const Json& json, const Json::Item& item)
 {
 	bool success = true;
+
+	// 0: load attributes
+	if (!AttributeSet::Read(json, item, true))
+		success = false;
 
 	// 1: load all nodes
 	if (GraphImporter::LoadNodes(json, item, this) == false)

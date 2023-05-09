@@ -42,6 +42,7 @@
 #include "CloudOutputNode.h"
 #include "AnnotationNode.h"
 #include "DeviceInputNode.h"
+#include "ToneGeneratorNode.h"
 
 
 class ENGINE_API Classifier : public Graph, public Core::EventHandler
@@ -49,12 +50,22 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 	public:
 		enum { TYPE_ID = 0x1001 };
 
+		enum
+		{
+			ATTRIB_INITTIME = 0
+		};
+
+		// default initialization time until e.g. filters are stable
+		constexpr static const double DEFAULTINITTIME = 0.0;
+
 		Classifier(Graph* parentNode=NULL);
 		virtual ~Classifier();
 
 		// main functions
+		void Init() override;
 		void Update(const Core::Time& elapsed, const Core::Time& delta) override;
 		void Reset() override;
+		void ResetOnSessionStart();
 
 		// overloads
 		uint32 GetType() const override							{ return TYPE_ID; }
@@ -110,6 +121,10 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		// Annotation nodes
 		AnnotationNode* GetAnnotationNode(uint32 index) const				{ return mAnnotationNodes[index]; }
 		uint32 GetNumAnnotationNodes() const								{ return mAnnotationNodes.Size(); }
+
+		// ToneGenerator nodes
+		ToneGeneratorNode* GetToneGeneratorNode(uint32_t index) const		{ return mToneGeneratorNodes[index]; }
+		uint32_t GetNumToneGeneratorNodes() const							{ return mToneGeneratorNodes.Size(); }
 
 		//
 		// Parameters
@@ -235,6 +250,7 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		Core::Array<CloudInputNode*>			mCloudInputNodes;		// all instances of CloudInputNode
 		Core::Array<CloudOutputNode*>			mCloudOutputNodes;		// all instances of CloudOutputNode
 		Core::Array<AnnotationNode*>			mAnnotationNodes;		// all instances of AnnotationNode
+		Core::Array<ToneGeneratorNode*>			mToneGeneratorNodes;	// all instances of ToneGeneratorNode
 
 		Core::Array<Sensor*>					mUsedSensors;			// all instances of Sensors (mainly: devices) // TODO add read/write differentiation
 		Core::Array<InputNode*>					mInputNodes;			// all instances of InputNode

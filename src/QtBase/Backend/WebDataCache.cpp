@@ -4,6 +4,9 @@
  * All Rights Reserved.
  */
 
+// include precompiled header
+#include <QtBase/Precompiled.h>
+
 // include required headers
 #include "WebDataCache.h"
 #include <Core/Math.h>
@@ -12,34 +15,29 @@
 #include <QCryptographicHash>
 #include <QDir>
 
-
 using namespace Core;
 
 // constructor
 WebDataCache::WebDataCache(const char* subfolderPath, QObject *parent) : QObject(parent)
 {
-	mFolder = GetQtBaseManager()->GetAppDataFolder() + String(subfolderPath);
-	mFolder.ConvertToNativePath();
+   mFolder = GetQtBaseManager()->GetAppDataFolder() + String(subfolderPath);
+   mFolder.ConvertToNativePath();
 
-	// make sure the cache folder exists
-	QDir cacheDir(mFolder.AsChar());
-	if (cacheDir.mkpath(mFolder.AsChar()) == false)
-        LogError("WebDataCache: Can't create cache folder '%s'", mFolder.AsChar());
-    
-    if (cacheDir.exists() == false)
-        LogError("WebDataCache: Cache folder '%s' doesn't exist.", mFolder.AsChar());
+   // make sure the cache folder exists
+   if (!std::filesystem::exists(mFolder.AsChar()) && !std::filesystem::create_directories(mFolder.AsChar()))
+      LogError("WebDataCache: Can't create cache folder '%s'", mFolder.AsChar());
 
-	mStatusWindow					= NULL;
-	mCurrentDownload				= 0;
-	mMaxNumFails					= 4;
-	mMaxCacheRestrictionEnabled		= false;
-	mMaxCacheSizeInMb				= 1024; // 1GB default
-	mMaxAliveTimeRestrictionEnabled	= false;
-	mMaxAliveTimeInDays				= 90; // 3 months default
+   mStatusWindow                    = NULL;
+   mCurrentDownload                 = 0;
+   mMaxNumFails                     = 4;
+   mMaxCacheRestrictionEnabled      = false;
+   mMaxCacheSizeInMb                = 1024; // 1GB default
+   mMaxAliveTimeRestrictionEnabled  = false;
+   mMaxAliveTimeInDays              = 90; // 3 months default
 
 #ifndef PRODUCTION_BUILD
-	// log
-	Log();
+   // log
+   Log();
 #endif
 }
 

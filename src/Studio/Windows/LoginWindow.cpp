@@ -21,17 +21,11 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "LoginWindow.h"
-#include "../AppManager.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QLabel>
-#include <QSizePolicy>
-#include <QPixmap>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QDesktopServices>
 
 using namespace Core;
 

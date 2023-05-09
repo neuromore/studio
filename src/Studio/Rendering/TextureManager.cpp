@@ -21,12 +21,12 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 //#define STB_IMAGE_IMPLEMENTATION
 #include "TextureManager.h"
-#include <Core/LogManager.h>
-#include <QFile>
-
 
 using namespace Core;
 

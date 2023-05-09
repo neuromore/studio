@@ -1,2 +1,15 @@
 # Enforce CRLF line endings for some Windows files that break without
 *.cmd text eol=crlf
+
+# Large Unity Files
+
+/visualizations/**/*.resS                  filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/*.assets                filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/UnityPlayer.dylib       filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/UnityPlayer.dll         filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/UnityPlayer.so          filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/UnityPlayer_s.debug     filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/UnityCrashHandler64.exe filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/UnityCrashHandler32.exe filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/level0                  filter=lfs diff=lfs merge=lfs -text
+/visualizations/**/level1                  filter=lfs diff=lfs merge=lfs -text

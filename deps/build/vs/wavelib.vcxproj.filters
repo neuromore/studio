@@ -46,5 +46,7 @@
     <ClInclude Include="..\..\include\wavelib\internal\wtmath.h">
       <Filter>internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\wavelib\wauxlib.h" />
+    <ClInclude Include="..\..\include\wavelib\wavelib.h" />
   </ItemGroup>
 </Project>

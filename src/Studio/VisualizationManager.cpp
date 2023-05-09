@@ -21,27 +21,28 @@
 **
 ****************************************************************************/
 
+// include precompiled header
+#include <Studio/Precompiled.h>
+
 // include the required headers
 #include "VisualizationManager.h"
-#include <Core/LogManager.h>
-#include <QtBaseManager.h>
-#include <QDir>
-
 
 using namespace Core;
 
 // constructor
 VisualizationManager::VisualizationManager(QObject* parent) : QObject(parent), mVisualizationFolders()
 {
-	const Core::String appDir = FromQtString(GetQtBaseManager()->GetAppDir());
+   const Core::String appDir = FromQtString(GetQtBaseManager()->GetAppDir());
 
-#ifdef NEUROMORE_PLATFORM_WINDOWS
-	mVisualizationFolders.Add(appDir + ".\\Visualizations\\");
-	mVisualizationFolders.Add(appDir + "..\\Visualizations\\");
-#else
-	mVisualizationFolders.Add(appDir + "..\\Visualizations\\");
-		mVisualizationFolders.Add(appDir + "..\\share\\neuromore\\Visualizations\\");
-	mVisualizationFolders.Add(appDir + "..\\..\\..\\Visualizations\\");
+   mVisualizationFolders.Add(appDir + "visualizations");
+   mVisualizationFolders.Add(appDir + "../visualizations");
+   mVisualizationFolders.Add(appDir + "../../visualizations");
+   mVisualizationFolders.Add(appDir + "../../../visualizations");
+   mVisualizationFolders.Add(appDir + "../../../../visualizations");
+
+#ifdef NEUROMORE_PLATFORM_LINUX
+   // linux distribution packages
+   mVisualizationFolders.Add("/usr/share/" + Core::String(Branding::AppShortName) + "/visualizations");
 #endif
 }
 
@@ -49,73 +50,68 @@ VisualizationManager::VisualizationManager(QObject* parent) : QObject(parent), m
 // destructor
 VisualizationManager::~VisualizationManager()
 {
-	Clear();
+   Clear();
 }
 
 
 // remove all visualizations
 void VisualizationManager::Clear()
 {
-	const uint32 numVisualizations = mVisualizations.Size();
-	for (uint32 i=0; i<numVisualizations; ++i)
-		delete mVisualizations[i];
+   const uint32 numVisualizations = mVisualizations.Size();
+   for (uint32 i=0; i<numVisualizations; ++i)
+      delete mVisualizations[i];
 
-	mVisualizations.Clear();
+   mVisualizations.Clear();
 }
-
 
 
 // automatic folder browsing for visualization executables
 void VisualizationManager::ReInit()
 {
-	// remove all visualizations
-	Clear();
+   // remove all visualizations
+   Clear();
 
-	const uint32_t NUMFOLDERS = mVisualizationFolders.Size();
-	for (uint32_t i = 0; i < NUMFOLDERS; i++)
-	{
-		String vizDir = mVisualizationFolders[i];
-		vizDir.ConvertToNativePath();
+   // iterate the configured visualization folders
+   const uint32_t NUMFOLDERS = mVisualizationFolders.Size();
+   for (uint32_t i = 0; i < NUMFOLDERS; i++)
+   {
+      String vizDir = mVisualizationFolders[i];
+      vizDir.ConvertToNativePath();
 
-		// scan the directory for subfolders
-		QDir dir(vizDir.AsChar());
-		dir.setFilter(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot);
-		dir.setSorting(QDir::Name);
+      // scan the directory for subfolders
+      QDir dir(vizDir.AsChar());
+      dir.setFilter(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+      dir.setSorting(QDir::Name);
+      if (!dir.exists())
+         continue;
 
-		// iterate over all files
-		String folderName;
-		QFileInfoList list = dir.entryInfoList();
-		for (int i = 0; i < list.size(); ++i)
-		{
-			Visualization* newViz = new Visualization();
+      // iterate over all subfolders
+      String folderName;
+      QFileInfoList list = dir.entryInfoList();
+      for (int i = 0; i < list.size(); ++i)
+      {
+         QFileInfo folderInfo = list.at(i);
 
-			QFileInfo folderInfo = list.at(i);
-			FromQtString(folderInfo.fileName(), &folderName);
-			newViz->SetName(folderName.AsChar());
+         // scan the subfolder
+         QDir subDir(folderInfo.absoluteFilePath());
+         subDir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+         subDir.setSorting(QDir::Name);
 
-			// scan the subfolder
-			QDir subDir(folderInfo.absoluteFilePath());
-			subDir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
-			subDir.setSorting(QDir::Name);
+         QFileInfoList subList = subDir.entryInfoList();
+         for (int j = 0; j < subList.size(); ++j)
+         {
+            QFileInfo fileInfo = subList.at(j);
+            if (fileInfo.fileName() == "Info.json")
+            {
+               Visualization* newViz = new Visualization();
+               if (newViz->ParseFromJsonFile(fileInfo.absoluteFilePath().toUtf8().data()))
+                  mVisualizations.Add(newViz);
+               else
+                  delete newViz;
 
-			String currentFilename;
-			QFileInfoList subList = subDir.entryInfoList();
-			for (int j = 0; j < subList.size(); ++j)
-			{
-				QFileInfo fileInfo = subList.at(j);
-				FromQtString(fileInfo.absoluteFilePath(), &currentFilename);
-
-				// only add files with the .exe extension
-				if (currentFilename.ExtractFileExtension().Lowered() == "exe")
-					newViz->SetExecutableFilename(currentFilename.AsChar());
-
-				if (currentFilename.ExtractFileExtension().Lowered() == "json")
-				{
-					newViz->ParseFromJsonFile(currentFilename.AsChar());
-				}
-			}
-
-			mVisualizations.Add(newViz);
-		}
-	}
+               break;
+            }
+         }
+      }
+   }
 }

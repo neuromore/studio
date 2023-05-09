@@ -9,7 +9,6 @@ Open-Source Third Party Software included in this repository.
 | Name                | Version  | Link                                                  | Remarks                                 |
 |---------------------|----------|-------------------------------------------------------|-----------------------------------------|
 | brainflow           | 4.0.1    | https://github.com/brainflow-dev/brainflow            | Brainflow                               |
-| crashrpt            | 1.4.3    | http://crashrpt.sourceforge.net/                      | Crash Reporter (Windows only)           |
 | double-conversion   | 3.1.5    | https://github.com/google/double-conversion           | Binary-Decimal Conversion               |
 | dspfilters          | ?.?.?    |                                                       |                                         |
 | easing              | ?.?.?    | http://robertpenner.com/easing/                       | Easing Functions                        |
@@ -45,7 +44,8 @@ Open-Source Third Party Software included in this repository.
 | rfc6234             | ?.?.?    |                                                       | RFC6234 Implementation                  |
 | sha1                | ?.?.?    |                                                       | SHA1                                    |
 | sha3                | ?.?.?    |                                                       | SHA3                                    |
-| singleapplication   | ?.?.?    | https://github.com/itay-grudev/SingleApplication      | Qt Single Application Extension         |
+| singleapplication   | 3.3.4    | https://github.com/itay-grudev/SingleApplication      | Qt Single Application Extension         |
+| stk                 | ?.?.?    | https://github.com/thestk/stk                         | Audio Synthesis Library                 |
 | spdlog              | 0.17.0   | https://github.com/gabime/spdlog                      | C++ Logging Library                     |
 | stb                 | 2.24     | https://github.com/nothings/stb                       | Single File Header Libraries            |
 | tinyaes             | 1.0.0    | https://github.com/kokke/tiny-AES-c                   | AES Support                             |

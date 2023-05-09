@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include=".moc">
+      <UniqueIdentifier>{ff70e210-9baf-444f-8390-a2aefd388973}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\qt-websockets\.moc\moc_qsslserver_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-websockets\.moc\moc_qwebsocket.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-websockets\.moc\moc_qwebsocketserver.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-websockets\.moc\moc_qwebsocketdataprocessor_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-websockets\.moc\moc_qwebsockethandshakeresponse_p.cpp">
+      <Filter>.moc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\qt-websockets\qdefaultmaskgenerator_p.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qmaskgenerator.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qsslserver.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocket.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketcorsauthenticator.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketdataprocessor.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketframe.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsockethandshakerequest.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsockethandshakeresponse.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketprotocol.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketserver.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocketserver_p.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocket_p.cpp" />
+    <ClCompile Include="..\..\src\qt-websockets\qwebsocket_wasm_p.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qmaskgenerator.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qtwebsocketsversion.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsocket.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsocketcorsauthenticator.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsocketprotocol.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsocketserver.h" />
+    <ClInclude Include="..\..\include\qt\QtWebSockets\qwebsockets_global.h" />
+  </ItemGroup>
+</Project>

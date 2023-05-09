@@ -1,0 +1,11 @@
+*.pkg
+**/Contents/_CodeSignature/
+**/Contents/MacOS/
+**/Contents/Resources/
+**/Contents/Info.plist
+**/.icns
+**/
+*.auto-component.plist
+*.notary.log
+*.notary.id
+*.Component.plist

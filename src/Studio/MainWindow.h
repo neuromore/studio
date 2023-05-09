@@ -48,6 +48,7 @@
 #include <FileManager.h>
 #include <Networking/NetworkServer.h>
 #include <Networking/OscServer.h>
+#include <Networking/WebsocketServer.h>
 #include "Windows/LoginWindow.h"
 #include "Windows/SelectUserWindow.h"
 #include "Windows/ExperienceWizardWindow.h"
@@ -94,6 +95,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		// core components
 		NetworkServer*		  GetNetworkServer()					{ return mNetworkServer; }
 		OscServer*			  GetOscServer()						{ return mOscServer; }
+		WebsocketServer*	  GetWebsockerServer()					{ return mWebsocketServer; }
 		AuthenticationCenter* GetAuthenticationCenter()				{ return mAuthenticationCenter; }
 
 	private:
@@ -130,6 +132,11 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		Property*					mDriftCorrectionMaxForwardDriftProperty;
 		Property*					mDriftCorrectionMaxBackwardDriftProperty;
 
+		// brainmaster credentials
+		Property*					mBrainMasterCodeKey;
+		Property*					mBrainMasterSerial;
+		Property*					mBrainMasterPassKey;
+
 		// audio
 #ifdef INCLUDE_DEVICE_GENERIC_AUDIO
 		Property*					mAudioInputUpdateRateProperty;
@@ -139,9 +146,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 #endif
 
 		// neuromore Cloud settings
-#ifndef PRODUCTION_BUILD
 		Property*					mServerPresetProperty;
-#endif
 		Property*					mLogBackendProperty;
 
 		// NETWORK settings
@@ -154,6 +159,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		Property*					mOSCRemoteHostProperty;
 		Property*					mOSCRemotePortProperty;
 		Property*					mOSCLocalEndpointProperty;
+		Property*					mWebsocketPortProperty;
 
 		// DEVICE CONFIGS
 		void LoadDeviceConfigs(bool reload = true);
@@ -169,6 +175,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		void OnDeviceAdded(Device* device) override	final					{ ReInitBciDeviceCombo(); }
 		void OnDeviceRemoved(Device* device) override final					{ ReInitBciDeviceCombo(); }
 		void OnSessionUserChanged(const User& user) override final;
+		void OnPrepareSession() override final;
 		void OnStartSession() override final;
 		void OnStopSession() override final;
 		void OnActiveExperienceChanged(Experience* experience) override final;
@@ -208,6 +215,8 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		// networking
 		NetworkServer*				mNetworkServer;
 		OscServer*					mOscServer;
+		WebsocketServer*				mWebsocketServer;
+
 		// authentication center
 		AuthenticationCenter*		mAuthenticationCenter;
 		
@@ -215,6 +224,13 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 
 		// window close event
 		void closeEvent(QCloseEvent* event) override;
+
+		// window resize event
+		void resizeEvent(QResizeEvent* event) override;
+
+		void moveEvent(QMoveEvent* event) override;
+
+		void changeEvent(QEvent* event) override;
 
 		// keyboard events
 		void keyPressEvent(QKeyEvent* event) override;
@@ -290,6 +306,12 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		void OnValueChanged(Property* property);
 		void OnLoadSettings();
 		void OnSaveSettings();
+
+	signals:
+		void postAuthenticationInitSucceed();
+		void resized();
+		void minimized();
+		void maximized();
 
 	private:
 		Core::String CreateMuseCommandLine(uint32 deviceID, uint32 powerLineFreq, Core::String preset, Core::String bluetoothNameOrMac);
