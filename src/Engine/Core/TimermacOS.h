@@ -29,10 +29,9 @@
 
 // include required headers
 #include "StandardHeaders.h"
-#include <mach/mach_time.h>
+#include <time.h>
 #include <CoreServices/CoreServices.h>
 #include "Time.h"
-
 
 namespace Core
 {
