@@ -45,8 +45,8 @@ ChannelMultiSelectionWidget::ChannelMultiSelectionWidget(QWidget* parent) : QWid
 	connect(mDeviceSelectionWidget, SIGNAL(DeviceSelectionChanged(Device*)), this, SLOT(OnDeviceSelectionChanged(Device*)));
 
 	QHBoxLayout* hLayout = new QHBoxLayout();
-	hLayout->addWidget(mDeviceSelectionWidget);
-	hLayout->addWidget(mShowUsedCheckbox);
+	hLayout->addWidget(mDeviceSelectionWidget, 0, Qt::AlignTop);
+	hLayout->addWidget(mShowUsedCheckbox, 0, Qt::AlignTop);
 	hLayout->addWidget(mChannelMultiCheckbox);
 	hLayout->setMargin(0);
 	hLayout->setSpacing(0);
@@ -165,7 +165,9 @@ void ChannelMultiSelectionWidget::ReInit(Device* device)
 	{
 		case AutoSelectType::SELECT_NONE: numBoxesToSelect = 0; break;
 		case AutoSelectType::SELECT_FIRST: numBoxesToSelect = 1; break;
-		
+		case AutoSelectType::SELECT_FIRST_TWO: numBoxesToSelect = 2; break;
+		case AutoSelectType::SELECT_FIRST_EIGHT: numBoxesToSelect = 8; break;
+
 		case AutoSelectType::SELECT_ALL: 
 		default:
 			numBoxesToSelect = numCheckBoxes; break;

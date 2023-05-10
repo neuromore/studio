@@ -50,12 +50,25 @@ Classifier::Classifier(Graph* parentNode) : Graph(parentNode)
 	mIsDirty		= false;
 	mIsFinalized	= false;
 	mBufferDuration	= 10.0;
+
+	Core::AttributeSettings* attribInitTime = RegisterAttribute("Init Time (s)", "InitTime", "Required initialization time until classifier is stable.", Core::ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
+	attribInitTime->SetDefaultValue(Core::AttributeFloat::Create(DEFAULTINITTIME));
+	attribInitTime->SetMinValue(Core::AttributeFloat::Create(0.0));
+	attribInitTime->SetMaxValue(Core::AttributeFloat::Create(30.0));
+
+	CreateDefaultAttributeValues();
 }
 
 
 // destructor
 Classifier::~Classifier()
 {
+}
+
+
+void Classifier::Init()
+{
+	Graph::Init();
 }
 
 
@@ -109,6 +122,18 @@ void Classifier::Reset()
 	Graph::Reset();
 }
 
+void Classifier::ResetOnSessionStart()
+{
+	uint32 num;
+
+	// reset some nodes
+	num = GetNumNodes();
+	for (uint32_t i = 0; i < num; i++) {
+		Node* n = GetNode(i);
+		if (n->GetType() == FileWriterNode::TYPE_ID || n->GetNodeType() == OutputNode::NODE_TYPE)
+			n->Reset();
+	}
+}
 
 // force reinit during next update
 void Classifier::ReInitAsync()

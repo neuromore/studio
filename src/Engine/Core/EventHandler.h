@@ -67,6 +67,8 @@ class ENGINE_API EventHandler
 		virtual void OnSubProgressValue( float percentage )		{}
 
 		// session
+		virtual void OnPrepareSession()							{}
+		virtual void OnPreparedSession()						{}
 		virtual void OnStartSession()							{}
 		virtual void OnStopSession()							{}
 		virtual void OnSessionUserChanged(const User& user)		{}
@@ -149,7 +151,10 @@ class ENGINE_API EventHandler
 		virtual void OnBrowserStartPlayer(double progress, bool fullscreen) { }
 		virtual void OnBrowserStopPlayer() { }
 		virtual void OnBrowserPausePlayer() { }
-	
+
+		virtual void OnShowTextInput(const char* text, uint32 inputId) { }
+		virtual void OnHideTextInput() { }
+
 	private:
 
 		// enable/disable all events

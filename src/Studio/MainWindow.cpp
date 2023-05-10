@@ -147,7 +147,7 @@ void MainWindow::Init()
 	mOscServer = new OscServer(STUDIO_OSCLISTENER_UDP_PORT, STUDIO_OSCREMOTE_UDP_PORT);
 
 	// create the websocket server
-	mWebsocketServer = new WebsocketServer(1234, true);
+	mWebsocketServer = new WebsocketServer(STUDIO_WEBSOCKET_TCP_PORT, false);
 	QObject::connect(mWebsocketServer, &WebsocketServer::closed, this, &QCoreApplication::quit);
 	QObject::connect(mWebsocketServer, &WebsocketServer::impersonated, this, &MainWindow::OnSessionUserSelected);
 
@@ -170,6 +170,7 @@ void MainWindow::Init()
 	// init networkserver/osc listener after settings are loaded
 	mNetworkServer->Init();
 	mOscServer->Init();
+	mWebsocketServer->Init();
 
 	// base class init
 	MainWindowBase::Init();
@@ -1179,8 +1180,8 @@ QAction* MainWindow::FindAction(QList<QAction*>& actionList, Plugin* plugin)
 // EVENTS
 //
 
-// lock parts of the UI on session start
-void MainWindow::OnStartSession()
+// lock parts of the UI on session prepare
+void MainWindow::OnPrepareSession()
 {
 	mMenuBar->setEnabled(false);
 
@@ -1191,6 +1192,11 @@ void MainWindow::OnStartSession()
 	mActiveBciCombo->setEnabled(false);
 	mLayoutComboBox->setEnabled(false);
 	mSelectSessionUserButton->setEnabled(false);
+}
+
+
+void MainWindow::OnStartSession()
+{
 }
 
 
@@ -1351,9 +1357,6 @@ void MainWindow::OnSettings()
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// neuromore Cloud category
 
-		//NOTE: production build doesn't have anything in the cloud category right now!
-
-#ifndef PRODUCTION_BUILD
 		categoryName = "Cloud";
 		PropertyTreeWidget* cloudPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
 		if (cloudPropertyWidget == NULL)
@@ -1369,7 +1372,6 @@ void MainWindow::OnSettings()
 
 		mServerPresetProperty				= cloudPropertyWidget->GetPropertyManager()->AddComboBoxProperty( "", "Server", serverPresetNames, GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() );
 		mLogBackendProperty					= cloudPropertyWidget->GetPropertyManager()->AddBoolProperty("", "Backend (REST) Communication Logging", GetBackendInterface()->GetNetworkAccessManager()->IsLogEnabled() );
-#endif
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Network category
@@ -1402,7 +1404,10 @@ void MainWindow::OnSettings()
 		
 		const int32 oscOutputPort = GetOscServer()->GetRemoteUdpPort();
 		mOSCRemotePortProperty = networkPropertyWidget->GetPropertyManager()->AddIntProperty("OSC Server", "Target UDP port", oscOutputPort, oscOutputPort, 0, maxPort);
-		
+
+		const uint16 websocketPort = GetWebsockerServer()->GetListenPort();
+		mWebsocketPortProperty = networkPropertyWidget->GetPropertyManager()->AddIntProperty("Websocket Server", "Listen TCP Port", websocketPort, websocketPort, 0, maxPort);
+
 		// add all categories from the plugins
 		mSettingsWindow->AddCategoriesFromPlugin(NULL);
 	}
@@ -1497,7 +1502,6 @@ void MainWindow::OnValueChanged(Property* property)
 	}
 #endif
 
-#ifndef PRODUCTION_BUILD
 	// neuromore Cloud settings
 	bool serverPresetChanged = false;
 	if (property == mServerPresetProperty)
@@ -1514,7 +1518,6 @@ void MainWindow::OnValueChanged(Property* property)
 
 	if (property == mLogBackendProperty)
 		GetBackendInterface()->GetNetworkAccessManager()->SetLoggingEnabled( property->AsBool() );
-#endif
 
 	// Network server
 	if (property == mNetworkServerEnableTCPProperty)
@@ -1569,12 +1572,16 @@ void MainWindow::OnValueChanged(Property* property)
 		GetOscServer()->ReInit();
 	}
 
+	// Websocket serverr
+	if (property == mWebsocketPortProperty)
+	{
+		const int32 port = property->AsInt();
+		GetWebsockerServer()->SetListenPort((uint16)port);
+	}
+
 	// update and save the settings directly
 	OnSaveSettings();
 
-	
-
-#ifndef PRODUCTION_BUILD
 	// backend server change -> restart studio
 	if (serverPresetChanged == true)
 	{
@@ -1588,7 +1595,6 @@ void MainWindow::OnValueChanged(Property* property)
 		QProcess::startDetached(QCoreApplication::applicationFilePath());
 
 	}
-#endif
 }
 
 
@@ -1726,6 +1732,8 @@ void MainWindow::OnLoadSettings()
 	int32 networkOscRemotePort = settings.value("networkOscRemotePort_v2", GetOscServer()->GetRemoteUdpPort()).toInt();
 	GetOscServer()->SetRemoteUdpPort(networkOscRemotePort);
 
+	int32 websocketPort = settings.value("websocketPort", GetWebsockerServer()->GetListenPort()).toInt();
+	GetWebsockerServer()->SetListenPort(websocketPort);
 }
 
 
@@ -1801,10 +1809,8 @@ void MainWindow::OnSaveSettings()
 	settings.setValue("logLevelPreset", logPreset->GetName());
 
 	// neuromore Cloud category
-#ifndef PRODUCTION_BUILD
 	settings.setValue("cloudServerPreset", GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex());
 	settings.setValue("cloudLoggingEnabled", GetBackendInterface()->GetNetworkAccessManager()->IsLogEnabled());
-#endif
 
 	// network category
 	settings.setValue("networkEnableTCPServer", GetNetworkServer()->GetListenerEnabled());
@@ -1815,7 +1821,7 @@ void MainWindow::OnSaveSettings()
 	settings.setValue("networkOscLocalEndpoint", FromQtString(GetOscServer()->GetLocalEndpoint().toString()).AsChar());
 	settings.setValue("networkOscRemoteHost", FromQtString(GetOscServer()->GetRemoteHost().toString()).AsChar());
 	settings.setValue("networkOscRemotePort_v2", GetOscServer()->GetRemoteUdpPort());
-
+	settings.setValue("websocketPort", GetWebsockerServer()->GetListenPort());
 }
 
 

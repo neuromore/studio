@@ -146,9 +146,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 #endif
 
 		// neuromore Cloud settings
-#ifndef PRODUCTION_BUILD
 		Property*					mServerPresetProperty;
-#endif
 		Property*					mLogBackendProperty;
 
 		// NETWORK settings
@@ -161,6 +159,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		Property*					mOSCRemoteHostProperty;
 		Property*					mOSCRemotePortProperty;
 		Property*					mOSCLocalEndpointProperty;
+		Property*					mWebsocketPortProperty;
 
 		// DEVICE CONFIGS
 		void LoadDeviceConfigs(bool reload = true);
@@ -176,6 +175,7 @@ class MainWindow : public MainWindowBase, public Core::EventHandler
 		void OnDeviceAdded(Device* device) override	final					{ ReInitBciDeviceCombo(); }
 		void OnDeviceRemoved(Device* device) override final					{ ReInitBciDeviceCombo(); }
 		void OnSessionUserChanged(const User& user) override final;
+		void OnPrepareSession() override final;
 		void OnStartSession() override final;
 		void OnStopSession() override final;
 		void OnActiveExperienceChanged(Experience* experience) override final;

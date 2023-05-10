@@ -74,6 +74,7 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 
 
 		// EVENTS
+		void OnPreparedSession() override final;
 		void OnSessionUserChanged(const User& user) override final;
 		void OnActiveExperienceChanged(Experience* experience) override final				{ UpdateStartButton(); }
 		void OnActiveClassifierChanged(Classifier* experience) override final				{ UpdateStartButton(); }
@@ -129,7 +130,6 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		bool mCanStartSession;
 		bool mLostClientError;
 		bool mLostDeviceError;
-
 };
 
 

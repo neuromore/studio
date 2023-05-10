@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2019,windows-2022]
+        os: [windows-2022]
         arch: [x64,x86,arm64]
         branding: [neuromore,supermind,natus]
     steps:
@@ -198,17 +198,24 @@ jobs:
       env:
         SIGN_PFX_FILE: ../../certs/TrueCert.pfx
         SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
-        PUBLISHERCN: neuromore co
-        PUBLISHER: CN=neuromore co, O=neuromore co, STREET=382 NE 191st St, L=Miami, S=Florida, PostalCode=33179, C=US
+        PUBLISHERCN: Neuromore Co
+        PUBLISHER: CN=Neuromore Co, O=Neuromore Co, S=Florida, C=US
       run: make dist
     
-    # Upload
-    - name: Upload
+    # Upload ZIP
+    - name: Upload ZIP
       uses: actions/upload-artifact@v3
       with:
-        name: Packages (${{ matrix.os }}-${{ matrix.branding }})
+        name: Packages ZIP (${{ matrix.os }}-${{ matrix.branding }})
         path: |
           ./dist/win-10/*.zip
+
+    # Upload Packages
+    - name: Upload App
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages App (${{ matrix.os }}-${{ matrix.branding }})
+        path: |
           ./dist/win-10/*.appx
           ./dist/win-10/*.appxbundle
           ./dist/win-10/*.appxupload

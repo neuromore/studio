@@ -29,8 +29,16 @@
 
 using namespace Core;
 
+// impedance quality profiles
+ImpedanceTestWidget::Threshold ImpedanceTestWidget::Thresholds[] = {
+   ImpedanceTestWidget::Threshold("Research",        5.0,  10.0,  20.0,  80.0), 
+   ImpedanceTestWidget::Threshold("Neurofeedback",  10.0,  20.0,  40.0,  80.0), 
+   ImpedanceTestWidget::Threshold("Testing",       100.0, 200.0, 300.0, 400.0)
+};
+
 // constructor
-ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : QWidget(parent)
+ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : QWidget(parent), 
+	mImpedanceThreshold(&ImpedanceTestWidget::Thresholds[DEFAULTPROFILE])
 {
 	mDevice = device;
 
@@ -61,20 +69,18 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 	mainLayout->addWidget(label, 1, 0, 2, 1);
 
 	mThresholdComboBox = new QComboBox();
-	const uint32 numPresets = 4;
 	mThresholdComboBox->setEditable(true);
-	mThresholdComboBox->setMaxCount(numPresets);
-	mThresholdComboBox->addItem("5 kOhm");
-	mThresholdComboBox->addItem("10 kOhm");
-	mThresholdComboBox->addItem("20 kOhm");
-	mThresholdComboBox->addItem("40 kOhm");
+	mThresholdComboBox->setMaxCount(NUMPROFILES);
+	for (size_t i = 0; i < NUMPROFILES; i++)
+		mThresholdComboBox->addItem(Thresholds[i].name);
+
 	connect(mThresholdComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(OnThresholdSelected(int)));
 	connect(mThresholdComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(OnThresholdEdited(const QString&)));
 	mThresholdComboBox->setFixedWidth(75);
 	mainLayout->addWidget(mThresholdComboBox, 1, 1, 2, 1);
 	// select default threshold
-	mThresholdComboBox->setCurrentIndex(3);
-	OnThresholdSelected(3);
+	mThresholdComboBox->setCurrentIndex(DEFAULTPROFILE);
+	OnThresholdSelected(DEFAULTPROFILE);
 
   // Column 2
 	// expanding spacer widget 
@@ -147,7 +153,7 @@ void ImpedanceTestWidget::UpdateInterface()
 
 		// skip invalid values (Eccept exactly 0.0), dont skip used electrodes
 		if (activeClassifier == NULL || (activeClassifier != NULL && activeClassifier->IsSensorUsed(mDevice->GetSensor(i)) == false))
-			if (impedance > electrodeActiveDetectionThreshold || impedance < 0.0)
+			if (impedance > electrodeActiveDetectionThreshold || impedance <= 0.0)
 				continue;
 		
 		minImpedance = Min(minImpedance, impedance);
@@ -183,18 +189,30 @@ void ImpedanceTestWidget::UpdateInterface()
 		mAvgImpedanceLabel->setText(mTempString.AsChar());
 
 		// test passed?
-		testPassed = (maxImpedance <= mImpedanceThreshold);
+		testPassed = (maxImpedance <= mImpedanceThreshold->yellow);
 
 		// set sensor contact quality (reuse electrode widget) to indicate pass/fail of individual electrodes
 		for (uint32 i = 0; i < numSensors; ++i)
 		{
 			const double impedance = mDevice->GetImpedance(i);
-			if (impedance > electrodeActiveDetectionThreshold)
+			
+			if (impedance < 0.1) // == 0.0 case
 				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
-			else if (impedance <= mImpedanceThreshold)
+
+			else if (impedance <= mImpedanceThreshold->green)
 				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_GOOD);
-			else
+
+ 			else if (impedance <= mImpedanceThreshold->yellow)
+				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_FAIR);
+
+			else if (impedance <= mImpedanceThreshold->orange)
+				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_POOR);
+
+			else if (impedance <= mImpedanceThreshold->red)
 				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_VERY_BAD);
+
+			else
+				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
 		}
 	}
 
@@ -207,7 +225,20 @@ void ImpedanceTestWidget::UpdateInterface()
 // threshold combobox selection changed
 void ImpedanceTestWidget::OnThresholdSelected(int index)
 {
-	SetThresholdFromText(mThresholdComboBox->itemText(index));
+	if (index >= NUMPROFILES)
+		return;
+
+	mImpedanceThreshold = &ImpedanceTestWidget::Thresholds[index];
+
+	String s;
+	s.Format("%s THRESHOLDS\n GREEN\t\t< %i kOhm\n YELLOW\t< %i kOhm\n ORANGE\t< %i kOhm\n RED\t\t< %i kOhm",
+		mImpedanceThreshold->name,
+		(int)mImpedanceThreshold->green,
+		(int)mImpedanceThreshold->yellow,
+		(int)mImpedanceThreshold->orange,
+		(int)mImpedanceThreshold->red);
+
+	mThresholdComboBox->setToolTip(s.AsChar());
 }
 
 
@@ -220,5 +251,12 @@ void ImpedanceTestWidget::OnThresholdEdited(const QString& text)
 
 void ImpedanceTestWidget::SetThresholdFromText(const QString& text)
 {
-	mImpedanceThreshold = text.split(' ')[0].toDouble();
+	for (size_t i = 0; i < NUMPROFILES; i++) 
+	{
+		if (text == Thresholds[i].name)
+		{
+			mImpedanceThreshold = &Thresholds[i];
+			return;
+		}
+	}
 }

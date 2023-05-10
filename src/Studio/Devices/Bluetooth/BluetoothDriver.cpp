@@ -35,7 +35,8 @@ BluetoothDriver::BluetoothDriver() : DeviceDriver(false), EventHandler()
 	LogInfo("Constructing Bluetooth device driver ...");
 
 	mBluetoothDeviceDiscoveryAgent = NULL;
-	mDetectOnce = false;
+	mAutodetectTimer = NULL;
+	mIsBtleSupported = false;
 	mIsSearching = false;
 
 	LogDetailedInfo("Bluetooth device driver constructed");
@@ -64,10 +65,22 @@ bool BluetoothDriver::Init()
 
 	// create the bluetooth device discovery agent
 	mBluetoothDeviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
+	mBluetoothDeviceDiscoveryAgent->setLowEnergyDiscoveryTimeout(4000);
+
+	// check if Bluetooth LE is supported
+	if (mBluetoothDeviceDiscoveryAgent->supportedDiscoveryMethods() & QBluetoothDeviceDiscoveryAgent::LowEnergyMethod) {
+		LogInfo("Bluetooth adapter supports Bluetooth LE.");
+		mIsBtleSupported = true;
+	}
+	else {
+		LogError("Bluetooth adapter does NOT support Bluetooth LE.");
+		mIsBtleSupported = false;
+	}
 
 	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(deviceDiscovered(const QBluetoothDeviceInfo&)), this, SLOT(OnDeviceDiscovered(const QBluetoothDeviceInfo&)) );
 	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(error(QBluetoothDeviceDiscoveryAgent::Error)), this, SLOT(OnDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error)) );
 	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(OnDeviceScanFinished()) );
+	connect( mBluetoothDeviceDiscoveryAgent, SIGNAL(canceled()), this, SLOT(OnDeviceScanCanceled()) );
 
 	// autodetect timer
 	mAutodetectTimer = new QTimer(this);
@@ -80,16 +93,12 @@ bool BluetoothDriver::Init()
 // called when the bluetooth device discovery agent found a new device
 void BluetoothDriver::OnDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo)
 {
-	// are we dealing with a Bluetooth LE device?
 	if (deviceInfo.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
 	{
+		const QString address = BluetoothDevice::GetDeviceInfoAddress(deviceInfo);
 		LogInfo(" - Bluetooth LE device discovered:");
 		LogInfo("    + Name: %s", deviceInfo.name().toLatin1().data());
-        LogInfo("    + Adress: %s", BluetoothDevice::GetDeviceInfoAddress(deviceInfo).toLatin1().data());
-
-		mDiscoveredDeviceInfos.Add( deviceInfo );
-        
-        // don't connec to the device here directly, else we might miss one or the other LE device and connect to a wrong one
+		LogInfo("    + Adress: %s", address.toLatin1().data());
 	}
 }
 
@@ -97,27 +106,53 @@ void BluetoothDriver::OnDeviceDiscovered(const QBluetoothDeviceInfo& deviceInfo)
 // called when the bluetooth device discovery agent finished searching for devices
 void BluetoothDriver::OnDeviceScanFinished()
 {
-	LogInfo("Scan for Bluetooth LE devices finished.");
-    
-    const uint32 numDeviceInfos = mDiscoveredDeviceInfos.Size();
-    
-/*    if (numDeviceInfos == 1)
-        Connect(mDiscoveredDeviceInfos[0]);
-    else if (numDeviceInfos > 1)*/
-    if (numDeviceInfos > 0)
-    {
-        BluetoothDeviceSelectorDialog selectionDialog( mDiscoveredDeviceInfos, GetQtBaseManager()->GetMainWindow() );
-        selectionDialog.exec();
+   LogInfo("Scan for Bluetooth LE devices finished.");
+   for (const auto& dev : mBluetoothDeviceDiscoveryAgent->discoveredDevices())
+   {
+      if (dev.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
+      {
+         const QString address = BluetoothDevice::GetDeviceInfoAddress(dev);
+
+         // ignore invalid and unnamed devices
+         if (!dev.isValid() || !dev.name().size())// || FindDeviceInfo(address))
+            continue;
+
+         // ignore non hrm devices
+         if (!dev.serviceUuids().contains(QBluetoothUuid::HeartRate)) {
+            LogInfo("Skipping non-HRM device: %s", dev.name().toLatin1().data());
+            continue;
+         }
+
+         // add found HRM
+         LogInfo("Bluetooth LE HRM found: %s", dev.name().toLatin1().data());
+         mDiscoveredDeviceInfos.Add(dev);
+      }
+   }
+
+   const uint32 numDeviceInfos = mDiscoveredDeviceInfos.Size();
+
+   // select found hrm
+   if (numDeviceInfos == 1)
+      Connect(mDiscoveredDeviceInfos[0]);
+
+   // let user pick from multiple
+   else if (numDeviceInfos > 1)
+   {
+      BluetoothDeviceSelectorDialog selectionDialog( mDiscoveredDeviceInfos, GetQtBaseManager()->GetMainWindow() );
+      selectionDialog.exec();
         
-        const uint32 connectToDeviceIndex = selectionDialog.GetIndex();
-        if (connectToDeviceIndex < numDeviceInfos)
-            Connect(mDiscoveredDeviceInfos[connectToDeviceIndex]);
-    }
-    
-	mIsSearching = false;
-	mDetectOnce = false;
+      const uint32 connectToDeviceIndex = selectionDialog.GetIndex();
+      if (connectToDeviceIndex < numDeviceInfos)
+         Connect(mDiscoveredDeviceInfos[connectToDeviceIndex]);
+   }
+
+   mIsSearching = false;
 }
 
+void BluetoothDriver::OnDeviceScanCanceled()
+{
+   LogInfo("Scan for Bluetooth LE devices canceled.");
+}
 
 // called in case an error in the bluetooth device discovery agent happened
 void BluetoothDriver::OnDeviceScanError(QBluetoothDeviceDiscoveryAgent::Error error)
@@ -145,7 +180,7 @@ void BluetoothDriver::Connect(const QBluetoothDeviceInfo& deviceInfo)
     {
         // create a new Bluetooth device and add it to the device array
         device = new BluetoothDevice(this, deviceInfo);
-        //connect( device, SIGNAL(Finished()), this, SLOT(OnConnectNextDevice()) );
+        connect(device, SIGNAL(Finished(BluetoothDevice*)), this, SLOT(OnDeviceFinished(BluetoothDevice*)));
         mDevices.Add(device);
     }
     
@@ -153,36 +188,21 @@ void BluetoothDriver::Connect(const QBluetoothDeviceInfo& deviceInfo)
         device->Connect();
 }
 
-
-// start connecting to the next device
-/*void BluetoothDriver::OnConnectNextDevice()
+// finish a bluetooth device that is fully connected or failed
+void BluetoothDriver::OnDeviceFinished(BluetoothDevice* device)
 {
-    // get the number of discovered Bluetooth devices and iterate through them
-    const uint32 numDevices = mDiscoveredDeviceInfos.Size();
-    for (uint32 i=0; i<numDevices; ++i)
-    {
-        QBluetoothDeviceInfo deviceInfo = mDiscoveredDeviceInfos[i];
-        
-        BluetoothDevice* device = FindDevice(deviceInfo);
-        
-        // connect to this device if there is no active connection yet
-        if (device == NULL)
-        {
-            // create a new Bluetooth device and add it to the device array
-            device = new BluetoothDevice(this, deviceInfo);
-            connect( device, SIGNAL(Finished()), this, SLOT(OnConnectNextDevice()) );
-            mDevices.Add(device);
-        }
-        
-        if (device->IsConnected() == false && device->IsConnecting() == false)
-        {
-            device->Connect();
+   // nothing to do if connected fine
+   if (device->IsConnected())
+      return;
 
-            // as soon as we found the next device we haven't connected to, return to avoid scanning multiple devices
-            return;
-        }
-    }
-}*/
+   // otherwise remove it from our list
+   const uint32_t idx = mDevices.Find(device);
+   if (idx != CORE_INVALIDINDEX32)
+      mDevices.Remove(idx);
+
+   // and delete
+   device->deleteLater();
+}
 
 
 // find the Bluetooth device info based on the address
@@ -270,8 +290,6 @@ bool BluetoothDriver::IsDeviceConnecting() const
 // start stop auto detection thread
 void BluetoothDriver::SetAutoDetectionEnabled(bool enable)
 {
-   mDetectOnce = false;
-
    // baseclass (sets flags, may call start/stop autodetection)
    DeviceDriver::SetAutoDetectionEnabled(enable);
 }
@@ -292,31 +310,29 @@ void BluetoothDriver::StopAutoDetection()
    mBluetoothDeviceDiscoveryAgent->stop();
 }
 
+void BluetoothDriver::OnDetectDevices()
+{
+   DetectDevices();
+}
 
 void BluetoothDriver::DetectDevices()
 {
-    if (mIsEnabled == false)
-		return;
+   // skip directly in some cases
+   if (!mIsEnabled || !mIsBtleSupported || mIsSearching || IsDeviceConnecting())
+      return;
 
-	mDetectOnce = true;
-	OnDetectDevices();
-}
+   // skip if we got one already
+   if (mDevices.Size() > 0)
+      return;
 
+   LogInfo("Starting Bluetooth LE scan...");
 
-// search for devices once
-void BluetoothDriver::OnDetectDevices()
-{
-    // skip directly in case we're already searching or if any bluetooth device is currently already connecting
-    if (mIsSearching == true || IsDeviceConnecting() == true)
-        return;
-    
-	LogInfo("Scanning for Bluetooth LE devices ...");
+   // clear discovered devices and start searching for new ones
+   mDiscoveredDeviceInfos.Clear();
 
-	// clear discovered devices and start searching for new ones
-	mDiscoveredDeviceInfos.Clear();
-	mBluetoothDeviceDiscoveryAgent->start();
-
-	mIsSearching = true;
+   // start it
+   mBluetoothDeviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
+   mIsSearching = true;
 }
 
 

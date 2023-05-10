@@ -223,8 +223,9 @@ void SessionControlPlugin::UpdateWidgets()
 	}
 	
 	// show different widgets, depending on running state
-	bool isRunning = GetEngine()->GetSession()->IsRunning();
-	if (isRunning == true)
+	const bool isPreparing = GetEngine()->GetSession()->IsPreparing();
+	const bool isRunning = GetEngine()->GetSession()->IsRunning();
+	if (isRunning || isPreparing)
 	{
 		mWhileSessionWidget->show();
 		mPreSessionWidget->hide();
@@ -234,6 +235,20 @@ void SessionControlPlugin::UpdateWidgets()
 		mWhileSessionWidget->hide();
 		mPreSessionWidget->show();
 	}
+}
+
+
+void SessionControlPlugin::OnPreparedSession()
+{
+	if (Classifier* c = GetEngine()->GetActiveClassifier())
+	{
+		if (StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine())
+			activeStateMachine->Continue();
+
+		Start();
+	}
+	else
+		Reset();
 }
 
 
@@ -477,12 +492,11 @@ void SessionControlPlugin::OnStart()
 	// make sure no session is running
 	CORE_ASSERT( GetSession()->IsRunning() == false );
 
-	// reset engine
-	GetEngine()->Reset();
+	GetEngine()->Reset();     // reset engine (also resets session)
+	GetEngine()->SoftPause(); // but keep it paused
 
 	// load parameters
 	GetBackendInterface()->GetParameters()->Load(true, *GetSessionUser(), activeExperience, activeClassifier);
-
 }
 
 
@@ -498,10 +512,21 @@ void SessionControlPlugin::OnParametersLoaded(bool success)
 		return;
 	}
 
-	//
-	// Start Session
-	//
-	Start();
+   Classifier* c = GetEngine()->GetActiveClassifier();
+
+   // must have a classifier
+   if (!c) {
+      Reset();
+      return;
+   }
+
+	GetSession()->Prepare();     // prepare the session
+	UpdateWidgets();             // update ui
+	GetEngine()->SoftContinue(); // continue engine
+
+	// but keep the statemachine paused until session really starts
+	if (StateMachine* sm = GetEngine()->GetActiveStateMachine())
+		sm->Pause();
 }
 
 
@@ -520,8 +545,8 @@ void SessionControlPlugin::Start()
 
 void SessionControlPlugin::Reset()
 {
-	GetSession()->Reset();
 	GetSession()->Stop();
+	GetSession()->Reset();
 
 	// update the interface
 	UpdateWidgets();

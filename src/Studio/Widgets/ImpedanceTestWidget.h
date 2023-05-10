@@ -44,6 +44,23 @@ class ImpedanceTestWidget : public QWidget
 
 		void UpdateInterface();
 
+		class Threshold
+		{
+		public:
+			const char*  name;
+			const double green;
+			const double yellow;
+			const double orange;
+			const double red;
+			inline Threshold(const char* n, double g = 0.0, double y = 0.0, double o = 0.0, double r = 0.0) :
+				name(n), green(g), yellow(y), orange(o), red(r) { }
+		};
+
+		static constexpr const size_t NUMPROFILES    = 3;
+		static constexpr const size_t DEFAULTPROFILE = 1;
+
+		static Threshold Thresholds[NUMPROFILES];
+
 	private slots:
 		void OnThresholdSelected(int index);
 		void OnThresholdEdited(const QString& text);
@@ -54,7 +71,7 @@ class ImpedanceTestWidget : public QWidget
 		BciDevice*		mDevice;
 		Core::String	mTempString;
 
-		double			mImpedanceThreshold;
+		Threshold*		mImpedanceThreshold;
 
 		QComboBox*		mThresholdComboBox;
 		QLabel*			mMinImpedanceLabel;

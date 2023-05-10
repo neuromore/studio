@@ -238,3 +238,9 @@ void ButtonAttributeWidgetCreator::InitAttributes(Array<Attribute*>& attributes,
 {
 	CreateAttributes(attributes, attributeSettings, forceInitMinMaxAttributes);	
 }
+
+
+void TextAttributeWidgetCreator::InitAttributes(Array<Attribute*>& attributes, Core::AttributeSettings* attributeSettings, bool forceInitMinMaxAttributes, bool resetMinMaxAttributes)
+{
+	CreateAttributes(attributes, attributeSettings, forceInitMinMaxAttributes);	
+}

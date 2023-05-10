@@ -56,6 +56,7 @@ public:
    static constexpr const bool  DefaultEemagineEnabled      = true;
    static constexpr const bool  DefaultBrainMasterEnabled   = false;
    static constexpr const int   DefaultServerPresetIdx      = 0;
+   static constexpr const int   DefaultAutoSelectType       = 4; // = SELECT_FIRST_EIGHT (see ChannelMultiSelectionWidget.h)
 };
 #endif
 #endif
