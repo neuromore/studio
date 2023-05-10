@@ -55,29 +55,35 @@ Analyze your own sessions or sessions of your patients in the cloud under accoun
 
 ## Getting started (all platforms)
 
-1. Create a neuromore Cloud account at [https://account.neuromore.com/#/purchase?state=start&productId=community](https://account.neuromore.com/#/purchase?state=start&productId=community)
-2. Download the latest neuromore studio from our github [releases](https://github.com/neuromore/studio/releases) (or build it yourself).
-3. Start neuromore studio, sign-in with the created community account, accept the license and you're ready to go.
-4. Check out the wiki for specific device information or on examples on how to get started https://github.com/neuromore/studio/wiki
-5. Watch the tutorials for more info [https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw](https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw)
+1. [Create a free neuromore community cloud account.](https://account.neuromore.com/#/purchase?state=start&productId=community)
+2. Download the latest neuromore Studio from our github [releases](https://github.com/neuromore/studio/releases), Mac App Store or build it yourself.
+3. Start neuromore Studio, sign-in with the created community account from step 1, accept the license and you're ready to go.
+4. Check out the [wiki](https://github.com/neuromore/studio/wiki) for specific device information or examples on how to get started 
+5. [Watch the tutorials on YouTube for more info](https://www.youtube.com/channel/UCAOU6SsvwCwC30hJaFLhWgw)
 
 ## Minimum System Requirements
 
-| What     | Minimum                                               | Recommended |
-| -------- | ----------------------------------------------------- | ----------- |
-| OS       | Windows 10, Ubuntu 20.04, OSX 10.15                   | TODO        |
-| CPU      | Dual-Core released past ~2010 (with SSE4.2, AVX, ...) | TODO        |
-| RAM      | 4GB                                                   | TODO        |
-| GPU      | OpenGL 2.x compatible                                 | TODO        |
-| Display  | 1920x1080                                             | TODO        |
+| What     | Minimum                                               |
+| -------- | ----------------------------------------------------- |
+| OS       | Windows 10, Ubuntu 20.04, macOS 10.15                 |
+| CPU      | Intel* or ARM**, 32 or 64 Bit, Dual-Core, ~2Ghz         |
+| RAM      | 4GB                                                   |
+| GPU      | OpenGL 2.x compatible                                 |
+| Display  | 1920x1080                                             |
+
+\* Intel 64-Bit Build requires CPU released past ~2010 with SSE4.2, AVX and other modern instructions</br>
+\** Supports ARMv7-a (32-Bit) and ARMv8-a (64-Bit)
 
 ## Configuration/Cache Folders
+
+* You can delete this folder to fully reset your installation
+* The logfile is stored there
 
 | Platform | Folder                                           |
 | -------- | ------------------------------------------------ |
 | WIN      | %LOCALAPPDATA%\neuromore\NMStudio                |
 | LINUX    | ~/.local/share/neuromore/NMStudio                |
-| OSX      | ~/Library/Containers/com.neuromore.studio/Data/Library/Application Support/neuromore/NMStudio |
+| MACOS    | ~/Library/Containers/com.neuromore.studio/Data/Library/Application Support/neuromore/NMStudio |
 
 ## Building
 
@@ -96,13 +102,13 @@ Have a look at our [Github Discussions](https://github.com/neuromore/studio/disc
 
 ### Technical
 
-_Q:_ Can I build an offline version of neurmore studio (one that does not require your backend)?
+_Q:_ Can I build an offline version of neurmore studio (one that does not require your backend)?</br>
 _A_: This is a work in progress. We don't provide an option for that. For now, access to our backend is mandatory.
 
-_Q:_ Is the backend code included or available so that I can host it myself?
+_Q:_ Is the backend code included or available so that I can host it myself?</br>
 _A_: No. The backend code and database design is not included in this repository.
 
-_Q:_ How do I reset my password?
+_Q:_ How do I reset my password?</br>
 _A:_ https://account.neuromore.com/#/login
 
 ## Related Projects
