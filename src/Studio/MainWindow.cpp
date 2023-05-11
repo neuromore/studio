@@ -1357,21 +1357,37 @@ void MainWindow::OnSettings()
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// neuromore Cloud category
 
-		categoryName = "Cloud";
-		PropertyTreeWidget* cloudPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
-		if (cloudPropertyWidget == NULL)
-			cloudPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Cloud.png", false);
+#ifndef PRODUCTION_BUILD
+		// show for anyone
+		constexpr bool showcloud = true;
+#else
+		// show for admins only
+		const bool showcloud = (GetUser() && GetUser()->FindRule("ROLE_Admin"));
+#endif
 
-		connect( cloudPropertyWidget->GetPropertyManager(), &PropertyManager::ValueChanged, this, &MainWindow::OnValueChanged);
+		if (showcloud)
+		{
+			categoryName = "Cloud";
+			PropertyTreeWidget* cloudPropertyWidget = mSettingsWindow->FindPropertyWidgetByName(categoryName);
+			if (cloudPropertyWidget == NULL)
+				cloudPropertyWidget = mSettingsWindow->AddCategory(categoryName, "Images/Icons/Cloud.png", false);
 
-		// get the server preset names for the combo box
-		Array<String> serverPresetNames;
-		const uint32 numServerPresets = GetBackendInterface()->GetNetworkAccessManager()->GetNumPresets();
-		for (uint32 i=0; i<numServerPresets; ++i)
-			serverPresetNames.Add( GetBackendInterface()->GetNetworkAccessManager()->GetPreset(i).mName );
+			connect( cloudPropertyWidget->GetPropertyManager(), &PropertyManager::ValueChanged, this, &MainWindow::OnValueChanged);
 
-		mServerPresetProperty				= cloudPropertyWidget->GetPropertyManager()->AddComboBoxProperty( "", "Server", serverPresetNames, GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex() );
-		mLogBackendProperty					= cloudPropertyWidget->GetPropertyManager()->AddBoolProperty("", "Backend (REST) Communication Logging", GetBackendInterface()->GetNetworkAccessManager()->IsLogEnabled() );
+			// get the server preset names for the combo box
+			Array<String> serverPresetNames;
+			const uint32 numServerPresets = GetBackendInterface()->GetNetworkAccessManager()->GetNumPresets();
+			for (uint32 i=0; i<numServerPresets; ++i)
+				serverPresetNames.Add( GetBackendInterface()->GetNetworkAccessManager()->GetPreset(i).mName );
+
+			mServerPresetProperty = cloudPropertyWidget->GetPropertyManager()->AddComboBoxProperty("", "Server", serverPresetNames, GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex());
+			mLogBackendProperty   = cloudPropertyWidget->GetPropertyManager()->AddBoolProperty("", "Backend (REST) Communication Logging", GetBackendInterface()->GetNetworkAccessManager()->IsLogEnabled() );
+		}
+		else
+		{
+			mServerPresetProperty = NULL;
+			mLogBackendProperty = NULL;
+		}
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Network category
@@ -1504,7 +1520,7 @@ void MainWindow::OnValueChanged(Property* property)
 
 	// neuromore Cloud settings
 	bool serverPresetChanged = false;
-	if (property == mServerPresetProperty)
+	if (mServerPresetProperty && property == mServerPresetProperty)
 	{
 		uint32 oldServerPresetIndex = GetBackendInterface()->GetNetworkAccessManager()->GetActiveServerPresetIndex();
 		uint32 newServerPresetIndex = property->AsInt();
