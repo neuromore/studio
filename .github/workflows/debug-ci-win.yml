@@ -9,67 +9,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2019,windows-2022]
+        os: [windows-2022]
     steps:
 
-    # System Info
-    - name: System Info
-      run: systeminfo
-
-    # Free Disk Space (C)
-    - name: Free Disk Space (C)
-      shell: cmd
+    # Test
+    - name: Test
       run: |
-        fsutil volume diskfree c:
+        "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File ./Makefile
 
-    # Free Disk Space (D)
-    - name: Free Disk Space (D)
-      shell: cmd
-      run: |
-        fsutil volume diskfree d:
-
-    # Adjust Swap Space
-    - name: Adjust Swap Space
-      shell: cmd
-      run: wmic pagefileset where name="D:\\pagefile.sys" set InitialSize=8192,MaximumSize=8192
-
-    # Task List
-    - name: Task List
-      run: tasklist
-
-    # Running Service List
-    - name: Running Service List
-      shell: cmd
-      run: sc queryex type=service | find /i "SERVICE_NAME:"
-
-    # Free Memory
-    - name: Free Memory (ALL)
-      shell: cmd
-      run: |
-        taskkill /F /IM explorer.exe
-        taskkill /F /IM TSVNCache.exe
-        taskkill /F /IM ctfmon.exe
-        sc stop CertPropSvc
-        sc stop docker
-        sc stop Spooler
-        sc stop W3SVC
-        sc stop CDPSvc
-        sc stop UsoSvc
-        sc stop LanmanServer
-
-    - name: Free Memory (2019)
-      if: matrix.os == 'windows-2019'
-      shell: cmd
-      run: |
-        taskkill /F /IM SearchUI.exe
-        taskkill /F /IM smartscreen.exe
-        sc stop IpOverUsbSvc
-        sc stop NcbService
-        
-    # Task List
-    - name: Task List
-      run: tasklist
-
-    # System Info
-    - name: System Info
-      run: systeminfo
+    - name: Test2
+      run: Set-MpPreference -DisableRealtimeMonitoring $true
