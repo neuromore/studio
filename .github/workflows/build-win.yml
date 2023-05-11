@@ -161,6 +161,10 @@ jobs:
         fsutil volume diskfree d:
         rmdir ${{ github.workspace }}\.git /s /q
 
+    # Show Free Disk Space
+    - name: Show Free Disk Space
+      run: Get-Volume D
+
     # Download X64 Build
     - name: Download X64 Build
       uses: actions/download-artifact@v3
