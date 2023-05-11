@@ -194,6 +194,9 @@ OSXSDKVER    = $(shell xcrun --show-sdk-version)
 OSXSDKBUILDV = $(shell xcrun --show-sdk-build-version)
 XCODEVER     = $(shell xcodebuild -version | grep -E -m1 'Xcode' | sed 's/Xcode //g')
 XCODEBUILDV  = $(shell xcodebuild -version | grep -E -m1 'Build version' | sed 's/Build version //g')
+PKGSIGNED    = $(NAME)-$(VERSION3)-macOS-10.15-universal.pkg
+PKGUNSIGNED  = $(NAME)-$(VERSION3)-macOS-10.15-universal-unsigned.pkg
+
 dist-vis: dist-vis-ForestScene \
           dist-vis-InfiniteTunnel \
           dist-vis-CartoonTown \
@@ -297,13 +300,13 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  $(DISTDIRAPP)
 	@echo [VFY] $(APPNAME).app
 	@codesign --verify -vvvd $(DISTDIRAPP)
-	@echo [PKG] $(NAME)-$(VERSION3)-unsigned.pkg
+	@echo [PKG] $(PKGUNSIGNED)
 	@productbuild \
 	  --version $(VERSION3) \
 	  --symbolication $(DISTDIR)/$(NAME).symbols \
 	  --product $(DISTDIR)/$(NAME).Requirements.plist \
 	  --component $(DISTDIRAPP) /Applications \
-	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
+	  $(DISTDIR)/$(PKGUNSIGNED)
 else
 	@echo [SIG] $(APPNAME).app
 	@codesign --verbose \
@@ -315,37 +318,37 @@ else
 	  $(DISTDIRAPP)
 	@echo [VFY] $(APPNAME).app
 	@codesign --verify -vvvd $(DISTDIRAPP)
-	@echo [PKG] $(NAME)-$(VERSION3)-unsigned.pkg
+	@echo [PKG] $(PKGUNSIGNED)
 	@pkgbuild \
 	  --version $(VERSION3) \
 	  --root $(DISTDIR)/$(NAME) \
 	  --install-location /Applications \
 	  --component-plist $(DISTDIR)/$(NAME).Component.plist \
-	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
+	  $(DISTDIR)/$(PKGUNSIGNED)
 endif
-	@echo [FIL] $(NAME)-$(VERSION3)-unsigned.pkg
-	@pkgutil --payload-files $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg
+	@echo [FIL] $(PKGUNSIGNED)
+	@pkgutil --payload-files $(DISTDIR)/$(PKGUNSIGNED)
 ifneq ($(PRODUCTSIGNCN),)
-	@echo [SIG] $(NAME)-$(VERSION3).pkg
+	@echo [SIG] $(PKGSIGNED)
 	@productsign \
 	  --sign "$(PRODUCTSIGNCN)" \
 	  --keychain $(KEYCHAIN) \
 	  --timestamp \
-	  $(DISTDIR)/$(NAME)-$(VERSION3)-unsigned.pkg \
-	  $(DISTDIR)/$(NAME)-$(VERSION3).pkg
-	@echo [VFY] $(NAME)-$(VERSION3).pkg
-	@pkgutil --check-signature $(DISTDIR)/$(NAME)-$(VERSION3).pkg
+	  $(DISTDIR)/$(PKGUNSIGNED) \
+	  $(DISTDIR)/$(PKGSIGNED)
+	@echo [VFY] $(PKGSIGNED)
+	@pkgutil --check-signature $(DISTDIR)/$(PKGSIGNED)
 ifneq ($(APPLE_ID),)
 ifeq ($(APPLE_DIST_STORE),true)
-	@echo [VAL] $(NAME)-$(VERSION3).pkg
+	@echo [VAL] $(PKGSIGNED)
 	@xcrun altool --validate-app \
-	  -f $(DISTDIR)/$(NAME)-$(VERSION3).pkg \
+	  -f $(DISTDIR)/$(PKGSIGNED) \
 	  -t macOS \
 	  -u $(APPLE_ID) \
 	  -p $(APPLE_APPSPEC_PASS)
 else
-	@echo [VAL] $(NAME)-$(VERSION3).pkg
-	@xcrun notarytool submit $(DISTDIR)/$(NAME)-$(VERSION3).pkg \
+	@echo [VAL] $(PKGSIGNED)
+	@xcrun notarytool submit $(DISTDIR)/$(PKGSIGNED) \
 	  --apple-id=$(APPLE_ID) \
 	  --team-id=$(APPLE_TEAM_ID) \
 	  --password=$(APPLE_APPSPEC_PASS) \
