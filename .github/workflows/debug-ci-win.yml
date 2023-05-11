@@ -16,7 +16,7 @@ jobs:
     - name: Test
       shell: cmd
       run: |
-        "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File Makefile
+        "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File ${{ github.workspace }}
 
     - name: Test2
       run: Set-MpPreference -DisableRealtimeMonitoring $true
