@@ -1,0 +1,90 @@
+Initialize engine version: 5.6.7f1 (e80cc3114ac1)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1080 Ti (ID=0x1b06)
+    Vendor:   NVIDIA
+    VRAM:     11128 MB
+    Driver:   31.0.15.1694
+Begin MonoManager ReloadAssembly
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\OSCsharp.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\OSCsharp.dll into Unity Child Domain
+- Completed reload, in  0.030 seconds
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x64\TropicalIsland_Data\Managed\System.dll (this message is harmless)
+desktop: 2560x1440 144Hz; virtual: 7680x1440 at -2560,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.131700 ms
+The Starting Settings Of The Windzone Are: Main=0.5, Turbulence=0.5, Pulse Magnitude=0.25, Pulse Frequency=0.01
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Initializing network system
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+add all osc addresses
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+add all osc addresses
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+not running
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Connected to server 127.0.0.1:45456
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Connected to server 127.0.0.1:45456
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 12 worker threads for Enlighten.
+  Thread -> id: 51b8 -> priority: 1 
+  Thread -> id: 50e8 -> priority: 1 
+  Thread -> id: 2ee8 -> priority: 1 
+  Thread -> id: 4194 -> priority: 1 
+  Thread -> id: 3590 -> priority: 1 
+  Thread -> id: 23b8 -> priority: 1 
+  Thread -> id: 1328 -> priority: 1 
+  Thread -> id: 4834 -> priority: 1 
+  Thread -> id: 2ff4 -> priority: 1 
+  Thread -> id: 3008 -> priority: 1 
+  Thread -> id: 7f0 -> priority: 1 
+  Thread -> id: 4fc8 -> priority: 1 
+Destructing network system
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Disconnected from server 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Stopping TCP Thread ...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Network destruction completed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
