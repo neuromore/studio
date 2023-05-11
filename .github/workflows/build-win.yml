@@ -114,23 +114,16 @@ jobs:
           ./build/make/bin/win-${{ matrix.arch }}/*.dll
           ./build/make/bin/win-${{ matrix.arch }}/*.pdb
 
-    # Upload EngineLIB
-    - name: Upload EngineLIB
+    # Upload Engine
+    - name: Upload Engine
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        name: Engine (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.dll
           ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.lib
           ./build/make/lib/win-${{ matrix.arch }}/EngineLIB.pdb
-
-    # Upload EngineJNI
-    - name: Upload EngineJNI
-      uses: actions/upload-artifact@v3
-      with:
-        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
-        path: |
           ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.dll
           ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.pdb
           ./build/make/lib/win-${{ matrix.arch }}/EngineJNI.jar

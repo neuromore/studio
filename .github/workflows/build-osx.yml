@@ -99,21 +99,14 @@ jobs:
         name: lto.o (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: ./build/make/obj/osx-${{ matrix.arch }}-release/**/lto.o
 
-    # Upload EngineLIB
-    - name: Upload EngineLIB
+    # Upload Engine
+    - name: Upload Engine
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        name: Engine (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/osx-${{ matrix.arch }}/EngineLIB.dylib
-
-    # Upload EngineJNI
-    - name: Upload EngineJNI
-      uses: actions/upload-artifact@v3
-      with:
-        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
-        path: |
           ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
           ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.jar
 
