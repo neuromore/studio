@@ -24,7 +24,11 @@ jobs:
         arch: [x64,x86,arm64]
         branding: [neuromore,supermind,natus]
     steps:
-    
+
+    # Disable Defender Realtime
+    - name: Disable Defender Realtime
+      run: Set-MpPreference -DisableRealtimeMonitoring $true
+
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
