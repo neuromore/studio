@@ -12,11 +12,11 @@ jobs:
         os: [windows-2022]
     steps:
 
-    # Test
-    - name: Test
-      shell: cmd
+    # Manual Defender Scan
+    - name: Manual Defender Scan
       run: |
-        "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File ${{ github.workspace }}
+        Start-MpScan -ScanType CustomScan -ScanPath ${{ github.workspace }}
+        Set-MpPreference -ExclusionPath ${{ github.workspace }}
+        Set-MpPreference -DisableRealtimeMonitoring $true
+        Get-MpComputerStatus
 
-    - name: Test2
-      run: Set-MpPreference -DisableRealtimeMonitoring $true
