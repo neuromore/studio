@@ -216,6 +216,5 @@ jobs:
       with:
         name: Packages App (${{ matrix.os }}-${{ matrix.branding }})
         path: |
-          ./dist/win-10/*.appx
           ./dist/win-10/*.appxbundle
           ./dist/win-10/*.appxupload
