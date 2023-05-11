@@ -161,6 +161,10 @@ jobs:
       shell: cmd
       run: |
         rmdir ${{ github.workspace }}\.git /s /q
+        rmdir ${{ github.workspace }}\visualizations\ForestScene\linux-x64 /s /q
+        rmdir ${{ github.workspace }}\visualizations\ForestScene\osx-all /s /q
+        rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\linux-x64 /s /q
+        rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\osx-all /s /q              
         fsutil volume diskfree d:
 
     # Download X64 Build
