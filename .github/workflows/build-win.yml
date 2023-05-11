@@ -142,12 +142,6 @@ jobs:
       BRANDING: ${{ matrix.branding }}
     steps:
 
-    # Disable Defender Realtime
-    - name: Disable Defender Realtime
-      run: |
-        Set-MpPreference -DisableRealtimeMonitoring $true
-        Get-MpComputerStatus
-
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
@@ -155,17 +149,6 @@ jobs:
         submodules: recursive
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
         lfs: true
-
-    # Free Disk Space
-    - name: Free Disk Space
-      shell: cmd
-      run: |
-        rmdir ${{ github.workspace }}\.git /s /q
-        rmdir ${{ github.workspace }}\visualizations\ForestScene\linux-x64 /s /q
-        rmdir ${{ github.workspace }}\visualizations\ForestScene\osx-all /s /q
-        rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\linux-x64 /s /q
-        rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\osx-all /s /q              
-        fsutil volume diskfree d:
 
     # Download X64 Build
     - name: Download X64 Build
@@ -188,11 +171,24 @@ jobs:
         name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/bin/win-arm64/
 
-    # Manual Defender Scan
-    - name: Manual Defender Scan
+    # Free Disk Space
+    - name: Free Disk Space
+      shell: cmd
+      run: |
+        rmdir ${{ github.workspace }}\.git /s /q
+        rmdir ${{ github.workspace }}\visualizations\ForestScene\linux-x64 /s /q
+        rmdir ${{ github.workspace }}\visualizations\ForestScene\osx-all /s /q
+        rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\linux-x64 /s /q
+        rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\osx-all /s /q              
+        fsutil volume diskfree d:
+
+    # Windows Defender
+    - name: Windows Defender 
       run: |
         Start-MpScan -ScanType CustomScan -ScanPath ${{ github.workspace }}
         Set-MpPreference -ExclusionPath ${{ github.workspace }}
+        Set-MpPreference -DisableRealtimeMonitoring $true
+        Get-MpComputerStatus
 
     # Developer Console (X64)
     - name: MSVC Developer Console (X64)
@@ -208,6 +204,10 @@ jobs:
       run: |
         echo $env:PFX_BASE64 > ./certs/TrueCert.pfx.base64
         certutil -decode ./certs/TrueCert.pfx.base64 ./certs/TrueCert.pfx
+
+    # Sleep
+    - name: Sleep
+      run: Start-Sleep -Seconds 120
 
     # Pack
     - name: Make (dist)
