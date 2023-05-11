@@ -154,6 +154,13 @@ jobs:
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
         lfs: true
 
+    # Free Disk Space
+    - name: Free Disk Space
+      shell: cmd
+      run: |
+        fsutil volume diskfree d:
+        rmdir ${{ github.workspace }}\.git /s /q
+
     # Download X64 Build
     - name: Download X64 Build
       uses: actions/download-artifact@v3
