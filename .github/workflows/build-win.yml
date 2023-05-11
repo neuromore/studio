@@ -25,10 +25,6 @@ jobs:
         branding: [neuromore,supermind,natus]
     steps:
 
-    # Disable Defender Realtime
-    - name: Disable Defender Realtime
-      run: Set-MpPreference -DisableRealtimeMonitoring $true
-
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
@@ -148,7 +144,9 @@ jobs:
 
     # Disable Defender Realtime
     - name: Disable Defender Realtime
-      run: Set-MpPreference -DisableRealtimeMonitoring $true
+      run: |
+        Set-MpPreference -DisableRealtimeMonitoring $true
+        Get-MpComputerStatus
 
     # Checkout
     - name: Checkout
@@ -162,12 +160,8 @@ jobs:
     - name: Free Disk Space
       shell: cmd
       run: |
-        fsutil volume diskfree d:
         rmdir ${{ github.workspace }}\.git /s /q
-
-    # Show Free Disk Space
-    - name: Show Free Disk Space
-      run: Get-Volume D
+        fsutil volume diskfree d:
 
     # Download X64 Build
     - name: Download X64 Build
@@ -192,9 +186,9 @@ jobs:
 
     # Manual Defender Scan
     - name: Manual Defender Scan
-      shell: cmd
       run: |
-        "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File ${{ github.workspace }}
+        Start-MpScan -ScanType CustomScan -ScanPath ${{ github.workspace }}
+        Set-MpPreference -ExclusionPath ${{ github.workspace }}
 
     # Developer Console (X64)
     - name: MSVC Developer Console (X64)
