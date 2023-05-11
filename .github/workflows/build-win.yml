@@ -141,7 +141,11 @@ jobs:
     env:
       BRANDING: ${{ matrix.branding }}
     steps:
-      
+
+    # Disable Defender
+    - name: Disable Defender
+      run: Set-MpPreference -DisableRealtimeMonitoring $true
+
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
