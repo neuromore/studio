@@ -14,8 +14,8 @@ jobs:
 
     # Test
     - name: Test
-      run: |
-        "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File ./Makefile
+      shell: cmd
+      run: "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File ./Makefile
 
     - name: Test2
       run: Set-MpPreference -DisableRealtimeMonitoring $true
