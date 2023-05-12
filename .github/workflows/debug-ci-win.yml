@@ -15,4 +15,4 @@ jobs:
     # Test
     - name: Test
       shell: cmd
-      run: timeout /T $(1) /NOBREAK >nul 2>&1
+      run: timeout /T 5 /NOBREAK >nul 2>&1
