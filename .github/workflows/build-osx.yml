@@ -259,7 +259,7 @@ jobs:
         APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
         APPLE_DIST_STORE: true
-        APPLE_UPLOAD_STORE: false
+        APPLE_UPLOAD_STORE: startsWith(github.ref, 'refs/tags/1.') || startsWith(github.ref, 'refs/tags/2.')
       run: make dist
 
     # Upload
