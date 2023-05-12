@@ -209,7 +209,8 @@ jobs:
     # Remaining Free Disk Space
     - name: Remaining Free Disk Space
       shell: cmd
-      run: fsutil volume diskfree d:
+      run: |
+        fsutil volume diskfree d:
     
     # Upload ZIP
     - name: Upload ZIP
