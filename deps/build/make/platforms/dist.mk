@@ -17,6 +17,7 @@ endif
 #APPLE_TEAM_ID      = see https://developer.apple.com/account/#!/membership/
 #APPLE_APPSPEC_PASS = app-specific-password-for someone@somwhere.com
 #APPLE_DIST_STORE   = true if building packages for macOS store
+#APPLE_UPLOAD_STORE = true if package should be uploaded to macOS store
 
 # default key if not specified
 ifeq ($(SIGN_PFX_FILE),)
@@ -350,6 +351,14 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  -t macOS \
 	  -u $(APPLE_ID) \
 	  -p $(APPLE_APPSPEC_PASS)
+ifeq ($(APPLE_UPLOAD_STORE),true)
+	@echo [UPL] $(PKGSIGNED)
+	@xcrun altool --upload-app \
+	  -f $(DISTDIR)/$(PKGSIGNED) \
+	  -t macOS \
+	  -u $(APPLE_ID) \
+	  -p $(APPLE_APPSPEC_PASS)
+endif
 else
 	@echo [VAL] $(PKGSIGNED)
 	@xcrun notarytool submit $(DISTDIR)/$(PKGSIGNED) \

@@ -258,6 +258,7 @@ jobs:
         APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
         APPLE_DIST_STORE: true
+        APPLE_UPLOAD_STORE: false
       run: make dist
 
     # Upload
