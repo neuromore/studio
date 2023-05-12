@@ -42,12 +42,12 @@ endef
 
 # Sign File with pfx without password
 define sign
-	cmd.exe /C "SignTool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.digicert.com /f $(subst /,\,$(2)) $(subst /,\,$(1)) >nul 2>&1"
+	cmd.exe /C "if exist $(subst /,\,$(1)) SignTool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.digicert.com /f $(subst /,\,$(2)) $(subst /,\,$(1)) >nul 2>&1"
 endef
 
 # Sign File with pfx with password
 define signp
-	cmd.exe /C "SignTool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.digicert.com /f $(subst /,\,$(2)) /p $(3) $(subst /,\,$(1))"
+	cmd.exe /C "if exist $(subst /,\,$(1)) SignTool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.digicert.com /f $(subst /,\,$(2)) /p $(3) $(subst /,\,$(1))"
 endef
 
 # Create .pri resources
@@ -63,4 +63,9 @@ endef
 # Move Folder or File
 define move
 	cmd.exe /C "powershell Move-Item -Force -Path $(1) -Destination $(2)"
+endef
+
+# Sleep n seconds
+define sleep
+	cmd.exe /C "powershell Start-Sleep -Seconds $(1)"
 endef

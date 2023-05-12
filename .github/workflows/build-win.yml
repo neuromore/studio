@@ -24,7 +24,7 @@ jobs:
         arch: [x64,x86,arm64]
         branding: [neuromore,supermind,natus]
     steps:
-    
+
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
@@ -104,8 +104,8 @@ jobs:
     - name: PDB Info
       run: llvm-pdbutil dump --summary ./build/make/bin/win-${{ env.TARGET_ARCH }}/Studio.pdb
 
-    # Upload
-    - name: Upload
+    # Upload Studio
+    - name: Upload Studio
       uses: actions/upload-artifact@v3
       with:
         name: Binaries (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
@@ -141,7 +141,7 @@ jobs:
     env:
       BRANDING: ${{ matrix.branding }}
     steps:
-      
+
     # Checkout
     - name: Checkout
       uses: actions/checkout@v3
@@ -171,6 +171,17 @@ jobs:
         name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/bin/win-arm64/
 
+    # Free Disk Space
+    - name: Free Disk Space
+      shell: cmd
+      run: |
+        rmdir ${{ github.workspace }}\.git /s /q
+        rmdir ${{ github.workspace }}\visualizations\ForestScene\linux-x64 /s /q
+        rmdir ${{ github.workspace }}\visualizations\ForestScene\osx-all /s /q
+        rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\linux-x64 /s /q
+        rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\osx-all /s /q              
+        fsutil volume diskfree d:
+
     # Developer Console (X64)
     - name: MSVC Developer Console (X64)
       uses: ilammy/msvc-dev-cmd@v1
@@ -194,6 +205,12 @@ jobs:
         PUBLISHERCN: Neuromore Co
         PUBLISHER: CN=Neuromore Co, O=Neuromore Co, S=Florida, C=US
       run: make dist
+
+    # Remaining Free Disk Space
+    - name: Remaining Free Disk Space
+      shell: cmd
+      run: |
+        fsutil volume diskfree d:
     
     # Upload ZIP
     - name: Upload ZIP

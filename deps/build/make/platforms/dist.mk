@@ -17,6 +17,7 @@ endif
 #APPLE_TEAM_ID      = see https://developer.apple.com/account/#!/membership/
 #APPLE_APPSPEC_PASS = app-specific-password-for someone@somwhere.com
 #APPLE_DIST_STORE   = true if building packages for macOS store
+#APPLE_UPLOAD_STORE = true if package should be uploaded to macOS store
 
 # default key if not specified
 ifeq ($(SIGN_PFX_FILE),)
@@ -96,28 +97,31 @@ dist-vis-%: dist-prep
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x64/*,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
+	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+	$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+	$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x86/*,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
+	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+	$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+	$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-arm64/*,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
+	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 dist-dll-x64: dist-prep
 	echo [DLL] Copy X64 DLL
@@ -141,8 +145,9 @@ dist-bin-%: dist-prep dist-dll-%
 	$(call mkdir,$(DISTDIR)/$(NAME)/$*)
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTBIN),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN))
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTPDB),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB))
-#	echo [STR] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
-#	$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
+	$(call sleep,3)
+	echo [STR] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
+	$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
 	echo [SIG] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
 ifeq ($(SIGN_PFX_PASS),)
 	$(call sign,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE))
@@ -346,6 +351,14 @@ ifeq ($(APPLE_DIST_STORE),true)
 	  -t macOS \
 	  -u $(APPLE_ID) \
 	  -p $(APPLE_APPSPEC_PASS)
+ifeq ($(APPLE_UPLOAD_STORE),true)
+	@echo [UPL] $(PKGSIGNED)
+	@xcrun altool --upload-app \
+	  -f $(DISTDIR)/$(PKGSIGNED) \
+	  -t macOS \
+	  -u $(APPLE_ID) \
+	  -p $(APPLE_APPSPEC_PASS)
+endif
 else
 	@echo [VAL] $(PKGSIGNED)
 	@xcrun notarytool submit $(DISTDIR)/$(PKGSIGNED) \
