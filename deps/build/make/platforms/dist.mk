@@ -96,31 +96,31 @@ dist-vis-%: dist-prep
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x64/*,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
-	timeout /t 10
+	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+	$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+	$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x86/*,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
-	timeout /t 10
+	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+	$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+	$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-arm64/*,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
-	timeout /t 10
+	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE)) & exit 0
+#	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS)) & exit 0
+#	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 dist-dll-x64: dist-prep
 	echo [DLL] Copy X64 DLL
@@ -144,7 +144,7 @@ dist-bin-%: dist-prep dist-dll-%
 	$(call mkdir,$(DISTDIR)/$(NAME)/$*)
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTBIN),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN))
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTPDB),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB))
-	timeout /t 10
+	$(call sleep,3)
 	echo [STR] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
 	$(STRIP) $(STRIPFLAGS) $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)
 	echo [SIG] $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN)

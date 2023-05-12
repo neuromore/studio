@@ -104,8 +104,8 @@ jobs:
     - name: PDB Info
       run: llvm-pdbutil dump --summary ./build/make/bin/win-${{ env.TARGET_ARCH }}/Studio.pdb
 
-    # Upload
-    - name: Upload
+    # Upload Studio
+    - name: Upload Studio
       uses: actions/upload-artifact@v3
       with:
         name: Binaries (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})

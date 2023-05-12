@@ -64,3 +64,8 @@ endef
 define move
 	cmd.exe /C "powershell Move-Item -Force -Path $(1) -Destination $(2)"
 endef
+
+# Sleep n seconds
+define sleep
+	cmd.exe /C "timeout /T $(1) /NOBREAK >nul 2>&1"
+endef
