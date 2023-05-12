@@ -182,14 +182,6 @@ jobs:
         rmdir ${{ github.workspace }}\visualizations\InfiniteTunnel\osx-all /s /q              
         fsutil volume diskfree d:
 
-    # Windows Defender
-    - name: Windows Defender 
-      run: |
-        Start-MpScan -ScanType CustomScan -ScanPath ${{ github.workspace }}
-        Set-MpPreference -ExclusionPath ${{ github.workspace }}
-        Set-MpPreference -DisableRealtimeMonitoring $true
-        Get-MpComputerStatus
-
     # Developer Console (X64)
     - name: MSVC Developer Console (X64)
       uses: ilammy/msvc-dev-cmd@v1
@@ -205,10 +197,6 @@ jobs:
         echo $env:PFX_BASE64 > ./certs/TrueCert.pfx.base64
         certutil -decode ./certs/TrueCert.pfx.base64 ./certs/TrueCert.pfx
 
-    # Sleep
-    - name: Sleep
-      run: Start-Sleep -Seconds 120
-
     # Pack
     - name: Make (dist)
       env:
@@ -217,6 +205,11 @@ jobs:
         PUBLISHERCN: Neuromore Co
         PUBLISHER: CN=Neuromore Co, O=Neuromore Co, S=Florida, C=US
       run: make dist
+
+    # Remaining Free Disk Space
+    - name: Remaining Free Disk Space
+      shell: cmd
+      run: fsutil volume diskfree d:
     
     # Upload ZIP
     - name: Upload ZIP
