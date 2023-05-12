@@ -405,7 +405,7 @@ dist-%: dist-prep
 		(arm64) echo arm64;; \
 		(arm)   echo armhf;; \
 	  esac))
-	$(eval DEBFILE=$(NAME)-$(VERSION3)-1-ubuntu-$(LSBREL)-$(DISTDEBARCH).deb)
+	$(eval DEBFILE=$(NAME)-$(VERSION3)-ubuntu-$(LSBREL)-$(DISTDEBARCH).deb)
 	echo [PRE] $(DEBFILE)
 	mkdir -p $(DISTDIR)/$(NAME)-$*/DEBIAN
 	mkdir -p $(DISTDIR)/$(NAME)-$*/usr/bin
