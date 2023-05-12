@@ -50,7 +50,7 @@ Timer::~Timer()
 // reset the timer
 void Timer::Reset()
 {
-	mStartTime = mach_absolute_time();						// get the systemtime
+	mStartTime = clock_gettime_nsec_np(CLOCK_UPTIME_RAW);	// get the systemtime
 	mLastTime = mStartTime;
 }
 
@@ -58,7 +58,7 @@ void Timer::Reset()
 // get the time elapsed since the timer was reset
 Time Timer::GetTime()
 { 
-	uint64_t	currTime	= mach_absolute_time();			// get the systemtime
+	uint64_t	currTime	= clock_gettime_nsec_np(CLOCK_UPTIME_RAW);	// get the systemtime
 	uint64_t	timeDelta	= (currTime - mStartTime);		// calculate the time difference
 
 	Time time;
@@ -71,7 +71,7 @@ Time Timer::GetTime()
 // get the time elapsed since the last call of this function
 Time Timer::GetTimeDelta()
 {
-	uint64_t	currTime	= mach_absolute_time();			// get the systemtime
+	uint64_t	currTime	= clock_gettime_nsec_np(CLOCK_UPTIME_RAW);	// get the systemtime
 	uint64_t	timeDelta	= currTime - mLastTime;			// calculate the time difference
 
 	mLastTime = currTime;									// remember last time	

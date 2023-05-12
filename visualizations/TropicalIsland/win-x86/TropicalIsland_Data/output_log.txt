@@ -1,0 +1,31 @@
+Initialize engine version: 5.6.7f1 (e80cc3114ac1)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1080 Ti (ID=0x1b06)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   31.0.15.1694
+Begin MonoManager ReloadAssembly
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\OSCsharp.dll (this message is harmless)
+Loading F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\OSCsharp.dll into Unity Child Domain
+- Completed reload, in  0.030 seconds
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: F:\nm\studio\visualizations\TropicalIsland\win-x86\TropicalIsland_Data\Managed\System.dll (this message is harmless)
+desktop: 2560x1440 144Hz; virtual: 7680x1440 at -2560,0
+<RI> Initializing input.
+<RI> Input initialized.

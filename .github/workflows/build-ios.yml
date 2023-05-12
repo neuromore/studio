@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - 'master'
-      - 'release'
+    tags:
+      - '*'
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -66,11 +67,11 @@ jobs:
     - name: Build QtBase
       run: make QtBase -j${{ env.JOBS }}
 
-    # Upload EngineLIB
-    - name: Upload EngineLIB
+    # Upload Engine
+    - name: Upload Engine
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB-${{ matrix.arch }}-${{ matrix.branding }} (${{ matrix.os }})
+        name: Engine-${{ matrix.arch }}-${{ matrix.branding }} (${{ matrix.os }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/ios-${{ matrix.arch }}/EngineLIB.dylib

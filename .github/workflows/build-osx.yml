@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - 'master'
-      - 'release'
+    tags:
+      - '*'
 jobs:
 ###########################################################################
 
@@ -99,21 +100,14 @@ jobs:
         name: lto.o (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: ./build/make/obj/osx-${{ matrix.arch }}-release/**/lto.o
 
-    # Upload EngineLIB
-    - name: Upload EngineLIB
+    # Upload Engine
+    - name: Upload Engine
       uses: actions/upload-artifact@v3
       with:
-        name: EngineLIB (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
+        name: Engine (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
           ./src/Engine/neuromoreEngine.h
           ./build/make/lib/osx-${{ matrix.arch }}/EngineLIB.dylib
-
-    # Upload EngineJNI
-    - name: Upload EngineJNI
-      uses: actions/upload-artifact@v3
-      with:
-        name: EngineJNI (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
-        path: |
           ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.dylib
           ./build/make/lib/osx-${{ matrix.arch }}/EngineJNI.jar
 
@@ -195,6 +189,14 @@ jobs:
         name: Packages (${{ matrix.os }}-${{ matrix.branding }})
         path: ./dist/osx-10.15/*.pkg
 
+    # Upload to Github Release
+    - name: Upload to Github Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/') && (matrix.branding == 'neuromore')
+      with:
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        files: ./dist/osx-10.15/*-universal.pkg
+
 ###########################################################################
  
   dist-store:
@@ -265,6 +267,7 @@ jobs:
         APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         APPLE_APPSPEC_PASS: ${{ secrets.APPLE_APPSPEC_PASS }}
         APPLE_DIST_STORE: true
+        APPLE_UPLOAD_STORE: startsWith(github.ref, 'refs/tags/1.') || startsWith(github.ref, 'refs/tags/2.')
       run: make dist
 
     # Upload
