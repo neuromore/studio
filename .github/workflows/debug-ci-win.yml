@@ -15,4 +15,5 @@ jobs:
     # Test
     - name: Test
       shell: cmd
-      run: timeout /T 5 /NOBREAK
+      run: |
+        cmd.exe /C "powershell Start-Sleep -Seconds 10"
