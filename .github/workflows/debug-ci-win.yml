@@ -12,25 +12,7 @@ jobs:
         os: [windows-2022]
     steps:
 
-    # Checkout
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-        lfs: true
-
-    # Manual Defender Scan
-    - name: Manual Defender Scan
-      run: |
-        Start-MpScan -ScanType CustomScan -ScanPath ${{ github.workspace }}
-        Set-MpPreference -ExclusionPath ${{ github.workspace }}
-        Set-MpPreference -DisableRealtimeMonitoring $true
-        Get-MpComputerStatus
-
-    # GIT FS Monitor
-    - name: GIT FS Monitor
-      run: |
-        git fsmonitor--daemon status
-        git fsmonitor--daemon stop
-        git fsmonitor--daemon status
+    # Test
+    - name: Test
+      shell: cmd
+      run: timeout /T $(1) /NOBREAK >nul 2>&1
