@@ -34,7 +34,7 @@ private:
    inline Branding() { }
 public:
    static constexpr const char* CompanyName                 = "neuromore";      // do not put Inc. behind this as this is also used as folder name
-   static constexpr const char* DeveloperName               = "neuromore Inc.";
+   static constexpr const char* DeveloperName               = "neuromore co";
    static constexpr const char* Website                     = "https://www.neuromore.com";
    static constexpr const char* DocumentationUrl            = "https://doc.neuromore.com";
    static constexpr const char* AccountUrl                  = "https://account.neuromore.com";
