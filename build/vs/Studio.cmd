@@ -51,6 +51,7 @@ set VAR=--no-notes -DWIN32 -D_WINDOWS -DNEUROMORE_PLATFORM_WINDOWS -DHAVE_CONFIG
 %MOC% %INC% %VAR% %DIR%/Plugins/Experience/ExperienceWidget.h -b %PCH% -o %DIR%/Plugins/Experience/ExperienceWidget.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/ExperienceSelection/ExperienceSelectionPlugin.h -b %PCH% -o %DIR%/Plugins/ExperienceSelection/ExperienceSelectionPlugin.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/ExperienceSelection/ExperienceSelectionWidget.h -b %PCH% -o %DIR%/Plugins/ExperienceSelection/ExperienceSelectionWidget.moc.cpp
+%MOC% %INC% %VAR% %DIR%/Plugins/ExperienceSelection/CreateExperienceWindow.h -b %PCH% -o %DIR%/Plugins/ExperienceSelection/CreateExperienceWindow.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/Feedback/FeedbackPlugin.h -b %PCH% -o %DIR%/Plugins/Feedback/FeedbackPlugin.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/Feedback/FeedbackHistoryWidget.h -b %PCH% -o %DIR%/Plugins/Feedback/FeedbackHistoryWidget.moc.cpp
 %MOC% %INC% %VAR% %DIR%/Plugins/Graph/ClassifierPlugin.h -b %PCH% -o %DIR%/Plugins/Graph/ClassifierPlugin.moc.cpp

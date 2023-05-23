@@ -74,6 +74,8 @@ class ExperienceSelectionItemWidget : public QWidget
 
 	private slots:
 		void OnGoButtonClicked();
+		void onCopyButtonClicked();
+		void onEditButtonClicked();
 
 	private:
 		void paintEvent(QPaintEvent* event) override;
@@ -88,6 +90,8 @@ class ExperienceSelectionItemWidget : public QWidget
 		FileSystemItem				mItem;
 		FileSystemItem				mParentItem;
 		ImageButton*				mLoadButton;
+		ImageButton*				mCopyButton;
+		ImageButton*				mEditButton;
 		QLabel*						mNameLabel;
 		QLabel*						mSummaryLabel;
 		bool						mIsHovered;
@@ -125,6 +129,10 @@ class ExperienceSelectionWidget : public QScrollArea
 		uint32 GetNumItemsPerRow() const;
 		uint32 GetTileSize() const;
 
+		static bool									mIsGoToExperience;
+		static bool									mIsCopingExperience;
+
+
 	public slots:
 		void AsyncLoadFromBackend(const char* itemId);
 
@@ -135,6 +143,12 @@ class ExperienceSelectionWidget : public QScrollArea
 		void OnBackButtonClicked();
 
 		void OnAssetDownloadFinished();
+
+		void onSkipButtonClicked();
+
+		void onCreateFolderClicked();
+
+		void onCreateExperienceClicked();
 
 		//void OnItemSelected(ExperienceSelectionItemWidget* widget);
 
@@ -150,6 +164,11 @@ class ExperienceSelectionWidget : public QScrollArea
 		bool HasParent() const;
 
 		void resizeEvent(QResizeEvent* event);
+		void createClassifier(const Core::String& fileName, const Core::String& folderId, const Core::String& jsonContent = "{}");
+		void createStateMachine(const Core::String& fileName, const Core::String& folderId, const Core::String& jsonContent = "{}");
+		void createExperienceFile(const Core::String& fileName, const Core::String& folderId);
+		void copyExperienceFile(const Core::String& experienceName, const Core::String& classifierUUID, const Core::String& stateMachineUUID);
+
 		QTimer*									mResizeEventTimer;
 
 		ExperienceSelectionBackgroundWidget*	mMainWidget;
@@ -158,6 +177,12 @@ class ExperienceSelectionWidget : public QScrollArea
 		Core::Array<Core::String>				mCacheDownloadQueue;
 
 		ExperienceSelectionPlugin*				mPlugin;
+
+		QPushButton*							mSkipBtn;
+
+		QPushButton*							mCreateFolderBtn;
+
+		QPushButton*							mCreateXPBtn;
 
 		QPixmap									mBackgroundImage;
 
@@ -169,12 +194,16 @@ class ExperienceSelectionWidget : public QScrollArea
 		// file system item
 		Core::Array<FileSystemItem>				mParents;
 		Core::Array<FileSystemItem>				mItems;
+		Core::String							mClassifierUUID;
+		Core::String							mStateMachineUUID;
+		// Core::String							mPersonalFolderID; // use this ID for copying XPs
 		FileSystemItem							mCurrentItem;
 
 		uint32									mTotalPages;
 		uint32									mPageIndex;
 
 		bool									mIsLoading;
+		bool									mIsCreatingExperience;
 };
 
 
