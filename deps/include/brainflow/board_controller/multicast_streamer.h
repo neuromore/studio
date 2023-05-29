@@ -1,7 +1,9 @@
 #pragma once
 
-#include "multicast_server.h"
+#include <thread>
 
+#include "data_buffer.h"
+#include "multicast_server.h"
 #include "streamer.h"
 
 
@@ -19,4 +21,9 @@ private:
     char ip[128];
     int port;
     MultiCastServer *server;
+    DataBuffer *db;
+    volatile bool is_streaming;
+    std::thread streaming_thread;
+
+    void thread_worker ();
 };
