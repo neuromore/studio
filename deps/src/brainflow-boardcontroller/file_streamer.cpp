@@ -1,11 +1,12 @@
 #include <string.h>
+#include <typeinfo>
 
 #include "brainflow_constants.h"
 #include "file_streamer.h"
 
 
 FileStreamer::FileStreamer (const char *file, const char *file_mode, int data_len)
-    : Streamer (data_len)
+    : Streamer (data_len, "file", file, file_mode)
 {
     strcpy (this->file, file);
     strcpy (this->file_mode, file_mode);
@@ -38,9 +39,9 @@ int FileStreamer::init_streamer ()
 
 void FileStreamer::stream_data (double *data)
 {
-    for (int i = 0; i < len; i++)
+    for (int i = 0; i < len - 1; i++)
     {
-        fprintf (fp, "%lf,", data[i]);
+        fprintf (fp, "%lf\t", data[i]);
     }
-    fputs ("\n", fp);
+    fprintf (fp, "%lf\n", data[len - 1]);
 }

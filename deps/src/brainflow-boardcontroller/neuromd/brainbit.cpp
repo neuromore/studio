@@ -51,6 +51,7 @@ BrainBit::BrainBit (struct BrainFlowInputParams params)
     signal_t3 = NULL;
     signal_o1 = NULL;
     signal_o2 = NULL;
+    counter = 0;
 }
 
 BrainBit::~BrainBit ()
@@ -213,6 +214,7 @@ int BrainBit::prepare_session ()
     free_ChannelInfoArray (device_channels);
 
     initialized = true;
+    counter = 0;
 
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
@@ -274,7 +276,7 @@ int BrainBit::config_board (std::string config, std::string &response)
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int BrainBit::start_stream (int buffer_size, char *streamer_params)
+int BrainBit::start_stream (int buffer_size, const char *streamer_params)
 {
     if (is_streaming)
     {
@@ -335,7 +337,6 @@ int BrainBit::release_session ()
     return NeuromdBoard::release_session ();
 }
 
-
 void BrainBit::read_thread ()
 {
     /*
@@ -345,15 +346,13 @@ void BrainBit::read_thread ()
      * package[5-8] - resistance t3, t4, o1, o2. Place it to other_channels
      * package[9] - battery
      */
-    int num_rows = board_descr["num_rows"];
+    int num_rows = board_descr["default"]["num_rows"];
     double *package = new double[num_rows];
     for (int i = 0; i < num_rows; i++)
     {
         package[i] = 0.0;
     }
-    // I dont see method to flush data from buffer, so need to keep offset and track package num to
-    // get only new data
-    size_t counter = 0;
+
     while (keep_alive)
     {
         size_t length_t3 = 0;
@@ -412,17 +411,17 @@ void BrainBit::read_thread ()
         }
         counter++;
 
-        package[board_descr["package_num_channel"].get<int> ()] = (double)counter;
-        package[board_descr["eeg_channels"][0].get<int> ()] = t3_data * 1e6;
-        package[board_descr["eeg_channels"][1].get<int> ()] = t4_data * 1e6;
-        package[board_descr["eeg_channels"][2].get<int> ()] = o1_data * 1e6;
-        package[board_descr["eeg_channels"][3].get<int> ()] = o2_data * 1e6;
-        package[board_descr["resistance_channels"][0].get<int> ()] = last_resistance_t3;
-        package[board_descr["resistance_channels"][1].get<int> ()] = last_resistance_t4;
-        package[board_descr["resistance_channels"][2].get<int> ()] = last_resistance_o1;
-        package[board_descr["resistance_channels"][3].get<int> ()] = last_resistance_o2;
-        package[board_descr["battery_channel"].get<int> ()] = last_battery;
-        package[board_descr["timestamp_channel"].get<int> ()] = timestamp;
+        package[board_descr["default"]["package_num_channel"].get<int> ()] = (double)counter;
+        package[board_descr["default"]["eeg_channels"][0].get<int> ()] = t3_data * 1e6;
+        package[board_descr["default"]["eeg_channels"][1].get<int> ()] = t4_data * 1e6;
+        package[board_descr["default"]["eeg_channels"][2].get<int> ()] = o1_data * 1e6;
+        package[board_descr["default"]["eeg_channels"][3].get<int> ()] = o2_data * 1e6;
+        package[board_descr["default"]["resistance_channels"][0].get<int> ()] = last_resistance_t3;
+        package[board_descr["default"]["resistance_channels"][1].get<int> ()] = last_resistance_t4;
+        package[board_descr["default"]["resistance_channels"][2].get<int> ()] = last_resistance_o1;
+        package[board_descr["default"]["resistance_channels"][3].get<int> ()] = last_resistance_o2;
+        package[board_descr["default"]["battery_channel"].get<int> ()] = last_battery;
+        package[board_descr["default"]["timestamp_channel"].get<int> ()] = timestamp;
         push_package (package);
     }
 }
@@ -543,7 +542,7 @@ int BrainBit::stop_stream ()
     return (int)BrainFlowExitCodes::UNSUPPORTED_BOARD_ERROR;
 }
 
-int BrainBit::start_stream (int buffer_size, char *streamer_params)
+int BrainBit::start_stream (int buffer_size, const char *streamer_params)
 {
     safe_logger (spdlog::level::err, "BrainBit doesnt support Linux.");
     return (int)BrainFlowExitCodes::UNSUPPORTED_BOARD_ERROR;
