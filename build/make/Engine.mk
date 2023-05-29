@@ -13,6 +13,7 @@ INCLUDES  := $(INCLUDES) \
              -I$(INCDIR) \
              -I$(INCDIR)/brainflow/utils \
              -I$(INCDIR)/brainflow/board_controller \
+             -I$(INCDIR)/brainflow/third_party/json \
              -I../../src \
              -I../../priv/src \
              -I$(SRCDIR) \

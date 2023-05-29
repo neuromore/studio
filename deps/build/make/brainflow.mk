@@ -24,19 +24,20 @@ OBJS       = cpp-package/board_shim.o \
              cpp-package/data_filter.o \
              cpp-package/ml_model.o \
              utils/broadcast_client.o \
+             utils/broadcast_server.o \
              utils/data_buffer.o \
              utils/libftdi_serial.o \
              utils/multicast_client.o \
              utils/multicast_server.o \
-             utils/os_serial.o \
              utils/os_serial_ioctl.o \
+             utils/os_serial.o \
              utils/serial.o \
              utils/socket_client_tcp.o \
              utils/socket_client_udp.o \
              utils/socket_server_tcp.o \
              utils/socket_server_udp.o \
              utils/timestamp.o
-
+             
 ifeq ($(TARGET_ARCH),x86)
 DEFINES   := $(DEFINES)
 endif
