@@ -97,6 +97,31 @@ void CustomFeedbackNode::ReInit(const Time& elapsed, const Time& delta)
 
 	FeedbackNode::ReInit(elapsed, delta);
 
+
+   const auto numinputs = GetNumInputPorts();
+   const auto numoutputs = GetNumOutputChannels();
+
+   if (numinputs != 0 && numoutputs != 0)
+   {
+      MultiChannel* mchin  = GetInputPort(0).GetChannels();
+      Channel<double>* mchout = GetOutputChannel(0);
+
+      if (mchin && mchout)
+      {
+         const auto numchin = mchin->GetNumChannels();
+
+         if (numchin != 0)
+         {
+            mchout->SetName(mchin->GetChannel(0)->GetName());
+         }
+      }
+
+      //if (->GetChannel(0))
+   }
+   //const char* s1 = this->GetInputPort(0).GetName();
+   //const char* s2 = this->GetInputPort(0).GetChannels()->GetChannel(0)->GetName();
+   //int kjdf = 1;
+
 	PostReInit(elapsed, delta);
 }
 
@@ -195,7 +220,7 @@ void CustomFeedbackNode::Update(const Time& elapsed, const Time& delta)
 void CustomFeedbackNode::SetName(const char* name)
 {
 	FeedbackNode::SetName(name);
-	mChannels[0]->SetName(name);
+	//mChannels[0]->SetName(name);
 }
 
 
