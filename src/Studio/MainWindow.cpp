@@ -1247,14 +1247,6 @@ void MainWindow::OnActiveExperienceChanged(Experience* experience)
 		else
 			OnDisableSettingsMode();
 	}
-
-
-   // create experience wizard with this user
-   mExperienceWizardWindow = new ExperienceWizardWindow(*GetEngine()->GetUser(), this);
-   connect(mExperienceWizardWindow, &ExperienceWizardWindow::OnExperienceCreated, this, &MainWindow::OnCreatedProtocolForUser);
-
-   mExperienceWizardWindow->show();
-
 }
 
 

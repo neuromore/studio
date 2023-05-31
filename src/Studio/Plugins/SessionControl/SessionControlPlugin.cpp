@@ -263,6 +263,43 @@ void SessionControlPlugin::OnSessionUserChanged(const User& user)
 	userButton->setText(name.AsChar());
 }
 
+void SessionControlPlugin::OnActiveBciChanged(BciDevice* device)
+{
+
+}
+
+void SessionControlPlugin::OnActiveClassifierChanged(Classifier* classifier)
+{
+   UpdateStartButton();
+}
+
+void SessionControlPlugin::OnNodeStarted(Graph* graph, SPNode* node)
+{
+   if (mPreSessionWidget)
+      if (node->GetType() == ChannelSelectorNode::TYPE_ID)
+         if (node->GetBoolAttribute(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+            mPreSessionWidget->UpdateChannels((ChannelSelectorNode*)node);
+}
+
+void SessionControlPlugin::OnRemoveNode(Graph* graph, Node* node)
+{
+   if (mPreSessionWidget)
+      if (node->GetType() == ChannelSelectorNode::TYPE_ID)
+         if (node->GetBoolAttribute(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+            mPreSessionWidget->UpdateChannels(0);
+}
+
+void SessionControlPlugin::OnAttributeUpdated(Graph* graph, GraphObject* object, Core::Attribute* attribute)
+{
+   if (mPreSessionWidget)
+      if (object->GetType() == ChannelSelectorNode::TYPE_ID)
+         if (attribute = object->GetAttributeValue(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+            if (object->GetBoolAttribute(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+               mPreSessionWidget->UpdateChannels((ChannelSelectorNode*)object);
+            else
+               mPreSessionWidget->UpdateChannels(0);
+}
+
 void SessionControlPlugin::OnRemoveDevice(Device* device)
 { 
 	if (GetSession()->IsRunning() == true) 
@@ -456,6 +493,9 @@ void SessionControlPlugin::OnStart()
 	StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine();
 	Experience* activeExperience = GetEngine()->GetActiveExperience();
 
+	if (!activeClassifier)
+		return;
+
 	// gather all errors an compose them into a string
 /*	if (activeClassifier != NULL && activeClassifier->HasError() == true)
 	{
@@ -486,11 +526,33 @@ void SessionControlPlugin::OnStart()
 	// switch to first stage
 	EMIT_EVENT( OnSwitchStage(0) );
 
+	// get selected channels for session before disabling ui
+	const Core::String selectedChannels = mPreSessionWidget->GetSelectedChannels();
+
 	// TODO do checks on statemachine / experience?
 	mPreSessionWidget->setEnabled(false);
 
 	// make sure no session is running
 	CORE_ASSERT( GetSession()->IsRunning() == false );
+
+	// apply channel selection on main channel selector if found
+	if (ChannelSelectorNode* chselector = activeClassifier->FindMainChannelSelector())
+	{
+		// clone classifier settings from experience or create new
+		GraphSettings set = activeExperience ? activeExperience->GetClassifierSettings() : GraphSettings();
+
+		// set the channels on the main selector node
+		AttributeSettings* attrib = chselector->GetAttribute(ChannelSelectorNode::ATTRIB_CHANNELNAMES);
+		set.Add(chselector, attrib->GetInternalName(), selectedChannels);
+
+		// remember current settings mode
+		const bool settingsMode = activeClassifier->GetUseSettings();
+
+		// apply modified settings and restore state
+		activeClassifier->ApplySettings(set);
+		activeClassifier->SetIsDirty(false);
+		activeClassifier->SetUseSettings(settingsMode);
+	}
 
 	GetEngine()->Reset();     // reset engine (also resets session)
 	GetEngine()->SoftPause(); // but keep it paused

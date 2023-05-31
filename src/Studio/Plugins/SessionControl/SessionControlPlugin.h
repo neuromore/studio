@@ -76,10 +76,14 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		// EVENTS
 		void OnPreparedSession() override final;
 		void OnSessionUserChanged(const User& user) override final;
+		void OnActiveBciChanged(BciDevice* device) override final;
 		void OnActiveExperienceChanged(Experience* experience) override final				{ UpdateStartButton(); }
-		void OnActiveClassifierChanged(Classifier* experience) override final				{ UpdateStartButton(); }
+		void OnActiveClassifierChanged(Classifier* classifier) override final;
 		void OnActiveStateMachineChanged(StateMachine* experience) override final			{ UpdateStartButton(); }
+		void OnNodeStarted(Graph* graph, SPNode* node) override final;
+		void OnRemoveNode(Graph* graph, Node* node) override final;
 		void OnRemoveDevice(Device* device) override final;
+		void OnAttributeUpdated(Graph* graph, GraphObject* object, Core::Attribute* attribute) override final;
 
 	public slots:
 		void ShowReport();

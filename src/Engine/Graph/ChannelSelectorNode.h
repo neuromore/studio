@@ -44,8 +44,9 @@ class ENGINE_API ChannelSelectorNode : public SPNode
 		enum
 		{
 			ATTRIB_NUMOUTPUTPORTS = 0,
-			ATTRIB_CHANNELNAMES,
-			ATTRIB_SINGLE_OUTPUT,
+			ATTRIB_CHANNELNAMES   = 1,
+			ATTRIB_SINGLE_OUTPUT  = 2,
+			ATTRIB_QUICK_CONFIG   = 3
 		};
 
 		enum EError

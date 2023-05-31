@@ -45,6 +45,8 @@ class PreSessionWidget : public QWidget
 {
 	Q_OBJECT
 	public:
+		static constexpr const uint32_t NUMELECTRODESELECT = 4;
+
 		PreSessionWidget(SessionControlPlugin* plugin, QWidget* parent, int buttonSize);
 		virtual ~PreSessionWidget() {}
 
@@ -56,18 +58,26 @@ class PreSessionWidget : public QWidget
 		QPushButton* GetSelectUserButton()								{ return mSelectUserButton; }
 
 		void ShowSelectUserButton(bool show = true);
+		void UpdateChannels(ChannelSelectorNode* chs = 0);
+		Core::String GetSelectedChannels();
 
 	private slots:
 		void OnTotalTimeChanged(double value);
 		void OnSelectVisualizationClicked();
 		void OnSelectUserClicked()										{ GetMainWindow()->SelectSessionUser(); }
+		void OnChannelSelected(int index);
 
 	private:
 		SessionControlPlugin*	mPlugin;
 		ImageButton*			mStartButton;
 		uint32					mStartButtonSize;
 
+		QGridLayout*			gLayout;
+
 		QPushButton*			mBackToSelectionButton;
+
+		QLabel*				mElectrodeSelectionLabel;
+		QComboBox*			mElectrodeSelections[NUMELECTRODESELECT];
 
 		QLabel*					mVisSelectionLabel;
 		QPushButton*			mVisSelectionButton;

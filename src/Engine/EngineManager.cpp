@@ -426,12 +426,12 @@ bool EngineManager::LoadStateMachine(StateMachine* stateMachine)
 bool EngineManager::LoadExperience(Experience* experience)
 {
 	// enforce that we only load into a clean engine
-	/*if (mActiveExperience != NULL)
+	if (mActiveExperience != NULL)
 	{
 		LogError("Cannot load a second experience. Clear() and Reset() the engine first.");
 		CORE_ASSERT(false);
 		return false;
-	}*/
+	}
 
 	mActiveExperience = experience;
 

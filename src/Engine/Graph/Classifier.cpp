@@ -1092,3 +1092,18 @@ uint32 Classifier::SaveCloudParameters(CloudParameters& parameter) const
 
 	return numSaved;
 }
+
+
+// 
+ChannelSelectorNode* Classifier::FindMainChannelSelector() const
+{
+   const uint32 numNodes = GetNumNodes();
+   for (uint32 i = 0; i < numNodes; i++) {
+      Node* n = GetNode(i);
+      if (n->GetType() == ChannelSelectorNode::TYPE_ID && n->GetNumInputPorts() > 0) {
+         if (n->GetBoolAttribute(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+            return (ChannelSelectorNode*)n;
+      }
+   }
+   return 0;
+}

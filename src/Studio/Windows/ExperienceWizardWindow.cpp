@@ -382,16 +382,16 @@ void ExperienceWizardWindow::OnCreateClicked()
 
    // Experience Generation
 
-   Experience* exp = GetEngine()->GetActiveExperience();// new Experience(); // experience to create
+   Experience    exp; // experience to create
    GraphSettings set; // classifier settings to use
 
    // set name, classifier and state machine
-   exp->SetName(mExperienceEdit.text().toLocal8Bit().data());
-   exp->SetClassifierUuid(this->GetClassifierId().toLocal8Bit().data());
-   exp->SetStateMachineUuid(this->GetStateMachineId().toLocal8Bit().data());
+   exp.SetName(mExperienceEdit.text().toLocal8Bit().data());
+   exp.SetClassifierUuid(this->GetClassifierId().toLocal8Bit().data());
+   exp.SetStateMachineUuid(this->GetStateMachineId().toLocal8Bit().data());
 
    mClassifier->CreateSettings(set, true); // create settings from (modified) classifier
-   exp->SetClassifierSettings(set);         // and set them on experience
+   exp.SetClassifierSettings(set);         // and set them on experience
 
    // Serialization
 
@@ -400,18 +400,12 @@ void ExperienceWizardWindow::OnCreateClicked()
 
    Core::Json::Item rootItem = json.GetRootItem();
 
-   exp->Save(json, rootItem);
+   exp.Save(json, rootItem);
    json.WriteToString(jsons);
 
    // Store on Backend
-   //GetEngine()->Unload();
-   //GetEngine()->Reset();
-   bool bb = GetEngine()->LoadExperience(exp);
 
-   //emit(OnExperienceCreated(mUser));
-   close();
-
-   /*FilesCreateRequest request(GetUser()->GetToken(), exp.GetName(), mFolderId.AsChar(), "EXPERIENCE", jsons);
+   FilesCreateRequest request(GetUser()->GetToken(), exp.GetName(), mFolderId.AsChar(), "EXPERIENCE", jsons);
    QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request, Request::UIMODE_SILENT);
    connect(reply, &QNetworkReply::finished, this, [reply, this]()
    {
@@ -429,7 +423,7 @@ void ExperienceWizardWindow::OnCreateClicked()
       else
          emit(OnExperienceCreated(mUser));
          close();
-   });*/
+   });
 }
 
 void ExperienceWizardWindow::RequestFileHierarchy()

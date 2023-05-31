@@ -74,7 +74,7 @@ void PreSessionWidget::Init()
 	hLayout->addLayout(vLayout);
 
 	// right side of hLayout: grid layout
-	QGridLayout* gLayout = new QGridLayout();
+	gLayout = new QGridLayout();
 	gLayout->setMargin(0);
 	vLayout->addLayout(gLayout);
 
@@ -95,42 +95,23 @@ void PreSessionWidget::Init()
 	mVisSelectionButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	mVisSelectionButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Eye.png") );
 	connect( mVisSelectionButton, &QPushButton::clicked, this, &PreSessionWidget::OnSelectVisualizationClicked);
-	gLayout->addWidget(mVisSelectionButton, 0, 1);
+	gLayout->addWidget(mVisSelectionButton, 0, 1, 1, NUMELECTRODESELECT);
 
 	//
 	// second row of gridlayout
 	//
-/*
-	// add the total time label
-	mTotalTimeLabel = new QLabel("  Duration:");
-	gLayout->addWidget( mTotalTimeLabel, 1, 0 );
 
-	// row 1, col 1: horizontal layout: spinner+label
-	QHBoxLayout* hLayoutBottom = new QHBoxLayout();
-	hLayoutBottom->setMargin(0);
-	gLayout->addLayout( hLayoutBottom, 1, 1 );
+	// add the level selection label
+	mElectrodeSelectionLabel = new QLabel("  Channels:");
+	gLayout->addWidget( mElectrodeSelectionLabel, 1, 0 );
 
-	// add the total time spinbox
-	mTotalTimeSpinbox = new IntSpinBox();
-	mTotalTimeSpinbox->setRange(0, INT_MAX);
-	const int defaultTotalTime = (int)GetEngine()->GetSession()->GetTotalTime().InSeconds();
-	mTotalTimeSpinbox->setValue(defaultTotalTime);
-	hLayoutBottom->addWidget(mTotalTimeSpinbox);
-	connect( mTotalTimeSpinbox, SIGNAL(valueChanged(double)), this, SLOT(OnTotalTimeChanged(double)) );
-
-	// NOTE disabled it for now
-	mTotalTimeSpinbox->setEnabled(false);
-
-	// add seconds label
-	mTotalTimeSecondsLabel = new QLabel(" seconds");
-	hLayoutBottom->addWidget(mTotalTimeSecondsLabel);
-
-	
-	// add toolbar spacer widget
-	QWidget* spacerWidget = new QWidget();
-	spacerWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	hLayoutBottom->addWidget(spacerWidget);
-	*/
+	for (uint32_t i = 0; i < NUMELECTRODESELECT; i++)
+	{
+		mElectrodeSelections[i] = new QComboBox();
+		mElectrodeSelections[i]->setEditable(false);
+		connect(mElectrodeSelections[i], SIGNAL(currentIndexChanged(int)), this, SLOT(OnChannelSelected(int)));
+		gLayout->addWidget(mElectrodeSelections[i], 1, i+1);
+	}
 
 	//
 	// third row of gridlayout
@@ -138,14 +119,14 @@ void PreSessionWidget::Init()
 
 	// add the user label
 	mSelectUserLabel = new QLabel("  User:");
-	gLayout->addWidget( mSelectUserLabel, 1, 0 );
+	gLayout->addWidget( mSelectUserLabel, 2, 0 );
 
 	// add select user button
 	mSelectUserButton = new QPushButton(GetUser()->CreateDisplayableName().AsChar());
 	mSelectUserButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	mSelectUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Users.png") );
 	connect( mSelectUserButton, &QPushButton::clicked, this, &PreSessionWidget::OnSelectUserClicked);
-	gLayout->addWidget( mSelectUserButton, 1, 1 );
+	gLayout->addWidget( mSelectUserButton, 2, 1 );
 	
 	// show report button
 	mShowReportButton = new QPushButton("Show Report");
@@ -263,6 +244,61 @@ void PreSessionWidget::ShowSelectUserButton(bool show)
 	mSelectUserButton->setVisible(show);
 }
 
+void PreSessionWidget::UpdateChannels(ChannelSelectorNode* chs)
+{
+   // update comboboxes values
+   for (uint32_t i = 0; i < NUMELECTRODESELECT; i++)
+   {
+      QComboBox* box = mElectrodeSelections[i];
+      QString    val = box->currentText();
+
+      // clear first
+      box->clear();
+
+      // fill choices from input channels
+      if (chs && chs->GetNumInputPorts())
+      {
+         if (MultiChannel* mch = chs->GetInputPort(0).GetChannels())
+         {
+            uint32 numchs = mch->GetNumChannels();
+            for (uint32_t j = 0; j < numchs; j++)
+               box->addItem(mch->GetChannel(j)->GetName());
+         }
+      }
+
+      // try restore old val
+      box->setCurrentText(val);
+
+      // enable/disable and try set value from channelselector output
+      if (chs && i < chs->GetNumOutputPorts())
+      {
+         box->setCurrentText(chs->GetOutputPort(i).GetName());
+         box->setEnabled(true);
+      }
+      else
+         box->setEnabled(false);
+   }
+}
+
+Core::String PreSessionWidget::GetSelectedChannels()
+{
+   Core::String s;
+   for (uint32_t i = 0; i < NUMELECTRODESELECT; i++)
+   {
+      if (!mElectrodeSelections[i]->isEnabled())
+         continue;
+
+      if (!s.IsEmpty())
+         s += ',';
+
+      s += mElectrodeSelections[i]->currentText().toLatin1().data();
+   }
+   return s;
+}
+
+void PreSessionWidget::OnChannelSelected(int index)
+{
+}
 
 // called when the total session time got changed
 void PreSessionWidget::OnTotalTimeChanged(double value)
