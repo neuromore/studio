@@ -57,6 +57,13 @@ void OutputNode::Init()
 	// upload checkbox
 	AttributeSettings* attributeUpload = RegisterAttribute("Upload", "upload", "Upload the data stream to neuromore Cloud after a successful session.", ATTRIBUTE_INTERFACETYPE_CHECKBOX);
 	attributeUpload->SetDefaultValue(AttributeBool::Create(false));
+
+	// output name
+	AttributeSettings* outputName = RegisterAttribute("Output Name", "outputName", "Select name of output/upload.", ATTRIBUTE_INTERFACETYPE_COMBOBOX);
+	outputName->ResizeComboValues(2);
+	outputName->SetComboValue(0, "Use Node Name");
+	outputName->SetComboValue(1, "Use Channel Name");
+	outputName->SetDefaultValue(AttributeInt32::Create(0));
 }
 
 
@@ -76,6 +83,9 @@ void OutputNode::Start(const Time& elapsed)
 	// start input readers
 	const Time startTime = mInputReader.FindMinLastSampleTime();
 	mInputReader.Start(startTime);
+
+	// whether to use node or channel name for output
+	const bool usechannelname = this->GetInt32Attribute(ATTRIB_OUTPUTNAME) == 1;
 
 	int readerIndex = 0;
 	const uint32 numChannels = mChannels.Size();
@@ -103,6 +113,7 @@ void OutputNode::Start(const Time& elapsed)
 			// set start times
 			mResamplers[i].SetStartTime(startTime);
 			mChannels[i]->SetStartTime(startTime);
+			mChannels[i]->SetName(usechannelname ? inputChannel->GetName() : this->GetName());
 
 			// finally reinit resampler
 			mResamplers[i].ReInit();

@@ -76,8 +76,6 @@ class ENGINE_API CustomFeedbackNode : public FeedbackNode
 		const char* GetRuleName() const override 								{ return "NODE_Feedback"; }
 		GraphObject* Clone(Graph* graph) override								{ CustomFeedbackNode* clone = new CustomFeedbackNode(graph); return clone; }
 
-		void SetName(const char* name) override;
-
 		// accessors
 		bool IsRanged() const													{ return GetBoolAttribute(ATTRIB_ISRANGED); }
 		double GetRangeMin() const override										{ return GetFloatAttribute(ATTRIB_RANGEMIN); }
