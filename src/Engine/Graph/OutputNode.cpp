@@ -85,7 +85,7 @@ void OutputNode::Start(const Time& elapsed)
 	mInputReader.Start(startTime);
 
 	// whether to use node or channel name for output
-	const bool usechannelname = this->GetInt32AttributeByName("outputName") == 1;
+	const bool usechannelname = this->GetInt32Attribute(ATTRIB_OUTPUTNAME) == 1;
 
 	int readerIndex = 0;
 	const uint32 numChannels = mChannels.Size();
