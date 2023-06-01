@@ -59,14 +59,19 @@ void ChannelSelectorNode::Init()
 	InitInputPorts(1);
 	GetInputPort(INPUTPORT_SET).SetupAsChannels<double>("In", "x1", INPUTPORT_SET);
 
-	const uint32 numPortsDefault = 0;
-	InitOutputPorts(numPortsDefault);
+	// create temporary empty ports
+	InitOutputPorts(NUMPORTSDEFAULT);
+	for (uint32 i = 0; i < NUMPORTSDEFAULT; ++i)
+	{
+		mTempString.Format("y%i", i + 1);
+		GetOutputPort(i).SetupAsChannels<double>("-", mTempString.AsChar(), i);
+	}
 
 	// ATTRIBUTES
 		
 	// hidden port number attribute
 	Core::AttributeSettings* attribNumPorts = RegisterAttribute("", "numOutputPorts", "", Core::ATTRIBUTE_INTERFACETYPE_INTSPINNER);
-	attribNumPorts->SetDefaultValue( Core::AttributeInt32::Create(numPortsDefault) );
+	attribNumPorts->SetDefaultValue( Core::AttributeInt32::Create(NUMPORTSDEFAULT) );
 	attribNumPorts->SetMinValue( Core::AttributeInt32::Create(0) );
 	attribNumPorts->SetMaxValue( Core::AttributeInt32::Create(INT_MAX) );
 	attribNumPorts->SetVisible(false);
@@ -157,11 +162,6 @@ void ChannelSelectorNode::Update(const Time& elapsed, const Time& delta)
 // an attribute has changed
 void ChannelSelectorNode::OnAttributesChanged()
 {
-	// A little hacky? This codepath is only used to create output ports during loading of the classifier - the attribute is the only way we know how 
-	// many ports there should be created before loading the connection.
-	if (GetNumOutputPorts() == 0)
-		ReInitOutputPorts();
-
 	// always reinit if a node attribute was changed
 	ResetAsync();
 }
@@ -296,7 +296,6 @@ bool ChannelSelectorNode::IsChannelSelected(const ChannelBase* channel) const
 void ChannelSelectorNode::ReInitOutputPorts()
 {
 	const bool singleOutput = GetBoolAttribute(ATTRIB_SINGLE_OUTPUT);
-	uint32 numPortsAttr = GetInt32Attribute(ATTRIB_NUMOUTPUTPORTS);		// previously remembered number of output ports
 
 	// get number of required output ports
 	if (singleOutput == true)
@@ -306,28 +305,15 @@ void ChannelSelectorNode::ReInitOutputPorts()
 
 		// update channel references
 		GetOutputPort(0).GetChannels()->Clear();
-
-		// remember number of outputs (if it has changed)
-		if (numPortsAttr != 1)
-			SetInt32AttributeByIndex(ATTRIB_NUMOUTPUTPORTS, 1);
 	}
 	else
 	{
 		// get number of output channels we have to output
 		const uint32 numChannels = mMapping.Size();
-		uint32 numPorts;
-
-		// use last port count only if there are no input channel present
-		if (mInputReader.GetNumChannels() == 0 && GetNumOutputPorts() == 0)
-			numPorts = numPortsAttr;
-		else
-			numPorts = numChannels;
-
-		SetInt32AttributeByIndex(ATTRIB_NUMOUTPUTPORTS, numPorts);
 
 		// create empty ports
-		InitOutputPorts(numPorts);
-		for (uint32 i = 0; i < numPorts; ++i)
+		InitOutputPorts(numChannels);
+		for (uint32 i = 0; i < numChannels; ++i)
 		{
 			mTempString.Format("y%i", i + 1);
 			GetOutputPort(i).SetupAsChannels<double>("-", mTempString.AsChar(), i);

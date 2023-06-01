@@ -33,6 +33,8 @@
 class ENGINE_API ChannelSelectorNode : public SPNode
 {
 	public:
+		static constexpr const uint32 NUMPORTSDEFAULT = 16;
+
 		enum { TYPE_ID = 0x0031 };
 		static const char* Uuid () { return "fd168f5a-047b-11e5-8418-1697f925ec7b"; }
 
