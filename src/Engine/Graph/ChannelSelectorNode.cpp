@@ -77,7 +77,7 @@ void ChannelSelectorNode::Init()
 	attribNumPorts->SetVisible(false);
 
 	// channel names 
-	Core::AttributeSettings* attribChannelNames = RegisterAttribute("Channel Names", "channels", "", Core::ATTRIBUTE_INTERFACETYPE_STRINGARRAY);
+	Core::AttributeSettings* attribChannelNames = RegisterAttribute("Channels", "channels", "Names or Indexes of Channels to use", Core::ATTRIBUTE_INTERFACETYPE_STRINGARRAY);
 	attribChannelNames->SetDefaultValue( Core::AttributeStringArray::Create("*") );
 
 	// single output attribute
@@ -237,7 +237,7 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 			for (uint32 j=0; j<numInputChannels; ++j)
 			{
 				ChannelBase* channel = mInputReader.GetChannel(j);
-				if (channel->GetNameString().IsEqual(name) == true)
+				if ((name.IsValidInt() && name.ToInt() == j) || channel->GetNameString().IsEqual(name))
 				{
 					// found it
 					channelIndex = j;
@@ -249,7 +249,7 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 			if (channelIndex != CORE_INVALIDINDEX32)
 			{
 				Channel<double>* ch = mInputReader.GetChannel(channelIndex)->AsType<double>();
-				mMapping.Add(Mapping(ch, 0, name));
+				mMapping.Add(Mapping(ch, 0, ch->GetName()));
 			}
  			else
 			{
