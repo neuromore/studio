@@ -68,6 +68,9 @@ class PreSessionWidget : public QWidget
 		void OnSelectUserClicked()										{ GetMainWindow()->SelectSessionUser(); }
 		void OnChannelSelected(int index);
 
+	signals:
+		void SelectedChannelsChanged();
+
 	private:
 		SessionControlPlugin*	mPlugin;
 		ImageButton*			mStartButton;

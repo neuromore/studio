@@ -281,7 +281,6 @@ void PreSessionWidget::UpdateChannels(ChannelSelectorNode* chs)
          box->setCurrentText("");
          box->setEnabled(false);
       }
-
    }
 }
 
@@ -309,9 +308,7 @@ Core::String PreSessionWidget::GetSelectedChannels()
 void PreSessionWidget::OnChannelSelected(int index)
 {
    QComboBox* box = (QComboBox*)QObject::sender();
-   Core::String s = GetSelectedChannels();
-   int kjd = 1;
-
+   emit SelectedChannelsChanged();
 }
 
 // called when the total session time got changed

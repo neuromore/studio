@@ -85,6 +85,7 @@ bool SessionControlPlugin::Init()
 	mPreSessionWidget->ReInit();
 	hLayout->addWidget(mPreSessionWidget);
 	connect(mPreSessionWidget->GetStartButton(), &QPushButton::clicked, this, &SessionControlPlugin::OnStart);
+	connect(mPreSessionWidget, &PreSessionWidget::SelectedChannelsChanged, this, &SessionControlPlugin::OnSelectedChannelsChanged);
 
 	// show user button only if user is allowed to select a client
 	if (GetUser()->FindRule("STUDIO_SETTING_SelectUser") == NULL)
@@ -375,6 +376,11 @@ void SessionControlPlugin::OnMessageReceived( NetworkServerClient* client, Netwo
 	delete message;
 }
 
+void SessionControlPlugin::OnSelectedChannelsChanged()
+{
+   Core::String s = mPreSessionWidget->GetSelectedChannels();
+   //TODO: Apply on node
+}
 
 void SessionControlPlugin::CheckStartRequirements()
 {

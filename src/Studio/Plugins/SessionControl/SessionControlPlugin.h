@@ -93,6 +93,7 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		void OnStop();
 		void OnPause();
 		void OnContinue();
+		void OnSelectedChannelsChanged();
 
 		// client and network message callabacks
 		void OnClientChanged   ( NetworkServerClient* client );
