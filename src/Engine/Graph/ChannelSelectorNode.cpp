@@ -141,11 +141,11 @@ void ChannelSelectorNode::Update(const Time& elapsed, const Time& delta)
 		const Mapping& m = mMapping[i];
 		ChannelReader* reader = mInputReader.FindReader(m.in);
 
-		// input not found, output 0.0 at variable samplerate
+		// no input, output 0.0 at variable samplerate
 		if (!reader && m.out)
 			m.out->AddSample(0.0);
 
-		// input and output not set, do nothing
+		// no input and no output, do nothing
 		if (!reader || !m.out)
 			continue;
 
@@ -367,7 +367,7 @@ void ChannelSelectorNode::ReInitOutputChannels()
 	}
 	else
 	{
-		CORE_ASSERT(GetNumOutputPorts() == numChannels);
+		CORE_ASSERT(GetNumOutputPorts() >= numChannels);
 		
 		// add each channel to its individual port
 		for (uint32 i = 0; i < numChannels; ++i)
