@@ -114,7 +114,7 @@ void ChannelSelectorNode::ReInit(const Time& elapsed, const Time& delta)
 	{
 		if (inPort.GetChannels() != NULL && inPort.GetChannels()->GetNumChannels() == 0)
 		{
-			mIsInitialized = false;
+			//mIsInitialized = false;
 		}
 	}
 
@@ -139,11 +139,17 @@ void ChannelSelectorNode::Update(const Time& elapsed, const Time& delta)
 	for (uint32 i=0; i<numChannels; ++i)
 	{
 		const Mapping& m = mMapping[i];
-		ChannelReader* reader = mInputReader.FindReader(m.in);	
+		ChannelReader* reader = mInputReader.FindReader(m.in);
+
+		// input not found, output 0.0 at variable samplerate
+		if (!reader && m.out)
+			m.out->AddSample(0.0);
+
+		// input and output not set, do nothing
 		if (!reader || !m.out)
 			continue;
 
-		// TODO make forward loop independent from sample type
+		// forward samples from input to output
 		const uint32 numSamples = reader->GetNumNewSamples();
 		for (uint32 s = 0; s < numSamples; ++s)
 		{
