@@ -701,7 +701,7 @@ bool Graph::ApplySettings(const GraphSettings& settings)
 			const bool typeMatched = (settings.HasObjectType(i) == true && object->GetType() == settings.GetObjectType(i));
 			const bool nameMatched = (settings.HasObjectName(i) == true && object->GetUuidString().IsEqualNoCase(settings.GetObjectName(i)));
 
-			if (uuidMatched || typeMatched || nameMatched)
+			if (typeMatched && (uuidMatched || nameMatched))
 			{
 				uint32 attributeIndex = object->FindAttributeIndexByInternalName(attributeName);
 
