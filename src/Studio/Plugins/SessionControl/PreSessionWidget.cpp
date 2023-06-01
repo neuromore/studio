@@ -113,6 +113,8 @@ void PreSessionWidget::Init()
 		gLayout->addWidget(mElectrodeSelections[i], 1, i+1);
 	}
 
+	UpdateChannels(0);
+
 	//
 	// third row of gridlayout
 	//
@@ -250,33 +252,31 @@ void PreSessionWidget::UpdateChannels(ChannelSelectorNode* chs)
    for (uint32_t i = 0; i < NUMELECTRODESELECT; i++)
    {
       QComboBox* box = mElectrodeSelections[i];
-      QString    val = box->currentText();
-
+      
       // clear first
       box->clear();
 
-      // fill choices from input channels
-      if (chs && chs->GetNumInputPorts())
+      // enable/disable and try set value from channelselector output
+      if (chs && chs->GetNumInputPorts() && i < chs->GetNumOutputPorts())
       {
+         // fill choices from input channels
          if (MultiChannel* mch = chs->GetInputPort(0).GetChannels())
          {
             uint32 numchs = mch->GetNumChannels();
+            QStringList qs;
             for (uint32_t j = 0; j < numchs; j++)
-               box->addItem(mch->GetChannel(j)->GetName());
+               qs.push_back(mch->GetChannel(j)->GetName());
+            box->addItems(qs);
          }
-      }
-
-      // try restore old val
-      box->setCurrentText(val);
-
-      // enable/disable and try set value from channelselector output
-      if (chs && i < chs->GetNumOutputPorts())
-      {
          box->setCurrentText(chs->GetOutputPort(i).GetName());
          box->setEnabled(true);
       }
       else
+      {
+         box->setCurrentText("");
          box->setEnabled(false);
+      }
+
    }
 }
 
@@ -288,16 +288,25 @@ Core::String PreSessionWidget::GetSelectedChannels()
       if (!mElectrodeSelections[i]->isEnabled())
          continue;
 
+      const QString& cur = mElectrodeSelections[i]->currentText();
+      
+      if (cur.isEmpty())
+         continue;
+
       if (!s.IsEmpty())
          s += ',';
 
-      s += mElectrodeSelections[i]->currentText().toLatin1().data();
+      s += cur.toLatin1().data();
    }
    return s;
 }
 
 void PreSessionWidget::OnChannelSelected(int index)
 {
+   QComboBox* box = (QComboBox*)QObject::sender();
+   Core::String s = GetSelectedChannels();
+   int kjd = 1;
+
 }
 
 // called when the total session time got changed
