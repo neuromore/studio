@@ -271,6 +271,7 @@ void SessionControlPlugin::OnActiveBciChanged(BciDevice* device)
 void SessionControlPlugin::OnActiveClassifierChanged(Classifier* classifier)
 {
    UpdateStartButton();
+   mPreSessionWidget->UpdateChannels(0);
 }
 
 void SessionControlPlugin::OnNodeStarted(Graph* graph, SPNode* node)
@@ -293,7 +294,7 @@ void SessionControlPlugin::OnAttributeUpdated(Graph* graph, GraphObject* object,
 {
    if (mPreSessionWidget)
       if (object->GetType() == ChannelSelectorNode::TYPE_ID)
-         if (attribute = object->GetAttributeValue(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+         if (attribute == object->GetAttributeValue(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
             if (object->GetBoolAttribute(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
                mPreSessionWidget->UpdateChannels((ChannelSelectorNode*)object);
             else
