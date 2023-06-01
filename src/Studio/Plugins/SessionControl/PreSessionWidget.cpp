@@ -294,15 +294,16 @@ Core::String PreSessionWidget::GetSelectedChannels()
       if (!mElectrodeSelections[i]->isEnabled())
          continue;
 
-      const QString& cur = mElectrodeSelections[i]->currentText();
-      
-      if (cur.isEmpty())
-         continue;
 
       if (!s.IsEmpty())
          s += ',';
 
-      s += cur.toLatin1().data();
+      const QString& cur = mElectrodeSelections[i]->currentText();
+
+      if (cur.isEmpty())
+         s += mElectrodeSelections[i]->itemText(0).toLatin1().data();
+      else
+         s += cur.toLatin1().data();
    }
    return s;
 }

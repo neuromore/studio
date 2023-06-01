@@ -72,6 +72,8 @@ class SessionControlPlugin : public Plugin, private Core::EventSource, public Co
 		// update widget visibility 
 		void UpdateWidgets();
 
+		// apply quick settings from ui on nodes
+		void ApplySettings();
 
 		// EVENTS
 		void OnPreparedSession() override final;
