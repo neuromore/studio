@@ -109,7 +109,7 @@ void PreSessionWidget::Init()
 	{
 		mElectrodeSelections[i] = new QComboBox();
 		mElectrodeSelections[i]->setEditable(true);
-		connect(mElectrodeSelections[i], SIGNAL(currentIndexChanged(int)), this, SLOT(OnChannelSelected(int)));
+		connect(mElectrodeSelections[i], &QComboBox::currentTextChanged, this, &PreSessionWidget::OnChannelSelected);
 		gLayout->addWidget(mElectrodeSelections[i], 1, i+1);
 	}
 
@@ -271,16 +271,18 @@ void PreSessionWidget::UpdateChannels(ChannelSelectorNode* chs)
                qs.push_back(mch->GetChannel(j)->GetName());
             box->addItems(qs);
          }
-         box->blockSignals(oldState);
+
          box->setCurrentText(chs->GetOutputPort(i).GetName());
          box->setEnabled(true);
       }
       else
       {
-         box->blockSignals(oldState);
          box->setCurrentText("");
          box->setEnabled(false);
       }
+
+      // restore signals
+      box->blockSignals(oldState);
    }
 }
 
@@ -305,7 +307,7 @@ Core::String PreSessionWidget::GetSelectedChannels()
    return s;
 }
 
-void PreSessionWidget::OnChannelSelected(int index)
+void PreSessionWidget::OnChannelSelected(const QString& text)
 {
    QComboBox* box = (QComboBox*)QObject::sender();
    emit SelectedChannelsChanged();

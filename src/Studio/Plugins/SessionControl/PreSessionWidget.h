@@ -66,7 +66,7 @@ class PreSessionWidget : public QWidget
 		void OnTotalTimeChanged(double value);
 		void OnSelectVisualizationClicked();
 		void OnSelectUserClicked()										{ GetMainWindow()->SelectSessionUser(); }
-		void OnChannelSelected(int index);
+		void OnChannelSelected(const QString& text);
 
 	signals:
 		void SelectedChannelsChanged();
