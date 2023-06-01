@@ -109,11 +109,15 @@ void PreSessionWidget::Init()
 	{
 		mElectrodeSelections[i] = new QComboBox();
 		mElectrodeSelections[i]->setEditable(true);
+		mElectrodeSelections[i]->setAutoCompletion(false);
 		connect(mElectrodeSelections[i], &QComboBox::currentTextChanged, this, &PreSessionWidget::OnChannelSelected);
 		gLayout->addWidget(mElectrodeSelections[i], 1, i+1);
 	}
 
-	UpdateChannels(0);
+	if (Classifier* c = GetEngine()->GetActiveClassifier())
+		UpdateChannels(c->FindMainChannelSelector());
+	else
+		UpdateChannels(0);
 
 	//
 	// third row of gridlayout
@@ -294,16 +298,15 @@ Core::String PreSessionWidget::GetSelectedChannels()
       if (!mElectrodeSelections[i]->isEnabled())
          continue;
 
-
       if (!s.IsEmpty())
          s += ',';
 
       const QString& cur = mElectrodeSelections[i]->currentText();
 
       if (cur.isEmpty())
-         s += mElectrodeSelections[i]->itemText(0).toLatin1().data();
-      else
-         s += cur.toLatin1().data();
+         return "";
+
+      s += cur.toLatin1().data();
    }
    return s;
 }
@@ -311,6 +314,9 @@ Core::String PreSessionWidget::GetSelectedChannels()
 void PreSessionWidget::OnChannelSelected(const QString& text)
 {
    QComboBox* box = (QComboBox*)QObject::sender();
+   Core::String chs = GetSelectedChannels();
+   if (chs.IsEmpty())
+      return;
    emit SelectedChannelsChanged();
 }
 
