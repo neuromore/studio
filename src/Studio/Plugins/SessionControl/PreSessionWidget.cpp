@@ -264,20 +264,43 @@ void PreSessionWidget::UpdateChannels(ChannelSelectorNode* chs)
       box->clear();
 
       // enable/disable and try set value from channelselector output
-      if (chs && chs->GetNumInputPorts() && i < chs->GetNumOutputPorts())
+      if (chs && chs->GetNumInputPorts() && chs->GetNumOutputPorts())
       {
-         // fill choices from input channels
-         if (MultiChannel* mch = chs->GetInputPort(0).GetChannels())
+         const bool singleoutput = chs->GetBoolAttribute(ChannelSelectorNode::ATTRIB_SINGLE_OUTPUT);
+
+         InputPort&  firstportin  = chs->GetInputPort(0);
+         OutputPort& firstportout = chs->GetOutputPort(0);
+
+         MultiChannel* firstmchin  = firstportin.GetChannels();
+         MultiChannel* firstmchout = firstportout.GetChannels();
+
+         // fill choices from first single input multichannel
+         if (firstmchin)
          {
-            uint32 numchs = mch->GetNumChannels();
+            uint32 numchs = firstmchin->GetNumChannels();
             QStringList qs;
             for (uint32_t j = 0; j < numchs; j++)
-               qs.push_back(mch->GetChannel(j)->GetName());
+               qs.push_back(firstmchin->GetChannel(j)->GetName());
             box->addItems(qs);
          }
 
-         box->setCurrentText(chs->GetOutputPort(i).GetName());
-         box->setEnabled(true);
+         // set selected text from channel name in multichannel
+         if (singleoutput && firstmchout && i < firstmchout->GetNumChannels())
+         {
+            box->setCurrentText(firstmchout->GetChannel(i)->GetName());
+            box->setEnabled(true);
+         }
+         // set selected text from port name
+         else if (!singleoutput && i < chs->GetNumOutputPorts())
+         {
+            box->setCurrentText(chs->GetOutputPort(i).GetName());
+            box->setEnabled(true);
+         }
+         else
+         {
+            box->setCurrentText("");
+            box->setEnabled(false);
+         }
       }
       else
       {
