@@ -42,7 +42,7 @@ ParameterNode::ParameterNode(Graph* graph) : InputNode(graph)
 
 	mShowControls = false;
 	mShowInputs = false;
-	mSampleRate = 128;
+	mSampleRate = 0.0;
 
 	mShowWidget = true;
 	mEnableWidget = true;
@@ -85,7 +85,7 @@ void ParameterNode::Init()
 
 	// sample rate
 	Core::AttributeSettings* attributeSampleRate = RegisterAttribute("Sample Rate", "sampleRate", "Sample rate of the output channel.", Core::ATTRIBUTE_INTERFACETYPE_FLOATSPINNER);
-	attributeSampleRate->SetDefaultValue( Core::AttributeFloat::Create(mSampleRate) );
+	attributeSampleRate->SetDefaultValue( Core::AttributeFloat::Create(0.0) );
 	attributeSampleRate->SetMinValue( Core::AttributeFloat::Create(0) );
 	attributeSampleRate->SetMaxValue( Core::AttributeFloat::Create(DBL_MAX) );
 
@@ -166,6 +166,10 @@ void ParameterNode::ReInit(const Time& elapsed, const Time& delta)
 
 void ParameterNode::Start(const Time& elapsed)
 {
+	BciDevice* bci = GetEngine()->GetActiveBci();
+	mSampleRate = mSampleRate > 0.01 ? mSampleRate : 
+		bci ? bci->GetSampleRate() : DEFAULTSAMPLERATE;
+
 	// create sensors before start 
 	UpdateSensors();
 
@@ -173,7 +177,7 @@ void ParameterNode::Start(const Time& elapsed)
 	InputNode::Start(elapsed);
 
 	UpdateNames();
-	
+
 	// configure clock and start it at current elapsed time
 	mClock.Reset();
 	mClock.SetFrequency(mSampleRate);
@@ -256,7 +260,9 @@ void ParameterNode::OnAttributesChanged()
 	{
 		ResetAsync();
 
-		mSampleRate = sampleRate;
+		BciDevice* bci = GetEngine()->GetActiveBci();
+		mSampleRate = sampleRate > 0.01 ? sampleRate :
+			bci ? bci->GetSampleRate() : DEFAULTSAMPLERATE;
 	}
 
 	// update values if default value was changed
@@ -382,7 +388,6 @@ void ParameterNode::GenerateSamples()
 void ParameterNode::UpdateSensors()
 {
 	const uint32 numChannels = GetInt32Attribute(ATTRIB_NUMCHANNELS);
-	const uint32 sampleRate = GetFloatAttribute(ATTRIB_SAMPLERATE);
 
 	mValues.Resize(numChannels);
 	mSensors.Resize(numChannels);
@@ -395,7 +400,7 @@ void ParameterNode::UpdateSensors()
 		mSensors[i].Reset();
 		mSensors[i].GetChannel()->SetBufferSize(10);
 		mSensors[i].SetDriftCorrectionEnabled(false);
-		mSensors[i].GetChannel()->SetSampleRate(sampleRate);
+		mSensors[i].GetChannel()->SetSampleRate(mSampleRate);
 		mTempString.Format("%.2f", mValues[i]);
 		mSensors[i].GetChannel()->SetName(mTempString.AsChar());
 		GetOutputPort(OUTPUTPORT_VALUE).GetChannels()->AddChannel(mSensors[i].GetChannel());

@@ -34,6 +34,8 @@
 class ENGINE_API ParameterNode : public InputNode
 {
 	public:
+		static constexpr const double DEFAULTSAMPLERATE = 128.0;
+
 		enum { TYPE_ID = 0x0003 };
 		static const char* Uuid () { return "0a2f1004-bb6b-11e4-8dfc-aa07a5b093db"; }
 		
