@@ -14,4 +14,4 @@ jobs:
 
     - name: Test
       run: |
-        cmd.exe /C "echo test & exit 0"
+        make -v
