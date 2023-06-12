@@ -12,6 +12,8 @@ jobs:
         os: [windows-2022]
     steps:
 
-    # System Info
-    - name: System Info
+    - name: Install WIX
+      run: dotnet tool install --global wix
+      
+    - name: Test WIX
       run: wix
