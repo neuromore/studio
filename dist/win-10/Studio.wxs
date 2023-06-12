@@ -60,7 +60,7 @@
     <DirectoryRef Id="STARTMENUFOLDER">
       <Component Id="ApplicationShortcut" Guid="$(var.PlatformUpgradeCode)">
         <Shortcut Id="ApplicationStartMenuShortcut" 
-                  Name="$(var.APPNAME)"
+                  Name="$(var.PlatformProductName)"
                   Description="Biofeedback"
                   Target="[#Studio.exe]"
                   WorkingDirectory="INSTALLFOLDER"/>

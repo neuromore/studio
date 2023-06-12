@@ -79,6 +79,8 @@ dist-prep:
 	$(call mkdir,$(DISTDIR)/$(NAME)/x64)
 	$(call mkdir,$(DISTDIR)/$(NAME)/x86)
 	$(call mkdir,$(DISTDIR)/$(NAME)/arm64)
+	$(call sleep,3)
+	dir dist\win-10\Studio
 	$(call copyfiles,$(DISTDIR)/$(NAME).appxmanifest,$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
