@@ -17,12 +17,12 @@ endef
 
 # Recursively remove folder
 define rmdir	
-	cmd.exe /C "if exist $(subst /,\,$(1)) rd /s /q $(subst /,\,$(1)) >nul 2>&1"
+	cmd.exe /C "if exist $(subst /,\,$(1)) rd /s /q $(subst /,\,$(1))"
 endef
 
 # Create folder and all sub folders
 define mkdir
-	cmd.exe /C "if not exist $(subst /,\,$(1)) mkdir $(subst /,\,$(1)) >nul 2>&1"
+	cmd.exe /C "if not exist $(subst /,\,$(1)) mkdir $(subst /,\,$(1))"
 endef
 
 # Replace string occurrences in file

@@ -31,12 +31,11 @@
     UpgradeCode="$(var.PlatformUpgradeCode)"
     Version="$(var.VERSION)">
 	
+    <!-- Icon -->
     <Icon Id="app.ico" SourceFile="resources\app.ico"/>
-    
 	<Property Id="ARPPRODUCTICON" Value="app.ico" />
 
     <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
-
     <MediaTemplate EmbedCab="yes" />
 
     <!-- Program Files Folder -->
@@ -49,29 +48,33 @@
       <Directory Id="STARTMENUFOLDER" Name="$(var.APPNAME)"/>
     </StandardDirectory>
 
+    <!-- Contents -->
     <ComponentGroup Directory="INSTALLFOLDER" Id="ProgramFiles">
-      <Component Id="Studio.exe">
-        <File Id="Studio.exe" KeyPath="yes" Source="$(sys.BUILDARCH)/Studio.exe">
+      <Component Id="PROGRAM" Guid="2AB189BA-5B13-4448-A916-4E25B814D201">
+        <File Id="EXE" KeyPath="yes" Source="$(sys.BUILDARCH)/Studio.exe">
           <fire:FirewallException Id="StudioFirewall" Name="$(var.PlatformProductName)" Profile="private" Scope="any" />
 		</File>
+        <File Id="PDB" Source="$(sys.BUILDARCH)/Studio.pdb" />
       </Component>
+      <Component Id="DLL" Guid="2AB189BA-5B13-4448-A916-4E25B814D202">
+	  </Component>
     </ComponentGroup>
 
+    <!-- Start Menu Entry -->
     <DirectoryRef Id="STARTMENUFOLDER">
-      <Component Id="ApplicationShortcut" Guid="$(var.PlatformUpgradeCode)">
+      <Component Id="ApplicationShortcut" Guid="2AB189BA-5B13-4448-A916-4E25B814D203">
         <Shortcut Id="ApplicationStartMenuShortcut" 
                   Name="$(var.PlatformProductName)"
                   Description="Biofeedback"
-                  Target="[#Studio.exe]"
+                  Target="[#EXE]"
                   WorkingDirectory="INSTALLFOLDER"/>
         <RemoveFolder Id="CleanUpShortCut" Directory="STARTMENUFOLDER" On="uninstall"/>
       </Component>
     </DirectoryRef>
 
-    <Feature Id="StudioFeature">
+    <Feature Id="Application">
       <ComponentGroupRef Id="ProgramFiles" />
       <ComponentRef Id="ApplicationShortcut" />
     </Feature>
-
   </Package>
 </Wix>

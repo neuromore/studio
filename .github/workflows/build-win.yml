@@ -211,7 +211,7 @@ jobs:
         SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
         PUBLISHERCN: Neuromore Co
         PUBLISHER: CN=Neuromore Co, O=Neuromore Co, S=Florida, C=US
-      run: make dist
+      run: make dist -j1
 
     # Remaining Free Disk Space
     - name: Remaining Free Disk Space
