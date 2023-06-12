@@ -31,7 +31,11 @@
     UpgradeCode="$(var.PlatformUpgradeCode)"
     Version="$(var.VERSION)">
 	
-	<MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
+    <Icon Id="app.ico" SourceFile="resources\app.ico"/>
+    
+	<Property Id="ARPPRODUCTICON" Value="app.ico" />
+
+    <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
 
     <MediaTemplate EmbedCab="yes" />
 

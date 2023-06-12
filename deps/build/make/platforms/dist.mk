@@ -93,6 +93,7 @@ dist-prep:
 	$(call copyfiles,$(APPICON)-44x44.png,$(DISTDIR)/$(NAME)/resources/app-44x44.png)
 	$(call copyfiles,$(APPICON)-50x50.png,$(DISTDIR)/$(NAME)/resources/app-50x50.png)
 	$(call copyfiles,$(APPICON)-150x150.png,$(DISTDIR)/$(NAME)/resources/app-150x150.png)
+	$(call copyfiles,$(APPICON).ico,$(DISTDIR)/$(NAME)/resources/app.ico)
 dist-vis-%: dist-prep
 	echo [VIS] $*
 	$(call mkdir,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
@@ -162,6 +163,7 @@ endif
 #	echo [ZIP] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip
 #	$(ZIPPER) $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip $(DISTDIR)/$(NAME)/$*/*
 	echo [MSI] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi
+	wix extension add WixToolset.Firewall.wixext
 	wix build -arch $* \
 	  -ext WixToolset.Firewall.wixext \
 	  -d APPNAME="$(APPNAME)" \
