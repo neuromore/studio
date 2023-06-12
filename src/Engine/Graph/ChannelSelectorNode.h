@@ -33,6 +33,8 @@
 class ENGINE_API ChannelSelectorNode : public SPNode
 {
 	public:
+		static constexpr const uint32 NUMPORTSDEFAULT = 16;
+
 		enum { TYPE_ID = 0x0031 };
 		static const char* Uuid () { return "fd168f5a-047b-11e5-8418-1697f925ec7b"; }
 
@@ -44,8 +46,9 @@ class ENGINE_API ChannelSelectorNode : public SPNode
 		enum
 		{
 			ATTRIB_NUMOUTPUTPORTS = 0,
-			ATTRIB_CHANNELNAMES,
-			ATTRIB_SINGLE_OUTPUT,
+			ATTRIB_CHANNELNAMES   = 1,
+			ATTRIB_SINGLE_OUTPUT  = 2,
+			ATTRIB_QUICK_CONFIG   = 3
 		};
 
 		enum EError
@@ -53,7 +56,15 @@ class ENGINE_API ChannelSelectorNode : public SPNode
 			ERROR_CHANNEL_NOT_FOUND = GraphObjectError::ERROR_CONFIGURATION | 0x01,
 		};
 
-		
+		struct Mapping
+		{
+			Channel<double>* in;
+			Channel<double>* out;
+			Core::String     name;
+			Mapping(Channel<double>* in = 0, Channel<double>* out = 0, const Core::String& name = "") : 
+				in(in), out(out), name(name) { }
+		};
+
 		// constructor & destructor
 		ChannelSelectorNode(Graph* graph);
 		~ChannelSelectorNode();
@@ -77,7 +88,6 @@ class ENGINE_API ChannelSelectorNode : public SPNode
 
 		// check if input channels are selected (forwarded) to the output
 		bool IsChannelSelected(const ChannelBase* channel) const;
-		bool IsChannelSelected(uint32 index) const						{ return mSelectedInputs.Contains(index); }
 
 	private:
 		void CollectSelectedInputChannels();				// collect all channels that match the provided selection into mSelectedInputChannels array
@@ -86,9 +96,7 @@ class ENGINE_API ChannelSelectorNode : public SPNode
 		void ReInitOutputChannels();						// create the output channels (one for each selected input channel) and connect them to the outputs
 		void DeleteOutputChannels();
 
-		Core::Array<uint32> mSelectedInputs;				// indices of the selected channels in mInputChannels; one for each element of mOutputChannels
-		Core::Array<ChannelBase*> mOutputChannels;			// the output channels where all samples are forwarded to (1:1 from mSelectedInputChannels)
-
+		Core::Array<Mapping> mMapping;						// mapping between input and output channels
 };
 
 

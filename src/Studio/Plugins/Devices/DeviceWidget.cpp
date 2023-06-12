@@ -137,7 +137,7 @@ void DeviceWidget::Init()
 
 	// 3) device information tree (lower half of main layout)
 	mDeviceInfoTree = new QTreeWidget();
-	mDeviceInfoTree->setFixedHeight(200);
+	mDeviceInfoTree->setFixedHeight(70);
 	mDeviceInfoTree->setSelectionMode( QAbstractItemView::SingleSelection);
 	mDeviceInfoTree->setSortingEnabled(false);
 	mDeviceInfoTree->setAlternatingRowColors(true);
@@ -442,8 +442,12 @@ void DeviceWidget::OnDeviceInfoButtonPressed()
 	mDeviceInfoTree->setVisible(mShowInfoWidget);
 
 	// update Button text
-	if (mShowInfoWidget == true)
+	if (mShowInfoWidget == true) 
+	{
+		if (mDevice->IsTestRunning())
+			OnDeviceTestButtonPressed();
 		mDeviceInfoButton->setText("Close");
+	}
 	else
 		mDeviceInfoButton->setText("Info");
 	
@@ -486,8 +490,11 @@ void DeviceWidget::OnDeviceTestButtonPressed()
 	
 	if (mDevice->IsTestRunning())
 	{
+		if (mShowInfoWidget)
+			OnDeviceInfoButtonPressed();
+
 		mDeviceTestWidget->setVisible(true);
-		mDeviceTestButton->setText("Close");
+		mDeviceTestButton->setText("Stop");
 	}
 	else
 	{

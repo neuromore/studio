@@ -84,16 +84,14 @@ void OscServer::Init()
 	// initialize the socket bind mode, reuse UDP adresses
 	QAbstractSocket::BindMode bindMode = QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint;
 
-	// bind the udp sockets
-        //if (mLocalEndpoint.isNull() == true)
-                mUdpSocket->bind(mUdpPort, bindMode);
-        //else 
-        //        mUdpSocket->bind(mLocalEndpoint, mUdpPort, bindMode);
-        
- 
-        connect(mUdpSocket, SIGNAL(readyRead()), this, SLOT(OnReceiveUdpDatagram()));
+	// setup listen udp port
+	if (mUdpSocket->bind(mUdpPort, bindMode))
+		connect(mUdpSocket, SIGNAL(readyRead()), this, SLOT(OnReceiveUdpDatagram()));
+	else
+		LogError("Failed to bind UDP socket.");
 
-	mUdpOutSocket->bind(mLocalEndpoint, mRemoteUdpPort, bindMode);
+	// setup output udp port (no need to bind!)
+	//mUdpOutSocket->bind(mLocalEndpoint, mRemoteUdpPort, bindMode);
 
 	const uint32 FPS = 100;
 	mTimer = new QTimer(this);

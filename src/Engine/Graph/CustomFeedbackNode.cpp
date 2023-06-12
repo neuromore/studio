@@ -191,14 +191,6 @@ void CustomFeedbackNode::Update(const Time& elapsed, const Time& delta)
 	}
 }
 
-
-void CustomFeedbackNode::SetName(const char* name)
-{
-	FeedbackNode::SetName(name);
-	mChannels[0]->SetName(name);
-}
-
-
 // attributes have changed
 void CustomFeedbackNode::OnAttributesChanged()
 {
