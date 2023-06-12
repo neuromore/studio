@@ -51,9 +51,9 @@
 
     <ComponentGroup Directory="INSTALLFOLDER" Id="ProgramFiles">
       <Component Id="Studio.exe">
-        <File Id="Studio.exe" KeyPath="yes" Source="$(sys.BUILDARCH)/Studio.exe" />
-        <fire:FirewallException Id="StudioTCP" Name="StudioTCP" File="Studio.exe" Profile="private" Protocol="tcp" Scope="any" />
-        <fire:FirewallException Id="StudioUDP" Name="StudioUDP" File="Studio.exe" Profile="private" Protocol="udp" Scope="any" />
+        <File Id="Studio.exe" KeyPath="yes" Source="$(sys.BUILDARCH)/Studio.exe">
+          <fire:FirewallException Id="StudioFirewall" Name="$(var.PlatformProductName)" Profile="private" Scope="any" />
+		</File>
       </Component>
     </ComponentGroup>
 
