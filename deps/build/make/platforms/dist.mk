@@ -68,6 +68,8 @@ dist-prep:
 	echo [MKD] $(DISTDIR)/$(NAME)
 	$(call rmdir,$(DISTDIR)/$(NAME))
 	$(call deletefiles,$(DISTDIR),$(NAME)*.zip)
+	$(call deletefiles,$(DISTDIR),$(NAME)*.msi)
+	$(call deletefiles,$(DISTDIR),$(NAME)*.wixpdb)
 	$(call deletefiles,$(DISTDIR),$(NAME)*.appx)
 	$(call deletefiles,$(DISTDIR),$(NAME)*.appxbundle)
 	$(call deletefiles,$(DISTDIR),$(NAME)*.appxupload)
@@ -157,8 +159,17 @@ endif
 	echo [SYM] $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym
 	$(ZIPPER) $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB)	
 	$(call move,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym)
-	echo [ZIP] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip
-	$(ZIPPER) $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip $(DISTDIR)/$(NAME)/$*/*
+#	echo [ZIP] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip
+#	$(ZIPPER) $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip $(DISTDIR)/$(NAME)/$*/*
+	echo [MSI] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi
+	wix build -arch $* \
+	  -d APPNAME="$(APPNAME)" \
+	  -d APPSHORTNAME="$(APPSHORTNAME)" \
+	  -d APPCOMPANY="$(APPCOMPANY)" \
+	  -d VERSION=$(VERSION4) \
+	  -b $(DISTDIR)/$(NAME) \
+	  $(DISTDIR)/$(NAME).wxs \
+	  -out $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi
 dist: dist-prep dist-vis dist-bin-x64 dist-bin-x86 dist-bin-arm64
 	echo [BDL] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxbundle
 	$(call makepkg,$(DISTDIR)/$(NAME)/Layout.xml,$(DISTDIR))
@@ -168,11 +179,17 @@ ifeq ($(SIGN_PFX_PASS),)
 	$(call sign,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE))
 	$(call sign,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE))
 	$(call sign,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-x64.msi,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-x86.msi,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-arm64.msi,$(SIGN_PFX_FILE))
 else
 	$(call signp,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 	$(call signp,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 	$(call signp,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 	$(call signp,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-x64.msi,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-x86.msi,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-arm64.msi,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	echo [APU] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxupload
 	$(call copyfiles,$(DISTDIR)/$(NAME).appxbundle,$(DISTDIR)/$(NAME)/upload/$(NAME).appxbundle)

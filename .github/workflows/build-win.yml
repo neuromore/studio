@@ -142,6 +142,10 @@ jobs:
     env:
       BRANDING: ${{ matrix.branding }}
     steps:
+    
+    # Install WIX
+    - name: Install WIX
+      run: dotnet tool install --global wix --version 4.0.1
 
     # Checkout
     - name: Checkout
