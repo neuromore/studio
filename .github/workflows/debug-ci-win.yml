@@ -12,8 +12,6 @@ jobs:
         os: [windows-2022]
     steps:
 
-    - name: Install WIX
-      run: dotnet tool install --global wix
-      
-    - name: Test WIX
-      run: wix
+    - name: Test
+      run: |
+        cmd.exe /C "echo test & exit 0"
