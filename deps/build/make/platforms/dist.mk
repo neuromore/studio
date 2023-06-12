@@ -65,7 +65,7 @@ dist-prep:
 	chcp 1252
 	echo [PUB] $(PUBLISHER)
 	echo [PFX] $(SIGN_PFX_FILE)
-	echo [MKD] $(DISTDIR)/$(NAME)
+	echo [RMD] $(DISTDIR)/$(NAME)
 	$(call rmdir,$(DISTDIR)/$(NAME))
 	$(call deletefiles,$(DISTDIR),$(NAME)*.zip)
 	$(call deletefiles,$(DISTDIR),$(NAME)*.msi)
@@ -73,14 +73,16 @@ dist-prep:
 	$(call deletefiles,$(DISTDIR),$(NAME)*.appx)
 	$(call deletefiles,$(DISTDIR),$(NAME)*.appxbundle)
 	$(call deletefiles,$(DISTDIR),$(NAME)*.appxupload)
+	$(call sleep,1)
+	echo [MKD] $(DISTDIR)/$(NAME)
 	$(call mkdir,$(DISTDIR)/$(NAME))
 	$(call mkdir,$(DISTDIR)/$(NAME)/resources)
 	$(call mkdir,$(DISTDIR)/$(NAME)/upload)
 	$(call mkdir,$(DISTDIR)/$(NAME)/x64)
 	$(call mkdir,$(DISTDIR)/$(NAME)/x86)
 	$(call mkdir,$(DISTDIR)/$(NAME)/arm64)
-	$(call sleep,3)
-	dir dist\win-10\Studio
+	$(call sleep,1)
+	dir ..\..\dist\win-10\Studio
 	$(call copyfiles,$(DISTDIR)/$(NAME).appxmanifest,$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
