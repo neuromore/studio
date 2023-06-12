@@ -163,6 +163,7 @@ endif
 #	$(ZIPPER) $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip $(DISTDIR)/$(NAME)/$*/*
 	echo [MSI] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi
 	wix build -arch $* \
+	  -ext WixToolset.Firewall.wixext \
 	  -d APPNAME="$(APPNAME)" \
 	  -d APPSHORTNAME="$(APPSHORTNAME)" \
 	  -d APPCOMPANY="$(APPCOMPANY)" \

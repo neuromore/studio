@@ -1,4 +1,5 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:fire="http://wixtoolset.org/schemas/v4/wxs/firewall">
 
   <?ifndef $(var.APPNAME) ?>
     <?error APPNAME must be set ?>
@@ -47,6 +48,8 @@
     <ComponentGroup Directory="INSTALLFOLDER" Id="ProgramFiles">
       <Component Id="Studio.exe">
         <File Id="Studio.exe" KeyPath="yes" Source="$(sys.BUILDARCH)/Studio.exe" />
+        <fire:FirewallException Id="StudioTCP" Name="StudioTCP" File="Studio.exe" Profile="private" Protocol="tcp" Scope="any" />
+        <fire:FirewallException Id="StudioUDP" Name="StudioUDP" File="Studio.exe" Profile="private" Protocol="udp" Scope="any" />
       </Component>
     </ComponentGroup>
 
