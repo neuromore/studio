@@ -34,19 +34,37 @@
 
     <MediaTemplate EmbedCab="yes" />
 
-    <ComponentGroup Directory="INSTALLFOLDER" Id="ProductComponentGroup">
+    <!-- Program Files Folder -->
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="$(var.APPNAME)" />
+    </StandardDirectory>
+
+    <!-- Start Menu Folder -->
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="STARTMENUFOLDER" Name="$(var.APPNAME)"/>
+    </StandardDirectory>
+
+    <ComponentGroup Directory="INSTALLFOLDER" Id="ProgramFiles">
       <Component Id="Studio.exe">
         <File Id="Studio.exe" KeyPath="yes" Source="$(sys.BUILDARCH)/Studio.exe" />
       </Component>
     </ComponentGroup>
 
-    <Feature Id="StudioFeature">
-      <ComponentGroupRef Id="ProductComponentGroup" />
-    </Feature>
+    <DirectoryRef Id="STARTMENUFOLDER">
+      <Component Id="ApplicationShortcut" Guid="$(var.PlatformUpgradeCode)">
+        <Shortcut Id="ApplicationStartMenuShortcut" 
+                  Name="$(var.APPNAME)"
+                  Description="Biofeedback"
+                  Target="[#Studio.exe]"
+                  WorkingDirectory="INSTALLFOLDER"/>
+        <RemoveFolder Id="CleanUpShortCut" Directory="STARTMENUFOLDER" On="uninstall"/>
+      </Component>
+    </DirectoryRef>
 
-    <StandardDirectory Id="ProgramFiles6432Folder">
-      <Directory Id="INSTALLFOLDER" Name="$(var.APPNAME)" />
-    </StandardDirectory>
+    <Feature Id="StudioFeature">
+      <ComponentGroupRef Id="ProgramFiles" />
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
 
   </Package>
 </Wix>
