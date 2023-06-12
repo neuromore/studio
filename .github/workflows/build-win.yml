@@ -206,6 +206,7 @@ jobs:
 
     # Pack
     - name: Make (dist)
+      shell: cmd
       env:
         SIGN_PFX_FILE: ../../certs/TrueCert.pfx
         SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
