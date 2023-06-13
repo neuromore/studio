@@ -432,14 +432,14 @@ void EEGElectrodes::Init()
 
     // Others
 	// 127 electrodes
-	//mElectrodes.Add( Electrode("1",  36.000,  -22.000) );
-	//mElectrodes.Add( Electrode("2",  47.000,  -6.000) );
-	//mElectrodes.Add( Electrode("3",  56.000,  10.000) );
-	//mElectrodes.Add( Electrode("4",  72.000,  26.000) );
-	//mElectrodes.Add( Electrode("5",  78.000,  42.000) );
-	//mElectrodes.Add( Electrode("6",  90.000,  58.000) );
-	//mElectrodes.Add( Electrode("7",  126.000,  74.000) );
-	//mElectrodes.Add( Electrode("8",  54.000,  -22.000) );
+	mElectrodes.Add( Electrode("1", 180.000,  10.000) );
+	mElectrodes.Add( Electrode("2", 180.000,  30.000) );
+	mElectrodes.Add( Electrode("3", 180.000,  50.000) );
+	mElectrodes.Add( Electrode("4", 180.000,  70.000) );
+	mElectrodes.Add( Electrode("5",   0.000,  70.000) );
+	mElectrodes.Add( Electrode("6",   0.000,  50.000) );
+	mElectrodes.Add( Electrode("7",   0.000,  30.000) );
+	mElectrodes.Add( Electrode("8",   0.000,  10.000) );
 	//mElectrodes.Add( Electrode("9",  64.000,  -6.000) );
 	//mElectrodes.Add( Electrode("10",  73.000,  10.000) );
 	//mElectrodes.Add( Electrode("11",  90.000,  26.000) );
