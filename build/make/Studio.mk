@@ -393,6 +393,18 @@ DEFINES     := $(DEFINES) \
 OBJSPRIV    := $(OBJSPRIV)
 RCCHPRIV    := $(RCCHPRIV)
 RCCO        := $(RCCO)
+ifeq ($(TARGET_ARCH),x86)
+APPGUIDPLAT  = ba60729d-dace-4746-9c78-829d9b943f67
+endif
+ifeq ($(TARGET_ARCH),x64)
+APPGUIDPLAT  = 2bcdb126-dc80-42ba-985e-48836ce23193
+endif
+ifeq ($(TARGET_ARCH),arm)
+APPGUIDPLAT  = 9e9ffa9f-f21a-4125-bb87-bff0d2866af7
+endif
+ifeq ($(TARGET_ARCH),arm64)
+APPGUIDPLAT  = badb6403-11c5-4dd4-8964-9fda8a470314
+endif
 else
 include ../../priv/build/make/StudioBranding.mk
 endif

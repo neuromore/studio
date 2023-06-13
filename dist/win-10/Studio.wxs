@@ -4,6 +4,9 @@
   <?ifndef $(var.APPNAME) ?>
     <?error APPNAME must be set ?>
   <?endif ?>
+  <?ifndef $(var.APPGUIDPLAT) ?>
+    <?error APPGUIDPLAT must be set ?>
+  <?endif ?>
   <?ifndef $(var.APPCOMPANY) ?>
     <?error APPCOMPANY must be set ?>
   <?endif ?>
@@ -12,14 +15,11 @@
   <?endif ?>
 
   <?if $(sys.BUILDARCH) = x64 ?>
-    <?define PlatformProductName = "$(var.APPNAME) (x64)" ?>
-    <?define PlatformUpgradeCode = "1AB189BA-5B13-4448-A916-4E25B814D2AA" ?>
+    <?define APPNAMEPLAT = "$(var.APPNAME) (x64)" ?>
   <?elseif $(sys.BUILDARCH) = x86 ?>
-    <?define PlatformProductName = "$(var.APPNAME) (x86)" ?>
-    <?define PlatformUpgradeCode = "1AB189BA-5B13-4448-A916-4E25B814D2AB" ?>
+    <?define APPNAMEPLAT = "$(var.APPNAME) (x86)" ?>
   <?elseif $(sys.BUILDARCH) = arm64 ?>
-    <?define PlatformProductName = "$(var.APPNAME) (arm64)" ?>
-    <?define PlatformUpgradeCode = "1AB189BA-5B13-4448-A916-4E25B814D2AC" ?>
+    <?define APPNAMEPLAT = "$(var.APPNAME) (arm64)" ?>
   <?else ?>
     <?error Unsupported BUILDARCH ?>
   <?endif ?>
@@ -27,8 +27,8 @@
   <Package 
     Language="1033" 
     Manufacturer="$(var.APPCOMPANY)"
-    Name="$(var.PlatformProductName)"
-    UpgradeCode="$(var.PlatformUpgradeCode)"
+    Name="$(var.APPNAMEPLAT)"
+    UpgradeCode="$(var.APPGUIDPLAT)"
     Version="$(var.VERSION)">
 	
     <!-- Icon -->
@@ -48,7 +48,7 @@
       <Directory Id="STARTMENUFOLDER" Name="$(var.APPNAME)">
         <Component Id="ApplicationShortcut" Guid="2AB189BA-5B13-4448-A916-4E25B814D203">
           <Shortcut Id="ApplicationStartMenuShortcut" 
-                    Name="$(var.PlatformProductName)"
+                    Name="$(var.APPNAMEPLAT)"
                     Description="Biofeedback"
                     Target="[#Studio.exe]"
                     WorkingDirectory="INSTALLFOLDER"/>

@@ -2,7 +2,7 @@
 
 # Delete Files in Folder by Pattern
 define deletefiles
-	cmd.exe /C "del /s /q $(subst /,\,$(1))\$(2) & exit 0"
+	del /s /q $(subst /,\,$(1))\$(2) & exit 0
 endef
 
 # Copy Files between Folders by Pattern
