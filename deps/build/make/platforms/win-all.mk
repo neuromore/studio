@@ -2,27 +2,27 @@
 
 # Delete Files in Folder by Pattern
 define deletefiles
-	cmd.exe /C "del /s /q $(subst /,\,$(1))\$(2) & exit 0"
+	del /s /q $(subst /,\,$(1))\$(2)
 endef
 
 # Copy Files between Folders by Pattern
 define copyfiles
-	cmd.exe /C "copy /Y $(subst /,\,$(1)) $(subst /,\,$(2)) & exit 0"
+	copy /Y $(subst /,\,$(1)) $(subst /,\,$(2))
 endef
 
 # Copy Files recursively
 define copyfilesrecursive
-	cmd.exe /C "xcopy /Y /E /H $(subst /,\,$(1)) $(subst /,\,$(2)) & exit 0"
+	powershell Copy-Item $(1) -Destination $(2) -Force -Recurse
 endef
 
 # Recursively remove folder
 define rmdir	
-	cmd.exe /C "if exist $(subst /,\,$(1)) rd /s /q $(subst /,\,$(1))"
+	rd /s /q $(subst /,\,$(1))
 endef
 
 # Create folder and all sub folders
 define mkdir
-	-mkdir $(subst /,\,$(1))
+	mkdir $(subst /,\,$(1))
 endef
 
 # Replace string occurrences in file
