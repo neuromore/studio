@@ -34,47 +34,38 @@ function process
   foreach ($c in $contents)
   {
     $plainname = (Split-Path $c -leaf)
-
     if ($c -Is [System.IO.DirectoryInfo])
     {
-      #Write-Output($c.FullName)
-      #$plainname = (Split-Path $c -leaf)
-
       $newfolder = $xml.CreateElement("Directory", "http://wixtoolset.org/schemas/v4/wxs")
-      #$newfolder.SetAttribute("Id", '_' + $i)
       $newfolder.SetAttribute("Name", $plainname)
-      $dirnode.AppendChild($newfolder)
+      $dirnode.AppendChild($newfolder) | Out-Null
 
       process $c.FullName $newfolder 0
     }
     else
     {     
       $newfile = $xml.CreateElement("File", "http://wixtoolset.org/schemas/v4/wxs")
-      $newfile.SetAttribute("Source", (Resolve-Path -Relative $c.FullName))
-      
+      $newfile.SetAttribute("Source", (Resolve-Path -Relative $c.FullName))   
       $ext = [System.IO.Path]::GetExtension($c)
-      if ($ext -eq ".exe")
-      {
+      if ($ext -eq ".exe") {
          if ($rootfolder) {
            $newfile.SetAttribute("Id", $plainname)
          }
-
          $newrule = $xml.CreateElement("fire:FirewallException", "http://wixtoolset.org/schemas/v4/wxs/firewall")             
-         #$newrule.SetAttribute("Id", "private")
          $newrule.SetAttribute("Name", $plainname)        
          $newrule.SetAttribute("Profile", "private")
          $newrule.SetAttribute("Scope", "any")
-         $newfile.AppendChild($newrule)
+         $newfile.AppendChild($newrule) | Out-Null
       }     
-      $newcomponent.AppendChild($newfile)
+      $newcomponent.AppendChild($newfile) | Out-Null
     }
   }
   if ($newcomponent.ChildNodes.Count)
   {
-    $dirnode.AppendChild($newcomponent)
+    $dirnode.AppendChild($newcomponent) | Out-Null
     $newcompref = $xml.CreateElement("ComponentRef", "http://wixtoolset.org/schemas/v4/wxs")
     $newcompref.SetAttribute("Id", $newcompid)
-    $featurenode.AppendChild($newcompref)
+    $featurenode.AppendChild($newcompref) | Out-Null
   }
 }
 
