@@ -25,16 +25,6 @@ define mkdir
 	powershell "New-Item $(1) -ItemType Directory -Force"
 endef
 
-# Move Folder or File
-define move
-	powershell Move-Item -Force -Path $(1) -Destination $(2)
-endef
-
-# Sleep n seconds
-define sleep
-	powershell Start-Sleep -Seconds $(1)
-endef
-
 # Replace string occurrences in file
 define replace
 	powershell -Command "(gc $(subst /,\,$(1))) -replace '$(subst /,\,$(2))', '$(subst /,\,$(3))' | Out-File -encoding UTF8 $(subst /,\,$(4))"
@@ -68,4 +58,14 @@ endef
 # Create ZIP
 define makezip
 	powershell Compress-Archive -Force $(1) $(2)
+endef
+
+# Move Folder or File
+define move
+	powershell Move-Item -Force -Path $(1) -Destination $(2)
+endef
+
+# Sleep n seconds
+define sleep
+	powershell Start-Sleep -Seconds $(1)
 endef
