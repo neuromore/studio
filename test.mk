@@ -3,7 +3,7 @@ include ./deps/build/make/platforms/detect-host.mk
 
 dist:
 	echo test
-	-$(call mkdir,test)
+	-$(call mkdir,test/bla)
 	dir
 	-$(call deletefiles,test,*.zip)
 	-$(call rmdir,test)

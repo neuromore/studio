@@ -22,7 +22,7 @@ endef
 
 # Create folder and all sub folders
 define mkdir
-	mkdir $(subst /,\,$(1))
+	powershell "New-Item $(1) -ItemType Directory -Force"
 endef
 
 # Move Folder or File
