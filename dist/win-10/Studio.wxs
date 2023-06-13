@@ -45,34 +45,20 @@
 
     <!-- Start Menu Folder -->
     <StandardDirectory Id="ProgramMenuFolder">
-      <Directory Id="STARTMENUFOLDER" Name="$(var.APPNAME)"/>
+      <Directory Id="STARTMENUFOLDER" Name="$(var.APPNAME)">
+        <Component Id="ApplicationShortcut" Guid="2AB189BA-5B13-4448-A916-4E25B814D203">
+          <Shortcut Id="ApplicationStartMenuShortcut" 
+                    Name="$(var.PlatformProductName)"
+                    Description="Biofeedback"
+                    Target="[#Studio.exe]"
+                    WorkingDirectory="INSTALLFOLDER"/>
+          <RemoveFolder Id="CleanUpShortCut" Directory="STARTMENUFOLDER" On="uninstall"/>
+        </Component>
+	  </Directory>
     </StandardDirectory>
 
-    <!-- Contents -->
-    <ComponentGroup Directory="INSTALLFOLDER" Id="ProgramFiles">
-      <Component Id="PROGRAM" Guid="2AB189BA-5B13-4448-A916-4E25B814D201">
-        <File Id="STUDIO_EXE" KeyPath="yes" Source="$(sys.BUILDARCH)/Studio.exe">
-          <fire:FirewallException Id="StudioFirewall" Name="$(var.PlatformProductName)" Profile="private" Scope="any" />
-        </File>
-        <File Id="PDB" Source="$(sys.BUILDARCH)/Studio.pdb" />
-      </Component>
-      <Component Id="FILES" Guid="2AB189BA-5B13-4448-A916-4E25B814D202" />
-    </ComponentGroup>
-
-    <!-- Start Menu Entry -->
-    <DirectoryRef Id="STARTMENUFOLDER">
-      <Component Id="ApplicationShortcut" Guid="2AB189BA-5B13-4448-A916-4E25B814D203">
-        <Shortcut Id="ApplicationStartMenuShortcut" 
-                  Name="$(var.PlatformProductName)"
-                  Description="Biofeedback"
-                  Target="[#STUDIO_EXE]"
-                  WorkingDirectory="INSTALLFOLDER"/>
-        <RemoveFolder Id="CleanUpShortCut" Directory="STARTMENUFOLDER" On="uninstall"/>
-      </Component>
-    </DirectoryRef>
-
+    <!-- Feature -->
     <Feature Id="Application">
-      <ComponentGroupRef Id="ProgramFiles" />
       <ComponentRef Id="ApplicationShortcut" />
     </Feature>
   </Package>

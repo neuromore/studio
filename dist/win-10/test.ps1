@@ -19,7 +19,8 @@ function process
   param(
     [Parameter()]
     [System.String] $path,
-    [System.Xml.XmlNode] $dirnode
+    [System.Xml.XmlNode] $dirnode,
+    [System.Boolean] $rootfolder 
   )
 
   $newguid = [guid]::NewGuid()
@@ -29,82 +30,54 @@ function process
   $newcomponent.SetAttribute("Id", $newcompid)
   $newcomponent.SetAttribute("Guid", $newguid)
   
-  $contents = Get-ChildItem -Path $path
+  $contents = (Get-ChildItem -Path $path)
   foreach ($c in $contents)
   {
+    $plainname = (Split-Path $c -leaf)
+
     if ($c -Is [System.IO.DirectoryInfo])
     {
-      Write-Output($c.FullName)
-
-      $plainname = (Split-Path $c -leaf)
-
-      
+      #Write-Output($c.FullName)
+      #$plainname = (Split-Path $c -leaf)
 
       $newfolder = $xml.CreateElement("Directory", "http://wixtoolset.org/schemas/v4/wxs")
       #$newfolder.SetAttribute("Id", '_' + $i)
       $newfolder.SetAttribute("Name", $plainname)
       $dirnode.AppendChild($newfolder)
 
-      process $c.FullName $newfolder
+      process $c.FullName $newfolder 0
     }
     else
-    {
-      
+    {     
       $newfile = $xml.CreateElement("File", "http://wixtoolset.org/schemas/v4/wxs")
-      #$newfile.SetAttribute("Id", '_' + $i)
       $newfile.SetAttribute("Source", (Resolve-Path -Relative $c.FullName))
-       
-      $newcomponent.AppendChild($newfile)
+      
+      $ext = [System.IO.Path]::GetExtension($c)
+      if ($ext -eq ".exe")
+      {
+         if ($rootfolder) {
+           $newfile.SetAttribute("Id", $plainname)
+         }
 
-      Write-Output($c.FullName)
+         $newrule = $xml.CreateElement("fire:FirewallException", "http://wixtoolset.org/schemas/v4/wxs/firewall")             
+         #$newrule.SetAttribute("Id", "private")
+         $newrule.SetAttribute("Name", $plainname)        
+         $newrule.SetAttribute("Profile", "private")
+         $newrule.SetAttribute("Scope", "any")
+         $newfile.AppendChild($newrule)
+      }     
+      $newcomponent.AppendChild($newfile)
     }
   }
   if ($newcomponent.ChildNodes.Count)
   {
     $dirnode.AppendChild($newcomponent)
-
     $newcompref = $xml.CreateElement("ComponentRef", "http://wixtoolset.org/schemas/v4/wxs")
     $newcompref.SetAttribute("Id", $newcompid)
     $featurenode.AppendChild($newcompref)
   }
 }
 
-
-
-
-
-process $filespath $node
-
-
-
-#Set-Location $basefolder
-#$files = Get-ChildItem -Path $filespath -Recurse -Exclude "Studio.exe" -Filter $filesfilter
-# | 
-#  Select-Object -Expand FullName | 
-#  Resolve-Path -Relative 
-
-
-#foreach ($file in $files)
-#{
-#  $item = Get-Item $file
-#  if ($file -Is [System.IO.DirectoryInfo])
-#  {
-#    Write-Output($file)
-#  }
-#}
-
-#$node = $xml.Wix.Package.ComponentGroup | where {$_.Id -eq 'ProgramFiles'}
-#$node = $node.Component | where {$_.Id -eq 'FILES'}
-
-$i = 0
-#foreach ($file in $files)
-#{
-#  $newelement = $xml.CreateElement("File", "http://wixtoolset.org/schemas/v4/wxs")
-#  $newelement.SetAttribute("Id", '_' + $i)
-#  $newelement.SetAttribute("Source", $file)
-#  $node.AppendChild($newelement)
-#  $i++
-#}
-
+process $filespath $node 1
 
 $xml.save($xmlsavepath)
