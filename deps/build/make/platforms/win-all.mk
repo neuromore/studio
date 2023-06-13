@@ -22,7 +22,7 @@ endef
 
 # Create folder and all sub folders
 define mkdir
-	cmd.exe /C "if not exist $(subst /,\,$(1)) mkdir $(subst /,\,$(1))"
+	-mkdir $(subst /,\,$(1))
 endef
 
 # Replace string occurrences in file
