@@ -165,7 +165,9 @@ endif
 #	$(ZIPPER) $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB)	
 #	$(call move,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym)
 	echo [MSI] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi
-	powershell -command "& { Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; . $(DISTDIR)/Harvest.ps1 -in $(DISTDIR)/$(NAME).wxs -out $(DISTDIR)/$(NAME)/MSI.$*.wxs -path $(DISTDIR)/$(NAME)/$*; }"  
+	powershell -command "& { \
+	  Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; \
+	  . $(DISTDIR)/Harvest.ps1 -in $(DISTDIR)/$(NAME).wxs -out $(DISTDIR)/$(NAME)/MSI.$*.wxs -path $(DISTDIR)/$(NAME)/$*; }"  
 	wix extension add WixToolset.Firewall.wixext
 	wix build -arch $* \
 	  -ext WixToolset.Firewall.wixext \
