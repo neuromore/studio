@@ -2,7 +2,7 @@
 
 # Delete Files in Folder by Pattern
 define deletefiles
-	del /s /q $(subst /,\,$(1))\$(2)
+	powershell "Remove-Item $(1)/$(2) -Force"
 endef
 
 # Copy Files between Folders by Pattern
