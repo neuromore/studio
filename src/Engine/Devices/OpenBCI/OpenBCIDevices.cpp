@@ -111,14 +111,14 @@ void OpenBCIDevice::CreateElectrodes()
 	mElectrodes.Clear();
 	mElectrodes.Reserve(NUMELECTRODESCYTON);
 
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C5"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C6"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("1"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("2"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("3"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("4"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("5"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("6"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("7"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("8"));
 }
 
 
