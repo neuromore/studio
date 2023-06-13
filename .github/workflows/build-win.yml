@@ -145,9 +145,7 @@ jobs:
     
     # Install WIX
     - name: Install WIX
-      run: |
-        dotnet tool install --global wix --version 4.0.1
-        wix extension add WixToolset.Firewall.wixext
+      run: dotnet tool install --global wix --version 4.0.1
 
     # Checkout
     - name: Checkout
@@ -206,13 +204,12 @@ jobs:
 
     # Pack
     - name: Make (dist)
-      shell: cmd
       env:
         SIGN_PFX_FILE: ../../certs/TrueCert.pfx
         SIGN_PFX_PASS: ${{ secrets.SIGN_PFX_PASS }}
         PUBLISHERCN: Neuromore Co
         PUBLISHER: CN=Neuromore Co, O=Neuromore Co, S=Florida, C=US
-      run: make dist -j1
+      run: make dist
 
     # Remaining Free Disk Space
     - name: Remaining Free Disk Space
@@ -220,13 +217,13 @@ jobs:
       run: |
         fsutil volume diskfree d:
     
-    # Upload ZIP
-    - name: Upload ZIP
+    # Upload MSI
+    - name: Upload MSI
       uses: actions/upload-artifact@v3
       with:
-        name: Packages ZIP (${{ matrix.os }}-${{ matrix.branding }})
+        name: Packages MSI (${{ matrix.os }}-${{ matrix.branding }})
         path: |
-          ./dist/win-10/*.zip
+          ./dist/win-10/*.msi
 
     # Upload Packages
     - name: Upload App
