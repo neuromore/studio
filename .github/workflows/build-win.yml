@@ -142,6 +142,10 @@ jobs:
     env:
       BRANDING: ${{ matrix.branding }}
     steps:
+    
+    # Install WIX
+    - name: Install WIX
+      run: dotnet tool install --global wix --version 4.0.1
 
     # Checkout
     - name: Checkout
@@ -213,13 +217,13 @@ jobs:
       run: |
         fsutil volume diskfree d:
     
-    # Upload ZIP
-    - name: Upload ZIP
+    # Upload MSI
+    - name: Upload MSI
       uses: actions/upload-artifact@v3
       with:
-        name: Packages ZIP (${{ matrix.os }}-${{ matrix.branding }})
+        name: Packages MSI (${{ matrix.os }}-${{ matrix.branding }})
         path: |
-          ./dist/win-10/*.zip
+          ./dist/win-10/*.msi
 
     # Upload Packages
     - name: Upload App
@@ -236,4 +240,4 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/') && (matrix.branding == 'neuromore')
       with:
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-        files: ./dist/win-10/*.zip
+        files: ./dist/win-10/*.msi
