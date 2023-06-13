@@ -11,6 +11,12 @@ jobs:
       matrix:
         os: [windows-2022]
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        lfs: false
 
     - name: Test cmd
       shell: cmd
