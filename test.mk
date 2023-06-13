@@ -2,6 +2,8 @@
 include ./deps/build/make/platforms/detect-host.mk
 
 dist:
+	-rmdir /?
+	-rmdir --help
 	echo test
 	-$(call mkdir,test)
 	dir
