@@ -80,16 +80,16 @@ dist-prep:
 	-$(call mkdir,$(DISTDIR)/$(NAME)/x64)
 	-$(call mkdir,$(DISTDIR)/$(NAME)/x86)
 	-$(call mkdir,$(DISTDIR)/$(NAME)/arm64)
-#	$(call copyfiles,$(DISTDIR)/$(NAME).appxmanifest,$(DISTDIR)/$(NAME)/AppxManifest.xml)
-#	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
-#	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
-#	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{VERSION},$(VERSION4),$(DISTDIR)/$(NAME)/AppxManifest.xml)
-#	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{DISPLAYNAME},$(APPNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
-#	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPID},$(APPID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
-#	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPCOMPANY},$(APPCOMPANY),$(DISTDIR)/$(NAME)/AppxManifest.xml)
-#	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPSHORTNAME},$(APPSHORTNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
-#	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
-#	$(call replace,$(DISTDIR)/$(NAME)/Layout.xml,{VERSION},$(VERSION3),$(DISTDIR)/$(NAME)/Layout.xml)
+	$(call copyfiles,$(DISTDIR)/$(NAME).appxmanifest,$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{VERSION},$(VERSION4),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{DISPLAYNAME},$(APPNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPID},$(APPID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPCOMPANY},$(APPCOMPANY),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{APPSHORTNAME},$(APPSHORTNAME),$(DISTDIR)/$(NAME)/AppxManifest.xml)
+	$(call copyfiles,$(DISTDIR)/$(NAME).layout,$(DISTDIR)/$(NAME)/Layout.xml)
+	$(call replace,$(DISTDIR)/$(NAME)/Layout.xml,{VERSION},$(VERSION3),$(DISTDIR)/$(NAME)/Layout.xml)
 	echo [CPY] Icons
 	$(call copyfiles,$(APPICON)-44x44.png,$(DISTDIR)/$(NAME)/resources/app-44x44.png)
 	$(call copyfiles,$(APPICON)-50x50.png,$(DISTDIR)/$(NAME)/resources/app-50x50.png)
@@ -157,9 +157,9 @@ ifeq ($(SIGN_PFX_PASS),)
 else
 	$(call signp,$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN),$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
-#	echo [SYM] $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym
-#	$(ZIPPER) $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB)	
-#	$(call move,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym)
+	echo [SYM] $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym
+	$(ZIPPER) $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB)	
+	$(call move,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym)
 	echo [MSI] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi
 	powershell -command "& { \
 	  Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; \
@@ -181,25 +181,25 @@ else
 	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 dist: dist-prep dist-vis dist-bin-x64 dist-bin-x86 dist-bin-arm64
-#	echo [BDL] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxbundle
-#	$(call makepkg,$(DISTDIR)/$(NAME)/Layout.xml,$(DISTDIR))
-#	echo [SIG] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxbundle
+	echo [BDL] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxbundle
+	$(call makepkg,$(DISTDIR)/$(NAME)/Layout.xml,$(DISTDIR))
+	echo [SIG] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxbundle
 ifeq ($(SIGN_PFX_PASS),)
-#	$(call sign,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE))
-#	$(call sign,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE))
-#	$(call sign,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE))
-#	$(call sign,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE))
+	$(call sign,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE))
 else
-#	$(call signp,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-#	$(call signp,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-#	$(call signp,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
-#	$(call signp,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME).appxbundle,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-x64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-x86.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	$(call signp,$(DISTDIR)/$(NAME)-arm64.appx,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
-#	echo [APU] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxupload
-#	$(call copyfiles,$(DISTDIR)/$(NAME).appxbundle,$(DISTDIR)/$(NAME)/upload/$(NAME).appxbundle)
-#	$(ZIPPER) $(DISTDIR)/$(NAME).appxupload.zip $(DISTDIR)/$(NAME)/upload/*
-#	$(call move,$(DISTDIR)/$(NAME).appxupload.zip,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxupload)	
-#	$(call move,$(DISTDIR)/$(NAME).appxbundle,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxbundle)
+	echo [APU] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxupload
+	$(call copyfiles,$(DISTDIR)/$(NAME).appxbundle,$(DISTDIR)/$(NAME)/upload/$(NAME).appxbundle)
+	$(ZIPPER) $(DISTDIR)/$(NAME).appxupload.zip $(DISTDIR)/$(NAME)/upload/*
+	$(call move,$(DISTDIR)/$(NAME).appxupload.zip,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxupload)	
+	$(call move,$(DISTDIR)/$(NAME).appxbundle,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxbundle)
 endif
 
 ##############################################################################################################
