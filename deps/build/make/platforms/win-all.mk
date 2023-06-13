@@ -16,8 +16,8 @@ define copyfilesrecursive
 endef
 
 # Recursively remove folder
-define rmdir	
-	rmdir /S /Q $(subst /,\,$(1))
+define rmdir
+	powershell "Remove-Item $(1) -Force -Recurse "
 endef
 
 # Create folder and all sub folders
