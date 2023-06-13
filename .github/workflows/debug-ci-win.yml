@@ -12,6 +12,12 @@ jobs:
         os: [windows-2022]
     steps:
 
-    - name: Test
+    - name: Test cmd
+      shell: cmd
       run: |
-        make -v
+        make -f test.mk
+
+    - name: Test pwsh
+      shell: pwsh
+      run: |
+        make -f test.mk
