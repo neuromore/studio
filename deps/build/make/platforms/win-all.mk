@@ -17,7 +17,7 @@ endef
 
 # Recursively remove folder
 define rmdir
-	powershell "Remove-Item $(1) -Force -Recurse "
+	powershell "Remove-Item $(1) -Force -Recurse"
 endef
 
 # Create folder and all sub folders
@@ -62,10 +62,10 @@ endef
 
 # Move Folder or File
 define move
-	cmd.exe /C "powershell Move-Item -Force -Path $(1) -Destination $(2)"
+	powershell Move-Item -Force -Path $(1) -Destination $(2)
 endef
 
 # Sleep n seconds
 define sleep
-	cmd.exe /C "powershell Start-Sleep -Seconds $(1)"
+	powershell Start-Sleep -Seconds $(1)
 endef

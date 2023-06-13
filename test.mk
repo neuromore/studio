@@ -5,6 +5,7 @@ dist:
 	echo test
 	-$(call mkdir,test)
 	dir
+	-$(call deletefiles,test/*.zip)
 	-$(call rmdir,test)
 	dir
 	
