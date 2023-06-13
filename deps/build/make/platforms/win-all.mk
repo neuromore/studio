@@ -12,12 +12,12 @@ endef
 
 # Copy Files recursively
 define copyfilesrecursive
-	powershell Copy-Item $(1) -Destination $(2) -Force -Recurse
+	powershell "Copy-Item $(1) -Destination $(2) -Force -Recurse"
 endef
 
 # Recursively remove folder
 define rmdir	
-	rd /s /q $(subst /,\,$(1))
+	rmdir /S /Q $(subst /,\,$(1))
 endef
 
 # Create folder and all sub folders
