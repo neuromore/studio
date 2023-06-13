@@ -73,7 +73,6 @@ dist-prep:
 	-$(call deletefiles,$(DISTDIR),$(NAME)*.appx)
 	-$(call deletefiles,$(DISTDIR),$(NAME)*.appxbundle)
 	-$(call deletefiles,$(DISTDIR),$(NAME)*.appxupload)
-	$(call sleep,1)
 	echo [MKD] $(DISTDIR)/$(NAME)
 	-$(call mkdir,$(DISTDIR)/$(NAME))
 	-$(call mkdir,$(DISTDIR)/$(NAME)/resources)
@@ -81,7 +80,6 @@ dist-prep:
 	-$(call mkdir,$(DISTDIR)/$(NAME)/x64)
 	-$(call mkdir,$(DISTDIR)/$(NAME)/x86)
 	-$(call mkdir,$(DISTDIR)/$(NAME)/arm64)
-	$(call sleep,1)
 	dir ..\..\dist\win-10\Studio
 	$(call copyfiles,$(DISTDIR)/$(NAME).appxmanifest,$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
@@ -103,12 +101,12 @@ dist-vis-%: dist-prep
 	$(call mkdir,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
-	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x64/*,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
+	-$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x64/*,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
+	-$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	-$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
@@ -116,9 +114,9 @@ endif
 	-$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x86/*,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
+	-$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	-$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
@@ -126,9 +124,9 @@ endif
 	-$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-arm64/*,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
+	-$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	-$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 dist-dll-x64: dist-prep
 	echo [DLL] Copy X64 DLL
