@@ -90,6 +90,7 @@ SelectUserWindow::SelectUserWindow(const User& user, QWidget* parent, bool showS
 	connect(mSearchEdit, SIGNAL(TextChanged(const QString&)), this, SLOT(OnSearchEdited(const QString&)));
 	connect(mSearchEdit, SIGNAL(TextCleared()), this, SLOT(OnSearchCleared()));
 	topHLayout->addWidget(mSearchEdit);
+	mSearchEdit->setFocus();
 
 	// search timer
 	mSearchTimer = new QTimer(this);
