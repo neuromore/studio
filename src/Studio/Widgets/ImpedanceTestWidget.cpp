@@ -153,7 +153,7 @@ void ImpedanceTestWidget::UpdateInterface()
 
 		// skip invalid values (Eccept exactly 0.0), dont skip used electrodes
 		if (activeClassifier == NULL || (activeClassifier != NULL && activeClassifier->IsSensorUsed(mDevice->GetSensor(i)) == false))
-			if (impedance > electrodeActiveDetectionThreshold || impedance <= 0.0)
+			if (impedance > electrodeActiveDetectionThreshold || impedance < 0.1)
 				continue;
 		
 		minImpedance = Min(minImpedance, impedance);
@@ -189,7 +189,7 @@ void ImpedanceTestWidget::UpdateInterface()
 		mAvgImpedanceLabel->setText(mTempString.AsChar());
 
 		// test passed?
-		testPassed = (maxImpedance <= mImpedanceThreshold->yellow);
+		testPassed = (maxImpedance >= 0.1 && maxImpedance <= mImpedanceThreshold->yellow);
 
 		// set sensor contact quality (reuse electrode widget) to indicate pass/fail of individual electrodes
 		for (uint32 i = 0; i < numSensors; ++i)
