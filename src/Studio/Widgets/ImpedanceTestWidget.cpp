@@ -69,14 +69,14 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 	mainLayout->addWidget(label, 1, 0, 2, 1);
 
 	mThresholdComboBox = new QComboBox();
-	mThresholdComboBox->setEditable(true);
+	mThresholdComboBox->setEditable(false);
 	mThresholdComboBox->setMaxCount(NUMPROFILES);
 	for (size_t i = 0; i < NUMPROFILES; i++)
 		mThresholdComboBox->addItem(Thresholds[i].name);
 
 	connect(mThresholdComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(OnThresholdSelected(int)));
 	connect(mThresholdComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(OnThresholdEdited(const QString&)));
-	mThresholdComboBox->setFixedWidth(75);
+	mThresholdComboBox->setFixedWidth(100);
 	mainLayout->addWidget(mThresholdComboBox, 1, 1, 2, 1);
 	// select default threshold
 	mThresholdComboBox->setCurrentIndex(DEFAULTPROFILE);
@@ -136,13 +136,16 @@ void ImpedanceTestWidget::UpdateInterface()
 	// calc min/max/avg impedance accross sensors
 	
 	// max impedance, if the values is larger we assume the lead is unconnected and ignore the electrode
-	const double electrodeActiveDetectionThreshold = 200; // 200 kiloohms
+	constexpr double electrodeActiveDetectionThreshold = 400; // 200 kiloohms
 	
 	// note: impedance values are transported via the EEG sensors
 	double minImpedance = DBL_MAX;
 	double maxImpedance = -DBL_MAX;
 	double avgImpedance = 0.0;
 	uint32 avgCount = 0;
+
+	// 0.0 (or close to it) is unconnected/no impedance
+	constexpr double minthreshold = 0.5;
 
 	bool testPassed = true;
 
@@ -151,10 +154,13 @@ void ImpedanceTestWidget::UpdateInterface()
 	{
 		const double impedance = mDevice->GetImpedance(i);
 
-		// skip invalid values (Eccept exactly 0.0), dont skip used electrodes
-		if (activeClassifier == NULL || (activeClassifier != NULL && activeClassifier->IsSensorUsed(mDevice->GetSensor(i)) == false))
-			if (impedance > electrodeActiveDetectionThreshold || impedance <= 0.0)
-				continue;
+		if (impedance > electrodeActiveDetectionThreshold || impedance < minthreshold)
+			continue;
+
+		// skip 
+		if (activeClassifier && !activeClassifier->IsSensorUsed(mDevice->GetNeuroSensor(i)))
+			continue;
+
 		
 		minImpedance = Min(minImpedance, impedance);
 		maxImpedance = Max(maxImpedance, impedance);
@@ -189,14 +195,14 @@ void ImpedanceTestWidget::UpdateInterface()
 		mAvgImpedanceLabel->setText(mTempString.AsChar());
 
 		// test passed?
-		testPassed = (maxImpedance <= mImpedanceThreshold->yellow);
+		testPassed = minImpedance >= minthreshold && maxImpedance >= minthreshold && maxImpedance <= mImpedanceThreshold->yellow;
 
 		// set sensor contact quality (reuse electrode widget) to indicate pass/fail of individual electrodes
 		for (uint32 i = 0; i < numSensors; ++i)
 		{
 			const double impedance = mDevice->GetImpedance(i);
 			
-			if (impedance < 0.1) // == 0.0 case
+			if (impedance < minthreshold) // == 0.0 case
 				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
 
 			else if (impedance <= mImpedanceThreshold->green)
