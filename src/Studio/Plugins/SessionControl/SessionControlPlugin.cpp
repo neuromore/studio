@@ -399,6 +399,14 @@ void SessionControlPlugin::CheckStartRequirements()
 	const bool deviceBatteryLow = (GetDeviceManager()->IsDevicePowerOk() == false);
 	const bool deviceMissing = (classifier != NULL && classifier->HasError (DeviceInputNode::ERROR_DEVICE_NOT_FOUND) == true);
 
+
+	// not runninng session as patient
+	const char* noPatientInfo = "No patient selected.";
+	if (GetUser()->GetIdString() == GetSessionUser()->GetIdString() && (GetUser()->FindRule("ROLE_ClinicClinician") || GetUser()->FindRule("ROLE_ClinicOperator")))
+		mSessionInfoWidget->ShowInfo(SessionInfoWidget::TYPE_WARNING, noPatientInfo, "Please select a patient before starting a session.");
+	else
+		mSessionInfoWidget->RemoveInfo(noPatientInfo);
+
 	// classifier or statemachine has error
 	const bool designError = (classifier != NULL && classifier->HasError() == true) || (stateMachine != NULL && stateMachine->HasError() == true);
 	
