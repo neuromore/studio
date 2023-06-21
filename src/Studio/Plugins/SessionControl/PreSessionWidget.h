@@ -57,7 +57,6 @@ class PreSessionWidget : public QWidget
 		QPushButton* GetShowReportButton()								{ return mShowReportButton; }
 		QPushButton* GetSelectUserButton()								{ return mSelectUserButton; }
 
-		void ShowSelectUserButton(bool show = true);
 		void UpdateChannels(ChannelSelectorNode* chs = 0);
 		Core::String GetSelectedChannels();
 		inline QString GetSelectedChannel(uint32 idx) { idx < NUMELECTRODESELECT ? mElectrodeSelections[idx]->currentText() : ""; }
