@@ -229,7 +229,7 @@ void DeviceWidget::InitDeviceTestWidget()
 	if (mDevice->IsTestRunning())
 	{
 		mDeviceTestWidget->setVisible(true);
-		mDeviceTestButton->setText("Close");
+		mDeviceTestButton->setText("Stop");
 	}
 	else
 	{

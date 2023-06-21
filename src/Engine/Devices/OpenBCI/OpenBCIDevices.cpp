@@ -95,6 +95,9 @@ OpenBCIDevice::OpenBCIDevice(DeviceDriver* driver) : OpenBCIDeviceBase(driver)
 
 	// create all sensors
 	CreateSensors();
+
+	// go into test mode directly
+	StartTest();
 }
 
 

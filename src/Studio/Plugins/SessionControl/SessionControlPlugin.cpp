@@ -87,10 +87,6 @@ bool SessionControlPlugin::Init()
 	connect(mPreSessionWidget->GetStartButton(), &QPushButton::clicked, this, &SessionControlPlugin::OnStart);
 	connect(mPreSessionWidget, &PreSessionWidget::SelectedChannelsChanged, this, &SessionControlPlugin::OnSelectedChannelsChanged);
 
-	// show user button only if user is allowed to select a client
-	if (GetUser()->FindRule("STUDIO_SETTING_SelectUser") == NULL)
-		mPreSessionWidget->ShowSelectUserButton(false);
-
 	// while-session widget
 	mWhileSessionWidget = new WhileSessionWidget(NULL, buttonSize);
 	hLayout->addWidget(mWhileSessionWidget);

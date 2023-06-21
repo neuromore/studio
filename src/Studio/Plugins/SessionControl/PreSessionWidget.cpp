@@ -132,7 +132,7 @@ void PreSessionWidget::Init()
 	mSelectUserButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	mSelectUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Users.png") );
 	connect( mSelectUserButton, &QPushButton::clicked, this, &PreSessionWidget::OnSelectUserClicked);
-	gLayout->addWidget( mSelectUserButton, 2, 1 );
+	gLayout->addWidget( mSelectUserButton, 2, 1, 1, NUMELECTRODESELECT);
 	
 	// show report button
 	mShowReportButton = new QPushButton("Show Report");
@@ -140,15 +140,6 @@ void PreSessionWidget::Init()
 	mShowReportButton->setVisible(false);
 	vLayout->addWidget(mShowReportButton);
 	connect( mShowReportButton, SIGNAL(clicked()), mPlugin, SLOT(ShowReport()) );
-
-	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
-	{
-		mVisSelectionLabel->hide();
-		mVisSelectionButton->hide();
-
-		mSelectUserLabel->hide();
-		mSelectUserButton->hide();
-	}
 }
 
 
@@ -243,12 +234,6 @@ void PreSessionWidget::ReInit()
 	mVisSelectionComboBox->blockSignals( false );*/
 }
 
-
-void PreSessionWidget::ShowSelectUserButton(bool show)
-{
-	mSelectUserLabel->setVisible(show);
-	mSelectUserButton->setVisible(show);
-}
 
 void PreSessionWidget::UpdateChannels(ChannelSelectorNode* chs)
 {
