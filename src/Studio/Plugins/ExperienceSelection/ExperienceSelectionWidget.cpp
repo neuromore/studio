@@ -221,16 +221,19 @@ void ExperienceSelectionWidget::CreateWidgetsForFolders(bool downloadAssets)
 					}
 				}
 			} else {
-				button->setText(item.GetName());
+
+				QLabel* lbl = new QLabel(button);
+				lbl->setWordWrap(true);
+				lbl->setAlignment(Qt::AlignCenter);
+				lbl->setGeometry(QRect(24, 30, tileSize-48, tileSize));
+				lbl->setStyleSheet("QLabel { color: black; font-size: 18px; }");
+				lbl->setText(item.GetName());
 
 				button->setStyleSheet(QString("QPushButton {"
 									  "width: %1px;"
 									  "height: %1px;"
 									  "border-image: url(:/Images/Icons/ExperienceFolder.png);"
-									  "text-align: center bottom;"
-									  "font-size: 18px;"
-									  "color: #FFFFFF;"
-									"}").arg(tileSize - 18));
+									"}").arg(tileSize));
 			}
 
 			connect(button, &ImageButton::clicked, this, &ExperienceSelectionWidget::OnItemButtonClicked);
