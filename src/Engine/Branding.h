@@ -54,8 +54,8 @@ public:
    static constexpr const bool  DefaultAutoDetectionEnabled = true;
    static constexpr const bool  DefaultTestDeviceEnabled    = true;
    static constexpr const bool  DefaultEemagineEnabled      = true;
-   static constexpr const bool  DefaultBrainMasterEnabled   = false;
-   static constexpr const bool  DefaultOpenBCIEnabled       = false;
+   static constexpr const bool  DefaultBrainMasterEnabled   = true;
+   static constexpr const bool  DefaultOpenBCIEnabled       = true;
    static constexpr const bool  DefaultBrainflowEnabled     = true;
    static constexpr const int   DefaultServerPresetIdx      = 0;
    static constexpr const int   DefaultAutoSelectType       = 4; // = SELECT_FIRST_EIGHT (see ChannelMultiSelectionWidget.h)
