@@ -33,7 +33,7 @@
 
 using namespace Core;
 
-BrainFlowDriver::BrainFlowDriver() : DeviceDriver(true) 
+BrainFlowDriver::BrainFlowDriver() : DeviceDriver(Branding::DefaultBrainflowEnabled)
 {
 	CORE_EVENTMANAGER.AddEventHandler(this);
 	AddSupportedDevice(BrainFlowDevice::TYPE_ID);
