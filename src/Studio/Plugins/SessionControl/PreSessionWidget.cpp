@@ -50,7 +50,9 @@ void PreSessionWidget::Init()
 	setLayout(hLayout);
 
 	// create the back to selection button
-	mBackToSelectionButton = new QPushButton("Back to selection");
+	mBackToSelectionButton = new QPushButton("Back");
+	mBackToSelectionButton->setFixedSize(QSize(mStartButtonSize, mStartButtonSize));
+
 	hLayout->addWidget(mBackToSelectionButton);
 	connect( mBackToSelectionButton, &QPushButton::clicked, this, [=]
 	{
@@ -128,7 +130,7 @@ void PreSessionWidget::Init()
 	gLayout->addWidget( mSelectUserLabel, 2, 0 );
 
 	// add select user button
-	mSelectUserButton = new QPushButton(GetUser()->CreateDisplayableName().AsChar());
+	mSelectUserButton = new QPushButton(GetSessionUser()->CreateDisplayableName().AsChar());
 	mSelectUserButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	mSelectUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Users.png") );
 	connect( mSelectUserButton, &QPushButton::clicked, this, &PreSessionWidget::OnSelectUserClicked);
