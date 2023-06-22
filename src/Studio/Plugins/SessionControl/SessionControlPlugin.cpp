@@ -428,11 +428,11 @@ void SessionControlPlugin::CheckStartRequirements()
 		mSessionInfoWidget->RemoveInfo( noPermissionInfo );
 
 	// device test
-	const char* testModeInfo = "Device is in test mode";
+	/*const char* testModeInfo = "Device is in test mode";
 	if (deviceTestRunning == true)
 		mSessionInfoWidget->ShowInfo( SessionInfoWidget::TYPE_INFO, testModeInfo, "Please stop the device test first.");
 	else
-		mSessionInfoWidget->RemoveInfo( testModeInfo );
+		mSessionInfoWidget->RemoveInfo( testModeInfo );*/
 
 	// device not connected
 	const char* noDevicePower = "Device battery is almost empty";
