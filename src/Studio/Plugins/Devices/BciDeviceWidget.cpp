@@ -89,53 +89,56 @@ void BciDeviceWidget::Init()
 	headlbl->setStyleSheet("background-color: black;");
 	headlbl->setAlignment(Qt::AlignCenter);
 
-	QLabel* testval = new QLabel();
-	testval->setFixedSize(valsize);
-	testval->setText("kOhm");
-	testval->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	testval->setStyleSheet("background-color: black;");
-	testval->setAlignment(Qt::AlignCenter);
+	QLabel* headval = new QLabel();
+	headval->setFixedSize(valsize);
+	headval->setText("kOhm");
+	headval->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	headval->setStyleSheet("background-color: black;");
+	headval->setAlignment(Qt::AlignCenter);
 
 	mImpedanceGrid->addWidget(headlbl, 0, 0);
-	mImpedanceGrid->addWidget(testval, 0, 1);
+	mImpedanceGrid->addWidget(headval, 0, 1);
 
 	if (mBciDevice)
 	{
-      const uint32 numSensors = std::min(8U, mBciDevice->GetNumNeuroSensors());
-      for (uint32_t i = 0; i < numSensors; i++)
-      {
-         Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+		const uint32 numSensors = std::min(8U, mBciDevice->GetNumNeuroSensors());
+		for (uint32_t i = 0; i < numSensors; i++)
+		{
+			Sensor* sensor = mBciDevice->GetNeuroSensor(i);
 
-         QLabel* lbl = new QLabel();
-         lbl->setFixedSize(lblsize);
-         lbl->setText(sensor->GetName());
-         lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-         lbl->setStyleSheet("background-color: black;");
-         lbl->setAlignment(Qt::AlignCenter);
+			// name label
+			QLabel* lbl = new QLabel();
+			lbl->setFixedSize(lblsize);
+			lbl->setText(sensor->GetName());
+			lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			lbl->setAlignment(Qt::AlignCenter);
 
-         switch (i)
-         {
-         case 0:  lbl->setStyleSheet("color: red;   background-color: black;"); break;
-         case 1:  lbl->setStyleSheet("color: green; background-color: black;"); break;
-         case 2:  lbl->setStyleSheet("color: blue;  background-color: black;"); break;
-         case 3:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
-         case 4:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
-         case 5:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
-         case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
-         case 7:  lbl->setStyleSheet("color: white; background-color: black;"); break;
-         default: lbl->setStyleSheet("color: white; background-color: black;"); break;
-         }
+			// custom coloring
+			switch (i)
+			{
+			/*
+			case 0:  lbl->setStyleSheet("color: red;    background-color: black;"); break;
+			case 1:  lbl->setStyleSheet("color: green;  background-color: black;"); break;
+			case 2:  lbl->setStyleSheet("color: blue;   background-color: black;"); break;
+			case 3:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
+			case 4:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
+			case 5:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
+			case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
+			case 7:  lbl->setStyleSheet("color: white;  background-color: black;"); break;
+			*/
+			default: lbl->setStyleSheet("color: white;  background-color: black;"); break;
+			}
 
-         QLabel* val = new QLabel();
-         val->setFixedSize(valsize);
-         val->setText(QString().sprintf("%5.1f", mBciDevice->GetImpedance(i)));
-         val->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-         //val->setStyleSheet("background-color: black;");
-         val->setAlignment(Qt::AlignCenter);
+			// value label
+			QLabel* val = new QLabel();
+			val->setFixedSize(valsize);
+			val->setText(QString().sprintf("%5.1f", mBciDevice->GetImpedance(i)));
+			val->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			val->setAlignment(Qt::AlignCenter);
 
-         mImpedanceGrid->addWidget(lbl, i+1, 0);
-         mImpedanceGrid->addWidget(val, i+1, 1);
-      }
+			mImpedanceGrid->addWidget(lbl, i+1, 0);
+			mImpedanceGrid->addWidget(val, i+1, 1);
+		}
 	}
 
 	primaryLayout->addWidget(mImpedanceGridWidget);
@@ -174,33 +177,32 @@ void BciDeviceWidget::UpdateInterface()
 	if (mBciDevice && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
 	{
 		Classifier* classifier = GetEngine()->GetActiveClassifier();
-		//mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
+		mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
 		const uint32 numSensors = std::min(
 			(uint32)mImpedanceGrid->rowCount()-1U, 
 			mBciDevice->GetNumNeuroSensors());
-      for (uint32_t i = 0; i < numSensors; i++)
-      {
-         Sensor* sensor = mBciDevice->GetNeuroSensor(i);
-         double impedance = mBciDevice->GetImpedance(i);
+		for (uint32_t i = 0; i < numSensors; i++)
+		{
+			Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+			double impedance = mBciDevice->GetImpedance(i);
+			Color color = sensor->GetContactQualityColor();
 
-         QLabel* item = (QLabel*)mImpedanceGrid->itemAtPosition(i + 1, 1)->widget();
-         
-         //if (impedance >= 0.1)
-            item->setText(QString().sprintf("%5.1f", impedance));
-         //else
-         //   item->setText("");
+			// value label in grid
+			QLabel* item = (QLabel*)mImpedanceGrid->itemAtPosition(i + 1, 1)->widget();
 
-         Color color = sensor->GetContactQualityColor();
+			if (impedance >= 0.1)
+				item->setText(QString().sprintf("%5.1f", impedance));
+			else
+				item->setText("");
 
-         // same factor as in EEGElectrodesWidget.cpp
-         if (classifier && !classifier->IsSensorUsed(sensor))
-            color *= 0.4;
+			// same factor as in EEGElectrodesWidget.cpp
+			if (classifier && !classifier->IsSensorUsed(sensor))
+				color *= 0.4;
 
-         item->setStyleSheet(QString("color: black; background-color: %1;").arg(
-            color.ToHexString().AsChar()));
-      }
+			item->setStyleSheet(QString("color: black; background-color: %1;").arg(
+				color.ToHexString().AsChar()));
+		}
 	}
-
 }
 
 
