@@ -73,7 +73,7 @@ class DeviceWidget : public QWidget
 
 		// UI elements
 		QGridLayout*			mLayout;						// main layout
-		QVBoxLayout*			mPrimaryDeviceInfoLayout;		// the right half of the device status panel
+		QHBoxLayout*			mPrimaryDeviceInfoLayout;		// the right half of the device status panel
 		QVBoxLayout*			mSecondaryDeviceInfoLayout;		// the area on the left under the device icon
 		QLabel*					mDeviceIcon;					// photographic icon (large size)
 		QPushButton*			mDeviceInfoButton;				// show/hide button for device information tree
@@ -93,7 +93,7 @@ class DeviceWidget : public QWidget
 		// shared ui elements
 		QWidget*				mDeviceTestWidget;
 
-		inline QVBoxLayout* GetPrimaryDeviceInfoLayout()				{ return mPrimaryDeviceInfoLayout; }
+		inline QHBoxLayout* GetPrimaryDeviceInfoLayout()				{ return mPrimaryDeviceInfoLayout; }
 		inline QVBoxLayout* GetSecondaryDeviceInfoLayout()				{ return mSecondaryDeviceInfoLayout; }
 		void AddDeviceInfo (const char* name, QWidget* value);
 

@@ -56,9 +56,13 @@ void BciDeviceWidget::Init()
 	// init base
 	DeviceWidget::Init();
 
+	// layouts from base class
+	QHBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();
+	QVBoxLayout* secondaryLayout = GetSecondaryDeviceInfoLayout();
+
 	// add signal quality widget
 	mSignalQualityWidget = new SignalQualityWidget(this);
-	GetSecondaryDeviceInfoLayout()->addWidget(mSignalQualityWidget);
+	secondaryLayout->addWidget(mSignalQualityWidget);
 
 	// hide/show signal quality widget (if device is not wireless)
 	if (mBciDevice->HasWirelessIndicator())
@@ -66,15 +70,86 @@ void BciDeviceWidget::Init()
 	else
 		mSignalQualityWidget->hide();
 
+	// impedance grid widget (container)
+	mImpedanceGridWidget = new QWidget(this);
+
+	// impedance grid
+	mImpedanceGrid = new QGridLayout(mImpedanceGridWidget);
+	mImpedanceGrid->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+	mImpedanceGrid->setSizeConstraint(QLayout::SetMinimumSize);
+	mImpedanceGrid->setContentsMargins(QMargins(32, 0, 0, 0));
+
+	const QSize lblsize(30, 20);
+	const QSize valsize(50, 20);
+
+	QLabel* headlbl = new QLabel();
+	headlbl->setFixedSize(lblsize);
+	headlbl->setText("CH");
+	headlbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	headlbl->setStyleSheet("background-color: black;");
+	headlbl->setAlignment(Qt::AlignCenter);
+
+	QLabel* headval = new QLabel();
+	headval->setFixedSize(valsize);
+	headval->setText("kOhm");
+	headval->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	headval->setStyleSheet("background-color: black;");
+	headval->setAlignment(Qt::AlignCenter);
+
+	mImpedanceGrid->addWidget(headlbl, 0, 0);
+	mImpedanceGrid->addWidget(headval, 0, 1);
+
+	if (mBciDevice)
+	{
+		const uint32 numSensors = std::min(8U, mBciDevice->GetNumNeuroSensors());
+		for (uint32_t i = 0; i < numSensors; i++)
+		{
+			Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+
+			// name label
+			QLabel* lbl = new QLabel();
+			lbl->setFixedSize(lblsize);
+			lbl->setText(sensor->GetName());
+			lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			lbl->setAlignment(Qt::AlignCenter);
+
+			// custom coloring
+			switch (i)
+			{
+			/*
+			case 0:  lbl->setStyleSheet("color: red;    background-color: black;"); break;
+			case 1:  lbl->setStyleSheet("color: green;  background-color: black;"); break;
+			case 2:  lbl->setStyleSheet("color: blue;   background-color: black;"); break;
+			case 3:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
+			case 4:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
+			case 5:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
+			case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
+			case 7:  lbl->setStyleSheet("color: white;  background-color: black;"); break;
+			*/
+			default: lbl->setStyleSheet("color: white;  background-color: black;"); break;
+			}
+
+			// value label
+			QLabel* val = new QLabel();
+			val->setFixedSize(valsize);
+			val->setText(QString().sprintf("%5.1f", mBciDevice->GetImpedance(i)));
+			val->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			val->setAlignment(Qt::AlignCenter);
+
+			mImpedanceGrid->addWidget(lbl, i+1, 0);
+			mImpedanceGrid->addWidget(val, i+1, 1);
+		}
+	}
+
+	primaryLayout->addWidget(mImpedanceGridWidget);
+
 	// electrode widget
 	mEEGElectrodeWidget = new EEGElectrodesWidget(this);
 
 	// set minimuim size and expanding
-	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
+	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
 	mEEGElectrodeWidget->setFixedSize(256,256);
 
-	// add it to primary layout
-	QVBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();
 	primaryLayout ->addWidget(mEEGElectrodeWidget);
 
 	mBciDevice = static_cast<BciDevice*>(mDevice);
@@ -97,6 +172,37 @@ void BciDeviceWidget::UpdateInterface()
 	// update impedance test widget
 	if (mDeviceTestWidget != NULL && mDeviceTestWidget->isVisible())
 		static_cast<ImpedanceTestWidget*>(mDeviceTestWidget)->UpdateInterface();
+
+	// update impedance grid
+	if (mBciDevice && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
+	{
+		Classifier* classifier = GetEngine()->GetActiveClassifier();
+		mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
+		const uint32 numSensors = std::min(
+			(uint32)mImpedanceGrid->rowCount()-1U, 
+			mBciDevice->GetNumNeuroSensors());
+		for (uint32_t i = 0; i < numSensors; i++)
+		{
+			Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+			double impedance = mBciDevice->GetImpedance(i);
+			Color color = sensor->GetContactQualityColor();
+
+			// value label in grid
+			QLabel* item = (QLabel*)mImpedanceGrid->itemAtPosition(i + 1, 1)->widget();
+
+			if (impedance >= 0.1)
+				item->setText(QString().sprintf("%5.1f", impedance));
+			else
+				item->setText("");
+
+			// same factor as in EEGElectrodesWidget.cpp
+			if (classifier && !classifier->IsSensorUsed(sensor))
+				color *= 0.4;
+
+			item->setStyleSheet(QString("color: black; background-color: %1;").arg(
+				color.ToHexString().AsChar()));
+		}
+	}
 }
 
 
