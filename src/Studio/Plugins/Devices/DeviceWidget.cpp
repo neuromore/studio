@@ -131,7 +131,7 @@ void DeviceWidget::Init()
 	mLayout->addLayout(buttonLayout, 2, 0);
 
 	// 2) right half of widget area (primary device info)
-	mPrimaryDeviceInfoLayout = new QVBoxLayout();
+	mPrimaryDeviceInfoLayout = new QHBoxLayout();
 	mPrimaryDeviceInfoLayout->setMargin(0);
 	mLayout->addLayout(mPrimaryDeviceInfoLayout, 0, 1, 3, 1);
 

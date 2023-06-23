@@ -56,9 +56,13 @@ void BciDeviceWidget::Init()
 	// init base
 	DeviceWidget::Init();
 
+	// layouts from base class
+	QHBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();
+	QVBoxLayout* secondaryLayout = GetSecondaryDeviceInfoLayout();
+
 	// add signal quality widget
 	mSignalQualityWidget = new SignalQualityWidget(this);
-	GetSecondaryDeviceInfoLayout()->addWidget(mSignalQualityWidget);
+	secondaryLayout->addWidget(mSignalQualityWidget);
 
 	// hide/show signal quality widget (if device is not wireless)
 	if (mBciDevice->HasWirelessIndicator())
@@ -66,15 +70,70 @@ void BciDeviceWidget::Init()
 	else
 		mSignalQualityWidget->hide();
 
+	// impedance grid widget (container)
+	mImpedanceGridWidget = new QWidget(this);
+
+	// impedance grid
+	mImpedanceGrid = new QGridLayout(mImpedanceGridWidget);
+	mImpedanceGrid->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+	mImpedanceGrid->setSizeConstraint(QLayout::SetMinimumSize);
+	mImpedanceGrid->setContentsMargins(QMargins(32, 0, 0, 0));
+
+	const QSize lblsize(30, 20);
+	const QSize valsize(50, 20);
+
+	QLabel* headlbl = new QLabel();
+	headlbl->setFixedSize(lblsize);
+	headlbl->setText("CH");
+	headlbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	headlbl->setStyleSheet("background-color: black;");
+	headlbl->setAlignment(Qt::AlignCenter);
+
+	QLabel* testval = new QLabel();
+	testval->setFixedSize(valsize);
+	testval->setText("kOhm");
+	testval->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	testval->setStyleSheet("background-color: black;");
+	testval->setAlignment(Qt::AlignCenter);
+
+	mImpedanceGrid->addWidget(headlbl, 0, 0);
+	mImpedanceGrid->addWidget(testval, 0, 1);
+
+	if (mBciDevice)
+	{
+      const uint32 numSensors = std::min(8U, mBciDevice->GetNumNeuroSensors());
+      for (uint32_t i = 0; i < numSensors; i++)
+      {
+         Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+
+         QLabel* lbl = new QLabel();
+         lbl->setFixedSize(lblsize);
+         lbl->setText(sensor->GetName());
+         lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+         lbl->setStyleSheet("background-color: black;");
+         lbl->setAlignment(Qt::AlignCenter);
+
+         QLabel* val = new QLabel();
+         val->setFixedSize(valsize);
+         val->setText(QString().sprintf("%05.1f", mBciDevice->GetImpedance(i)));
+         val->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+         //val->setStyleSheet("background-color: black;");
+         val->setAlignment(Qt::AlignCenter);
+
+         mImpedanceGrid->addWidget(lbl, i+1, 0);
+         mImpedanceGrid->addWidget(val, i+1, 1);
+      }
+	}
+
+	primaryLayout->addWidget(mImpedanceGridWidget);
+
 	// electrode widget
 	mEEGElectrodeWidget = new EEGElectrodesWidget(this);
 
 	// set minimuim size and expanding
-	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
+	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
 	mEEGElectrodeWidget->setFixedSize(256,256);
 
-	// add it to primary layout
-	QVBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();
 	primaryLayout ->addWidget(mEEGElectrodeWidget);
 
 	mBciDevice = static_cast<BciDevice*>(mDevice);
@@ -97,6 +156,23 @@ void BciDeviceWidget::UpdateInterface()
 	// update impedance test widget
 	if (mDeviceTestWidget != NULL && mDeviceTestWidget->isVisible())
 		static_cast<ImpedanceTestWidget*>(mDeviceTestWidget)->UpdateInterface();
+
+   if (mBciDevice && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
+   {
+      //mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
+      const uint32 numSensors = std::min(
+         (uint32)mImpedanceGrid->rowCount()-1U, 
+         mBciDevice->GetNumNeuroSensors());
+      for (uint32_t i = 0; i < numSensors; i++)
+      {
+         Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+         QLabel* item = (QLabel*)mImpedanceGrid->itemAtPosition(i + 1, 1)->widget();
+         item->setText(QString().sprintf("%05.1f", mBciDevice->GetImpedance(i)));
+         item->setStyleSheet(QString("color: black; background-color: %1;").arg(
+            sensor->GetContactQualityColor().ToHexString().AsChar()));
+      }
+   }
+
 }
 
 
