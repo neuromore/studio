@@ -113,9 +113,22 @@ void BciDeviceWidget::Init()
          lbl->setStyleSheet("background-color: black;");
          lbl->setAlignment(Qt::AlignCenter);
 
+         switch (i)
+         {
+         case 0:  lbl->setStyleSheet("color: red;   background-color: black;"); break;
+         case 1:  lbl->setStyleSheet("color: green; background-color: black;"); break;
+         case 2:  lbl->setStyleSheet("color: blue;  background-color: black;"); break;
+         case 3:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
+         case 4:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
+         case 5:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
+         case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
+         case 7:  lbl->setStyleSheet("color: white; background-color: black;"); break;
+         default: lbl->setStyleSheet("color: white; background-color: black;"); break;
+         }
+
          QLabel* val = new QLabel();
          val->setFixedSize(valsize);
-         val->setText(QString().sprintf("%05.1f", mBciDevice->GetImpedance(i)));
+         val->setText(QString().sprintf("%5.1f", mBciDevice->GetImpedance(i)));
          val->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
          //val->setStyleSheet("background-color: black;");
          val->setAlignment(Qt::AlignCenter);
@@ -157,21 +170,36 @@ void BciDeviceWidget::UpdateInterface()
 	if (mDeviceTestWidget != NULL && mDeviceTestWidget->isVisible())
 		static_cast<ImpedanceTestWidget*>(mDeviceTestWidget)->UpdateInterface();
 
-   if (mBciDevice && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
-   {
-      //mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
-      const uint32 numSensors = std::min(
-         (uint32)mImpedanceGrid->rowCount()-1U, 
-         mBciDevice->GetNumNeuroSensors());
+	// update impedance grid
+	if (mBciDevice && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
+	{
+		Classifier* classifier = GetEngine()->GetActiveClassifier();
+		//mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
+		const uint32 numSensors = std::min(
+			(uint32)mImpedanceGrid->rowCount()-1U, 
+			mBciDevice->GetNumNeuroSensors());
       for (uint32_t i = 0; i < numSensors; i++)
       {
          Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+         double impedance = mBciDevice->GetImpedance(i);
+
          QLabel* item = (QLabel*)mImpedanceGrid->itemAtPosition(i + 1, 1)->widget();
-         item->setText(QString().sprintf("%05.1f", mBciDevice->GetImpedance(i)));
+         
+         //if (impedance >= 0.1)
+            item->setText(QString().sprintf("%5.1f", impedance));
+         //else
+         //   item->setText("");
+
+         Color color = sensor->GetContactQualityColor();
+
+         // same factor as in EEGElectrodesWidget.cpp
+         if (classifier && !classifier->IsSensorUsed(sensor))
+            color *= 0.4;
+
          item->setStyleSheet(QString("color: black; background-color: %1;").arg(
-            sensor->GetContactQualityColor().ToHexString().AsChar()));
+            color.ToHexString().AsChar()));
       }
-   }
+	}
 
 }
 
