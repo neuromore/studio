@@ -39,9 +39,6 @@ OpenBCIDeviceBase::OpenBCIDeviceBase(DeviceDriver* driver) : BciDevice(driver),
    mTesting(false), mAccForwardSensor(0), mAccUpSensor(0), mAccLeftSensor(0)
 { 
    mState = STATE_IDLE;
-   //TEST
-   mPowerSupplyType = POWERSUPPLY_BATTERY;
-   mReceivedWirelessSignalQuality = true;
 }
 
 void OpenBCIDeviceBase::CreateSensors()

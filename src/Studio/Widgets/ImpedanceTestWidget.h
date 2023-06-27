@@ -36,6 +36,25 @@
 
 class ImpedanceTestWidget : public QWidget
 {
+	public:
+		// impedance/signalquality threshold set
+		class Threshold
+		{
+		public:
+			const char*  name;
+			const double green;
+			const double yellow;
+			const double orange;
+			const double red;
+			inline Threshold(const char* n, double g = 0.0, double y = 0.0, double o = 0.0, double r = 0.0) :
+				name(n), green(g), yellow(y), orange(o), red(r) { }
+		};
+
+		static constexpr const size_t NUMIMPEDANCEPROFILES    = 3;
+		static constexpr const size_t DEFAULTIMPEDANCEPROFILE = 1;
+
+		static Threshold Thresholds[NUMIMPEDANCEPROFILES];
+
 	Q_OBJECT
 	public:
 		// constructor & destructor
@@ -54,7 +73,7 @@ class ImpedanceTestWidget : public QWidget
 		BciDevice*		mDevice;
 		Core::String	mTempString;
 
-		BciDevice::ImpedanceThreshold*		mImpedanceThreshold;
+		Threshold*		mImpedanceThreshold;
 
 		QComboBox*		mThresholdComboBox;
 

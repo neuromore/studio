@@ -77,7 +77,7 @@ void BciDeviceWidget::Init()
 	mImpedanceGrid = new QGridLayout(mImpedanceGridWidget);
 	mImpedanceGrid->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	mImpedanceGrid->setSizeConstraint(QLayout::SetMinimumSize);
-	mImpedanceGrid->setContentsMargins(QMargins(32, 0, 0, 0));
+	mImpedanceGrid->setContentsMargins(QMargins(16, 0, 0, 0));
 
 	const QSize lblsize(30, 20);
 	const QSize valsize(50, 20);
@@ -206,7 +206,7 @@ void BciDeviceWidget::UpdateInterface()
 	if (mBciDevice && mBciDevice->IsTestRunning() && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
 	{
 		Classifier* classifier = GetEngine()->GetActiveClassifier();
-		//mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
+		mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
 		const uint32 numSensors = std::min(
 			(uint32)mImpedanceGrid->rowCount()-1U, 
 			mBciDevice->GetNumNeuroSensors());
