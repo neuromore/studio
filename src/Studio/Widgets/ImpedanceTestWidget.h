@@ -36,7 +36,14 @@
 
 class ImpedanceTestWidget : public QWidget
 {
+	Q_OBJECT
 	public:
+		// constructor & destructor
+		ImpedanceTestWidget(BciDevice* device, QWidget* parent=NULL);
+		virtual ~ImpedanceTestWidget();
+
+		void UpdateInterface();
+
 		// impedance/signalquality threshold set
 		class Threshold
 		{
@@ -54,14 +61,6 @@ class ImpedanceTestWidget : public QWidget
 		static constexpr const size_t DEFAULTPROFILE = 1;
 
 		static Threshold Thresholds[NUMPROFILES];
-
-	Q_OBJECT
-	public:
-		// constructor & destructor
-		ImpedanceTestWidget(BciDevice* device, QWidget* parent=NULL);
-		virtual ~ImpedanceTestWidget();
-
-		void UpdateInterface();
 
 	private slots:
 		void OnThresholdSelected(int index);

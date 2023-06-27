@@ -29,7 +29,7 @@
 
 using namespace Core;
 
-// impedance profiles
+// impedance quality profiles
 ImpedanceTestWidget::Threshold ImpedanceTestWidget::Thresholds[] = {
    ImpedanceTestWidget::Threshold("Research",        5.0,  10.0,  20.0,  80.0), 
    ImpedanceTestWidget::Threshold("Neurofeedback",  10.0,  20.0,  40.0,  80.0), 
@@ -38,7 +38,7 @@ ImpedanceTestWidget::Threshold ImpedanceTestWidget::Thresholds[] = {
 
 // constructor
 ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : QWidget(parent), 
-	mImpedanceThreshold(&Thresholds[DEFAULTPROFILE]),
+	mImpedanceThreshold(&ImpedanceTestWidget::Thresholds[DEFAULTPROFILE]),
 	mPixmapPass(GetQtBaseManager()->FindIcon("Images/Icons/SuccessCircled.png").pixmap(20, 20)),
 	mPixmapFail(GetQtBaseManager()->FindIcon("Images/Icons/FailCircled.png").pixmap(20, 20))
 {

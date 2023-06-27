@@ -73,7 +73,7 @@ void DeviceWidget::Init()
 	{
 		mDeviceIcon = new QLabel();
 		mDeviceIcon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-		//mDeviceIcon->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+
 		mLayout->addWidget(mDeviceIcon, 0, 0);
 
 		// scale and apply icon
@@ -89,7 +89,6 @@ void DeviceWidget::Init()
 	mSecondaryDeviceInfoLayout->setContentsMargins(0, 8, 0, 8);
 	mBatteryStatusWidget = new BatteryStatusWidget(this);
 	mBatteryStatusWidget->setVisible(mDevice->HasBatteryIndicator());
-	//mBatteryStatusWidget->setStyleSheet("background-color: black;");
 
 	mSecondaryDeviceInfoLayout->addWidget(mBatteryStatusWidget);
 	mLayout->addLayout(mSecondaryDeviceInfoLayout, 1, 0, Qt::AlignLeft | Qt::AlignVCenter);
@@ -140,7 +139,7 @@ void DeviceWidget::Init()
 
 	// 3) device information tree (lower half of main layout)
 	mDeviceInfoTree = new QTreeWidget();
-	mDeviceInfoTree->setFixedHeight(14 * 4);
+	mDeviceInfoTree->setFixedHeight(4 * 28);
 	mDeviceInfoTree->setSelectionMode( QAbstractItemView::SingleSelection);
 	mDeviceInfoTree->setSortingEnabled(false);
 	mDeviceInfoTree->setAlternatingRowColors(true);
