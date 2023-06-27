@@ -32,6 +32,14 @@
 
 using namespace Core;
 
+// impedance/signalquality profiles
+BciDevice::ImpedanceThreshold BciDevice::ImpedanceThresholds[] = {
+   BciDevice::ImpedanceThreshold("Research",        5.0,  10.0,  20.0,  80.0),
+   BciDevice::ImpedanceThreshold("Neurofeedback",  10.0,  20.0,  40.0,  80.0),
+   BciDevice::ImpedanceThreshold("Testing",       100.0, 200.0, 300.0, 400.0)
+};
+
+
 // constructor
 BciDevice::BciDevice(DeviceDriver* deviceDriver) : Device(deviceDriver)
 {

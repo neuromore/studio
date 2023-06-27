@@ -32,7 +32,7 @@ using namespace Core;
 // constructor
 SignalQualityWidget::SignalQualityWidget(QWidget* parent) : QWidget(parent)
 {
-	mPixmapHeight = 24;
+	mPixmapHeight = 18;
 
 	setSizePolicy( QSizePolicy::Maximum, QSizePolicy::Maximum );
 
@@ -57,7 +57,7 @@ SignalQualityWidget::SignalQualityWidget(QWidget* parent) : QWidget(parent)
 	mTextLabel = new QLabel();
 	mTextLabel->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
 	QFont timeFont = mTextLabel->font();
-	timeFont.setPixelSize(20);
+	timeFont.setPixelSize(14);
 	mTextLabel->setFont(timeFont);
 	mainLayout->addWidget( mTextLabel, 0, Qt::AlignLeft | Qt::AlignHCenter );
 
@@ -103,7 +103,7 @@ void SignalQualityWidget::SetSignalQuality(double normalizedSignalQuality)
 	// update the signal quality
 	mSignalQuality = normalizedSignalQuality;
 
-	mTempString.Format( "%.0f %%", normalizedSignalQuality * 100.0 );
+	mTempString.Format( "%.0f%%", normalizedSignalQuality * 100.0 );
 	mTextLabel->setText( mTempString.AsChar() );
 
 	const int32 pixmapIndex = normalizedSignalQuality * mPixmaps.Size() - Math::epsilon;

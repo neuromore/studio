@@ -38,6 +38,24 @@ class ENGINE_API BciDevice : public Device
 	public:
 		enum { BASE_TYPE_ID = 0x02 };
 
+		// impedance/signalquality threshold set
+		class ImpedanceThreshold
+		{
+		public:
+			const char*  name;
+			const double green;
+			const double yellow;
+			const double orange;
+			const double red;
+			inline ImpedanceThreshold(const char* n, double g = 0.0, double y = 0.0, double o = 0.0, double r = 0.0) :
+				name(n), green(g), yellow(y), orange(o), red(r) { }
+		};
+
+		static constexpr const size_t NUMIMPEDANCEPROFILES    = 3;
+		static constexpr const size_t DEFAULTIMPEDANCEPROFILE = 1;
+
+		static ImpedanceThreshold ImpedanceThresholds[NUMIMPEDANCEPROFILES];
+
 		// constructor & destructor
 		BciDevice(DeviceDriver* driver = NULL);
 		virtual ~BciDevice();

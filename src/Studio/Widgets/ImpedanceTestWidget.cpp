@@ -29,16 +29,11 @@
 
 using namespace Core;
 
-// impedance quality profiles
-ImpedanceTestWidget::Threshold ImpedanceTestWidget::Thresholds[] = {
-   ImpedanceTestWidget::Threshold("Research",        5.0,  10.0,  20.0,  80.0), 
-   ImpedanceTestWidget::Threshold("Neurofeedback",  10.0,  20.0,  40.0,  80.0), 
-   ImpedanceTestWidget::Threshold("Testing",       100.0, 200.0, 300.0, 400.0)
-};
-
 // constructor
 ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : QWidget(parent), 
-	mImpedanceThreshold(&ImpedanceTestWidget::Thresholds[DEFAULTPROFILE])
+	mImpedanceThreshold(&BciDevice::ImpedanceThresholds[BciDevice::DEFAULTIMPEDANCEPROFILE]),
+	mPixmapPass(GetQtBaseManager()->FindIcon("Images/Icons/SuccessCircled.png").pixmap(20, 20)),
+	mPixmapFail(GetQtBaseManager()->FindIcon("Images/Icons/FailCircled.png").pixmap(20, 20))
 {
 	mDevice = device;
 
@@ -53,7 +48,7 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 	vMainLayout->setMargin(4);
 	vMainLayout->addWidget(mainWidget);
 	setLayout(vMainLayout);
-	vMainLayout->setAlignment(Qt::AlignLeft);
+	vMainLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
   // Main Grid Layout
 	// add the main widget w/ grid layout
@@ -61,65 +56,38 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 	mainLayout->setMargin(2);
 	mainWidget->setLayout(mainLayout);
 	
-  // Column 1
+	// Row 1
 	QLabel* label = new QLabel("<b>Impedance Test</b>");
 	mainLayout->addWidget(label, 0, 0, 1, 2);
 
+	// Row 2
 	label = new QLabel("Threshold:");
-	mainLayout->addWidget(label, 1, 0, 2, 1);
+	mainLayout->addWidget(label, 1, 0, 1, 1);
 
 	mThresholdComboBox = new QComboBox();
 	mThresholdComboBox->setEditable(false);
-	mThresholdComboBox->setMaxCount(NUMPROFILES);
-	for (size_t i = 0; i < NUMPROFILES; i++)
-		mThresholdComboBox->addItem(Thresholds[i].name);
+	mThresholdComboBox->setMaxCount(BciDevice::NUMIMPEDANCEPROFILES);
+	for (size_t i = 0; i < BciDevice::NUMIMPEDANCEPROFILES; i++)
+		mThresholdComboBox->addItem(BciDevice::ImpedanceThresholds[i].name);
 
 	connect(mThresholdComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(OnThresholdSelected(int)));
 	connect(mThresholdComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(OnThresholdEdited(const QString&)));
 	mThresholdComboBox->setFixedWidth(100);
-	mainLayout->addWidget(mThresholdComboBox, 1, 1, 2, 1);
+	mainLayout->addWidget(mThresholdComboBox, 1, 1, 1, 1);
 	// select default threshold
-	mThresholdComboBox->setCurrentIndex(DEFAULTPROFILE);
-	OnThresholdSelected(DEFAULTPROFILE);
+	mThresholdComboBox->setCurrentIndex(BciDevice::DEFAULTIMPEDANCEPROFILE);
+	OnThresholdSelected(BciDevice::DEFAULTIMPEDANCEPROFILE);
 
-  // Column 2
-	// expanding spacer widget 
-	QWidget* spacerWidget = new QWidget();
-	spacerWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	mainLayout->addWidget(spacerWidget, 0, 2, 3, 1);
+	// Row 3
+	QLabel* passedlbl = new QLabel("Passed:");
+	mainLayout->addWidget(passedlbl, 2, 0, 1, 1);
 
-  // Column 3
-	// min/max/average
-	label = new QLabel("Min:");				mainLayout->addWidget(label, 0, 3);
-	label = new QLabel("Max:");				mainLayout->addWidget(label, 1, 3);
-	label = new QLabel("Avg:");				mainLayout->addWidget(label, 2, 3);
-
-	mMinImpedanceLabel = new QLabel("-");	mainLayout->addWidget(mMinImpedanceLabel, 0, 4);
-	mMaxImpedanceLabel = new QLabel("-");	mainLayout->addWidget(mMaxImpedanceLabel, 1, 4);
-	mAvgImpedanceLabel = new QLabel("-");	mainLayout->addWidget(mAvgImpedanceLabel, 2, 4);
-
-  // Column 4
-	// fixed size spacer widget 
-	spacerWidget = new QWidget();
-	spacerWidget->setFixedWidth(15);
-	mainLayout->addWidget(spacerWidget, 0, 5, 3, 1);
-
-  // Column 5
 	// Pass/Fail icon
-	mPassIconLabel = new QLabel();
-	mFailIconLabel = new QLabel();
-	const int pixmapSize = 50;
-	mPassIconLabel->setPixmap(GetQtBaseManager()->FindIcon("Images/Icons/SuccessCircled.png").pixmap(pixmapSize, pixmapSize));
-	mFailIconLabel->setPixmap(GetQtBaseManager()->FindIcon("Images/Icons/FailCircled.png").pixmap(pixmapSize, pixmapSize));
-	mPassIconLabel->setVisible(false);
-	mFailIconLabel->setVisible(false);
-	mPassIconLabel->setToolTip("Passed");
-	mFailIconLabel->setVisible("Failed");
-
-	QHBoxLayout* hLayout = new QHBoxLayout();
-	hLayout->addWidget(mPassIconLabel);
-	hLayout->addWidget(mFailIconLabel);
-	mainLayout->addLayout(hLayout, 0, 6, 3, 1);
+	mTestLabel = new QLabel();
+	mTestLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	//mTestLabel->setAlignment(Qt::AlignCenter);
+	//mTestLabel->setStyleSheet("color: white;  background-color: black;");
+	mainLayout->addWidget(mTestLabel, 2, 1, 1, 1);
 }
 
 
@@ -172,10 +140,6 @@ void ImpedanceTestWidget::UpdateInterface()
 	// no active electrode: test failed
 	if (avgCount == 0)
 	{
-		mMinImpedanceLabel->setText("-");
-		mMaxImpedanceLabel->setText("-");
-		mAvgImpedanceLabel->setText("-");
-
 		testPassed = false;
 
 		// set sensor contact quality to no-signal
@@ -185,14 +149,6 @@ void ImpedanceTestWidget::UpdateInterface()
 	else
 	{
 		avgImpedance /= (double)avgCount;
-
-		// update min/max/avg labels
-		mTempString.Format("%.2f k", minImpedance);
-		mMinImpedanceLabel->setText(mTempString.AsChar());
-		mTempString.Format("%.2f k", maxImpedance);
-		mMaxImpedanceLabel->setText(mTempString.AsChar());
-		mTempString.Format("%.2f k", avgImpedance);
-		mAvgImpedanceLabel->setText(mTempString.AsChar());
 
 		// test passed?
 		testPassed = minImpedance >= minthreshold && maxImpedance >= minthreshold && maxImpedance <= mImpedanceThreshold->yellow;
@@ -223,18 +179,17 @@ void ImpedanceTestWidget::UpdateInterface()
 	}
 
 	// update fail/passed icon
-	mPassIconLabel->setVisible(testPassed);
-	mFailIconLabel->setVisible(!testPassed);
+	mTestLabel->setPixmap(testPassed ? mPixmapPass : mPixmapFail);
 }
 
 
 // threshold combobox selection changed
 void ImpedanceTestWidget::OnThresholdSelected(int index)
 {
-	if (index >= NUMPROFILES)
+	if (index >= BciDevice::NUMIMPEDANCEPROFILES)
 		return;
 
-	mImpedanceThreshold = &ImpedanceTestWidget::Thresholds[index];
+	mImpedanceThreshold = &BciDevice::ImpedanceThresholds[index];
 
 	String s;
 	s.Format("%s THRESHOLDS\n GREEN\t\t< %i kOhm\n YELLOW\t< %i kOhm\n ORANGE\t< %i kOhm\n RED\t\t< %i kOhm",
@@ -257,11 +212,11 @@ void ImpedanceTestWidget::OnThresholdEdited(const QString& text)
 
 void ImpedanceTestWidget::SetThresholdFromText(const QString& text)
 {
-	for (size_t i = 0; i < NUMPROFILES; i++) 
+	for (size_t i = 0; i < BciDevice::NUMIMPEDANCEPROFILES; i++) 
 	{
-		if (text == Thresholds[i].name)
+		if (text == BciDevice::ImpedanceThresholds[i].name)
 		{
-			mImpedanceThreshold = &Thresholds[i];
+			mImpedanceThreshold = &BciDevice::ImpedanceThresholds[i];
 			return;
 		}
 	}

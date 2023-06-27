@@ -39,6 +39,9 @@ OpenBCIDeviceBase::OpenBCIDeviceBase(DeviceDriver* driver) : BciDevice(driver),
    mTesting(false), mAccForwardSensor(0), mAccUpSensor(0), mAccLeftSensor(0)
 { 
    mState = STATE_IDLE;
+   //TEST
+   mPowerSupplyType = POWERSUPPLY_BATTERY;
+   mReceivedWirelessSignalQuality = true;
 }
 
 void OpenBCIDeviceBase::CreateSensors()
@@ -64,22 +67,6 @@ void OpenBCIDeviceBase::CreateSensors()
 	AddSensor(mAccLeftSensor);
 }
 
-void OpenBCIDeviceBase::StartTest()
-{
-   if (mTesting)
-      return;
-
-   mTesting = true;
-}
-
-void OpenBCIDeviceBase::StopTest()
-{
-   if (!mTesting)
-      return;
-
-   mTesting = false;
-}
-
 
 //
 // OpenBCI without Daisy module
@@ -95,9 +82,6 @@ OpenBCIDevice::OpenBCIDevice(DeviceDriver* driver) : OpenBCIDeviceBase(driver)
 
 	// create all sensors
 	CreateSensors();
-
-	// go into test mode directly
-	StartTest();
 }
 
 

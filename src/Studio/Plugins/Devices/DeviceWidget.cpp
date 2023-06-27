@@ -62,6 +62,7 @@ void DeviceWidget::Init()
 	//mLayout->setSpacing(0);
 
 	//mLayout->addWidget(QLabel( mDevice->GetName().AsChar() ));
+   constexpr int firstcolumnwidth = 160;
 
 	// top: device icon (if one exists)
 	String iconFilename;
@@ -72,25 +73,27 @@ void DeviceWidget::Init()
 	if (existsFileTest.exists() == true)
 	{
 		mDeviceIcon = new QLabel();
-		mDeviceIcon->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
+		mDeviceIcon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+      //mDeviceIcon->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 		mLayout->addWidget(mDeviceIcon, 0, 0);
 
 		// scale and apply icon
 		QPixmap icon(iconFilename.AsChar());
-		icon = icon.scaledToWidth(130, Qt::TransformationMode::SmoothTransformation);
+		icon = icon.scaledToWidth(firstcolumnwidth, Qt::TransformationMode::SmoothTransformation);
 		mDeviceIcon->setPixmap(icon);
 	}
 	else
 		mDeviceIcon = NULL;
 
 	// middle: secondary device info widgets (battery, signal etc)
-	mSecondaryDeviceInfoLayout = new QVBoxLayout();
-	mSecondaryDeviceInfoLayout->setMargin(0);
+	mSecondaryDeviceInfoLayout = new QHBoxLayout();
+	mSecondaryDeviceInfoLayout->setContentsMargins(0, 8, 0, 8);
 	mBatteryStatusWidget = new BatteryStatusWidget(this);
 	mBatteryStatusWidget->setVisible(mDevice->HasBatteryIndicator());
+	//mBatteryStatusWidget->setStyleSheet("background-color: black;");
+
 	mSecondaryDeviceInfoLayout->addWidget(mBatteryStatusWidget);
-	mLayout->addLayout(mSecondaryDeviceInfoLayout, 1, 0);
+	mLayout->addLayout(mSecondaryDeviceInfoLayout, 1, 0, Qt::AlignLeft | Qt::AlignVCenter);
 
 	// bottom: info/test buttons
 	QSize buttonSize = QSize(65, 25);
@@ -104,8 +107,8 @@ void DeviceWidget::Init()
 	connect(mDeviceInfoButton, SIGNAL(clicked()), this, SLOT(OnDeviceInfoButtonPressed()));
 	buttonLayout->addWidget(mDeviceInfoButton);
 	
-	// create test button only if device has a test mode
-	if (mDevice->HasTestMode() == true)
+	// create test button only if device has a test mode or test is running
+	if (mDevice->HasTestMode())
 	{
 		// "Test" Button
 		mDeviceTestButton = new QPushButton("Test");
@@ -115,12 +118,13 @@ void DeviceWidget::Init()
 		mDeviceTestButton->setFixedSize(buttonSize);
 		connect(mDeviceTestButton, SIGNAL(clicked()), this, SLOT(OnDeviceTestButtonPressed()));
 		buttonLayout->addWidget(mDeviceTestButton);
-		InitDeviceTestWidget();
 	}
 	else
 	{
 		mDeviceTestButton = NULL;
 	}
+   
+	InitDeviceTestWidget();
 
 	// add spacer widget
 	QWidget* spacerWidget = new QWidget();
@@ -133,11 +137,11 @@ void DeviceWidget::Init()
 	// 2) right half of widget area (primary device info)
 	mPrimaryDeviceInfoLayout = new QHBoxLayout();
 	mPrimaryDeviceInfoLayout->setMargin(0);
-	mLayout->addLayout(mPrimaryDeviceInfoLayout, 0, 1, 3, 1);
+	mLayout->addLayout(mPrimaryDeviceInfoLayout, 0, 1, 4, 1);
 
 	// 3) device information tree (lower half of main layout)
 	mDeviceInfoTree = new QTreeWidget();
-	mDeviceInfoTree->setFixedHeight(70);
+	mDeviceInfoTree->setFixedHeight(90);
 	mDeviceInfoTree->setSelectionMode( QAbstractItemView::SingleSelection);
 	mDeviceInfoTree->setSortingEnabled(false);
 	mDeviceInfoTree->setAlternatingRowColors(true);
@@ -156,7 +160,7 @@ void DeviceWidget::Init()
 	mDeviceInfoTree->hide();
 
 	// add tree
-	mLayout->addWidget(mDeviceInfoTree, 3, 0, 1, 2);
+	mLayout->addWidget(mDeviceInfoTree, 4, 0, 1, 2);
 	
 	setLayout(mLayout);
 }
@@ -220,21 +224,24 @@ void DeviceWidget::InitDeviceInfoWidget()
 
 void DeviceWidget::InitDeviceTestWidget()
 {
-	if (mDevice->HasTestMode() == false || mDeviceTestWidget != NULL)
+	if ((!mDevice->HasTestMode() && !mDevice->IsTestRunning()) || mDeviceTestWidget != NULL)
 		return;
 
 	mDeviceTestWidget = CreateDeviceTestWidget();
-	mLayout->addWidget(mDeviceTestWidget, 4, 0, 1, 2);
+	mLayout->addWidget(mDeviceTestWidget, 3, 0, 1, 1);
 
-	if (mDevice->IsTestRunning())
+	if (mDevice->HasTestMode())
 	{
-		mDeviceTestWidget->setVisible(true);
-		mDeviceTestButton->setText("Stop");
-	}
-	else
-	{
-		mDeviceTestWidget->setVisible(false);
-		mDeviceTestButton->setText("Test");
+		if (mDevice->IsTestRunning())
+		{
+			mDeviceTestWidget->setVisible(true);
+			mDeviceTestButton->setText("Stop");
+		}
+		else
+		{
+			mDeviceTestWidget->setVisible(false);
+			mDeviceTestButton->setText("Test");
+		}
 	}
 }
 
@@ -444,8 +451,6 @@ void DeviceWidget::OnDeviceInfoButtonPressed()
 	// update Button text
 	if (mShowInfoWidget == true) 
 	{
-		if (mDevice->IsTestRunning())
-			OnDeviceTestButtonPressed();
 		mDeviceInfoButton->setText("Close");
 	}
 	else
@@ -490,9 +495,6 @@ void DeviceWidget::OnDeviceTestButtonPressed()
 	
 	if (mDevice->IsTestRunning())
 	{
-		if (mShowInfoWidget)
-			OnDeviceInfoButtonPressed();
-
 		mDeviceTestWidget->setVisible(true);
 		mDeviceTestButton->setText("Stop");
 	}

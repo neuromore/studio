@@ -58,7 +58,7 @@ void BciDeviceWidget::Init()
 
 	// layouts from base class
 	QHBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();
-	QVBoxLayout* secondaryLayout = GetSecondaryDeviceInfoLayout();
+	QHBoxLayout* secondaryLayout = GetSecondaryDeviceInfoLayout();
 
 	// add signal quality widget
 	mSignalQualityWidget = new SignalQualityWidget(this);
@@ -116,16 +116,14 @@ void BciDeviceWidget::Init()
 			// custom coloring
 			switch (i)
 			{
-			/*
-			case 0:  lbl->setStyleSheet("color: red;    background-color: black;"); break;
-			case 1:  lbl->setStyleSheet("color: green;  background-color: black;"); break;
-			case 2:  lbl->setStyleSheet("color: blue;   background-color: black;"); break;
-			case 3:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
-			case 4:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
-			case 5:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
+			case 0:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
+			case 1:  lbl->setStyleSheet("color: red;    background-color: black;"); break;
+			case 2:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
+			case 3:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
+			case 4:  lbl->setStyleSheet("color: green;  background-color: black;"); break;
+			case 5:  lbl->setStyleSheet("color: blue;   background-color: black;"); break;
 			case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
-			case 7:  lbl->setStyleSheet("color: white;  background-color: black;"); break;
-			*/
+			case 7:  lbl->setStyleSheet("color: grey;   background-color: black;"); break;
 			default: lbl->setStyleSheet("color: white;  background-color: black;"); break;
 			}
 
@@ -138,6 +136,37 @@ void BciDeviceWidget::Init()
 
 			mImpedanceGrid->addWidget(lbl, i+1, 0);
 			mImpedanceGrid->addWidget(val, i+1, 1);
+		}
+
+		for (uint32_t i = 0; i < 3; i++)
+		{
+			// name label
+			QLabel* lbl = new QLabel();
+			lbl->setFixedSize(lblsize);
+			lbl->setText("AVG");
+			lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			lbl->setAlignment(Qt::AlignCenter);
+			lbl->setStyleSheet("color: white;  background-color: black;");
+
+			// name
+			switch (i)
+			{
+			case 0: lbl->setText("MIN"); break;
+			case 1: lbl->setText("AVG"); break;
+			case 2: lbl->setText("MAX"); break;
+			default: break;
+			}
+
+			// value label
+			QLabel* val = new QLabel();
+			val->setFixedSize(valsize);
+			val->setText(QString().sprintf("%5.1f", 0.0));
+			val->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			val->setAlignment(Qt::AlignCenter);
+			val->setStyleSheet("background-color: black;");
+
+			mImpedanceGrid->addWidget(lbl, i+numSensors+1, 0);
+			mImpedanceGrid->addWidget(val, i+numSensors+1, 1);
 		}
 	}
 
@@ -174,18 +203,24 @@ void BciDeviceWidget::UpdateInterface()
 		static_cast<ImpedanceTestWidget*>(mDeviceTestWidget)->UpdateInterface();
 
 	// update impedance grid
-	if (mBciDevice && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
+	if (mBciDevice && mBciDevice->IsTestRunning() && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
 	{
 		Classifier* classifier = GetEngine()->GetActiveClassifier();
-		mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
+		//mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
 		const uint32 numSensors = std::min(
 			(uint32)mImpedanceGrid->rowCount()-1U, 
 			mBciDevice->GetNumNeuroSensors());
+		const uint32 numUsedSensors = classifier ? classifier->GetNumUsedSensors() : 0U;
+		double max = DBL_MIN;
+		double avg = 0.0;
+		double min = DBL_MAX;
+		uint32 cnt = 0;
 		for (uint32_t i = 0; i < numSensors; i++)
 		{
 			Sensor* sensor = mBciDevice->GetNeuroSensor(i);
 			double impedance = mBciDevice->GetImpedance(i);
 			Color color = sensor->GetContactQualityColor();
+			const bool isused = classifier && classifier->IsSensorUsed(sensor);
 
 			// value label in grid
 			QLabel* item = (QLabel*)mImpedanceGrid->itemAtPosition(i + 1, 1)->widget();
@@ -195,13 +230,36 @@ void BciDeviceWidget::UpdateInterface()
 			else
 				item->setText("");
 
-			// same factor as in EEGElectrodesWidget.cpp
-			if (classifier && !classifier->IsSensorUsed(sensor))
-				color *= 0.4;
+			if (numUsedSensors == 0 || isused)
+			{
+				if (impedance > 0.1)
+				{
+               if (impedance > max) max = impedance;
+               if (impedance < min) min = impedance;
+               avg += impedance;
+               cnt++;
+				}
+			}
+			else
+				color *= 0.4; // same factor as in EEGElectrodesWidget.cpp
 
 			item->setStyleSheet(QString("color: black; background-color: %1;").arg(
 				color.ToHexString().AsChar()));
 		}
+
+      if (cnt) avg /= cnt;
+
+      QLabel* lblmin = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 1, 1)->widget();
+      if (min >= 0.1 && min < DBL_MAX) lblmin->setText(QString().sprintf("%5.1f", min));
+      else lblmin->setText("");
+
+      QLabel* lblavg = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 2, 1)->widget();
+      if (avg >= 0.1) lblavg->setText(QString().sprintf("%5.1f", avg));
+      else lblavg->setText("");
+
+      QLabel* lblmax = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 3, 1)->widget();
+      if (max >= 0.1) lblmax->setText(QString().sprintf("%5.1f", max));
+      else lblmax->setText("");
 	}
 }
 
