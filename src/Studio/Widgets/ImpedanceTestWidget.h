@@ -50,10 +50,10 @@ class ImpedanceTestWidget : public QWidget
 				name(n), green(g), yellow(y), orange(o), red(r) { }
 		};
 
-		static constexpr const size_t NUMIMPEDANCEPROFILES    = 3;
-		static constexpr const size_t DEFAULTIMPEDANCEPROFILE = 1;
+		static constexpr const size_t NUMPROFILES    = 3;
+		static constexpr const size_t DEFAULTPROFILE = 1;
 
-		static Threshold Thresholds[NUMIMPEDANCEPROFILES];
+		static Threshold Thresholds[NUMPROFILES];
 
 	Q_OBJECT
 	public:
@@ -77,9 +77,9 @@ class ImpedanceTestWidget : public QWidget
 
 		QComboBox*		mThresholdComboBox;
 
+		QLabel*			mTestLabel;
 		QPixmap			mPixmapPass;
 		QPixmap			mPixmapFail;
-		QLabel*			mTestLabel;
 };
 
 

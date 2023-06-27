@@ -29,17 +29,16 @@
 
 using namespace Core;
 
-// impedance/signalquality profiles
+// impedance profiles
 ImpedanceTestWidget::Threshold ImpedanceTestWidget::Thresholds[] = {
-   ImpedanceTestWidget::Threshold("Research",        5.0,  10.0,  20.0,  80.0),
-   ImpedanceTestWidget::Threshold("Neurofeedback",  10.0,  20.0,  40.0,  80.0),
+   ImpedanceTestWidget::Threshold("Research",        5.0,  10.0,  20.0,  80.0), 
+   ImpedanceTestWidget::Threshold("Neurofeedback",  10.0,  20.0,  40.0,  80.0), 
    ImpedanceTestWidget::Threshold("Testing",       100.0, 200.0, 300.0, 400.0)
 };
 
-
 // constructor
 ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : QWidget(parent), 
-	mImpedanceThreshold(&Thresholds[DEFAULTIMPEDANCEPROFILE]),
+	mImpedanceThreshold(&Thresholds[DEFAULTPROFILE]),
 	mPixmapPass(GetQtBaseManager()->FindIcon("Images/Icons/SuccessCircled.png").pixmap(20, 20)),
 	mPixmapFail(GetQtBaseManager()->FindIcon("Images/Icons/FailCircled.png").pixmap(20, 20))
 {
@@ -74,8 +73,8 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 
 	mThresholdComboBox = new QComboBox();
 	mThresholdComboBox->setEditable(false);
-	mThresholdComboBox->setMaxCount(NUMIMPEDANCEPROFILES);
-	for (size_t i = 0; i < NUMIMPEDANCEPROFILES; i++)
+	mThresholdComboBox->setMaxCount(NUMPROFILES);
+	for (size_t i = 0; i < NUMPROFILES; i++)
 		mThresholdComboBox->addItem(Thresholds[i].name);
 
 	connect(mThresholdComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(OnThresholdSelected(int)));
@@ -83,8 +82,8 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 	mThresholdComboBox->setFixedWidth(100);
 	mainLayout->addWidget(mThresholdComboBox, 1, 1, 1, 1);
 	// select default threshold
-	mThresholdComboBox->setCurrentIndex(DEFAULTIMPEDANCEPROFILE);
-	OnThresholdSelected(DEFAULTIMPEDANCEPROFILE);
+	mThresholdComboBox->setCurrentIndex(DEFAULTPROFILE);
+	OnThresholdSelected(DEFAULTPROFILE);
 
 	// Row 3
 	QLabel* passedlbl = new QLabel("Passed:");
@@ -194,7 +193,7 @@ void ImpedanceTestWidget::UpdateInterface()
 // threshold combobox selection changed
 void ImpedanceTestWidget::OnThresholdSelected(int index)
 {
-	if (index >= NUMIMPEDANCEPROFILES)
+	if (index >= NUMPROFILES)
 		return;
 
 	mImpedanceThreshold = &Thresholds[index];
@@ -220,7 +219,7 @@ void ImpedanceTestWidget::OnThresholdEdited(const QString& text)
 
 void ImpedanceTestWidget::SetThresholdFromText(const QString& text)
 {
-	for (size_t i = 0; i < NUMIMPEDANCEPROFILES; i++) 
+	for (size_t i = 0; i < NUMPROFILES; i++) 
 	{
 		if (text == Thresholds[i].name)
 		{

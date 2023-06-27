@@ -32,7 +32,6 @@
 
 using namespace Core;
 
-
 // constructor
 BciDevice::BciDevice(DeviceDriver* deviceDriver) : Device(deviceDriver)
 {

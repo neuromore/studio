@@ -234,10 +234,10 @@ void BciDeviceWidget::UpdateInterface()
 			{
 				if (impedance > 0.1)
 				{
-               if (impedance > max) max = impedance;
-               if (impedance < min) min = impedance;
-               avg += impedance;
-               cnt++;
+					max = impedance > max ? impedance : max;
+					min = impedance < min ? impedance : min;
+					avg += impedance;
+					cnt++;
 				}
 			}
 			else
@@ -247,19 +247,19 @@ void BciDeviceWidget::UpdateInterface()
 				color.ToHexString().AsChar()));
 		}
 
-      if (cnt) avg /= cnt;
+		if (cnt) avg /= cnt;
 
-      QLabel* lblmin = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 1, 1)->widget();
-      if (min >= 0.1 && min < DBL_MAX) lblmin->setText(QString().sprintf("%5.1f", min));
-      else lblmin->setText("");
+		QLabel* lblmin = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 1, 1)->widget();
+		if (min >= 0.1 && min < DBL_MAX) lblmin->setText(QString().sprintf("%5.1f", min));
+		else lblmin->setText("");
 
-      QLabel* lblavg = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 2, 1)->widget();
-      if (avg >= 0.1) lblavg->setText(QString().sprintf("%5.1f", avg));
-      else lblavg->setText("");
+		QLabel* lblavg = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 2, 1)->widget();
+		if (avg >= 0.1) lblavg->setText(QString().sprintf("%5.1f", avg));
+		else lblavg->setText("");
 
-      QLabel* lblmax = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 3, 1)->widget();
-      if (max >= 0.1) lblmax->setText(QString().sprintf("%5.1f", max));
-      else lblmax->setText("");
+		QLabel* lblmax = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 3, 1)->widget();
+		if (max >= 0.1) lblmax->setText(QString().sprintf("%5.1f", max));
+		else lblmax->setText("");
 	}
 }
 

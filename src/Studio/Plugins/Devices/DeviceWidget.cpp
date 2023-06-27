@@ -62,7 +62,6 @@ void DeviceWidget::Init()
 	//mLayout->setSpacing(0);
 
 	//mLayout->addWidget(QLabel( mDevice->GetName().AsChar() ));
-   constexpr int firstcolumnwidth = 160;
 
 	// top: device icon (if one exists)
 	String iconFilename;
@@ -74,12 +73,12 @@ void DeviceWidget::Init()
 	{
 		mDeviceIcon = new QLabel();
 		mDeviceIcon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-      //mDeviceIcon->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+		//mDeviceIcon->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 		mLayout->addWidget(mDeviceIcon, 0, 0);
 
 		// scale and apply icon
 		QPixmap icon(iconFilename.AsChar());
-		icon = icon.scaledToWidth(firstcolumnwidth, Qt::TransformationMode::SmoothTransformation);
+		icon = icon.scaledToWidth(160, Qt::TransformationMode::SmoothTransformation);
 		mDeviceIcon->setPixmap(icon);
 	}
 	else
@@ -107,8 +106,8 @@ void DeviceWidget::Init()
 	connect(mDeviceInfoButton, SIGNAL(clicked()), this, SLOT(OnDeviceInfoButtonPressed()));
 	buttonLayout->addWidget(mDeviceInfoButton);
 	
-	// create test button only if device has a test mode or test is running
-	if (mDevice->HasTestMode())
+	// create test button only if device has a test mode
+	if (mDevice->HasTestMode() == true)
 	{
 		// "Test" Button
 		mDeviceTestButton = new QPushButton("Test");
@@ -141,7 +140,7 @@ void DeviceWidget::Init()
 
 	// 3) device information tree (lower half of main layout)
 	mDeviceInfoTree = new QTreeWidget();
-	mDeviceInfoTree->setFixedHeight(90);
+	mDeviceInfoTree->setFixedHeight(14 * 4);
 	mDeviceInfoTree->setSelectionMode( QAbstractItemView::SingleSelection);
 	mDeviceInfoTree->setSortingEnabled(false);
 	mDeviceInfoTree->setAlternatingRowColors(true);
