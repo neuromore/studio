@@ -196,7 +196,7 @@ void ImpedanceTestWidget::OnThresholdSelected(int index)
 	if (index >= NUMPROFILES)
 		return;
 
-	mImpedanceThreshold = &Thresholds[index];
+	mImpedanceThreshold = &ImpedanceTestWidget::Thresholds[index];
 
 	String s;
 	s.Format("%s THRESHOLDS\n GREEN\t\t< %i kOhm\n YELLOW\t< %i kOhm\n ORANGE\t< %i kOhm\n RED\t\t< %i kOhm",

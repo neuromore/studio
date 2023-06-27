@@ -44,7 +44,6 @@ class ImpedanceTestWidget : public QWidget
 
 		void UpdateInterface();
 
-		// impedance/signalquality threshold set
 		class Threshold
 		{
 		public:

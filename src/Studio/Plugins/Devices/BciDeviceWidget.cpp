@@ -116,6 +116,7 @@ void BciDeviceWidget::Init()
 			// custom coloring
 			switch (i)
 			{
+			/*
 			case 0:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
 			case 1:  lbl->setStyleSheet("color: red;    background-color: black;"); break;
 			case 2:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
@@ -124,6 +125,7 @@ void BciDeviceWidget::Init()
 			case 5:  lbl->setStyleSheet("color: blue;   background-color: black;"); break;
 			case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
 			case 7:  lbl->setStyleSheet("color: grey;   background-color: black;"); break;
+			*/
 			default: lbl->setStyleSheet("color: white;  background-color: black;"); break;
 			}
 
