@@ -113,21 +113,23 @@ void BciDeviceWidget::Init()
 			lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 			lbl->setAlignment(Qt::AlignCenter);
 
-			// custom coloring
-			switch (i)
+			if (Branding::HasColorCodesForChannels)
 			{
-			/*
-			case 0:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
-			case 1:  lbl->setStyleSheet("color: red;    background-color: black;"); break;
-			case 2:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
-			case 3:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
-			case 4:  lbl->setStyleSheet("color: green;  background-color: black;"); break;
-			case 5:  lbl->setStyleSheet("color: blue;   background-color: black;"); break;
-			case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
-			case 7:  lbl->setStyleSheet("color: grey;   background-color: black;"); break;
-			*/
-			default: lbl->setStyleSheet("color: white;  background-color: black;"); break;
+				switch (i)
+				{
+				case 0:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
+				case 1:  lbl->setStyleSheet("color: red;    background-color: black;"); break;
+				case 2:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
+				case 3:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
+				case 4:  lbl->setStyleSheet("color: green;  background-color: black;"); break;
+				case 5:  lbl->setStyleSheet("color: blue;   background-color: black;"); break;
+				case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
+				case 7:  lbl->setStyleSheet("color: grey;   background-color: black;"); break;
+				default: lbl->setStyleSheet("color: white;  background-color: black;"); break;
+				}
 			}
+			else
+				lbl->setStyleSheet("color: white;  background-color: black;");
 
 			// value label
 			QLabel* val = new QLabel();
