@@ -52,6 +52,7 @@ public:
    static constexpr const char* AboutImageName              = ":/Images/About-neuromore.png";
    static constexpr const bool  LoginRemberMePrechecked     = true;
    static constexpr const bool  HasColorCodesForChannels    = false;
+   static constexpr const bool  HasMinimalDeviceInfo        = true;
    static constexpr const bool  DefaultAutoDetectionEnabled = true;
    static constexpr const bool  DefaultTestDeviceEnabled    = true;
    static constexpr const bool  DefaultEemagineEnabled      = true;

@@ -252,12 +252,14 @@ void DeviceWidget::AddDeviceItems()
 	item->setText(0, "Device Name");
 	item->setText(1, mDevice->GetName().AsChar());
 	mDeviceInfoTree->addTopLevelItem(item);
+	item->setHidden(Branding::HasMinimalDeviceInfo);
 
 	// Memory usage
 	item = new QTreeWidgetItem();
 	item->setText(0, "Memory Used");
 	item->setText(1, "0 KB");
 	mDeviceInfoTree->addTopLevelItem(item);
+	item->setHidden(Branding::HasMinimalDeviceInfo);
 }
 
 
