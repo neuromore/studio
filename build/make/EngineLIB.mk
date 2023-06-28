@@ -175,6 +175,6 @@ build: $(OBJDIR)/neuromoreEngine.o $(OBJS)
 	$(LINK) $(LINKFLAGS) $(LINKPATH) $(OBJDIR)/neuromoreEngine.o $(OBJS) $(LINKLIBS) -o $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTDLL)
 
 clean:
-	$(call deletefiles,$(OBJDIR),*.o)
-	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTDLL))
-	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTPDB))
+	-$(call deletefiles,$(OBJDIR),*.o)
+	-$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTDLL))
+	-$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTPDB))

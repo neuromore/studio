@@ -59,7 +59,7 @@ class PreSessionWidget : public QWidget
 
 		void UpdateChannels(ChannelSelectorNode* chs = 0);
 		Core::String GetSelectedChannels();
-		inline QString GetSelectedChannel(uint32 idx) { idx < NUMELECTRODESELECT ? mElectrodeSelections[idx]->currentText() : ""; }
+		inline QString GetSelectedChannel(uint32 idx) { return idx < NUMELECTRODESELECT ? mElectrodeSelections[idx]->currentText() : ""; }
 
 	private slots:
 		void OnTotalTimeChanged(double value);
