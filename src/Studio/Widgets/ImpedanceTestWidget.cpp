@@ -106,87 +106,45 @@ ImpedanceTestWidget::~ImpedanceTestWidget()
 
 void ImpedanceTestWidget::UpdateInterface()
 {
-	Classifier* activeClassifier = GetEngine()->GetActiveClassifier();
+   constexpr double minthreshold = 0.1;
 
-	// calc min/max/avg impedance accross sensors
-	
-	// max impedance, if the values is larger we assume the lead is unconnected and ignore the electrode
-	constexpr double electrodeActiveDetectionThreshold = 400; // 200 kiloohms
-	
-	// note: impedance values are transported via the EEG sensors
-	double minImpedance = DBL_MAX;
-	double maxImpedance = -DBL_MAX;
-	double avgImpedance = 0.0;
-	uint32 avgCount = 0;
+   Classifier*  classifier = GetEngine()->GetActiveClassifier();
+   const uint32 numSensors = mDevice->GetNumNeuroSensors();
+   const uint32 numUsedSensors = classifier ? classifier->GetNumUsedSensors() : 0U;
 
-	// 0.0 (or close to it) is unconnected/no impedance
-	constexpr double minthreshold = 0.5;
+   bool testok = true;
 
-	bool testPassed = true;
+   for (uint32 i = 0; i < numSensors; ++i)
+   {
+      Sensor* sensor = mDevice->GetNeuroSensor(i);
+      double  impedance = mDevice->GetImpedance(i);
+      bool    isused = classifier && classifier->IsSensorUsed(sensor);
 
-	const uint32 numSensors = mDevice->GetNumNeuroSensors();
-	for (uint32 i = 0; i < numSensors; ++i)
-	{
-		const double impedance = mDevice->GetImpedance(i);
+      // update contact quality on sensor based on selected thresholds
+      if      (impedance <  minthreshold)                sensor->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
+      else if (impedance <= mImpedanceThreshold->green)  sensor->SetContactQuality(Sensor::CONTACTQUALITY_GOOD);
+      else if (impedance <= mImpedanceThreshold->yellow) sensor->SetContactQuality(Sensor::CONTACTQUALITY_FAIR);
+      else if (impedance <= mImpedanceThreshold->orange) sensor->SetContactQuality(Sensor::CONTACTQUALITY_POOR);
+      else if (impedance <= mImpedanceThreshold->red)    sensor->SetContactQuality(Sensor::CONTACTQUALITY_VERY_BAD);
+      else                                               sensor->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
 
-		if (impedance > electrodeActiveDetectionThreshold || impedance < minthreshold)
-			continue;
+      // test fails if either a used electrode has poor/bad/no signal
+      // or (if none is used), any electrode has poor/bad/no signal
+      if (isused || numUsedSensors == 0)
+      {
+         switch (sensor->GetContactQuality())
+         {
+         case Sensor::CONTACTQUALITY_POOR:
+         case Sensor::CONTACTQUALITY_VERY_BAD:
+         case Sensor::CONTACTQUALITY_NO_SIGNAL:
+            testok = false;
+            break;
+         }
+      }
+   }
 
-		// skip 
-		if (activeClassifier && !activeClassifier->IsSensorUsed(mDevice->GetNeuroSensor(i)))
-			continue;
-
-		
-		minImpedance = Min(minImpedance, impedance);
-		maxImpedance = Max(maxImpedance, impedance);
-		avgImpedance += impedance;
-		avgCount++;
-	}
-
-
-	// no active electrode: test failed
-	if (avgCount == 0)
-	{
-		testPassed = false;
-
-		// set sensor contact quality to no-signal
-		for (uint32 i = 0; i < numSensors; ++i)
-			mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
-	}
-	else
-	{
-		avgImpedance /= (double)avgCount;
-
-		// test passed?
-		testPassed = minImpedance >= minthreshold && maxImpedance >= minthreshold && maxImpedance <= mImpedanceThreshold->yellow;
-
-		// set sensor contact quality (reuse electrode widget) to indicate pass/fail of individual electrodes
-		for (uint32 i = 0; i < numSensors; ++i)
-		{
-			const double impedance = mDevice->GetImpedance(i);
-			
-			if (impedance < minthreshold) // == 0.0 case
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
-
-			else if (impedance <= mImpedanceThreshold->green)
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_GOOD);
-
- 			else if (impedance <= mImpedanceThreshold->yellow)
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_FAIR);
-
-			else if (impedance <= mImpedanceThreshold->orange)
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_POOR);
-
-			else if (impedance <= mImpedanceThreshold->red)
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_VERY_BAD);
-
-			else
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
-		}
-	}
-
-	// update fail/passed icon
-	mTestLabel->setPixmap(testPassed ? mPixmapPass : mPixmapFail);
+   // update fail/passed icon
+   mTestLabel->setPixmap(testok ? mPixmapPass : mPixmapFail);
 }
 
 
