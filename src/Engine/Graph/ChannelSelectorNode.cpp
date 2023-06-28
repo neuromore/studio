@@ -237,7 +237,7 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 			for (uint32 j=0; j<numInputChannels; ++j)
 			{
 				ChannelBase* channel = mInputReader.GetChannel(j);
-				if ((name.IsValidInt() && name.ToInt() == j+1) || channel->GetNameString().IsEqual(name))
+				if ((name.IsValidInt() && name.ToInt() == (int)(j+1)) || channel->GetNameString().IsEqual(name))
 				{
 					// found it
 					channelIndex = j;
