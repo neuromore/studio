@@ -206,8 +206,8 @@ void BciDeviceWidget::UpdateInterface()
 		Classifier* classifier = GetEngine()->GetActiveClassifier();
 		mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
 		const uint32 numSensors = std::min(
-			(uint32)mImpedanceGrid->rowCount()-1U, 
-			mBciDevice->GetNumNeuroSensors());
+			(uint32)mImpedanceGrid->rowCount()-4U, 
+			std::min(8U, mBciDevice->GetNumNeuroSensors()));
 		const uint32 numUsedSensors = classifier ? classifier->GetNumUsedSensors() : 0U;
 		double max = DBL_MIN;
 		double avg = 0.0;
