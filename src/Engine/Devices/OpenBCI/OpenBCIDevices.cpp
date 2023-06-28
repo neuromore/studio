@@ -49,35 +49,22 @@ void OpenBCIDeviceBase::CreateSensors()
 	mAccForwardSensor->GetChannel()->SetMinValue(-2000.0);
 	mAccForwardSensor->GetChannel()->SetMaxValue(1996.1);
 	mAccForwardSensor->GetChannel()->SetUnit("mm/s^2");
+	mAccForwardSensor->GetChannel()->SetBufferSizeInSeconds(DEFAULTBUFFERSIZEINSECONDS);
 	AddSensor(mAccForwardSensor);
 
 	mAccUpSensor = new Sensor("Acc (Up)", 250);
 	mAccUpSensor->GetChannel()->SetMinValue(-2000.0);
 	mAccUpSensor->GetChannel()->SetMaxValue(1996.1);
 	mAccUpSensor->GetChannel()->SetUnit("mm/s^2");
+	mAccUpSensor->GetChannel()->SetBufferSizeInSeconds(DEFAULTBUFFERSIZEINSECONDS);
 	AddSensor(mAccUpSensor);
 
 	mAccLeftSensor = new Sensor("Acc (Left)", 250);
 	mAccLeftSensor->GetChannel()->SetMinValue(-2000.0);
 	mAccLeftSensor->GetChannel()->SetMaxValue(1996.1);
 	mAccLeftSensor->GetChannel()->SetUnit("mm/s^2");
+	mAccLeftSensor->GetChannel()->SetBufferSizeInSeconds(DEFAULTBUFFERSIZEINSECONDS);
 	AddSensor(mAccLeftSensor);
-}
-
-void OpenBCIDeviceBase::StartTest()
-{
-   if (mTesting)
-      return;
-
-   mTesting = true;
-}
-
-void OpenBCIDeviceBase::StopTest()
-{
-   if (!mTesting)
-      return;
-
-   mTesting = false;
 }
 
 
@@ -95,9 +82,6 @@ OpenBCIDevice::OpenBCIDevice(DeviceDriver* driver) : OpenBCIDeviceBase(driver)
 
 	// create all sensors
 	CreateSensors();
-
-	// go into test mode directly
-	StartTest();
 }
 
 

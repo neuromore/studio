@@ -169,6 +169,7 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 
 		void CollectUsedSensors();
 		bool IsSensorUsed (Sensor* sensor) const							{ return mUsedSensors.Contains(sensor); }
+		uint32 GetNumUsedSensors() const							{ return mUsedSensors.Size(); }
 
 		//
 		//  Classifier Control

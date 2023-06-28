@@ -86,14 +86,12 @@ public:
    double GetLatency() const override        { return 0.1; }
    double GetExpectedJitter() const override { return 0.1; }
    bool IsWireless() const override          { return true; }
-   bool HasTestMode() const override         { return true; }
+   bool HasTestMode() const override         { return false; }
 
    void CreateSensors() override;
 
-   void StartTest() override;
-   void StopTest() override;
-   inline bool IsTestRunning() override { return mTesting; }
-   inline bool HasEegContactQualityIndicator() override { return mTesting; }
+   inline bool IsTestRunning() override { return true; }
+   inline bool HasEegContactQualityIndicator() override { return true; }
 
    virtual void AddSample(uint32 idx, double v) = 0;
 

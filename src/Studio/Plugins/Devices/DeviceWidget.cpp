@@ -42,8 +42,7 @@ DeviceWidget::DeviceWidget(Device* device, QWidget* parent) : QWidget(parent)
 	mDeviceTestWidget = NULL;
 	
 	mDevice = device;
-
-	setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Maximum );
+	setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 
@@ -60,6 +59,7 @@ void DeviceWidget::Init()
 	mLayout = new QGridLayout();
 	mLayout->setMargin(0);
 	//mLayout->setSpacing(0);
+	mLayout->setAlignment(Qt::AlignTop);
 
 	//mLayout->addWidget(QLabel( mDevice->GetName().AsChar() ));
 
@@ -72,25 +72,26 @@ void DeviceWidget::Init()
 	if (existsFileTest.exists() == true)
 	{
 		mDeviceIcon = new QLabel();
-		mDeviceIcon->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+		mDeviceIcon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 		mLayout->addWidget(mDeviceIcon, 0, 0);
 
 		// scale and apply icon
 		QPixmap icon(iconFilename.AsChar());
-		icon = icon.scaledToWidth(130, Qt::TransformationMode::SmoothTransformation);
+		icon = icon.scaledToWidth(160, Qt::TransformationMode::SmoothTransformation);
 		mDeviceIcon->setPixmap(icon);
 	}
 	else
 		mDeviceIcon = NULL;
 
 	// middle: secondary device info widgets (battery, signal etc)
-	mSecondaryDeviceInfoLayout = new QVBoxLayout();
-	mSecondaryDeviceInfoLayout->setMargin(0);
+	mSecondaryDeviceInfoLayout = new QHBoxLayout();
+	mSecondaryDeviceInfoLayout->setContentsMargins(0, 8, 0, 8);
 	mBatteryStatusWidget = new BatteryStatusWidget(this);
 	mBatteryStatusWidget->setVisible(mDevice->HasBatteryIndicator());
+
 	mSecondaryDeviceInfoLayout->addWidget(mBatteryStatusWidget);
-	mLayout->addLayout(mSecondaryDeviceInfoLayout, 1, 0);
+	mLayout->addLayout(mSecondaryDeviceInfoLayout, 1, 0, Qt::AlignLeft | Qt::AlignVCenter);
 
 	// bottom: info/test buttons
 	QSize buttonSize = QSize(65, 25);
@@ -115,12 +116,13 @@ void DeviceWidget::Init()
 		mDeviceTestButton->setFixedSize(buttonSize);
 		connect(mDeviceTestButton, SIGNAL(clicked()), this, SLOT(OnDeviceTestButtonPressed()));
 		buttonLayout->addWidget(mDeviceTestButton);
-		InitDeviceTestWidget();
 	}
 	else
 	{
 		mDeviceTestButton = NULL;
 	}
+   
+	InitDeviceTestWidget();
 
 	// add spacer widget
 	QWidget* spacerWidget = new QWidget();
@@ -133,11 +135,12 @@ void DeviceWidget::Init()
 	// 2) right half of widget area (primary device info)
 	mPrimaryDeviceInfoLayout = new QHBoxLayout();
 	mPrimaryDeviceInfoLayout->setMargin(0);
-	mLayout->addLayout(mPrimaryDeviceInfoLayout, 0, 1, 3, 1);
+	mLayout->addLayout(mPrimaryDeviceInfoLayout, 0, 1, 4, 1, Qt::AlignTop);
 
 	// 3) device information tree (lower half of main layout)
 	mDeviceInfoTree = new QTreeWidget();
-	mDeviceInfoTree->setFixedHeight(70);
+	mDeviceInfoTree->setMinimumHeight(70);
+	mDeviceInfoTree->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mDeviceInfoTree->setSelectionMode( QAbstractItemView::SingleSelection);
 	mDeviceInfoTree->setSortingEnabled(false);
 	mDeviceInfoTree->setAlternatingRowColors(true);
@@ -156,7 +159,7 @@ void DeviceWidget::Init()
 	mDeviceInfoTree->hide();
 
 	// add tree
-	mLayout->addWidget(mDeviceInfoTree, 3, 0, 1, 2);
+	mLayout->addWidget(mDeviceInfoTree, 4, 0, 1, 2);
 	
 	setLayout(mLayout);
 }
@@ -220,21 +223,24 @@ void DeviceWidget::InitDeviceInfoWidget()
 
 void DeviceWidget::InitDeviceTestWidget()
 {
-	if (mDevice->HasTestMode() == false || mDeviceTestWidget != NULL)
+	if ((!mDevice->HasTestMode() && !mDevice->IsTestRunning()) || mDeviceTestWidget != NULL)
 		return;
 
 	mDeviceTestWidget = CreateDeviceTestWidget();
-	mLayout->addWidget(mDeviceTestWidget, 4, 0, 1, 2);
+	mLayout->addWidget(mDeviceTestWidget, 3, 0, 1, 1);
 
-	if (mDevice->IsTestRunning())
+	if (mDevice->HasTestMode())
 	{
-		mDeviceTestWidget->setVisible(true);
-		mDeviceTestButton->setText("Stop");
-	}
-	else
-	{
-		mDeviceTestWidget->setVisible(false);
-		mDeviceTestButton->setText("Test");
+		if (mDevice->IsTestRunning())
+		{
+			mDeviceTestWidget->setVisible(true);
+			mDeviceTestButton->setText("Stop");
+		}
+		else
+		{
+			mDeviceTestWidget->setVisible(false);
+			mDeviceTestButton->setText("Test");
+		}
 	}
 }
 
@@ -246,12 +252,14 @@ void DeviceWidget::AddDeviceItems()
 	item->setText(0, "Device Name");
 	item->setText(1, mDevice->GetName().AsChar());
 	mDeviceInfoTree->addTopLevelItem(item);
+	item->setHidden(Branding::HasMinimalDeviceInfo);
 
 	// Memory usage
 	item = new QTreeWidgetItem();
 	item->setText(0, "Memory Used");
 	item->setText(1, "0 KB");
 	mDeviceInfoTree->addTopLevelItem(item);
+	item->setHidden(Branding::HasMinimalDeviceInfo);
 }
 
 
@@ -444,8 +452,6 @@ void DeviceWidget::OnDeviceInfoButtonPressed()
 	// update Button text
 	if (mShowInfoWidget == true) 
 	{
-		if (mDevice->IsTestRunning())
-			OnDeviceTestButtonPressed();
 		mDeviceInfoButton->setText("Close");
 	}
 	else
@@ -490,9 +496,6 @@ void DeviceWidget::OnDeviceTestButtonPressed()
 	
 	if (mDevice->IsTestRunning())
 	{
-		if (mShowInfoWidget)
-			OnDeviceInfoButtonPressed();
-
 		mDeviceTestWidget->setVisible(true);
 		mDeviceTestButton->setText("Stop");
 	}
