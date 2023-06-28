@@ -207,7 +207,7 @@ void BciDeviceWidget::UpdateInterface()
 		static_cast<ImpedanceTestWidget*>(mDeviceTestWidget)->UpdateInterface();
 
 	// update impedance grid
-	if (mBciDevice && mBciDevice->IsTestRunning() && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
+	if (mBciDevice && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
 	{
 		Classifier* classifier = GetEngine()->GetActiveClassifier();
 		mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());

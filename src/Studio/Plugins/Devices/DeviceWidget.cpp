@@ -42,8 +42,7 @@ DeviceWidget::DeviceWidget(Device* device, QWidget* parent) : QWidget(parent)
 	mDeviceTestWidget = NULL;
 	
 	mDevice = device;
-
-	setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Maximum );
+	setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 
@@ -60,6 +59,7 @@ void DeviceWidget::Init()
 	mLayout = new QGridLayout();
 	mLayout->setMargin(0);
 	//mLayout->setSpacing(0);
+	mLayout->setAlignment(Qt::AlignTop);
 
 	//mLayout->addWidget(QLabel( mDevice->GetName().AsChar() ));
 
@@ -135,11 +135,12 @@ void DeviceWidget::Init()
 	// 2) right half of widget area (primary device info)
 	mPrimaryDeviceInfoLayout = new QHBoxLayout();
 	mPrimaryDeviceInfoLayout->setMargin(0);
-	mLayout->addLayout(mPrimaryDeviceInfoLayout, 0, 1, 4, 1);
+	mLayout->addLayout(mPrimaryDeviceInfoLayout, 0, 1, 4, 1, Qt::AlignTop);
 
 	// 3) device information tree (lower half of main layout)
 	mDeviceInfoTree = new QTreeWidget();
-	mDeviceInfoTree->setFixedHeight(4 * 28);
+	mDeviceInfoTree->setMinimumHeight(70);
+	mDeviceInfoTree->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mDeviceInfoTree->setSelectionMode( QAbstractItemView::SingleSelection);
 	mDeviceInfoTree->setSortingEnabled(false);
 	mDeviceInfoTree->setAlternatingRowColors(true);
