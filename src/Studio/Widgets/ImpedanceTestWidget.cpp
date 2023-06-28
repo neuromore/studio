@@ -139,6 +139,8 @@ void ImpedanceTestWidget::UpdateInterface()
          case Sensor::CONTACTQUALITY_NO_SIGNAL:
             testok = false;
             break;
+         default: 
+            break;
          }
       }
    }
