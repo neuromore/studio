@@ -839,7 +839,7 @@ void SessionControlPlugin::ShowReport()
 // called after switching layout
 void SessionControlPlugin::OnAfterLoadLayout()
 {
-	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
+	/*if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
 	{
 		// open visualization select window if one is available and none is running
 		VisualizationManager* vizManager = GetManager()->GetVisualizationManager();
@@ -848,5 +848,5 @@ void SessionControlPlugin::OnAfterLoadLayout()
 			VisualizationSelectWindow selectVizWindow(GetMainWindow());
 			selectVizWindow.exec();
 		}
-	}
+	}*/
 }
