@@ -73,6 +73,7 @@ void BciDevice::CreateSensors()
 	{
 		// create sensor with the neuro headset sample rate
 		Sensor* sensor = new Sensor(mElectrodes[i].GetName(), GetSampleRate());
+		sensor->GetChannel()->SetBufferSizeInSeconds(DEFAULTBUFFERSIZEINSECONDS);
 
 		// set unique color for each sensor
 		sensor->GetChannel()->GetColor().SetUniqueColor(i);

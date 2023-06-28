@@ -38,6 +38,8 @@ class ENGINE_API BciDevice : public Device
 	public:
 		enum { BASE_TYPE_ID = 0x02 };
 
+		static constexpr const double DEFAULTBUFFERSIZEINSECONDS = 60.0;
+
 		// constructor & destructor
 		BciDevice(DeviceDriver* driver = NULL);
 		virtual ~BciDevice();
