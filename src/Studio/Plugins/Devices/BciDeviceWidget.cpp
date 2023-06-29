@@ -69,7 +69,8 @@ void BciDeviceWidget::Init()
 
 	// impedance grid
 	mImpedanceGrid = new QGridLayout(mImpedanceGridWidget);
-	mImpedanceGrid->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+	mImpedanceGrid->setAlignment(Qt::AlignCenter);
+	//mImpedanceGrid->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	mImpedanceGrid->setSizeConstraint(QLayout::SetMinimumSize);
 	mImpedanceGrid->setContentsMargins(QMargins(16, 0, 0, 0));
 
@@ -170,17 +171,25 @@ void BciDeviceWidget::Init()
 
 	primaryLayout->addWidget(mImpedanceGridWidget);
 
+	// electrode widget container
+	mEEGElectrodeWidgetContainer = new QWidget(this);
+	mEEGElectrodeWidgetContainer->setMinimumSize(256, 256);
+	mEEGElectrodeWidgetContainer->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
 	// electrode widget
-	mEEGElectrodeWidget = new EEGElectrodesWidget(this);
+	mEEGElectrodeWidget = new EEGElectrodesWidget(mEEGElectrodeWidgetContainer);
 
 	// set minimuim size and expanding
 	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
 	mEEGElectrodeWidget->setFixedSize(256,256);
 
-	primaryLayout ->addWidget(mEEGElectrodeWidget);
+	primaryLayout ->addWidget(mEEGElectrodeWidgetContainer);
 
 	mBciDevice = static_cast<BciDevice*>(mDevice);
 	mEEGElectrodeWidget->SetDevice(mBciDevice);
+
+	mImpedanceGridWidget->hide();
+   mEEGElectrodeWidgetContainer->hide();
 }
 
 
@@ -205,6 +214,7 @@ void BciDeviceWidget::UpdateInterface()
 	{
 		Classifier* classifier = GetEngine()->GetActiveClassifier();
 		mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
+		mEEGElectrodeWidgetContainer->setVisible(mBciDevice->HasElectrodePositions());
 		const uint32 numSensors = std::min(
 			(uint32)mImpedanceGrid->rowCount()-4U, 
 			std::min(8U, mBciDevice->GetNumNeuroSensors()));

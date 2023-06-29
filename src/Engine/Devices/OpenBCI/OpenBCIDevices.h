@@ -92,6 +92,7 @@ public:
 
    inline bool IsTestRunning() override { return true; }
    inline bool HasEegContactQualityIndicator() override { return true; }
+   inline bool HasElectrodePositions() override { return false; }
 
    virtual void AddSample(uint32 idx, double v) = 0;
 

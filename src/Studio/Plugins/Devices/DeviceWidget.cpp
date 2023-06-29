@@ -87,6 +87,8 @@ void DeviceWidget::Init()
 	// middle: secondary device info widgets (battery, signal etc)
 	mSecondaryDeviceInfoLayout = new QHBoxLayout();
 	mSecondaryDeviceInfoLayout->setContentsMargins(0, 8, 0, 8);
+	mSecondaryDeviceInfoLayout->setAlignment(Qt::AlignLeft);
+	mSecondaryDeviceInfoLayout->setSizeConstraint(QLayout::SetMinimumSize);
 	mBatteryStatusWidget = new BatteryStatusWidget(this);
 	mBatteryStatusWidget->setVisible(mDevice->HasBatteryIndicator());
 
