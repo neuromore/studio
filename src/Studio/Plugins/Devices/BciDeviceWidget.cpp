@@ -70,7 +70,6 @@ void BciDeviceWidget::Init()
 	// impedance grid
 	mImpedanceGrid = new QGridLayout(mImpedanceGridWidget);
 	mImpedanceGrid->setAlignment(Qt::AlignCenter);
-	//mImpedanceGrid->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	mImpedanceGrid->setSizeConstraint(QLayout::SetMinimumSize);
 	mImpedanceGrid->setContentsMargins(QMargins(16, 0, 0, 0));
 
@@ -189,7 +188,7 @@ void BciDeviceWidget::Init()
 	mEEGElectrodeWidget->SetDevice(mBciDevice);
 
 	mImpedanceGridWidget->hide();
-   mEEGElectrodeWidgetContainer->hide();
+	mEEGElectrodeWidgetContainer->hide();
 }
 
 
