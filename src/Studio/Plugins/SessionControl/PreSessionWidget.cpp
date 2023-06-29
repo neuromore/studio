@@ -43,11 +43,13 @@ void PreSessionWidget::Init()
 {
 	setObjectName("TransparentWidget");
 	setMinimumHeight(mStartButtonSize);
-	setSizePolicy(QSizePolicy::Ignored, QSizePolicy::MinimumExpanding);
+	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
 	QHBoxLayout* hLayout = new QHBoxLayout();
 	hLayout->setMargin(0);
 	setLayout(hLayout);
+
+	constexpr int labelwidth = 65;
 
 	// create the back to selection button
 	mBackToSelectionButton = new QPushButton("Back");
@@ -85,7 +87,8 @@ void PreSessionWidget::Init()
 	//
 
 	// add the level selection label
-	mVisSelectionLabel = new QLabel("  Visualization:");
+	mVisSelectionLabel = new QLabel("Visualization:");
+	mVisSelectionLabel->setFixedWidth(labelwidth);
 	gLayout->addWidget( mVisSelectionLabel, 0, 0 );
 
 	// add the level selection button (for local ones)
@@ -104,12 +107,14 @@ void PreSessionWidget::Init()
 	//
 
 	// add the level selection label
-	mElectrodeSelectionLabel = new QLabel("  Channels:");
+	mElectrodeSelectionLabel = new QLabel("Channels:");
+	mElectrodeSelectionLabel->setFixedWidth(labelwidth);
 	gLayout->addWidget( mElectrodeSelectionLabel, 1, 0 );
 
 	for (uint32_t i = 0; i < NUMELECTRODESELECT; i++)
 	{
 		mElectrodeSelections[i] = new QComboBox();
+		mElectrodeSelections[i]->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 		mElectrodeSelections[i]->setEditable(true);
 		mElectrodeSelections[i]->setAutoCompletion(false);
 		connect(mElectrodeSelections[i], &QComboBox::currentTextChanged, this, &PreSessionWidget::OnChannelSelected);
@@ -126,7 +131,8 @@ void PreSessionWidget::Init()
 	//
 
 	// add the user label
-	mSelectUserLabel = new QLabel("  User:");
+	mSelectUserLabel = new QLabel("User:");
+	mSelectUserLabel->setFixedWidth(labelwidth);
 	gLayout->addWidget( mSelectUserLabel, 2, 0 );
 
 	// add select user button
