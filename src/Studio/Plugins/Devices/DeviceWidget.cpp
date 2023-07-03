@@ -87,6 +87,8 @@ void DeviceWidget::Init()
 	// middle: secondary device info widgets (battery, signal etc)
 	mSecondaryDeviceInfoLayout = new QHBoxLayout();
 	mSecondaryDeviceInfoLayout->setContentsMargins(0, 8, 0, 8);
+	mSecondaryDeviceInfoLayout->setAlignment(Qt::AlignLeft);
+	mSecondaryDeviceInfoLayout->setSizeConstraint(QLayout::SetMinimumSize);
 	mBatteryStatusWidget = new BatteryStatusWidget(this);
 	mBatteryStatusWidget->setVisible(mDevice->HasBatteryIndicator());
 
@@ -96,6 +98,8 @@ void DeviceWidget::Init()
 	// bottom: info/test buttons
 	QSize buttonSize = QSize(65, 25);
 	QHBoxLayout* buttonLayout = new QHBoxLayout();
+	buttonLayout->setAlignment(Qt::AlignLeft);
+	buttonLayout->setSizeConstraint(QLayout::SetMinimumSize);
 	mDeviceInfoButton = new QPushButton("Info");
 	mDeviceInfoButton->setCheckable(true);
 	mDeviceInfoButton->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/Info.png"));
@@ -124,13 +128,8 @@ void DeviceWidget::Init()
    
 	InitDeviceTestWidget();
 
-	// add spacer widget
-	QWidget* spacerWidget = new QWidget();
-	spacerWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Ignored);
-	buttonLayout->addWidget(spacerWidget);
-
 	// add hor. button layout to main layout
-	mLayout->addLayout(buttonLayout, 2, 0);
+	mLayout->addLayout(buttonLayout, 2, 0, Qt::AlignLeft);
 
 	// 2) right half of widget area (primary device info)
 	mPrimaryDeviceInfoLayout = new QHBoxLayout();

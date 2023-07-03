@@ -43,11 +43,13 @@ void PreSessionWidget::Init()
 {
 	setObjectName("TransparentWidget");
 	setMinimumHeight(mStartButtonSize);
-	setSizePolicy(QSizePolicy::Ignored, QSizePolicy::MinimumExpanding);
+	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
 
 	QHBoxLayout* hLayout = new QHBoxLayout();
 	hLayout->setMargin(0);
 	setLayout(hLayout);
+
+	constexpr int labelwidth = 64;
 
 	// create the back to selection button
 	mBackToSelectionButton = new QPushButton("Back");
@@ -71,21 +73,19 @@ void PreSessionWidget::Init()
 
 	// ------------------------------------------
 
-	QVBoxLayout* vLayout = new QVBoxLayout();
-	vLayout->setMargin(0);
-	hLayout->addLayout(vLayout);
-
 	// right side of hLayout: grid layout
 	gLayout = new QGridLayout();
 	gLayout->setMargin(0);
-	vLayout->addLayout(gLayout);
+
+	hLayout->addLayout(gLayout);
 
 	//
 	// first row of gridlayout
 	//
 
 	// add the level selection label
-	mVisSelectionLabel = new QLabel("  Visualization:");
+	mVisSelectionLabel = new QLabel("Visualization:");
+	mVisSelectionLabel->setFixedWidth(labelwidth);
 	gLayout->addWidget( mVisSelectionLabel, 0, 0 );
 
 	// add the level selection button (for local ones)
@@ -94,27 +94,34 @@ void PreSessionWidget::Init()
 	if (GetManager()->GetVisualizationManager()->GetNumVisualizations() == 0)
 		mVisSelectionButton->setEnabled(false);
 
-	mVisSelectionButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
+	mVisSelectionButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mVisSelectionButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Eye.png") );
 	connect( mVisSelectionButton, &QPushButton::clicked, this, &PreSessionWidget::OnSelectVisualizationClicked);
-	gLayout->addWidget(mVisSelectionButton, 0, 1, 1, NUMELECTRODESELECT);
+	gLayout->addWidget(mVisSelectionButton, 0, 1);
 
 	//
 	// second row of gridlayout
 	//
 
 	// add the level selection label
-	mElectrodeSelectionLabel = new QLabel("  Channels:");
+	mElectrodeSelectionLabel = new QLabel("Channels:");
+	mElectrodeSelectionLabel->setFixedWidth(labelwidth);
 	gLayout->addWidget( mElectrodeSelectionLabel, 1, 0 );
+
+	QHBoxLayout* chLayout = new QHBoxLayout();
+	chLayout->setAlignment(Qt::AlignLeft);
 
 	for (uint32_t i = 0; i < NUMELECTRODESELECT; i++)
 	{
 		mElectrodeSelections[i] = new QComboBox();
-		mElectrodeSelections[i]->setEditable(true);
+		mElectrodeSelections[i]->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+		mElectrodeSelections[i]->setEditable(false);
 		mElectrodeSelections[i]->setAutoCompletion(false);
+
 		connect(mElectrodeSelections[i], &QComboBox::currentTextChanged, this, &PreSessionWidget::OnChannelSelected);
-		gLayout->addWidget(mElectrodeSelections[i], 1, i+1);
+		chLayout->addWidget(mElectrodeSelections[i]);
 	}
+	gLayout->addLayout(chLayout, 1, 1, Qt::AlignLeft);
 
 	if (Classifier* c = GetEngine()->GetActiveClassifier())
 		UpdateChannels(c->FindMainChannelSelector());
@@ -126,21 +133,23 @@ void PreSessionWidget::Init()
 	//
 
 	// add the user label
-	mSelectUserLabel = new QLabel("  User:");
+	mSelectUserLabel = new QLabel("User:");
+	mSelectUserLabel->setFixedWidth(labelwidth);
 	gLayout->addWidget( mSelectUserLabel, 2, 0 );
 
 	// add select user button
 	mSelectUserButton = new QPushButton(GetSessionUser()->CreateDisplayableName().AsChar());
-	mSelectUserButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
+	mSelectUserButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mSelectUserButton->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Users.png") );
 	connect( mSelectUserButton, &QPushButton::clicked, this, &PreSessionWidget::OnSelectUserClicked);
-	gLayout->addWidget( mSelectUserButton, 2, 1, 1, NUMELECTRODESELECT);
+	gLayout->addWidget( mSelectUserButton, 2, 1);
 	
 	// show report button
 	mShowReportButton = new QPushButton("Show Report");
+	mShowReportButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mShowReportButton->setIcon(GetQtBaseManager()->FindIcon("/Images/Icons/Report.png"));
 	mShowReportButton->setVisible(false);
-	vLayout->addWidget(mShowReportButton);
+	gLayout->addWidget(mShowReportButton, 3, 0, 1, 2);
 	connect( mShowReportButton, SIGNAL(clicked()), mPlugin, SLOT(ShowReport()) );
 }
 

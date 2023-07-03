@@ -59,6 +59,9 @@ class ENGINE_API BciDevice : public Device
 		// true if device provides the contact quality for a sensor
 		virtual bool HasEegContactQualityIndicator()						{ return false; }
 
+		// true if the device has named electrodes with positions
+		virtual bool HasElectrodePositions() { return true; }
+
 		// get/set position of electrodes
 		const Core::Array<EEGElectrodes::Electrode>& GetElectrodes() const	{ return mElectrodes; }
 		EEGElectrodes::Electrode GetElectrodePosition(uint32 neuroSensorIndex) const;

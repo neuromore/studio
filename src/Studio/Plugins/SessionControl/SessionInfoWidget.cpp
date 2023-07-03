@@ -40,6 +40,7 @@ SessionInfoWidget::SessionInfoWidget(QWidget* parent) : QWidget(parent)
 
 	mGridLayout = new QGridLayout();
 	mGridLayout->setColumnStretch(1,100);
+	mGridLayout->setAlignment(Qt::AlignTop);
 	setLayout(mGridLayout);
 
 	// load icons
@@ -252,7 +253,7 @@ void SessionInfoWidget::UpdateLayout()
 
 		// add to row i
 		mGridLayout->addWidget(info.mIcon, i, 0);
-		mGridLayout->addWidget(info.mLabel, i, 1, Qt::AlignLeft);
+		mGridLayout->addWidget(info.mLabel, i, 1);
 	}
 
 	if (numInfos > 0)

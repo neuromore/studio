@@ -45,7 +45,7 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 	mDevice = device;
 
 	// expand width but not height
-	setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+	setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum);
 
 
 	// add the main widget

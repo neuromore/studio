@@ -53,6 +53,7 @@ class BciDeviceWidget : public DeviceWidget
 		
 	private:
 		BciDevice*				mBciDevice;					// reference to BciDevice
+		QWidget*				mEEGElectrodeWidgetContainer;
 		EEGElectrodesWidget*	mEEGElectrodeWidget;		// eeg sensor status
 		SignalQualityWidget*	mSignalQualityWidget;
 		QWidget*				mImpedanceGridWidget;
