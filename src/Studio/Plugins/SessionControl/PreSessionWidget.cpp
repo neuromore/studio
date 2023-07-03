@@ -114,10 +114,9 @@ void PreSessionWidget::Init()
 	for (uint32_t i = 0; i < NUMELECTRODESELECT; i++)
 	{
 		mElectrodeSelections[i] = new QComboBox();
-		mElectrodeSelections[i]->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
+		mElectrodeSelections[i]->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 		mElectrodeSelections[i]->setEditable(false);
 		mElectrodeSelections[i]->setAutoCompletion(false);
-		mElectrodeSelections[i]->setFixedWidth(50);
 
 		connect(mElectrodeSelections[i], &QComboBox::currentTextChanged, this, &PreSessionWidget::OnChannelSelected);
 		chLayout->addWidget(mElectrodeSelections[i]);

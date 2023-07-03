@@ -90,7 +90,7 @@ bool SessionControlPlugin::Init()
 	// while-session widget
 	mWhileSessionWidget = new WhileSessionWidget(NULL, buttonSize);
 	mWhileSessionWidget->setFixedHeight(128);
-	mWhileSessionWidget->hide();
+	mWhileSessionWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 	hLayout->addWidget(mWhileSessionWidget);
 	connect( mWhileSessionWidget->GetStopButton(), SIGNAL(clicked()), this, SLOT(OnStop()) );
 	connect( mWhileSessionWidget->GetPauseButton(), SIGNAL(clicked()), this, SLOT(OnPause()) );
@@ -229,8 +229,8 @@ void SessionControlPlugin::UpdateWidgets()
 	const bool isRunning = GetEngine()->GetSession()->IsRunning();
 	if (isRunning || isPreparing)
 	{
-		mWhileSessionWidget->show();
 		mPreSessionWidget->hide();
+		mWhileSessionWidget->show();
 	}
 	else
 	{

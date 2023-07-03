@@ -35,7 +35,7 @@ WhileSessionWidget::WhileSessionWidget(QWidget* parent, int buttonSize) : QWidge
 
 	setObjectName("TransparentWidget");
 	setMinimumHeight(buttonSize);
-	setSizePolicy(QSizePolicy::Ignored, QSizePolicy::MinimumExpanding);
+	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
 
 	QVBoxLayout* mainLayout = new QVBoxLayout();
 	mainLayout->setMargin(0);
