@@ -66,59 +66,64 @@ bool SessionControlPlugin::Init()
 
 	QWidget* mainWidget = new QWidget();
 	QVBoxLayout* mainLayout = new QVBoxLayout();
+	mainLayout->setAlignment(Qt::AlignTop);
 	mainWidget->setLayout( mainLayout );
+	mainWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
 	const int32 buttonSize = IMAGEBUTTONSIZE_BIG;
 	const int32 startButtonSize = IMAGEBUTTONSIZE_BIG;
 
-	// create the dummy widget and a layout
-	QWidget* dummyWidget = new QWidget();
-	QVBoxLayout* vLayout = new QVBoxLayout();
 	QHBoxLayout* hLayout = new QHBoxLayout();
-	vLayout->setMargin(0);
+	hLayout->setAlignment(Qt::AlignTop);
 	hLayout->setMargin(0);
-	vLayout->addLayout(hLayout);
-	dummyWidget->setLayout(vLayout);
 
 	// pre-session widget
 	mPreSessionWidget = new PreSessionWidget(this, NULL, startButtonSize);
+	mPreSessionWidget->setFixedHeight(128);
+	mPreSessionWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 	mPreSessionWidget->ReInit();
+
 	hLayout->addWidget(mPreSessionWidget);
 	connect(mPreSessionWidget->GetStartButton(), &QPushButton::clicked, this, &SessionControlPlugin::OnStart);
 	connect(mPreSessionWidget, &PreSessionWidget::SelectedChannelsChanged, this, &SessionControlPlugin::OnSelectedChannelsChanged);
 
 	// while-session widget
 	mWhileSessionWidget = new WhileSessionWidget(NULL, buttonSize);
+	mWhileSessionWidget->setFixedHeight(128);
+	mWhileSessionWidget->hide();
 	hLayout->addWidget(mWhileSessionWidget);
 	connect( mWhileSessionWidget->GetStopButton(), SIGNAL(clicked()), this, SLOT(OnStop()) );
 	connect( mWhileSessionWidget->GetPauseButton(), SIGNAL(clicked()), this, SLOT(OnPause()) );
 	connect( mWhileSessionWidget->GetContinueButton(), SIGNAL(clicked()), this, SLOT(OnContinue()) );
 
+	mainLayout->addLayout(hLayout);
+
+	hLayout = new QHBoxLayout();
+	hLayout->setAlignment(Qt::AlignTop);
+
 	// session-info widget
 	mSessionInfoWidget = new SessionInfoWidget();
-	mSessionInfoWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	vLayout->addWidget(mSessionInfoWidget);
+	mSessionInfoWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+	hLayout->addWidget(mSessionInfoWidget);
+
+	mainLayout->addLayout(hLayout);
 
 	// add session widget
-	dummyWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	mainLayout->addWidget(dummyWidget);
+	hLayout = new QHBoxLayout();
+	hLayout->setAlignment(Qt::AlignTop);
 
 	// add stage widget
-	mStageControlWidget = new StageControlWidget(mainWidget);
-	mStageControlWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	mainLayout->addWidget(mStageControlWidget);
+	mStageControlWidget = new StageControlWidget(0);
+	mStageControlWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+	hLayout->addWidget(mStageControlWidget);
+	mainLayout->addLayout(hLayout);
 	
 	// add client info widget
 #ifndef PRODUCTION_BUILD
-	mClientInfoWidget = new ClientInfoWidget(mainWidget);
-	mClientInfoWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
+	mClientInfoWidget = new ClientInfoWidget();
+	mClientInfoWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mainLayout->addWidget(mClientInfoWidget);
 #endif
-
-	// add spacer widget
-	QWidget* spacerWidget = new QWidget(mainWidget);
-	spacerWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
-	mainLayout->addWidget(spacerWidget);
 
 	// connect to server signals so the interface gets updated
 	NetworkServer* networkServer = GetNetworkServer();

@@ -47,9 +47,9 @@ bool ClientInfoWidget::Init()
 
 	// clients table
 	mClientTable = new QTableWidget();
-	//mClientTable->setMaximumHeight(50);
+	mClientTable->setFixedHeight(100);
 	//gridLayout->addWidget(new QLabel("Clients"), row, 0);
-	gridLayout->addWidget(mClientTable, row, 1);
+	gridLayout->addWidget(mClientTable, row, 1, Qt::AlignTop);
 	row++;
 
 	setLayout(gridLayout);
