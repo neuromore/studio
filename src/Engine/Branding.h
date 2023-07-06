@@ -34,7 +34,7 @@ private:
    inline Branding() { }
 public:
    static constexpr const char* CompanyName                 = "neuromore";      // do not put Inc. behind this as this is also used as folder name
-   static constexpr const char* DeveloperName               = "neuromore Inc.";
+   static constexpr const char* DeveloperName               = "neuromore co";
    static constexpr const char* Website                     = "https://www.neuromore.com";
    static constexpr const char* DocumentationUrl            = "https://doc.neuromore.com";
    static constexpr const char* AccountUrl                  = "https://account.neuromore.com";
@@ -51,10 +51,14 @@ public:
    static constexpr const char* SplashImageName             = ":/Images/SplashScreen-neuromore.png";
    static constexpr const char* AboutImageName              = ":/Images/About-neuromore.png";
    static constexpr const bool  LoginRemberMePrechecked     = true;
+   static constexpr const bool  HasColorCodesForChannels    = false;
+   static constexpr const bool  HasMinimalDeviceInfo        = false;
    static constexpr const bool  DefaultAutoDetectionEnabled = true;
    static constexpr const bool  DefaultTestDeviceEnabled    = true;
    static constexpr const bool  DefaultEemagineEnabled      = true;
-   static constexpr const bool  DefaultBrainMasterEnabled   = false;
+   static constexpr const bool  DefaultBrainMasterEnabled   = true;
+   static constexpr const bool  DefaultOpenBCIEnabled       = true;
+   static constexpr const bool  DefaultBrainflowEnabled     = true;
    static constexpr const int   DefaultServerPresetIdx      = 0;
    static constexpr const int   DefaultAutoSelectType       = 4; // = SELECT_FIRST_EIGHT (see ChannelMultiSelectionWidget.h)
 };

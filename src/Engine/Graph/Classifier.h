@@ -43,7 +43,7 @@
 #include "AnnotationNode.h"
 #include "DeviceInputNode.h"
 #include "ToneGeneratorNode.h"
-
+#include "ChannelSelectorNode.h"
 
 class ENGINE_API Classifier : public Graph, public Core::EventHandler
 {
@@ -126,6 +126,9 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 		ToneGeneratorNode* GetToneGeneratorNode(uint32_t index) const		{ return mToneGeneratorNodes[index]; }
 		uint32_t GetNumToneGeneratorNodes() const							{ return mToneGeneratorNodes.Size(); }
 
+		// find the first ChannelSelector with a DeviceInput at its input
+		ChannelSelectorNode* FindMainChannelSelector() const;
+
 		//
 		// Parameters
 		//
@@ -166,6 +169,7 @@ class ENGINE_API Classifier : public Graph, public Core::EventHandler
 
 		void CollectUsedSensors();
 		bool IsSensorUsed (Sensor* sensor) const							{ return mUsedSensors.Contains(sensor); }
+		uint32 GetNumUsedSensors() const							{ return mUsedSensors.Size(); }
 
 		//
 		//  Classifier Control

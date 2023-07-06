@@ -44,6 +44,7 @@ ReportWindow::ReportWindow(const Core::String& dataChunkId, QWidget* parent) : Q
 
 	// create the back to selection button
 	QPushButton* backButton = new QPushButton("Back to selection");
+	backButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mainLayout->addWidget(backButton);
 	connect( backButton, &QPushButton::clicked, this, [=]
 	{
@@ -58,6 +59,7 @@ ReportWindow::ReportWindow(const Core::String& dataChunkId, QWidget* parent) : Q
 	// create show report button
 	mShowReportButton = new QPushButton("");
 	mShowReportButton->setEnabled(false);
+	mShowReportButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mShowReportButton->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Report.png"));
 	mainLayout->addWidget(mShowReportButton);
 	connect( mShowReportButton, &QPushButton::clicked, this, [dataChunkId]
@@ -74,7 +76,7 @@ ReportWindow::ReportWindow(const Core::String& dataChunkId, QWidget* parent) : Q
 	// avoid resizing
 	setSizeGripEnabled(false);
 	setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
-	setFixedSize( QSize(500, sizeHint().height()) );
+	setFixedSize( QSize(512, 64) );
 
 	// position window in the screen center
 	GetQtBaseManager()->CenterToScreen(this);

@@ -74,13 +74,10 @@ class ImpedanceTestWidget : public QWidget
 		Threshold*		mImpedanceThreshold;
 
 		QComboBox*		mThresholdComboBox;
-		QLabel*			mMinImpedanceLabel;
-		QLabel*			mMaxImpedanceLabel;
-		QLabel*			mAvgImpedanceLabel;
 
-		QLabel*			mPassIconLabel;
-		QLabel*			mFailIconLabel;
-		
+		QLabel*			mTestLabel;
+		QPixmap			mPixmapPass;
+		QPixmap			mPixmapFail;
 };
 
 

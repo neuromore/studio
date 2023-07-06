@@ -29,12 +29,6 @@
 
 using namespace Core;
 
-#if defined(NEUROMORE_BRANDING_ANT) && defined(PRODUCTION_BUILD)
-#define NEUROMORE_MINIMAL_DEVICE_STATS true
-#else
-#define NEUROMORE_MINIMAL_DEVICE_STATS false
-#endif
-
 // constructor
 BciDeviceWidget::BciDeviceWidget(BciDevice* device, QWidget* parent) : DeviceWidget(device, parent)
 {
@@ -56,9 +50,13 @@ void BciDeviceWidget::Init()
 	// init base
 	DeviceWidget::Init();
 
+	// layouts from base class
+	QHBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();
+	QHBoxLayout* secondaryLayout = GetSecondaryDeviceInfoLayout();
+
 	// add signal quality widget
 	mSignalQualityWidget = new SignalQualityWidget(this);
-	GetSecondaryDeviceInfoLayout()->addWidget(mSignalQualityWidget);
+	secondaryLayout->addWidget(mSignalQualityWidget);
 
 	// hide/show signal quality widget (if device is not wireless)
 	if (mBciDevice->HasWirelessIndicator())
@@ -66,19 +64,131 @@ void BciDeviceWidget::Init()
 	else
 		mSignalQualityWidget->hide();
 
+	// impedance grid widget (container)
+	mImpedanceGridWidget = new QWidget(this);
+
+	// impedance grid
+	mImpedanceGrid = new QGridLayout(mImpedanceGridWidget);
+	mImpedanceGrid->setAlignment(Qt::AlignCenter);
+	mImpedanceGrid->setSizeConstraint(QLayout::SetMinimumSize);
+	mImpedanceGrid->setContentsMargins(QMargins(16, 0, 0, 0));
+
+	const QSize lblsize(30, 20);
+	const QSize valsize(50, 20);
+
+	QLabel* headlbl = new QLabel();
+	headlbl->setFixedSize(lblsize);
+	headlbl->setText("CH");
+	headlbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	headlbl->setStyleSheet("background-color: black;");
+	headlbl->setAlignment(Qt::AlignCenter);
+
+	QLabel* headval = new QLabel();
+	headval->setFixedSize(valsize);
+	headval->setText("kOhm");
+	headval->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	headval->setStyleSheet("background-color: black;");
+	headval->setAlignment(Qt::AlignCenter);
+
+	mImpedanceGrid->addWidget(headlbl, 0, 0);
+	mImpedanceGrid->addWidget(headval, 0, 1);
+
+	if (mBciDevice)
+	{
+		const uint32 numSensors = std::min(8U, mBciDevice->GetNumNeuroSensors());
+		for (uint32_t i = 0; i < numSensors; i++)
+		{
+			Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+
+			// name label
+			QLabel* lbl = new QLabel();
+			lbl->setFixedSize(lblsize);
+			lbl->setText(sensor->GetName());
+			lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			lbl->setAlignment(Qt::AlignCenter);
+
+			if (Branding::HasColorCodesForChannels)
+			{
+				switch (i)
+				{
+				case 0:  lbl->setStyleSheet("color: brown;  background-color: black;"); break;
+				case 1:  lbl->setStyleSheet("color: red;    background-color: black;"); break;
+				case 2:  lbl->setStyleSheet("color: orange; background-color: black;"); break;
+				case 3:  lbl->setStyleSheet("color: yellow; background-color: black;"); break;
+				case 4:  lbl->setStyleSheet("color: green;  background-color: black;"); break;
+				case 5:  lbl->setStyleSheet("color: blue;   background-color: black;"); break;
+				case 6:  lbl->setStyleSheet("color: purple; background-color: black;"); break;
+				case 7:  lbl->setStyleSheet("color: grey;   background-color: black;"); break;
+				default: lbl->setStyleSheet("color: white;  background-color: black;"); break;
+				}
+			}
+			else
+				lbl->setStyleSheet("color: white;  background-color: black;");
+
+			// value label
+			QLabel* val = new QLabel();
+			val->setFixedSize(valsize);
+			val->setText(QString().sprintf("%5.1f", mBciDevice->GetImpedance(i)));
+			val->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			val->setAlignment(Qt::AlignCenter);
+
+			mImpedanceGrid->addWidget(lbl, i+1, 0);
+			mImpedanceGrid->addWidget(val, i+1, 1);
+		}
+
+		for (uint32_t i = 0; i < 3; i++)
+		{
+			// name label
+			QLabel* lbl = new QLabel();
+			lbl->setFixedSize(lblsize);
+			lbl->setText("AVG");
+			lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			lbl->setAlignment(Qt::AlignCenter);
+			lbl->setStyleSheet("color: white;  background-color: black;");
+
+			// name
+			switch (i)
+			{
+			case 0: lbl->setText("MIN"); break;
+			case 1: lbl->setText("AVG"); break;
+			case 2: lbl->setText("MAX"); break;
+			default: break;
+			}
+
+			// value label
+			QLabel* val = new QLabel();
+			val->setFixedSize(valsize);
+			val->setText(QString().sprintf("%5.1f", 0.0));
+			val->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			val->setAlignment(Qt::AlignCenter);
+			val->setStyleSheet("background-color: black;");
+
+			mImpedanceGrid->addWidget(lbl, i+numSensors+1, 0);
+			mImpedanceGrid->addWidget(val, i+numSensors+1, 1);
+		}
+	}
+
+	primaryLayout->addWidget(mImpedanceGridWidget);
+
+	// electrode widget container
+	mEEGElectrodeWidgetContainer = new QWidget(this);
+	mEEGElectrodeWidgetContainer->setMinimumSize(256, 256);
+	mEEGElectrodeWidgetContainer->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
 	// electrode widget
-	mEEGElectrodeWidget = new EEGElectrodesWidget(this);
+	mEEGElectrodeWidget = new EEGElectrodesWidget(mEEGElectrodeWidgetContainer);
 
 	// set minimuim size and expanding
-	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
+	mEEGElectrodeWidget->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
 	mEEGElectrodeWidget->setFixedSize(256,256);
 
-	// add it to primary layout
-	QVBoxLayout* primaryLayout = GetPrimaryDeviceInfoLayout();
-	primaryLayout ->addWidget(mEEGElectrodeWidget);
+	primaryLayout ->addWidget(mEEGElectrodeWidgetContainer);
 
 	mBciDevice = static_cast<BciDevice*>(mDevice);
 	mEEGElectrodeWidget->SetDevice(mBciDevice);
+
+	mImpedanceGridWidget->hide();
+	mEEGElectrodeWidgetContainer->hide();
 }
 
 
@@ -97,6 +207,67 @@ void BciDeviceWidget::UpdateInterface()
 	// update impedance test widget
 	if (mDeviceTestWidget != NULL && mDeviceTestWidget->isVisible())
 		static_cast<ImpedanceTestWidget*>(mDeviceTestWidget)->UpdateInterface();
+
+	// update impedance grid
+	if (mBciDevice && mImpedanceGridWidget && mImpedanceGrid && mImpedanceGrid->rowCount() > 0)
+	{
+		Classifier* classifier = GetEngine()->GetActiveClassifier();
+		mImpedanceGridWidget->setVisible(mBciDevice->HasEegContactQualityIndicator());
+		mEEGElectrodeWidgetContainer->setVisible(mBciDevice->HasElectrodePositions());
+		const uint32 numSensors = std::min(
+			(uint32)mImpedanceGrid->rowCount()-4U, 
+			std::min(8U, mBciDevice->GetNumNeuroSensors()));
+		const uint32 numUsedSensors = classifier ? classifier->GetNumUsedSensors() : 0U;
+		double max = DBL_MIN;
+		double avg = 0.0;
+		double min = DBL_MAX;
+		uint32 cnt = 0;
+		for (uint32_t i = 0; i < numSensors; i++)
+		{
+			Sensor* sensor = mBciDevice->GetNeuroSensor(i);
+			double impedance = mBciDevice->GetImpedance(i);
+			Color color = sensor->GetContactQualityColor();
+			const bool isused = classifier && classifier->IsSensorUsed(sensor);
+
+			// value label in grid
+			QLabel* item = (QLabel*)mImpedanceGrid->itemAtPosition(i + 1, 1)->widget();
+
+			if (impedance >= 0.1)
+				item->setText(QString().sprintf("%5.1f", impedance));
+			else
+				item->setText("");
+
+			if (numUsedSensors == 0 || isused)
+			{
+				if (impedance > 0.1)
+				{
+					max = impedance > max ? impedance : max;
+					min = impedance < min ? impedance : min;
+					avg += impedance;
+					cnt++;
+				}
+			}
+			else
+				color *= 0.4; // same factor as in EEGElectrodesWidget.cpp
+
+			item->setStyleSheet(QString("color: black; background-color: %1;").arg(
+				color.ToHexString().AsChar()));
+		}
+
+		if (cnt) avg /= cnt;
+
+		QLabel* lblmin = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 1, 1)->widget();
+		if (min >= 0.1 && min < DBL_MAX) lblmin->setText(QString().sprintf("%5.1f", min));
+		else lblmin->setText("");
+
+		QLabel* lblavg = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 2, 1)->widget();
+		if (avg >= 0.1) lblavg->setText(QString().sprintf("%5.1f", avg));
+		else lblavg->setText("");
+
+		QLabel* lblmax = (QLabel*)mImpedanceGrid->itemAtPosition(numSensors + 3, 1)->widget();
+		if (max >= 0.1) lblmax->setText(QString().sprintf("%5.1f", max));
+		else lblmax->setText("");
+	}
 }
 
 
@@ -137,12 +308,12 @@ void BciDeviceWidget::AddSensorItems(QTreeWidgetItem* parent)
 		// add signal quality subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Signal Quality");
-		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
+		item->setHidden(Branding::HasMinimalDeviceInfo);
 
 		// add current value subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Current Value");
-		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
+		item->setHidden(Branding::HasMinimalDeviceInfo);
 
 		// add sample rate subitem
 		item = new QTreeWidgetItem(sensorItem);
@@ -151,17 +322,16 @@ void BciDeviceWidget::AddSensorItems(QTreeWidgetItem* parent)
 		// add drift correction subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Drift (Corrected)");
-		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
+		item->setHidden(Branding::HasMinimalDeviceInfo);
 
 		// add burst size subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Max/Avg Burst Size");
-		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
 
 		// add burst size subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Max Latency");
-		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
+		item->setHidden(Branding::HasMinimalDeviceInfo);
 
 		// add sample counter subitem
 		item = new QTreeWidgetItem(sensorItem);
@@ -174,7 +344,7 @@ void BciDeviceWidget::AddSensorItems(QTreeWidgetItem* parent)
 		// add total memory subitem
 		item = new QTreeWidgetItem(sensorItem);
 		item->setText(0, "Memory Used");
-		item->setHidden(NEUROMORE_MINIMAL_DEVICE_STATS);
+		item->setHidden(Branding::HasMinimalDeviceInfo);
 	}
 }
 

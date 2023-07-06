@@ -66,62 +66,64 @@ bool SessionControlPlugin::Init()
 
 	QWidget* mainWidget = new QWidget();
 	QVBoxLayout* mainLayout = new QVBoxLayout();
+	mainLayout->setAlignment(Qt::AlignTop);
 	mainWidget->setLayout( mainLayout );
+	mainWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
 	const int32 buttonSize = IMAGEBUTTONSIZE_BIG;
 	const int32 startButtonSize = IMAGEBUTTONSIZE_BIG;
 
-	// create the dummy widget and a layout
-	QWidget* dummyWidget = new QWidget();
-	QVBoxLayout* vLayout = new QVBoxLayout();
 	QHBoxLayout* hLayout = new QHBoxLayout();
-	vLayout->setMargin(0);
+	hLayout->setAlignment(Qt::AlignTop);
 	hLayout->setMargin(0);
-	vLayout->addLayout(hLayout);
-	dummyWidget->setLayout(vLayout);
 
 	// pre-session widget
 	mPreSessionWidget = new PreSessionWidget(this, NULL, startButtonSize);
+	mPreSessionWidget->setFixedHeight(128);
+	mPreSessionWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 	mPreSessionWidget->ReInit();
+
 	hLayout->addWidget(mPreSessionWidget);
 	connect(mPreSessionWidget->GetStartButton(), &QPushButton::clicked, this, &SessionControlPlugin::OnStart);
-
-	// show user button only if user is allowed to select a client
-	if (GetUser()->FindRule("STUDIO_SETTING_SelectUser") == NULL)
-		mPreSessionWidget->ShowSelectUserButton(false);
+	connect(mPreSessionWidget, &PreSessionWidget::SelectedChannelsChanged, this, &SessionControlPlugin::OnSelectedChannelsChanged);
 
 	// while-session widget
 	mWhileSessionWidget = new WhileSessionWidget(NULL, buttonSize);
+	mWhileSessionWidget->setFixedHeight(128);
+	mWhileSessionWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 	hLayout->addWidget(mWhileSessionWidget);
 	connect( mWhileSessionWidget->GetStopButton(), SIGNAL(clicked()), this, SLOT(OnStop()) );
 	connect( mWhileSessionWidget->GetPauseButton(), SIGNAL(clicked()), this, SLOT(OnPause()) );
 	connect( mWhileSessionWidget->GetContinueButton(), SIGNAL(clicked()), this, SLOT(OnContinue()) );
 
+	mainLayout->addLayout(hLayout);
+
+	hLayout = new QHBoxLayout();
+	hLayout->setAlignment(Qt::AlignTop);
+
 	// session-info widget
 	mSessionInfoWidget = new SessionInfoWidget();
-	mSessionInfoWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	vLayout->addWidget(mSessionInfoWidget);
+	mSessionInfoWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+	hLayout->addWidget(mSessionInfoWidget);
+
+	mainLayout->addLayout(hLayout);
 
 	// add session widget
-	dummyWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	mainLayout->addWidget(dummyWidget);
+	hLayout = new QHBoxLayout();
+	hLayout->setAlignment(Qt::AlignTop);
 
 	// add stage widget
-	mStageControlWidget = new StageControlWidget(mainWidget);
-	mStageControlWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	mainLayout->addWidget(mStageControlWidget);
+	mStageControlWidget = new StageControlWidget(0);
+	mStageControlWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+	hLayout->addWidget(mStageControlWidget);
+	mainLayout->addLayout(hLayout);
 	
 	// add client info widget
 #ifndef PRODUCTION_BUILD
-	mClientInfoWidget = new ClientInfoWidget(mainWidget);
-	mClientInfoWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
+	mClientInfoWidget = new ClientInfoWidget();
+	mClientInfoWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	mainLayout->addWidget(mClientInfoWidget);
 #endif
-
-	// add spacer widget
-	QWidget* spacerWidget = new QWidget(mainWidget);
-	spacerWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
-	mainLayout->addWidget(spacerWidget);
 
 	// connect to server signals so the interface gets updated
 	NetworkServer* networkServer = GetNetworkServer();
@@ -227,8 +229,8 @@ void SessionControlPlugin::UpdateWidgets()
 	const bool isRunning = GetEngine()->GetSession()->IsRunning();
 	if (isRunning || isPreparing)
 	{
-		mWhileSessionWidget->show();
 		mPreSessionWidget->hide();
+		mWhileSessionWidget->show();
 	}
 	else
 	{
@@ -261,6 +263,44 @@ void SessionControlPlugin::OnSessionUserChanged(const User& user)
 
 	QPushButton* userButton = mPreSessionWidget->GetSelectUserButton();
 	userButton->setText(name.AsChar());
+}
+
+void SessionControlPlugin::OnActiveBciChanged(BciDevice* device)
+{
+
+}
+
+void SessionControlPlugin::OnActiveClassifierChanged(Classifier* classifier)
+{
+   UpdateStartButton();
+   mPreSessionWidget->UpdateChannels(0);
+}
+
+void SessionControlPlugin::OnNodeStarted(Graph* graph, SPNode* node)
+{
+   if (mPreSessionWidget)
+      if (node->GetType() == ChannelSelectorNode::TYPE_ID)
+         if (node->GetBoolAttribute(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+            mPreSessionWidget->UpdateChannels((ChannelSelectorNode*)node);
+}
+
+void SessionControlPlugin::OnRemoveNode(Graph* graph, Node* node)
+{
+   if (mPreSessionWidget)
+      if (node->GetType() == ChannelSelectorNode::TYPE_ID)
+         if (node->GetBoolAttribute(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+            mPreSessionWidget->UpdateChannels(0);
+}
+
+void SessionControlPlugin::OnAttributeUpdated(Graph* graph, GraphObject* object, Core::Attribute* attribute)
+{
+   if (mPreSessionWidget)
+      if (object->GetType() == ChannelSelectorNode::TYPE_ID)
+         if (attribute == object->GetAttributeValue(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+            if (object->GetBoolAttribute(ChannelSelectorNode::ATTRIB_QUICK_CONFIG))
+               mPreSessionWidget->UpdateChannels((ChannelSelectorNode*)object);
+            else
+               mPreSessionWidget->UpdateChannels(0);
 }
 
 void SessionControlPlugin::OnRemoveDevice(Device* device)
@@ -337,6 +377,10 @@ void SessionControlPlugin::OnMessageReceived( NetworkServerClient* client, Netwo
 	delete message;
 }
 
+void SessionControlPlugin::OnSelectedChannelsChanged()
+{
+   ApplySettings();
+}
 
 void SessionControlPlugin::CheckStartRequirements()
 {
@@ -360,6 +404,14 @@ void SessionControlPlugin::CheckStartRequirements()
 	const bool deviceBatteryLow = (GetDeviceManager()->IsDevicePowerOk() == false);
 	const bool deviceMissing = (classifier != NULL && classifier->HasError (DeviceInputNode::ERROR_DEVICE_NOT_FOUND) == true);
 
+
+	// not runninng session as patient
+	const char* noPatientInfo = "No patient selected.";
+	if (GetUser()->GetIdString() == GetSessionUser()->GetIdString() && (GetUser()->FindRule("ROLE_ClinicClinician") || GetUser()->FindRule("ROLE_ClinicOperator")))
+		mSessionInfoWidget->ShowInfo(SessionInfoWidget::TYPE_WARNING, noPatientInfo, "Please select a patient before starting a session.");
+	else
+		mSessionInfoWidget->RemoveInfo(noPatientInfo);
+
 	// classifier or statemachine has error
 	const bool designError = (classifier != NULL && classifier->HasError() == true) || (stateMachine != NULL && stateMachine->HasError() == true);
 	
@@ -381,11 +433,11 @@ void SessionControlPlugin::CheckStartRequirements()
 		mSessionInfoWidget->RemoveInfo( noPermissionInfo );
 
 	// device test
-	const char* testModeInfo = "Device is in test mode";
+	/*const char* testModeInfo = "Device is in test mode";
 	if (deviceTestRunning == true)
 		mSessionInfoWidget->ShowInfo( SessionInfoWidget::TYPE_INFO, testModeInfo, "Please stop the device test first.");
 	else
-		mSessionInfoWidget->RemoveInfo( testModeInfo );
+		mSessionInfoWidget->RemoveInfo( testModeInfo );*/
 
 	// device not connected
 	const char* noDevicePower = "Device battery is almost empty";
@@ -456,6 +508,9 @@ void SessionControlPlugin::OnStart()
 	StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine();
 	Experience* activeExperience = GetEngine()->GetActiveExperience();
 
+	if (!activeClassifier)
+		return;
+
 	// gather all errors an compose them into a string
 /*	if (activeClassifier != NULL && activeClassifier->HasError() == true)
 	{
@@ -483,14 +538,17 @@ void SessionControlPlugin::OnStart()
 
 	// BEGIN
 
+	// make sure no session is running
+	CORE_ASSERT(GetSession()->IsRunning() == false);
+
 	// switch to first stage
 	EMIT_EVENT( OnSwitchStage(0) );
 
+	//
+	ApplySettings();
+
 	// TODO do checks on statemachine / experience?
 	mPreSessionWidget->setEnabled(false);
-
-	// make sure no session is running
-	CORE_ASSERT( GetSession()->IsRunning() == false );
 
 	GetEngine()->Reset();     // reset engine (also resets session)
 	GetEngine()->SoftPause(); // but keep it paused
@@ -527,6 +585,41 @@ void SessionControlPlugin::OnParametersLoaded(bool success)
 	// but keep the statemachine paused until session really starts
 	if (StateMachine* sm = GetEngine()->GetActiveStateMachine())
 		sm->Pause();
+}
+
+
+void SessionControlPlugin::ApplySettings()
+{
+   Classifier* activeClassifier = GetEngine()->GetActiveClassifier();
+   StateMachine* activeStateMachine = GetEngine()->GetActiveStateMachine();
+   Experience* activeExperience = GetEngine()->GetActiveExperience();
+
+   if (!activeClassifier)
+      return;
+
+   // get selected channels for session before disabling ui
+   const Core::String selectedChannels = mPreSessionWidget->GetSelectedChannels();
+
+   // apply channel selection on main channel selector if found
+   if (ChannelSelectorNode* chselector = activeClassifier->FindMainChannelSelector())
+   {
+      // remember
+      const bool dirty = activeClassifier->IsDirty();
+      const bool settingsmode = activeClassifier->GetUseSettings();
+
+      // clone classifier settings from experience or create new
+      GraphSettings set = activeExperience ? activeExperience->GetClassifierSettings() : GraphSettings();
+
+      // set the channels on the main selector node
+      AttributeSettings* attrib = chselector->GetAttribute(ChannelSelectorNode::ATTRIB_CHANNELNAMES);
+      set.Add(chselector, attrib->GetInternalName(), selectedChannels);
+
+
+      // apply modified settings and restore state
+      activeClassifier->ApplySettings(set);
+      activeClassifier->SetIsDirty(dirty);
+      activeClassifier->SetUseSettings(settingsmode);
+   }
 }
 
 
@@ -751,7 +844,7 @@ void SessionControlPlugin::ShowReport()
 // called after switching layout
 void SessionControlPlugin::OnAfterLoadLayout()
 {
-	if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
+	/*if (GetUser()->FindRule("STUDIO_SETTING_EasyWorkflow") != NULL)
 	{
 		// open visualization select window if one is available and none is running
 		VisualizationManager* vizManager = GetManager()->GetVisualizationManager();
@@ -760,5 +853,5 @@ void SessionControlPlugin::OnAfterLoadLayout()
 			VisualizationSelectWindow selectVizWindow(GetMainWindow());
 			selectVizWindow.exec();
 		}
-	}
+	}*/
 }

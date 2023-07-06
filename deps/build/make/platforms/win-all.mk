@@ -2,27 +2,27 @@
 
 # Delete Files in Folder by Pattern
 define deletefiles
-	cmd.exe /C "del /s /q $(subst /,\,$(1))\$(2) >nul 2>&1" & exit 0
+	powershell "Remove-Item $(1)/$(2) -Force"
 endef
 
 # Copy Files between Folders by Pattern
 define copyfiles
-	cmd.exe /C "copy /Y $(subst /,\,$(1)) $(subst /,\,$(2)) >nul 2>&1" & exit 0
+	powershell "Copy-Item $(1) -Destination $(2) -Force"
 endef
 
 # Copy Files recursively
 define copyfilesrecursive
-	cmd.exe /C "xcopy /Y /E /H $(subst /,\,$(1)) $(subst /,\,$(2)) >nul 2>&1" & exit 0
+	powershell "Copy-Item $(1) -Destination $(2) -Force -Recurse"
 endef
 
 # Recursively remove folder
-define rmdir	
-	cmd.exe /C "if exist $(subst /,\,$(1)) rd /s /q $(subst /,\,$(1)) >nul 2>&1"
+define rmdir
+	powershell "Remove-Item $(1) -Force -Recurse"
 endef
 
 # Create folder and all sub folders
 define mkdir
-	cmd.exe /C "if not exist $(subst /,\,$(1)) mkdir $(subst /,\,$(1)) >nul 2>&1"
+	powershell "New-Item $(1) -ItemType Directory -Force"
 endef
 
 # Replace string occurrences in file
@@ -32,40 +32,40 @@ endef
 
 # Create APPX unencrypted
 define makepkg
-	cmd.exe /C "MakeAppx.exe build /o /h SHA256 /f $(subst /,\,$(1)) /op $(subst /,\,$(2))"
+	MakeAppx.exe build /o /h SHA256 /f $(subst /,\,$(1)) /op $(subst /,\,$(2))
 endef
 
 # Create APPXBUNDLE
 define makebundle
-	cmd.exe /C "MakeAppx.exe bundle /o /d $(subst /,\,$(1)) /p $(subst /,\,$(2)) >nul 2>&1"
+	MakeAppx.exe bundle /o /d $(subst /,\,$(1)) /p $(subst /,\,$(2))
 endef
 
 # Sign File with pfx without password
 define sign
-	cmd.exe /C "if exist $(subst /,\,$(1)) SignTool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.digicert.com /f $(subst /,\,$(2)) $(subst /,\,$(1)) >nul 2>&1"
+	SignTool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.digicert.com /f $(subst /,\,$(2)) $(subst /,\,$(1))
 endef
 
 # Sign File with pfx with password
 define signp
-	cmd.exe /C "if exist $(subst /,\,$(1)) SignTool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.digicert.com /f $(subst /,\,$(2)) /p $(3) $(subst /,\,$(1))"
+	SignTool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.digicert.com /f $(subst /,\,$(2)) /p $(3) $(subst /,\,$(1))
 endef
 
 # Create .pri resources
 define makepri
-	cmd.exe /C "MakePri.exe new /v /o /cf $(subst /,\,$(1)) /pr $(subst /,\,$(2)) /of $(subst /,\,$(3)) /IndexName $(4)"
+	MakePri.exe new /v /o /cf $(subst /,\,$(1)) /pr $(subst /,\,$(2)) /of $(subst /,\,$(3)) /IndexName $(4)
 endef
 
 # Create ZIP
 define makezip
-	cmd.exe /C "powershell Compress-Archive -Force $(1) $(2)"
+	powershell Compress-Archive -Force $(1) $(2)
 endef
 
 # Move Folder or File
 define move
-	cmd.exe /C "powershell Move-Item -Force -Path $(1) -Destination $(2)"
+	powershell Move-Item -Force -Path $(1) -Destination $(2)
 endef
 
 # Sleep n seconds
 define sleep
-	cmd.exe /C "powershell Start-Sleep -Seconds $(1)"
+	powershell Start-Sleep -Seconds $(1)
 endef

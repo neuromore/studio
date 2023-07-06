@@ -52,8 +52,8 @@ class ENGINE_API CrownDevice : public BciDevice
         const char* GetTypeName() const override            { return "crown"; }
         double GetLatency() const override                  { return 0.1; }
         double GetExpectedJitter() const override           { return 0.2; }
-        bool IsWireless() const override                    { return false; /* we do not know the connection quality of the muse; this removes the connection quality icon in the device manager */ }
-        bool HasEegContactQualityIndicator() override       { return true; }
+        bool IsWireless() const override                    { return false; }
+        bool HasEegContactQualityIndicator() override       { return false; }
         static const char* GetRuleName()                    { return "DEVICE_NeurosityNotion"; }
 
         int32 GetOscPathDeviceId(const Core::String& address) const override;

@@ -38,12 +38,14 @@ ImpedanceTestWidget::Threshold ImpedanceTestWidget::Thresholds[] = {
 
 // constructor
 ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : QWidget(parent), 
-	mImpedanceThreshold(&ImpedanceTestWidget::Thresholds[DEFAULTPROFILE])
+	mImpedanceThreshold(&ImpedanceTestWidget::Thresholds[DEFAULTPROFILE]),
+	mPixmapPass(GetQtBaseManager()->FindIcon("Images/Icons/SuccessCircled.png").pixmap(20, 20)),
+	mPixmapFail(GetQtBaseManager()->FindIcon("Images/Icons/FailCircled.png").pixmap(20, 20))
 {
 	mDevice = device;
 
 	// expand width but not height
-	setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+	setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum);
 
 
 	// add the main widget
@@ -53,7 +55,7 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 	vMainLayout->setMargin(4);
 	vMainLayout->addWidget(mainWidget);
 	setLayout(vMainLayout);
-	vMainLayout->setAlignment(Qt::AlignLeft);
+	vMainLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
   // Main Grid Layout
 	// add the main widget w/ grid layout
@@ -61,65 +63,38 @@ ImpedanceTestWidget::ImpedanceTestWidget(BciDevice* device, QWidget* parent) : Q
 	mainLayout->setMargin(2);
 	mainWidget->setLayout(mainLayout);
 	
-  // Column 1
+	// Row 1
 	QLabel* label = new QLabel("<b>Impedance Test</b>");
 	mainLayout->addWidget(label, 0, 0, 1, 2);
 
+	// Row 2
 	label = new QLabel("Threshold:");
-	mainLayout->addWidget(label, 1, 0, 2, 1);
+	mainLayout->addWidget(label, 1, 0, 1, 1);
 
 	mThresholdComboBox = new QComboBox();
-	mThresholdComboBox->setEditable(true);
+	mThresholdComboBox->setEditable(false);
 	mThresholdComboBox->setMaxCount(NUMPROFILES);
 	for (size_t i = 0; i < NUMPROFILES; i++)
 		mThresholdComboBox->addItem(Thresholds[i].name);
 
 	connect(mThresholdComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(OnThresholdSelected(int)));
 	connect(mThresholdComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(OnThresholdEdited(const QString&)));
-	mThresholdComboBox->setFixedWidth(75);
-	mainLayout->addWidget(mThresholdComboBox, 1, 1, 2, 1);
+	mThresholdComboBox->setFixedWidth(100);
+	mainLayout->addWidget(mThresholdComboBox, 1, 1, 1, 1);
 	// select default threshold
 	mThresholdComboBox->setCurrentIndex(DEFAULTPROFILE);
 	OnThresholdSelected(DEFAULTPROFILE);
 
-  // Column 2
-	// expanding spacer widget 
-	QWidget* spacerWidget = new QWidget();
-	spacerWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-	mainLayout->addWidget(spacerWidget, 0, 2, 3, 1);
+	// Row 3
+	QLabel* passedlbl = new QLabel("Passed:");
+	mainLayout->addWidget(passedlbl, 2, 0, 1, 1);
 
-  // Column 3
-	// min/max/average
-	label = new QLabel("Min:");				mainLayout->addWidget(label, 0, 3);
-	label = new QLabel("Max:");				mainLayout->addWidget(label, 1, 3);
-	label = new QLabel("Avg:");				mainLayout->addWidget(label, 2, 3);
-
-	mMinImpedanceLabel = new QLabel("-");	mainLayout->addWidget(mMinImpedanceLabel, 0, 4);
-	mMaxImpedanceLabel = new QLabel("-");	mainLayout->addWidget(mMaxImpedanceLabel, 1, 4);
-	mAvgImpedanceLabel = new QLabel("-");	mainLayout->addWidget(mAvgImpedanceLabel, 2, 4);
-
-  // Column 4
-	// fixed size spacer widget 
-	spacerWidget = new QWidget();
-	spacerWidget->setFixedWidth(15);
-	mainLayout->addWidget(spacerWidget, 0, 5, 3, 1);
-
-  // Column 5
 	// Pass/Fail icon
-	mPassIconLabel = new QLabel();
-	mFailIconLabel = new QLabel();
-	const int pixmapSize = 50;
-	mPassIconLabel->setPixmap(GetQtBaseManager()->FindIcon("Images/Icons/SuccessCircled.png").pixmap(pixmapSize, pixmapSize));
-	mFailIconLabel->setPixmap(GetQtBaseManager()->FindIcon("Images/Icons/FailCircled.png").pixmap(pixmapSize, pixmapSize));
-	mPassIconLabel->setVisible(false);
-	mFailIconLabel->setVisible(false);
-	mPassIconLabel->setToolTip("Passed");
-	mFailIconLabel->setVisible("Failed");
-
-	QHBoxLayout* hLayout = new QHBoxLayout();
-	hLayout->addWidget(mPassIconLabel);
-	hLayout->addWidget(mFailIconLabel);
-	mainLayout->addLayout(hLayout, 0, 6, 3, 1);
+	mTestLabel = new QLabel();
+	mTestLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	//mTestLabel->setAlignment(Qt::AlignCenter);
+	//mTestLabel->setStyleSheet("color: white;  background-color: black;");
+	mainLayout->addWidget(mTestLabel, 2, 1, 1, 1);
 }
 
 
@@ -131,94 +106,47 @@ ImpedanceTestWidget::~ImpedanceTestWidget()
 
 void ImpedanceTestWidget::UpdateInterface()
 {
-	Classifier* activeClassifier = GetEngine()->GetActiveClassifier();
+   constexpr double minthreshold = 0.1;
 
-	// calc min/max/avg impedance accross sensors
-	
-	// max impedance, if the values is larger we assume the lead is unconnected and ignore the electrode
-	const double electrodeActiveDetectionThreshold = 200; // 200 kiloohms
-	
-	// note: impedance values are transported via the EEG sensors
-	double minImpedance = DBL_MAX;
-	double maxImpedance = -DBL_MAX;
-	double avgImpedance = 0.0;
-	uint32 avgCount = 0;
+   Classifier*  classifier = GetEngine()->GetActiveClassifier();
+   const uint32 numSensors = mDevice->GetNumNeuroSensors();
+   const uint32 numUsedSensors = classifier ? classifier->GetNumUsedSensors() : 0U;
 
-	bool testPassed = true;
+   bool testok = true;
 
-	const uint32 numSensors = mDevice->GetNumNeuroSensors();
-	for (uint32 i = 0; i < numSensors; ++i)
-	{
-		const double impedance = mDevice->GetImpedance(i);
+   for (uint32 i = 0; i < numSensors; ++i)
+   {
+      Sensor* sensor = mDevice->GetNeuroSensor(i);
+      double  impedance = mDevice->GetImpedance(i);
+      bool    isused = classifier && classifier->IsSensorUsed(sensor);
 
-		// skip invalid values (Eccept exactly 0.0), dont skip used electrodes
-		if (activeClassifier == NULL || (activeClassifier != NULL && activeClassifier->IsSensorUsed(mDevice->GetSensor(i)) == false))
-			if (impedance > electrodeActiveDetectionThreshold || impedance <= 0.0)
-				continue;
-		
-		minImpedance = Min(minImpedance, impedance);
-		maxImpedance = Max(maxImpedance, impedance);
-		avgImpedance += impedance;
-		avgCount++;
-	}
+      // update contact quality on sensor based on selected thresholds
+      if      (impedance <  minthreshold)                sensor->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
+      else if (impedance <= mImpedanceThreshold->green)  sensor->SetContactQuality(Sensor::CONTACTQUALITY_GOOD);
+      else if (impedance <= mImpedanceThreshold->yellow) sensor->SetContactQuality(Sensor::CONTACTQUALITY_FAIR);
+      else if (impedance <= mImpedanceThreshold->orange) sensor->SetContactQuality(Sensor::CONTACTQUALITY_POOR);
+      else if (impedance <= mImpedanceThreshold->red)    sensor->SetContactQuality(Sensor::CONTACTQUALITY_VERY_BAD);
+      else                                               sensor->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
 
+      // test fails if either a used electrode has poor/bad/no signal
+      // or (if none is used), any electrode has poor/bad/no signal
+      if (isused || numUsedSensors == 0)
+      {
+         switch (sensor->GetContactQuality())
+         {
+         case Sensor::CONTACTQUALITY_POOR:
+         case Sensor::CONTACTQUALITY_VERY_BAD:
+         case Sensor::CONTACTQUALITY_NO_SIGNAL:
+            testok = false;
+            break;
+         default: 
+            break;
+         }
+      }
+   }
 
-	// no active electrode: test failed
-	if (avgCount == 0)
-	{
-		mMinImpedanceLabel->setText("-");
-		mMaxImpedanceLabel->setText("-");
-		mAvgImpedanceLabel->setText("-");
-
-		testPassed = false;
-
-		// set sensor contact quality to no-signal
-		for (uint32 i = 0; i < numSensors; ++i)
-			mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
-	}
-	else
-	{
-		avgImpedance /= (double)avgCount;
-
-		// update min/max/avg labels
-		mTempString.Format("%.2f k", minImpedance);
-		mMinImpedanceLabel->setText(mTempString.AsChar());
-		mTempString.Format("%.2f k", maxImpedance);
-		mMaxImpedanceLabel->setText(mTempString.AsChar());
-		mTempString.Format("%.2f k", avgImpedance);
-		mAvgImpedanceLabel->setText(mTempString.AsChar());
-
-		// test passed?
-		testPassed = (maxImpedance <= mImpedanceThreshold->yellow);
-
-		// set sensor contact quality (reuse electrode widget) to indicate pass/fail of individual electrodes
-		for (uint32 i = 0; i < numSensors; ++i)
-		{
-			const double impedance = mDevice->GetImpedance(i);
-			
-			if (impedance < 0.1) // == 0.0 case
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
-
-			else if (impedance <= mImpedanceThreshold->green)
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_GOOD);
-
- 			else if (impedance <= mImpedanceThreshold->yellow)
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_FAIR);
-
-			else if (impedance <= mImpedanceThreshold->orange)
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_POOR);
-
-			else if (impedance <= mImpedanceThreshold->red)
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_VERY_BAD);
-
-			else
-				mDevice->GetNeuroSensor(i)->SetContactQuality(Sensor::CONTACTQUALITY_NO_SIGNAL);
-		}
-	}
-
-	// update fail/passed icon
-	mPassIconLabel->setVisible(testPassed);
-	mFailIconLabel->setVisible(!testPassed);
+   // update fail/passed icon
+   mTestLabel->setPixmap(testok ? mPixmapPass : mPixmapFail);
 }
 
 

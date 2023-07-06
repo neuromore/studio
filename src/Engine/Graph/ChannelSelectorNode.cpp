@@ -59,20 +59,25 @@ void ChannelSelectorNode::Init()
 	InitInputPorts(1);
 	GetInputPort(INPUTPORT_SET).SetupAsChannels<double>("In", "x1", INPUTPORT_SET);
 
-	const uint32 numPortsDefault = 0;
-	InitOutputPorts(numPortsDefault);
+	// create temporary empty ports
+	InitOutputPorts(NUMPORTSDEFAULT);
+	for (uint32 i = 0; i < NUMPORTSDEFAULT; ++i)
+	{
+		mTempString.Format("y%i", i + 1);
+		GetOutputPort(i).SetupAsChannels<double>("-", mTempString.AsChar(), i);
+	}
 
 	// ATTRIBUTES
 		
 	// hidden port number attribute
 	Core::AttributeSettings* attribNumPorts = RegisterAttribute("", "numOutputPorts", "", Core::ATTRIBUTE_INTERFACETYPE_INTSPINNER);
-	attribNumPorts->SetDefaultValue( Core::AttributeInt32::Create(numPortsDefault) );
+	attribNumPorts->SetDefaultValue( Core::AttributeInt32::Create(NUMPORTSDEFAULT) );
 	attribNumPorts->SetMinValue( Core::AttributeInt32::Create(0) );
 	attribNumPorts->SetMaxValue( Core::AttributeInt32::Create(INT_MAX) );
 	attribNumPorts->SetVisible(false);
 
 	// channel names 
-	Core::AttributeSettings* attribChannelNames = RegisterAttribute("Channel Names", "channels", "", Core::ATTRIBUTE_INTERFACETYPE_STRINGARRAY);
+	Core::AttributeSettings* attribChannelNames = RegisterAttribute("Channels", "channels", "Names or Indexes of Channels to use", Core::ATTRIBUTE_INTERFACETYPE_STRINGARRAY);
 	attribChannelNames->SetDefaultValue( Core::AttributeStringArray::Create("*") );
 
 	// single output attribute
@@ -109,7 +114,7 @@ void ChannelSelectorNode::ReInit(const Time& elapsed, const Time& delta)
 	{
 		if (inPort.GetChannels() != NULL && inPort.GetChannels()->GetNumChannels() == 0)
 		{
-			mIsInitialized = false;
+			//mIsInitialized = false;
 		}
 	}
 
@@ -129,23 +134,29 @@ void ChannelSelectorNode::Update(const Time& elapsed, const Time& delta)
 	if (mIsInitialized == false)
 		return;
 
-	CORE_ASSERT(mOutputChannels.Size() == mSelectedInputs.Size());
-
 	// forward all samples to the outputs
-	const uint32 numChannels = mOutputChannels.Size();
+	const uint32 numChannels = mMapping.Size();
 	for (uint32 i=0; i<numChannels; ++i)
 	{
-		CORE_ASSERT(mSelectedInputs[i] < mInputReader.GetNumChannels());
-		
-		ChannelReader* reader = mInputReader.GetReader(mSelectedInputs[i]);	
-		ChannelBase* output = mOutputChannels[i];
+		const Mapping& m = mMapping[i];
+		ChannelReader* reader = mInputReader.FindReader(m.in);
 
-		// TODO make forward loop independent from sample type
+		// no input, output 0.0 at variable samplerate
+		if (!reader && m.out)
+			m.out->AddSample(0.0);
+
+		// no input and no output, do nothing
+		if (!reader || !m.out)
+			continue;
+
+		// forward samples from input to output
 		const uint32 numSamples = reader->GetNumNewSamples();
 		for (uint32 s = 0; s < numSamples; ++s)
 		{
-			double sample = reader->GetSample<double>(s);		// Note: don't pop samples here, just read them (as we might forward one channel multiple times to different outputs)
-			output->AsType<double>()->AddSample(sample);
+			// Note: don't pop samples here, just read them 
+			// (as we might forward one channel multiple times to different outputs)
+			double sample = reader->GetSample<double>(s);		
+			m.out->AddSample(sample);
 		}
 	}
 
@@ -157,11 +168,6 @@ void ChannelSelectorNode::Update(const Time& elapsed, const Time& delta)
 // an attribute has changed
 void ChannelSelectorNode::OnAttributesChanged()
 {
-	// A little hacky? This codepath is only used to create output ports during loading of the classifier - the attribute is the only way we know how 
-	// many ports there should be created before loading the connection.
-	if (GetNumOutputPorts() == 0)
-		ReInitOutputPorts();
-
 	// always reinit if a node attribute was changed
 	ResetAsync();
 }
@@ -173,6 +179,7 @@ void ChannelSelectorNode::Start(const Time& elapsed)
 	// remember number of ports in attribute
 	SetInt32Attribute("numOutputPorts", mInputReader.GetNumChannels());
 
+	DeleteOutputChannels();
 	CollectSelectedInputChannels();		// collect channels first
 	ReInitOutputPorts();				// init ports (empty, without channels)
 	ReInitOutputChannels();				// init output channels and connect them to the ports; also name the ports
@@ -189,8 +196,6 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 	const Array<String>& names = GetStringArrayAttribute(ATTRIB_CHANNELNAMES, Array<String>());
 	const bool hasNames = !names.IsEmpty();
 	const bool useSingleWildCardFeature = (hasNames && names[0].GetLength() == 1 && names[0].GetFirst() == StringCharacter::asterisk);
-	
-	mSelectedInputs.Clear();
 
 	const uint32 numInputChannels = mInputReader.GetNumChannels();
 
@@ -202,9 +207,12 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 	if (useSingleWildCardFeature == true)
 	{
 		// forward all channel
-		for (uint32 i=0; i<numInputChannels; ++i)
-			mSelectedInputs.Add(i);
-	
+		for (uint32 i = 0; i < numInputChannels; ++i)
+		{
+			Channel<double>* ch = mInputReader.GetChannel(i)->AsType<double>();
+			mMapping.Add(Mapping(ch, 0, ch->GetName()));
+		}
+
 		return;
 	}
 	
@@ -220,8 +228,6 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 										 name.GetFirst() == StringCharacter::asterisk && 
 										 name.GetLast()  == StringCharacter::asterisk);
 
-		bool haveChannel = false;
-
 		// normal mode: exact name matching
 		if (useWildCardFeature == false && useSingleWildCardFeature == false)
 		{
@@ -231,7 +237,7 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 			for (uint32 j=0; j<numInputChannels; ++j)
 			{
 				ChannelBase* channel = mInputReader.GetChannel(j);
-				if (channel->GetNameString().IsEqual(name) == true)
+				if ((name.IsValidInt() && name.ToInt() == (int)(j+1)) || channel->GetNameString().IsEqual(name))
 				{
 					// found it
 					channelIndex = j;
@@ -242,17 +248,17 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 			// add the channel
 			if (channelIndex != CORE_INVALIDINDEX32)
 			{
-				mSelectedInputs.Add(channelIndex);
-				haveChannel = true;
+				Channel<double>* ch = mInputReader.GetChannel(channelIndex)->AsType<double>();
+				mMapping.Add(Mapping(ch, 0, ch->GetName()));
 			}
-
-			// node error when channel was not found (not in wild card mode, only in exact match mode)
-			if (haveChannel == false)
+ 			else
 			{
+				mMapping.Add(Mapping(0, 0, name));
+
+				// node error when channel was not found (not in wild card mode, only in exact match mode)
 				String tmp; tmp.Format("Channel '%s' not found", name.AsChar());
 				SetError(ERROR_CHANNEL_NOT_FOUND, tmp.AsChar());
 			}
-
 		}
 		else // wildcard modes: use substring matching
 		{
@@ -266,13 +272,10 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 				if (channel->GetNameString().Contains(name) == true)
 				{
 					// found one, add it (don't break, keep processing all input channels)
-					mSelectedInputs.Add(j);
-					haveChannel = true;
+					mMapping.Add(Mapping(channel->AsType<double>(), 0, channel->GetNameString()));
 				}
 			}
 		}
-
-	
 	}
 }
 
@@ -280,12 +283,14 @@ void ChannelSelectorNode::CollectSelectedInputChannels()
 // use this to check if an input channel is forwarded by the node
 bool ChannelSelectorNode::IsChannelSelected(const ChannelBase* channel) const
 {
+	if (!channel)
+		return false;
+
 	// compare pointer against all selected input channels
-	const uint32 numSelectedChannels = mSelectedInputs.Size();
+	const uint32 numSelectedChannels = mMapping.Size();
 	for (uint32 i=0; i<numSelectedChannels; ++i)
 	{
-		const uint32 index = mSelectedInputs[i];
-		if (const_cast<ChannelSelectorNode*>(this)->mInputReader.GetChannel(index) == channel)
+		if (channel == mMapping[i].in)
 			return true;
 	}
 
@@ -297,7 +302,6 @@ bool ChannelSelectorNode::IsChannelSelected(const ChannelBase* channel) const
 void ChannelSelectorNode::ReInitOutputPorts()
 {
 	const bool singleOutput = GetBoolAttribute(ATTRIB_SINGLE_OUTPUT);
-	uint32 numPortsAttr = GetInt32Attribute(ATTRIB_NUMOUTPUTPORTS);		// previously remembered number of output ports
 
 	// get number of required output ports
 	if (singleOutput == true)
@@ -307,28 +311,15 @@ void ChannelSelectorNode::ReInitOutputPorts()
 
 		// update channel references
 		GetOutputPort(0).GetChannels()->Clear();
-
-		// remember number of outputs (if it has changed)
-		if (numPortsAttr != 1)
-			SetInt32AttributeByIndex(ATTRIB_NUMOUTPUTPORTS, 1);
 	}
 	else
 	{
 		// get number of output channels we have to output
-		const uint32 numChannels = mSelectedInputs.Size();
-		uint32 numPorts;
-
-		// use last port count only if there are no input channel present
-		if (mInputReader.GetNumChannels() == 0 && GetNumOutputPorts() == 0)
-			numPorts = numPortsAttr;
-		else
-			numPorts = numChannels;
-
-		SetInt32AttributeByIndex(ATTRIB_NUMOUTPUTPORTS, numPorts);
+		const uint32 numChannels = mMapping.Size();
 
 		// create empty ports
-		InitOutputPorts(numPorts);
-		for (uint32 i = 0; i < numPorts; ++i)
+		InitOutputPorts(numChannels);
+		for (uint32 i = 0; i < numChannels; ++i)
 		{
 			mTempString.Format("y%i", i + 1);
 			GetOutputPort(i).SetupAsChannels<double>("-", mTempString.AsChar(), i);
@@ -340,27 +331,22 @@ void ChannelSelectorNode::ReInitOutputPorts()
 // create the output channels (one for each selected input channel) and connect them to the outputs
 void ChannelSelectorNode::ReInitOutputChannels()
 {
-	DeleteOutputChannels();
-
 	// create output channel array, for the selected channels given
-	const uint32 numChannels = mSelectedInputs.Size();
+	const uint32 numChannels = mMapping.Size();
 	
 	for (uint32 i = 0; i < numChannels; ++i)
 	{
-		CORE_ASSERT(mSelectedInputs[i] < mInputReader.GetNumChannels());
-
-		Channel<double>* channel = new Channel<double>();		// TODO clone channel here so its independent of type
-		Channel<double>* inputChannel = mInputReader.GetChannel(mSelectedInputs[i])->AsType<double>();
-
 		// configure output channel to same parameters as input channel
-		channel->SetBufferSize(10);		// set any buffersize > 0
-		channel->SetName(inputChannel->GetName());
-		channel->SetSampleRate(inputChannel->GetSampleRate());
-		channel->SetMinValue(inputChannel->GetMinValue());
-		channel->SetMaxValue(inputChannel->GetMaxValue());
-		channel->SetColor(inputChannel->GetColor());
-
-		mOutputChannels.Add(channel);
+		mMapping[i].out = new Channel<double>();
+		mMapping[i].out->SetBufferSize(10); // set any buffersize > 0
+		mMapping[i].out->SetName(mMapping[i].name);
+		if (mMapping[i].in)
+		{
+			mMapping[i].out->SetSampleRate(mMapping[i].in->GetSampleRate());
+			mMapping[i].out->SetMinValue(mMapping[i].in->GetMinValue());
+			mMapping[i].out->SetMaxValue(mMapping[i].in->GetMaxValue());
+			mMapping[i].out->SetColor(mMapping[i].in->GetColor());
+		}
 	}
 
 	// now add connections to output ports
@@ -374,24 +360,24 @@ void ChannelSelectorNode::ReInitOutputChannels()
 		MultiChannel* multichannel = GetOutputPort(0).GetChannels();
 		multichannel->Clear();
 		for (uint32 i = 0; i < numChannels; ++i)
-			multichannel->AddChannel(mOutputChannels[i]);
+			multichannel->AddChannel(mMapping[i].out);
 
 		// set the port name
 		GetOutputPort(0).SetName("Out");
 	}
 	else
 	{
-		CORE_ASSERT(GetNumOutputPorts() == numChannels);
+		CORE_ASSERT(GetNumOutputPorts() >= numChannels);
 		
 		// add each channel to its individual port
 		for (uint32 i = 0; i < numChannels; ++i)
 		{
 			MultiChannel* multichannel = GetOutputPort(i).GetChannels();
 			multichannel->Clear();
-			multichannel->AddChannel(mOutputChannels[i]);
+			multichannel->AddChannel(mMapping[i].out);
 
 			// set the port name
-			GetOutputPort(i).SetName(mOutputChannels[i]->GetName());
+			GetOutputPort(i).SetName(mMapping[i].name);
 		}
 	}
 }
@@ -411,5 +397,11 @@ void ChannelSelectorNode::DeleteOutputChannels()
 	}
 	
 	// delete the output channels
-	DestructArray(mOutputChannels);
+	const uint32 numMappings = mMapping.Size();
+	for (uint32 i = 0; i < numMappings; i++)
+	{
+		delete mMapping[i].out;
+		mMapping[i].out = 0;
+	}
+	mMapping.Clear();
 }

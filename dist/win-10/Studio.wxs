@@ -1,0 +1,65 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:fire="http://wixtoolset.org/schemas/v4/wxs/firewall">
+
+  <?ifndef $(var.APPNAME) ?>
+    <?error APPNAME must be set ?>
+  <?endif ?>
+  <?ifndef $(var.APPGUIDPLAT) ?>
+    <?error APPGUIDPLAT must be set ?>
+  <?endif ?>
+  <?ifndef $(var.APPCOMPANY) ?>
+    <?error APPCOMPANY must be set ?>
+  <?endif ?>
+  <?ifndef $(var.VERSION) ?>
+    <?error VERSION must be set ?>
+  <?endif ?>
+
+  <?if $(sys.BUILDARCH) = x64 ?>
+    <?define APPNAMEPLAT = "$(var.APPNAME) (x64)" ?>
+  <?elseif $(sys.BUILDARCH) = x86 ?>
+    <?define APPNAMEPLAT = "$(var.APPNAME) (x86)" ?>
+  <?elseif $(sys.BUILDARCH) = arm64 ?>
+    <?define APPNAMEPLAT = "$(var.APPNAME) (arm64)" ?>
+  <?else ?>
+    <?error Unsupported BUILDARCH ?>
+  <?endif ?>
+
+  <Package 
+    Language="1033" 
+    Manufacturer="$(var.APPCOMPANY)"
+    Name="$(var.APPNAMEPLAT)"
+    UpgradeCode="$(var.APPGUIDPLAT)"
+    Version="$(var.VERSION)">
+	
+    <!-- Icon -->
+    <Icon Id="app.ico" SourceFile="resources\app.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="app.ico" />
+
+    <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- Program Files Folder -->
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="$(var.APPNAME)" />
+    </StandardDirectory>
+
+    <!-- Start Menu Folder -->
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="STARTMENUFOLDER" Name="$(var.APPNAME)">
+        <Component Id="ApplicationShortcut" Guid="2AB189BA-5B13-4448-A916-4E25B814D203">
+          <Shortcut Id="ApplicationStartMenuShortcut" 
+                    Name="$(var.APPNAMEPLAT)"
+                    Description="Biofeedback"
+                    Target="[#Studio.exe]"
+                    WorkingDirectory="INSTALLFOLDER"/>
+          <RemoveFolder Id="CleanUpShortCut" Directory="STARTMENUFOLDER" On="uninstall"/>
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <!-- Feature -->
+    <Feature Id="Application">
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
+  </Package>
+</Wix>

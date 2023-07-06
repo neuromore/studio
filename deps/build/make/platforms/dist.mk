@@ -65,18 +65,21 @@ dist-prep:
 	chcp 1252
 	echo [PUB] $(PUBLISHER)
 	echo [PFX] $(SIGN_PFX_FILE)
+	echo [RMD] $(DISTDIR)/$(NAME)
+	-$(call rmdir,$(DISTDIR)/$(NAME))
+	-$(call deletefiles,$(DISTDIR),$(NAME)*.zip)
+	-$(call deletefiles,$(DISTDIR),$(NAME)*.msi)
+	-$(call deletefiles,$(DISTDIR),$(NAME)*.wixpdb)
+	-$(call deletefiles,$(DISTDIR),$(NAME)*.appx)
+	-$(call deletefiles,$(DISTDIR),$(NAME)*.appxbundle)
+	-$(call deletefiles,$(DISTDIR),$(NAME)*.appxupload)
 	echo [MKD] $(DISTDIR)/$(NAME)
-	$(call rmdir,$(DISTDIR)/$(NAME))
-	$(call deletefiles,$(DISTDIR),$(NAME)*.zip)
-	$(call deletefiles,$(DISTDIR),$(NAME)*.appx)
-	$(call deletefiles,$(DISTDIR),$(NAME)*.appxbundle)
-	$(call deletefiles,$(DISTDIR),$(NAME)*.appxupload)
-	$(call mkdir,$(DISTDIR)/$(NAME))
-	$(call mkdir,$(DISTDIR)/$(NAME)/resources)
-	$(call mkdir,$(DISTDIR)/$(NAME)/upload)
-	$(call mkdir,$(DISTDIR)/$(NAME)/x64)
-	$(call mkdir,$(DISTDIR)/$(NAME)/x86)
-	$(call mkdir,$(DISTDIR)/$(NAME)/arm64)
+	-$(call mkdir,$(DISTDIR)/$(NAME))
+	-$(call mkdir,$(DISTDIR)/$(NAME)/resources)
+	-$(call mkdir,$(DISTDIR)/$(NAME)/upload)
+	-$(call mkdir,$(DISTDIR)/$(NAME)/x64)
+	-$(call mkdir,$(DISTDIR)/$(NAME)/x86)
+	-$(call mkdir,$(DISTDIR)/$(NAME)/arm64)
 	$(call copyfiles,$(DISTDIR)/$(NAME).appxmanifest,$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHER},$(PUBLISHER),$(DISTDIR)/$(NAME)/AppxManifest.xml)
 	$(call replace,$(DISTDIR)/$(NAME)/AppxManifest.xml,{PUBLISHERID},$(PUBLISHERID),$(DISTDIR)/$(NAME)/AppxManifest.xml)
@@ -91,37 +94,38 @@ dist-prep:
 	$(call copyfiles,$(APPICON)-44x44.png,$(DISTDIR)/$(NAME)/resources/app-44x44.png)
 	$(call copyfiles,$(APPICON)-50x50.png,$(DISTDIR)/$(NAME)/resources/app-50x50.png)
 	$(call copyfiles,$(APPICON)-150x150.png,$(DISTDIR)/$(NAME)/resources/app-150x150.png)
+	$(call copyfiles,$(APPICON).ico,$(DISTDIR)/$(NAME)/resources/app.ico)
 dist-vis-%: dist-prep
 	echo [VIS] $*
 	$(call mkdir,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
-	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x64/*,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
+	-$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x64/*,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/)
 	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
+	-$(call sign,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	-$(call signp,$(DISTDIR)/$(NAME)/x64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
-	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x86/*,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
+	-$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-x86/*,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/)
 	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
+	-$(call sign,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	-$(call signp,$(DISTDIR)/$(NAME)/x86/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 	$(call mkdir,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Info.json,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call copyfiles,$(DISTDIR)/../../visualizations/$*/Thumbnail.png,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
-	$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-arm64/*,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
+	-$(call copyfilesrecursive,$(DISTDIR)/../../visualizations/$*/win-arm64/*,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/)
 	$(call sleep,3)
 ifeq ($(SIGN_PFX_PASS),)
-	$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
+	-$(call sign,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE))
 else
-	$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+	-$(call signp,$(DISTDIR)/$(NAME)/arm64/Visualizations/$*/$*.exe,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
 endif
 dist-dll-x64: dist-prep
 	echo [DLL] Copy X64 DLL
@@ -142,7 +146,6 @@ dist-dll-arm64: dist-prep
 	echo [DLL] Copy ARM64 DLL
 dist-bin-%: dist-prep dist-dll-%
 	echo [BIN] $(DISTDIR)/$(NAME)/$*
-	$(call mkdir,$(DISTDIR)/$(NAME)/$*)
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTBIN),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTBIN))
 	$(call copyfiles,./bin/win-$*/$(NAME)$(EXTPDB),$(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB))
 	$(call sleep,3)
@@ -157,8 +160,26 @@ endif
 	echo [SYM] $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym
 	$(ZIPPER) $(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip $(DISTDIR)/$(NAME)/$*/$(NAME)$(EXTPDB)	
 	$(call move,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym.zip,$(DISTDIR)/$(NAME)/upload/$(NAME)-$*.appxsym)
-	echo [ZIP] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip
-	$(ZIPPER) $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.zip $(DISTDIR)/$(NAME)/$*/*
+	echo [MSI] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi
+	powershell -command "& { \
+	  Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; \
+	  . $(DISTDIR)/Harvest.ps1 -in $(DISTDIR)/$(NAME).wxs -out $(DISTDIR)/$(NAME)/MSI.$*.wxs -path $(DISTDIR)/$(NAME)/$*; }"  
+	wix extension add WixToolset.Firewall.wixext
+	wix build -arch $* \
+	  -ext WixToolset.Firewall.wixext \
+	  -d APPNAME="$(APPNAME)" \
+	  -d APPSHORTNAME="$(APPSHORTNAME)" \
+	  -d APPGUIDPLAT="$(APPGUIDPLAT)" \
+	  -d APPCOMPANY="$(APPCOMPANY)" \
+	  -d VERSION=$(VERSION4) \
+	  -b $(DISTDIR)/$(NAME) \
+	  $(DISTDIR)/$(NAME)/MSI.$*.wxs \
+	  -out $(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi
+ifeq ($(SIGN_PFX_PASS),)
+	$(call sign,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi,$(SIGN_PFX_FILE))
+else
+	$(call signp,$(DISTDIR)/$(NAME)-$(VERSION3)-win-10-$*.msi,$(SIGN_PFX_FILE),$(SIGN_PFX_PASS))
+endif
 dist: dist-prep dist-vis dist-bin-x64 dist-bin-x86 dist-bin-arm64
 	echo [BDL] $(DISTDIR)/$(NAME)-$(VERSION3)-win-10.appxbundle
 	$(call makepkg,$(DISTDIR)/$(NAME)/Layout.xml,$(DISTDIR))

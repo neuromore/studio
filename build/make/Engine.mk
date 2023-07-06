@@ -410,9 +410,9 @@ build: pch $(OBJS) $(OBJSPRIV)
 	$(AR) $(ARFLAGS) $(LIBDIR)/$(NAME)$(SUFFIX)$(EXTLIB) $(OBJS) $(OBJSPRIV)
 
 clean:
-	$(call deletefiles,$(OBJDIR),*.o)
-	$(call deletefiles,$(OBJDIR),*.op)
-	$(call deletefiles,$(OBJDIR),$(PCH).pch)
-	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTLIB))
+	-$(call deletefiles,$(OBJDIR),*.o)
+	-$(call deletefiles,$(OBJDIR),*.op)
+	-$(call deletefiles,$(OBJDIR),$(PCH).pch)
+	-$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTLIB))
 
 .DEFAULT_GOAL := build

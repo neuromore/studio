@@ -393,6 +393,18 @@ DEFINES     := $(DEFINES) \
 OBJSPRIV    := $(OBJSPRIV)
 RCCHPRIV    := $(RCCHPRIV)
 RCCO        := $(RCCO)
+ifeq ($(TARGET_ARCH),x86)
+APPGUIDPLAT  = ba60729d-dace-4746-9c78-829d9b943f67
+endif
+ifeq ($(TARGET_ARCH),x64)
+APPGUIDPLAT  = 2bcdb126-dc80-42ba-985e-48836ce23193
+endif
+ifeq ($(TARGET_ARCH),arm)
+APPGUIDPLAT  = 9e9ffa9f-f21a-4125-bb87-bff0d2866af7
+endif
+ifeq ($(TARGET_ARCH),arm64)
+APPGUIDPLAT  = badb6403-11c5-4dd4-8964-9fda8a470314
+endif
 else
 include ../../priv/build/make/StudioBranding.mk
 endif
@@ -796,27 +808,27 @@ build: pch $(PRES) $(OBLS) $(RESO)
 	@-$(call copyfiles,$(BINDIRDEP)/*$(EXTDLL),$(BINDIR))
 
 clean:
-	$(call deletefiles,$(MOCDIR),*.cpp)
-	$(call deletefiles,$(MOCDIR),*.moc)
-	$(call deletefiles,$(MOCDIR),*.mocmm)
-	$(call deletefiles,$(RCCDIR),*.cpp)
-	$(call deletefiles,$(RCCDIR),*.cppp)
-	$(call deletefiles,$(UICDIR),*.h)
-	$(call deletefiles,$(OBJDIR),$(PCH).pch)
-	$(call deletefiles,$(OBJDIR),*.o)
-	$(call deletefiles,$(OBJDIR),*.op)
-	$(call deletefiles,$(OBJDIR),*.oc)
-	$(call deletefiles,$(OBJDIR),*.ocp)
-	$(call deletefiles,$(OBJDIR),*.omm)
-	$(call deletefiles,$(OBJDIR),*.ommp)
-	$(call deletefiles,$(OBJDIR),*.omoc)
-	$(call deletefiles,$(OBJDIR),*.orcc)
-	$(call deletefiles,$(OBJDIR),*.res)
-	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTLIB))
-	$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTLIB))
-	$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTBIN))
-	$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTPDB))
-	$(call deletefiles,$(BINDIR),*.$(EXTDLL))
+	-$(call deletefiles,$(MOCDIR),*.cpp)
+	-$(call deletefiles,$(MOCDIR),*.moc)
+	-$(call deletefiles,$(MOCDIR),*.mocmm)
+	-$(call deletefiles,$(RCCDIR),*.cpp)
+	-$(call deletefiles,$(RCCDIR),*.cppp)
+	-$(call deletefiles,$(UICDIR),*.h)
+	-$(call deletefiles,$(OBJDIR),$(PCH).pch)
+	-$(call deletefiles,$(OBJDIR),*.o)
+	-$(call deletefiles,$(OBJDIR),*.op)
+	-$(call deletefiles,$(OBJDIR),*.oc)
+	-$(call deletefiles,$(OBJDIR),*.ocp)
+	-$(call deletefiles,$(OBJDIR),*.omm)
+	-$(call deletefiles,$(OBJDIR),*.ommp)
+	-$(call deletefiles,$(OBJDIR),*.omoc)
+	-$(call deletefiles,$(OBJDIR),*.orcc)
+	-$(call deletefiles,$(OBJDIR),*.res)
+	-$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTLIB))
+	-$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTLIB))
+	-$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTBIN))
+	-$(call deletefiles,$(BINDIR),$(NAME)$(SUFFIX)$(EXTPDB))
+	-$(call deletefiles,$(BINDIR),*.$(EXTDLL))
 	
 ################################################################################################
 

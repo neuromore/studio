@@ -177,7 +177,7 @@ void SPNode::ReInit(const Time& elapsed, const Time& delta)
 		{
 			if (mInputChannels.GetChannel(i)->GetSampleRate() <= 0)
 			{
-				mIsInitialized = false;
+				//mIsInitialized = false;
 				SetError(ERROR_INPUT_CONSTANT_SAMPLERATE, "Input must have a valid sample rate.");
 				return;
 			}
@@ -191,7 +191,7 @@ void SPNode::ReInit(const Time& elapsed, const Time& delta)
 	{
 		if (mInputReader.HasUniformSampleRate() == false)
 		{
-			mIsInitialized = false;
+			//mIsInitialized = false;
 			SetError(ERROR_INPUT_MATCHING_SAMPLERATES, "Input sample rates are incompatible.");
 			return;
 		}

@@ -38,6 +38,8 @@ class ENGINE_API BciDevice : public Device
 	public:
 		enum { BASE_TYPE_ID = 0x02 };
 
+		static constexpr const double DEFAULTBUFFERSIZEINSECONDS = 60.0;
+
 		// constructor & destructor
 		BciDevice(DeviceDriver* driver = NULL);
 		virtual ~BciDevice();
@@ -56,6 +58,9 @@ class ENGINE_API BciDevice : public Device
 		
 		// true if device provides the contact quality for a sensor
 		virtual bool HasEegContactQualityIndicator()						{ return false; }
+
+		// true if the device has named electrodes with positions
+		virtual bool HasElectrodePositions() { return true; }
 
 		// get/set position of electrodes
 		const Core::Array<EEGElectrodes::Electrode>& GetElectrodes() const	{ return mElectrodes; }

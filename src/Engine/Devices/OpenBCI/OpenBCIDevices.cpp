@@ -49,35 +49,22 @@ void OpenBCIDeviceBase::CreateSensors()
 	mAccForwardSensor->GetChannel()->SetMinValue(-2000.0);
 	mAccForwardSensor->GetChannel()->SetMaxValue(1996.1);
 	mAccForwardSensor->GetChannel()->SetUnit("mm/s^2");
+	mAccForwardSensor->GetChannel()->SetBufferSizeInSeconds(DEFAULTBUFFERSIZEINSECONDS);
 	AddSensor(mAccForwardSensor);
 
 	mAccUpSensor = new Sensor("Acc (Up)", 250);
 	mAccUpSensor->GetChannel()->SetMinValue(-2000.0);
 	mAccUpSensor->GetChannel()->SetMaxValue(1996.1);
 	mAccUpSensor->GetChannel()->SetUnit("mm/s^2");
+	mAccUpSensor->GetChannel()->SetBufferSizeInSeconds(DEFAULTBUFFERSIZEINSECONDS);
 	AddSensor(mAccUpSensor);
 
 	mAccLeftSensor = new Sensor("Acc (Left)", 250);
 	mAccLeftSensor->GetChannel()->SetMinValue(-2000.0);
 	mAccLeftSensor->GetChannel()->SetMaxValue(1996.1);
 	mAccLeftSensor->GetChannel()->SetUnit("mm/s^2");
+	mAccLeftSensor->GetChannel()->SetBufferSizeInSeconds(DEFAULTBUFFERSIZEINSECONDS);
 	AddSensor(mAccLeftSensor);
-}
-
-void OpenBCIDeviceBase::StartTest()
-{
-   if (mTesting)
-      return;
-
-   mTesting = true;
-}
-
-void OpenBCIDeviceBase::StopTest()
-{
-   if (!mTesting)
-      return;
-
-   mTesting = false;
 }
 
 
@@ -111,14 +98,14 @@ void OpenBCIDevice::CreateElectrodes()
 	mElectrodes.Clear();
 	mElectrodes.Reserve(NUMELECTRODESCYTON);
 
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp1"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fp2"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C5"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C6"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P7"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P8"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("1"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("2"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("3"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("4"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("5"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("6"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("7"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("8"));
 }
 
 

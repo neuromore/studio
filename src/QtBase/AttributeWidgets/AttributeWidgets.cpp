@@ -632,6 +632,7 @@ void StringArrayAttributeWidget::OnStringChange()
 	assert( sender()->inherits("QLineEdit") == true );
 	QLineEdit* widget = qobject_cast<QLineEdit*>( sender() );
 	String widgetText;
+	String attribText;
 
 	// get the number of attributes and iterate through them
 	const uint32 numAttributes = mAttributes.Size();
@@ -639,7 +640,7 @@ void StringArrayAttributeWidget::OnStringChange()
 	for (uint32 i=0; i<numAttributes; ++i)
 	{
 		Core::AttributeStringArray* attribute = static_cast<Core::AttributeStringArray*>(mAttributes[i]);
-		const char* attribText = attribute->AsString().AsChar();
+		attribText = attribute->AsString();
 		widgetText = FromQtString(widget->text());
 
 		if (widgetText.Compare(attribText) != 0)

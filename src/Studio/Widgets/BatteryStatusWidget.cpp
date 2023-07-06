@@ -32,7 +32,7 @@ using namespace Core;
 // constructor
 BatteryStatusWidget::BatteryStatusWidget(QWidget* parent) : QWidget(parent)
 {
-	mPixmapHeight = 24;
+	mPixmapHeight = 18;
 
 	setSizePolicy( QSizePolicy::Maximum, QSizePolicy::Maximum );
 
@@ -57,7 +57,7 @@ BatteryStatusWidget::BatteryStatusWidget(QWidget* parent) : QWidget(parent)
 	mTextLabel = new QLabel();
 	mTextLabel->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
 	QFont timeFont = mTextLabel->font();
-	timeFont.setPixelSize(20);
+	timeFont.setPixelSize(14);
 	mTextLabel->setFont(timeFont);
 	mainLayout->addWidget( mTextLabel, 0, Qt::AlignLeft | Qt::AlignHCenter );
 
@@ -153,7 +153,7 @@ void BatteryStatusWidget::SetStatus(double normalizedLevel, EStatus status)
 	if (mBatteryStatus == STATUS_UNKNOWN)
 		mTempString = "";
 	else
-		mTempString.Format( "%.0f %%", mBatteryLevel * 100.0 );
+		mTempString.Format( "%.0f%%", mBatteryLevel * 100.0 );
 
 	mTextLabel->setText( mTempString.AsChar() );
 

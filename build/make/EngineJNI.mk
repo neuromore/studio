@@ -192,8 +192,8 @@ build: $(OBJDIR)/neuromoreEngine.o $(OBJS) $(JOBJS)
 	$(JAR) cf $(LIBDIR)/$(NAME)$(SUFFIX).jar -C $(OBJDIR)/Java .
 
 clean:
-	$(call deletefiles,$(OBJDIR),*.o)
-	$(call deletefiles,$(OBJDIR),*.class)
-	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTDLL))
-	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTPDB))
-	$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX).jar)
+	-$(call deletefiles,$(OBJDIR),*.o)
+	-$(call deletefiles,$(OBJDIR),*.class)
+	-$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTDLL))
+	-$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX)$(EXTPDB))
+	-$(call deletefiles,$(LIBDIR),$(NAME)$(SUFFIX).jar)

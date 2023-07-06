@@ -63,10 +63,11 @@ bool StageControlWidget::Init()
 	mStageTable->setSelectionBehavior( QAbstractItemView::SelectRows );
 	mStageTable->setSelectionMode( QAbstractItemView::NoSelection );
 	//mStageTable->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Minimum);
+	mStageTable->setFixedHeight(80);
 
 	connect( mStageTable, SIGNAL( cellDoubleClicked ( int, int ) ), this, SLOT( OnStageTableDoubleClick( int, int ) ) );
 
-	gridLayout->addWidget(mStageTable, row, 0);
+	gridLayout->addWidget(mStageTable, row, 0, Qt::AlignTop);
 	row++;
 
 	setLayout(gridLayout);

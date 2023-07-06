@@ -43,7 +43,8 @@ class ENGINE_API OutputNode : public SPNode
 		{
 			ATTRIB_SIGNALRESOLUTION = 0,
 			ATTRIB_UPLOAD			= 1,
-			NUM_BASEATTRIBUTES		= 2
+			ATTRIB_OUTPUTNAME		= 2,
+			NUM_BASEATTRIBUTES		= 3
 		};
 
 		enum SignalResolution

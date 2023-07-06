@@ -502,7 +502,7 @@ void ExperienceWidget::paintEvent(QPaintEvent* event)
 
 	font.setPixelSize( textScaler );
 	painter.setFont( font );
-	const int usedheight = MAINLAYOUTPADDING + mTextEdit->isVisible() ? mTextEdit->height() : 0;
+	const int usedheight = MAINLAYOUTPADDING + (mTextEdit->isVisible() ? mTextEdit->height() : 0);
 	painter.drawText( QRect( 0, 0, width(), height()-usedheight), Qt::AlignHCenter | Qt::AlignVCenter | Qt::TextWordWrap, mText );
 	
     painter.end();
