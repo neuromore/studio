@@ -285,28 +285,34 @@ void PreSessionWidget::UpdateChannels(ChannelSelectorNode* chs)
          {
             box->setCurrentText(firstmchout->GetChannel(i)->GetName());
             box->setEnabled(true);
+            box->setVisible(true);
          }
          // set selected text from port name
          else if (!singleoutput && i < chs->GetNumOutputPorts())
          {
             box->setCurrentText(chs->GetOutputPort(i).GetName());
             box->setEnabled(true);
+            box->setVisible(true);
          }
          else
          {
             box->setCurrentText("");
             box->setEnabled(false);
+            box->setVisible(false);
          }
       }
       else
       {
          box->setCurrentText("");
          box->setEnabled(false);
+         box->setVisible(false);
       }
 
       // restore signals
       box->blockSignals(oldState);
    }
+
+   mElectrodeSelectionLabel->setVisible(chs != 0);
 }
 
 Core::String PreSessionWidget::GetSelectedChannels()
