@@ -699,7 +699,7 @@ bool Graph::ApplySettings(const GraphSettings& settings)
 			// macht both object UUID and (if nothing matched) object name
 			const bool uuidMatched = (settings.HasObjectUuid(i) == true && object->GetUuidString().IsEqualNoCase(settings.GetObjectUUid(i)));
 			const bool typeMatched = (settings.HasObjectType(i) == true && object->GetType() == settings.GetObjectType(i));
-			const bool nameMatched = (settings.HasObjectName(i) == true && object->GetUuidString().IsEqualNoCase(settings.GetObjectName(i)));
+			const bool nameMatched = (settings.HasObjectName(i) == true && object->GetNameString().IsEqualNoCase(settings.GetObjectName(i)));
 
 			if (typeMatched && (uuidMatched || nameMatched))
 			{

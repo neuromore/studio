@@ -104,6 +104,9 @@ bool GraphSettings::Load(const Json::Item& item)
 		if (objectName.IsString() == true)
 			settings.mObjectName = objectName.GetString();
 
+		if (objectType.IsInt() == true)
+			settings.mObjectType = objectType.GetInt();
+
 		settings.mObjectName = objectName.GetString();
 		settings.mName = nameItem.GetString();
 		settings.mValue = valueItem.GetString();
