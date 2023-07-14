@@ -93,7 +93,7 @@ BackendFileSystemWidget::BackendFileSystemWidget(QWidget* parent, BackendFileSys
 	// add the tree widget
 	//
 	mTreeWidget = new BackendFileSystemTreeWidget(this);
-	mTreeWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+	mTreeWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	mTreeWidget->setSortingEnabled(false);
 	mTreeWidget->setAlternatingRowColors(true);
 	mTreeWidget->setAnimated(true);
@@ -716,8 +716,28 @@ void BackendFileSystemWidget::CollectSelectedItems()
 	// iterate over the selected items in the tree widget and construct a selected item object for each
 	for (uint32 i=0; i<numSelectedItems; ++i)
 	{
-		SelectionItem selectionItem = CreateSelectionItem( selectedTreeWidgetItems[i] );
-		mSelectedItems.Add(selectionItem);
+		QTreeWidgetItem* itm = selectedTreeWidgetItems[i];
+
+		bool skip = false;
+		while (QTreeWidgetItem* parent = itm->parent())
+		{
+			if (parent->isSelected())
+			{
+				skip = true;
+				break;
+			}
+			else
+				itm = parent;
+		}
+
+		if (!skip) {
+			SelectionItem selectionItem = CreateSelectionItem(selectedTreeWidgetItems[i]);
+			mSelectedItems.Add(selectionItem);
+			printf("adding %s \n", FromQtString(selectedTreeWidgetItems[i]->text(0)).AsChar());
+		}
+		else
+			printf("skipping %s \n", FromQtString(selectedTreeWidgetItems[i]->text(0)).AsChar());
+
 	}
 }
 
