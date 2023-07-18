@@ -647,7 +647,7 @@ QRect GraphRendererState::CalcNodeRect(Graph* graph, Node* node, int32* outMaxIn
 
 	// find the node index and check for a valid node cache
 	const uint32 nodeIndex = graph->FindNodeIndex(node);
-	if (mNodeCaches[nodeIndex].IsValid() == true)
+	if (nodeIndex != CORE_INVALIDINDEX32 && mNodeCaches[nodeIndex].IsValid() == true)
 	{
 		if (outMaxInputWidth != NULL)	*outMaxInputWidth = mNodeCaches[nodeIndex].mMaxInputWidth;
 		if (outMaxOutputWidth != NULL)	*outMaxOutputWidth = mNodeCaches[nodeIndex].mMaxOutputWidth;
@@ -665,11 +665,14 @@ QRect GraphRendererState::CalcNodeRect(Graph* graph, Node* node, int32* outMaxIn
 	if (outMaxInputWidth != NULL)	*outMaxInputWidth = maxInputWidth;
 	if (outMaxOutputWidth != NULL)	*outMaxOutputWidth = maxOutputWidth;
 
-	// update the node cache
-	mNodeCaches[nodeIndex].mRect			= rect;
-	mNodeCaches[nodeIndex].mMaxInputWidth	= maxInputWidth;
-	mNodeCaches[nodeIndex].mMaxOutputWidth	= maxOutputWidth;
-	mNodeCaches[nodeIndex].mIsValid = true;
+	if (nodeIndex != CORE_INVALIDINDEX32)
+	{
+		// update the node cache
+		mNodeCaches[nodeIndex].mRect			= rect;
+		mNodeCaches[nodeIndex].mMaxInputWidth	= maxInputWidth;
+		mNodeCaches[nodeIndex].mMaxOutputWidth	= maxOutputWidth;
+		mNodeCaches[nodeIndex].mIsValid = true;
+	}
 
 	return rect;
 }

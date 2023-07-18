@@ -1748,6 +1748,19 @@ void GraphWidget::CopySelection()
 	{
 		Connection* con = mShared.GetSelectedConnection(i);
 		Connection* copy = static_cast<Connection*>(con->Clone(mShownGraph));
+		for (uint32 j = 0; j < numNodes; ++j)
+		{
+			Node* original = mShared.GetSelectedNode(j);
+			if (con->GetSourceNode() == original) {
+				copy->SetSourceNode(mCopiedNodes[j]);
+				copy->SetSourcePort(con->GetSourcePort());
+			}
+			if (con->GetTargetNode() == original) {
+				copy->SetTargetNode(mCopiedNodes[j]);
+				copy->SetTargetPort(con->GetTargetPort());
+			}
+		}
+
 		mCopiedConnections.Add(copy);
 	}
 }
@@ -1755,8 +1768,12 @@ void GraphWidget::CopySelection()
 // delete objects in buffer
 void GraphWidget::ClearCopyBuffer()
 {
-	DestructArray(mCopiedNodes);
+	// cleanup copied connections
+	// must be first, accesses instances in copied nodes
 	DestructArray(mCopiedConnections);
+
+	// cleanup copied nodes
+	DestructArray(mCopiedNodes);
 }
 
 
@@ -1783,15 +1800,6 @@ void GraphWidget::PasteAt(QPoint targetPos)
 	// mode 2: paste multiple object
 	else
 	{
-		// NOTE: disabled until fixed
-
-		return;
-
-		// remove selected objects first
-		//if (mShared.GetNumSelectedNodes() > 0)
-		//	OnRemoveSelected();
-
-		
 		const uint32 numNodes = mCopiedNodes.Size();
 		const uint32 numCons = mCopiedConnections.Size();
 
@@ -1806,19 +1814,14 @@ void GraphWidget::PasteAt(QPoint targetPos)
 		// clone nodes first
 		for (uint32 i = 0; i < numNodes; ++i)
 		{
-			Node* original = mCopiedNodes[i];
-			Node* copy = static_cast<Node*>(original->Clone(mShownGraph));
-			copy->Init();
-			copy->CreateDefaultAttributeValues();
-			copy->SetName(original->GetName());
-			copy->CopyFrom(*mCopiedNodes[i]);
+			Node* node = mCopiedNodes[i];
 
 			// move to new pos
-			copy->SetVisualPos(copy->GetVisualPosX() + offset.x(), copy->GetVisualPosY() + offset.y());
+			node->SetVisualPos(node->GetVisualPosX() + offset.x(), node->GetVisualPosY() + offset.y());
 			
-			copy->Reset();
-			mShownGraph->AddNode(copy);
-			pasteNodes.Add(copy);
+			node->Reset();
+			mShownGraph->AddNode(node);
+			pasteNodes.Add(node);
 		}
 
 		// clone connections
@@ -1846,7 +1849,8 @@ void GraphWidget::PasteAt(QPoint targetPos)
 			mShownGraph->AddConnection(sourceNode, con->GetSourcePort(), targetNode, con->GetTargetPort());
 		}
 
-
+		DestructArray(mCopiedConnections); // free those, they are not used
+		mCopiedNodes.Clear(); // don't free those, they are used!
 	}
 
 }
