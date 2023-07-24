@@ -1158,7 +1158,7 @@ void BackendFileSystemWidget::OnSaveToDisk()
    {
       // show file selection dialog
       const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName();
-      const QString ext = rootModel.GetTypeString() + " (*" + rootModel.GetExtension() + ")";
+      const QString ext((rootModel.GetTypeString() + " (*" + rootModel.GetExtension() + ")").AsChar());
       const QString filename = QFileDialog::getSaveFileName(this,
          "Save", defaultName, ext);
 
