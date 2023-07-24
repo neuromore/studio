@@ -811,6 +811,13 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				QAction* removeAction = menu.addAction("&Delete Folder", this, SLOT(OnRemoveItem()) );
 				removeAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Minus.png") );
 			}
+
+			if (singleSelectedItem->GetCreud().Read() == true)
+			{
+				// save JSON to disk
+				QAction* saveToDiskAction = menu.addAction("Save To HDD", this, SLOT(OnSaveToDisk()));
+				saveToDiskAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/SaveAs.png"));
+			}
 		}
 		else
 		{
@@ -1136,69 +1143,145 @@ void BackendFileSystemWidget::OnCopyJsonToClipboard()
 // save JSON to a disk on the local hard drive
 void BackendFileSystemWidget::OnSaveToDisk()
 {
-	// get the selected item and return directly in case no single selected item is selected
-	SelectionItem* selectedItem = GetSingleSelectionItem();
-	if (selectedItem == NULL || selectedItem->IsFolder() == true)
-	{
-		QMessageBox::critical( this, "ERROR", "Cannot save graph JSON to local hard disk. No or multiple files selected." );
-		return;
-	}
+   const QList<QTreeWidgetItem*> selectedItems = 
+      mTreeWidget->selectedItems();
 
-	
-	// get the filename where to save it
-	QString defaultFileName = mLastSelectedFileDialogFolder + "\\" + selectedItem->GetName();
-	QString selectedFilter;
-	QFileDialog::Options options;
-	QString filename = QFileDialog::getSaveFileName(	this,						// parent
-														"Save",						// caption
-														defaultFileName,			// suggested file name and directory
-														"JSON (*.json)",
-														&selectedFilter,
-														options );
-	if (filename.isEmpty() == true)
-		return;
+   // only single selection supported
+   if (selectedItems.count() != 1)
+      return;
 
-	mLastSelectedFileDialogFolder = QFileInfo(filename).absolutePath();
+   QTreeWidgetItem* rootItem  = selectedItems[0];
+   SelectionItem    rootModel = CreateSelectionItem(rootItem);
 
-	// save EXPERIENCE
-	Experience* experience = GetEngine()->GetActiveExperience();
-	if (experience != NULL && experience->GetUuidString().IsEqual(selectedItem->GetUuidString()) == true)
-	{
-		// save the experience
-		Json jsonParser;
-        Json::Item rootItem = jsonParser.GetRootItem();
-		experience->Save(jsonParser, rootItem);	// Note: add parameters to export whole design incl. attached classifier/statemachine here
-		bool result = jsonParser.WriteToFile(FromQtString(filename).AsChar(), true);
-		if (result == false)
-		{
-			QMessageBox::critical( this, "ERROR", "Cannot save design JSON to local hard disk." );
-			return;
-		}
-	} 
-	// save GRAPH
-	else 
-	{
-		// find the graph based on the uuid
-		Graph* graph = GetGraphManager()->FindGraphByUuid( selectedItem->GetUuid() );
-		if (graph == NULL)
-		{
-			QMessageBox::critical( this, "ERROR", "Cannot save graph JSON to local hard disk. Different file selected than the shown graph in the graph window." );
-			return;
-		}
+   // download single file
+   if (!rootModel.IsFolder())
+   {
+      QString defaultFileName = mLastSelectedFileDialogFolder + "\\" + rootModel.GetName();
+      QString selectedFilter;
+      QFileDialog::Options options;
+      QString filename = QFileDialog::getSaveFileName(this,
+         "Save",
+         defaultFileName,
+         "JSON (*.json)",
+         &selectedFilter,
+         options);
 
-		// save the currently shown graph and save it as a string
-		bool result = GraphExporter::Save( FromQtString(filename).AsChar(), graph );
-		if (result == false)
-		{
-			QMessageBox::critical( this, "ERROR", "Cannot save graph JSON to local hard disk. Saving the graph failed." );
-			return;
-		}
-	}
+      if (filename.isEmpty())
+         return;
 
+      mLastSelectedFileDialogFolder = QFileInfo(filename).absolutePath();
 
+      FilesGetRequest request(GetUser()->GetToken(), rootModel.GetUuid());
+      QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+      connect(reply, &QNetworkReply::finished, this, [reply, this, filename]()
+      {
+         Json json;
+         QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+         FilesGetResponse response(networkReply);
+         if (response.HasError())
+         {
+            QMessageBox::warning(this, "Error", "Download failed", QMessageBox::Ok);
+            return;
+         }
+         if (!json.Parse(response.GetJsonContent()))
+         {
+            QMessageBox::warning(this, "Error", "JSON Parse failed", QMessageBox::Ok);
+            return;
+         }
+         if (!json.WriteToFile(filename.toLatin1().data(), true))
+         {
+            QMessageBox::warning(this, "Error", "File Write failed", QMessageBox::Ok);
+            return;
+         }
+      });
+   }
 
+   // download folder
+   else
+   {
+      if (!rootItem->childCount())
+         return;
 
-	
+      QFileDialog::Options options;
+      QString folder = QFileDialog::getExistingDirectory(this,
+         "Select Folder",
+         rootModel.GetName(),
+         options);
+
+      if (folder.isEmpty())
+         return;
+
+      const Core::String& rootPath = rootModel.GetPathString();
+      const uint32 rootPathLength  = rootPath.GetLength();
+
+      SelectionItem                 model;
+      QDir                          dir;
+      std::vector<QTreeWidgetItem*> stack;
+      Core::String                  path;
+
+      // start with root folder
+      stack.push_back(rootItem);
+
+      // tree traversal
+      while (!stack.empty())
+      {
+         // pop next
+         auto* itm = stack.back();
+         stack.pop_back();
+
+         // parse model from qt instance
+         model = CreateSelectionItem(itm);
+
+         // folder
+         if (model.IsFolder())
+         {
+            // add subitems
+            int num = itm->childCount();
+            for (int i = 0; i < num; i++)
+               stack.push_back(itm->child(i));
+         }
+
+         // file
+         else
+         {
+            path = model.GetPathString();
+            path.Remove(0, rootPathLength);
+            path = FromQtString(folder) + '/' + path;
+
+            if (dir.mkpath(path.AsChar()))
+            {
+               const Core::String ext = 
+                  model.GetTypeString() == "CLASSIFIER"   ? ".cs.json" : 
+                  model.GetTypeString() == "STATEMACHINE" ? ".sm.json" : 
+                  model.GetTypeString() == "EXPERIENCE"   ? ".xp.json" : ".json";
+               const Core::String filename = path + model.GetNameString() + ext;
+               FilesGetRequest request(GetUser()->GetToken(), model.GetUuid());
+               QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+               connect(reply, &QNetworkReply::finished, this, [reply, this, filename]()
+               {
+                  Json json;
+                  QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+                  FilesGetResponse response(networkReply);
+                  if (response.HasError())
+                  {
+                     QMessageBox::warning(this, "Error", "Download failed", QMessageBox::Ok);
+                     return;
+                  }
+                  if (!json.Parse(response.GetJsonContent()))
+                  {
+                     QMessageBox::warning(this, "Error", "JSON Parse failed", QMessageBox::Ok);
+                     return;
+                  }
+                  if (!json.WriteToFile(filename.AsChar(), true))
+                  {
+                     QMessageBox::warning(this, "Error", "File Write failed", QMessageBox::Ok);
+                     return;
+                  }
+               });
+            }
+         }
+      }
+   }
 }
 
 
