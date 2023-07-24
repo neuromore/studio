@@ -1156,21 +1156,19 @@ void BackendFileSystemWidget::OnSaveToDisk()
    // download single file
    if (!rootModel.IsFolder())
    {
-      QString defaultFileName = mLastSelectedFileDialogFolder + "\\" + rootModel.GetName();
-      QString selectedFilter;
-      QFileDialog::Options options;
-      QString filename = QFileDialog::getSaveFileName(this,
-         "Save",
-         defaultFileName,
-         "JSON (*.json)",
-         &selectedFilter,
-         options);
+      // show file selection dialog
+      const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName();
+      const QString ext = rootModel.GetTypeString() + " (*" + rootModel.GetExtension() + ")";
+      const QString filename = QFileDialog::getSaveFileName(this,
+         "Save", defaultName, ext);
 
       if (filename.isEmpty())
          return;
 
+      // remember selected path
       mLastSelectedFileDialogFolder = QFileInfo(filename).absolutePath();
 
+      // download file
       FilesGetRequest request(GetUser()->GetToken(), rootModel.GetUuid());
       QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
       connect(reply, &QNetworkReply::finished, this, [reply, this, filename]()
@@ -1202,15 +1200,18 @@ void BackendFileSystemWidget::OnSaveToDisk()
       if (!rootItem->childCount())
          return;
 
-      QFileDialog::Options options;
-      QString folder = QFileDialog::getExistingDirectory(this,
-         "Select Folder",
-         rootModel.GetName(),
-         options);
+      // show folder selection dialog
+      const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName();
+      const QString folder = QFileDialog::getExistingDirectory(
+         this, "Select Folder", defaultName);
 
       if (folder.isEmpty())
          return;
 
+      // remember selected path
+      mLastSelectedFileDialogFolder = QFileInfo(folder).absolutePath();
+
+      // shared root path of all elements
       const Core::String& rootPath = rootModel.GetPathString();
       const uint32 rootPathLength  = rootPath.GetLength();
 
@@ -1250,11 +1251,7 @@ void BackendFileSystemWidget::OnSaveToDisk()
 
             if (dir.mkpath(path.AsChar()))
             {
-               const Core::String ext = 
-                  model.GetTypeString() == "CLASSIFIER"   ? ".cs.json" : 
-                  model.GetTypeString() == "STATEMACHINE" ? ".sm.json" : 
-                  model.GetTypeString() == "EXPERIENCE"   ? ".xp.json" : ".json";
-               const Core::String filename = path + model.GetNameString() + ext;
+               const Core::String filename = path + model.GetNameString() + model.GetExtension();
                FilesGetRequest request(GetUser()->GetToken(), model.GetUuid());
                QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
                connect(reply, &QNetworkReply::finished, this, [reply, this, filename]()
