@@ -85,6 +85,8 @@ class BackendFileSystemWidget : public QWidget
 				inline bool operator==(const SelectionItem& item) const						{ return ( (mName==item.mName) && (mPath==item.mPath) && (mType==item.mType) && (mUuid == item.mUuid) && (mCreud == item.mCreud) && (mRevision == item.mRevision)); }
 				inline bool IsValid() const													{ return ( (GetNameString().IsEmpty() == false && GetUuidString().IsEmpty() == false) ); }
 
+				inline Core::String GetExtension() const 									{ return GetTypeString() == "CLASSIFIER"   ? ".cs.json" : GetTypeString() == "STATEMACHINE" ? ".sm.json" : GetTypeString() == "EXPERIENCE"   ? ".xp.json" : ".json"; }
+
 				const Creud& GetCreud() const												{ return mCreud; }
 				bool IsFolder() const														{ return GetTypeString().IsEqual(FOLDER_TYPE) == true; }
 
