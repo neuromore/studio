@@ -815,7 +815,7 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 			if (singleSelectedItem->GetCreud().Read() == true)
 			{
 				// save JSON to disk
-				QAction* saveToDiskAction = menu.addAction("Save To HDD", this, SLOT(OnSaveToDisk()));
+				QAction* saveToDiskAction = menu.addAction("Download", this, SLOT(OnSaveToDisk()));
 				saveToDiskAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/SaveAs.png"));
 			}
 		}
@@ -853,7 +853,7 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				copyJsonToClipboardAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Copy.png") );
 
 				// save JSON to disk
-				QAction* saveToDiskAction = menu.addAction("Save To HDD", this, SLOT(OnSaveToDisk()) );
+				QAction* saveToDiskAction = menu.addAction("Download", this, SLOT(OnSaveToDisk()) );
 				saveToDiskAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/SaveAs.png") );
 
 				// load JSON from disk and save it to the cloud
