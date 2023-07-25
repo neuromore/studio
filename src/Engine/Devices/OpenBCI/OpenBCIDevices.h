@@ -87,6 +87,7 @@ public:
    double GetExpectedJitter() const override { return 0.1; }
    bool IsWireless() const override          { return true; }
    bool HasTestMode() const override         { return false; }
+   double GetTimeoutLimit() const override   { return 60; }
 
    void CreateSensors() override;
 
@@ -132,8 +133,6 @@ public:
    const char* GetUuid() const override							{ return "5108993a-fe1b-11e4-a322-1697f925ec7b"; }
    static const char* GetRuleName()								{ return "DEVICE_OpenBCI"; }
    double GetSampleRate() const override							{ return SAMPLERATECYTON; }
-
-   double GetTimeoutLimit() const override							{ return 60; } // Long timeout limit because channel config takes so long
 
    void CreateElectrodes() override;
 
