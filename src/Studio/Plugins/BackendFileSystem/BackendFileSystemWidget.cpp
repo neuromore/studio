@@ -41,6 +41,8 @@
 #include <Backend/FilesGetResponse.h>
 #include <Backend/FilesUpdateRequest.h>
 #include <Backend/FilesUpdateResponse.h>
+#include <Backend/FoldersCreateRequest.h>
+#include <Backend/FoldersCreateResponse.h>
 
 using namespace Core;
 
@@ -1369,12 +1371,97 @@ void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
       // shared root path of all elements
       const Core::String& rootPath = rootModel.GetPathString();
       const uint32 rootPathLength  = rootPath.GetLength();
+
+      QStringList filter;
+      filter << "*.cs.json";
+      filter << "*.sm.json";
+      filter << "*.xp.json";
+
+      QDirIterator it(folder, filter, QDir::Files, QDirIterator::Subdirectories);
+      while (it.hasNext())
+      {
+         QString f = it.next();
+         f.remove(folder);
+         f = rootPath.AsChar() + f;
+         f.replace("//", "/");
+         
+         qDebug() << f;
+
+         QFileInfo finf(f);
+         //QString basename = finf.baseName();
+         QString suff = finf.completeSuffix();
+         QString type = 
+            suff == "cs.json" ? "CLASSIFIER" : 
+            suff == "sm.json" ? "STATEMACHINE" : 
+            suff == "xp.json" ? "EXPERIENCE" : "folder";
+
+         f.chop(suff.length()+1);
+
+         qDebug() << suff;
+         qDebug() << type;
+         qDebug() << f;
+
+         QTreeWidgetItem* itm = FindItemByPath(f, type);
+         if (itm)
+         {
+            qDebug() << "found";
+            int kjd = 1;
+         }
+         else
+         {
+            qDebug() << "not found";
+            int kjd = 1;
+         }
+      }
    }
 
    // reload hierarchy
-   Refresh();
+   this->Refresh();
 }
 
+QTreeWidgetItem* BackendFileSystemWidget::FindItemByPath(const QString& path, const QString& type)
+{
+   QStringList l = path.split("/");
+
+   if (l.length() == 0)
+      return 0;
+
+   //qDebug() << l;
+
+   const int toplvls = mTreeWidget->topLevelItemCount();
+   for (int i = 0; i < toplvls; i++)
+   {
+      QTreeWidgetItem* item = mTreeWidget->topLevelItem(i);
+      QString p = item->data(0, USERDATA_PATH).toString();
+
+      if (!path.startsWith(p))
+         continue;
+
+      //qDebug() << "found base folder: " << item->text(0);
+
+      for (int j = 1; j < l.length(); j++)
+      {
+         bool found = false;
+         for (int k = 0; k < item->childCount(); k++)
+         {
+            auto* child = item->child(k);
+            QString childtype = child->data(0, USERDATA_TYPE).toString();
+            QString wantedtype = j < l.length()-1 ? "folder" : type;
+            //qDebug() << "CHILD: " << childtype << " WANTED: " << wantedtype;
+            if (child->text(0) == l[j] && childtype == wantedtype)
+            {
+               item = item->child(k);
+               found = true;
+               break;
+            }
+         }
+         if (!found) 
+            return 0;
+      }
+      return item;
+   }
+   return 0;
+}
 
 // called when the minus button got clicked
 void BackendFileSystemWidget::OnRemoveItem()

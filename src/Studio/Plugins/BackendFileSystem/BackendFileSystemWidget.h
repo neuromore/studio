@@ -237,6 +237,8 @@ class BackendFileSystemWidget : public QWidget
 		CollapseState* FindCollapsedState(const char* uuid);
 		bool IsItemCollapsed(const char* uuid);
 
+      QTreeWidgetItem* FindItemByPath(const QString& path, const QString& type);
+
 		Core::Array<SelectionItem>		mSelectedItems;
 		Core::Array<CollapseState>		mFolderCollapseStates;
 		
