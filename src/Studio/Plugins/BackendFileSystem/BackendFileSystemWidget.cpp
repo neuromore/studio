@@ -1401,17 +1401,47 @@ void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
          qDebug() << type;
          qDebug() << f;
 
-         QTreeWidgetItem* itm = FindItemByPath(f, type);
-         if (itm)
+
+
+         QStringList l = f.split("/");
+
+         //if (l.length() == 0)
+         //   return 0;
+         QString path;
+
+         for (int i = 0; i < l.length(); i++)
          {
-            qDebug() << "found";
-            int kjd = 1;
+            if (i > 0)
+               path += '/';
+            path += l[i];
+            QTreeWidgetItem* itm;
+
+            qDebug() << path;
+
+            if (i < l.length() - 1)
+            {
+               itm = FindItemByPath(path, "folder");
+            }
+            else
+            {
+               itm = FindItemByPath(path, type);
+            }
+
+            if (itm)
+            {
+               qDebug() << "found";
+               int kjd = 1;
+            }
+            else
+            {
+               qDebug() << "not found";
+               int kjd = 1;
+            }
          }
-         else
-         {
-            qDebug() << "not found";
-            int kjd = 1;
-         }
+
+
+         //QTreeWidgetItem* itm = FindItemByPath(f, type);
+
       }
    }
 
@@ -1433,12 +1463,15 @@ QTreeWidgetItem* BackendFileSystemWidget::FindItemByPath(const QString& path, co
    {
       QTreeWidgetItem* item = mTreeWidget->topLevelItem(i);
       QString p = item->data(0, USERDATA_PATH).toString();
+      p.chop(1);
 
-      if (!path.startsWith(p))
+      if (l[0] != p)
          continue;
 
       //qDebug() << "found base folder: " << item->text(0);
 
+      if (l.length() == 1 && type == "folder")
+         return item;
       for (int j = 1; j < l.length(); j++)
       {
          bool found = false;
