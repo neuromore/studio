@@ -818,6 +818,14 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				QAction* saveToDiskAction = menu.addAction("Download", this, SLOT(OnSaveToDisk()));
 				saveToDiskAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/SaveAs.png"));
 			}
+
+			if (singleSelectedItem->GetCreud().Update() == true)
+			{
+				// upload JSON to cloud
+				QAction* uploadAction = menu.addAction("Upload", this, SLOT(OnLoadFromDiskAndSaveToCloud()));
+				uploadAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png"));
+			}
+
 		}
 		else
 		{
@@ -856,10 +864,13 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				QAction* saveToDiskAction = menu.addAction("Download", this, SLOT(OnSaveToDisk()) );
 				saveToDiskAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/SaveAs.png") );
 
+			if (singleSelectedItem->GetCreud().Update() == true)
+			{
 				// load JSON from disk and save it to the cloud
-				QAction* loadFromDiskSaveToCloudAction = menu.addAction("Upload local file to cloud", this, SLOT(OnLoadFromDiskAndSaveToCloud()) );
+				QAction* loadFromDiskSaveToCloudAction = menu.addAction("Upload", this, SLOT(OnLoadFromDiskAndSaveToCloud()) );
 				loadFromDiskSaveToCloudAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png") );
-			
+			}
+
 			menu.addSeparator();
 
 			// revisions
@@ -1285,66 +1296,83 @@ void BackendFileSystemWidget::OnSaveToDisk()
 // load a JSON graph from disk and save it back to the backend
 void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
 {
-	// get the filename where to save it
-	QFileDialog::Options options;
-	QString selectedFilter;
-	QString qtFilename = QFileDialog::getOpenFileName(	this,								// parent
-														"Open",								// caption
-														"",									// directory
-														"JSON (*.json)",
-														&selectedFilter,
-														options );
+   const QList<QTreeWidgetItem*> selectedItems = 
+      mTreeWidget->selectedItems();
 
-	if (qtFilename.isEmpty() == true)
-		return;
+   // only single selection supported
+   if (selectedItems.count() != 1)
+      return;
 
-	String filename = FromQtString(qtFilename);
+   QTreeWidgetItem* rootItem  = selectedItems[0];
+   SelectionItem    rootModel = CreateSelectionItem(rootItem);
 
-	SelectionItem selectedItem = GetSelectedItem();
+   // upload single file
+   if (!rootModel.IsFolder())
+   {
+      // show file selection dialog
+      const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName() + rootModel.GetExtension().AsChar();
+      const QString ext((rootModel.GetTypeString() + " (*" + rootModel.GetExtension() + ")").AsChar());
+      const QString filename = QFileDialog::getOpenFileName(this,
+         "Upload", defaultName, ext);
 
-	// is experience
-	if (selectedItem.GetTypeString().IsEqualNoCase(ITEM_TYPE_EXPERIENCE) == true)
-	{
-		Json jsonParser;
-		if (jsonParser.ParseFile(filename.AsChar()) == false)
-		{
-			LogError( "BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud(): Cannot open file '%s'.", filename.AsChar());
-			return;
-		}
+      if (filename.isEmpty())
+         return;
 
-		Experience* experience = new Experience();
-		if (experience->Load(jsonParser, jsonParser.GetRootItem()) == false)
-		{
-			LogError( "BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud(): Cannot parse Json file '%s'.", filename.AsChar());
-			return;
-		}
-		
-		GetBackendInterface()->GetFileSystem()->SaveExperience( GetUser()->GetToken(), selectedItem.GetUuid(), experience );
+      // remember selected path
+      mLastSelectedFileDialogFolder = QFileInfo(filename).absolutePath();
 
-		delete experience;
-	}
-	// is classifier/statemachine
-	else
-	{
-		Graph* graph = NULL;
-	
-		if (selectedItem.GetTypeString().IsEqualNoCase(ITEM_TYPE_CLASSIFIER) == true)
-			graph = new Classifier();
-		else if (selectedItem.GetTypeString().IsEqualNoCase(ITEM_TYPE_STATEMACHINE) == true)
-			graph = new StateMachine();
-		else 
-			return;
+      // load file
+      QFile f(filename);
+      if (!f.open(QFile::ReadOnly | QFile::Text)) return;
+      QTextStream in(&f);
+      QByteArray arr(f.readAll());
 
-		if (GraphImporter::LoadFromFile(filename.AsChar(), graph) == false)
-		{
-			LogError( "BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud(): Cannot parse Json file '%s'.", filename.AsChar());
-			return;
-		}
-		
-		GetBackendInterface()->GetFileSystem()->SaveGraph( GetUser()->GetToken(), selectedItem.GetUuid(), graph );
+      // verify json
+      Json json;
+      if (!json.Parse(arr.constData()))
+      {
+         return;
+      }
 
-		delete graph;
-	}
+      // upload
+      FilesUpdateRequest request(GetUser()->GetToken(), rootModel.GetUuid(), arr.constData());
+      QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+      connect(reply, &QNetworkReply::finished, this, [reply, this]()
+      {
+         QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+         FilesUpdateResponse response(networkReply);
+         if (response.HasError())
+         {
+            QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
+            return;
+         }
+      });
+   }
+
+   // upload folder
+   else
+   {
+      if (!rootItem->childCount())
+         return;
+
+      // show folder selection dialog
+      const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName();
+      const QString folder = QFileDialog::getExistingDirectory(
+         this, "Select Folder", defaultName);
+
+      if (folder.isEmpty())
+         return;
+
+      // remember selected path
+      mLastSelectedFileDialogFolder = QFileInfo(folder).absolutePath();
+
+      // shared root path of all elements
+      const Core::String& rootPath = rootModel.GetPathString();
+      const uint32 rootPathLength  = rootPath.GetLength();
+   }
+
+   // reload hierarchy
+   Refresh();
 }
 
 
