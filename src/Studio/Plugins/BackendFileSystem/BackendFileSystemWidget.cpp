@@ -1325,14 +1325,17 @@ void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
 
       // load file
       QFile f(filename);
-      if (!f.open(QFile::ReadOnly | QFile::Text)) return;
+      if (!f.open(QFile::ReadOnly | QFile::Text)) {
+         QMessageBox::warning(this, "Error", "Failed to open file", QMessageBox::Ok);
+         return;
+      }
       QTextStream in(&f);
       QByteArray arr(f.readAll());
 
       // verify json
       Json json;
-      if (!json.Parse(arr.constData()))
-      {
+      if (!json.Parse(arr.constData())) {
+         QMessageBox::warning(this, "Error", "Failed to parse JSON", QMessageBox::Ok);
          return;
       }
 
@@ -1348,15 +1351,13 @@ void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
             QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
             return;
          }
+         this->Refresh();
       });
    }
 
    // upload folder
    else
    {
-      if (!rootItem->childCount())
-         return;
-
       // show folder selection dialog
       const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName();
       const QString folder = QFileDialog::getExistingDirectory(
@@ -1372,104 +1373,148 @@ void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
       const Core::String& rootPath = rootModel.GetPathString();
       const uint32 rootPathLength  = rootPath.GetLength();
 
+      // filter for known types
       QStringList filter;
-      filter << "*.cs.json";
-      filter << "*.sm.json";
-      filter << "*.xp.json";
+      filter << "*.cs.json"; // classifier
+      filter << "*.sm.json"; // statemachine
+      filter << "*.xp.json"; // experience
 
+      // reset pending uploads counter
+      mPendingUploads = 0;
+
+      // find all files in selected folder and subfolders and iterate them
       QDirIterator it(folder, filter, QDir::Files, QDirIterator::Subdirectories);
       while (it.hasNext())
       {
          QString f = it.next();
+
+         // load file
+         QFile file(f);
+         if (!file.open(QFile::ReadOnly | QFile::Text)) {
+            QMessageBox::warning(this, "Error", "Failed to open file", QMessageBox::Ok);
+            continue;
+         }
+         QTextStream in(&file);
+         QByteArray arr(file.readAll());
+
+         // verify json
+         Json json;
+         if (!json.Parse(arr.constData())) {
+            QMessageBox::warning(this, "Error", "Failed to parse JSON", QMessageBox::Ok);
+            continue;
+         }
+
+         // build path on cloud
          f.remove(folder);
          f = rootPath.AsChar() + f;
          f.replace("//", "/");
-         
-         qDebug() << f;
 
+         // get file extension and map to type
          QFileInfo finf(f);
-         //QString basename = finf.baseName();
          QString suff = finf.completeSuffix();
+         QString basename = finf.baseName();
          QString type = 
             suff == "cs.json" ? "CLASSIFIER" : 
             suff == "sm.json" ? "STATEMACHINE" : 
             suff == "xp.json" ? "EXPERIENCE" : "folder";
 
+         // remove file extension with .
          f.chop(suff.length()+1);
 
-         qDebug() << suff;
-         qDebug() << type;
-         qDebug() << f;
-
-
-
-         QStringList l = f.split("/");
-
-         //if (l.length() == 0)
-         //   return 0;
-         QString path;
-
-         for (int i = 0; i < l.length(); i++)
+         // update existing file
+         if (auto* item = FindItemByPath(f, type))
          {
-            if (i > 0)
-               path += '/';
-            path += l[i];
-            QTreeWidgetItem* itm;
+            qDebug() << "updating: " << f << " (" << type << ")";
 
-            qDebug() << path;
-
-            if (i < l.length() - 1)
+            SelectionItem fileModel = CreateSelectionItem(item);
+            if (fileModel.GetCreud().Update())
             {
-               itm = FindItemByPath(path, "folder");
-            }
-            else
-            {
-               itm = FindItemByPath(path, type);
-            }
-
-            if (itm)
-            {
-               qDebug() << "found";
-               int kjd = 1;
-            }
-            else
-            {
-               qDebug() << "not found";
-               int kjd = 1;
+               mPendingUploads++;
+               FilesUpdateRequest request(GetUser()->GetToken(), fileModel.GetUuid(), arr.constData());
+               QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+               connect(reply, &QNetworkReply::finished, this, [reply, this]()
+               {
+                  QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+                  FilesUpdateResponse response(networkReply);
+                  mPendingUploads--;
+                  if (mPendingUploads == 0)
+                     this->Refresh();
+                  if (response.HasError())
+                  {
+                     QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
+                     return;
+                  }
+               });
             }
          }
 
+         // create new file
+         else
+         {
 
-         //QTreeWidgetItem* itm = FindItemByPath(f, type);
+            QStringList l = f.split("/");
 
+            // create non existing folders of path
+            QString path;
+            for (int i = 0; i < l.length()-1; i++)
+            {
+               if (i > 0)
+                  path += '/';
+               path += l[i];
+               if (item = FindItemByPath(path, "folder"))
+                  continue;
+
+               // TODO CREATE FOLDER(S)
+               qDebug() << "skipping: " << f << " (" << type << ")";
+            }
+
+            if (!item)
+               continue;
+
+            qDebug() << "creating: " << f << " (" << type << ")";
+
+            SelectionItem folderModel = CreateSelectionItem(item);
+
+            if (!folderModel.GetCreud().Create())
+               continue;
+
+            // create file
+            FilesCreateRequest request(
+               GetUser()->GetToken(), 
+               basename.toLatin1().constData(), 
+               folderModel.GetUuid(),
+               type.toLatin1().constData(), 
+               arr.constData());
+
+            mPendingUploads++;
+            QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
+            connect(reply, &QNetworkReply::finished, this, [reply, this]()
+            {
+               QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+               FilesCreateResponse response(networkReply);
+               mPendingUploads--;
+               if (mPendingUploads == 0)
+                  this->Refresh();
+            });
+         }
       }
    }
-
-   // reload hierarchy
-   this->Refresh();
 }
 
 QTreeWidgetItem* BackendFileSystemWidget::FindItemByPath(const QString& path, const QString& type)
 {
    QStringList l = path.split("/");
-
    if (l.length() == 0)
       return 0;
-
-   //qDebug() << l;
-
    const int toplvls = mTreeWidget->topLevelItemCount();
    for (int i = 0; i < toplvls; i++)
    {
       QTreeWidgetItem* item = mTreeWidget->topLevelItem(i);
       QString p = item->data(0, USERDATA_PATH).toString();
-      p.chop(1);
-
+      if (p.length() && p[p.length()-1] == '/')
+         p.chop(1);
       if (l[0] != p)
          continue;
-
-      //qDebug() << "found base folder: " << item->text(0);
-
       if (l.length() == 1 && type == "folder")
          return item;
       for (int j = 1; j < l.length(); j++)
@@ -1480,7 +1525,6 @@ QTreeWidgetItem* BackendFileSystemWidget::FindItemByPath(const QString& path, co
             auto* child = item->child(k);
             QString childtype = child->data(0, USERDATA_TYPE).toString();
             QString wantedtype = j < l.length()-1 ? "folder" : type;
-            //qDebug() << "CHILD: " << childtype << " WANTED: " << wantedtype;
             if (child->text(0) == l[j] && childtype == wantedtype)
             {
                item = item->child(k);

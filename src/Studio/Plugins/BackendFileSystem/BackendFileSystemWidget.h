@@ -258,6 +258,7 @@ class BackendFileSystemWidget : public QWidget
 		ImageButton*					mRefreshButton;
 
 		SearchBoxWidget*				mSearchBox;
+		size_t							mPendingUploads;
 };
 
 
