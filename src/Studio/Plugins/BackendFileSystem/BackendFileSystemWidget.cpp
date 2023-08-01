@@ -1373,131 +1373,9 @@ void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
       const Core::String& rootPath = rootModel.GetPathString();
       const uint32 rootPathLength  = rootPath.GetLength();
 
-      // filter for known types
-      QStringList filter;
-      filter << "*.cs.json"; // classifier
-      filter << "*.sm.json"; // statemachine
-      filter << "*.xp.json"; // experience
 
-      // reset pending uploads counter
       mPendingUploads = 0;
-
-      // find all files in selected folder and subfolders and iterate them
-      QDirIterator it(folder, filter, QDir::Files, QDirIterator::Subdirectories);
-      while (it.hasNext())
-      {
-         QString f = it.next();
-
-         // load file
-         QFile file(f);
-         if (!file.open(QFile::ReadOnly | QFile::Text)) {
-            QMessageBox::warning(this, "Error", "Failed to open file", QMessageBox::Ok);
-            continue;
-         }
-         QTextStream in(&file);
-         QByteArray arr(file.readAll());
-
-         // verify json
-         Json json;
-         if (!json.Parse(arr.constData())) {
-            QMessageBox::warning(this, "Error", "Failed to parse JSON", QMessageBox::Ok);
-            continue;
-         }
-
-         // build path on cloud
-         f.remove(folder);
-         f = rootPath.AsChar() + f;
-         f.replace("//", "/");
-
-         // get file extension and map to type
-         QFileInfo finf(f);
-         QString suff = finf.completeSuffix();
-         QString basename = finf.baseName();
-         QString type = 
-            suff == "cs.json" ? "CLASSIFIER" : 
-            suff == "sm.json" ? "STATEMACHINE" : 
-            suff == "xp.json" ? "EXPERIENCE" : "folder";
-
-         // remove file extension with .
-         f.chop(suff.length()+1);
-
-         // update existing file
-         if (auto* item = FindItemByPath(f, type))
-         {
-            qDebug() << "updating: " << f << " (" << type << ")";
-
-            SelectionItem fileModel = CreateSelectionItem(item);
-            if (fileModel.GetCreud().Update())
-            {
-               mPendingUploads++;
-               FilesUpdateRequest request(GetUser()->GetToken(), fileModel.GetUuid(), arr.constData());
-               QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
-               connect(reply, &QNetworkReply::finished, this, [reply, this]()
-               {
-                  QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
-                  FilesUpdateResponse response(networkReply);
-                  mPendingUploads--;
-                  if (mPendingUploads == 0)
-                     this->Refresh();
-                  if (response.HasError())
-                  {
-                     QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
-                     return;
-                  }
-               });
-            }
-         }
-
-         // create new file
-         else
-         {
-
-            QStringList l = f.split("/");
-
-            // create non existing folders of path
-            QString path;
-            for (int i = 0; i < l.length()-1; i++)
-            {
-               if (i > 0)
-                  path += '/';
-               path += l[i];
-               if (item = FindItemByPath(path, "folder"))
-                  continue;
-
-               // TODO CREATE FOLDER(S)
-               qDebug() << "skipping: " << f << " (" << type << ")";
-            }
-
-            if (!item)
-               continue;
-
-            qDebug() << "creating: " << f << " (" << type << ")";
-
-            SelectionItem folderModel = CreateSelectionItem(item);
-
-            if (!folderModel.GetCreud().Create())
-               continue;
-
-            // create file
-            FilesCreateRequest request(
-               GetUser()->GetToken(), 
-               basename.toLatin1().constData(), 
-               folderModel.GetUuid(),
-               type.toLatin1().constData(), 
-               arr.constData());
-
-            mPendingUploads++;
-            QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
-            connect(reply, &QNetworkReply::finished, this, [reply, this]()
-            {
-               QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
-               FilesCreateResponse response(networkReply);
-               mPendingUploads--;
-               if (mPendingUploads == 0)
-                  this->Refresh();
-            });
-         }
-      }
+      this->UploadFolder(folder, rootPath.AsChar());
    }
 }
 
@@ -1538,6 +1416,169 @@ QTreeWidgetItem* BackendFileSystemWidget::FindItemByPath(const QString& path, co
       return item;
    }
    return 0;
+}
+
+void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString& pcloud)
+{
+   QString pathlocal = plocal;
+   QString pathcloud = pcloud;
+   pathlocal.replace("//", "/");
+   pathcloud.replace("//", "/");
+   if (pathlocal.length() && pathlocal[pathlocal.length()-1] == '/') pathlocal.chop(1);
+   if (pathcloud.length() && pathcloud[pathcloud.length()-1] == '/') pathcloud.chop(1);
+   qDebug() << "local: " << pathlocal << " cloud: " << pathcloud;
+
+   // iterate folders
+   QDirIterator dirit(pathlocal, QStringList(), QDir::Dirs);
+   while (dirit.hasNext())
+   {
+      QString p = dirit.next();
+      QFileInfo finf(p);
+      QString basename = finf.baseName();
+      QString cloudfolder;
+
+      // filter for "." and ".."
+      if (basename.isEmpty())
+         continue;
+
+      // build path on cloud
+      cloudfolder = pathcloud + '/' + basename;
+      cloudfolder.replace("//", "/");
+
+      // exists
+      if (auto* item = FindItemByPath(cloudfolder, "folder"))
+         UploadFolder(p, cloudfolder);
+
+      // must be created
+      else if (auto* item = FindItemByPath(pathcloud, "folder"))
+      {
+         SelectionItem model = CreateSelectionItem(item);
+         FoldersCreateRequest request(GetUser()->GetToken(), basename.toLatin1().constData(), model.GetUuid());
+         QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
+         connect(reply, &QNetworkReply::finished, this, [reply, this, p, cloudfolder]()
+         {
+            QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+            FoldersCreateResponse response(networkReply);
+            if (!response.HasError())
+            {
+               this->Refresh();
+               UploadFolder(p, cloudfolder);
+            }
+         });
+      }
+      else
+         assert(false);
+   }
+
+   // filter for known types
+   QStringList filter;
+   filter << "*.cs.json"; // classifier
+   filter << "*.sm.json"; // statemachine
+   filter << "*.xp.json"; // experience
+
+   // iterate files
+   QDirIterator filesit(pathlocal, filter, QDir::Files);
+   while (filesit.hasNext())
+   {
+      QString f = filesit.next();
+
+      // load file
+      QFile file(f);
+      if (!file.open(QFile::ReadOnly | QFile::Text)) {
+         QMessageBox::warning(this, "Error", "Failed to open file", QMessageBox::Ok);
+         continue;
+      }
+      QTextStream in(&file);
+      QByteArray arr(file.readAll());
+
+      // verify json
+      Json json;
+      if (!json.Parse(arr.constData())) {
+         QMessageBox::warning(this, "Error", "Failed to parse JSON", QMessageBox::Ok);
+         continue;
+      }
+
+      // get file extension and map to type
+      QFileInfo finf(f);
+      QString suff = finf.completeSuffix();
+      QString basename = finf.baseName();
+      QString type = 
+         suff == "cs.json" ? "CLASSIFIER" : 
+         suff == "sm.json" ? "STATEMACHINE" : 
+         suff == "xp.json" ? "EXPERIENCE" : "folder";
+
+      // remove file extension with .
+      f.chop(suff.length()+1);
+
+      //qDebug() << suff << basename << type;
+
+      // build path on cloud
+      f.remove(pathlocal);
+      f = pathcloud + '/' + f;
+      f.replace("//", "/");
+
+      qDebug() << "searching: " << f;
+
+      // update existing file
+      if (auto* item = FindItemByPath(f, type))
+      {
+         qDebug() << "updating: " << f << " (" << type << ")";
+         SelectionItem fileModel = CreateSelectionItem(item);
+         if (!fileModel.GetCreud().Update())
+            continue;
+
+         mPendingUploads++;
+         FilesUpdateRequest request(GetUser()->GetToken(), fileModel.GetUuid(), arr.constData());
+         QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+         connect(reply, &QNetworkReply::finished, this, [reply, this]()
+            {
+               QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+               FilesUpdateResponse response(networkReply);
+               mPendingUploads--;
+               if (mPendingUploads == 0)
+                  this->Refresh();
+               if (response.HasError())
+               {
+                  QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
+                  return;
+               }
+            });
+      }
+
+      // create new file
+      else if (auto* item = FindItemByPath(pathcloud, "folder"))
+      {
+         qDebug() << "creating: " << f << " (" << type << ")";
+         SelectionItem folderModel = CreateSelectionItem(item);
+         if (!folderModel.GetCreud().Create())
+            continue;
+
+         // create file
+         FilesCreateRequest request(
+            GetUser()->GetToken(),
+            basename.toLatin1().constData(),
+            folderModel.GetUuid(),
+            type.toLatin1().constData(),
+            arr.constData());
+
+         mPendingUploads++;
+         QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+         connect(reply, &QNetworkReply::finished, this, [reply, this]()
+         {
+            QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+            FilesCreateResponse response(networkReply);
+            mPendingUploads--;
+            if (mPendingUploads == 0)
+               this->Refresh();
+         });
+      }
+      else
+      {
+         qDebug() << "failed to find file or including folder path";
+      }
+      //else
+      //   assert(false);
+   }
 }
 
 // called when the minus button got clicked

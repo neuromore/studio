@@ -239,6 +239,8 @@ class BackendFileSystemWidget : public QWidget
 
       QTreeWidgetItem* FindItemByPath(const QString& path, const QString& type);
 
+      void UploadFolder(const QString& pathlocal, const QString& pathcloud);
+
 		Core::Array<SelectionItem>		mSelectedItems;
 		Core::Array<CollapseState>		mFolderCollapseStates;
 		
