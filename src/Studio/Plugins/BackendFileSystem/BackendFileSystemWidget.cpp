@@ -305,7 +305,7 @@ void BackendFileSystemWidget::UpdateItems(QTreeWidgetItem* item)
 
 
 // reload file hiarchy from 
-void BackendFileSystemWidget::Refresh()
+void BackendFileSystemWidget::Refresh(const QString& localfolder, const QString& cloudfolder)
 {
 	if (GetAuthenticationCenter()->IsInterfaceAllowed() == false)
 		return;
@@ -317,7 +317,7 @@ void BackendFileSystemWidget::Refresh()
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
-	connect(reply, &QNetworkReply::finished, this, [reply, this]()
+	connect(reply, &QNetworkReply::finished, this, [reply, this, localfolder, cloudfolder]()
 	{
 		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
 
@@ -332,6 +332,9 @@ void BackendFileSystemWidget::Refresh()
 
 		ReInit();
 		UpdateInterface();
+
+      if (!localfolder.isEmpty() && !cloudfolder.isEmpty())
+         UploadFolder(localfolder, cloudfolder);
 	});
 }
 
@@ -1452,6 +1455,8 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
       // must be created
       else if (auto* item = FindItemByPath(pathcloud, "folder"))
       {
+         qDebug() << "creating: " << pathcloud << " (" << "folder" << ")";
+
          SelectionItem model = CreateSelectionItem(item);
          FoldersCreateRequest request(GetUser()->GetToken(), basename.toLatin1().constData(), model.GetUuid());
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
@@ -1460,10 +1465,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
             QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
             FoldersCreateResponse response(networkReply);
             if (!response.HasError())
-            {
-               this->Refresh();
-               UploadFolder(p, cloudfolder);
-            }
+               this->Refresh(p, cloudfolder);
          });
       }
       else
@@ -1510,8 +1512,6 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
       // remove file extension with .
       f.chop(suff.length()+1);
 
-      //qDebug() << suff << basename << type;
-
       // build path on cloud
       f.remove(pathlocal);
       f = pathcloud + '/' + f;
@@ -1531,18 +1531,18 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
          FilesUpdateRequest request(GetUser()->GetToken(), fileModel.GetUuid(), arr.constData());
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
          connect(reply, &QNetworkReply::finished, this, [reply, this]()
+         {
+            QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+            FilesUpdateResponse response(networkReply);
+            mPendingUploads--;
+            if (mPendingUploads == 0)
+               this->Refresh();
+            if (response.HasError())
             {
-               QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
-               FilesUpdateResponse response(networkReply);
-               mPendingUploads--;
-               if (mPendingUploads == 0)
-                  this->Refresh();
-               if (response.HasError())
-               {
-                  QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
-                  return;
-               }
-            });
+               QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
+               return;
+            }
+         });
       }
 
       // create new file
@@ -1573,11 +1573,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
          });
       }
       else
-      {
-         qDebug() << "failed to find file or including folder path";
-      }
-      //else
-      //   assert(false);
+         assert(false);
    }
 }
 

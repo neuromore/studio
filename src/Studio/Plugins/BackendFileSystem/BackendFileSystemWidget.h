@@ -155,7 +155,7 @@ class BackendFileSystemWidget : public QWidget
 		bool ExpandByPath(const QStringList& itemPath);
 
 	public slots:
-		void Refresh();
+		void Refresh(const QString& localfolder = "", const QString& cloudfolder = "");
 		void OnCreateFile();
 		void OnCreateFolder();
 		void OnSearchFieldTextEdited(const QString & text);
