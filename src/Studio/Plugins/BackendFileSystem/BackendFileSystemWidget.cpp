@@ -824,7 +824,7 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				saveToDiskAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/SaveAs.png"));
 			}
 
-			if (singleSelectedItem->GetCreud().Update() == true)
+			if (singleSelectedItem->GetCreud().Create() == true)
 			{
 				// upload JSON to cloud
 				QAction* uploadAction = menu.addAction("Upload", this, SLOT(OnLoadFromDiskAndSaveToCloud()));
@@ -1457,6 +1457,8 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
       {
          //qDebug() << "creating: " << pathcloud << " (" << "folder" << ")";
          SelectionItem model = CreateSelectionItem(item);
+         if (!model.GetCreud().Create())
+            continue;
          FoldersCreateRequest request(GetUser()->GetToken(), basename.toLatin1().constData(), model.GetUuid());
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
          connect(reply, &QNetworkReply::finished, this, [reply, this, p, cloudfolder]()
