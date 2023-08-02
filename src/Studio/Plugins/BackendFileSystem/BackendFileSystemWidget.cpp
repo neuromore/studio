@@ -828,7 +828,7 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 			if (singleSelectedItem->GetCreud().Create() == true)
 			{
 				// upload JSON to cloud
-				QAction* uploadAction = menu.addAction("Upload", this, SLOT(OnLoadFromDiskAndSaveToCloud()));
+				QAction* uploadAction = menu.addAction("Upload", this, SLOT(OnUploadFromDisk()));
 				uploadAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png"));
 			}
 
@@ -1300,7 +1300,7 @@ void BackendFileSystemWidget::OnSaveToDisk()
 
 
 // load a JSON graph from disk and save it back to the backend
-void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
+void BackendFileSystemWidget::OnUploadFromDisk()
 {
    const QList<QTreeWidgetItem*> selectedItems = 
       mTreeWidget->selectedItems();

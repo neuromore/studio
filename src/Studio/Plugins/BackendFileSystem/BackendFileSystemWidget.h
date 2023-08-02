@@ -167,7 +167,7 @@ class BackendFileSystemWidget : public QWidget
 		void OnCopyFileToPersonalFolder();
 		void OnContextMenuRetrieveItemRevision();
 
-		void OnLoadFromDiskAndSaveToCloud();
+		void OnUploadFromDisk();
 		void OnCopyJsonToClipboard();
 		void OnSaveToDisk();
 
