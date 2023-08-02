@@ -873,7 +873,7 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 			if (singleSelectedItem->GetCreud().Update() == true)
 			{
 				// load JSON from disk and save it to the cloud
-				QAction* loadFromDiskSaveToCloudAction = menu.addAction("Upload", this, SLOT(OnLoadFromDiskAndSaveToCloud()) );
+				QAction* loadFromDiskSaveToCloudAction = menu.addAction("Upload", this, SLOT(OnUploadFromDisk()) );
 				loadFromDiskSaveToCloudAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png") );
 			}
 
