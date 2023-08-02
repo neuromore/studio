@@ -17,6 +17,8 @@ class QTBASE_API FilesCreateResponse : public Response
 	public:
 		// constructor
 		FilesCreateResponse(QNetworkReply* reply);
+
+		const char* mFileId;
 };
 
 

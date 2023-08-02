@@ -1342,8 +1342,15 @@ void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
          return;
       }
 
+      // replace a possible uuid with one from backend
+      Core::String jsonstr;
+      auto jsonitm = json.GetRootItem().Find("uuid");
+      if (!jsonitm.IsNull())
+         jsonitm.SetString(rootModel.GetUuid());
+      json.WriteToString(jsonstr, true);
+
       // upload
-      FilesUpdateRequest request(GetUser()->GetToken(), rootModel.GetUuid(), arr.constData());
+      FilesUpdateRequest request(GetUser()->GetToken(), rootModel.GetUuid(), jsonstr.AsChar());
       QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
       connect(reply, &QNetworkReply::finished, this, [reply, this]()
       {
@@ -1526,8 +1533,16 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
          if (!fileModel.GetCreud().Update())
             continue;
 
+         // replace a possible uuid with one from backend
+         Core::String jsonstr;
+         auto jsonitm = json.GetRootItem().Find("uuid");
+         if (!jsonitm.IsNull())
+            jsonitm.SetString(fileModel.GetUuid());
+         json.WriteToString(jsonstr, true);
+
+         // start update request
          mPendingUploads++;
-         FilesUpdateRequest request(GetUser()->GetToken(), fileModel.GetUuid(), arr.constData());
+         FilesUpdateRequest request(GetUser()->GetToken(), fileModel.GetUuid(), jsonstr.AsChar());
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
          connect(reply, &QNetworkReply::finished, this, [reply, this]()
          {
@@ -1552,23 +1567,49 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
          if (!folderModel.GetCreud().Create())
             continue;
 
-         // create file
+         // create empty file first
          FilesCreateRequest request(
             GetUser()->GetToken(),
             basename.toLatin1().constData(),
             folderModel.GetUuid(),
             type.toLatin1().constData(),
-            arr.constData());
+            "{}");
 
          mPendingUploads++;
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
-         connect(reply, &QNetworkReply::finished, this, [reply, this]()
+         connect(reply, &QNetworkReply::finished, this, [reply, this, json]()
          {
             QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
             FilesCreateResponse response(networkReply);
             mPendingUploads--;
-            if (mPendingUploads == 0)
-               this->Refresh();
+            
+            if (response.HasError())
+               return;
+
+            // replace a possible uuid with one from backend
+            Core::String jsonstr;
+            auto jsonitm = json.GetRootItem().Find("uuid");
+            if (!jsonitm.IsNull())
+               jsonitm.SetString(response.mFileId);
+            json.WriteToString(jsonstr, true);
+
+            // update json content on backend
+            mPendingUploads++;
+            FilesUpdateRequest request(GetUser()->GetToken(), response.mFileId, jsonstr.AsChar());
+            QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+            connect(reply, &QNetworkReply::finished, this, [reply, this]()
+            {
+               QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+               FilesUpdateResponse response(networkReply);
+               mPendingUploads--;
+               if (mPendingUploads == 0)
+                  this->Refresh();
+               if (response.HasError())
+               {
+                  QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
+                  return;
+               }
+            });
          });
       }
       else
