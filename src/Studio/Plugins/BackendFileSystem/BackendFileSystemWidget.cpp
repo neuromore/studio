@@ -1188,7 +1188,7 @@ void BackendFileSystemWidget::OnSaveToDisk()
       // download file
       FilesGetRequest request(GetUser()->GetToken(), rootModel.GetUuid());
       QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
-      connect(reply, &QNetworkReply::finished, this, [reply, this, filename]()
+      connect(reply, &QNetworkReply::finished, this, [reply, this, filename, rootModel]()
       {
          Json json;
          QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
@@ -1203,6 +1203,13 @@ void BackendFileSystemWidget::OnSaveToDisk()
             QMessageBox::warning(this, "Error", "JSON Parse failed", QMessageBox::Ok);
             return;
          }
+
+         // add or update uuid
+         Core::String jsonstr;
+         auto jsonitm = json.GetRootItem().Find("uuid");
+         if (!jsonitm.IsNull()) jsonitm.SetString(rootModel.GetUuid());
+         else json.GetRootItem().AddString("uuid", rootModel.GetUuid());
+
          if (!json.WriteToFile(filename.toLatin1().data(), true))
          {
             QMessageBox::warning(this, "Error", "File Write failed", QMessageBox::Ok);
@@ -1271,7 +1278,7 @@ void BackendFileSystemWidget::OnSaveToDisk()
                const Core::String filename = path + model.GetNameString() + model.GetExtension();
                FilesGetRequest request(GetUser()->GetToken(), model.GetUuid());
                QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
-               connect(reply, &QNetworkReply::finished, this, [reply, this, filename]()
+               connect(reply, &QNetworkReply::finished, this, [reply, this, filename, model]()
                {
                   Json json;
                   QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
@@ -1286,6 +1293,13 @@ void BackendFileSystemWidget::OnSaveToDisk()
                      QMessageBox::warning(this, "Error", "JSON Parse failed", QMessageBox::Ok);
                      return;
                   }
+
+                  // add or update uuid
+                  Core::String jsonstr;
+                  auto jsonitm = json.GetRootItem().Find("uuid");
+                  if (!jsonitm.IsNull()) jsonitm.SetString(model.GetUuid());
+                  else json.GetRootItem().AddString("uuid", model.GetUuid());
+
                   if (!json.WriteToFile(filename.AsChar(), true))
                   {
                      QMessageBox::warning(this, "Error", "File Write failed", QMessageBox::Ok);
