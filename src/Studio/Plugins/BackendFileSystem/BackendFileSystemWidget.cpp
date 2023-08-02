@@ -1376,7 +1376,7 @@ void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
       const Core::String& rootPath = rootModel.GetPathString();
       const uint32 rootPathLength  = rootPath.GetLength();
 
-
+      // start recursive upload of folder and subfolders
       mPendingUploads = 0;
       this->UploadFolder(folder, rootPath.AsChar());
    }
@@ -1429,7 +1429,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
    pathcloud.replace("//", "/");
    if (pathlocal.length() && pathlocal[pathlocal.length()-1] == '/') pathlocal.chop(1);
    if (pathcloud.length() && pathcloud[pathcloud.length()-1] == '/') pathcloud.chop(1);
-   qDebug() << "local: " << pathlocal << " cloud: " << pathcloud;
+   //qDebug() << "local: " << pathlocal << " cloud: " << pathcloud;
 
    // iterate folders
    QDirIterator dirit(pathlocal, QStringList(), QDir::Dirs);
@@ -1455,8 +1455,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
       // must be created
       else if (auto* item = FindItemByPath(pathcloud, "folder"))
       {
-         qDebug() << "creating: " << pathcloud << " (" << "folder" << ")";
-
+         //qDebug() << "creating: " << pathcloud << " (" << "folder" << ")";
          SelectionItem model = CreateSelectionItem(item);
          FoldersCreateRequest request(GetUser()->GetToken(), basename.toLatin1().constData(), model.GetUuid());
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
@@ -1517,12 +1516,10 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
       f = pathcloud + '/' + f;
       f.replace("//", "/");
 
-      qDebug() << "searching: " << f;
-
       // update existing file
       if (auto* item = FindItemByPath(f, type))
       {
-         qDebug() << "updating: " << f << " (" << type << ")";
+         //qDebug() << "updating: " << f << " (" << type << ")";
          SelectionItem fileModel = CreateSelectionItem(item);
          if (!fileModel.GetCreud().Update())
             continue;
@@ -1548,7 +1545,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
       // create new file
       else if (auto* item = FindItemByPath(pathcloud, "folder"))
       {
-         qDebug() << "creating: " << f << " (" << type << ")";
+         //qDebug() << "creating: " << f << " (" << type << ")";
          SelectionItem folderModel = CreateSelectionItem(item);
          if (!folderModel.GetCreud().Create())
             continue;
