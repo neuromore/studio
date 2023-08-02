@@ -333,8 +333,9 @@ void BackendFileSystemWidget::Refresh(const QString& localfolder, const QString&
 		ReInit();
 		UpdateInterface();
 
-      if (!localfolder.isEmpty() && !cloudfolder.isEmpty())
-         UploadFolder(localfolder, cloudfolder);
+		// continue folder upload after folder creation (if any is pending)
+		if (!localfolder.isEmpty() && !cloudfolder.isEmpty())
+			UploadFolder(localfolder, cloudfolder);
 	});
 }
 
