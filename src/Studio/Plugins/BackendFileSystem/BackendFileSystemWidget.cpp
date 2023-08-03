@@ -1409,6 +1409,32 @@ void BackendFileSystemWidget::OnUploadFromDisk()
    }
 }
 
+void BackendFileSystemWidget::ReplaceUuid(Core::Json& json, const char* internalName)
+{
+   auto jsonattribs = json.GetRootItem().Find("attributes");
+   if (jsonattribs.IsArray())
+   {
+      uint32 numattribs = jsonattribs.Size();
+      for (uint32 i = 0; i < numattribs; i++)
+      {
+         auto jsoninternalname = jsonattribs[i].Find("internalName");
+         auto jsonvalue = jsonattribs[i].Find("value");
+         if (jsoninternalname.IsString() && jsonvalue.IsString())
+         {
+            auto* sname = jsoninternalname.GetString();
+            auto* olduuid = jsonvalue.GetString();
+            if (std::string(internalName) == sname)
+            {
+               std::string newuuid = mLookup[olduuid];
+               qDebug() << "old uuid: " << olduuid << " new uuid: " << newuuid.c_str();
+               if (!newuuid.empty())
+                  jsonvalue.SetString(newuuid.c_str());
+            }
+         }
+      }
+   }
+}
+
 QTreeWidgetItem* BackendFileSystemWidget::FindItemByPath(const QString& path, const QString& type)
 {
    QStringList l = path.split("/");
@@ -1570,29 +1596,11 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
             jsonuuid.SetString(fileModel.GetUuid());
          }
 
+         // replace linked uuids for classifier and statemachine if known
          if (type == "EXPERIENCE")
          {
-            auto jsonattribs = json.GetRootItem().Find("attributes");
-            if (jsonattribs.IsArray())
-            {
-               uint32 numattribs = jsonattribs.Size();
-               for (uint32 i = 0; i < numattribs; i++)
-               {
-                  auto jsoninternalname = jsonattribs[i].Find("internalName");
-                  auto jsonvalue        = jsonattribs[i].Find("value");
-                  if (jsoninternalname.IsString() && jsonvalue.IsString())
-                  {
-                     auto* sname = jsoninternalname.GetString();
-                     auto* svalue = jsonvalue.GetString();
-
-                     if (std::string("classifierUuid") == sname)
-                     {
-                        std::string linkedcs = mLookup[svalue];
-                        qDebug() << "linked cs: " << linkedcs.c_str() << " on file " << f;
-                     }
-                  }
-               }
-            }
+            ReplaceUuid(json, "classifierUuid");
+            ReplaceUuid(json, "stateMachineUuid");
          }
 
          // serialize
@@ -1638,7 +1646,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
 
          mPendingUploads++;
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
-         connect(reply, &QNetworkReply::finished, this, [reply, this, json, xprun]()
+         connect(reply, &QNetworkReply::finished, this, [reply, this, json, xprun, type]()
          {
             QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
             FilesCreateResponse response(networkReply);
@@ -1655,9 +1663,18 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
                jsonitm.SetString(response.mFileId);
             }
 
+            Json json2(json);
+
+            // replace linked uuids for classifier and statemachine if known
+            if (type == "EXPERIENCE")
+            {
+               ReplaceUuid(json2, "classifierUuid");
+               ReplaceUuid(json2, "stateMachineUuid");
+            }
+
             // serialize
             Core::String jsonstr;
-            json.WriteToString(jsonstr, true);
+            json2.WriteToString(jsonstr, true);
 
             // update json content on backend
             mPendingUploads++;
