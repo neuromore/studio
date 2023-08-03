@@ -155,7 +155,7 @@ class BackendFileSystemWidget : public QWidget
 		bool ExpandByPath(const QStringList& itemPath);
 
 	public slots:
-		void Refresh(const QString& localfolder = "", const QString& cloudfolder = "");
+		void Refresh(const QString& localfolder = "", const QString& cloudfolder = "", const bool xprun = false);
 		void OnCreateFile();
 		void OnCreateFolder();
 		void OnSearchFieldTextEdited(const QString & text);
@@ -238,7 +238,7 @@ class BackendFileSystemWidget : public QWidget
 		bool IsItemCollapsed(const char* uuid);
 
 		QTreeWidgetItem* FindItemByPath(const QString& path, const QString& type);
-		void UploadFolder(const QString& pathlocal, const QString& pathcloud);
+		void UploadFolder(const QString& pathlocal, const QString& pathcloud, const bool xprun);
 
 		Core::Array<SelectionItem>		mSelectedItems;
 		Core::Array<CollapseState>		mFolderCollapseStates;
@@ -260,6 +260,9 @@ class BackendFileSystemWidget : public QWidget
 
 		SearchBoxWidget*				mSearchBox;
 		size_t						mPendingUploads;
+      std::map<std::string, std::string> mLookup;
+      QString mLocalUploadRoot;
+      QString mCloudUploadRoot;
 };
 
 

@@ -305,7 +305,7 @@ void BackendFileSystemWidget::UpdateItems(QTreeWidgetItem* item)
 
 
 // reload file hiarchy from 
-void BackendFileSystemWidget::Refresh(const QString& localfolder, const QString& cloudfolder)
+void BackendFileSystemWidget::Refresh(const QString& localfolder, const QString& cloudfolder, const bool xprun)
 {
 	if (GetAuthenticationCenter()->IsInterfaceAllowed() == false)
 		return;
@@ -317,7 +317,7 @@ void BackendFileSystemWidget::Refresh(const QString& localfolder, const QString&
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
-	connect(reply, &QNetworkReply::finished, this, [reply, this, localfolder, cloudfolder]()
+	connect(reply, &QNetworkReply::finished, this, [reply, this, localfolder, cloudfolder, xprun]()
 	{
 		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
 
@@ -335,7 +335,7 @@ void BackendFileSystemWidget::Refresh(const QString& localfolder, const QString&
 
 		// continue folder upload after folder creation (if any is pending)
 		if (!localfolder.isEmpty() && !cloudfolder.isEmpty())
-			UploadFolder(localfolder, cloudfolder);
+			UploadFolder(localfolder, cloudfolder, xprun);
 	});
 }
 
@@ -1398,9 +1398,14 @@ void BackendFileSystemWidget::OnUploadFromDisk()
       const Core::String& rootPath = rootModel.GetPathString();
       const uint32 rootPathLength  = rootPath.GetLength();
 
-      // start recursive upload of folder and subfolders
-      mPendingUploads = 0;
-      this->UploadFolder(folder, rootPath.AsChar());
+      // prepare upload
+      mPendingUploads  = 0;
+      mLocalUploadRoot = folder;
+      mCloudUploadRoot = rootPath.AsChar();
+      mLookup.clear();
+
+      // start upload
+      this->UploadFolder(folder, rootPath.AsChar(), false);
    }
 }
 
@@ -1443,7 +1448,7 @@ QTreeWidgetItem* BackendFileSystemWidget::FindItemByPath(const QString& path, co
    return 0;
 }
 
-void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString& pcloud)
+void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString& pcloud, const bool xprun)
 {
    QString pathlocal = plocal;
    QString pathcloud = pcloud;
@@ -1451,7 +1456,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
    pathcloud.replace("//", "/");
    if (pathlocal.length() && pathlocal[pathlocal.length()-1] == '/') pathlocal.chop(1);
    if (pathcloud.length() && pathcloud[pathcloud.length()-1] == '/') pathcloud.chop(1);
-   //qDebug() << "local: " << pathlocal << " cloud: " << pathcloud;
+   //qDebug() << "local: " << pathlocal << " cloud: " << pathcloud << " xprun: " << xprun;
 
    // iterate folders
    QDirIterator dirit(pathlocal, QStringList(), QDir::Dirs);
@@ -1472,7 +1477,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
 
       // exists
       if (auto* item = FindItemByPath(cloudfolder, "folder"))
-         UploadFolder(p, cloudfolder);
+         UploadFolder(p, cloudfolder, xprun);
 
       // must be created
       else if (auto* item = FindItemByPath(pathcloud, "folder"))
@@ -1481,25 +1486,34 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
          SelectionItem model = CreateSelectionItem(item);
          if (!model.GetCreud().Create())
             continue;
+         mPendingUploads++;
          FoldersCreateRequest request(GetUser()->GetToken(), basename.toLatin1().constData(), model.GetUuid());
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
-         connect(reply, &QNetworkReply::finished, this, [reply, this, p, cloudfolder]()
+         connect(reply, &QNetworkReply::finished, this, [reply, this, p, cloudfolder, xprun]()
          {
             QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
             FoldersCreateResponse response(networkReply);
+            mPendingUploads--;
             if (!response.HasError())
-               this->Refresh(p, cloudfolder);
+               this->Refresh(p, cloudfolder, xprun);
+            if (mPendingUploads == 0 && !xprun) {
+               UploadFolder(mLocalUploadRoot, mCloudUploadRoot, true);
+            }
          });
       }
       else
          assert(false);
    }
 
-   // filter for known types
+   // filter for types
    QStringList filter;
-   filter << "*.cs.json"; // classifier
-   filter << "*.sm.json"; // statemachine
-   filter << "*.xp.json"; // experience
+   if (xprun) {
+      filter << "*.xp.json"; // experience
+   }
+   else {
+      filter << "*.cs.json"; // classifier
+      filter << "*.sm.json"; // statemachine
+   }
 
    // iterate files
    QDirIterator filesit(pathlocal, filter, QDir::Files);
@@ -1548,24 +1562,56 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
          if (!fileModel.GetCreud().Update())
             continue;
 
-         // replace a possible uuid with one from backend
+         // try to load old uuid, store in map and replace with new
+         auto jsonuuid = json.GetRootItem().Find("uuid");
+         if (jsonuuid.IsString())
+         {
+            mLookup[jsonuuid.GetString()] = fileModel.GetUuid();
+            jsonuuid.SetString(fileModel.GetUuid());
+         }
+
+         if (type == "EXPERIENCE")
+         {
+            auto jsonattribs = json.GetRootItem().Find("attributes");
+            if (jsonattribs.IsArray())
+            {
+               uint32 numattribs = jsonattribs.Size();
+               for (uint32 i = 0; i < numattribs; i++)
+               {
+                  auto jsoninternalname = jsonattribs[i].Find("internalName");
+                  auto jsonvalue        = jsonattribs[i].Find("value");
+                  if (jsoninternalname.IsString() && jsonvalue.IsString())
+                  {
+                     auto* sname = jsoninternalname.GetString();
+                     auto* svalue = jsonvalue.GetString();
+
+                     if (std::string("classifierUuid") == sname)
+                     {
+                        std::string linkedcs = mLookup[svalue];
+                        qDebug() << "linked cs: " << linkedcs.c_str() << " on file " << f;
+                     }
+                  }
+               }
+            }
+         }
+
+         // serialize
          Core::String jsonstr;
-         auto jsonitm = json.GetRootItem().Find("uuid");
-         if (!jsonitm.IsNull())
-            jsonitm.SetString(fileModel.GetUuid());
          json.WriteToString(jsonstr, true);
 
          // start update request
          mPendingUploads++;
          FilesUpdateRequest request(GetUser()->GetToken(), fileModel.GetUuid(), jsonstr.AsChar());
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
-         connect(reply, &QNetworkReply::finished, this, [reply, this]()
+         connect(reply, &QNetworkReply::finished, this, [reply, this, xprun]()
          {
             QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
             FilesUpdateResponse response(networkReply);
             mPendingUploads--;
-            if (mPendingUploads == 0)
-               this->Refresh();
+            if (mPendingUploads == 0) {
+               if (xprun) this->Refresh();
+               else UploadFolder(mLocalUploadRoot, mCloudUploadRoot, true);
+            }
             if (response.HasError())
             {
                QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
@@ -1592,7 +1638,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
 
          mPendingUploads++;
          QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
-         connect(reply, &QNetworkReply::finished, this, [reply, this, json]()
+         connect(reply, &QNetworkReply::finished, this, [reply, this, json, xprun]()
          {
             QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
             FilesCreateResponse response(networkReply);
@@ -1601,24 +1647,31 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
             if (response.HasError())
                return;
 
-            // replace a possible uuid with one from backend
-            Core::String jsonstr;
+            // try to load old uuid, store in map and replace with new
             auto jsonitm = json.GetRootItem().Find("uuid");
             if (!jsonitm.IsNull())
+            {
+               mLookup[jsonitm.GetString()] = response.mFileId;
                jsonitm.SetString(response.mFileId);
+            }
+
+            // serialize
+            Core::String jsonstr;
             json.WriteToString(jsonstr, true);
 
             // update json content on backend
             mPendingUploads++;
             FilesUpdateRequest request(GetUser()->GetToken(), response.mFileId, jsonstr.AsChar());
             QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
-            connect(reply, &QNetworkReply::finished, this, [reply, this]()
+            connect(reply, &QNetworkReply::finished, this, [reply, this, xprun]()
             {
                QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
                FilesUpdateResponse response(networkReply);
                mPendingUploads--;
-               if (mPendingUploads == 0)
-                  this->Refresh();
+               if (mPendingUploads == 0) {
+                  if (xprun) this->Refresh();
+                  else UploadFolder(mLocalUploadRoot, mCloudUploadRoot, true);
+               }
                if (response.HasError())
                {
                   QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
@@ -1630,6 +1683,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
       else
          assert(false);
    }
+   qDebug() << "Pending: " << std::to_string(mPendingUploads).c_str();
 }
 
 // called when the minus button got clicked
