@@ -155,7 +155,7 @@ class BackendFileSystemWidget : public QWidget
 		bool ExpandByPath(const QStringList& itemPath);
 
 	public slots:
-		void Refresh();
+		void Refresh(const QString& localfolder = "", const QString& cloudfolder = "", const bool xprun = false);
 		void OnCreateFile();
 		void OnCreateFolder();
 		void OnSearchFieldTextEdited(const QString & text);
@@ -167,7 +167,7 @@ class BackendFileSystemWidget : public QWidget
 		void OnCopyFileToPersonalFolder();
 		void OnContextMenuRetrieveItemRevision();
 
-		void OnLoadFromDiskAndSaveToCloud();
+		void OnUploadFromDisk();
 		void OnCopyJsonToClipboard();
 		void OnSaveToDisk();
 
@@ -237,6 +237,10 @@ class BackendFileSystemWidget : public QWidget
 		CollapseState* FindCollapsedState(const char* uuid);
 		bool IsItemCollapsed(const char* uuid);
 
+		void ReplaceUuid(Core::Json& json, const char* internalName);
+		QTreeWidgetItem* FindItemByPath(const QString& path, const QString& type);
+		void UploadFolder(const QString& pathlocal, const QString& pathcloud, const bool xprun);
+
 		Core::Array<SelectionItem>		mSelectedItems;
 		Core::Array<CollapseState>		mFolderCollapseStates;
 		
@@ -256,6 +260,10 @@ class BackendFileSystemWidget : public QWidget
 		ImageButton*					mRefreshButton;
 
 		SearchBoxWidget*				mSearchBox;
+		size_t						mPendingUploads;
+      std::map<std::string, std::string> mLookup;
+      QString mLocalUploadRoot;
+      QString mCloudUploadRoot;
 };
 
 
