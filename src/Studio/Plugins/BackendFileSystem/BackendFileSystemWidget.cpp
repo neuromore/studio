@@ -1426,7 +1426,7 @@ void BackendFileSystemWidget::ReplaceUuid(Core::Json& json, const char* internal
             if (std::string(internalName) == sname)
             {
                std::string newuuid = mLookup[olduuid];
-               qDebug() << "old uuid: " << olduuid << " new uuid: " << newuuid.c_str();
+               //qDebug() << "old uuid: " << olduuid << " new uuid: " << newuuid.c_str();
                if (!newuuid.empty())
                   jsonvalue.SetString(newuuid.c_str());
             }
@@ -1700,7 +1700,7 @@ void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString&
       else
          assert(false);
    }
-   qDebug() << "Pending: " << std::to_string(mPendingUploads).c_str();
+   //qDebug() << "Pending: " << std::to_string(mPendingUploads).c_str();
 }
 
 // called when the minus button got clicked
