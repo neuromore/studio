@@ -29,6 +29,8 @@ UnicornBoard::UnicornBoard (struct BrainFlowInputParams params)
     std::string unicornlib_path = "";
 #ifdef _WIN32
     std::string lib_name = "Unicorn.dll";
+#elif defined(__arm__)
+    std::string lib_name = "libunicorn_raspberry.so";
 #else
     std::string lib_name = "libunicorn.so";
 #endif
@@ -89,7 +91,7 @@ int UnicornBoard::prepare_session ()
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int UnicornBoard::start_stream (int buffer_size, char *streamer_params)
+int UnicornBoard::start_stream (int buffer_size, const char *streamer_params)
 {
     if (is_streaming)
     {
@@ -151,54 +153,68 @@ int UnicornBoard::release_session ()
 
 void UnicornBoard::read_thread ()
 {
-    int num_rows = board_descr["num_rows"];
+    int num_rows = board_descr["default"]["num_rows"];
     double *package = new double[num_rows];
     for (int i = 0; i < num_rows; i++)
     {
         package[i] = 0.0;
     }
     float temp_buffer[UnicornBoard::package_size];
-    std::vector<int> eeg_channels = board_descr["eeg_channels"];
+    std::vector<int> eeg_channels = board_descr["default"]["eeg_channels"];
 
     while (keep_alive)
     {
         // unicorn uses similar idea as in brainflow - return single array with different kinds of
         // data and provide API(defines in this case) to mark this data
-        func_get_data (device_handle, 1, temp_buffer, UnicornBoard::package_size * sizeof (float));
-        package[board_descr["timestamp_channel"].get<int> ()] = get_timestamp ();
-        // eeg data
-        package[eeg_channels[0]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX];
-        package[eeg_channels[1]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 1];
-        package[eeg_channels[2]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 2];
-        package[eeg_channels[3]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 3];
-        package[eeg_channels[4]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 4];
-        package[eeg_channels[5]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 5];
-        package[eeg_channels[6]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 6];
-        package[eeg_channels[7]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 7];
-        // accel data
-        package[board_descr["accel_channels"][0].get<int> ()] =
-            (double)temp_buffer[UNICORN_ACCELEROMETER_CONFIG_INDEX];
-        package[board_descr["accel_channels"][1].get<int> ()] =
-            (double)temp_buffer[UNICORN_ACCELEROMETER_CONFIG_INDEX + 1];
-        package[board_descr["accel_channels"][2].get<int> ()] =
-            (double)temp_buffer[UNICORN_ACCELEROMETER_CONFIG_INDEX + 2];
-        // gyro data
-        package[board_descr["gyro_channels"][0].get<int> ()] =
-            (double)temp_buffer[UNICORN_GYROSCOPE_CONFIG_INDEX];
-        package[board_descr["gyro_channels"][1].get<int> ()] =
-            (double)temp_buffer[UNICORN_GYROSCOPE_CONFIG_INDEX + 1];
-        package[board_descr["gyro_channels"][2].get<int> ()] =
-            (double)temp_buffer[UNICORN_GYROSCOPE_CONFIG_INDEX + 2];
-        // battery data
-        package[board_descr["battery_channel"].get<int> ()] =
-            (double)temp_buffer[UNICORN_BATTERY_CONFIG_INDEX];
-        // counter / package num
-        package[board_descr["package_num_channel"].get<int> ()] =
-            (double)temp_buffer[UNICORN_COUNTER_CONFIG_INDEX];
-        // validation config index? place it to other channels
-        package[board_descr["other_channels"][0].get<int> ()] =
-            (double)temp_buffer[UNICORN_VALIDATION_CONFIG_INDEX];
-        push_package (package);
+        int res = func_get_data (
+            device_handle, 1, temp_buffer, UnicornBoard::package_size * sizeof (float));
+        if (res == UNICORN_ERROR_SUCCESS)
+        {
+            package[board_descr["default"]["timestamp_channel"].get<int> ()] = get_timestamp ();
+            // eeg data
+            package[eeg_channels[0]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX];
+            package[eeg_channels[1]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 1];
+            package[eeg_channels[2]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 2];
+            package[eeg_channels[3]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 3];
+            package[eeg_channels[4]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 4];
+            package[eeg_channels[5]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 5];
+            package[eeg_channels[6]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 6];
+            package[eeg_channels[7]] = (double)temp_buffer[UNICORN_EEG_CONFIG_INDEX + 7];
+            // accel data
+            package[board_descr["default"]["accel_channels"][0].get<int> ()] =
+                (double)temp_buffer[UNICORN_ACCELEROMETER_CONFIG_INDEX];
+            package[board_descr["default"]["accel_channels"][1].get<int> ()] =
+                (double)temp_buffer[UNICORN_ACCELEROMETER_CONFIG_INDEX + 1];
+            package[board_descr["default"]["accel_channels"][2].get<int> ()] =
+                (double)temp_buffer[UNICORN_ACCELEROMETER_CONFIG_INDEX + 2];
+            // gyro data
+            package[board_descr["default"]["gyro_channels"][0].get<int> ()] =
+                (double)temp_buffer[UNICORN_GYROSCOPE_CONFIG_INDEX];
+            package[board_descr["default"]["gyro_channels"][1].get<int> ()] =
+                (double)temp_buffer[UNICORN_GYROSCOPE_CONFIG_INDEX + 1];
+            package[board_descr["default"]["gyro_channels"][2].get<int> ()] =
+                (double)temp_buffer[UNICORN_GYROSCOPE_CONFIG_INDEX + 2];
+            // battery data
+            package[board_descr["default"]["battery_channel"].get<int> ()] =
+                (double)temp_buffer[UNICORN_BATTERY_CONFIG_INDEX];
+            // counter / package num
+            package[board_descr["default"]["package_num_channel"].get<int> ()] =
+                (double)temp_buffer[UNICORN_COUNTER_CONFIG_INDEX];
+            // validation config index? place it to other channels
+            package[board_descr["default"]["other_channels"][0].get<int> ()] =
+                (double)temp_buffer[UNICORN_VALIDATION_CONFIG_INDEX];
+            push_package (package);
+        }
+        else
+        {
+#ifdef _WIN32
+            Sleep (10);
+#else
+            usleep (10000);
+#endif
+            safe_logger (spdlog::level::trace, "UNICORN_GetData error: {}", res);
+            continue;
+        }
     }
     delete[] package;
 }
@@ -361,31 +377,31 @@ UnicornBoard::~UnicornBoard ()
 
 int UnicornBoard::prepare_session ()
 {
-    safe_logger (spdlog::level::err, "UnicornBoard supports only Linux.");
+    safe_logger (spdlog::level::err, "UnicornBoard doesnt support MacOS.");
     return (int)BrainFlowExitCodes::UNSUPPORTED_BOARD_ERROR;
 }
 
 int UnicornBoard::config_board (std::string config, std::string &response)
 {
-    safe_logger (spdlog::level::err, "UnicornBoard supports only Linux.");
+    safe_logger (spdlog::level::err, "UnicornBoard doesnt support MacOS.");
     return (int)BrainFlowExitCodes::UNSUPPORTED_BOARD_ERROR;
 }
 
 int UnicornBoard::release_session ()
 {
-    safe_logger (spdlog::level::err, "UnicornBoard supports only Linux.");
+    safe_logger (spdlog::level::err, "UnicornBoard doesnt support MacOS.");
     return (int)BrainFlowExitCodes::UNSUPPORTED_BOARD_ERROR;
 }
 
 int UnicornBoard::stop_stream ()
 {
-    safe_logger (spdlog::level::err, "UnicornBoard supports only Linux.");
+    safe_logger (spdlog::level::err, "UnicornBoard doesnt support MacOS.");
     return (int)BrainFlowExitCodes::UNSUPPORTED_BOARD_ERROR;
 }
 
-int UnicornBoard::start_stream (int buffer_size, char *streamer_params)
+int UnicornBoard::start_stream (int buffer_size, const char *streamer_params)
 {
-    safe_logger (spdlog::level::err, "UnicornBoard supports only Linux.");
+    safe_logger (spdlog::level::err, "UnicornBoard doesnt support MacOS.");
     return (int)BrainFlowExitCodes::UNSUPPORTED_BOARD_ERROR;
 }
 #endif

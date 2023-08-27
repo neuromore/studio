@@ -19,6 +19,15 @@ inline int32_t cast_24bit_to_int32 (unsigned char *byte_array)
     return (prefix << 24) | (byte_array[0] << 16) | (byte_array[1] << 8) | byte_array[2];
 }
 
+inline int32_t cast_24bit_to_int32_swap_order (unsigned char *byte_array)
+{
+    unsigned char swapped[3];
+    swapped[0] = byte_array[2];
+    swapped[1] = byte_array[1];
+    swapped[2] = byte_array[0];
+    return cast_24bit_to_int32 (swapped);
+}
+
 inline int32_t cast_16bit_to_int32 (unsigned char *byte_array)
 {
     int prefix = 0;
@@ -27,6 +36,14 @@ inline int32_t cast_16bit_to_int32 (unsigned char *byte_array)
         prefix = 65535;
     }
     return (prefix << 16) | (byte_array[0] << 8) | byte_array[1];
+}
+
+inline int32_t cast_16bit_to_int32_swap_order (unsigned char *byte_array)
+{
+    unsigned char swapped[2];
+    swapped[0] = byte_array[1];
+    swapped[1] = byte_array[0];
+    return cast_16bit_to_int32 (swapped);
 }
 
 inline void uchar_to_bits (unsigned char c, unsigned char *bits)
@@ -74,4 +91,23 @@ inline std::string int_to_string (int val)
     std::ostringstream ss;
     ss << val;
     return ss.str ();
+}
+
+inline int32_t swap_endians (int32_t value)
+{
+    int32_t leftmost_byte;
+    int32_t left_middle_byle;
+    int32_t right_middle_byte;
+    int32_t rightmost_byte;
+    int32_t result;
+    leftmost_byte = (value & 0x000000FF) >> 0;
+    left_middle_byle = (value & 0x0000FF00) >> 8;
+    right_middle_byte = (value & 0x00FF0000) >> 16;
+    rightmost_byte = (value & 0xFF000000) >> 24;
+    leftmost_byte <<= 24;
+    left_middle_byle <<= 16;
+    right_middle_byte <<= 8;
+    rightmost_byte <<= 0;
+    result = (leftmost_byte | left_middle_byle | right_middle_byte | rightmost_byte);
+    return result;
 }

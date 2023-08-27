@@ -12,7 +12,8 @@ INCLUDES  := $(INCLUDES) \
            -I$(INCDIR)/fft \
            -I$(INCDIR)/wavelib \
            -I$(INCDIR)/brainflow/data_handler \
-           -I$(INCDIR)/brainflow/utils
+           -I$(INCDIR)/brainflow/utils \
+		   -I$(INCDIR)/brainflow/third_party/kissfft
 CXXFLAGS  := $(CXXFLAGS) -std=c++14
 LINKFLAGS := $(LINKFLAGS)
 LINKPATH  := $(LINKPATH)

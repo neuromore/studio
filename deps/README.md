@@ -8,7 +8,7 @@ Open-Source Third Party Software included in this repository.
 
 | Name                | Version  | Link                                                  | Remarks                                 |
 |---------------------|----------|-------------------------------------------------------|-----------------------------------------|
-| brainflow           | 4.0.1    | https://github.com/brainflow-dev/brainflow            | Brainflow                               |
+| brainflow           | 5.7.0    | https://github.com/brainflow-dev/brainflow            | Brainflow                               |
 | double-conversion   | 3.1.5    | https://github.com/google/double-conversion           | Binary-Decimal Conversion               |
 | dspfilters          | ?.?.?    |                                                       |                                         |
 | easing              | ?.?.?    | http://robertpenner.com/easing/                       | Easing Functions                        |

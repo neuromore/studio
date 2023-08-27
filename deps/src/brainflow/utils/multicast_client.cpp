@@ -19,16 +19,22 @@ MultiCastClient::MultiCastClient (const char *ip_addr, int port)
     this->port = port;
     client_socket = INVALID_SOCKET;
     memset (&socket_addr, 0, sizeof (socket_addr));
+    wsa_initialized = false;
 }
 
 int MultiCastClient::init ()
 {
+    if (wsa_initialized)
+    {
+        return (int)MultiCastReturnCodes::SOCKET_ALREADY_CREATED_ERROR;
+    }
     WSADATA wsadata;
     int res = WSAStartup (MAKEWORD (2, 2), &wsadata);
     if (res != 0)
     {
         return (int)MultiCastReturnCodes::WSA_STARTUP_ERROR;
     }
+    wsa_initialized = true;
     socket_addr.sin_family = AF_INET;
     socket_addr.sin_port = htons (port);
     socket_addr.sin_addr.s_addr = htonl (INADDR_ANY);
@@ -41,9 +47,12 @@ int MultiCastClient::init ()
     // ensure that library will not hang in blocking recv/send call
     DWORD timeout = 5000;
     DWORD value = 1;
+    DWORD buf_size = 65000;
     setsockopt (client_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&value, sizeof (value));
     setsockopt (client_socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof (timeout));
     setsockopt (client_socket, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof (timeout));
+    setsockopt (client_socket, SOL_SOCKET, SO_SNDBUF, (const char *)&buf_size, sizeof (buf_size));
+    setsockopt (client_socket, SOL_SOCKET, SO_RCVBUF, (const char *)&buf_size, sizeof (buf_size));
 
     if (bind (client_socket, (const struct sockaddr *)&socket_addr, sizeof (socket_addr)) != 0)
     {
@@ -93,9 +102,16 @@ int MultiCastClient::recv (void *data, int size)
 
 void MultiCastClient::close ()
 {
-    closesocket (client_socket);
+    if (client_socket != INVALID_SOCKET)
+    {
+        closesocket (client_socket);
+    }
     client_socket = INVALID_SOCKET;
-    WSACleanup ();
+    if (wsa_initialized)
+    {
+        WSACleanup ();
+        wsa_initialized = false;
+    }
 }
 
 ///////////////////////////////
@@ -132,9 +148,12 @@ int MultiCastClient::init ()
     tv.tv_sec = 5;
     tv.tv_usec = 0;
     int value = 1;
+    int buf_size = 65000;
     setsockopt (client_socket, SOL_SOCKET, SO_REUSEADDR, &value, sizeof (value));
     setsockopt (client_socket, SOL_SOCKET, SO_RCVTIMEO, (const char *)&tv, sizeof (tv));
     setsockopt (client_socket, SOL_SOCKET, SO_SNDTIMEO, (const char *)&tv, sizeof (tv));
+    setsockopt (client_socket, SOL_SOCKET, SO_RCVBUF, &buf_size, sizeof (buf_size));
+    setsockopt (client_socket, SOL_SOCKET, SO_SNDBUF, &buf_size, sizeof (buf_size));
 
     if (bind (client_socket, (const struct sockaddr *)&socket_addr, sizeof (socket_addr)) != 0)
     {
@@ -180,7 +199,10 @@ int MultiCastClient::recv (void *data, int size)
 
 void MultiCastClient::close ()
 {
-    ::close (client_socket);
+    if (client_socket != -1)
+    {
+        ::close (client_socket);
+    }
     client_socket = -1;
 }
 
