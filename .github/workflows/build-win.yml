@@ -157,21 +157,21 @@ jobs:
 
     # Download X64 Build
     - name: Download X64 Build
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4.1.7
       with:
         name: Binaries (${{ matrix.os }}-x64-${{ matrix.branding }})
         path: ./build/make/bin/win-x64/
 
     # Download X86 Build
     - name: Download X86 Build
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4.1.7
       with:
         name: Binaries (${{ matrix.os }}-x86-${{ matrix.branding }})
         path: ./build/make/bin/win-x86/
 
     # Download ARM64 Build
     - name: Download ARM64 Build
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4.1.7
       with:
         name: Binaries (${{ matrix.os }}-arm64-${{ matrix.branding }})
         path: ./build/make/bin/win-arm64/
