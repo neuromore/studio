@@ -42,6 +42,7 @@
 #include <QString>
 #include <QWidget>
 #include <QSplashScreen>
+#include <QDateTime>
 
 // forward declarations
 QT_FORWARD_DECLARE_CLASS(QSplashScreen)
@@ -108,7 +109,8 @@ class AppManager : public QObject
 
 		void LogInfo();
 
-		Core::String GetLogFilename() const								{ return QtBaseManager::GetAppDataFolder() + GetAppShortName() + "_Log.txt"; }
+		Core::String GetLogFilename() const								{ return QtBaseManager::GetAppDataFolder() + "Logs/" + GetAppShortName()
+																			+ FromQtString(QDateTime::currentDateTimeUtc().toString("_yyyy-MM-dd_hh-mm-ss")) + ".txt"; }
 
 		// splash screen
 		void SetSplashScreenMessage(const char* text)					{ mSplashScreen->showMessage(text, Qt::AlignBottom | Qt::AlignHCenter, Qt::white); }

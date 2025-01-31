@@ -83,6 +83,9 @@ class ChannelMultiSelectionWidget : public QWidget
 		bool IsShowUsedVisible()											{ return mShowUsedCheckbox->isVisible(); }
 		void SetShowUsedVisible(bool visible)								{ mShowUsedCheckbox->setVisible(visible); }
 
+		void Save(Core::Json& json, Core::Json::Item& pluginItem);
+		bool Load(const Core::Json& json, const Core::Json::Item& item);
+
 	private slots:
 		void OnDeviceSelectionChanged(Device* device);
 		void OnChannelSelectionChanged();

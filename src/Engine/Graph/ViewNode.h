@@ -45,6 +45,7 @@ class ENGINE_API ViewNode : public SPNode
 			INPUTPORT_DOUBLE	= 0,
 			INPUTPORT_SPECTRUM,
 			INPUTPORT_ENABLE,
+			INPUTPORT_LENGTH,
 		};
 
 		enum
@@ -55,6 +56,7 @@ class ENGINE_API ViewNode : public SPNode
 			ATTRIB_USECOLOR,
 			ATTRIB_COLORPICK,
 			ATTRIB_COMBINE,
+			ATTRIB_LENGTH,
 		};
 
 		enum EScalingMode
@@ -94,6 +96,9 @@ class ENGINE_API ViewNode : public SPNode
 		double GetRangeMin(uint32 index) const									{ if (index < mRangesMin.Size()) return mRangesMin[index]; return 0.0; }
 		double GetRangeMax(uint32 index) const									{ if (index < mRangesMax.Size()) return mRangesMax[index]; return 0.0; }
 
+		bool FixedLength() const												{ return GetBoolAttribute(ATTRIB_LENGTH); } // checks if length is fixed
+		double GetFixedLength() const											{ return mFixedLengthDuration; } // returns the length value
+
 		// get the enable flag
 		bool GetEnableValue() const												{ return mEnableValue; }
 		
@@ -108,7 +113,7 @@ class ENGINE_API ViewNode : public SPNode
 		Channel<Spectrum>* GetSpectrumChannel(uint32 index);
 
 		inline void SetViewDuration(double seconds)									
-		{ 
+		{
 			mViewDuration = seconds;
 			SyncBufferSize(false);
 		}
@@ -118,6 +123,12 @@ class ENGINE_API ViewNode : public SPNode
 	private:
 		void CalculateScalingRange();
 		void SyncBufferSize(bool discard = false);
+		inline double GetViewDuration()
+		{
+			if (mFixedLengthDuration >= 0.)
+				return mFixedLengthDuration * 60.; // since this is in mins
+			return mViewDuration;
+		}
 
 		double				mViewDuration;
 		double				mMaxViewDuration;
@@ -126,6 +137,7 @@ class ENGINE_API ViewNode : public SPNode
 		Core::Array<double>	mRangesMax;
 
 		bool				mEnableValue;
+		double				mFixedLengthDuration;
 
 
 };

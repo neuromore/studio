@@ -196,3 +196,14 @@ void ViewPlugin::SetViewDuration(double seconds)
 		classifier->GetViewNode(i)->SetViewDuration(seconds);
 }
 
+double ViewPlugin::GetFixedLength()
+{
+	Classifier* classifier = GetEngine()->GetActiveClassifier();
+	CORE_ASSERT(classifier);
+
+	const uint32 numViewNodes = classifier->GetNumViewNodes();
+	for (uint32 i=0; i<numViewNodes; ++i)
+		return classifier->GetViewNode(i)->GetFixedLength();
+	return -1.;
+}
+

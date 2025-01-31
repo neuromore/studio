@@ -60,9 +60,10 @@ void Spectrogram2DPlugin::RegisterAttributes()
 	// register base class attributes
 	Plugin::RegisterAttributes();
 
+	bool multiViewChecked = true;
 	// multi view
 	AttributeSettings* attributeSettings = RegisterAttribute("Multi View", "multiView", "", ATTRIBUTE_INTERFACETYPE_CHECKBOX);
-	attributeSettings->SetDefaultValue(AttributeBool::Create(true));
+	attributeSettings->SetDefaultValue(AttributeBool::Create(multiViewChecked));
 
 	// show zero Hz bin
 	attributeSettings = RegisterAttribute("Show 0Hz Bin", "show0HzBin", "", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);
@@ -73,6 +74,10 @@ void Spectrogram2DPlugin::RegisterAttributes()
 	attributeSettings->SetDefaultValue( AttributeFloat::Create(1.0f) );
 	attributeSettings->SetMinValue( AttributeFloat::Create(0.0f) );
 	attributeSettings->SetMaxValue( AttributeFloat::Create(10.0f) );
+
+		// show zero Hz bin
+	attributeSettings = RegisterAttribute("Horizontal View", "horizontalView", "", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);
+	attributeSettings->SetDefaultValue(AttributeBool::Create(true));
 
 	// create default attribute values
 	CreateDefaultAttributeValues();
@@ -88,9 +93,24 @@ void Spectrogram2DPlugin::OnAttributeChanged(Property* property)
 	if (propertyInternalName.IsEqual("averageInterval") == true)
 		SetAverageInterval( property->AsFloat() );
 
+	if (propertyInternalName.IsEqual("horizontalView") == true) {
+		bool checked = GetBoolAttributeByName("horizontalView");
+		mSpectrumWidget->SetHorizontalView(GetBoolAttributeByName("horizontalView"));
+	}
+
 	// multi view
-	if (propertyInternalName.IsEqual("multiView") == true)
-		SetMultiView( GetMultiView() );
+	if (propertyInternalName.IsEqual("multiView") == true) {
+		auto multiView = GetMultiView();
+		enableHorizontalViewCheckbox(multiView);
+		SetMultiView( multiView );
+	}
+}
+
+void Spectrogram2DPlugin::enableHorizontalViewCheckbox(bool enable)
+{
+	if (mHorizontalViewCheckBox) {
+		mHorizontalViewCheckBox->setEnabled(enable);
+	}
 }
 
 
@@ -124,9 +144,27 @@ bool Spectrogram2DPlugin::Init()
 	// create the attribute set grid widget 
 	AttributeSetGridWidget* attributeSetGridWidget = new AttributeSetGridWidget( GetDockWidget() );
 	attributeSetGridWidget->ReInit(this);
-	connect( attributeSetGridWidget->GetPropertyManager(), SIGNAL(ValueChanged(Property*)), this, SLOT(OnAttributeChanged(Property*)) );
+
+	PropertyManager* propertyManager = attributeSetGridWidget->GetPropertyManager();
+
+	connect( propertyManager, SIGNAL(ValueChanged(Property*)), this, SLOT(OnAttributeChanged(Property*)) );
 
 	SetSettingsWidget( attributeSetGridWidget );
+
+	auto properties = propertyManager->GetProperties();
+
+	for (uint32 i = 0; i < properties.Size(); ++i) {
+		auto& property = properties[i];
+		const auto& name = property->GetAttributeSettings()->GetInternalNameString();
+		if (name.IsEqual("horizontalView") == true) {
+			
+			mHorizontalViewCheckBox = property->GetAttributeWidget();
+			mHorizontalViewCheckBox->setEnabled(GetMultiView());
+			break;
+		}
+	}
+
+
 
 	///////////////////////////////////////////////////////////////////////////
 	// Add render widget at the end
@@ -225,6 +263,9 @@ void Spectrogram2DPlugin::ReInit()
 
 	SetMultiView( GetMultiView() );
 
+	SetHorizontalView(GetHorizontalView());
+	
+
 	// hide the used checkbox
 	mChannelSelectionWidget->SetShowUsedVisible(false);
 }
@@ -284,4 +325,16 @@ void Spectrogram2DPlugin::SetAverageInterval(double length)
 		output->SetBufferSize(numSamples);		// resize the buffer to the interval
 		output->Reset();
 	}
+}
+
+void Spectrogram2DPlugin::Save(Core::Json& json, Core::Json::Item& pluginItem)
+{
+	Plugin::Save(json, pluginItem);
+	if (mChannelSelectionWidget)
+		mChannelSelectionWidget->Save(json, pluginItem);
+}
+
+bool Spectrogram2DPlugin::LoadUiConfigs(const Core::Json& json, const Core::Json::Item& item)
+{
+	return mChannelSelectionWidget->Load(json, item);
 }

@@ -28,6 +28,8 @@
 #include "OpenGLWidget2DHelpers.h"
 #include <QtBaseConfig.h>
 
+#include <algorithm>
+
 using namespace Core;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,16 +70,16 @@ void OpenGLWidget2DHelpers::RenderHGrid(OpenGLWidgetCallback* callback, uint32 n
 void OpenGLWidget2DHelpers::RenderGrid(OpenGLWidgetCallback* callback, GridInfo* gridInfo, const Core::Color& mainColor, const Core::Color& subColor, double xStart, double xEnd, double yStart, double yEnd)
 {
 	const double width			= xEnd - xStart;
-	const double height			= yEnd - yStart;
-	const double splitDeltaY	= height / (double)gridInfo->mNumYSplits;
-	const double subSplitDeltaY	= splitDeltaY / (double)gridInfo->mNumYSubSplits;
-	const double splitDeltaX	= width / (double)gridInfo->mNumXSplits;
-	const double subSplitDeltaX	= splitDeltaX / (double)gridInfo->mNumXSubSplits;
+    const double height			= yEnd - yStart;
+    const double splitDeltaY	= height / (double)gridInfo->mNumYSplits;
+    const double subSplitDeltaY	= splitDeltaY / (double)gridInfo->mNumYSubSplits;
+    const double splitDeltaX	= width / (double)gridInfo->mNumXSplits;
+    const double subSplitDeltaX	= splitDeltaX / (double)gridInfo->mNumXSubSplits;
 
 	// render main horizontal lines
 	for (uint32 i=0; i<=gridInfo->mNumYSplits; ++i)
 	{
-		double splitY = yStart + height - i*splitDeltaY;
+        double splitY = yStart + height - i*splitDeltaY;
 		callback->AddLine( xStart, splitY, mainColor, xEnd, splitY, mainColor );
 	}
 
@@ -86,11 +88,11 @@ void OpenGLWidget2DHelpers::RenderGrid(OpenGLWidgetCallback* callback, GridInfo*
 	{
 		for (uint32 i=0; i<gridInfo->mNumYSplits; ++i)
 		{
-			double splitY = yStart + height - i*splitDeltaY;
+            double splitY = yStart + height - i*splitDeltaY;
 
 			for (uint32 j=1; j<gridInfo->mNumYSubSplits; ++j)
 			{
-				double subSplitY = splitY - j*subSplitDeltaY;
+                double subSplitY = splitY - j*subSplitDeltaY;
 				callback->AddLine( xStart, subSplitY, subColor, xEnd, subSplitY, subColor );
 			}
 		}
@@ -100,7 +102,8 @@ void OpenGLWidget2DHelpers::RenderGrid(OpenGLWidgetCallback* callback, GridInfo*
 	// render main vertical lines
 	for (uint32 i=0; i<=gridInfo->mNumXSplits; ++i)
 	{
-		double splitX = xStart + width - i*splitDeltaX;
+        double splitX = xStart + width - i*splitDeltaX;
+
 		callback->AddLine( splitX, yStart, mainColor, splitX, yEnd, mainColor );
 	}
 
@@ -109,11 +112,11 @@ void OpenGLWidget2DHelpers::RenderGrid(OpenGLWidgetCallback* callback, GridInfo*
 	{
 		for (uint32 i=0; i<gridInfo->mNumXSplits; ++i)
 		{
-			double splitX = xStart + width - i*splitDeltaX;
+            double splitX = xStart + width - i*splitDeltaX;
 
 			for (uint32 j=1; j<gridInfo->mNumXSubSplits; ++j)
 			{
-				double subSplitX = splitX - j*subSplitDeltaX;
+                double subSplitX = splitX - j*subSplitDeltaX;
 				callback->AddLine( subSplitX, yStart, subColor, subSplitX, yEnd, subColor );
 			}
 		}
@@ -123,107 +126,175 @@ void OpenGLWidget2DHelpers::RenderGrid(OpenGLWidgetCallback* callback, GridInfo*
 }
 
 
-void OpenGLWidget2DHelpers::RenderEquallySpacedYLabels(OpenGLWidgetCallback* callback, String& tempString, const QColor& textColor, double minValue, double maxValue, uint32 numSplits, double x, double y, double width, double height)
+void OpenGLWidget2DHelpers::RenderEquallySpacedYLabels(OpenGLWidgetCallback* callback, String& tempString, const QColor& textColor, double minValue, double maxValue, uint32 numSplits, double x, double y, double width, double height, bool horizontalView, bool drawFromRight, uint32 numSubsplits)
 {
-	const double range = Max<double>(minValue, maxValue) - Min<double>(minValue, maxValue);
+    const double range = Max<double>(minValue, maxValue) - Min<double>(minValue, maxValue);
 
-	double splitRange = 0.0;
-	if (numSplits > 0)
-		splitRange = range / numSplits;
+    double splitRange = 0.0;
+    if (numSplits > 0)
+        splitRange = range / numSplits;
 
-	//QRect textRect;
-	//const double textHeight = callback->GetTextHeight();
-	//const int textMarginX = 2;
+    //QRect textRect;
+    //const double textHeight = callback->GetTextHeight();
+    //const int textMarginX = 2;
 
-	// render min value at the bottom
-	tempString.Format("%.2f", minValue);
-	//textRect = QRect(x, y+height-textHeight, width, textHeight);
+    const char* unit = "Hz";
 
-	callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, width, height, OpenGLWidget::ALIGN_BASELINE | OpenGLWidget::ALIGN_RIGHT );
+    // render min value at the bottom
+	float fontSize = callback->GetOpenGLWidget()->GetDefaultFontSize();
+	if (horizontalView == false) {
+		tempString.Format("%.2f", minValue);
+	} else {
+		fontSize -= 3;
+		tempString.Format("%.2f %s", minValue, unit);
+	}
+    //textRect = QRect(x, y+height-textHeight, width, textHeight);
 
-	// render values for the in between splits
-	for (uint32 i=1; i<numSplits; ++i)
+
+    callback->RenderText( tempString.AsChar(), fontSize, textColor, width, height, OpenGLWidget::ALIGN_BASELINE | OpenGLWidget::ALIGN_RIGHT );
+	
+	String subline = "-";
+	if (horizontalView && numSubsplits > 1)
 	{
-		double y = (numSplits-i)*(height/numSplits);
-
-		const double value = ClampedRemapRange( (double)i/numSplits, 0.0, 1.0, minValue, maxValue );
-
-		// draw the timestamp label
-		if (splitRange > 5.0)
-			tempString.Format("%.0f", value);
-		else if (splitRange > 1.0)
-			tempString.Format("%.1f", value);
-		else
-			tempString.Format("%.2f", value);
-
-		//textRect = QRect(x, y+height-yOffset-(textHeight/2), width, textHeight);
-
-		callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, width, y, OpenGLWidget::ALIGN_MIDDLE | OpenGLWidget::ALIGN_RIGHT );
+		for (uint32 j = 1; j < numSubsplits; ++j)
+		{
+			double y1 = height - ((height / numSplits) / numSubsplits) * j;
+			callback->RenderText(subline.AsChar(), fontSize + 2, textColor, width, y1, OpenGLWidget::ALIGN_MIDDLE | OpenGLWidget::ALIGN_RIGHT);
+		}
 	}
 
-	// render max value on top
-	if (splitRange > 5.0)
-		tempString.Format("%.0f", maxValue);
-	else if (splitRange > 1.0)
-		tempString.Format("%.1f", maxValue);
-	else
-		tempString.Format("%.2f", maxValue);
+    // render values for the in between splits
+    for (uint32 i=1; i<numSplits; ++i)
+    {
+        double y = (numSplits-i)*(height/numSplits);
 
-	//textRect = QRect(x, y, width, textHeight);
+        const double value = ClampedRemapRange( (double)i/numSplits, 0.0, 1.0, minValue, maxValue );
 
-	callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, width, 0, OpenGLWidget::ALIGN_TOP | OpenGLWidget::ALIGN_RIGHT );
-}
+        // draw the timestamp label
+		if (horizontalView == false) {
+			if (splitRange > 5.0)
+            	tempString.Format("%.0f", value);
+			else if (splitRange > 1.0)
+				tempString.Format("%.1f", value);
+			else
+				tempString.Format("%.2f", value);
 
+			callback->RenderText( tempString.AsChar(), fontSize, textColor, width, y, OpenGLWidget::ALIGN_MIDDLE | OpenGLWidget::ALIGN_RIGHT );
+		} else {
+			if (splitRange > 5.0)
+            	tempString.Format("%.0f %s", value, unit);
+			else if (splitRange > 1.0)
+				tempString.Format("%.1f %s", value, unit);
+			else
+				tempString.Format("%.2f %s", value, unit);
 
-void OpenGLWidget2DHelpers::RenderEquallySpacedXLabels(OpenGLWidgetCallback* callback, String& tempString, const char* unit, const QColor& textColor, double minValue, double maxValue, uint32 numSplits, double x, double y, double width, double height)
-{
-	const double range = Max<double>(minValue, maxValue) - Min<double>(minValue, maxValue);
+			callback->RenderText( tempString.AsChar(), fontSize, textColor, width, y, OpenGLWidget::ALIGN_MIDDLE | OpenGLWidget::ALIGN_RIGHT );
 
-	double splitRange = 0.0;
-	if (numSplits > 0)
-		splitRange = range / numSplits;
+			if (numSubsplits > 1) {
+				for (uint32 j = 1; j < numSubsplits; ++j) {
+					double y1 = y - ((height / numSplits) / numSubsplits) * j;
 
-	//QRect textRect;
-	for (uint32 i=0; i<=numSplits; ++i)
-	{
-		double xOffset = x + i*(width/numSplits);
-
-		const double value = ClampedRemapRange( (double)i/numSplits, 0.0, 1.0, minValue, maxValue );
-
-		// draw the timestamp label
-		if (splitRange > 1.0)
-			tempString.Format("%.0f %s", value, unit);
-		else if (splitRange > 0.1)
-			tempString.Format("%.1f %s", value, unit);
-		else
-			tempString.Format("%.2f %s", value, unit);
-
-		//double textWidth = callback->CalcTextWidth( tempString.AsChar() );
-		//const int rectHeight = 9;
-		//const int rectY = y + 3;
-		
-		if (i == 0)
-		{
-			//textRect = QRect(x, rectY, textWidth, rectHeight);
-			callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, x, y+height, OpenGLWidget::ALIGN_BASELINE | OpenGLWidget::ALIGN_LEFT );
-		}
-		else if (i == numSplits)
-		{
-			//textRect = QRect(x+width-textWidth, rectY, textWidth, rectHeight);
-
-			callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, x+width, y+height, OpenGLWidget::ALIGN_BASELINE | OpenGLWidget::ALIGN_RIGHT );
-		}
-		else
-		{
-			//double textX = xOffset-(textWidth*0.5);
-			//textRect = QRect(textX, rectY, textWidth, rectHeight);
-			if (xOffset > 0)
-			{
-				callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, xOffset, y+height, OpenGLWidget::ALIGN_BASELINE | OpenGLWidget::ALIGN_CENTER );
+			// const double value = ClampedRemapRange( (double)i/numSplits, 0.0, 1.0, minValue, maxValue );
+					callback->RenderText( subline.AsChar(), fontSize + 2, textColor, width, y1, OpenGLWidget::ALIGN_MIDDLE | OpenGLWidget::ALIGN_RIGHT );
+				}
 			}
 		}
+
+        //textRect = QRect(x, y+height-yOffset-(textHeight/2), width, textHeight);
+
+        
+
+		// if ()
+    }
+
+    // render max value on top
+	if (horizontalView == false) {
+		if (splitRange > 5.0)
+        	tempString.Format("%.0f", maxValue);
+		else if (splitRange > 1.0)
+			tempString.Format("%.1f", maxValue);
+		else
+			tempString.Format("%.2f", maxValue);
+	} else {
+		if (splitRange > 5.0)
+        	tempString.Format("%.0f %s", maxValue, unit);
+    	else if (splitRange > 1.0)
+        	tempString.Format("%.1f %s", maxValue, unit);
+    	else
+        	tempString.Format("%.2f %s", maxValue, unit);
 	}
+
+    //textRect = QRect(x, y, width, textHeight);
+
+    callback->RenderText( tempString.AsChar(), fontSize, textColor, width, 0, OpenGLWidget::ALIGN_TOP | OpenGLWidget::ALIGN_RIGHT );
 }
+
+
+void OpenGLWidget2DHelpers::RenderEquallySpacedXLabels(OpenGLWidgetCallback* callback, String& tempString, const char* unit, const QColor& textColor, double minValue, double maxValue, uint32 numSplits, double x, double y, double width, double height, bool horizontalView, bool drawFromRight)
+{
+    const double range = Max<double>(minValue, maxValue) - Min<double>(minValue, maxValue);
+
+    double splitRange = 0.0;
+    if (numSplits > 0)
+        splitRange = range / numSplits;
+
+    //QRect textRect;
+    for (uint32 i=0; i<=numSplits; ++i)
+    {
+        double xOffset = x + i*(width/numSplits);
+
+        double value = ClampedRemapRange( (double)i/numSplits, 0.0, 1.0, minValue, maxValue );
+
+		if (horizontalView && drawFromRight)
+		{
+			value = ClampedRemapRange( (double)(numSplits - i)/numSplits, 0.0, 1.0, minValue, maxValue );
+		}
+
+        // draw the timestamp label
+		if (horizontalView == false) {
+			if (splitRange > 1.0)
+				tempString.Format("%.0f %s", value, unit);
+			else if (splitRange > 0.1)
+				tempString.Format("%.1f %s", value, unit);
+			else
+				tempString.Format("%.2f %s", value, unit);
+		} else {
+			if (splitRange > 1.0)
+				tempString.Format("%.0f", value);
+			else if (splitRange > 0.1)
+				tempString.Format("%.1f", value);
+			else
+				tempString.Format("%.2f", value);
+		}
+
+
+        //double textWidth = callback->CalcTextWidth( tempString.AsChar() );
+        //const int rectHeight = 9;
+        //const int rectY = y + 3;
+
+        if (i == 0)
+        {
+            //textRect = QRect(x, rectY, textWidth, rectHeight);
+            callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, x, y+height, OpenGLWidget::ALIGN_BASELINE | OpenGLWidget::ALIGN_LEFT );
+        }
+        else if (i == numSplits)
+        {
+            //textRect = QRect(x+width-textWidth, rectY, textWidth, rectHeight);
+
+            callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, x+width, y+height, OpenGLWidget::ALIGN_BASELINE | OpenGLWidget::ALIGN_RIGHT );
+        }
+        else
+        {
+            //double textX = xOffset-(textWidth*0.5);
+            //textRect = QRect(textX, rectY, textWidth, rectHeight);
+            if (xOffset > 0)
+            {
+                callback->RenderText( tempString.AsChar(), callback->GetOpenGLWidget()->GetDefaultFontSize(), textColor, xOffset, y+height, OpenGLWidget::ALIGN_BASELINE | OpenGLWidget::ALIGN_CENTER );
+            }
+        }
+    }
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Signal Rendering
@@ -232,19 +303,19 @@ void OpenGLWidget2DHelpers::RenderEquallySpacedXLabels(OpenGLWidgetCallback* cal
 // calculate automatic splitting
 void OpenGLWidget2DHelpers::AutoCalcChartSplits(double height, uint32* outNumSplits, uint32* outNumSubSplits)
 {
-	*outNumSplits = 2; *outNumSubSplits = 0;
+    *outNumSplits = 2; *outNumSubSplits = 0;
 
-	if (height > 200)
-	{
-		*outNumSplits = 10; *outNumSubSplits = 5;
-		return;
-	}
+    if (height > 200)
+    {
+        *outNumSplits = 10; *outNumSubSplits = 5;
+        return;
+    }
 
-	if (height > 75)
-	{
-		*outNumSplits = 4; *outNumSubSplits = 2;
-		return;
-	}
+    if (height > 75)
+    {
+        *outNumSplits = 4; *outNumSubSplits = 2;
+        return;
+    }
 }
 
 
@@ -805,7 +876,7 @@ void OpenGLWidget2DHelpers::RenderLineSampleClipped(OpenGLWidgetCallback* callba
 // Timeline
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void OpenGLWidget2DHelpers::RenderTimeline(OpenGLWidgetCallback* callback, const Color& color, double timeRange, double maxTime, double x, double y, double width, double height, String& tempString)
+void OpenGLWidget2DHelpers::RenderTimeline(OpenGLWidgetCallback* callback, const Color& color, double timeRange, double maxTime, double x, double y, double width, double height, String& tempString, bool scaleInMins)
 {
 	// parameters
 	uint32 xStart			= x;
@@ -814,7 +885,7 @@ void OpenGLWidget2DHelpers::RenderTimeline(OpenGLWidgetCallback* callback, const
 
 	// calc remaining parameters
 	const int32 numPixels = xEnd - xStart;							// width of the chart area in pixels
-		  double minTime = maxTime - timeRange;						// time of first pixel
+	double minTime = maxTime - timeRange;						// time of first pixel
 	
 	// div by zero check
 	if (IsClose<double>(timeRange, 0.0, Math::epsilon) == true)
@@ -850,8 +921,17 @@ void OpenGLWidget2DHelpers::RenderTimeline(OpenGLWidgetCallback* callback, const
 		// draw a time tick
 		callback->AddLine( x+0.375, windowHeight-9, color, x+0.375, windowHeight-14, color );
 
+		if (scaleInMins)
+		{
 		// draw the timestamp label
-		tempString.Format( "%.1f", time);
+			double timeInSecs = time * 60.;
+			int minutes = static_cast<int>(timeInSecs) / 60;
+			int seconds = static_cast<int>(timeInSecs) % 60;
+
+			tempString.Format("%02d:%02d", minutes, seconds);
+		}
+		else
+			tempString.Format( "%.1f", time);
 		//double textWidth = callback->CalcTextWidth( tempString.AsChar() );
 
 		if (x > 0)
@@ -903,7 +983,7 @@ void OpenGLWidget2DHelpers::RenderSpectrum(OpenGLWidgetCallback* callback, Spect
 
 
 // render spectrum
-void OpenGLWidget2DHelpers::RenderSpectrumChart(OpenGLWidgetCallback* callback, Spectrum* spectrum, const Color& color, uint32 minBinIndex, uint32 maxBinIndex, double rangeMin, double rangeMax, double xStart, double xEnd, double yStart, double yEnd)
+void OpenGLWidget2DHelpers::RenderSpectrumChart(OpenGLWidgetCallback* callback, Spectrum* spectrum, const Color& color, uint32 minBinIndex, uint32 maxBinIndex, double rangeMin, double rangeMax, double xStart, double xEnd, double yStart, double yEnd, bool horizontalView, bool drawFromRight)
 {
 	if (spectrum == NULL)
 		return;
@@ -925,68 +1005,141 @@ void OpenGLWidget2DHelpers::RenderSpectrumChart(OpenGLWidgetCallback* callback, 
 	const double xRange = xEnd - xStart;
 	const double yRange = yEnd - yStart;
 
-	Color color2 = FromQtColor( ToQColor(color).lighter(110) );
-	Color color1 = FromQtColor( ToQColor(color).darker(170) );
-	Color adjustedColor2;
+	if (horizontalView == false) {
+		Color color2 = FromQtColor( ToQColor(color).lighter(110) );
+		Color color1 = FromQtColor( ToQColor(color).darker(170) );
+		Color adjustedColor2;
 
-	const double binWidth = ((xRange)/(double)numBins)-1.0;
+		const double binWidth = ((xRange)/(double)numBins)-1.0;
 
-	for (uint32 i=1; i<=rangeBins; ++i)
-	{
-		const uint32 lastBinIndex	= minBinIndex + i - 1;
-		//const uint32 binIndex		= minBinIndex + i;
-
-		const double lastX = ClampedRemapRange(lastBinIndex, minBinIndex, maxBinIndex, xStart, xEnd);
-		const double lastY = ClampedRemapRange(spectrum->GetBin(lastBinIndex), rangeMin, rangeMax, yStart, yEnd);
-
-		//const double x		= ClampedRemapRange( binIndex, minBinIndex, endBinIndex, xStart, xEnd );
-		//const double y		= ClampedRemapRange( spectrum->GetBin(binIndex), rangeMin, rangeMax, yStart, yEnd );
-
-		float colorInterpolate = ClampedRemapRange(spectrum->GetBin(lastBinIndex), rangeMin, rangeMax, 0.0, 1.0);
-		adjustedColor2 = LinearInterpolate<Color>( color1, color2, colorInterpolate );
-
-		OpenGLWidgetCallback::Rect rect;
-
-		rect.mColor1 = rect.mColor2 = color1;
-		rect.mColor3 = rect.mColor4 = adjustedColor2;
-
-		const double binHeight = yRange+lastY;
-
-		if (binWidth > 1)
+		for (uint32 i=1; i<=rangeBins; ++i)
 		{
-			/* 
-			const double xFrom = lastX;
-			const double yFrom = yStart;
-			const double xTo = lastX + binWidth;
-			const double yTo = yStart + binHeight;
+			const uint32 lastBinIndex	= minBinIndex + i - 1;
 
-			// draw rectangle using a batch of lines
-			for (double x = xFrom; x < xTo; x += 1.0)
-				callback->AddLine( x, yFrom, color1, x, yTo, adjustedColor2 );
-			*/
+			const double lastX = ClampedRemapRange(lastBinIndex, minBinIndex, maxBinIndex, xStart, xEnd);
+			const double lastY = ClampedRemapRange(spectrum->GetBin(lastBinIndex), rangeMin, rangeMax, yStart, yEnd);
 
-			// 1
-			rect.mX1 = lastX;
-			rect.mY1 = yStart;
+			//const double x		= ClampedRemapRange( binIndex, minBinIndex, endBinIndex, xStart, xEnd );
+			//const double y		= ClampedRemapRange( spectrum->GetBin(binIndex), rangeMin, rangeMax, yStart, yEnd );
 
-			// 2
-			rect.mX2 = lastX + binWidth;
-			rect.mY2 = yStart;
+			float colorInterpolate = ClampedRemapRange(spectrum->GetBin(lastBinIndex), rangeMin, rangeMax, 0.0, 1.0);
+			adjustedColor2 = LinearInterpolate<Color>( color1, color2, colorInterpolate );
 
-			// 3
-			rect.mX3 = lastX + binWidth;
-			rect.mY3 = yStart + binHeight;
+			OpenGLWidgetCallback::Rect rect;
 
-			// 4
-			rect.mX4 = lastX;
-			rect.mY4 = yStart + binHeight;
+			rect.mColor1 = rect.mColor2 = color1;
+			rect.mColor3 = rect.mColor4 = adjustedColor2;
 
-			callback->AddRect( rect );
+			const double binHeight = yRange+lastY;
+
+			if (binWidth > 1)
+			{
+				// 1
+				rect.mX1 = lastX;
+				rect.mY1 = yStart;
+
+				// 2
+				rect.mX2 = lastX + binWidth;
+				rect.mY2 = yStart;
+
+				// 3
+				rect.mX3 = lastX + binWidth;
+				rect.mY3 = yStart + binHeight;
+
+				// 4
+				rect.mX4 = lastX;
+				rect.mY4 = yStart + binHeight;
+
+				callback->AddRect( rect );
+			}
+			else
+				callback->AddLine( lastX, yStart, color1, lastX, yStart+binHeight, adjustedColor2 );
 		}
-		else
-			callback->AddLine( lastX, yStart, color1, lastX, yStart+binHeight, adjustedColor2 );
+	} else {
+		const double binWidth = ((yRange)/(double)numBins);
+
+		for (uint32 i = 1; i <= rangeBins; ++i)
+		{
+
+			const uint32 lastBinIndex = minBinIndex + i - 1;
+
+			// Assign the color based on the frequency range
+			Color barColor = barColorByFrequency(lastBinIndex);
+
+			// Map bin index to X position (this will represent the height of the bar)
+			const double lastX = ClampedRemapRange(spectrum->GetBin(lastBinIndex), rangeMin, rangeMax, xStart, xEnd);
+
+			// Map bin value to Y position (this will represent the vertical placement)
+			const double lastY = ClampedRemapRange(lastBinIndex, minBinIndex, maxBinIndex, yStart, yEnd);
+
+			OpenGLWidgetCallback::Rect rect;
+
+			rect.mColor1 = rect.mColor4 = barColor; // Bottom-left and Top-left
+			rect.mColor2 = rect.mColor3 = barColor; // Bottom-right and Top-right
+
+			if (drawFromRight) {
+				// Bottom-left
+				rect.mX1 = std::max(xStart, xEnd - lastX);
+				rect.mY1 = lastY;
+
+				// Bottom-right
+				rect.mX2 = xEnd;
+				rect.mY2 = lastY;
+
+				// Top-right
+				rect.mX3 = xEnd;
+				rect.mY3 = lastY + binWidth;
+
+				// Top-left
+				rect.mX4 = std::max(xStart, xEnd - lastX);
+				rect.mY4 = lastY + binWidth;
+			} else {
+				// Bottom-left
+				rect.mX1 = xStart;
+				rect.mY1 = lastY;
+
+				// Bottom-right
+				rect.mX2 = std::min(xStart + lastX, xEnd);
+				rect.mY2 = lastY;
+
+				// Top-right
+				rect.mX3 = std::min(xStart + lastX, xEnd);
+				rect.mY3 = lastY + binWidth;
+
+				// Top-left
+				rect.mX4 = xStart;
+				rect.mY4 = lastY + binWidth;
+			}
+
+        	callback->AddRect(rect);
+		}
 	}
 
 	callback->RenderLines();
 	callback->RenderRects();
+}
+
+// color selector for bars rendering
+Core::Color OpenGLWidget2DHelpers::barColorByFrequency (uint32 binIndex)
+{
+	// Assign the color based on the frequency range
+    Color barColor;
+    if (binIndex >= 0 && binIndex <= 3)
+        barColor = Color(1.0f, 0.0f, 0.0f);         // Red
+    else if (binIndex >= 3 && binIndex <= 8)
+        barColor = Color(1.0f, 0.65f, 0.0f);        // Orange
+    else if (binIndex >= 8 && binIndex <= 12)
+        barColor = Color(1.0f, 1.0f, 0.0f);         // Yellow
+    else if (binIndex >= 12 && binIndex <= 15)
+        barColor = Color(0.25f, 0.88f, 0.82f);      // Turquoise
+    else if (binIndex >= 15 && binIndex <= 23)
+        barColor = Color(0.6f, 0.8f, 1.0f);         // Blue
+    else if (binIndex >= 23 && binIndex <= 38)
+        barColor = Color(0.75f, 0.5f, 1.0f);        // Purple
+    else if (binIndex >= 38 && binIndex <= 60)
+        barColor = Color(1.0f, 0.75f, 0.8f);        // Pink
+    else
+        barColor = Color(0.75f, 0.75f, 0.75f);      // Default to light gray if out of range
+
+	return barColor;
 }

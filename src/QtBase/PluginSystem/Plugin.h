@@ -92,6 +92,10 @@ class QTBASE_API Plugin : public QObject, public Core::AttributeSet
 
 		inline DockWidget* GetDockWidget()														{ return mDock; }
 
+
+		virtual void Save(Core::Json& json, Core::Json::Item& pluginItem)						{ SaveSettings(json, pluginItem); }
+		virtual bool LoadUiConfigs(const Core::Json& json, const Core::Json::Item& item)		{ return true; }
+		
 		// attributes & settings
 		void SaveSettings(Core::Json& json, Core::Json::Item& pluginItem)						{ AttributeSet::Write( json, pluginItem, true ); }
 		bool LoadSettings(const Core::Json& json, const Core::Json::Item& item)					{ return AttributeSet::Read(json, item, true); }

@@ -66,9 +66,7 @@ Spectrogram2DWidget::~Spectrogram2DWidget()
 // render frame
 void Spectrogram2DWidget::paintGL()
 {
-	uint32 numSpectrums = 0;
-
-	numSpectrums = mSpectrums.Size();
+	uint32 numSpectrums = mSpectrums.Size();
 	mLeftTextWidth = 50; // TODO HACK
 /*	Classifier* classifier = GetClassifier();
 	if (classifier != NULL)
@@ -114,7 +112,18 @@ void Spectrogram2DWidget::paintGL()
 	}
 	else
 	{
-		uint32 numAreasInColumn = Math::Sqrt(numSpectrums) + 0.5;
+		uint32 numAreasInColumn;
+		if (!mHorizontalView){
+			numAreasInColumn = Math::Sqrt(numSpectrums) + 0.5;
+		}
+		else
+		{
+			numAreasInColumn = numSpectrums / 2;
+			if (numSpectrums % 2 == 1)
+			{
+				--numSpectrums;
+			}
+		}
 		RenderSplitViews( numSpectrums, numAreasInColumn );
 	}
 
@@ -126,6 +135,7 @@ void Spectrogram2DWidget::paintGL()
 // render callback
 void Spectrogram2DWidget::RenderCallback::Render(uint32 index, bool isHighlighted, double x, double y, double width, double height)
 {
+
 	// base class render
 	OpenGLWidgetCallback::Render( index, isHighlighted, x, y, width, height );
 
@@ -227,26 +237,37 @@ void Spectrogram2DWidget::RenderCallback::Render(uint32 index, bool isHighlighte
 	double rangeMax = mCurMaxRange;
 
 
+
+    const double minFrequency = spectrumElement->mSpectrum->CalcFrequency(minBinIndex);
+    const double maxFrequency = spectrumElement->mSpectrum->CalcFrequency(numBins-1);
+
+
 	mParentWidget->mGridInfo.mNumXSplits	= Math::NextPowerOfTwo( mParent->devicePixelRatio() * (width / 100) );
 	mParentWidget->mGridInfo.mNumXSubSplits	= 0;
-	mParentWidget->mGridInfo.mNumYSplits	= Math::NextPowerOfTwo( mParent->devicePixelRatio() * (height / 75) );
-	mParentWidget->mGridInfo.mNumYSubSplits	= 4;
+	mParentWidget->mGridInfo.mNumYSplits	= mParentWidget->GetMultiView() && mParentWidget->GetHorizontalView() // for horizontal view we want to densly place splits
+												? ((maxFrequency - minFrequency) / (mParent->devicePixelRatio() * 5)) :
+												Math::NextPowerOfTwo( mParent->devicePixelRatio() * (height / 75) );
+	mParentWidget->mGridInfo.mNumYSubSplits	= 5;
 
 	OpenGLWidget2DHelpers::RenderGrid( this, &mParentWidget->mGridInfo, FromQtColor(gridColor), FromQtColor(subGridColor), areaStartX, areaEndX, areaStartY, areaEndY );
 
 	if (numBins == 0)
 		return;
 
+	// in the case of horizontal views, we show 2 charts per row, thus mParentWidget->mSpectrums.Size() / 2 - 1 is the first index of right column charts
+	auto drawFromRight = index < mParentWidget->mSpectrums.Size() / 2;//index % 2 == 0;
 	// render spectrum
 	if (mParentWidget->GetMultiView() == true)
-		OpenGLWidget2DHelpers::RenderSpectrumChart( this, spectrumElement->mSpectrum, spectrumElement->mColor, minBinIndex, numBins -1, rangeMin, rangeMax, areaStartX, areaEndX, areaStartY, areaEndY);
+	{
+		OpenGLWidget2DHelpers::RenderSpectrumChart( this, spectrumElement->mSpectrum, spectrumElement->mColor, minFrequency, maxFrequency, rangeMin, rangeMax, areaStartX, areaEndX, areaStartY, areaEndY, mParentWidget->GetHorizontalView(), drawFromRight);
+	}
 	else
 	{
 		// iterate through all spectra and render each
 		for (uint32 i=0; i<numSpectrums; ++i)
 		{
 			const SpectrumElement& currentElement = mParentWidget->mSpectrums[i];
-			OpenGLWidget2DHelpers::RenderSpectrum(this, currentElement.mSpectrum, currentElement.mColor, minBinIndex, numBins - 1, rangeMin, rangeMax, areaStartX, areaEndX, areaStartY, areaEndY);
+			OpenGLWidget2DHelpers::RenderSpectrum(this, currentElement.mSpectrum, currentElement.mColor, minFrequency, maxFrequency, rangeMin, rangeMax, areaStartX, areaEndX, areaStartY, areaEndY);
 		}
 	}
 
@@ -255,16 +276,21 @@ void Spectrogram2DWidget::RenderCallback::Render(uint32 index, bool isHighlighte
 	//const int textHeight = GetTextHeight();
 	const int textRectWidth = areaStartX - 5;
 
-	// render Y axis labels
-	OpenGLWidget2DHelpers::RenderEquallySpacedYLabels( this, mTempString, textColor, rangeMin, rangeMax, mParentWidget->mGridInfo.mNumYSplits, 0.0, 0.0, textRectWidth, areaHeight );
-
-	// render X axis labels
-	const double minFrequency = spectrumElement->mSpectrum->CalcFrequency(minBinIndex);
-	const double maxFrequency = spectrumElement->mSpectrum->CalcFrequency(numBins-1);
-	OpenGLWidget2DHelpers::RenderEquallySpacedXLabels( this, mTempString, "Hz", textColor, minFrequency, maxFrequency, mParentWidget->mGridInfo.mNumXSplits, areaStartX, height-areaHeight, width-areaStartX, areaHeight );
+	auto horizontalView = mParentWidget->GetHorizontalView();
+	if (mParentWidget->GetMultiView() == false || mParentWidget->GetHorizontalView() == false) {
+		// render Y axis labels
+		OpenGLWidget2DHelpers::RenderEquallySpacedYLabels( this, mTempString, textColor, rangeMin, rangeMax, mParentWidget->mGridInfo.mNumYSplits, 0.0, 0.0, textRectWidth, areaHeight );
+		// render X axis labels
+		OpenGLWidget2DHelpers::RenderEquallySpacedXLabels( this, mTempString, "Hz", textColor, minFrequency, maxFrequency, mParentWidget->mGridInfo.mNumXSplits, areaStartX, height-areaHeight, width-areaStartX, areaHeight );
+	} else {
+		// render Y axis labels
+    	OpenGLWidget2DHelpers::RenderEquallySpacedYLabels( this, mTempString, textColor, minFrequency, maxFrequency, mParentWidget->mGridInfo.mNumYSplits, 0.0, 0.0, textRectWidth, areaHeight, horizontalView, drawFromRight,  mParentWidget->mGridInfo.mNumYSubSplits);
+		// render X axis labels
+    	OpenGLWidget2DHelpers::RenderEquallySpacedXLabels( this, mTempString, "Hz", textColor, rangeMin, rangeMax, mParentWidget->mGridInfo.mNumXSplits, areaStartX, height-areaHeight, width-areaStartX, areaHeight, horizontalView, drawFromRight );
+	}
 
 	// render feedback name
-	if (spectrumElement != NULL && mParentWidget->mMultiView == true)
+	if (spectrumElement != NULL && mParentWidget->GetMultiView() == true)
 	{
 		mTempString.Format("%s", spectrumElement->mName.AsChar());
 		RenderText( mTempString.AsChar(), GetOpenGLWidget()->GetDefaultFontSize(), spectrumElement->mColor, areaStartX+textMargin, 0, OpenGLWidget::ALIGN_TOP| OpenGLWidget::ALIGN_LEFT );

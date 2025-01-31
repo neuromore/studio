@@ -95,6 +95,12 @@ Plugin* PluginManager::CreatePlugin(const char* pluginTypeUuid, const char* obje
 	newPlugin->Init();
 	connect( newPlugin, SIGNAL(RemovePlugin()), this, SLOT(OnRemovePluginSignal()) );
 
+	if (json != NULL && pluginItem != NULL)
+	{
+		if (newPlugin->LoadUiConfigs(*json, *pluginItem) == false)
+			LogCritical("PluginManager::CreatePlugin(): Error loading plugin UI configs for plugin '%s'.", newPlugin->GetName());
+	}
+
 	// if layout customization is disabled, lock plugin so it can't be moved
 	newPlugin->SetLocked(mCustomizingEnabled == false);
 
