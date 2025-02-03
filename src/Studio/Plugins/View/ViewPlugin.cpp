@@ -203,7 +203,11 @@ double ViewPlugin::GetFixedLength()
 
 	const uint32 numViewNodes = classifier->GetNumViewNodes();
 	for (uint32 i=0; i<numViewNodes; ++i)
-		return classifier->GetViewNode(i)->GetFixedLength();
+	{
+		double fixedLength = classifier->GetViewNode(i)->GetFixedLength();
+		if (fixedLength > 0.)
+			return fixedLength;
+	}
 	return -1.;
 }
 
