@@ -187,6 +187,8 @@ bool Spectrogram2DPlugin::Init()
 
 void Spectrogram2DPlugin::RealtimeUpdate()
 {
+
+	udpateSelectedChannels();
 	// must always update spectrum analyzers
 	const uint32 numAnalyzers = mSpectrumAnalyzers.Size();
 	for (uint32 i = 0; i < numAnalyzers; ++i)
@@ -327,14 +329,19 @@ void Spectrogram2DPlugin::SetAverageInterval(double length)
 	}
 }
 
-void Spectrogram2DPlugin::Save(Core::Json& json, Core::Json::Item& pluginItem)
+void Spectrogram2DPlugin::udpateSelectedChannels()
 {
-	Plugin::Save(json, pluginItem);
-	if (mChannelSelectionWidget)
-		mChannelSelectionWidget->Save(json, pluginItem);
-}
+	if (auto classifier = GetEngine()->GetActiveClassifier(); classifier)
+	{
+		if (auto selector = classifier->FindMainChannelSelector(); selector)
+		{
+			auto channels = mChannelSelectionWidget->GetAvailableChannels();
+			for (uint32 i = 0; i < channels.Size(); ++i)
+			{
+				auto channel = channels[i];
+				mChannelSelectionWidget->SetChecked(channel, selector->IsChannelSelected(channel));
+			}
+		}
+	}
 
-bool Spectrogram2DPlugin::LoadUiConfigs(const Core::Json& json, const Core::Json::Item& item)
-{
-	return mChannelSelectionWidget->Load(json, item);
 }

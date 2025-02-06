@@ -67,9 +67,6 @@ class Spectrogram2DPlugin : public Plugin
 		void SetAverageInterval(double length);
 		void SetHorizontalView(bool horizontalView)									{ if (mSpectrumWidget != NULL) mSpectrumWidget->SetHorizontalView(horizontalView); }
 		inline bool GetHorizontalView() const										{ return GetBoolAttributeByName("horizontalView"); }
-
-		void Save(Core::Json& json, Core::Json::Item& pluginItem) override;
-		bool LoadUiConfigs(const Core::Json& json, const Core::Json::Item& item)	override;
 		
 	private slots:
 		void OnChannelSelectionChanged();
@@ -77,6 +74,7 @@ class Spectrogram2DPlugin : public Plugin
 
 	private:
 		void enableHorizontalViewCheckbox(bool enable);
+		void udpateSelectedChannels();
 	
 	private:
 		// selected channels

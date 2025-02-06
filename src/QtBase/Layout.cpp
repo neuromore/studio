@@ -108,7 +108,7 @@ bool Layout::Save(const char* filename)
 		pluginItem.AddString( "typeUuid",	plugin->GetTypeUuid() );
 
 		// save custom plugin data
-		plugin->Save( json, pluginItem );
+		plugin->SaveSettings( json, pluginItem );
 	}
 
 	// save data to disk

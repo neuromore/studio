@@ -297,7 +297,6 @@ bool ChannelSelectorNode::IsChannelSelected(const ChannelBase* channel) const
 	return false;
 }
 
-
 // create the output ports (with empty multi channels)
 void ChannelSelectorNode::ReInitOutputPorts()
 {

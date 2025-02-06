@@ -238,7 +238,7 @@ void ChannelMultiSelectionWidget::ClearUsedChannels()
 
 void ChannelMultiSelectionWidget::SetChecked(Channel<double>* channel, bool checked)
 {
-	const uint32 channelIndex = mSelectedChannels.Find(channel);
+	const uint32 channelIndex = mAvailableChannels.Find(channel);
 	if (channelIndex != CORE_INVALIDINDEX32)
 		SetChecked(channelIndex, checked);
 }
@@ -256,49 +256,4 @@ void ChannelMultiSelectionWidget::SetVisible(uint32 index, bool visible)
 		return;
 
 	mChannelMultiCheckbox->GetCheckbox(index)->setVisible(visible);
-}
-
-void ChannelMultiSelectionWidget::Save(Core::Json& json, Core::Json::Item& pluginItem)
-{
-	if (pluginItem.IsNull() == true)
-		return;
-	// write all attributes
-
-	auto numCheckboxes = mChannelMultiCheckbox->GetNumCheckboxes();
-	Json::Item electrodesItem = pluginItem.AddArray("electrodes");
-	for (uint32 i = 0; i < numCheckboxes; ++i)
-	{
-		Json::Item electrode = electrodesItem.AddObject();
-		electrode.AddBool("selected", mChannelMultiCheckbox->IsChecked(i));
-	}
-}
-
-bool ChannelMultiSelectionWidget::Load(const Core::Json& json, const Core::Json::Item& item)
-{
-	// make sure the given parent item is valid
-	if (item.IsNull() == true)
-		return false;
-
-	Json::Item electrodesItem = item.Find("electrodes");
-	if (electrodesItem.IsNull() == true)
-		return true;
-		
-	// get the number of attributes and iterate through them
-	const uint32 num = electrodesItem.Size();
-
-	const uint32 numCheckboxes = mChannelMultiCheckbox->GetNumCheckboxes();
-	for (uint32 i = 0; i < std::min(num, numCheckboxes); ++i)
-	{
-		Json::Item electode = electrodesItem[i];
-		Json::Item isSelected = electode.Find("selected");
-		mChannelMultiCheckbox->SetChecked(i, isSelected.GetBool());
-	}
-
-	// deselect remaining if any
-	for (uint32 i = num; i < numCheckboxes; ++i)
-	{
-		mChannelMultiCheckbox->SetChecked(i, false);
-	}
-
-	return true;
 }

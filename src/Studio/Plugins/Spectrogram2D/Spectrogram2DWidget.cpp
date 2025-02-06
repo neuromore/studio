@@ -55,7 +55,6 @@ Spectrogram2DWidget::Spectrogram2DWidget(Spectrogram2DPlugin* plugin, QWidget* p
 	setMinimumHeight(150);
 }
 
-
 // destructor
 Spectrogram2DWidget::~Spectrogram2DWidget()
 {
