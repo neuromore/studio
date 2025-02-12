@@ -111,19 +111,19 @@ void Spectrogram2DWidget::paintGL()
 	}
 	else
 	{
-		uint32 numAreasInColumn;
+		uint32 numAreasOnLine;
 		if (!mHorizontalView){
-			numAreasInColumn = Math::Sqrt(numSpectrums) + 0.5;
+			numAreasOnLine = Math::Sqrt(numSpectrums) + 0.5;
 		}
 		else
 		{
-			numAreasInColumn = numSpectrums / 2;
+			numAreasOnLine = 2;
 			if (numSpectrums % 2 == 1)
 			{
 				--numSpectrums;
 			}
 		}
-		RenderSplitViews( numSpectrums, numAreasInColumn );
+		RenderSplitViews( numSpectrums, numAreasOnLine, 2.0, mHorizontalView );
 	}
 
 	// post rendering
@@ -254,7 +254,7 @@ void Spectrogram2DWidget::RenderCallback::Render(uint32 index, bool isHighlighte
 		return;
 
 	// in the case of horizontal views, we show 2 charts per row, thus mParentWidget->mSpectrums.Size() / 2 - 1 is the first index of right column charts
-	auto drawFromRight = index < mParentWidget->mSpectrums.Size() / 2;//index % 2 == 0;
+	bool drawFromRight = (index % 2 == 0);
 	// render spectrum
 	if (mParentWidget->GetMultiView() == true)
 	{
