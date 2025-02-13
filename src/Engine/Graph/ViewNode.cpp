@@ -30,7 +30,6 @@
 #include "../DSP/Spectrum.h"
 #include "../EngineManager.h"
 
-
 using namespace Core;
 
 // constructor
@@ -60,10 +59,11 @@ void ViewNode::Init()
 	// SETUP PORTS
 	
 	// setup the input ports
-	InitInputPorts(3);
+	InitInputPorts(4);
 	GetInputPort(INPUTPORT_DOUBLE).Setup("In", "x1", AttributeChannels<double>::TYPE_ID, INPUTPORT_DOUBLE);
 	GetInputPort(INPUTPORT_SPECTRUM).Setup("In (Spectrum)", "x2", AttributeChannels<Spectrum>::TYPE_ID, INPUTPORT_SPECTRUM);
 	GetInputPort(INPUTPORT_ENABLE).Setup("Enable", "enable", AttributeChannels<double>::TYPE_ID, INPUTPORT_ENABLE);
+	GetInputPort(INPUTPORT_LENGTH).Setup("Length in mins", "length", AttributeChannels<double>::TYPE_ID, INPUTPORT_LENGTH);
 
 	// ATTRIBUTES
 
@@ -99,6 +99,9 @@ void ViewNode::Init()
 	const bool defaultCombinedView = false;
 	AttributeSettings* attributeCombinedView = RegisterAttribute("Combined View", "combineView", "Display all input channels in a single chart.", ATTRIBUTE_INTERFACETYPE_CHECKBOX);
 	attributeCombinedView->SetDefaultValue( AttributeBool::Create(defaultCombinedView) );
+
+	AttributeSettings* fixedLength = RegisterAttribute( "Fixed Length in mins", "fixedLength", "Fix length in Seconds.", Core::ATTRIBUTE_INTERFACETYPE_CHECKBOX);
+	fixedLength->SetDefaultValue( AttributeBool::Create(false) );
 
 	// sync buffer size to initial value
 	SyncBufferSize(true);
@@ -144,6 +147,32 @@ void ViewNode::Update(const Time& elapsed, const Time& delta)
 			mEnableValue = false;
 		}
 	}
+
+	auto fixedLengthCache = mFixedLengthDuration;
+	InputPort& lengthPort = GetInputPort(INPUTPORT_LENGTH);
+	if (lengthPort.HasConnection() == false)
+	{
+		GetAttributeSettings(ATTRIB_LENGTH)->SetIsEnabled(true);
+		mFixedLengthDuration = -1.;
+	}
+	else
+	{
+		if (lengthPort.GetChannels()->GetNumChannels() > 0 && lengthPort.GetChannels()->GetChannel(0)->IsEmpty() == false)
+		{
+			GetAttributeSettings(ATTRIB_LENGTH)->SetIsEnabled(false);
+			const double sampleValue = lengthPort.GetChannels()->GetChannel(0)->AsType<double>()->GetLastSample();
+			if (sampleValue > 0.)
+				mFixedLengthDuration = sampleValue;
+		}
+		else
+		{
+			mFixedLengthDuration = -1.;
+		}
+	}
+
+	// If the duration is changed, update buffer size
+	if (abs(fixedLengthCache - mFixedLengthDuration) > 0.0001)
+		SyncBufferSize(false);
 
 	// update scaling range (i.e. the auto modes need to recalculate the range)
 	CalculateScalingRange();
@@ -194,6 +223,12 @@ void ViewNode::OnAttributesChanged()
 
 	// show/hide color picker
 	GetAttributeSettings(ATTRIB_COLORPICK)->SetVisible( CustomColor() );
+
+	InputPort &lengthPort = GetInputPort(INPUTPORT_LENGTH);
+	if (FixedLength())
+		lengthPort.SetVisible(true);
+	else
+		lengthPort.SetVisible(false);
 
 	EMIT_EVENT( OnAttributeUpdated(mParentGraph, this, GetAttributeValue(ATTRIB_COLORPICK)) );
 }
@@ -299,7 +334,7 @@ void ViewNode::CalculateScalingRange()
 			for (uint32 i = 0; i < numChannels; ++i)
 			{
 				Channel<double>* channel = GetDoubleChannel(i);
-				const uint32 numSamples = mViewDuration * channel->GetSampleRate();
+				const uint32 numSamples = GetViewDuration() * channel->GetSampleRate();
 				Epoch epoch(channel, numSamples);
 				epoch.SetPositionByOffset(0);
 
@@ -315,7 +350,7 @@ void ViewNode::CalculateScalingRange()
 			for (uint32 i = 0; i < numChannels; ++i)
 			{
 				Channel<double>* channel = GetDoubleChannel(i);
-				const uint32 numSamples = mViewDuration * channel->GetSampleRate();
+				const uint32 numSamples = GetViewDuration() * channel->GetSampleRate();
 				Epoch epoch(channel, numSamples);
 				epoch.SetPositionByOffset(0);
 
@@ -341,14 +376,16 @@ void ViewNode::SyncBufferSize(bool discard)
 	InputPort& doublePort = GetInputPort(INPUTPORT_DOUBLE);
 	InputPort& specPort   = GetInputPort(INPUTPORT_SPECTRUM);
 	InputPort& enablePort = GetInputPort(INPUTPORT_ENABLE);
+	InputPort& lengthPort = GetInputPort(INPUTPORT_LENGTH);
 	MultiChannel* channels;
 
+	auto duration = GetViewDuration();
 	if (doublePort.HasConnection() && (channels = doublePort.GetChannels()))
-		channels->SetBufferSizeInSeconds(mViewDuration, discard);
+		channels->SetBufferSizeInSeconds(duration, discard);
 
 	if (specPort.HasConnection() && (channels = specPort.GetChannels()))
-		channels->SetBufferSizeInSeconds(mViewDuration, discard);
+		channels->SetBufferSizeInSeconds(duration, discard);
 
 	if (enablePort.HasConnection() && (channels = enablePort.GetChannels()))
-		channels->SetBufferSizeInSeconds(mViewDuration, discard);
+		channels->SetBufferSizeInSeconds(duration, discard);
 }

@@ -116,6 +116,13 @@ void ViewWidget::RenderCallback::Render(uint32 index, bool isHighlighted, double
 {
 	//Classifier* classifier = mViewWidget->GetClassifier();
 	ViewPlugin* plugin = mViewWidget->GetPlugin();
+
+	double maxTime = plugin->GetFixedLength() * 60; // fixed length is kept in mins
+	double timeRange = plugin->GetTimeRange();
+	if (maxTime < 0.)
+		maxTime = GetEngine()->GetElapsedTime().InSeconds();
+	else
+		timeRange = maxTime;
 	
 	// get channel and its properties
 	const MultiChannel& channels = plugin->GetMultiChannel(index);
@@ -161,7 +168,6 @@ void ViewWidget::RenderCallback::Render(uint32 index, bool isHighlighted, double
 	// automatically calculated, do not change these
 	const double areaStartX		= mViewWidget->mLeftTextWidth;
 	const double areaWidth		= width - areaStartX;
-	const double maxTime		= GetEngine()->GetElapsedTime().InSeconds();			// assumes all channels have same elapsed time
 
 	// draw background rect
 	AddRect( 0, 0, width, height, FromQtColor(backgroundColor) );
@@ -171,7 +177,6 @@ void ViewWidget::RenderCallback::Render(uint32 index, bool isHighlighted, double
 	RenderRects();
 
 	// calculate the time scale
-	double timeRange = plugin->GetTimeRange();
 	
 	bool drawLatencyMarker = plugin->GetShowLatencyMarker();
 
@@ -259,8 +264,18 @@ void ViewWidget::RenderCallback::RenderTimeline(double x, double y, double width
 	const double areaWidth		= width - areaStartX;
 		
 	QColor color = ColorPalette::Shared::GetTextQColor();
-	const double timeRange = mViewWidget->GetPlugin()->GetTimeRange();
-	const double maxTime = GetEngine()->GetElapsedTime().InSeconds();
+	double timeRange = mViewWidget->GetPlugin()->GetTimeRange();
+	ViewPlugin* plugin = mViewWidget->GetPlugin();
+
+	double maxTime = plugin->GetFixedLength();
+	bool scaleInMins = false;
+	if (maxTime < 0.)
+		maxTime = GetEngine()->GetElapsedTime().InSeconds();
+	else
+	{
+		scaleInMins = true;
+		timeRange = maxTime;
+	}
 	
-	OpenGLWidget2DHelpers::RenderTimeline( this, FromQtColor(color), timeRange, maxTime, areaStartX, y, areaWidth, height, mTempString );
+	OpenGLWidget2DHelpers::RenderTimeline( this, FromQtColor(color), timeRange, maxTime, areaStartX, y, areaWidth, height, mTempString, scaleInMins);
 }

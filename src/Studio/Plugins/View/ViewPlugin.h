@@ -77,6 +77,7 @@ class ViewPlugin : public Plugin, public Core::EventHandler
         Core::Color	GetChannelColor(uint32 multichannel, uint32 index);		
 
 		void SetViewDuration(double seconds);
+		double GetFixedLength();
 
 	private slots:
 		void OnAttributeChanged(Property* property);

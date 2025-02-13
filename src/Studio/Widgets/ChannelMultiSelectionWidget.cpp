@@ -238,7 +238,7 @@ void ChannelMultiSelectionWidget::ClearUsedChannels()
 
 void ChannelMultiSelectionWidget::SetChecked(Channel<double>* channel, bool checked)
 {
-	const uint32 channelIndex = mSelectedChannels.Find(channel);
+	const uint32 channelIndex = mAvailableChannels.Find(channel);
 	if (channelIndex != CORE_INVALIDINDEX32)
 		SetChecked(channelIndex, checked);
 }

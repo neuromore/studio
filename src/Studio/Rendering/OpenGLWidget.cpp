@@ -681,7 +681,7 @@ void OpenGLWidget::PostRendering()
 
 
 // render each sensor in an individual view
-void OpenGLWidget::RenderSplitViews(uint32 numAreas, uint32 numAreasInColumn, double border)
+void OpenGLWidget::RenderSplitViews(uint32 numAreas, uint32 numAreasOnLine, double border, bool horizontalView)
 {
 	// get the current local cursor pos
 	QPoint localCursorPos = mapFromGlobal( QCursor::pos() );
@@ -692,41 +692,73 @@ void OpenGLWidget::RenderSplitViews(uint32 numAreas, uint32 numAreasInColumn, do
 
 	// iterate through the areas
 	uint32 numActuallyRendered = 0;
+
+	// the number of sensors to be shown within one column (vertically) before we start a new column and split the screen to fit more channels
+	bool useSeveralColumns = true;
+	if (numAreasOnLine == CORE_INVALIDINDEX32)
+		useSeveralColumns = false;
+
 	for (uint32 i=0; i<numAreas; ++i)
 	{
 		// check if we need to render the signal for the given sensor
 		//if (mCheckboxWidget->IsChannelSelected(sensor->GetChannel()) == false)
 		//	continue;
 
-		// the number of sensors to be shown within one column (vertically) before we start a new column and split the screen to fit more channels
-		bool useSeveralColumns = true;
-		if (numAreasInColumn == CORE_INVALIDINDEX32)
-			useSeveralColumns = false;
-
 		double xStart, yStart, xEnd, yEnd, cellWidth, cellHeight;
-		if (useSeveralColumns == true && numAreas > numAreasInColumn)
+		if (horizontalView)
 		{
-			// split the viewport vertically and if there are too many items, also split up into columns
-			const uint32 numColumns	= ceil( (double)numAreas / (double)numAreasInColumn );
-			const double columnWidth= (double)mWidth / (double)numColumns;
-			const uint32 columnNr	= numActuallyRendered / numAreasInColumn;
-
-			xStart		= columnNr * columnWidth;
-			xEnd		= xStart + columnWidth;
-			cellHeight	= (double)viewportHeight / (double)numAreasInColumn;
-			cellWidth	= columnWidth;
-			yStart		= (numActuallyRendered % numAreasInColumn) * cellHeight;
-			yEnd		= yStart + cellHeight;
+			if (numAreas > numAreasOnLine)
+			{
+				// Determine the number of rows required.
+				const uint32 numRows = uint32(ceil((double)numAreas / (double)numAreasOnLine));
+				cellWidth = (double)mWidth / (double)numAreasOnLine;
+				cellHeight = viewportHeight / (double)numRows;
+				// Calculate the row and column for the current area.
+				const uint32 rowNr = numActuallyRendered / numAreasOnLine;
+				const uint32 colNr = numActuallyRendered % numAreasOnLine;
+				
+				xStart = colNr * cellWidth;
+				xEnd   = xStart + cellWidth;
+				yStart = rowNr * cellHeight;
+				yEnd   = yStart + cellHeight;
+			}
+			else
+			{
+				// Single row: distribute all areas evenly along the width.
+				cellWidth = (double)mWidth / (double)numAreas;
+				cellHeight = viewportHeight;
+				xStart = numActuallyRendered * cellWidth;
+				xEnd = xStart + cellWidth;
+				yStart = 0.0;
+				yEnd = viewportHeight;
+			}
 		}
 		else
 		{
-			// split the viewport vertically (only!) and resize the the items based on the number of sensors to be rendered
-			xStart		= 0.0;
-			xEnd		= mWidth;
-			cellHeight	= (double)viewportHeight / (double)numAreas;
-			cellWidth	= mWidth;
-			yStart		= numActuallyRendered * cellHeight;
-			yEnd		= yStart + cellHeight;
+			if (useSeveralColumns && numAreas > numAreasOnLine)
+			{
+				// Calculate how many columns are needed.
+				const uint32 numColumns = uint32(ceil((double)numAreas / (double)numAreasOnLine));
+				const double columnWidth = (double)mWidth / (double)numColumns;
+				const uint32 columnNr = numActuallyRendered / numAreasOnLine;
+				
+				xStart = columnNr * columnWidth;
+				xEnd   = xStart + columnWidth;
+				cellHeight = viewportHeight / (double)numAreasOnLine;
+				cellWidth = columnWidth;
+				yStart = (numActuallyRendered % numAreasOnLine) * cellHeight;
+				yEnd = yStart + cellHeight;
+			}
+			else
+			{
+				// Single column: split the viewport vertically.
+				xStart = 0.0;
+				xEnd   = mWidth;
+				cellHeight = viewportHeight / (double)numAreas;
+				cellWidth  = mWidth;
+				yStart = numActuallyRendered * cellHeight;
+				yEnd   = yStart + cellHeight;
+			}
 		}
 
 		xStart		= (int32)xStart + 0.5;
