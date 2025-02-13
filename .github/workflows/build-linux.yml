@@ -28,7 +28,7 @@ jobs:
         touch repository.tar.zst
         tar -I "zstd -T0 --ultra -10" --exclude=repository.tar.zst --exclude=.git -cf repository.tar.zst .
     - name: Upload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         retention-days: 1
         name: Repository
@@ -238,14 +238,14 @@ jobs:
 
     # Upload Studio
     - name: Upload Studio
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Packages (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: ./dist/${{ matrix.os }}/*.deb
 
     # Upload Engine
     - name: Upload Engine
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Engine (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |

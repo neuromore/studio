@@ -85,7 +85,7 @@ jobs:
 
     # Upload
     - name: Upload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Binaries (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
@@ -94,7 +94,7 @@ jobs:
 
     # Upload lto.o
     - name: Upload lto.o
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         retention-days: 1
         name: lto.o (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
@@ -102,7 +102,7 @@ jobs:
 
     # Upload Engine
     - name: Upload Engine
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Engine (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
@@ -184,7 +184,7 @@ jobs:
 
     # Upload
     - name: Upload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Packages (${{ matrix.os }}-${{ matrix.branding }})
         path: ./dist/osx-10.15/*.pkg
@@ -272,7 +272,7 @@ jobs:
 
     # Upload
     - name: Upload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Packages Store (${{ matrix.os }}-${{ matrix.branding }})
         path: ./dist/osx-10.15/*.pkg
