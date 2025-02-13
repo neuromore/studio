@@ -41,6 +41,8 @@
 #include <Backend/FilesGetResponse.h>
 #include <Backend/FilesUpdateRequest.h>
 #include <Backend/FilesUpdateResponse.h>
+#include <Backend/FoldersCreateRequest.h>
+#include <Backend/FoldersCreateResponse.h>
 
 using namespace Core;
 
@@ -303,7 +305,7 @@ void BackendFileSystemWidget::UpdateItems(QTreeWidgetItem* item)
 
 
 // reload file hiarchy from 
-void BackendFileSystemWidget::Refresh()
+void BackendFileSystemWidget::Refresh(const QString& localfolder, const QString& cloudfolder, const bool xprun)
 {
 	if (GetAuthenticationCenter()->IsInterfaceAllowed() == false)
 		return;
@@ -315,7 +317,7 @@ void BackendFileSystemWidget::Refresh()
 
 	// 2. process request and connect to the reply
 	QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request, Request::UIMODE_SILENT );
-	connect(reply, &QNetworkReply::finished, this, [reply, this]()
+	connect(reply, &QNetworkReply::finished, this, [reply, this, localfolder, cloudfolder, xprun]()
 	{
 		QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
 
@@ -330,6 +332,10 @@ void BackendFileSystemWidget::Refresh()
 
 		ReInit();
 		UpdateInterface();
+
+		// continue folder upload after folder creation (if any is pending)
+		if (!localfolder.isEmpty() && !cloudfolder.isEmpty())
+			UploadFolder(localfolder, cloudfolder, xprun);
 	});
 }
 
@@ -811,6 +817,21 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				QAction* removeAction = menu.addAction("&Delete Folder", this, SLOT(OnRemoveItem()) );
 				removeAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Minus.png") );
 			}
+
+			if (singleSelectedItem->GetCreud().Read() == true)
+			{
+				// save JSON to disk
+				QAction* saveToDiskAction = menu.addAction("Download", this, SLOT(OnSaveToDisk()));
+				saveToDiskAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/SaveAs.png"));
+			}
+
+			if (singleSelectedItem->GetCreud().Create() == true)
+			{
+				// upload JSON to cloud
+				QAction* uploadAction = menu.addAction("Upload", this, SLOT(OnUploadFromDisk()));
+				uploadAction->setIcon(GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png"));
+			}
+
 		}
 		else
 		{
@@ -846,13 +867,16 @@ void BackendFileSystemWidget::OnContextMenu(const QPoint& point)
 				copyJsonToClipboardAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Copy.png") );
 
 				// save JSON to disk
-				QAction* saveToDiskAction = menu.addAction("Save To HDD", this, SLOT(OnSaveToDisk()) );
+				QAction* saveToDiskAction = menu.addAction("Download", this, SLOT(OnSaveToDisk()) );
 				saveToDiskAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/SaveAs.png") );
 
+			if (singleSelectedItem->GetCreud().Update() == true)
+			{
 				// load JSON from disk and save it to the cloud
-				QAction* loadFromDiskSaveToCloudAction = menu.addAction("Upload local file to cloud", this, SLOT(OnLoadFromDiskAndSaveToCloud()) );
+				QAction* loadFromDiskSaveToCloudAction = menu.addAction("Upload", this, SLOT(OnUploadFromDisk()) );
 				loadFromDiskSaveToCloudAction->setIcon( GetQtBaseManager()->FindIcon("Images/Icons/Cloud.png") );
-			
+			}
+
 			menu.addSeparator();
 
 			// revisions
@@ -1136,137 +1160,548 @@ void BackendFileSystemWidget::OnCopyJsonToClipboard()
 // save JSON to a disk on the local hard drive
 void BackendFileSystemWidget::OnSaveToDisk()
 {
-	// get the selected item and return directly in case no single selected item is selected
-	SelectionItem* selectedItem = GetSingleSelectionItem();
-	if (selectedItem == NULL || selectedItem->IsFolder() == true)
-	{
-		QMessageBox::critical( this, "ERROR", "Cannot save graph JSON to local hard disk. No or multiple files selected." );
-		return;
-	}
+   const QList<QTreeWidgetItem*> selectedItems = 
+      mTreeWidget->selectedItems();
 
-	
-	// get the filename where to save it
-	QString defaultFileName = mLastSelectedFileDialogFolder + "\\" + selectedItem->GetName();
-	QString selectedFilter;
-	QFileDialog::Options options;
-	QString filename = QFileDialog::getSaveFileName(	this,						// parent
-														"Save",						// caption
-														defaultFileName,			// suggested file name and directory
-														"JSON (*.json)",
-														&selectedFilter,
-														options );
-	if (filename.isEmpty() == true)
-		return;
+   // only single selection supported
+   if (selectedItems.count() != 1)
+      return;
 
-	mLastSelectedFileDialogFolder = QFileInfo(filename).absolutePath();
+   QTreeWidgetItem* rootItem  = selectedItems[0];
+   SelectionItem    rootModel = CreateSelectionItem(rootItem);
 
-	// save EXPERIENCE
-	Experience* experience = GetEngine()->GetActiveExperience();
-	if (experience != NULL && experience->GetUuidString().IsEqual(selectedItem->GetUuidString()) == true)
-	{
-		// save the experience
-		Json jsonParser;
-        Json::Item rootItem = jsonParser.GetRootItem();
-		experience->Save(jsonParser, rootItem);	// Note: add parameters to export whole design incl. attached classifier/statemachine here
-		bool result = jsonParser.WriteToFile(FromQtString(filename).AsChar(), true);
-		if (result == false)
-		{
-			QMessageBox::critical( this, "ERROR", "Cannot save design JSON to local hard disk." );
-			return;
-		}
-	} 
-	// save GRAPH
-	else 
-	{
-		// find the graph based on the uuid
-		Graph* graph = GetGraphManager()->FindGraphByUuid( selectedItem->GetUuid() );
-		if (graph == NULL)
-		{
-			QMessageBox::critical( this, "ERROR", "Cannot save graph JSON to local hard disk. Different file selected than the shown graph in the graph window." );
-			return;
-		}
+   // download single file
+   if (!rootModel.IsFolder())
+   {
+      // show file selection dialog
+      const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName() + rootModel.GetExtension().AsChar();
+      const QString ext((rootModel.GetTypeString() + " (*" + rootModel.GetExtension() + ")").AsChar());
+      const QString filename = QFileDialog::getSaveFileName(this,
+         "Save", defaultName, ext);
 
-		// save the currently shown graph and save it as a string
-		bool result = GraphExporter::Save( FromQtString(filename).AsChar(), graph );
-		if (result == false)
-		{
-			QMessageBox::critical( this, "ERROR", "Cannot save graph JSON to local hard disk. Saving the graph failed." );
-			return;
-		}
-	}
+      if (filename.isEmpty())
+         return;
 
+      // remember selected path
+      mLastSelectedFileDialogFolder = QFileInfo(filename).absolutePath();
 
+      // download file
+      FilesGetRequest request(GetUser()->GetToken(), rootModel.GetUuid());
+      QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+      connect(reply, &QNetworkReply::finished, this, [reply, this, filename, rootModel]()
+      {
+         Json json;
+         QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+         FilesGetResponse response(networkReply);
+         if (response.HasError())
+         {
+            QMessageBox::warning(this, "Error", "Download failed", QMessageBox::Ok);
+            return;
+         }
+         if (!json.Parse(response.GetJsonContent()))
+         {
+            QMessageBox::warning(this, "Error", "JSON Parse failed", QMessageBox::Ok);
+            return;
+         }
 
+         // add or update uuid
+         Core::String jsonstr;
+         auto jsonitm = json.GetRootItem().Find("uuid");
+         if (!jsonitm.IsNull()) jsonitm.SetString(rootModel.GetUuid());
+         else json.GetRootItem().AddString("uuid", rootModel.GetUuid());
 
-	
+         if (!json.WriteToFile(filename.toLatin1().data(), true))
+         {
+            QMessageBox::warning(this, "Error", "File Write failed", QMessageBox::Ok);
+            return;
+         }
+      });
+   }
+
+   // download folder
+   else
+   {
+      if (!rootItem->childCount())
+         return;
+
+      // show folder selection dialog
+      const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName();
+      const QString folder = QFileDialog::getExistingDirectory(
+         this, "Select Folder", defaultName);
+
+      if (folder.isEmpty())
+         return;
+
+      // remember selected path
+      mLastSelectedFileDialogFolder = QFileInfo(folder).absolutePath();
+
+      // shared root path of all elements
+      const Core::String& rootPath = rootModel.GetPathString();
+      const uint32 rootPathLength  = rootPath.GetLength();
+
+      SelectionItem                 model;
+      QDir                          dir;
+      std::vector<QTreeWidgetItem*> stack;
+      Core::String                  path;
+
+      // start with root folder
+      stack.push_back(rootItem);
+
+      // tree traversal
+      while (!stack.empty())
+      {
+         // pop next
+         auto* itm = stack.back();
+         stack.pop_back();
+
+         // parse model from qt instance
+         model = CreateSelectionItem(itm);
+
+         // folder
+         if (model.IsFolder())
+         {
+            // add subitems
+            int num = itm->childCount();
+            for (int i = 0; i < num; i++)
+               stack.push_back(itm->child(i));
+         }
+
+         // file
+         else
+         {
+            path = model.GetPathString();
+            path.Remove(0, rootPathLength);
+            path = FromQtString(folder) + '/' + path;
+
+            if (dir.mkpath(path.AsChar()))
+            {
+               const Core::String filename = path + model.GetNameString() + model.GetExtension();
+               FilesGetRequest request(GetUser()->GetToken(), model.GetUuid());
+               QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+               connect(reply, &QNetworkReply::finished, this, [reply, this, filename, model]()
+               {
+                  Json json;
+                  QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+                  FilesGetResponse response(networkReply);
+                  if (response.HasError())
+                  {
+                     QMessageBox::warning(this, "Error", "Download failed", QMessageBox::Ok);
+                     return;
+                  }
+                  if (!json.Parse(response.GetJsonContent()))
+                  {
+                     QMessageBox::warning(this, "Error", "JSON Parse failed", QMessageBox::Ok);
+                     return;
+                  }
+
+                  // add or update uuid
+                  Core::String jsonstr;
+                  auto jsonitm = json.GetRootItem().Find("uuid");
+                  if (!jsonitm.IsNull()) jsonitm.SetString(model.GetUuid());
+                  else json.GetRootItem().AddString("uuid", model.GetUuid());
+
+                  if (!json.WriteToFile(filename.AsChar(), true))
+                  {
+                     QMessageBox::warning(this, "Error", "File Write failed", QMessageBox::Ok);
+                     return;
+                  }
+               });
+            }
+         }
+      }
+   }
 }
 
 
 // load a JSON graph from disk and save it back to the backend
-void BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud()
+void BackendFileSystemWidget::OnUploadFromDisk()
 {
-	// get the filename where to save it
-	QFileDialog::Options options;
-	QString selectedFilter;
-	QString qtFilename = QFileDialog::getOpenFileName(	this,								// parent
-														"Open",								// caption
-														"",									// directory
-														"JSON (*.json)",
-														&selectedFilter,
-														options );
+   const QList<QTreeWidgetItem*> selectedItems = 
+      mTreeWidget->selectedItems();
 
-	if (qtFilename.isEmpty() == true)
-		return;
+   // only single selection supported
+   if (selectedItems.count() != 1)
+      return;
 
-	String filename = FromQtString(qtFilename);
+   QTreeWidgetItem* rootItem  = selectedItems[0];
+   SelectionItem    rootModel = CreateSelectionItem(rootItem);
 
-	SelectionItem selectedItem = GetSelectedItem();
+   // upload single file
+   if (!rootModel.IsFolder())
+   {
+      // show file selection dialog
+      const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName() + rootModel.GetExtension().AsChar();
+      const QString ext((rootModel.GetTypeString() + " (*" + rootModel.GetExtension() + ")").AsChar());
+      const QString filename = QFileDialog::getOpenFileName(this,
+         "Upload", defaultName, ext);
 
-	// is experience
-	if (selectedItem.GetTypeString().IsEqualNoCase(ITEM_TYPE_EXPERIENCE) == true)
-	{
-		Json jsonParser;
-		if (jsonParser.ParseFile(filename.AsChar()) == false)
-		{
-			LogError( "BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud(): Cannot open file '%s'.", filename.AsChar());
-			return;
-		}
+      if (filename.isEmpty())
+         return;
 
-		Experience* experience = new Experience();
-		if (experience->Load(jsonParser, jsonParser.GetRootItem()) == false)
-		{
-			LogError( "BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud(): Cannot parse Json file '%s'.", filename.AsChar());
-			return;
-		}
-		
-		GetBackendInterface()->GetFileSystem()->SaveExperience( GetUser()->GetToken(), selectedItem.GetUuid(), experience );
+      // remember selected path
+      mLastSelectedFileDialogFolder = QFileInfo(filename).absolutePath();
 
-		delete experience;
-	}
-	// is classifier/statemachine
-	else
-	{
-		Graph* graph = NULL;
-	
-		if (selectedItem.GetTypeString().IsEqualNoCase(ITEM_TYPE_CLASSIFIER) == true)
-			graph = new Classifier();
-		else if (selectedItem.GetTypeString().IsEqualNoCase(ITEM_TYPE_STATEMACHINE) == true)
-			graph = new StateMachine();
-		else 
-			return;
+      // load file
+      QFile f(filename);
+      if (!f.open(QFile::ReadOnly | QFile::Text)) {
+         QMessageBox::warning(this, "Error", "Failed to open file", QMessageBox::Ok);
+         return;
+      }
+      QTextStream in(&f);
+      QByteArray arr(f.readAll());
 
-		if (GraphImporter::LoadFromFile(filename.AsChar(), graph) == false)
-		{
-			LogError( "BackendFileSystemWidget::OnLoadFromDiskAndSaveToCloud(): Cannot parse Json file '%s'.", filename.AsChar());
-			return;
-		}
-		
-		GetBackendInterface()->GetFileSystem()->SaveGraph( GetUser()->GetToken(), selectedItem.GetUuid(), graph );
+      // verify json
+      Json json;
+      if (!json.Parse(arr.constData())) {
+         QMessageBox::warning(this, "Error", "Failed to parse JSON", QMessageBox::Ok);
+         return;
+      }
 
-		delete graph;
-	}
+      // replace a possible uuid with one from backend
+      Core::String jsonstr;
+      auto jsonitm = json.GetRootItem().Find("uuid");
+      if (!jsonitm.IsNull())
+         jsonitm.SetString(rootModel.GetUuid());
+      json.WriteToString(jsonstr, true);
+
+      // upload
+      FilesUpdateRequest request(GetUser()->GetToken(), rootModel.GetUuid(), jsonstr.AsChar());
+      QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+      connect(reply, &QNetworkReply::finished, this, [reply, this]()
+      {
+         QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+         FilesUpdateResponse response(networkReply);
+         if (response.HasError())
+         {
+            QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
+            return;
+         }
+         this->Refresh();
+      });
+   }
+
+   // upload folder
+   else
+   {
+      // show folder selection dialog
+      const QString defaultName = mLastSelectedFileDialogFolder + '/' + rootModel.GetName();
+      const QString folder = QFileDialog::getExistingDirectory(
+         this, "Select Folder", defaultName);
+
+      if (folder.isEmpty())
+         return;
+
+      // remember selected path
+      mLastSelectedFileDialogFolder = QFileInfo(folder).absolutePath();
+
+      // shared root path of all elements
+      const Core::String& rootPath = rootModel.GetPathString();
+      const uint32 rootPathLength  = rootPath.GetLength();
+
+      // prepare upload
+      mPendingUploads  = 0;
+      mLocalUploadRoot = folder;
+      mCloudUploadRoot = rootPath.AsChar();
+      mLookup.clear();
+
+      // start upload
+      this->UploadFolder(folder, rootPath.AsChar(), false);
+   }
 }
 
+void BackendFileSystemWidget::ReplaceUuid(Core::Json& json, const char* internalName)
+{
+   auto jsonattribs = json.GetRootItem().Find("attributes");
+   if (jsonattribs.IsArray())
+   {
+      uint32 numattribs = jsonattribs.Size();
+      for (uint32 i = 0; i < numattribs; i++)
+      {
+         auto jsoninternalname = jsonattribs[i].Find("internalName");
+         auto jsonvalue = jsonattribs[i].Find("value");
+         if (jsoninternalname.IsString() && jsonvalue.IsString())
+         {
+            auto* sname = jsoninternalname.GetString();
+            auto* olduuid = jsonvalue.GetString();
+            if (std::string(internalName) == sname)
+            {
+               std::string newuuid = mLookup[olduuid];
+               //qDebug() << "old uuid: " << olduuid << " new uuid: " << newuuid.c_str();
+               if (!newuuid.empty())
+                  jsonvalue.SetString(newuuid.c_str());
+            }
+         }
+      }
+   }
+}
+
+QTreeWidgetItem* BackendFileSystemWidget::FindItemByPath(const QString& path, const QString& type)
+{
+   QStringList l = path.split("/");
+   if (l.length() == 0)
+      return 0;
+   const int toplvls = mTreeWidget->topLevelItemCount();
+   for (int i = 0; i < toplvls; i++)
+   {
+      QTreeWidgetItem* item = mTreeWidget->topLevelItem(i);
+      QString p = item->data(0, USERDATA_PATH).toString();
+      if (p.length() && p[p.length()-1] == '/')
+         p.chop(1);
+      if (l[0] != p)
+         continue;
+      if (l.length() == 1 && type == "folder")
+         return item;
+      for (int j = 1; j < l.length(); j++)
+      {
+         bool found = false;
+         for (int k = 0; k < item->childCount(); k++)
+         {
+            auto* child = item->child(k);
+            QString childtype = child->data(0, USERDATA_TYPE).toString();
+            QString wantedtype = j < l.length()-1 ? "folder" : type;
+            if (child->text(0) == l[j] && childtype == wantedtype)
+            {
+               item = item->child(k);
+               found = true;
+               break;
+            }
+         }
+         if (!found) 
+            return 0;
+      }
+      return item;
+   }
+   return 0;
+}
+
+void BackendFileSystemWidget::UploadFolder(const QString& plocal, const QString& pcloud, const bool xprun)
+{
+   QString pathlocal = plocal;
+   QString pathcloud = pcloud;
+   pathlocal.replace("//", "/");
+   pathcloud.replace("//", "/");
+   if (pathlocal.length() && pathlocal[pathlocal.length()-1] == '/') pathlocal.chop(1);
+   if (pathcloud.length() && pathcloud[pathcloud.length()-1] == '/') pathcloud.chop(1);
+   //qDebug() << "local: " << pathlocal << " cloud: " << pathcloud << " xprun: " << xprun;
+
+   // iterate folders
+   QDirIterator dirit(pathlocal, QStringList(), QDir::Dirs);
+   while (dirit.hasNext())
+   {
+      QString p = dirit.next();
+      QFileInfo finf(p);
+      QString basename = finf.baseName();
+      QString cloudfolder;
+
+      // filter for "." and ".."
+      if (basename.isEmpty())
+         continue;
+
+      // build path on cloud
+      cloudfolder = pathcloud + '/' + basename;
+      cloudfolder.replace("//", "/");
+
+      // exists
+      if (auto* item = FindItemByPath(cloudfolder, "folder"))
+         UploadFolder(p, cloudfolder, xprun);
+
+      // must be created
+      else if (auto* item = FindItemByPath(pathcloud, "folder"))
+      {
+         //qDebug() << "creating: " << pathcloud << " (" << "folder" << ")";
+         SelectionItem model = CreateSelectionItem(item);
+         if (!model.GetCreud().Create())
+            continue;
+         mPendingUploads++;
+         FoldersCreateRequest request(GetUser()->GetToken(), basename.toLatin1().constData(), model.GetUuid());
+         QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest( request );
+         connect(reply, &QNetworkReply::finished, this, [reply, this, p, cloudfolder, xprun]()
+         {
+            QNetworkReply* networkReply = qobject_cast<QNetworkReply*>( sender() );
+            FoldersCreateResponse response(networkReply);
+            mPendingUploads--;
+            if (!response.HasError())
+               this->Refresh(p, cloudfolder, xprun);
+            if (mPendingUploads == 0 && !xprun) {
+               UploadFolder(mLocalUploadRoot, mCloudUploadRoot, true);
+            }
+         });
+      }
+      else
+         assert(false);
+   }
+
+   // filter for types
+   QStringList filter;
+   if (xprun) {
+      filter << "*.xp.json"; // experience
+   }
+   else {
+      filter << "*.cs.json"; // classifier
+      filter << "*.sm.json"; // statemachine
+   }
+
+   // iterate files
+   QDirIterator filesit(pathlocal, filter, QDir::Files);
+   while (filesit.hasNext())
+   {
+      QString f = filesit.next();
+
+      // load file
+      QFile file(f);
+      if (!file.open(QFile::ReadOnly | QFile::Text)) {
+         QMessageBox::warning(this, "Error", "Failed to open file", QMessageBox::Ok);
+         continue;
+      }
+      QTextStream in(&file);
+      QByteArray arr(file.readAll());
+
+      // verify json
+      Json json;
+      if (!json.Parse(arr.constData())) {
+         QMessageBox::warning(this, "Error", "Failed to parse JSON", QMessageBox::Ok);
+         continue;
+      }
+
+      // get file extension and map to type
+      QFileInfo finf(f);
+      QString suff = finf.completeSuffix();
+      QString basename = finf.baseName();
+      QString type = 
+         suff == "cs.json" ? "CLASSIFIER" : 
+         suff == "sm.json" ? "STATEMACHINE" : 
+         suff == "xp.json" ? "EXPERIENCE" : "folder";
+
+      // remove file extension with .
+      f.chop(suff.length()+1);
+
+      // build path on cloud
+      f.remove(pathlocal);
+      f = pathcloud + '/' + f;
+      f.replace("//", "/");
+
+      // update existing file
+      if (auto* item = FindItemByPath(f, type))
+      {
+         //qDebug() << "updating: " << f << " (" << type << ")";
+         SelectionItem fileModel = CreateSelectionItem(item);
+         if (!fileModel.GetCreud().Update())
+            continue;
+
+         // try to load old uuid, store in map and replace with new
+         auto jsonuuid = json.GetRootItem().Find("uuid");
+         if (jsonuuid.IsString())
+         {
+            mLookup[jsonuuid.GetString()] = fileModel.GetUuid();
+            jsonuuid.SetString(fileModel.GetUuid());
+         }
+
+         // replace linked uuids for classifier and statemachine if known
+         if (type == "EXPERIENCE")
+         {
+            ReplaceUuid(json, "classifierUuid");
+            ReplaceUuid(json, "stateMachineUuid");
+         }
+
+         // serialize
+         Core::String jsonstr;
+         json.WriteToString(jsonstr, true);
+
+         // start update request
+         mPendingUploads++;
+         FilesUpdateRequest request(GetUser()->GetToken(), fileModel.GetUuid(), jsonstr.AsChar());
+         QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+         connect(reply, &QNetworkReply::finished, this, [reply, this, xprun]()
+         {
+            QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+            FilesUpdateResponse response(networkReply);
+            mPendingUploads--;
+            if (mPendingUploads == 0) {
+               if (xprun) this->Refresh();
+               else UploadFolder(mLocalUploadRoot, mCloudUploadRoot, true);
+            }
+            if (response.HasError())
+            {
+               QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
+               return;
+            }
+         });
+      }
+
+      // create new file
+      else if (auto* item = FindItemByPath(pathcloud, "folder"))
+      {
+         //qDebug() << "creating: " << f << " (" << type << ")";
+         SelectionItem folderModel = CreateSelectionItem(item);
+         if (!folderModel.GetCreud().Create())
+            continue;
+
+         // create empty file first
+         FilesCreateRequest request(
+            GetUser()->GetToken(),
+            basename.toLatin1().constData(),
+            folderModel.GetUuid(),
+            type.toLatin1().constData(),
+            "{}");
+
+         mPendingUploads++;
+         QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+         connect(reply, &QNetworkReply::finished, this, [reply, this, json, xprun, type]()
+         {
+            QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+            FilesCreateResponse response(networkReply);
+            mPendingUploads--;
+            
+            if (response.HasError())
+               return;
+
+            // try to load old uuid, store in map and replace with new
+            auto jsonitm = json.GetRootItem().Find("uuid");
+            if (!jsonitm.IsNull())
+            {
+               mLookup[jsonitm.GetString()] = response.mFileId;
+               jsonitm.SetString(response.mFileId);
+            }
+
+            Json json2(json);
+
+            // replace linked uuids for classifier and statemachine if known
+            if (type == "EXPERIENCE")
+            {
+               ReplaceUuid(json2, "classifierUuid");
+               ReplaceUuid(json2, "stateMachineUuid");
+            }
+
+            // serialize
+            Core::String jsonstr;
+            json2.WriteToString(jsonstr, true);
+
+            // update json content on backend
+            mPendingUploads++;
+            FilesUpdateRequest request(GetUser()->GetToken(), response.mFileId, jsonstr.AsChar());
+            QNetworkReply* reply = GetBackendInterface()->GetNetworkAccessManager()->ProcessRequest(request);
+            connect(reply, &QNetworkReply::finished, this, [reply, this, xprun]()
+            {
+               QNetworkReply* networkReply = qobject_cast<QNetworkReply*>(sender());
+               FilesUpdateResponse response(networkReply);
+               mPendingUploads--;
+               if (mPendingUploads == 0) {
+                  if (xprun) this->Refresh();
+                  else UploadFolder(mLocalUploadRoot, mCloudUploadRoot, true);
+               }
+               if (response.HasError())
+               {
+                  QMessageBox::warning(this, "Error", "Upload failed", QMessageBox::Ok);
+                  return;
+               }
+            });
+         });
+      }
+      else
+         assert(false);
+   }
+   //qDebug() << "Pending: " << std::to_string(mPendingUploads).c_str();
+}
 
 // called when the minus button got clicked
 void BackendFileSystemWidget::OnRemoveItem()

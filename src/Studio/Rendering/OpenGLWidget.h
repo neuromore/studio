@@ -53,7 +53,8 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 		bool PreRendering();
 		void PostRendering();
 		void Render(double border=2.0)								{ RenderSplitViews(1, CORE_INVALIDINDEX32, border); }
-		void RenderSplitViews(uint32 numAreas, uint32 numAreasInColumn=CORE_INVALIDINDEX32, double border=2.0);
+		// by default numAerasOnLIne is the number of areas vertically
+		void RenderSplitViews(uint32 numAreas, uint32 numAreasOnLine=CORE_INVALIDINDEX32, double border=2.0, bool horizontalView = false);
 
 		int GetHeight() const										{ return mHeight; }
 

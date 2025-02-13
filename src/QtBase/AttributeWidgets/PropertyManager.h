@@ -59,6 +59,8 @@ class QTBASE_API PropertyManager : public QObject
 		// manual property adding
 		Property* AddProperty(const char* groupName, const char* propertyName, AttributeWidget* attributeWidget, Core::Attribute* attributeValue, Core::AttributeSettings* settings, bool autoDelete=true, bool emitSignal=false);
 
+		Core::Array<Property*> GetProperties() const { return mProperties; }
+
 	signals:
 		void ValueChanged(Property* property);
 		void PropertyAdded(const char* groupName, Property* property);

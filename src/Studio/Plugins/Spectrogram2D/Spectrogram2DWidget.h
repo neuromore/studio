@@ -55,9 +55,12 @@ class Spectrogram2DWidget : public OpenGLWidget
 
 		void UpdateSpectrum(uint32 index, Spectrum* spectrum)							{ mSpectrums[index].mSpectrum = spectrum; }
 		void ReInit(const Core::Array<SpectrumElement>& spectrums)						{ mSpectrums = spectrums; }
+		uint32 GetNumberOfSpectrums()													{ return mSpectrums.Size(); }
 
 		bool GetMultiView() const						{ return mMultiView; }
 		void SetMultiView(bool multiView)				{ mMultiView = multiView; }
+		void SetHorizontalView(bool horizontalView)		{ mHorizontalView = horizontalView; }
+		bool GetHorizontalView() const { return mHorizontalView; }
 
 	private:
 		class RenderCallback : public OpenGLWidgetCallback
@@ -81,6 +84,7 @@ class Spectrogram2DWidget : public OpenGLWidget
 		Core::Array<SpectrumElement>		mSpectrums;
 		double								mLeftTextWidth;
 		bool								mMultiView;
+		bool								mHorizontalView = true;
 
 		QColor								mGridColor;
 		QColor								mSubGridColor;

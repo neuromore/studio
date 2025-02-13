@@ -85,6 +85,8 @@ class BackendFileSystemWidget : public QWidget
 				inline bool operator==(const SelectionItem& item) const						{ return ( (mName==item.mName) && (mPath==item.mPath) && (mType==item.mType) && (mUuid == item.mUuid) && (mCreud == item.mCreud) && (mRevision == item.mRevision)); }
 				inline bool IsValid() const													{ return ( (GetNameString().IsEmpty() == false && GetUuidString().IsEmpty() == false) ); }
 
+				inline Core::String GetExtension() const 									{ return GetTypeString() == "CLASSIFIER"   ? ".cs.json" : GetTypeString() == "STATEMACHINE" ? ".sm.json" : GetTypeString() == "EXPERIENCE"   ? ".xp.json" : ".json"; }
+
 				const Creud& GetCreud() const												{ return mCreud; }
 				bool IsFolder() const														{ return GetTypeString().IsEqual(FOLDER_TYPE) == true; }
 
@@ -153,7 +155,7 @@ class BackendFileSystemWidget : public QWidget
 		bool ExpandByPath(const QStringList& itemPath);
 
 	public slots:
-		void Refresh();
+		void Refresh(const QString& localfolder = "", const QString& cloudfolder = "", const bool xprun = false);
 		void OnCreateFile();
 		void OnCreateFolder();
 		void OnSearchFieldTextEdited(const QString & text);
@@ -165,7 +167,7 @@ class BackendFileSystemWidget : public QWidget
 		void OnCopyFileToPersonalFolder();
 		void OnContextMenuRetrieveItemRevision();
 
-		void OnLoadFromDiskAndSaveToCloud();
+		void OnUploadFromDisk();
 		void OnCopyJsonToClipboard();
 		void OnSaveToDisk();
 
@@ -235,6 +237,10 @@ class BackendFileSystemWidget : public QWidget
 		CollapseState* FindCollapsedState(const char* uuid);
 		bool IsItemCollapsed(const char* uuid);
 
+		void ReplaceUuid(Core::Json& json, const char* internalName);
+		QTreeWidgetItem* FindItemByPath(const QString& path, const QString& type);
+		void UploadFolder(const QString& pathlocal, const QString& pathcloud, const bool xprun);
+
 		Core::Array<SelectionItem>		mSelectedItems;
 		Core::Array<CollapseState>		mFolderCollapseStates;
 		
@@ -254,6 +260,10 @@ class BackendFileSystemWidget : public QWidget
 		ImageButton*					mRefreshButton;
 
 		SearchBoxWidget*				mSearchBox;
+		size_t						mPendingUploads;
+      std::map<std::string, std::string> mLookup;
+      QString mLocalUploadRoot;
+      QString mCloudUploadRoot;
 };
 
 

@@ -65,10 +65,16 @@ class Spectrogram2DPlugin : public Plugin
 		void SetMultiView(bool multiView)											{ if (mSpectrumWidget != NULL) mSpectrumWidget->SetMultiView(multiView); }
 		inline double GetAverageInterval()											{ return GetFloatAttributeByName("averageInterval"); }
 		void SetAverageInterval(double length);
+		void SetHorizontalView(bool horizontalView)									{ if (mSpectrumWidget != NULL) mSpectrumWidget->SetHorizontalView(horizontalView); }
+		inline bool GetHorizontalView() const										{ return GetBoolAttributeByName("horizontalView"); }
 		
 	private slots:
 		void OnChannelSelectionChanged();
 		void OnAttributeChanged(Property* property);
+
+	private:
+		void enableHorizontalViewCheckbox(bool enable);
+		void udpateSelectedChannels();
 	
 	private:
 		// selected channels
@@ -77,6 +83,7 @@ class Spectrogram2DPlugin : public Plugin
 		Core::Array<Spectrum>				mAverageSpectra;			// holds the current average (the display values)
 
 		ChannelMultiSelectionWidget*		mChannelSelectionWidget;
+		QWidget*							mHorizontalViewCheckBox = nullptr;
 		Spectrogram2DWidget*				mSpectrumWidget;
 		Core::Array<Spectrogram2DWidget::SpectrumElement> mSpectrumElements;
 

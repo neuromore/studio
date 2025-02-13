@@ -24,6 +24,8 @@
 // include precompiled header
 #include <Studio/Precompiled.h>
 #include <qsettings.h>
+#include <QDir>
+#include <QFileInfo>
 
 // include the required headers
 #include "AppManager.h"
@@ -80,7 +82,8 @@ AppManager::AppManager(int argc, char* argv[])
 
 	// create the log file callback
 	String logFilename = GetLogFilename();
-	CORE_LOGMANAGER.CreateLogFile( logFilename.AsChar() );
+	if (QDir().mkpath(QFileInfo(logFilename.AsChar()).absolutePath()))
+		CORE_LOGMANAGER.CreateLogFile( logFilename.AsChar() );
 
 	// log header
 	LogInfo();

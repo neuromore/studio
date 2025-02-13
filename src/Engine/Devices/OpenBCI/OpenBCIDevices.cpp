@@ -139,22 +139,22 @@ void OpenBCIDaisyDevice::CreateElectrodes()
 	mElectrodes.Clear();
 	mElectrodes.Reserve(NUMELECTRODESDAISY);
 
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P3"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("P4"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Oz"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Fz"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T5"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T6"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F3"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("F4"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T3"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("T4"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C3"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("C4"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Cz"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O1"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("O2"));
-	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("Pz"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("1"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("2"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("3"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("4"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("5"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("6"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("7"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("8"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("9"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("10"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("11"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("12"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("13"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("14"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("15"));
+	mElectrodes.Add(GetEEGElectrodes()->GetElectrodeByID("16"));
 }
 
 #endif

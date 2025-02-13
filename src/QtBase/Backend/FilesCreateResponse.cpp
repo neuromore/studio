@@ -17,7 +17,21 @@ using namespace Core;
 // constructor
 FilesCreateResponse::FilesCreateResponse(QNetworkReply* reply) : Response(reply)
 {
-	// check for errors
-	if (mHasError == true)
-		return;
+   // data
+   Json::Item dataItem = mJson.Find("data");
+   if (dataItem.IsNull() == true)
+   {
+      mHasError = true;
+      return;
+   }
+
+   // get the data chunk id
+   Json::Item fileIdItem = dataItem.Find("fileId");
+   if (fileIdItem.IsNull() == true)
+   {
+      mHasError = true;
+      return;
+   }
+
+   mFileId = fileIdItem.GetString();
 }

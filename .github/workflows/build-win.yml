@@ -107,7 +107,7 @@ jobs:
 
     # Upload Studio
     - name: Upload Studio
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Binaries (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
@@ -117,7 +117,7 @@ jobs:
 
     # Upload Engine
     - name: Upload Engine
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Engine (${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.branding }})
         path: |
@@ -219,7 +219,7 @@ jobs:
     
     # Upload MSI
     - name: Upload MSI
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Packages MSI (${{ matrix.os }}-${{ matrix.branding }})
         path: |
@@ -227,7 +227,7 @@ jobs:
 
     # Upload Packages
     - name: Upload App
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Packages App (${{ matrix.os }}-${{ matrix.branding }})
         path: |
