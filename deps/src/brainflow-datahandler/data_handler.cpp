@@ -1,4 +1,6 @@
+#include <algorithm>
 #include <math.h>
+#include <mutex>
 #include <sstream>
 #include <stdexcept>
 #include <stdint.h>
@@ -9,6 +11,8 @@
 #include <vector>
 
 #include "brainflow_constants.h"
+#include "brainflow_version.h"
+#include "common_data_handler_helpers.h"
 #include "data_handler.h"
 #include "downsample_operators.h"
 #include "rolling_filter.h"
@@ -22,9 +26,12 @@
 #include "wauxlib.h"
 #include "wavelib.h"
 
-#include "FFTReal.h"
+#include "kiss_fftr.h"
+
 #include "spdlog/sinks/null_sink.h"
 #include "spdlog/spdlog.h"
+
+#include "fastica.h"
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -41,9 +48,33 @@ std::shared_ptr<spdlog::logger> data_logger =
 std::shared_ptr<spdlog::logger> data_logger = spdlog::stderr_logger_mt (LOGGER_NAME);
 #endif
 
+// its only for logging methods, other methods can be executed simultaneously
+std::mutex data_mutex;
 
-int set_log_file (char *log_file)
+
+int log_message_data_handler (int log_level, char *log_message)
 {
+    // its a method for loggging from high level
+    std::lock_guard<std::mutex> lock (data_mutex);
+    if (log_level < 0)
+    {
+        data_logger->warn ("log level should be >= 0");
+        log_level = 0;
+    }
+    else if (log_level > 6)
+    {
+        data_logger->warn ("log level should be <= 6");
+        log_level = 6;
+    }
+
+    data_logger->log (spdlog::level::level_enum (log_level), "{}", log_message);
+
+    return (int)BrainFlowExitCodes::STATUS_OK;
+}
+
+int set_log_file_data_handler (const char *log_file)
+{
+    std::lock_guard<std::mutex> lock (data_mutex);
 #ifdef __ANDROID__
     data_logger->error ("For Android set_log_file is unavailable");
     return (int)BrainFlowExitCodes::GENERAL_ERROR;
@@ -67,8 +98,9 @@ int set_log_file (char *log_file)
 #endif
 }
 
-int set_log_level (int level)
+int set_log_level_data_handler (int level)
 {
+    std::lock_guard<std::mutex> lock (data_mutex);
     int log_level = level;
     if (level > 6)
     {
@@ -94,15 +126,18 @@ int set_log_level (int level)
 int perform_lowpass (double *data, int data_len, int sampling_rate, double cutoff, int order,
     int filter_type, double ripple)
 {
+    if ((order < 1) || (order > MAX_FILTER_ORDER) || (!data) || (cutoff < 0) || (sampling_rate < 1))
+    {
+        data_logger->error (
+            "Order must be from 1-8 and data cannot be empty. Order:{} , Data:{} , Cutoff:{}",
+            order, (data != NULL), cutoff);
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
     double *filter_data[1];
     filter_data[0] = data;
     Dsp::Filter *f = NULL;
-    if ((order < 1) || (order > MAX_FILTER_ORDER) || (!data))
-    {
-        data_logger->error ("Order must be from 1-8 and data cannot be empty. Order:{} , Data:{}",
-            order, (data != NULL));
-        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
-    }
+
     switch (static_cast<FilterTypes> (filter_type))
     {
         case FilterTypes::BUTTERWORTH:
@@ -137,16 +172,18 @@ int perform_lowpass (double *data, int data_len, int sampling_rate, double cutof
 int perform_highpass (double *data, int data_len, int sampling_rate, double cutoff, int order,
     int filter_type, double ripple)
 {
+    if ((order < 1) || (order > MAX_FILTER_ORDER) || (!data) || (cutoff < 0) || (sampling_rate < 1))
+    {
+        data_logger->error (
+            "Order must be from 1-8 and data cannot be empty. Order:{} , Data:{} , Cutoff:{}",
+            order, (data != NULL), cutoff);
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
     Dsp::Filter *f = NULL;
     double *filter_data[1];
     filter_data[0] = data;
 
-    if ((order < 1) || (order > MAX_FILTER_ORDER) || (!data))
-    {
-        data_logger->error ("Order must be from 1-8 and data cannot be empty. Order:{} , Data:{}",
-            order, (data != NULL));
-        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
-    }
     switch (static_cast<FilterTypes> (filter_type))
     {
         case FilterTypes::BUTTERWORTH:
@@ -177,19 +214,24 @@ int perform_highpass (double *data, int data_len, int sampling_rate, double cuto
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int perform_bandpass (double *data, int data_len, int sampling_rate, double center_freq,
-    double band_width, int order, int filter_type, double ripple)
+int perform_bandpass (double *data, int data_len, int sampling_rate, double start_freq,
+    double stop_freq, int order, int filter_type, double ripple)
 {
+    if ((order < 1) || (order > MAX_FILTER_ORDER) || (!data) || (stop_freq <= start_freq) ||
+        (start_freq < 0) || (sampling_rate < 1))
+    {
+        data_logger->error ("Order must be from 1-8 and data cannot be empty. Order:{} , Data:{} , "
+                            "Start Freq:{} , Stop Freq:{}",
+            order, (data != NULL), start_freq, stop_freq);
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    double center_freq = (start_freq + stop_freq) / 2.0;
+    double band_width = stop_freq - start_freq;
     Dsp::Filter *f = NULL;
     double *filter_data[1];
     filter_data[0] = data;
 
-    if ((order < 1) || (order > MAX_FILTER_ORDER) || (!data))
-    {
-        data_logger->error ("Order must be from 1-8 and data cannot be empty. Order:{} , Data:{}",
-            order, (data != NULL));
-        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
-    }
     switch (static_cast<FilterTypes> (filter_type))
     {
         case FilterTypes::BUTTERWORTH:
@@ -216,26 +258,30 @@ int perform_bandpass (double *data, int data_len, int sampling_rate, double cent
         params[4] = ripple; // ripple
     }
     f->setParams (params);
-
     f->process (data_len, filter_data);
     delete f;
 
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int perform_bandstop (double *data, int data_len, int sampling_rate, double center_freq,
-    double band_width, int order, int filter_type, double ripple)
+int perform_bandstop (double *data, int data_len, int sampling_rate, double start_freq,
+    double stop_freq, int order, int filter_type, double ripple)
 {
+    if ((order < 1) || (order > MAX_FILTER_ORDER) || (!data) || (stop_freq <= start_freq) ||
+        (start_freq < 0) || (sampling_rate < 1))
+    {
+        data_logger->error ("Order must be from 1-8 and data cannot be empty. Order:{} , Data:{} , "
+                            "Start Freq:{} , Stop Freq:{}",
+            order, (data != NULL), start_freq, stop_freq);
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    double center_freq = (start_freq + stop_freq) / 2.0;
+    double band_width = stop_freq - start_freq;
     Dsp::Filter *f = NULL;
     double *filter_data[1];
     filter_data[0] = data;
 
-    if ((order < 1) || (order > MAX_FILTER_ORDER) || (!data))
-    {
-        data_logger->error ("Order must be from 1-8 and data cannot be empty. Order:{} , Data:{}",
-            order, (data != NULL));
-        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
-    }
     switch (static_cast<FilterTypes> (filter_type))
     {
         case FilterTypes::BUTTERWORTH:
@@ -266,6 +312,42 @@ int perform_bandstop (double *data, int data_len, int sampling_rate, double cent
     delete f;
 
     return (int)BrainFlowExitCodes::STATUS_OK;
+}
+
+int remove_environmental_noise (double *data, int data_len, int sampling_rate, int noise_type)
+{
+    if ((data_len < 1) || (sampling_rate < 1) || (!data))
+    {
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    int res = (int)BrainFlowExitCodes::STATUS_OK;
+
+    switch (static_cast<NoiseTypes> (noise_type))
+    {
+        case NoiseTypes::FIFTY:
+            res = perform_bandstop (
+                data, data_len, sampling_rate, 48.0, 52.0, 4, (int)FilterTypes::BUTTERWORTH, 0.0);
+            break;
+        case NoiseTypes::SIXTY:
+            res = perform_bandstop (
+                data, data_len, sampling_rate, 58.0, 62.0, 4, (int)FilterTypes::BUTTERWORTH, 0.0);
+            break;
+        case NoiseTypes::FIFTY_AND_SIXTY:
+            res = perform_bandstop (
+                data, data_len, sampling_rate, 48.0, 52.0, 4, (int)FilterTypes::BUTTERWORTH, 0.0);
+            if (res == (int)BrainFlowExitCodes::STATUS_OK)
+            {
+                res = perform_bandstop (data, data_len, sampling_rate, 58.0, 62.0, 4,
+                    (int)FilterTypes::BUTTERWORTH, 0.0);
+            }
+            break;
+        default:
+            data_logger->error ("Invalid noise type");
+            return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    return res;
 }
 
 int perform_rolling_filter (double *data, int data_len, int period, int agg_operation)
@@ -335,16 +417,15 @@ int perform_downsampling (
 }
 
 // https://github.com/rafat/wavelib/wiki/DWT-Example-Code
-int perform_wavelet_transform (double *data, int data_len, char *wavelet, int decomposition_level,
-    double *output_data, int *decomposition_lengths)
+int perform_wavelet_transform (double *data, int data_len, int wavelet, int decomposition_level,
+    int extension, double *output_data, int *decomposition_lengths)
 {
-    if ((data == NULL) || (data_len <= 0) || (wavelet == NULL) || (output_data == NULL) ||
-        (!validate_wavelet (wavelet)) || (decomposition_lengths == NULL) ||
-        (decomposition_level <= 0))
+    std::string wavelet_str = get_wavelet_name (wavelet);
+    std::string extension_str = get_extension_type (extension);
+    if ((data == NULL) || (data_len <= 0) || (wavelet_str.empty ()) || (output_data == NULL) ||
+        (extension_str.empty ()) || (decomposition_lengths == NULL) || (decomposition_level <= 0))
     {
-        data_logger->error (
-            "Please review arguments. Data/Output must  not be empty,and must provide a valid "
-            "wavelet with decomposition arguments. Decomposition level must be > 0.");
+        data_logger->error ("Please review arguments.");
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
 
@@ -353,9 +434,9 @@ int perform_wavelet_transform (double *data, int data_len, char *wavelet, int de
 
     try
     {
-        obj = wave_init (wavelet);
+        obj = wave_init (wavelet_str.c_str ());
         wt = wt_init (obj, "dwt", data_len, decomposition_level);
-        setDWTExtension (wt, "sym");
+        setDWTExtension (wt, extension_str.c_str ());
         setWTConv (wt, "direct");
         dwt (wt, data);
         for (int i = 0; i < wt->outlength; i++)
@@ -367,21 +448,25 @@ int perform_wavelet_transform (double *data, int data_len, char *wavelet, int de
             decomposition_lengths[i] = wt->length[i];
         }
         wave_free (obj);
+        obj = NULL;
         wt_free (wt);
+        wt = NULL;
     }
-    catch (...)
+    catch (const std::exception &e)
     {
         if (obj)
         {
             wave_free (obj);
+            obj = NULL;
         }
         if (wt)
         {
             wt_free (wt);
+            wt = NULL;
         }
         // more likely exception here occured because input buffer is to small to perform wavelet
         // transform
-        data_logger->error ("Input buffer size issue(likely too small.");
+        data_logger->error ("Exception in wavelib: {}", e.what ());
         return (int)BrainFlowExitCodes::INVALID_BUFFER_SIZE_ERROR;
     }
     return (int)BrainFlowExitCodes::STATUS_OK;
@@ -389,27 +474,27 @@ int perform_wavelet_transform (double *data, int data_len, char *wavelet, int de
 
 // inside wavelib inverse transform uses internal state from direct transform, dirty hack to restore
 // it here
-int perform_inverse_wavelet_transform (double *wavelet_coeffs, int original_data_len, char *wavelet,
-    int decomposition_level, int *decomposition_lengths, double *output_data)
+int perform_inverse_wavelet_transform (double *wavelet_coeffs, int original_data_len, int wavelet,
+    int decomposition_level, int extension, int *decomposition_lengths, double *output_data)
 {
+    std::string wavelet_str = get_wavelet_name (wavelet);
+    std::string extension_str = get_extension_type (extension);
     if ((wavelet_coeffs == NULL) || (decomposition_level <= 0) || (original_data_len <= 0) ||
-        (wavelet == NULL) || (output_data == NULL) || (!validate_wavelet (wavelet)) ||
+        (output_data == NULL) || (wavelet_str.empty ()) || (extension_str.empty ()) ||
         (decomposition_lengths == NULL))
     {
-        data_logger->error (
-            "Please review arguments. Data/Output must  not be empty,and must provide a valid "
-            "wavelet with decomposition arguments. Decomposition level must be > 0.");
+        data_logger->error ("Please review arguments.");
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
 
-    wave_object obj;
-    wt_object wt;
+    wave_object obj = NULL;
+    wt_object wt = NULL;
 
     try
     {
-        obj = wave_init (wavelet);
+        obj = wave_init (wavelet_str.c_str ());
         wt = wt_init (obj, "dwt", original_data_len, decomposition_level);
-        setDWTExtension (wt, "sym");
+        setDWTExtension (wt, extension_str.c_str ());
         setWTConv (wt, "direct");
         int total_len = 0;
         for (int i = 0; i < decomposition_level + 1; i++)
@@ -423,19 +508,23 @@ int perform_inverse_wavelet_transform (double *wavelet_coeffs, int original_data
         }
         idwt (wt, output_data);
         wave_free (obj);
+        obj = NULL;
         wt_free (wt);
+        wt = NULL;
     }
-    catch (...)
+    catch (const std::exception &e)
     {
         if (obj)
         {
             wave_free (obj);
+            obj = NULL;
         }
         if (wt)
         {
             wt_free (wt);
+            wt = NULL;
         }
-        data_logger->error ("Input buffer size issue(likely too small.");
+        data_logger->error ("Exception in wavelib: {}", e.what ());
         // more likely exception here occured because input buffer is to small to perform wavelet
         // transform
         return (int)BrainFlowExitCodes::INVALID_BUFFER_SIZE_ERROR;
@@ -443,25 +532,31 @@ int perform_inverse_wavelet_transform (double *wavelet_coeffs, int original_data
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int perform_wavelet_denoising (double *data, int data_len, char *wavelet, int decomposition_level)
+int perform_wavelet_denoising (double *data, int data_len, int wavelet, int decomposition_level,
+    int wavelet_denoising, int threshold, int extenstion_type, int noise_level)
 {
-    if ((data == NULL) || (data_len <= 0) || (decomposition_level <= 0) ||
-        (!validate_wavelet (wavelet)))
+    std::string wavelet_str = get_wavelet_name (wavelet);
+    std::string denoising_str = get_wavelet_denoising_type (wavelet_denoising);
+    std::string threshold_str = get_threshold_type (threshold);
+    std::string extension_str = get_extension_type (extenstion_type);
+    std::string noise_str = get_noise_estimation_type (noise_level);
+    if ((data == NULL) || (data_len <= 0) || (decomposition_level <= 0) || (wavelet_str.empty ()) ||
+        (denoising_str.empty ()) || (threshold_str.empty ()) || (extension_str.empty ()) ||
+        (noise_str.empty ()))
     {
-        data_logger->error ("Please review arguments. Data must  not be empty,and must provide a "
-                            "valid wavelet with decomposition arguments.");
+        data_logger->error ("Please review arguments.");
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
 
-    denoise_object obj;
+    denoise_object obj = NULL;
     double *temp = new double[data_len];
     try
     {
-        obj = denoise_init (data_len, decomposition_level, wavelet);
-        setDenoiseMethod (obj, "visushrink");
+        obj = denoise_init (data_len, decomposition_level, wavelet_str.c_str ());
+        setDenoiseMethod (obj, denoising_str.c_str ());
         setDenoiseWTMethod (obj, "dwt");
-        setDenoiseWTExtension (obj, "sym");
-        setDenoiseParameters (obj, "soft", "all");
+        setDenoiseWTExtension (obj, extension_str.c_str ());
+        setDenoiseParameters (obj, threshold_str.c_str (), noise_str.c_str ());
         denoise (obj, data, temp);
         for (int i = 0; i < data_len; i++)
         {
@@ -470,26 +565,29 @@ int perform_wavelet_denoising (double *data, int data_len, char *wavelet, int de
         delete[] temp;
         temp = NULL;
         denoise_free (obj);
+        obj = NULL;
     }
-    catch (...)
+    catch (const std::exception &e)
     {
         if (temp)
         {
             delete[] temp;
+            temp = NULL;
         }
         if (obj)
         {
             denoise_free (obj);
+            obj = NULL;
         }
         // more likely exception here occured because input buffer is to small to perform wavelet
         // transform
-        data_logger->error ("Input buffer size issue(likely too small.");
+        data_logger->error ("Exception in wavelib: {}", e.what ());
         return (int)BrainFlowExitCodes::INVALID_BUFFER_SIZE_ERROR;
     }
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int get_csp (double *data, double *labels, int n_epochs, int n_channels, int n_times,
+int get_csp (const double *data, const double *labels, int n_epochs, int n_channels, int n_times,
     double *output_w, double *output_d)
 {
     if ((!data) || (!labels) || n_epochs <= 0 || n_channels <= 0 || n_times <= 0)
@@ -586,18 +684,18 @@ int get_window (int window_function, int window_len, double *output_window)
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
     // from https://www.edn.com/windowing-functions-improve-fft-results-part-i/
-    switch (static_cast<WindowFunctions> (window_function))
+    switch (static_cast<WindowOperations> (window_function))
     {
-        case WindowFunctions::NO_WINDOW:
+        case WindowOperations::NO_WINDOW:
             no_window_function (window_len, output_window);
             break;
-        case WindowFunctions::HAMMING:
+        case WindowOperations::HAMMING:
             hamming_function (window_len, output_window);
             break;
-        case WindowFunctions::HANNING:
+        case WindowOperations::HANNING:
             hanning_function (window_len, output_window);
             break;
-        case WindowFunctions::BLACKMAN_HARRIS:
+        case WindowOperations::BLACKMAN_HARRIS:
             blackman_harris_function (window_len, output_window);
             break;
         default:
@@ -607,38 +705,13 @@ int get_window (int window_function, int window_len, double *output_window)
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-/*
-   FFTReal output | Positive FFT equiv.   | Negative FFT equiv.
-   ---------------+-----------------------+-----------------------
-   f [0]          | Real (bin 0)          | Real (bin 0)
-   f [...]        | Real (bin ...)        | Real (bin ...)
-   f [length/2]   | Real (bin length/2)   | Real (bin length/2)
-   f [length/2+1] | Imag (bin 1)          | -Imag (bin 1)
-   f [...]        | Imag (bin ...)        | -Imag (bin ...)
-   f [length-1]   | Imag (bin length/2-1) | -Imag (bin length/2-1)
-
-And FFT bins are distributed in f [] as above:
-
-               |                | Positive FFT    | Negative FFT
-   Bin         | Real part      | imaginary part  | imaginary part
-   ------------+----------------+-----------------+---------------
-   0           | f [0]          | 0               | 0
-   1           | f [1]          | f [length/2+1]  | -f [length/2+1]
-   ...         | f [...],       | f [...]         | -f [...]
-   length/2-1  | f [length/2-1] | f [length-1]    | -f [length-1]
-   length/2    | f [length/2]   | 0               | 0
-   length/2+1  | f [length/2-1] | -f [length-1]   | f [length-1]
-   ...         | f [...]        | -f [...]        | f [...]
-   length-1    | f [1]          | -f [length/2+1] | f [length/2+1]
-*/
 int perform_fft (
     double *data, int data_len, int window_function, double *output_re, double *output_im)
 {
-    // must be power of 2
-    if ((!data) || (!output_re) || (!output_im) || (data_len <= 0) || (data_len & (data_len - 1)))
+    if ((!data) || (!output_re) || (!output_im) || (data_len <= 0) || (data_len % 2 == 1))
     {
-        data_logger->error ("Please check to make sure all arguments aren't empty and data_len is "
-                            "a postive power of 2.");
+        data_logger->error (
+            "Please check to make sure all arguments aren't empty and data_len is even.");
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
 
@@ -648,36 +721,36 @@ int perform_fft (
     {
         windowed_data[i] *= data[i];
     }
-    double *temp = new double[data_len];
+    kiss_fft_cpx *sout = new kiss_fft_cpx[data_len];
+    kiss_fftr_cfg cfg = NULL;
     try
     {
-        ffft::FFTReal<double> fft_object (data_len);
-        fft_object.do_fft (temp, windowed_data);
+        cfg = kiss_fftr_alloc (data_len, 0, 0, 0);
+        kiss_fftr (cfg, windowed_data, sout);
         for (int i = 0; i < data_len / 2 + 1; i++)
         {
-            output_re[i] = temp[i];
+            output_re[i] = sout[i].r;
+            output_im[i] = sout[i].i;
         }
-        output_im[0] = 0.0;
-        for (int count = 1, j = data_len / 2 + 1; j < data_len; j++, count++)
-        {
-            // add minus to make output exactly as in scipy
-            output_im[count] = -temp[j];
-        }
-        output_im[data_len / 2] = 0.0;
-        delete[] temp;
+        delete[] sout;
         delete[] windowed_data;
         windowed_data = NULL;
-        temp = NULL;
+        sout = NULL;
+        kiss_fftr_free (cfg);
     }
     catch (...)
     {
-        if (temp)
+        if (sout)
         {
-            delete[] temp;
+            delete[] sout;
         }
         if (windowed_data)
         {
             delete[] windowed_data;
+        }
+        if (cfg)
+        {
+            kiss_fftr_free (cfg);
         }
         data_logger->error ("Error with doing FFT processing.");
         return (int)BrainFlowExitCodes::GENERAL_ERROR;
@@ -688,37 +761,47 @@ int perform_fft (
 // data_len here is an original size, not len of input_re input_im
 int perform_ifft (double *input_re, double *input_im, int data_len, double *restored_data)
 {
-    // must be power of 2
-    if ((!restored_data) || (!input_re) || (!input_im) || (data_len <= 0) ||
-        (data_len & (data_len - 1)))
+    if ((!restored_data) || (!input_re) || (!input_im) || (data_len <= 0) || (data_len % 2 == 1))
     {
-        data_logger->error ("Please check to make sure all arguments aren't empty and data_len is "
-                            "a postive power of 2.");
+        data_logger->error (
+            "Please check to make sure all arguments aren't empty and data_len is even.");
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
     double *temp = new double[data_len];
+    kiss_fft_cpx *cin = new kiss_fft_cpx[data_len];
+    for (int i = 0; i < data_len / 2 + 1; i++)
+    {
+        cin[i].r = input_re[i];
+        cin[i].i = input_im[i];
+    }
+    kiss_fftr_cfg cfg = NULL;
     try
     {
-        ffft::FFTReal<double> fft_object (data_len);
-        for (int i = 0; i < data_len / 2 + 1; i++)
+        cfg = kiss_fftr_alloc (data_len, 1, 0, 0);
+        kiss_fftri (cfg, cin, temp);
+        for (int i = 0; i < data_len; i++)
         {
-            temp[i] = input_re[i];
+            restored_data[i] = temp[i] / data_len;
         }
-        for (int count = 1, j = data_len / 2 + 1; j < data_len; j++, count++)
-        {
-            // add minus to make output exactly as in scipy
-            temp[j] = -input_im[count];
-        }
-        fft_object.do_ifft (temp, restored_data);
-        fft_object.rescale (restored_data);
+        delete[] cin;
+        cin = NULL;
         delete[] temp;
         temp = NULL;
+        kiss_fftr_free (cfg);
     }
     catch (...)
     {
         if (temp)
         {
             delete[] temp;
+        }
+        if (cin)
+        {
+            delete[] cin;
+        }
+        if (cfg)
+        {
+            kiss_fftr_free (cfg);
         }
         data_logger->error ("Error with doing inverse FFT.");
         return (int)BrainFlowExitCodes::GENERAL_ERROR;
@@ -729,11 +812,11 @@ int perform_ifft (double *input_re, double *input_im, int data_len, double *rest
 int get_psd (double *data, int data_len, int sampling_rate, int window_function,
     double *output_ampl, double *output_freq)
 {
-    if ((data == NULL) || (sampling_rate < 1) || (data_len < 1) || (data_len & (data_len - 1)) ||
+    if ((data == NULL) || (sampling_rate < 1) || (data_len < 1) || (data_len % 2 == 1) ||
         (output_ampl == NULL) || (output_freq == NULL))
     {
         data_logger->error ("Please check to make sure all arguments aren't empty, sampling rate "
-                            "is >=1 and data_len is a postive power of 2.");
+                            "is >=1 and data_len is even.");
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
     double *re = new double[data_len / 2 + 1];
@@ -821,7 +904,8 @@ int get_nearest_power_of_two (int value, int *output)
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int write_file (double *data, int num_rows, int num_cols, char *file_name, char *file_mode)
+int write_file (
+    const double *data, int num_rows, int num_cols, const char *file_name, const char *file_mode)
 {
     if ((strcmp (file_mode, "w") != 0) && (strcmp (file_mode, "w+") != 0) &&
         (strcmp (file_mode, "a") != 0) && (strcmp (file_mode, "a+") != 0))
@@ -844,7 +928,7 @@ int write_file (double *data, int num_rows, int num_cols, char *file_name, char 
     {
         for (int j = 0; j < num_rows - 1; j++)
         {
-            fprintf (fp, "%lf,", data[j * num_cols + i]);
+            fprintf (fp, "%lf\t", data[j * num_cols + i]);
         }
         fprintf (fp, "%lf\n", data[(num_rows - 1) * num_cols + i]);
     }
@@ -852,7 +936,7 @@ int write_file (double *data, int num_rows, int num_cols, char *file_name, char 
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int read_file (double *data, int *num_rows, int *num_cols, char *file_name, int num_elements)
+int read_file (double *data, int *num_rows, int *num_cols, const char *file_name, int num_elements)
 {
     if (num_elements <= 0)
     {
@@ -868,7 +952,7 @@ int read_file (double *data, int *num_rows, int *num_cols, char *file_name, int 
     }
 
     char buf[4096];
-    // rows and cols in csv file, in data array its transposed!
+    // rows and cols in tsv file, in data array its transposed!
     int total_rows = 0;
     int total_cols = 0;
 
@@ -887,19 +971,41 @@ int read_file (double *data, int *num_rows, int *num_cols, char *file_name, int 
     int cur_pos = 0;
     while (fgets (buf, sizeof (buf), fp) != NULL)
     {
-        std::string csv_string (buf);
-        std::stringstream ss (csv_string);
+        std::string tsv_string (buf);
+        std::stringstream ss (tsv_string);
         std::vector<std::string> splitted;
         std::string tmp;
-        while (getline (ss, tmp, ','))
+        char sep = '\t';
+        if (tsv_string.find ('\t') == std::string::npos)
         {
-            splitted.push_back (tmp);
+            sep = ',';
+        }
+        while (std::getline (ss, tmp, sep))
+        {
+            if (tmp != "\n")
+            {
+                splitted.push_back (tmp);
+            }
+        }
+        if ((total_cols != 0) && (total_cols != (int)splitted.size ()))
+        {
+            data_logger->error ("some rows have more cols than others, invalid input file");
+            fclose (fp);
+            return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
         }
         total_cols = (int)splitted.size ();
         for (int i = 0; i < total_cols; i++)
         {
-            data[i * total_rows + current_row] = std::stod (splitted[i]);
-            cur_pos++;
+            try
+            {
+                data[i * total_rows + current_row] = std::stod (splitted[i]);
+            }
+            catch (const std::invalid_argument &)
+            {
+                fclose (fp);
+                data_logger->error ("found not a number in data file");
+                return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+            }
             if (cur_pos == (num_elements - 1))
             {
                 *num_cols = current_row + 1;
@@ -907,6 +1013,7 @@ int read_file (double *data, int *num_rows, int *num_cols, char *file_name, int 
                 fclose (fp);
                 return (int)BrainFlowExitCodes::STATUS_OK;
             }
+            cur_pos++;
         }
         current_row++;
     }
@@ -917,7 +1024,29 @@ int read_file (double *data, int *num_rows, int *num_cols, char *file_name, int 
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int get_num_elements_in_file (char *file_name, int *num_elements)
+int calc_stddev (double *data, int start_pos, int end_pos, double *output)
+{
+    if ((data == NULL) || (output == NULL) || (end_pos - start_pos < 2))
+    {
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+    double mean = 0;
+    for (int i = start_pos; i < end_pos; i++)
+    {
+        mean += data[i];
+    }
+    mean /= (end_pos - start_pos);
+    double stddev = 0;
+    for (int i = start_pos; i < end_pos; i++)
+    {
+        stddev += (data[i] - mean) * (data[i] - mean);
+    }
+    stddev /= (end_pos - start_pos);
+    *output = sqrt (stddev);
+    return (int)BrainFlowExitCodes::STATUS_OK;
+}
+
+int get_num_elements_in_file (const char *file_name, int *num_elements)
 {
     FILE *fp;
     fp = fopen (file_name, "r");
@@ -950,13 +1079,21 @@ int get_num_elements_in_file (char *file_name, int *num_elements)
     fseek (fp, 0, SEEK_SET);
     while (fgets (buf, sizeof (buf), fp) != NULL)
     {
-        std::string csv_string (buf);
-        std::stringstream ss (csv_string);
+        std::string tsv_string (buf);
+        std::stringstream ss (tsv_string);
         std::vector<std::string> splitted;
         std::string tmp;
-        while (getline (ss, tmp, ','))
+        char sep = '\t';
+        if (tsv_string.find ('\t') == std::string::npos)
         {
-            splitted.push_back (tmp);
+            sep = ',';
+        }
+        while (std::getline (ss, tmp, sep))
+        {
+            if (tmp != "\n")
+            {
+                splitted.push_back (tmp);
+            }
         }
         *num_elements = (int)splitted.size () * total_rows;
         fclose (fp);
@@ -976,7 +1113,7 @@ int detrend (double *data, int data_len, int detrend_operation)
             "Incorrect Data arguments. Data must not be empty and data_len must be >=1");
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
-    if (detrend_operation == (int)DetrendOperations::NONE)
+    if (detrend_operation == (int)DetrendOperations::NO_DETREND)
     {
         return (int)BrainFlowExitCodes::STATUS_OK;
     }
@@ -1069,11 +1206,13 @@ int get_psd_welch (double *data, int data_len, int nfft, int overlap, int sampli
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int get_avg_band_powers (double *raw_data, int rows, int cols, int sampling_rate, int apply_filters,
+int get_custom_band_powers (double *raw_data, int rows, int cols, double *start_freqs,
+    double *stop_freqs, int num_bands, int sampling_rate, int apply_filters,
     double *avg_band_powers, double *stddev_band_powers)
 {
     if ((sampling_rate < 1) || (raw_data == NULL) || (rows < 1) || (cols < 1) ||
-        (avg_band_powers == NULL) || (stddev_band_powers == NULL))
+        (avg_band_powers == NULL) || (stddev_band_powers == NULL) || (start_freqs == NULL) ||
+        (stop_freqs == NULL) || (num_bands < 1))
     {
         data_logger->error ("Please review your arguments.");
         return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
@@ -1100,8 +1239,8 @@ int get_avg_band_powers (double *raw_data, int rows, int cols, int sampling_rate
         delete[] exit_codes;
         return (int)BrainFlowExitCodes::INVALID_BUFFER_SIZE_ERROR;
     }
-    double **bands = new double *[5];
-    for (int i = 0; i < 5; i++)
+    double **bands = new double *[num_bands];
+    for (int i = 0; i < num_bands; i++)
     {
         bands[i] = new double[rows];
         // to make valgrind happy
@@ -1121,46 +1260,34 @@ int get_avg_band_powers (double *raw_data, int rows, int cols, int sampling_rate
 
         if (apply_filters)
         {
-            exit_codes[i] = detrend (thread_data, cols, (int)DetrendOperations::LINEAR);
+            exit_codes[i] = detrend (thread_data, cols, (int)DetrendOperations::CONSTANT);
             if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
             {
-                exit_codes[i] = perform_bandstop (thread_data, cols, sampling_rate, 50.0, 4.0, 4,
+                exit_codes[i] = perform_bandstop (thread_data, cols, sampling_rate, 48.0, 52.0, 4,
                     (int)FilterTypes::BUTTERWORTH, 0.0);
             }
             if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
             {
-                exit_codes[i] = perform_bandstop (thread_data, cols, sampling_rate, 60.0, 4.0, 4,
+                exit_codes[i] = perform_bandstop (thread_data, cols, sampling_rate, 58.0, 62.0, 4,
                     (int)FilterTypes::BUTTERWORTH, 0.0);
             }
             if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
             {
-                exit_codes[i] = perform_bandpass (thread_data, cols, sampling_rate, 24.0, 47.0, 4,
+                exit_codes[i] = perform_bandpass (thread_data, cols, sampling_rate, 2.0, 45.0, 4,
                     (int)FilterTypes::BUTTERWORTH, 0.0);
             }
         }
 
         // use 80% overlap, as long as it works fast overlap param can be big
         exit_codes[i] = get_psd_welch (thread_data, cols, nfft, 4 * nfft / 5, sampling_rate,
-            (int)WindowFunctions::HANNING, ampls, freqs);
-        if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
+            (int)WindowOperations::HANNING, ampls, freqs);
+        for (int band_num = 0; band_num < num_bands; band_num++)
         {
-            exit_codes[i] = get_band_power (ampls, freqs, nfft / 2 + 1, 1.5, 4.0, &bands[0][i]);
-        }
-        if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
-        {
-            exit_codes[i] = get_band_power (ampls, freqs, nfft / 2 + 1, 4.0, 8.0, &bands[1][i]);
-        }
-        if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
-        {
-            exit_codes[i] = get_band_power (ampls, freqs, nfft / 2 + 1, 7.5, 13.0, &bands[2][i]);
-        }
-        if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
-        {
-            exit_codes[i] = get_band_power (ampls, freqs, nfft / 2 + 1, 13.0, 30.0, &bands[3][i]);
-        }
-        if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
-        {
-            exit_codes[i] = get_band_power (ampls, freqs, nfft / 2 + 1, 30.0, 45.0, &bands[4][i]);
+            if (exit_codes[i] == (int)BrainFlowExitCodes::STATUS_OK)
+            {
+                exit_codes[i] = get_band_power (ampls, freqs, nfft / 2 + 1, start_freqs[band_num],
+                    stop_freqs[band_num], &bands[band_num][i]);
+            }
         }
 
         delete[] ampls;
@@ -1174,7 +1301,7 @@ int get_avg_band_powers (double *raw_data, int rows, int cols, int sampling_rate
         {
             int ec = exit_codes[i];
             delete[] exit_codes;
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < num_bands; j++)
             {
                 delete[] bands[j];
             }
@@ -1184,9 +1311,11 @@ int get_avg_band_powers (double *raw_data, int rows, int cols, int sampling_rate
     }
 
     // find average and stddev
-    double avg_bands[5] = {0.0, 0.0, 0.0, 0.0, 0.0};
-    double std_bands[5] = {0.0, 0.0, 0.0, 0.0, 0.0};
-    for (int i = 0; i < 5; i++)
+    double *avg_bands = new double[num_bands];
+    double *std_bands = new double[num_bands];
+    memset (avg_bands, 0, sizeof (double) * num_bands);
+    memset (std_bands, 0, sizeof (double) * num_bands);
+    for (int i = 0; i < num_bands; i++)
     {
         for (int j = 0; j < rows; j++)
         {
@@ -1202,11 +1331,11 @@ int get_avg_band_powers (double *raw_data, int rows, int cols, int sampling_rate
     }
     // use relative band powers
     double sum = 0.0;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < num_bands; i++)
     {
         sum += avg_bands[i];
     }
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < num_bands; i++)
     {
         avg_band_powers[i] = avg_bands[i] / sum;
         // use relative stddev to 'normalize'(doesnt ensure range between 0 and 1) it and keep
@@ -1216,11 +1345,307 @@ int get_avg_band_powers (double *raw_data, int rows, int cols, int sampling_rate
     }
 
     delete[] exit_codes;
-    for (int j = 0; j < 5; j++)
+    for (int j = 0; j < num_bands; j++)
     {
         delete[] bands[j];
     }
     delete[] bands;
+    delete[] avg_bands;
+    delete[] std_bands;
 
+    return (int)BrainFlowExitCodes::STATUS_OK;
+}
+
+int get_railed_percentage (double *raw_data, int data_len, int gain, double *output)
+{
+    if ((raw_data == NULL) || (data_len < 1) || (gain < 1) || (output == NULL))
+    {
+        data_logger->error ("Please review your arguments.");
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    double scaler = (4.5 / (pow (2, 23) - 1) / gain * 1000000.);
+    double max_val = scaler * pow (2, 23);
+    int cur_max = abs (raw_data[0]);
+    bool is_straight_line = true;
+    for (int i = 1; i < data_len; i++)
+    {
+        if (abs (raw_data[i]) > cur_max)
+        {
+            cur_max = abs (raw_data[i]);
+        }
+        if (((abs (raw_data[i - 1]) - raw_data[i]) > 0.00001) && (abs (raw_data[i]) > 0.00001))
+        {
+            is_straight_line = false;
+        }
+    }
+
+    if (is_straight_line)
+    {
+        *output = 100.0;
+    }
+    else
+    {
+        *output = (cur_max / max_val) * 100;
+    }
+
+    return (int)BrainFlowExitCodes::STATUS_OK;
+}
+
+int get_oxygen_level (double *ppg_ir, double *ppg_red, int data_size, int sampling_rate,
+    double callib_coef1, double callib_coef2, double callib_coef3, double *oxygen_level)
+{
+    if ((ppg_red == NULL) || (ppg_ir == NULL) || (data_size < 40) || (sampling_rate < 1) ||
+        (oxygen_level == NULL))
+    {
+        data_logger->error ("invalid inputs for get_oxygen_level, ir {}, red {}, size {}, sampling "
+                            "{}, output {}, min size is 40",
+            (ppg_ir != NULL), (ppg_red != NULL), data_size, sampling_rate, (oxygen_level != NULL));
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    int res = (int)BrainFlowExitCodes::STATUS_OK;
+
+    double *red_raw = new double[data_size];
+    double *ir_raw = new double[data_size];
+    int filter_shift = 25; // to get rif of filtereing artifact, dont use first elements
+    int new_size = data_size - filter_shift;
+    double *new_red_raw = red_raw + filter_shift;
+    double *new_ir_raw = ir_raw + filter_shift;
+    memcpy (red_raw, ppg_red, data_size * sizeof (double));
+    memcpy (ir_raw, ppg_ir, data_size * sizeof (double));
+
+    // need prefiltered mean of red and ir for dc
+    double mean_red = mean (new_red_raw, new_size);
+    double mean_ir = mean (new_ir_raw, new_size);
+
+    // filtering(full size)
+    res = detrend (red_raw, data_size, (int)DetrendOperations::CONSTANT);
+    if (res == (int)BrainFlowExitCodes::STATUS_OK)
+    {
+        res = detrend (ir_raw, data_size, (int)DetrendOperations::CONSTANT);
+    }
+    if (res == (int)BrainFlowExitCodes::STATUS_OK)
+    {
+        res = perform_bandpass (
+            red_raw, data_size, sampling_rate, 0.7, 1.5, 4, (int)FilterTypes::BUTTERWORTH, 0.0);
+    }
+    if (res == (int)BrainFlowExitCodes::STATUS_OK)
+    {
+        res = perform_bandpass (
+            ir_raw, data_size, sampling_rate, 0.7, 1.5, 4, (int)FilterTypes::BUTTERWORTH, 0.0);
+    }
+
+    if (res == (int)BrainFlowExitCodes::STATUS_OK)
+    {
+        // calculate AC & DC components using mean & rms:
+        double redac = rms (new_red_raw, new_size);
+        double irac = rms (new_ir_raw, new_size);
+        double reddc = mean_red;
+        double irdc = mean_ir;
+
+        // https://www.maximintegrated.com/en/design/technical-documents/app-notes/6/6845.html
+        double r = (redac / reddc) / (irac / irdc);
+        data_logger->trace ("r is: {}", r);
+        double spo2 = callib_coef1 * r * r + callib_coef2 * r + callib_coef3;
+        if (spo2 > 100.0)
+        {
+            spo2 = 100.0;
+        }
+        if (spo2 < 0)
+        {
+            spo2 = 0.0;
+        }
+        *oxygen_level = spo2;
+    }
+
+    delete[] red_raw;
+    delete[] ir_raw;
+
+    return (int)BrainFlowExitCodes::STATUS_OK;
+}
+
+int restore_data_from_wavelet_detailed_coeffs (double *data, int data_len, int wavelet,
+    int decomposition_level, int level_to_restore, double *output)
+{
+    int extension = (int)WaveletExtensionTypes::SYMMETRIC;
+    if ((data == NULL) || (data_len <= 20) || (output == NULL) || (decomposition_level <= 0) ||
+        (level_to_restore <= 0) || (level_to_restore > decomposition_level))
+    {
+        data_logger->error ("Invalid input for restore_data_from_wavelet_detailed_coeffs.");
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    int max_wavelet_output_len = data_len + 2 * decomposition_level * (40 + 1);
+    double *wavelet_output = new double[max_wavelet_output_len];
+    int *decomposition_lengths = new int[decomposition_level + 1];
+
+    int res = perform_wavelet_transform (data, data_len, wavelet, decomposition_level, extension,
+        wavelet_output, decomposition_lengths);
+    if (res == (int)BrainFlowExitCodes::STATUS_OK)
+    {
+        // zero approx coefs
+        for (int j = 0; j < decomposition_lengths[0]; j++)
+        {
+            wavelet_output[j] = 0.0;
+        }
+        int cur_sum = decomposition_lengths[0];
+        // zero detailed coefs not from level_to_restore
+        for (int i = 1; i < decomposition_level + 1; i++)
+        {
+            int cur_level = decomposition_level + 1 - i;
+            if (cur_level != level_to_restore)
+            {
+                for (int j = cur_sum; j < cur_sum + decomposition_lengths[i]; j++)
+                {
+                    wavelet_output[j] = 0.0;
+                }
+            }
+            cur_sum += decomposition_lengths[i];
+        }
+        res = perform_inverse_wavelet_transform (wavelet_output, data_len, wavelet,
+            decomposition_level, extension, decomposition_lengths, output);
+    }
+
+    delete[] wavelet_output;
+    delete[] decomposition_lengths;
+
+    return res;
+}
+
+// https://stackoverflow.com/a/22640362
+int detect_peaks_z_score (
+    double *data, int data_len, int lag, double threshold, double influence, double *output)
+{
+    if ((data == NULL) || (data_len < lag) || (lag < 2) || (lag > data_len) || (threshold < 0) ||
+        (influence < 0) || (output == NULL))
+    {
+        data_logger->error ("invalid inputs for detect_peaks_z_score");
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+    memset (output, 0, sizeof (double) * data_len);
+    double *filtered_data = new double[data_len];
+    double *avg_filter = new double[data_len];
+    double *std_filter = new double[data_len];
+    memcpy (filtered_data, data, sizeof (double) * data_len);
+
+    avg_filter[lag - 1] = mean (data, lag);
+    std_filter[lag - 1] = stddev (data, lag);
+
+    for (int i = lag; i < data_len; i++)
+    {
+        if (abs (data[i] - avg_filter[i - 1]) > threshold * std_filter[i - 1])
+        {
+            if (data[i] > avg_filter[i - 1])
+            {
+                output[i] = 1;
+            }
+            else
+            {
+                output[i] = -1;
+            }
+            filtered_data[i] = influence * data[i] + (1 - influence) * filtered_data[i - 1];
+        }
+        else
+        {
+            output[i] = 0;
+        }
+        avg_filter[i] = mean (filtered_data + i - lag, lag);
+        std_filter[i] = stddev (filtered_data + i - lag, lag);
+    }
+
+    delete[] filtered_data;
+    delete[] avg_filter;
+    delete[] std_filter;
+
+    return (int)BrainFlowExitCodes::STATUS_OK;
+}
+
+int get_heart_rate (
+    double *ppg_ir, double *ppg_red, int data_size, int sampling_rate, int fft_size, double *rate)
+{
+    if ((ppg_red == NULL) || (ppg_ir == NULL) || (data_size < fft_size) || (sampling_rate < 1) ||
+        (rate == NULL) || (fft_size < 1024) || (fft_size % 2 != 0))
+    {
+        data_logger->error (
+            "invalid inputs for get_heart_rate, fft_len should be even and at least 1024");
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    int psd_size = fft_size / 2 + 1;
+    double *output_ampl_ir = new double[psd_size];
+    double *output_ampl_red = new double[psd_size];
+    double *output_freq = new double[psd_size];
+
+    int res = get_psd_welch (ppg_ir, data_size, fft_size, fft_size / 2, sampling_rate,
+        (int)WindowOperations::HANNING, output_ampl_ir, output_freq);
+    if (res == (int)BrainFlowExitCodes::STATUS_OK)
+    {
+        res = get_psd_welch (ppg_red, data_size, fft_size, fft_size / 2, sampling_rate,
+            (int)WindowOperations::HANNING, output_ampl_red, output_freq);
+    }
+    if (res == (int)BrainFlowExitCodes::STATUS_OK)
+    {
+        // calc HR using red/ir psd. HR range 35bpm-230bpm
+        // average ampls for red and ir, store in red
+        for (int i = 0; i < psd_size; i++)
+        {
+            output_ampl_red[i] = (output_ampl_red[i] + output_ampl_ir[i]) / 2;
+        }
+        double min_hr = 35.0 / 60.0;
+        double max_hr = 230.0 / 60.0;
+        // find max amplitude
+        double max_ampl = 0.0;
+        int max_ampl_index = 0;
+        for (int i = 0; i < psd_size; i++)
+        {
+            if (output_freq[i] > min_hr && output_freq[i] < max_hr && output_ampl_red[i] > max_ampl)
+            {
+                max_ampl = output_ampl_red[i];
+                max_ampl_index = i;
+            }
+            else if (output_freq[i] > max_hr)
+            {
+                break;
+            }
+        }
+        double heart_rate = output_freq[max_ampl_index] * 60;
+        *rate = heart_rate;
+    }
+
+    delete[] output_ampl_ir;
+    delete[] output_ampl_red;
+    delete[] output_freq;
+
+    return res;
+}
+
+int perform_ica (double *data, int rows, int cols, int num_components, double *w_mat, double *k_mat,
+    double *a_mat, double *s_mat)
+{
+    if ((data == NULL) || (rows < 2) || (cols < 2) || (num_components < 2) || (w_mat == NULL) ||
+        (k_mat == NULL) || (a_mat == NULL) || (s_mat == NULL))
+    {
+        data_logger->error ("invalid inputs for perform_ica.");
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+    }
+
+    Eigen::MatrixXd input_matrix =
+        Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>> (
+            data, rows, cols);
+
+    FastICA ica (num_components);
+    int res = ica.compute (input_matrix);
+    if (res == (int)BrainFlowExitCodes::STATUS_OK)
+    {
+        res = ica.get_matrixes (w_mat, k_mat, a_mat, s_mat);
+    }
+    return res;
+}
+
+int get_version_data_handler (char *version, int *num_chars, int max_chars)
+{
+    strncpy (version, BRAINFLOW_VERSION_STRING, max_chars);
+    *num_chars = std::min<int> (max_chars, (int)strlen (BRAINFLOW_VERSION_STRING));
     return (int)BrainFlowExitCodes::STATUS_OK;
 }

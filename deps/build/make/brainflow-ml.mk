@@ -12,19 +12,17 @@ INCLUDES  := $(INCLUDES) \
             -I$(INCDIR)/libsvm \
             -I$(INCDIR)/json \
             -I$(INCDIR)/brainflow/ml \
+            -I$(INCDIR)/brainflow/ml/onnx \
+            -I$(INCDIR)/brainflow/third_party/onnxruntime/build/native/include \
             -I$(INCDIR)/brainflow/utils
 CXXFLAGS  := $(CXXFLAGS) -std=c++14
 LINKFLAGS := $(LINKFLAGS)
 LINKPATH  := $(LINKPATH)
 LINKLIBS  := $(LINKLIBS)
-OBJS       = generated/focus_dataset.o \
-             generated/lda_model.o \
-             generated/regression_model.o \
+OBJS       = generated/mindfulness_model.o \
              base_classifier.o \
-             concentration_knn_classifier.o \
-             concentration_lda_classifier.o \
-             concentration_regression_classifier.o \
-             concentration_svm_classifier.o \
+             dyn_lib_classifier.o \
+             mindfulness_classifier.o \
              ml_module.o
 
 ifeq ($(TARGET_ARCH),x86)

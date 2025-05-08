@@ -26,7 +26,7 @@ public:
     ~FreeEEG32 ();
 
     int prepare_session ();
-    int start_stream (int buffer_size, char *streamer_params);
+    int start_stream (int buffer_size, const char *streamer_params);
     int stop_stream ();
     int release_session ();
     int config_board (std::string config, std::string &response);
@@ -34,5 +34,5 @@ public:
     static constexpr int start_byte = 0xA0;
     static constexpr int end_byte = 0xC0;
     static constexpr double ads_gain = 8.0;
-    static constexpr double ads_vref = 4.5;
+    static constexpr double ads_vref = 2.5;
 };

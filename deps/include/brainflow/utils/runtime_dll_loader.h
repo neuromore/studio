@@ -34,7 +34,7 @@ public:
     {
         if (this->lib_instance == NULL)
         {
-            this->lib_instance = LoadLibraryA (this->dll_path);
+            this->lib_instance = LoadLibrary (this->dll_path);
             if (this->lib_instance == NULL)
             {
                 return false;

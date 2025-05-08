@@ -13,26 +13,37 @@ INCLUDES  := $(INCLUDES) \
            -I$(INCDIR)/json \
            -I$(INCDIR)/unicorn \
            -I$(INCDIR)/brainflow/board_controller \
+           -I$(INCDIR)/brainflow/board_controller/ant_neuro \
+           -I$(INCDIR)/brainflow/board_controller/emotibit \
+           -I$(INCDIR)/brainflow/board_controller/enophone \
            -I$(INCDIR)/brainflow/board_controller/freeeeg32 \
            -I$(INCDIR)/brainflow/board_controller/gtec \
-           -I$(INCDIR)/brainflow/board_controller/ironbci \
            -I$(INCDIR)/brainflow/board_controller/mit \
+           -I$(INCDIR)/brainflow/board_controller/mentalab \
+           -I$(INCDIR)/brainflow/board_controller/muse \
            -I$(INCDIR)/brainflow/board_controller/neuromd \
            -I$(INCDIR)/brainflow/board_controller/neurosity \
            -I$(INCDIR)/brainflow/board_controller/openbci \
            -I$(INCDIR)/brainflow/board_controller/oymotion \
            -I$(INCDIR)/brainflow/ganglion-bglib \
            -I$(INCDIR)/brainflow/gforcesdkcxx-wrapper \
-           -I$(INCDIR)/brainflow/utils
+           -I$(INCDIR)/brainflow/utils \
+           -I$(INCDIR)/brainflow/utils/bluetooth \
+           -I$(INCDIR)/brainflow/third_party/
 CXXFLAGS  := $(CXXFLAGS) -std=c++14
 LINKFLAGS := $(LINKFLAGS)
 LINKPATH  := $(LINKPATH)
 LINKLIBS  := $(LINKLIBS)
-OBJS       = freeeeg32/freeeeg32.o \
+OBJS       = ant_neuro/ant_neuro.o \
+             emotibit/emotibit.o \
+             enophone/enophone.o \
+             freeeeg32/freeeeg32.o \
              gtec/unicorn_board.o \
-             ironbci/ironbci.o \
-             mit/fascia.o \
+             mentalab/explore.o \
+             muse/muse.o \
+             muse/muse_bled.o \
              neuromd/brainbit.o \
+             neuromd/brainbit_bled.o \
              neuromd/callibri.o \
              neuromd/callibri_ecg.o \
              neuromd/callibri_eeg.o \
@@ -44,15 +55,21 @@ OBJS       = freeeeg32/freeeeg32.o \
              openbci/cyton_daisy_wifi.o \
              openbci/cyton_wifi.o \
              openbci/galea.o \
+             openbci/galea_serial.o \
              openbci/ganglion.o \
+             openbci/ganglion_native.o \
              openbci/ganglion_wifi.o \
              openbci/openbci_serial_board.o \
              openbci/openbci_wifi_shield_board.o \
+             oymotion/gforce_dual.o \
              oymotion/gforce_pro.o \
-             board.o \
+             ble_lib_board.o \
              board_controller.o \
              board_info_getter.o \
+             board.o \
              brainflow_boards.o \
+             bt_lib_board.o \
+             dyn_lib_board.o \
              file_streamer.o \
              multicast_streamer.o \
              playback_file_board.o \

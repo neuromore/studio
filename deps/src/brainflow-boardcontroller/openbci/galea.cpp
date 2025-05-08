@@ -1,19 +1,27 @@
-#include <numeric>
+#include "galea.h"
+
+#include <chrono>
 #include <stdint.h>
 #include <string.h>
 
+#include <numeric>
+#include <regex>
+#include <sstream>
+
 #include "custom_cast.h"
-#include "galea.h"
+#include "json.hpp"
 #include "timestamp.h"
+
+using json = nlohmann::json;
 
 #ifndef _WIN32
 #include <errno.h>
 #endif
 
 constexpr int Galea::package_size;
-constexpr int Galea::num_packages;
-constexpr int Galea::transaction_size;
-
+constexpr int Galea::max_num_packages;
+constexpr int Galea::max_transaction_size;
+constexpr int Galea::socket_timeout;
 
 Galea::Galea (struct BrainFlowInputParams params) : Board ((int)BoardIds::GALEA_BOARD, params)
 {
@@ -38,10 +46,18 @@ int Galea::prepare_session ()
         safe_logger (spdlog::level::info, "Session is already prepared");
         return (int)BrainFlowExitCodes::STATUS_OK;
     }
+    if ((params.timeout > 600) || (params.timeout < 1))
+    {
+        params.timeout = 5;
+    }
+
     if (params.ip_address.empty ())
     {
-        safe_logger (spdlog::level::err, "ip address is not specified.");
-        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+        params.ip_address = find_device ();
+        if (params.ip_address.empty ())
+        {
+            return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
+        }
     }
     socket = new SocketClientUDP (params.ip_address.c_str (), 2390);
     int res = socket->connect ();
@@ -52,10 +68,12 @@ int Galea::prepare_session ()
         socket = NULL;
         return (int)BrainFlowExitCodes::GENERAL_ERROR;
     }
-    socket->set_timeout (2);
+
+    safe_logger (spdlog::level::trace, "timeout for socket is {}", socket_timeout);
+    socket->set_timeout (socket_timeout);
     // force default settings for device
     std::string tmp;
-    std::string default_settings = "d";
+    std::string default_settings = "o"; // use demo mode with agnd
     res = config_board (default_settings, tmp);
     if (res != (int)BrainFlowExitCodes::STATUS_OK)
     {
@@ -85,17 +103,22 @@ int Galea::config_board (std::string conf, std::string &response)
         safe_logger (spdlog::level::err, "You need to call prepare_session before config_board");
         return (int)BrainFlowExitCodes::BOARD_NOT_CREATED_ERROR;
     }
-    // special handling for calc_delay command
-    if (conf == "calc_delay")
+    // special handling for some commands
+    if (conf == "calc_time")
     {
         if (is_streaming)
         {
             safe_logger (spdlog::level::err, "can not calc delay during the streaming.");
             return (int)BrainFlowExitCodes::BOARD_NOT_CREATED_ERROR;
         }
-        int res = calc_time ();
-        response = std::to_string (half_rtt);
+        int res = calc_time (response);
         return res;
+    }
+
+    if (gain_tracker.apply_config (conf) == (int)OpenBCICommandTypes::INVALID_COMMAND)
+    {
+        safe_logger (spdlog::level::warn, "invalid command: {}", conf.c_str ());
+        return (int)BrainFlowExitCodes::INVALID_ARGUMENTS_ERROR;
     }
 
     const char *config = conf.c_str ();
@@ -104,6 +127,7 @@ int Galea::config_board (std::string conf, std::string &response)
     int res = socket->send (config, len);
     if (len != res)
     {
+        gain_tracker.revert_config ();
         if (res == -1)
         {
 #ifdef _WIN32
@@ -115,16 +139,16 @@ int Galea::config_board (std::string conf, std::string &response)
         safe_logger (spdlog::level::err, "Failed to config a board");
         return (int)BrainFlowExitCodes::BOARD_WRITE_ERROR;
     }
+
     if (!is_streaming)
     {
-        constexpr int max_string_size = 8192;
-        char b[max_string_size];
-        res = Galea::transaction_size;
+        char b[Galea::max_transaction_size];
+        res = Galea::max_transaction_size;
         int max_attempt = 25; // to dont get to infinite loop
         int current_attempt = 0;
-        while (res == Galea::transaction_size)
+        while ((res >= 0) && (res % Galea::package_size == 0))
         {
-            res = socket->recv (b, max_string_size);
+            res = socket->recv (b, Galea::max_transaction_size);
             if (res == -1)
             {
 #ifdef _WIN32
@@ -160,11 +184,17 @@ int Galea::config_board (std::string conf, std::string &response)
                 return (int)BrainFlowExitCodes::STATUS_OK;
         }
     }
+    else
+    {
+        safe_logger (spdlog::level::warn,
+            "reconfiguring device during the streaming may lead to inconsistent data, it's "
+            "recommended to call stop_stream before config_board");
+    }
 
     return (int)BrainFlowExitCodes::STATUS_OK;
 }
 
-int Galea::start_stream (int buffer_size, char *streamer_params)
+int Galea::start_stream (int buffer_size, const char *streamer_params)
 {
     if (!initialized)
     {
@@ -178,13 +208,17 @@ int Galea::start_stream (int buffer_size, char *streamer_params)
     }
 
     // calc time before start stream
-    int res = calc_time ();
-    if (res != (int)BrainFlowExitCodes::STATUS_OK)
+    std::string resp;
+    for (int i = 0; i < 3; i++)
     {
-        return res;
+        int res = calc_time (resp);
+        if (res != (int)BrainFlowExitCodes::STATUS_OK)
+        {
+            return res;
+        }
     }
 
-    res = prepare_for_acquisition (buffer_size, streamer_params);
+    int res = prepare_for_acquisition (buffer_size, streamer_params);
     if (res != (int)BrainFlowExitCodes::STATUS_OK)
     {
         return res;
@@ -250,13 +284,13 @@ int Galea::stop_stream ()
         }
 
         // free kernel buffer
-        unsigned char b[Galea::transaction_size];
+        unsigned char b[Galea::max_transaction_size];
         res = 0;
         int max_attempt = 25; // to dont get to infinite loop
         int current_attempt = 0;
         while (res != -1)
         {
-            res = socket->recv (b, Galea::transaction_size);
+            res = socket->recv (b, Galea::max_transaction_size);
             current_attempt++;
             if (current_attempt == max_attempt)
             {
@@ -266,6 +300,15 @@ int Galea::stop_stream ()
             }
         }
 
+        std::string resp;
+        for (int i = 0; i < 3; i++)
+        {
+            res = calc_time (resp); // call it in the end once to print time in the end
+            if (res != (int)BrainFlowExitCodes::STATUS_OK)
+            {
+                break; // dont send exit code
+            }
+        }
         return (int)BrainFlowExitCodes::STATUS_OK;
     }
     else
@@ -297,40 +340,30 @@ int Galea::release_session ()
 void Galea::read_thread ()
 {
     int res;
-    unsigned char b[Galea::transaction_size];
+    unsigned char b[Galea::max_transaction_size];
     DataBuffer time_buffer (1, 11);
     double latest_times[10];
-    constexpr int offset_last_package = Galea::package_size * (Galea::num_packages - 1);
-    for (int i = 0; i < Galea::transaction_size; i++)
+    for (int i = 0; i < Galea::max_transaction_size; i++)
     {
         b[i] = 0;
     }
-    int num_rows = board_descr["num_rows"];
-    double *package = new double[num_rows];
-    for (int i = 0; i < num_rows; i++)
+
+    int num_exg_rows = board_descr["default"]["num_rows"];
+    int num_aux_rows = board_descr["auxiliary"]["num_rows"];
+    double *exg_package = new double[num_exg_rows];
+    double *aux_package = new double[num_aux_rows];
+    for (int i = 0; i < num_exg_rows; i++)
     {
-        package[i] = 0.0;
+        exg_package[i] = 0.0;
+    }
+    for (int i = 0; i < num_aux_rows; i++)
+    {
+        aux_package[i] = 0.0;
     }
 
     while (keep_alive)
     {
-        res = socket->recv (b, Galea::transaction_size);
-        // calc delta between PC timestamp and device timestamp in last 10 packages,
-        // use this delta later on to assign timestamps
-        double pc_timestamp = get_timestamp ();
-        double timestamp_last_package = 0.0;
-        memcpy (&timestamp_last_package, b + 64 + offset_last_package, 8);
-        timestamp_last_package /= 1000; // from ms to seconds
-        double time_delta = pc_timestamp - timestamp_last_package;
-        time_buffer.add_data (&time_delta);
-        int num_time_deltas = (int)time_buffer.get_current_data (10, latest_times);
-        time_delta = 0.0;
-        for (int i = 0; i < num_time_deltas; i++)
-        {
-            time_delta += latest_times[i];
-        }
-        time_delta /= num_time_deltas;
-
+        res = socket->recv (b, Galea::max_transaction_size);
         if (res == -1)
         {
 #ifdef _WIN32
@@ -338,11 +371,10 @@ void Galea::read_thread ()
 #else
             safe_logger (spdlog::level::err, "errno {} message {}", errno, strerror (errno));
 #endif
+            continue;
         }
-        if (res != Galea::transaction_size)
+        if (res % Galea::package_size != 0)
         {
-            safe_logger (spdlog::level::trace, "unable to read {} bytes, read {}",
-                Galea::transaction_size, res);
             if (res > 0)
             {
                 // more likely its a string received, try to print it
@@ -353,6 +385,24 @@ void Galea::read_thread ()
         }
         else
         {
+            int num_packages = res / Galea::package_size;
+            int offset_last_package = Galea::package_size * (num_packages - 1);
+            // calc delta between PC timestamp and device timestamp in last 10 packages,
+            // use this delta later on to assign timestamps
+            double pc_timestamp = get_timestamp ();
+            double timestamp_last_package = 0.0;
+            memcpy (&timestamp_last_package, b + 64 + offset_last_package, 8);
+            timestamp_last_package /= 1000; // from ms to seconds
+            double time_delta = pc_timestamp - timestamp_last_package;
+            time_buffer.add_data (&time_delta);
+            int num_time_deltas = (int)time_buffer.get_current_data (10, latest_times);
+            time_delta = 0.0;
+            for (int i = 0; i < num_time_deltas; i++)
+            {
+                time_delta += latest_times[i];
+            }
+            time_delta /= num_time_deltas;
+
             // inform main thread that everything is ok and first package was received
             if (this->state != (int)BrainFlowExitCodes::STATUS_OK)
             {
@@ -365,107 +415,194 @@ void Galea::read_thread ()
                 this->cv.notify_one ();
                 safe_logger (spdlog::level::debug, "start streaming");
             }
-        }
 
-        for (int cur_package = 0; cur_package < Galea::num_packages; cur_package++)
-        {
-            int offset = cur_package * package_size;
-            // package num
-            package[board_descr["package_num_channel"].get<int> ()] = (double)b[0 + offset];
-            // eeg and emg
-            for (int i = 4, tmp_counter = 0; i < 20; i++, tmp_counter++)
+            for (int cur_package = 0; cur_package < num_packages; cur_package++)
             {
-                // put them directly after package num in brainflow
-                if (tmp_counter < 8)
-                    package[i - 3] = eeg_scale_main_board *
-                        (double)cast_24bit_to_int32 (b + offset + 5 + 3 * (i - 4));
-                else if ((tmp_counter == 9) || (tmp_counter == 14))
-                    package[i - 3] = eeg_scale_sister_board *
-                        (double)cast_24bit_to_int32 (b + offset + 5 + 3 * (i - 4));
-                else
-                    package[i - 3] =
-                        emg_scale * (double)cast_24bit_to_int32 (b + offset + 5 + 3 * (i - 4));
+                int offset = cur_package * package_size;
+                // exg (default preset)
+                exg_package[board_descr["default"]["package_num_channel"].get<int> ()] =
+                    (double)b[0 + offset];
+                for (int i = 4, tmp_counter = 0; i < 20; i++, tmp_counter++)
+                {
+                    double exg_scale = (double)(4.5 / float ((pow (2, 23) - 1)) /
+                        gain_tracker.get_gain_for_channel (tmp_counter) * 1000000.);
+                    exg_package[i - 3] =
+                        exg_scale * (double)cast_24bit_to_int32 (b + offset + 5 + 3 * (i - 4));
+                }
+                double timestamp_device = 0.0;
+                memcpy (&timestamp_device, b + 64 + offset, 8);
+                timestamp_device /= 1000; // from ms to seconds
+
+                exg_package[board_descr["default"]["timestamp_channel"].get<int> ()] =
+                    timestamp_device + time_delta - half_rtt;
+                exg_package[board_descr["default"]["other_channels"][0].get<int> ()] = pc_timestamp;
+                exg_package[board_descr["default"]["other_channels"][1].get<int> ()] =
+                    timestamp_device;
+                push_package (exg_package);
+
+                // aux, 5 times smaller sampling rate
+                if (((int)b[0 + offset]) % 5 == 0)
+                {
+                    aux_package[board_descr["auxiliary"]["package_num_channel"].get<int> ()] =
+                        (double)b[0 + offset];
+                    uint16_t temperature = 0;
+                    int32_t ppg_ir = 0;
+                    int32_t ppg_red = 0;
+                    float eda;
+                    memcpy (&temperature, b + 54 + offset, 2);
+                    memcpy (&eda, b + 1 + offset, 4);
+                    memcpy (&ppg_red, b + 56 + offset, 4);
+                    memcpy (&ppg_ir, b + 60 + offset, 4);
+                    // ppg
+                    aux_package[board_descr["auxiliary"]["ppg_channels"][0].get<int> ()] =
+                        (double)ppg_red;
+                    aux_package[board_descr["auxiliary"]["ppg_channels"][1].get<int> ()] =
+                        (double)ppg_ir;
+                    // eda
+                    aux_package[board_descr["auxiliary"]["eda_channels"][0].get<int> ()] =
+                        (double)eda;
+                    // temperature
+                    aux_package[board_descr["auxiliary"]["temperature_channels"][0].get<int> ()] =
+                        temperature / 100.0;
+                    // battery
+                    aux_package[board_descr["auxiliary"]["battery_channel"].get<int> ()] =
+                        (double)b[53 + offset];
+                    aux_package[board_descr["auxiliary"]["timestamp_channel"].get<int> ()] =
+                        timestamp_device + time_delta - half_rtt;
+                    aux_package[board_descr["auxiliary"]["other_channels"][0].get<int> ()] =
+                        pc_timestamp;
+                    aux_package[board_descr["auxiliary"]["other_channels"][1].get<int> ()] =
+                        timestamp_device;
+
+                    push_package (aux_package, (int)BrainFlowPresets::AUXILIARY_PRESET);
+                }
             }
-            uint16_t temperature;
-            int32_t ppg_ir;
-            int32_t ppg_red;
-            float eda;
-            memcpy (&temperature, b + 54 + offset, 2);
-            memcpy (&eda, b + 1 + offset, 4);
-            memcpy (&ppg_red, b + 56 + offset, 4);
-            memcpy (&ppg_ir, b + 60 + offset, 4);
-            // ppg
-            package[board_descr["ppg_channels"][0].get<int> ()] = (double)ppg_red;
-            package[board_descr["ppg_channels"][1].get<int> ()] = (double)ppg_ir;
-            // eda
-            package[board_descr["eda_channels"][0].get<int> ()] = (double)eda;
-            // temperature
-            package[board_descr["temperature_channels"][0].get<int> ()] = temperature / 100.0;
-            // battery
-            package[board_descr["battery_channel"].get<int> ()] = (double)b[53 + offset];
-
-            double timestamp_device = 0.0;
-            memcpy (&timestamp_device, b + 64 + offset, 8);
-            timestamp_device /= 1000; // from ms to seconds
-
-            package[board_descr["timestamp_channel"].get<int> ()] =
-                timestamp_device + time_delta - half_rtt;
-            package[board_descr["other_channels"][0].get<int> ()] = pc_timestamp;
-            package[board_descr["other_channels"][1].get<int> ()] = timestamp_device;
-
-            push_package (package);
         }
     }
-    delete[] package;
+    delete[] exg_package;
+    delete[] aux_package;
 }
 
-int Galea::calc_time ()
+int Galea::calc_time (std::string &resp)
 {
-    constexpr int num_repeats = 5;
     constexpr int bytes_to_calc_rtt = 8;
-
-    std::vector<double> durations; // diff between unix time on pc and firmware time
-
-    int num_fails = 0;
-    int max_num_fails = 1;
-    double firmware_delay = 0.0; // seconds, todo measure it in firmware or write experimental value
     unsigned char b[bytes_to_calc_rtt];
 
-    for (int i = 0; (i < num_repeats) && (num_fails <= max_num_fails); i++)
+    double start = get_timestamp ();
+    int res = socket->send ("F4444444", bytes_to_calc_rtt);
+    if (res != bytes_to_calc_rtt)
     {
-        double start1 = get_timestamp ();
-        int res = socket->send ("F4444444", bytes_to_calc_rtt);
-        double start2 = get_timestamp ();
-        double start = (start1 + start2) / 2; // for better accuracy
+        safe_logger (spdlog::level::warn, "failed to send time calc command to device");
+        return (int)BrainFlowExitCodes::BOARD_WRITE_ERROR;
+    }
+    res = socket->recv (b, bytes_to_calc_rtt);
+    double done = get_timestamp ();
+    if (res != bytes_to_calc_rtt)
+    {
+        safe_logger (
+            spdlog::level::warn, "failed to recv resp from time calc command, resp size {}", res);
+        return (int)BrainFlowExitCodes::BOARD_WRITE_ERROR;
+    }
 
-        if (res != bytes_to_calc_rtt)
-        {
-            safe_logger (spdlog::level::warn, "failed to send time calc command to device");
-            num_fails++;
-            continue;
-        }
-        res = socket->recv (b, bytes_to_calc_rtt);
-        double done = get_timestamp ();
-        if (res != bytes_to_calc_rtt)
-        {
-            safe_logger (spdlog::level::warn,
-                "failed to recv resp from time calc command, resp size {}", res);
-            num_fails++;
-            continue;
-        }
-        // calc half of round trip
-        double duration = (done - start - firmware_delay) / 2;
-        durations.push_back (duration);
-    }
-    if (num_fails > max_num_fails)
-    {
-        safe_logger (spdlog::level::err,
-            "Failed to calc time delay between PC and device. Too many lost packages.");
-        return (int)BrainFlowExitCodes::BOARD_NOT_READY_ERROR;
-    }
-    half_rtt = durations.empty () ?
-        0.0 :
-        std::accumulate (durations.begin (), durations.end (), 0.0) / durations.size ();
-    safe_logger (spdlog::level::trace, "average sending time is {}", half_rtt);
+
+    double duration = done - start;
+    double timestamp_device = 0;
+    memcpy (&timestamp_device, b, 8);
+    timestamp_device /= 1000;
+    half_rtt = duration / 2;
+
+    json result;
+    result["rtt"] = duration;
+    result["timestamp_device"] = timestamp_device;
+    result["pc_timestamp"] = start + half_rtt;
+
+    resp = result.dump ();
+    safe_logger (spdlog::level::info, "calc_time output: {}", resp);
+
     return (int)BrainFlowExitCodes::STATUS_OK;
+}
+
+std::string Galea::find_device ()
+{
+#ifdef _WIN32
+    std::string ssdp_ip_address = "192.168.137.255";
+#else
+    std::string ssdp_ip_address = "239.255.255.250";
+#endif
+
+    safe_logger (spdlog::level::trace, "trying to autodiscover device via SSDP");
+    safe_logger (spdlog::level::trace, "timeout for search is {}", params.timeout);
+    std::string ip_address = "";
+    SocketClientUDP udp_client (ssdp_ip_address.c_str (),
+        1900); // ssdp ip and port
+
+    int res = udp_client.connect ();
+    if (res == (int)SocketClientUDPReturnCodes::STATUS_OK)
+    {
+        std::string msearch = ("M-SEARCH * HTTP/1.1\r\nHost: " + ssdp_ip_address +
+            ":1900\r\nMAN: ssdp:discover\r\n"
+            "ST: urn:schemas-upnp-org:device:Basic:1\r\n"
+            "MX: 3\r\n"
+            "\r\n"
+            "\r\n");
+
+        safe_logger (spdlog::level::trace, "Use search request {}", msearch.c_str ());
+
+        res = (int)udp_client.send (msearch.c_str (), (int)msearch.size ());
+        if (res == msearch.size ())
+        {
+            unsigned char b[250];
+            auto start_time = std::chrono::high_resolution_clock::now ();
+            int run_time = 0;
+            while (run_time < params.timeout)
+            {
+                res = udp_client.recv (b, 250);
+                if (res > 1)
+                {
+                    std::string response ((const char *)b);
+                    safe_logger (spdlog::level::trace, "Search response: {}", b);
+                    std::regex rgx_ip ("LOCATION: http://([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)");
+                    std::smatch matches;
+                    if (std::regex_search (response, matches, rgx_ip) == true)
+                    {
+                        if (matches.size () == 2)
+                        {
+                            std::regex rgx_sn (
+                                "USN: uuid:" + params.serial_number + "::upnp:rootdevice");
+                            if ((params.serial_number.empty ()) ||
+                                (std::regex_search (response, rgx_sn)))
+                            {
+                                ip_address = matches.str (1);
+                                break;
+                            }
+                        }
+                    }
+                }
+                auto end_time = std::chrono::high_resolution_clock::now ();
+                run_time =
+                    (int)std::chrono::duration_cast<std::chrono::seconds> (end_time - start_time)
+                        .count ();
+            }
+        }
+        else
+        {
+            safe_logger (spdlog::level::err, "Sent res {}", res);
+        }
+    }
+    else
+    {
+        safe_logger (spdlog::level::err, "Failed to connect socket {}", res);
+    }
+
+    if (ip_address.empty ())
+    {
+        safe_logger (spdlog::level::err, "failed to find ip address");
+    }
+    else
+    {
+        safe_logger (spdlog::level::info, "use ip address {}", ip_address.c_str ());
+    }
+
+    udp_client.close ();
+    return ip_address;
 }
