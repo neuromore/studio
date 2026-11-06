@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Device status and setup
+    url: https://docs.neuromore.com/neuromore-studio/biosensors/
+    about: Check each device's status and setup steps.
+  - name: Questions and ideas
+    url: https://github.com/neuromore/studio/discussions
+    about: Ask the community, or report a docs correction.
+  - name: Commercial clients
+    url: https://neuromore.com/contact/
+    about: Custom builds and integrations.
