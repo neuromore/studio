@@ -5,6 +5,17 @@ We provide two integrated build systems in this repository:
 - GNU Makefiles for building with Clang/LLVM on all platforms
 - (deprecated) Visual Studio solution for intuitive Windows development using MSVC++ as compiler
 
+## Get the source
+
+```
+git clone https://github.com/neuromore/studio.git
+cd studio
+```
+
+The prebuilt visualizations are stored in Git LFS. Install [Git LFS](https://git-lfs.com/) before you clone if you want them or want to create packages.
+
+A build from `master` reports the version in [src/Studio/Version.h](src/Studio/Version.h), which can be newer than the latest release. It still needs a neuromore account. See [Source builds](https://docs.neuromore.com/neuromore-studio/editions/#source-builds).
+
 ## GNU Make + Clang
 
 This is our main multi-platform build environment based on [GNU Make](https://www.gnu.org/software/make/) and [Clang](https://clang.llvm.org/).
@@ -128,6 +139,16 @@ _Building all neuromore projects in debug mode for operating system and CPU of t
 make
 ```
 
+_Building in parallel: `make` starts all projects at once with no ordering, so with `-j` build one target at a time, in the same order as the CI builds:_
+
+```
+make -j8 Dependencies
+make -j8 Engine
+make -j8 QtBase
+make -j8 Studio
+make -j8 EngineLIB
+```
+
 _Cleaning debug third party dependencies for operating system and CPU of the current host:_
 
 ```
@@ -146,6 +167,8 @@ _Building with customized parameters:_
 
 ```
 make MODE=release TARGET_OS=win TARGET_ARCH=x86 Dependencies
+make MODE=release TARGET_OS=win TARGET_ARCH=x86 Engine
+make MODE=release TARGET_OS=win TARGET_ARCH=x86 QtBase
 make MODE=release TARGET_OS=win TARGET_ARCH=x86 Studio
 ```
 
@@ -170,7 +193,7 @@ _Example Outputs Third Party Libraries:_
 
 ## Visual Studio (deprecated)
 
-TODO: Update this
+Deprecated. Use GNU Make and Clang instead.
 
 _Folder:_ [/build/vs](https://github.com/neuromore/studio/tree/master/build/vs)
 
@@ -205,7 +228,6 @@ _Build Output Studio:_
 _Notes:_
 
 - Creates portable, stand-alone executable not requiring any special DLLs
-- Runs on Windows 7 and above
 
 
 ## Customizing the Build
@@ -226,10 +248,11 @@ _Notes:_
 - Compile-Time: Headers from SDK go to: /deps/include/some-device/
 - Link-Time: Prebuilt proprietary Libs from SDK go to: /deps/prebuilt/win/x86/ (respectively /linux/ or /x64/)
 - Run-Time: Prebuilt proprietary DLLs from SDK go to wherever you place and start your Studio.exe from
+- For each device's status, files and steps, see [Adding a driver](https://docs.neuromore.com/neuromore-studio/biosensors/#adding-a-driver-in-a-source-build).
 
 | Macro/Define                           | Version                                           | Description           |
 | -------------------------------------- | ------------------------------------------------- | --------------------- |
-| INCLUDE_DEVICE_EMOTIV                  | [master](https://github.com/Emotiv/community-sdk) | Emotiv EEG            |
+| INCLUDE_DEVICE_EMOTIV                  | ?                                                 | Emotiv EEG            |
 | INCLUDE_DEVICE_MITSAR                  | ?                                                 | Mitsar EEG            |
 | INCLUDE_DEVICE_NEUROSKY_MINDWAVE       | 1.2.0                                             | MindWave EEG          |
 | INCLUDE_DEVICE_TOBIIEYEX               | ?                                                 | TobiEyeX Eye Tracking |
@@ -237,6 +260,7 @@ _Notes:_
 | INCLUDE_DEVICE_BRAINQUIRY              | ?                                                 | Brainquiry EEG        |
 | INCLUDE_DEVICE_ACTICHAMP               | ?                                                 | ActiChamp EEG         |
 | INCLUDE_DEVICE_EEMAGINE                | 1.3.19                                            | eego Amplifiers/EEG   |
+| INCLUDE_DEVICE_BRAINMASTER             | ?                                                 | BrainMaster EEG       |
 
 ##### Studio Features
 
@@ -247,4 +271,3 @@ _Notes:_
 | BACKEND_LOGGING         | Controls Backend Logging                  |
 | OPENCV_SUPPORT          | OpenCV support in Studio                  |
 | USE_QTDATAVISUALIZATION | Not supported / WIP                       |
-| USE_AUTOUPDATE          | deprecated: controlled autoupdate-feature |
